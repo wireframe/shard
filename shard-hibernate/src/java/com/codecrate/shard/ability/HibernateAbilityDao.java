@@ -13,8 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.skill;
+package com.codecrate.shard.ability;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,35 +26,35 @@ import net.sf.hibernate.Session;
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
-import com.codecrate.shard.ability.Ability;
-
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao {
-    public Collection getSkills() {
+public class HibernateAbilityDao extends HibernateDaoSupport implements AbilityDao {
+
+    public Ability getAbility(final String name) {
+        List results = (List) getHibernateTemplate().execute(new HibernateCallback() {
+
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                Query query = session.createQuery("from HibernateAbility value where value.id = :name");
+                query.setString("name", name);
+                return query.list();
+            }
+            
+        });
+        if (1 != results.size()) {
+            throw new IllegalArgumentException("Unable to find ability " + name);
+        }
+        return (Ability) results.get(0);
+    }
+
+    public Collection getAbilities() {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
-            public Object doInHibernate(Session session)
-                    throws HibernateException {
-                Query query = session.createQuery("from HibernateSkill");
+
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                Query query = session.createQuery("from HibernateAbility ");
                 return query.list();
             }
         });
     }
 
-    public Collection getUntrainedSkills() {
-        return (List) getHibernateTemplate().execute(new HibernateCallback() {
-            public Object doInHibernate(Session session)
-                    throws HibernateException {
-                Query query = session.createQuery("from HibernateSkill value where value.usableUntrained = false");
-                return query.list();
-            }
-        });
-    }
-    
-    public Skill createSkill(String name, boolean usableUntrained, Ability ability, boolean armorPenalty) {
-        HibernateSkill skill = new HibernateSkill(name, usableUntrained, ability, armorPenalty);
-        String id = (String) getHibernateTemplate().save(skill);
-        return (Skill) getHibernateTemplate().load(HibernateSkill.class, id);
-    }
 }

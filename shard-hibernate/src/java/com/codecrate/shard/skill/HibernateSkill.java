@@ -15,8 +15,8 @@
  */
 package com.codecrate.shard.skill;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 import com.codecrate.shard.Identifiable;
 import com.codecrate.shard.ability.Ability;
@@ -29,7 +29,7 @@ public class HibernateSkill implements Skill, Identifiable {
     private Ability ability;
     private boolean usableUntrained;
     private boolean armorCheckPenalty;
-    private Collection childSkillSynergies = new ArrayList();
+    private Collection childSkillSynergies = new HashSet();
 
     /**
      * hibernate constructor.

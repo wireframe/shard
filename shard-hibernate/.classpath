@@ -23,7 +23,7 @@
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/dbunit/jars/dbunit-2.1.jar">
   </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/hibernate/jars/hibernate-2.1.6.jar">
+  <classpathentry kind="var" path="MAVEN_REPO/hibernate/jars/hibernate-2.1.8.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/dom4j/jars/dom4j-1.5.jar">
   </classpathentry>
