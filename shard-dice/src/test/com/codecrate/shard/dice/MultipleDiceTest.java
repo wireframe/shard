@@ -20,20 +20,19 @@ import junit.framework.TestCase;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class ModifiedDiceTest extends TestCase {
-    
-    public void testMaxValueAtLeastOne() {
-        ModifiedDice dice = new ModifiedDice(DefaultDice.d4, -5);
-        assertEquals(1, dice.getMaxValue());
+public class MultipleDiceTest extends TestCase {
+    public void testMaxValue() {
+    	MultipleDice dice = new MultipleDice(DefaultDice.d6, 1);
+    	assertEquals(6, dice.getMaxValue());
     }
     
-    public void testMinValueAtLeastOne() {
-        ModifiedDice dice = new ModifiedDice(DefaultDice.d4, -5);
-        assertEquals(1, dice.getMinValue());
+    public void testMinValue() {
+    	MultipleDice dice = new MultipleDice(DefaultDice.d6, 1);
+    	assertEquals(1, dice.getMinValue());
     }
     
-    public void testModifierAppliedToRoll() {
-        ModifiedDice dice = new ModifiedDice(new MaxValueDice(DefaultDice.d6), -5);
-        assertEquals(1, dice.roll());
+    public void testNumberOfRollsUsed() {
+    	MultipleDice dice = new MultipleDice(new MaxValueDice(DefaultDice.d6), 2);
+    	assertEquals(12, dice.roll());
     }
 }
