@@ -29,17 +29,208 @@ use <null/> to specify a null value for an entry
     <table name="SHA_SKILL">
         <column>ID</column>
         <column>ABILITY</column>
-        <!--
         <column>IS_USABLE_UNTRAINED</column>
         <column>HAS_ARMOR_CHECK_PENALTY</column>
-        -->
         <row>
             <value>Appraise</value>
             <value>Intelligence</value>
-            <!--
             <value>1</value>
             <value>0</value>
-            -->
+        </row>
+        <row>
+            <value>Balance</value>
+            <value>Dexterity</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Bluff</value>
+            <value>Charisma</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Climb</value>
+            <value>Strength</value>
+            <value>1</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>Concentration</value>
+            <value>Constitution</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Decipher Script</value>
+            <value>Intelligence</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Diplomacy</value>
+            <value>Charisma</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Disable Device</value>
+            <value>Intelligence</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Disguise</value>
+            <value>Charisma</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Escape Artist</value>
+            <value>Dexterity</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Forgery</value>
+            <value>Intelligence</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Gather Information</value>
+            <value>Charisma</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Handle Animal</value>
+            <value>Charisma</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Heal</value>
+            <value>Wisdom</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Hide</value>
+            <value>Dexterity</value>
+            <value>1</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>Intimidate</value>
+            <value>Charisma</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Jump</value>
+            <value>Strength</value>
+            <value>1</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>Listen</value>
+            <value>Wisdom</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Literacy</value>
+            <value>Intelligence</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Move Silently</value>
+            <value>Dexterity</value>
+            <value>1</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>Open Lock</value>
+            <value>Dexterity</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Ride</value>
+            <value>Dexterity</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Search</value>
+            <value>Dexterity</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Sense Motive</value>
+            <value>Wisdom</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Slight of Hand</value>
+            <value>Dexterity</value>
+            <value>0</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>Spellcraft</value>
+            <value>Intelligence</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Spot</value>
+            <value>Wisdom</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Survival</value>
+            <value>Wisdom</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Swim</value>
+            <value>Strength</value>
+            <value>1</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>Tumble</value>
+            <value>Dexterity</value>
+            <value>0</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>Use Magic Device</value>
+            <value>Charisma</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Use Rope</value>
+            <value>Dexterity</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+    </table>
+    
+    <table name="SHA_SKILL_SYNERGY">
+        <column>ID</column>
+        <column>SYNERGETIC_SKILL_ID</column>
+        <row>
+            <value>Balance</value>
+            <value>Tumble</value>
         </row>
     </table>
 </dataset>

@@ -15,22 +15,13 @@
  */
 package com.codecrate.shard.movement;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.math.BigDecimal;
-import java.sql.Connection;
 
 import net.sf.hibernate.Session;
-import net.sf.hibernate.SessionFactory;
-import net.sf.hibernate.cfg.Configuration;
 
-import org.dbunit.DatabaseTestCase;
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.xml.XmlDataSet;
 import org.easymock.MockControl;
 
+import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbility;
@@ -41,26 +32,13 @@ import com.codecrate.shard.race.RacialSize;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateEncumberanceDaoTest extends DatabaseTestCase {
-    private SessionFactory sessionFactory;
-    private Session session;
-    private Connection connection;
-    
+public class HibernateEncumberanceDaoTest extends ShardHibernateDbUnitTestCaseSupport {
     public HibernateEncumberanceDaoTest(String name) throws Exception {
         super(name);
-        File file = new File("src/hibernate/hibernate.cfg.xml");
-        sessionFactory = new Configuration().configure(file).buildSessionFactory();
-        session = sessionFactory.openSession();
-        connection = session.connection();
-        connection.setAutoCommit(true);
     }
 
-    protected IDatabaseConnection getConnection() throws Exception {
-        return new DatabaseConnection(connection);
-    }
-
-    protected IDataSet getDataSet() throws Exception {
-        return new XmlDataSet(new FileInputStream("src/data/SHA_ENCUMBERANCE_ENTRY-data.xml"));
+    protected String getDataSetPath() {
+        return "src/data/SHA_ENCUMBERANCE_ENTRY-data.xml";
     }
     
     public void testLookupOfEncumberanceEntry() throws Exception {
@@ -87,7 +65,7 @@ public class HibernateEncumberanceDaoTest extends DatabaseTestCase {
         mockSize.replay();
         
         
-        session = sessionFactory.openSession();
+        Session session = getSessionFactory().openSession();
         HibernateEncumberanceDao dao = new HibernateEncumberanceDao(session);
         Encumberance entry = dao.getEncumberance(abilities, inventory, size);
         assertEquals(DefaultEncumberance.LIGHT.getName(), entry.getName());
@@ -108,7 +86,7 @@ public class HibernateEncumberanceDaoTest extends DatabaseTestCase {
         RacialSize size = (RacialSize) mockSize.getMock();
         mockSize.replay();
         
-        session = sessionFactory.openSession();
+        Session session = getSessionFactory().openSession();
         HibernateEncumberanceDao dao = new HibernateEncumberanceDao(session);
         Encumberance entry = dao.getEncumberance(abilities, inventory, size);
         assertNull(entry);

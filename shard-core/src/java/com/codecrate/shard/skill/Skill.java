@@ -41,6 +41,9 @@ public interface Skill {
 	
 	/**
 	 * gets the skills that this skill has synergy with.
+	 * this returns the "parent" synergies of a given skill.  meaning 
+	 * you need 5+ ranks in the given skills to get a +2 bonus on the 
+	 * current skill.
 	 * ex: +2 bonus for Jump if 5+ ranks in Tumble.
 	 * @return
 	 */

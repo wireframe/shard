@@ -9,9 +9,7 @@
 
         <id name="id" type="string" unsaved-value="null" >
             <column name="ID" sql-type="char(32)" not-null="true"/>
-            <generator class="foreign">
-              <param name="property">id</param>
-            </generator>
+            <generator class="assigned"/>
         </id>
 
         <property name="baseSkillPointsPerLevel">

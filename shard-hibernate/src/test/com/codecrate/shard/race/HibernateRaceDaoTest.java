@@ -15,48 +15,26 @@
  */
 package com.codecrate.shard.race;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.sql.Connection;
 import java.util.Collection;
 
 import net.sf.hibernate.Session;
-import net.sf.hibernate.SessionFactory;
-import net.sf.hibernate.cfg.Configuration;
 
-import org.dbunit.DatabaseTestCase;
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.xml.XmlDataSet;
+import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateRaceDaoTest extends DatabaseTestCase {
-    private SessionFactory sessionFactory;
-    private Session session;
-    private Connection connection;
-    
+public class HibernateRaceDaoTest extends ShardHibernateDbUnitTestCaseSupport {
     public HibernateRaceDaoTest(String name) throws Exception {
         super(name);
-        File file = new File("src/hibernate/hibernate.cfg.xml");
-        sessionFactory = new Configuration().configure(file).buildSessionFactory();
-        session = sessionFactory.openSession();
-        connection = session.connection();
-        connection.setAutoCommit(true);
     }
 
-    protected IDatabaseConnection getConnection() throws Exception {
-        return new DatabaseConnection(connection);
-    }
-
-    protected IDataSet getDataSet() throws Exception {
-        return new XmlDataSet(new FileInputStream("src/data/SHA_RACE-data.xml"));
+    protected String getDataSetPath() {
+        return "src/data/SHA_RACE-data.xml";
     }
 
     public void testLoadsRaces() throws Exception {
-        session = sessionFactory.openSession();
+        Session session = getSessionFactory().openSession();
         HibernateRaceDao dao = new HibernateRaceDao(session);
         Collection races = dao.getRaces();
         assertFalse(races.isEmpty());
