@@ -13,23 +13,18 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character;
+package com.codecrate.shard.level;
 
 import junit.framework.TestCase;
 
-public class ExperienceTableTest extends TestCase {
+public class ExperienceLevelCalculatorTest extends TestCase {
 
-    public void testExperienceMinimumCalculatedCorrectly() {
-        ExperienceTable tracker = new ExperienceTable();
-        assertEquals(0, tracker.getMinimumExperience(1));
-        assertEquals(1000, tracker.getMinimumExperience(2));
-        assertEquals(190000, tracker.getMinimumExperience(20));
-    }
-    
-    public void testGetLevel() {
-        ExperienceTable tracker = new ExperienceTable();
-        assertEquals(1, tracker.getLevel(0));
-        assertEquals(2, tracker.getLevel(1000));
-        assertEquals(20, tracker.getLevel(190000));
+    public void testExperienceCalculatedCorrectly() {
+        ExperienceLevelCalculator tracker = new ExperienceLevelCalculator();
+        assertEquals(0, tracker.calculateValue(1));
+        assertEquals(1000, tracker.calculateValue(2));
+        assertEquals(3000, tracker.calculateValue(3));
+        assertEquals(6000, tracker.calculateValue(4));
+        assertEquals(190000, tracker.calculateValue(20));
     }
 }
