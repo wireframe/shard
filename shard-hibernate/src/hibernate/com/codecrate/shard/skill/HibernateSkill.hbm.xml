@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping
+    PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+
+<hibernate-mapping package="com.codecrate.shard.skill">
+
+    <class name="HibernateSkill" table="SHA_SKILL">
+
+        <id name="id" type="string" unsaved-value="null" >
+            <column name="ID" sql-type="char(32)" not-null="true"/>
+            <generator class="assigned"/>
+        </id>
+
+<!--
+        <property name="usableUntrained">
+            <column name="IS_USABLE_UNTRAINED" not-null="true"/>
+        </property>
+
+        <property name="armorCheckPenalty">
+            <column name="HAS_ARMOR_CHECK_PENALTY" not-null="true"/>
+        </property>
+-->
+        <many-to-one name="ability" 
+         class="com.codecrate.shard.ability.HibernateAbility" 
+         column="ABILITY" 
+         cascade="all"/>
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,45 @@
+<!--
+<!DOCTYPE dataset SYSTEM "dataset.dtd">
+use <null/> to specify a null value for an entry
+-->
+
+<dataset>
+    <table name="SHA_ABILITY">
+        <column>ID</column>
+        <row>
+            <value>Strength</value>
+        </row>
+        <row>
+            <value>Dexterity</value>
+        </row>
+        <row>
+            <value>Constitution</value>
+        </row>
+        <row>
+            <value>Intelligence</value>
+        </row>
+        <row>
+            <value>Wisdom</value>
+        </row>
+        <row>
+            <value>Charisma</value>
+        </row>
+    </table>
+
+    <table name="SHA_SKILL">
+        <column>ID</column>
+        <column>ABILITY</column>
+        <!--
+        <column>IS_USABLE_UNTRAINED</column>
+        <column>HAS_ARMOR_CHECK_PENALTY</column>
+        -->
+        <row>
+            <value>Appraise</value>
+            <value>Intelligence</value>
+            <!--
+            <value>1</value>
+            <value>0</value>
+            -->
+        </row>
+    </table>
+</dataset>

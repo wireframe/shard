@@ -27,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateRaceDao {
+public class HibernateRaceDao implements RaceDao {
     private static final Log LOG = LogFactory.getLog(HibernateRaceDao.class);
     
     private final Session session;

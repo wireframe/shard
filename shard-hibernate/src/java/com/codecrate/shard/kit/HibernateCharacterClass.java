@@ -20,6 +20,7 @@ import java.util.Collection;
 import com.codecrate.shard.Identifiable;
 import com.codecrate.shard.character.prereq.CharacterPrerequisite;
 import com.codecrate.shard.dice.Dice;
+import com.codecrate.shard.skill.DefaultSkillDao;
 import com.codecrate.shard.skill.SkillDao;
 
 /**

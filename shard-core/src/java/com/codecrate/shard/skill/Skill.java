@@ -45,4 +45,10 @@ public interface Skill {
 	 * @return
 	 */
 	Collection getSkillSynergies();
+
+    /**
+     * boolean flag for if the skill has an armor check penalty.
+     * @return
+     */
+    boolean hasArmorCheckPenalty();
 }

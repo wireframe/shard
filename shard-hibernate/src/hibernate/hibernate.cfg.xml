@@ -11,6 +11,7 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">create-drop</property>
     
+    <mapping resource="com/codecrate/shard/ability/HibernateAbility.hbm.xml"/>
     <mapping resource="com/codecrate/shard/ability/PointCostValue.hbm.xml"/>
 
     <mapping resource="com/codecrate/shard/character/RaceAgeEntry.hbm.xml"/>
@@ -21,5 +22,7 @@
     
     <mapping resource="com/codecrate/shard/race/HibernateLanguage.hbm.xml"/>
     <mapping resource="com/codecrate/shard/race/HibernateRace.hbm.xml"/>
+    
+    <mapping resource="com/codecrate/shard/skill/HibernateSkill.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
