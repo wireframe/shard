@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+  <extend>${basedir}/../shard-root/project.xml</extend>
+  <pomVersion>3</pomVersion>
+  <groupId>shard</groupId>
+  <id>shard-dice</id>
+  <name>shard dice rolling module</name>
+  <description>shard dice rolling module</description>
+  <shortDescription>shard dice rolling module</shortDescription>
+  
+  <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/conf</directory>
+        <includes>
+          <include>**/*.xml</include>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+    
+  	<unitTest>
+      <resources>
+        <resource>
+          <directory>${basedir}/src/test</directory>
+          <includes>
+            <include>**/*.xml</include>
+          </includes>
+        </resource>
+      </resources>
+    </unitTest>
+  </build>  
+</project>
