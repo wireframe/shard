@@ -55,6 +55,12 @@ public interface CharacterClass {
 	Collection getFeats();
 	
 	/**
+	 * gets the skill bonuses automatically granted to this class.
+	 * @return
+	 */
+	Collection getSkills();
+	
+	/**
 	 * gets the number of base skill points per level.
 	 * this is before the intelligence modifier is added on.
 	 * @return number of skill points per level (before intelligence modifier).
