@@ -20,10 +20,9 @@ import com.codecrate.shard.race.Race;
 
 
 /**
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ * persistent object for saving age categories for a race.
  * 
- * @hibernate.class 
- *  table="SHA_RACE_AGE"
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class RaceAgeEntry implements Identifiable{
 
@@ -34,16 +33,6 @@ public class RaceAgeEntry implements Identifiable{
     private int ageOld;
     private int ageVenerable;
 
-    /**
-     * 
-     * @return
-     * 
-     * @hibernate.id
-     *  generator-class="foreign"
-     * @hibernate.generator-param
-     *  name="property"
-     *  value="id"
-     */
     public String getId() {
         return id;
     }
@@ -52,14 +41,6 @@ public class RaceAgeEntry implements Identifiable{
         this.id = id;
     }
     
-    /**
-     * 
-     * @return
-     * 
-     * @hibernate.one-to-one
-     *  class="com.codecrate.shard.race.DefaultRace"
-     *  cascade="all"
-     */
     public Race getRace() {
         return race;
     }
@@ -68,14 +49,6 @@ public class RaceAgeEntry implements Identifiable{
         this.race = name;
     }
     
-    /**
-     * @return Returns the ageAdult.
-     * 
-     * @hibernate.property
-     *  column="AGE_ADULT"
-     *  length="4"
-     *  not-null="true"
-     */
     public int getAgeAdult() {
         return ageAdult;
     }
@@ -85,14 +58,6 @@ public class RaceAgeEntry implements Identifiable{
     public void setAgeAdult(int ageAdult) {
         this.ageAdult = ageAdult;
     }
-    /**
-     * @return Returns the ageMiddleAge.
-     * 
-     * @hibernate.property
-     *  column="AGE_MIDDLE_AGE"
-     *  length="4"
-     *  not-null="true"
-     */
     public int getAgeMiddleAge() {
         return ageMiddleAge;
     }
@@ -104,11 +69,6 @@ public class RaceAgeEntry implements Identifiable{
     }
     /**
      * @return Returns the ageOld.
-     * 
-     * @hibernate.property
-     *  column="AGE_OLD"
-     *  length="4"
-     *  not-null="true"
      */
     public int getAgeOld() {
         return ageOld;
@@ -121,11 +81,6 @@ public class RaceAgeEntry implements Identifiable{
     }
     /**
      * @return Returns the ageVenerable.
-     * 
-     * @hibernate.property
-     *  column="AGE_VENERABLE"
-     *  length="4"
-     *  not-null="true"
      */
     public int getAgeVenerable() {
         return ageVenerable;

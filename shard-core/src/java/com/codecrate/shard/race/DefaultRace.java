@@ -35,9 +35,6 @@ import com.codecrate.shard.skill.DefaultSkill;
 
 /**
  * <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
- * 
- * @hibernate.class 
- *  table="SHA_RACE"
  */
 public class DefaultRace implements Race {
     private static final ModifierType RACE = new DefaultModifierType("race", false);
@@ -138,12 +135,6 @@ public class DefaultRace implements Race {
     private Dice maxAgeDice;
     private int baseSkillPointsPerLevel;
 	
-    /**
-     * constructor for hibernate.
-     */
-    public DefaultRace() {
-    }
-    
 	public DefaultRace(String name, RacialSize size, Movement movement, 
 			Collection abilityModifiers, Collection skillModifiers, 
 			int levelAdjustment, 
@@ -168,19 +159,6 @@ public class DefaultRace implements Race {
 	    return name;
 	}
 	
-	/**
-	 * 
-     * @hibernate.id
-     *  generator-class="assigned"
-	 */
-	public String getId() {
-	    return name;
-	}
-	
-	public void setId(String id) {
-	    this.name = id;
-	}
-	
 	public boolean isSame(Race race) {
 	    return equals(race);
 	}
@@ -197,19 +175,8 @@ public class DefaultRace implements Race {
 		return abilityModifiers;
 	}
 	
-	/**
-	 * 
-     * @hibernate.property
-     *  column="LEVEL_ADJUSTMENT"
-     *  length="2"
-     *  not-null="true"
-	 */
 	public int getLevelAdjustment() {
 		return levelAdjustment;
-	}
-	
-	public void setLevelAdjustment(int levelAdjustment) {
-	    this.levelAdjustment = levelAdjustment;
 	}
 	
 	public Collection getAutomaticLanguages() {
@@ -236,37 +203,15 @@ public class DefaultRace implements Race {
 		return skillModifiers;
 	}
 	
-	/**
-	 * 
-     * @hibernate.many-to-one
-     *  class="com.codecrate.shard.kit.DefaultCharacterClass"
-     *  cascade="all"
-     *  column="FAVORED_CLASS"
-	 */
 	public CharacterClass getFavoredClass() {
 		return favoredClass;
-	}
-	
-	public void setFavoredClass(CharacterClass kit) {
-	    this.favoredClass = kit;
 	}
 	
 	public Dice getMaxAgeDice() {
 	    return maxAgeDice;
 	}
 	
-	/**
-	 * 
-     * @hibernate.property
-     *  column="BASE_SKILL_POINTS_PER_LEVEL"
-     *  length="2"
-     *  not-null="true"
-	 */
 	public int getBaseSkillPointsPerLevel() {
 	    return baseSkillPointsPerLevel;
-	}
-	
-	public void setBaseSkillPointsPerLevel(int points) {
-	    this.baseSkillPointsPerLevel = points;
 	}
 }

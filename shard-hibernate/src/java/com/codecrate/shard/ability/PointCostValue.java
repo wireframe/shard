@@ -15,34 +15,29 @@
  */
 package com.codecrate.shard.ability;
 
+import com.codecrate.shard.Identifiable;
+
 /**
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ * persisted class for storing point cost for an ability score.
  * 
- * @hibernate.class 
- *  table="SHA_ABILITY_POINT_COST"
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class PointCostValue {
+public class PointCostValue implements Identifiable {
     private int abilityScore;
     private int pointCost;
-    /**
-     * @return Returns the abilityScore.
-     * 
-     * @hibernate.id
-     *  column="ABILITY_SCORE"
-     *  generator-class="uuid.hex"
-     *  length="3"
-     */
+    
+    public String getId() {
+        return Integer.toString(abilityScore);
+    }
+    
+    public void setId(String id) {
+        abilityScore = Integer.parseInt(id);
+    }
+
     public int getAbilityScore() {
         return abilityScore;
     }
-    /**
-     * @return Returns the pointCost.
-     * 
-     * @hibernate.property
-     *  column="POINT_COST"
-     *  length="3"
-     *  not-null="true"
-     */
+
     public int getPointCost() {
         return pointCost;
     }

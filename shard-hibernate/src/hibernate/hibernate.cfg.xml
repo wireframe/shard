@@ -10,6 +10,14 @@
     <property name="hibernate.dialect">net.sf.hibernate.dialect.HSQLDialect</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">create-drop</property>
+    
     <mapping resource="com/codecrate/shard/ability/PointCostValue.hbm.xml"/>
+
+    <mapping resource="com/codecrate/shard/character/RaceAgeEntry.hbm.xml"/>
+
+    <mapping resource="com/codecrate/shard/kit/HibernateCharacterClass.hbm.xml"/>
+    
+    <mapping resource="com/codecrate/shard/race/HibernateLanguage.hbm.xml"/>
+    <mapping resource="com/codecrate/shard/race/HibernateRace.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
