@@ -22,8 +22,9 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.DefaultModifier;
+import com.codecrate.shard.DefaultKeyedModifier;
 import com.codecrate.shard.DefaultModifierType;
+import com.codecrate.shard.KeyedModifier;
 import com.codecrate.shard.ModifierType;
 
 public class DefaultAbilityScoreContainerTest extends TestCase {
@@ -81,7 +82,7 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 		abilities.put(DefaultAbility.STRENGTH, ability);
 	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 	    ModifierType type = new DefaultModifierType("test", false);
-	    container.addAbilityScoreModifier(new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(type, 8)));
+	    container.addModifier(new DefaultKeyedModifier(DefaultAbility.STRENGTH, type, 8));
 
 	    assertEquals(18, ability.getModifiedValue());
 	}
@@ -90,7 +91,7 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 		Map abilities = new HashMap();
 	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 	    ModifierType type = new DefaultModifierType("test", false);
-	    container.addAbilityScoreModifier(new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(type, 8)));
+	    container.addModifier(new DefaultKeyedModifier(DefaultAbility.STRENGTH, type, 8));
 	    assertFalse(container.hasAbilityScore(DefaultAbility.STRENGTH));
 	}
 	
@@ -101,9 +102,9 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 		abilities.put(DefaultAbility.STRENGTH, ability);
 	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 	    ModifierType type = new DefaultModifierType("test", false);
-	    AbilityScoreModifier modifier = new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(type, 8));
-        container.addAbilityScoreModifier(modifier);
-	    container.removeAbilityScoreModifier(modifier);
+	    KeyedModifier modifier = new DefaultKeyedModifier(DefaultAbility.STRENGTH, type, 8);
+        container.addModifier(modifier);
+	    container.removeModifier(modifier);
 
 	    assertEquals(10, ability.getModifiedValue());
 	}
@@ -112,7 +113,7 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 		Map abilities = new HashMap();
 	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 	    ModifierType type = new DefaultModifierType("test", false);
-	    container.removeAbilityScoreModifier(new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(type, 8)));
+	    container.removeModifier(new DefaultKeyedModifier(DefaultAbility.STRENGTH, type, 8));
 	    assertFalse(container.hasAbilityScore(DefaultAbility.STRENGTH));
 	}
 }

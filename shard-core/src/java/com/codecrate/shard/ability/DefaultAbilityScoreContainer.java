@@ -22,6 +22,8 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.codecrate.shard.KeyedModifier;
+
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -92,21 +94,21 @@ public class DefaultAbilityScoreContainer implements AbilityScoreContainer {
         return getAbilityScore(DefaultAbility.CHARISMA);
     }
 
-    public void addAbilityScoreModifier(AbilityScoreModifier modifier) {
-        Ability ability = modifier.getAbility();
+    public void addModifier(KeyedModifier modifier) {
+        Ability ability = (Ability) modifier.getKey();
         if (!hasAbilityScore(ability)) {
             LOG.info("Ability " + ability + " does not exist to attach modifier to.");
             return;
         } 
-        getAbilityScore(ability).addModifier(modifier.getModifier());
+        getAbilityScore(ability).addModifier(modifier);
     }
 
-    public void removeAbilityScoreModifier(AbilityScoreModifier modifier) {
-        Ability ability = modifier.getAbility();
+    public void removeModifier(KeyedModifier modifier) {
+        Ability ability = (Ability) modifier.getKey();
         if (!hasAbilityScore(ability)) {
             LOG.info("Ability " + ability + " does not exist to remove modifier from.");
             return;
         } 
-        getAbilityScore(ability).removeModifier(modifier.getModifier());
+        getAbilityScore(ability).removeModifier(modifier);
     }
 }

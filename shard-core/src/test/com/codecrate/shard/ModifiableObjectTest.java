@@ -30,12 +30,16 @@ public class ModifiableObjectTest extends TestCase {
 		Modifier firstModifier = (Modifier) firstModifierControl.getMock();
 		firstModifier.getModifierType();
 		firstModifierControl.setReturnValue(modifierType);
+		firstModifier.getModifierType();
+		firstModifierControl.setReturnValue(modifierType);
 		firstModifier.getModifier();
 		firstModifierControl.setReturnValue(5);
 		firstModifierControl.replay();
 
 		MockControl secondModifierControl = MockControl.createControl(Modifier.class);
 		Modifier secondModifier = (Modifier) secondModifierControl.getMock();
+		secondModifier.getModifierType();
+		secondModifierControl.setReturnValue(modifierType);
 		secondModifier.getModifierType();
 		secondModifierControl.setReturnValue(modifierType);
 		secondModifier.getModifier();
@@ -56,12 +60,16 @@ public class ModifiableObjectTest extends TestCase {
 		Modifier firstModifier = (Modifier) firstModifierControl.getMock();
 		firstModifier.getModifierType();
 		firstModifierControl.setReturnValue(modifierType);
+		firstModifier.getModifierType();
+		firstModifierControl.setReturnValue(modifierType);
 		firstModifier.getModifier();
 		firstModifierControl.setReturnValue(5);
 		firstModifierControl.replay();
 
 		MockControl secondModifierControl = MockControl.createControl(Modifier.class);
 		Modifier secondModifier = (Modifier) secondModifierControl.getMock();
+		secondModifier.getModifierType();
+		secondModifierControl.setReturnValue(modifierType);
 		secondModifier.getModifierType();
 		secondModifierControl.setReturnValue(modifierType);
 		secondModifier.getModifier();
@@ -82,12 +90,16 @@ public class ModifiableObjectTest extends TestCase {
 		Modifier firstModifier = (Modifier) firstModifierControl.getMock();
 		firstModifier.getModifierType();
 		firstModifierControl.setReturnValue(modifierType);
+		firstModifier.getModifierType();
+		firstModifierControl.setReturnValue(modifierType);
 		firstModifier.getModifier();
 		firstModifierControl.setReturnValue(5);
 		firstModifierControl.replay();
 
 		MockControl secondModifierControl = MockControl.createControl(Modifier.class);
 		Modifier secondModifier = (Modifier) secondModifierControl.getMock();
+		secondModifier.getModifierType();
+		secondModifierControl.setReturnValue(modifierType);
 		secondModifier.getModifierType();
 		secondModifierControl.setReturnValue(modifierType);
 		secondModifier.getModifierType();

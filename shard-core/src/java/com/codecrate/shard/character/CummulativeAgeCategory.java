@@ -19,10 +19,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.codecrate.shard.DefaultModifier;
-import com.codecrate.shard.ability.AbilityScoreModifier;
+import com.codecrate.shard.DefaultKeyedModifier;
+import com.codecrate.shard.DefaultModifierType;
+import com.codecrate.shard.KeyedModifier;
+import com.codecrate.shard.ModifierType;
 import com.codecrate.shard.ability.DefaultAbility;
-import com.codecrate.shard.ability.DefaultAbilityModifierType;
 
 /**
  * Age category to encasulate cumulative modifier logic.
@@ -33,35 +34,36 @@ import com.codecrate.shard.ability.DefaultAbilityModifierType;
 public class CummulativeAgeCategory implements AgeCategory {
 	public static final AgeCategory ADULT = new CummulativeAgeCategory(null, 
 			"Adult", new ArrayList());
+	private static final ModifierType AGE = new DefaultModifierType("age", true);
 	
 	public static final AgeCategory MIDDLE_AGE = new CummulativeAgeCategory(ADULT,
-			"Middle Age", Arrays.asList(new AbilityScoreModifier[] {
-			new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(DefaultAbilityModifierType.AGE, -1))
-			, new AbilityScoreModifier(DefaultAbility.DEXTERITY, new DefaultModifier(DefaultAbilityModifierType.AGE, -1))
-			, new AbilityScoreModifier(DefaultAbility.CONSTITUTION, new DefaultModifier(DefaultAbilityModifierType.AGE, -1))
-			, new AbilityScoreModifier(DefaultAbility.INTELLIGENCE, new DefaultModifier(DefaultAbilityModifierType.AGE, 1))
-			, new AbilityScoreModifier(DefaultAbility.WISDOM, new DefaultModifier(DefaultAbilityModifierType.AGE, 1))
-			, new AbilityScoreModifier(DefaultAbility.CHARISMA, new DefaultModifier(DefaultAbilityModifierType.AGE, 1))
+			"Middle Age", Arrays.asList(new KeyedModifier[] {
+			new DefaultKeyedModifier(DefaultAbility.STRENGTH, AGE, -1)
+			, new DefaultKeyedModifier(DefaultAbility.DEXTERITY, AGE, -1)
+			, new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, AGE, -1)
+			, new DefaultKeyedModifier(DefaultAbility.INTELLIGENCE, AGE, 1)
+			, new DefaultKeyedModifier(DefaultAbility.WISDOM, AGE, 1)
+			, new DefaultKeyedModifier(DefaultAbility.CHARISMA, AGE, 1)
 		}));
 
 	public static final AgeCategory OLD = new CummulativeAgeCategory(MIDDLE_AGE,
-			"Old", Arrays.asList(new AbilityScoreModifier[] {
-			new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(DefaultAbilityModifierType.AGE, -2))
-			, new AbilityScoreModifier(DefaultAbility.DEXTERITY, new DefaultModifier(DefaultAbilityModifierType.AGE, -2))
-			, new AbilityScoreModifier(DefaultAbility.CONSTITUTION, new DefaultModifier(DefaultAbilityModifierType.AGE, -2))
-			, new AbilityScoreModifier(DefaultAbility.INTELLIGENCE, new DefaultModifier(DefaultAbilityModifierType.AGE, 1))
-			, new AbilityScoreModifier(DefaultAbility.WISDOM, new DefaultModifier(DefaultAbilityModifierType.AGE, 1))
-			, new AbilityScoreModifier(DefaultAbility.CHARISMA, new DefaultModifier(DefaultAbilityModifierType.AGE, 1))
+			"Old", Arrays.asList(new DefaultKeyedModifier[] {
+			new DefaultKeyedModifier(DefaultAbility.STRENGTH, AGE, -2)
+			, new DefaultKeyedModifier(DefaultAbility.DEXTERITY, AGE, -2)
+			, new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, AGE, -2)
+			, new DefaultKeyedModifier(DefaultAbility.INTELLIGENCE, AGE, 1)
+			, new DefaultKeyedModifier(DefaultAbility.WISDOM, AGE, 1)
+			, new DefaultKeyedModifier(DefaultAbility.CHARISMA, AGE, 1)
 		}));
 	
 	public static final AgeCategory VENERABLE = new CummulativeAgeCategory(OLD,
-			"Venerable", Arrays.asList(new AbilityScoreModifier[] {
-			new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(DefaultAbilityModifierType.AGE, -3))
-			, new AbilityScoreModifier(DefaultAbility.DEXTERITY, new DefaultModifier(DefaultAbilityModifierType.AGE, -3))
-			, new AbilityScoreModifier(DefaultAbility.CONSTITUTION, new DefaultModifier(DefaultAbilityModifierType.AGE, -3))
-			, new AbilityScoreModifier(DefaultAbility.INTELLIGENCE, new DefaultModifier(DefaultAbilityModifierType.AGE, 1))
-			, new AbilityScoreModifier(DefaultAbility.WISDOM, new DefaultModifier(DefaultAbilityModifierType.AGE, 1))
-			, new AbilityScoreModifier(DefaultAbility.CHARISMA, new DefaultModifier(DefaultAbilityModifierType.AGE, 1))
+			"Venerable", Arrays.asList(new DefaultKeyedModifier[] {
+			new DefaultKeyedModifier(DefaultAbility.STRENGTH, AGE, -3)
+			, new DefaultKeyedModifier(DefaultAbility.DEXTERITY, AGE, -3)
+			, new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, AGE, -3)
+			, new DefaultKeyedModifier(DefaultAbility.INTELLIGENCE, AGE, 1)
+			, new DefaultKeyedModifier(DefaultAbility.WISDOM, AGE, 1)
+			, new DefaultKeyedModifier(DefaultAbility.CHARISMA, AGE, 1)
 		}));
 	
 	

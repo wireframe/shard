@@ -28,12 +28,16 @@ public class DefaultArmorClassTest extends TestCase {
 		Modifier firstModifier = (Modifier) firstArmorClassModifierControl.getMock();
 		firstModifier.getModifierType();
 		firstArmorClassModifierControl.setReturnValue(DefaultArmorClass.DEFLECTION);
+		firstModifier.getModifierType();
+		firstArmorClassModifierControl.setReturnValue(DefaultArmorClass.DEFLECTION);
 		firstModifier.getModifier();
 		firstArmorClassModifierControl.setReturnValue(5);
 		firstArmorClassModifierControl.replay();
 
 		MockControl secondArmorClassModifierControl = MockControl.createControl(Modifier.class);
 		Modifier secondModifier = (Modifier) secondArmorClassModifierControl.getMock();
+		secondModifier.getModifierType();
+		secondArmorClassModifierControl.setReturnValue(DefaultArmorClass.DEFLECTION);
 		secondModifier.getModifierType();
 		secondArmorClassModifierControl.setReturnValue(DefaultArmorClass.DEFLECTION);
 		secondModifier.getModifier();
@@ -52,12 +56,16 @@ public class DefaultArmorClassTest extends TestCase {
 		Modifier firstModifier = (Modifier) firstArmorClassModifierControl.getMock();
 		firstModifier.getModifierType();
 		firstArmorClassModifierControl.setReturnValue(DefaultArmorClass.DODGE);
+		firstModifier.getModifierType();
+		firstArmorClassModifierControl.setReturnValue(DefaultArmorClass.DODGE);
 		firstModifier.getModifier();
 		firstArmorClassModifierControl.setReturnValue(5);
 		firstArmorClassModifierControl.replay();
 
 		MockControl secondArmorClassModifierControl = MockControl.createControl(Modifier.class);
 		Modifier secondModifier = (Modifier) secondArmorClassModifierControl.getMock();
+		secondModifier.getModifierType();
+		secondArmorClassModifierControl.setReturnValue(DefaultArmorClass.DODGE);
 		secondModifier.getModifierType();
 		secondArmorClassModifierControl.setReturnValue(DefaultArmorClass.DODGE);
 		secondModifier.getModifier();
@@ -76,12 +84,16 @@ public class DefaultArmorClassTest extends TestCase {
 		Modifier lowerModifier = (Modifier) lowerArmorClassModifierControl.getMock();
 		lowerModifier.getModifierType();
 		lowerArmorClassModifierControl.setReturnValue(DefaultArmorClass.DEFLECTION);
+		lowerModifier.getModifierType();
+		lowerArmorClassModifierControl.setReturnValue(DefaultArmorClass.DEFLECTION);
 		lowerModifier.getModifier();
 		lowerArmorClassModifierControl.setReturnValue(5);
 		lowerArmorClassModifierControl.replay();
 
 		MockControl higherArmorClassModifierControl = MockControl.createControl(Modifier.class);
 		Modifier higherModifier = (Modifier) higherArmorClassModifierControl.getMock();
+		higherModifier.getModifierType();
+		higherArmorClassModifierControl.setReturnValue(DefaultArmorClass.DEFLECTION);
 		higherModifier.getModifierType();
 		higherArmorClassModifierControl.setReturnValue(DefaultArmorClass.DEFLECTION);
 		higherModifier.getModifierType();

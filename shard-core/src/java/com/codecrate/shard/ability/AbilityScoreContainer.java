@@ -17,6 +17,8 @@ package com.codecrate.shard.ability;
 
 import java.util.Collection;
 
+import com.codecrate.shard.KeyedModifierContainer;
+
 /**
  * Defines an interface for objects that contain Abilities.
  * the caller must be aware that not all ability containers 
@@ -25,7 +27,7 @@ import java.util.Collection;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface AbilityScoreContainer {
+public interface AbilityScoreContainer extends KeyedModifierContainer {
 	AbilityScore getStrength();
 	
 	AbilityScore getDexterity();
@@ -63,16 +65,4 @@ public interface AbilityScoreContainer {
 	 * @return
 	 */
 	int getTotalPointScore();
-	
-	/**
-	 * adds a modifier for an ability score.
-	 * @param modifier
-	 */
-	void addAbilityScoreModifier(AbilityScoreModifier modifier);
-	
-	/**
-	 * removes a modifier from an ability score.
-	 * @param modifier
-	 */
-	void removeAbilityScoreModifier(AbilityScoreModifier modifier);
 }
