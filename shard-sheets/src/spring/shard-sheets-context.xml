@@ -3,26 +3,9 @@
 
 <beans>
 
-	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
 	    <property name="resourceLoaderPath">
 	        <value>file:src/velocity</value>
 	    </property>
 	</bean>
-	
-<!--
-    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-        <property name="resourceLoaderPath">/</property>
-        <property name="velocityProperties">
-           <props>
-               <prop key="resource.loader">class</prop>
-               <prop key="class.resource.loader.class">
-                  org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
-               </prop>
-		      <prop key="file.resource.loader.path">${webapp.root}/WEB-INF/velocity</prop>
-		      <prop key="file.resource.loader.cache">false</prop>
-		   </props>
-        </property>
-     </bean>
--->		      
-
 </beans>
