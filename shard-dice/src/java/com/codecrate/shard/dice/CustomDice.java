@@ -19,6 +19,7 @@ package com.codecrate.shard.dice;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class CustomDice implements Dice {
+	private static final String DICE_CHARACTER = "d";
     private static final String MULTIPLIER = "x";
     private static final String MODIFIER_NEGATIVE = "-";
     private static final String MODIFIER_POSITIVE = "+";
@@ -61,7 +62,7 @@ public class CustomDice implements Dice {
     }
     
     private static int parseDiceSides(String diceString) {
-        int indexOfDice = diceString.indexOf("d");
+        int indexOfDice = diceString.indexOf(DICE_CHARACTER);
         
         int indexOfNextModifier = diceString.indexOf(MODIFIER_POSITIVE);
         if (-1 == indexOfNextModifier) {
@@ -81,7 +82,7 @@ public class CustomDice implements Dice {
         int multiple = 1;
         
         //get multiple dice
-        int indexOfDice = diceString.indexOf("d");
+        int indexOfDice = diceString.indexOf(DICE_CHARACTER);
         if (0 <  indexOfDice) {
             multiple = Integer.parseInt(diceString.substring(0, indexOfDice));
         }
