@@ -23,7 +23,7 @@ public class Party {
         int total = 0;
         Iterator it = characters.iterator(); 
         while (it.hasNext()) {
-            DefaultCharacter character = (DefaultCharacter) it.next();
+            DefaultPlayerCharacter character = (DefaultPlayerCharacter) it.next();
             total += character.getChallengeRating();
         }
         return (int)(total / characters.size());
