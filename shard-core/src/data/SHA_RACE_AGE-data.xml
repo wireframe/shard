@@ -1,0 +1,70 @@
+<!--
+<!DOCTYPE dataset SYSTEM "dataset.dtd">
+use <null/> to specify a null value for an entry
+-->
+
+<dataset>
+    <table name="SHA_RACE_AGE">
+        <column>RACE</column>
+        <column>AGE_ADULT</column>
+        <column>AGE_MIDDLE_AGE</column>
+        <column>AGE_OLD</column>
+        <column>AGE_VENERABLE</column>
+        <row>
+            <value>Human</value>
+            <value>15</value>
+            <value>35</value>
+            <value>53</value>
+            <value>70</value>
+        </row>
+        <row>
+            <value>Dwarf</value>
+            <value>40</value>
+            <value>125</value>
+            <value>188</value>
+            <value>250</value>
+        </row>
+        <row>
+            <value>Elf</value>
+            <value>110</value>
+            <value>175</value>
+            <value>263</value>
+            <value>350</value>
+        </row>
+        <row>
+            <value>Gnome</value>
+            <value>40</value>
+            <value>100</value>
+            <value>150</value>
+            <value>200</value>
+        </row>
+        <row>
+            <value>Half Elf</value>
+            <value>20</value>
+            <value>62</value>
+            <value>93</value>
+            <value>125</value>
+        </row>
+        <row>
+            <value>Half Orc</value>
+            <value>14</value>
+            <value>30</value>
+            <value>45</value>
+            <value>60</value>
+        </row>
+        <row>
+            <value>Half Orc</value>
+            <value>14</value>
+            <value>30</value>
+            <value>45</value>
+            <value>60</value>
+        </row>
+        <row>
+            <value>Halfling</value>
+            <value>20</value>
+            <value>50</value>
+            <value>75</value>
+            <value>100</value>
+        </row>
+    </table>
+</dataset>
