@@ -15,33 +15,50 @@
  */
 package com.codecrate.shard.save;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class SavingThrowContainer {
-	private Map savingThrows;
-
-	public SavingThrowContainer(Map savingThrows) {
-		this.savingThrows = savingThrows;
+	private static final Log LOG = LogFactory.getLog(SavingThrowContainer.class);
+	
+	private SavingThrowEntry reflexSave;
+	private SavingThrowEntry fortitudeSave;
+	private SavingThrowEntry willSave;
+	
+	public SavingThrowContainer() {
+		reflexSave = new SavingThrowEntry(DefaultSavingThrow.REFLEX);
+		fortitudeSave = new SavingThrowEntry(DefaultSavingThrow.FORTITUDE);
+		willSave = new SavingThrowEntry(DefaultSavingThrow.WILLPOWER);
 	}
 	
 	public SavingThrowEntry getReflexSavingThrow() {
-		return getSavingThrowEntry(DefaultSavingThrow.REFLEX);
+		return reflexSave;
 	}
 	
 	public SavingThrowEntry getFortitudeSavingThrow() {
-		return getSavingThrowEntry(DefaultSavingThrow.FORTITUDE);
+		return fortitudeSave;
 	}
 	
 	public SavingThrowEntry getWillpowerSavingThrow() {
-		return getSavingThrowEntry(DefaultSavingThrow.WILLPOWER);
+		return willSave;
 	}
 	
 	public SavingThrowEntry getSavingThrowEntry(SavingThrow save) {
-		return (SavingThrowEntry) savingThrows.get(save);
+		if (DefaultSavingThrow.REFLEX.equals(save)) {
+			return reflexSave;
+		} else if (DefaultSavingThrow.FORTITUDE.equals(save)) {
+			return fortitudeSave;
+		} else if (DefaultSavingThrow.WILLPOWER.equals(save)) {
+			return willSave;
+		}
+		LOG.error("No saving throw entry found for " + save);
+		return null;
 	}
 
 	public Collection getEntries() {
-		return savingThrows.values();
+		return Arrays.asList(new SavingThrowEntry[] {reflexSave, fortitudeSave, willSave});
 	}
 }

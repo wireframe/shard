@@ -61,7 +61,7 @@ public class PrintCharacterActionTest extends TestCase {
 		
 		Map entries = new HashMap();
 		entries.put(DefaultSavingThrow.REFLEX, new SavingThrowEntry(DefaultSavingThrow.REFLEX));
-		SavingThrowContainer savingThrows = new SavingThrowContainer(entries);
+		SavingThrowContainer savingThrows = new SavingThrowContainer();
 		
 		DefaultPlayerCharacter character = new DefaultPlayerCharacter("test",
 				DefaultRace.HUMAN, DefaultGender.MALE,

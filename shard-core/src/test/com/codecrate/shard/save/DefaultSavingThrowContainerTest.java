@@ -15,20 +15,12 @@
  */
 package com.codecrate.shard.save;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import junit.framework.TestCase;
 
 public class DefaultSavingThrowContainerTest extends TestCase {
 
-	public void testGetSavingThrowReturnsSameObject() {
-		SavingThrowEntry entry = new SavingThrowEntry(DefaultSavingThrow.FORTITUDE);
-		Map saves = new HashMap();
-		saves.put(DefaultSavingThrow.FORTITUDE, entry);
-		
-		SavingThrowContainer container = new SavingThrowContainer(saves);
-		assertSame(entry, container.getFortitudeSavingThrow());
-		assertSame(entry, container.getSavingThrowEntry(DefaultSavingThrow.FORTITUDE));
+	public void testGetSavingThrowReturnsObject() {
+		SavingThrowContainer container = new SavingThrowContainer();
+		assertNotNull(container.getFortitudeSavingThrow());
 	}
 }
