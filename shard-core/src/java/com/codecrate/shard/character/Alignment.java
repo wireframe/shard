@@ -21,12 +21,26 @@ package com.codecrate.shard.character;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface Alignment {
+	
+	/**
+	 * gets the name of the alignment.
+	 * ex: Lawful Good.
+	 * @return
+	 */
+	String getName();
+	
+	/**
+	 * gets the abbreviation for the alignment.
+	 * ex: LG for Lawful Good.
+	 * @return
+	 */
+	String getAbbreviation();
+	
     boolean isLawful();
     boolean isChaotic();
     
     /**
      * returns if the alignment is neutral.
-     * TODO: is the alignment true neutral?
      * @return
      */
     boolean isNeutral();

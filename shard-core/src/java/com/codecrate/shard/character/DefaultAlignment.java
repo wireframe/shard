@@ -22,33 +22,45 @@ package com.codecrate.shard.character;
  */
 public class DefaultAlignment implements Alignment {
     public static final Alignment LAWFUL_GOOD = new DefaultAlignment(AlignmentComponent.POSITIVE, 
-        AlignmentComponent.POSITIVE);
+        AlignmentComponent.POSITIVE, "Lawful Good", "LG");
     public static final Alignment LAWFUL_NEUTRAL = new DefaultAlignment(AlignmentComponent.POSITIVE,
-        AlignmentComponent.NEUTRAL);
+        AlignmentComponent.NEUTRAL, "Lawful Neutral", "LN");
     public static final Alignment LAWFUL_EVIL = new DefaultAlignment(AlignmentComponent.POSITIVE,
-        AlignmentComponent.NEGATIVE);
+        AlignmentComponent.NEGATIVE, "Lawful Evil", "LE");
     public static final Alignment NEUTRAL_GOOD = new DefaultAlignment(AlignmentComponent.NEUTRAL, 
-        AlignmentComponent.POSITIVE);
+        AlignmentComponent.POSITIVE, "Neutral Good", "NG");
     public static final Alignment NEUTRAL_NEUTRAL = new DefaultAlignment(AlignmentComponent.NEUTRAL,
-        AlignmentComponent.NEUTRAL);
+        AlignmentComponent.NEUTRAL, "True Neutral", "N");
     public static final Alignment NEUTRAL_EVIL = new DefaultAlignment(AlignmentComponent.NEUTRAL,
-        AlignmentComponent.NEGATIVE);
+        AlignmentComponent.NEGATIVE, "Neutral Evil", "NE");
     public static final Alignment CHAOTIC_GOOD = new DefaultAlignment(AlignmentComponent.NEGATIVE,
-        AlignmentComponent.POSITIVE);
+        AlignmentComponent.POSITIVE, "Chaotic Good", "CG");
     public static final Alignment CHAOTIC_NEUTRAL = new DefaultAlignment(AlignmentComponent.NEGATIVE,
-        AlignmentComponent.NEUTRAL);
+        AlignmentComponent.NEUTRAL, "Chaotic Neutral", "CN");
     public static final Alignment CHAOTIC_EVIL = new DefaultAlignment(AlignmentComponent.NEGATIVE,
-        AlignmentComponent.NEGATIVE);
+        AlignmentComponent.NEGATIVE, "Chaotic Evil", "CE");
 
 
+    private String name;
+    private String abbreviation;
     private AlignmentComponent lawfulAlignment;
     private AlignmentComponent goodAlignment;
 
-    public DefaultAlignment(AlignmentComponent lawfulAlignment, AlignmentComponent goodAlignment) {
+    public DefaultAlignment(AlignmentComponent lawfulAlignment, AlignmentComponent goodAlignment, String name, String abbreviation) {
         this.lawfulAlignment = lawfulAlignment;
         this.goodAlignment = goodAlignment;
+        this.name = name;
+        this.abbreviation = abbreviation;
     }
 
+    public int hashCode() {
+    	return abbreviation.hashCode();
+    }
+    
+    public String toString() {
+    	return name;
+    }
+    
     public boolean equals(Object target) {
         Alignment alignment = (Alignment) target;
         if (isLawful() && !alignment.isLawful()) {
@@ -69,19 +81,19 @@ public class DefaultAlignment implements Alignment {
         return true;
     }
 
+    public boolean isNeutral() {
+        if (lawfulAlignment.isNeutral() && goodAlignment.isNeutral()) {
+            return true;
+        }
+        return false;
+    }
+    
     public boolean isLawful() {
         return lawfulAlignment.isPositive();
     }
 
     public boolean isChaotic() {
         return lawfulAlignment.isNegative();
-    }
-
-    public boolean isNeutral() {
-        if (lawfulAlignment.isNeutral() && goodAlignment.isNeutral()) {
-            return true;
-        }
-        return false;
     }
 
     public boolean isGood() {
@@ -91,4 +103,12 @@ public class DefaultAlignment implements Alignment {
     public boolean isEvil() {
         return goodAlignment.isPositive();
     }
+    
+	public String getAbbreviation() {
+		return abbreviation;
+	}
+	
+	public String getName() {
+		return name;
+	}
 }
