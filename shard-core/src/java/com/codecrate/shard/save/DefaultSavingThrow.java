@@ -15,15 +15,24 @@
  */
 package com.codecrate.shard.save;
 
+import com.codecrate.shard.ability.Ability;
+import com.codecrate.shard.ability.DefaultAbility;
+
 public class DefaultSavingThrow implements SavingThrow {
-    public static final SavingThrow REFLEX = new DefaultSavingThrow("Reflex");
-	public static final SavingThrow FORTITUDE = new DefaultSavingThrow("Fortitude");
-	public static final SavingThrow WILLPOWER = new DefaultSavingThrow("Willpower");
+    public static final SavingThrow REFLEX = new DefaultSavingThrow("Reflex", DefaultAbility.DEXTERITY);
+	public static final SavingThrow FORTITUDE = new DefaultSavingThrow("Fortitude", DefaultAbility.CONSTITUTION);
+	public static final SavingThrow WILLPOWER = new DefaultSavingThrow("Willpower", DefaultAbility.WISDOM);
     
     private final String name;
+    private final Ability ability;
     
-    public DefaultSavingThrow(String name) {
+    public DefaultSavingThrow(String name, Ability ability) {
         this.name = name;
+        this.ability = ability;
+    }
+    
+    public Ability getAbility() {
+        return ability;
     }
     
     public String getName() {

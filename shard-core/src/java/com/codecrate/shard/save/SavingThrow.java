@@ -15,9 +15,17 @@
  */
 package com.codecrate.shard.save;
 
+import com.codecrate.shard.ability.Ability;
+
 public interface SavingThrow {
 
     String getName();
     
     String getAbbreviation();
+    
+    /**
+     * gets the ability used to add additional modifiers.
+     * @return
+     */
+    Ability getAbility();
 }

@@ -15,12 +15,14 @@
  */
 package com.codecrate.shard.save;
 
+import com.codecrate.shard.ability.DefaultAbility;
+
 import junit.framework.TestCase;
 
 public class DefaultSavingThrowTest extends TestCase {
 
 	public void testAbbreviationSubstringOfName() {
-	    DefaultSavingThrow save= new DefaultSavingThrow("throw");
+	    DefaultSavingThrow save= new DefaultSavingThrow("throw", DefaultAbility.STRENGTH);
 		assertEquals("THR", save.getAbbreviation());
 	}
 }
