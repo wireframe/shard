@@ -1,6 +1,7 @@
 package com.codecrate.shard.output;
 
 import java.io.StringWriter;
+import java.util.Date;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -8,6 +9,7 @@ import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 
+import com.codecrate.shard.ShardRuntime;
 import com.codecrate.shard.character.PlayerCharacter;
 
 /**
@@ -20,6 +22,8 @@ public class CharacterOutput {
 	
 	public CharacterOutput(PlayerCharacter character, Template template) {
 		context.put("character", character);
+		context.put("runtime", new ShardRuntime());
+		context.put("date", new Date());
 		this.template = template;
 	}
 	

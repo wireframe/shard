@@ -3,6 +3,7 @@
     <title>$character.name</title>
   </head>
   <body>
+    printed using Shard version $runtime.projectVersion at $date
 	<!-- START General Character Data -->
 	<table>
 	 <tr>
