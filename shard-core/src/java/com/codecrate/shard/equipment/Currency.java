@@ -16,11 +16,18 @@
 package com.codecrate.shard.equipment;
 
 /**
+ * custom currency class.
+ * since the java jdk does not allow us to create custom currencies outside of ISO 
+ * standard currencies, we'll use our own to allow our made up currencies.
+ * The methods should mirror the jdk class as closely as possible to allow for easy
+ * migration to the jdk class in the future if possible. 
  * 
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ * @see java.util.Currency
  */
-public interface Item {
-    int getWeight();
+public interface Currency {
+    String getCurrencyCode();
     
-    Money getCost();
+    int getDefaultFractionDigits();
+    
+    String getSymbol();
 }

@@ -15,12 +15,16 @@
  */
 package com.codecrate.shard.equipment;
 
-/**
- * 
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
- */
-public interface Item {
-    int getWeight();
-    
-    Money getCost();
+public class CurrencyDao {
+    public Currency getCurrency(String currencyCode) {
+        if (DefaultCurrency.COPPER.getCurrencyCode().equals(currencyCode)) {
+            return DefaultCurrency.COPPER;
+        } else if (DefaultCurrency.SILVER.getCurrencyCode().equals(currencyCode)) {
+            return DefaultCurrency.SILVER;
+        } else if (DefaultCurrency.GOLD.getCurrencyCode().equals(currencyCode)) {
+            return DefaultCurrency.GOLD;
+        }
+        throw new IllegalArgumentException("Unknown currency code: " + currencyCode);
+    }
+
 }

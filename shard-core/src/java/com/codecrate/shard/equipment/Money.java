@@ -17,9 +17,8 @@ package com.codecrate.shard.equipment;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
-import java.util.Currency;
-import java.util.Locale;
 
 /**
  * An Object representing Money.  
@@ -30,21 +29,16 @@ import java.util.Locale;
  * @see http://members.shaw.ca/jagarnett/Files/Money_java.html
  */
 public class Money implements Comparable {
-    private static final int[] cents = new int[] { 1, 10, 100, 1000 };
+    private static final int[] CENTS = new int[] { 1, 10, 100, 1000 };
 
-    private static NumberFormat nf = NumberFormat.getInstance();
+    private static NumberFormat FORMATTER = NumberFormat.getInstance();
     static {
-        if (nf instanceof DecimalFormat) {
-            DecimalFormat format = (DecimalFormat) nf;
+        if (FORMATTER instanceof DecimalFormat) {
+            DecimalFormat format = (DecimalFormat) FORMATTER;
             format.applyPattern("#,##0.00 ¤¤");
         }
     }
     
-    /**
-     * You may wish to override this with a known currency of your choosing
-     */
-    private static Currency LOCAL_CURRENCY = Currency.getInstance(Locale.getDefault());
-
     /**
      * Amount of money in currency.
      * <blockquote>
@@ -53,12 +47,12 @@ public class Money implements Comparable {
      *   -Martin Fowler
      * </blockquote>
      */
-    private long amount;
+    private final long amount;
 
     /**
      * Currency amount of money is in.
      */
-    private Currency currency;
+    private final Currency currency;
 
     /**
      * Creates a new money of the provided amount and currency.
@@ -266,54 +260,6 @@ public class Money implements Comparable {
     }
 
     /**
-     * Allocates money "evenly' into n amounts.
-     * 
-     * Modified from the origaionl to handle negative Monetary values.
-     */
-    public Money[] allocate(int n) {
-        Money[] results = new Money[n];
-        Money lowResult = newMoney(amount / n);
-        Money highResult = newMoney(lowResult.amount + (amount >= 0 ? 1 : -1));
-
-        int remainder = Math.abs((int) amount % n);
-        for (int i = 0; i < remainder; i++)
-            results[i] = highResult;
-        for (int i = remainder; i < n; i++)
-            results[i] = lowResult;
-
-        return results;
-    }
-
-    /**
-     * Allocates money according to provided ratios.
-     * 
-     * Modified from the origaionl to handle negative Monetary values.
-     */
-    public Money[] allocate(long[] ratios) {
-        long total = 0;
-        for (int i = 0; i < ratios.length; i++)
-            total += ratios[i];
-        long remainder = amount;
-
-        Money[] results = new Money[ratios.length];
-        for (int i = 0; i < results.length; i++) {
-            results[i] = newMoney(amount * ratios[i] / total);
-            remainder -= results[i].amount;
-        }
-        if (remainder > 0) {
-            for (int i = 0; i < remainder; i++) {
-                results[i].amount++;
-            }
-        }
-        if (remainder < 0) {
-            for (int i = 0; i > remainder; i--) {
-                results[i].amount--;
-            }
-        }
-        return results;
-    }
-
-    /**
      * Money representation (based on currancy).
      * <ul>
      * <li><code>AMOUNT CODE</code>
@@ -346,18 +292,18 @@ public class Money implements Comparable {
      * printing/parsing representation.
      */
     public String toString() {
-        nf.setCurrency(currency);
-        nf.setMinimumFractionDigits(currency.getDefaultFractionDigits());
-        nf.setMaximumFractionDigits(currency.getDefaultFractionDigits());
+//        FORMATTER.setCurrency(currency);
+        if (FORMATTER instanceof DecimalFormat) {
+            DecimalFormat formatter = (DecimalFormat) FORMATTER;
+            DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+            symbols.setInternationalCurrencySymbol(currency.getCurrencyCode());
+            symbols.setCurrencySymbol(currency.getSymbol());
+            formatter.setDecimalFormatSymbols(symbols);
+        }
+        FORMATTER.setMinimumFractionDigits(currency.getDefaultFractionDigits());
+        FORMATTER.setMaximumFractionDigits(currency.getDefaultFractionDigits());
 
-        return nf.format(getAmount().doubleValue());
-    }
-
-    /**
-     * Convience function produces money in the 'local currency'.
-     */
-    public static Money local(double amount) {
-        return new Money(amount, LOCAL_CURRENCY);
+        return FORMATTER.format(getAmount().doubleValue());
     }
 
     /**
@@ -370,15 +316,21 @@ public class Money implements Comparable {
      * @return Money
      */
     public static Money valueOf(String str) throws java.text.ParseException {
-        Currency currency;
-        Number number;
-        currency = Currency.getInstance(str.substring(str.length() - 3));
+        Currency currency = new CurrencyDao().getCurrency(str.substring(str.length() - 3));
+        //Currency.getInstance(str.substring(str.length() - 3));
+        //FORMATTER.setCurrency(currency);
+        if (FORMATTER instanceof DecimalFormat) {
+            DecimalFormat formatter = (DecimalFormat) FORMATTER;
+            DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+            symbols.setInternationalCurrencySymbol(currency.getCurrencyCode());
+            symbols.setCurrencySymbol(currency.getSymbol());
+            formatter.setDecimalFormatSymbols(symbols);
+        }
+        
+        FORMATTER.setMinimumFractionDigits(currency.getDefaultFractionDigits());
+        FORMATTER.setMaximumFractionDigits(currency.getDefaultFractionDigits());
 
-        nf.setCurrency(currency);
-        nf.setMinimumFractionDigits(currency.getDefaultFractionDigits());
-        nf.setMaximumFractionDigits(currency.getDefaultFractionDigits());
-
-        number = nf.parse(str);
+        Number number = FORMATTER.parse(str);
         return new Money(number.doubleValue(), currency);
     }
 
@@ -404,6 +356,6 @@ public class Money implements Comparable {
     }
 
     private int centFactor() {
-        return cents[currency.getDefaultFractionDigits()];
+        return CENTS[currency.getDefaultFractionDigits()];
     }
 }
