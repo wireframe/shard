@@ -21,7 +21,10 @@ import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class SavingThrowEntryContainer {
+import com.codecrate.shard.KeyedModifier;
+import com.codecrate.shard.KeyedModifierContainer;
+
+public class SavingThrowEntryContainer implements KeyedModifierContainer {
 	private static final Log LOG = LogFactory.getLog(SavingThrowEntryContainer.class);
 	
 	private SavingThrowEntry reflexSave;
@@ -61,4 +64,24 @@ public class SavingThrowEntryContainer {
 	public Collection getEntries() {
 		return Arrays.asList(new SavingThrowEntry[] {reflexSave, fortitudeSave, willSave});
 	}
+
+    public void addModifier(KeyedModifier modifier) {
+        SavingThrow save = (SavingThrow) modifier.getKey();
+        SavingThrowEntry entry = getSavingThrowEntry(save);
+        if (null == entry) {
+            LOG.info("Cannot attach modifier without saving throw entry: " + save);
+        } else {
+            entry.addModifier(modifier);
+        }
+    }
+
+    public void removeModifier(KeyedModifier modifier) {
+        SavingThrow save = (SavingThrow) modifier.getKey();
+        SavingThrowEntry entry = getSavingThrowEntry(save);
+        if (null == entry) {
+            LOG.info("Cannot remove modifier without saving throw entry: " + save);
+        } else {
+            entry.removeModifier(modifier);
+        }
+    }
 }

@@ -17,10 +17,12 @@ package com.codecrate.shard.skill;
 
 import java.util.Collection;
 
+import com.codecrate.shard.KeyedModifierContainer;
+
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface SkillEntryContainer {
+public interface SkillEntryContainer extends KeyedModifierContainer {
     Collection getSkills();
 
     boolean hasSkill(Skill skill);
@@ -30,10 +32,4 @@ public interface SkillEntryContainer {
     int getMaxClassSkillLevel();
 
     int getMaxCrossClassSkillLevel();
-
-    /**
-     * add a new skill entry to the container.
-     * @param entry 
-     */
-    void addEntry(SkillEntry entry);
 }

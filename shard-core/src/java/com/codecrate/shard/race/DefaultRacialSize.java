@@ -20,11 +20,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import com.codecrate.shard.DefaultKeyedModifier;
 import com.codecrate.shard.DefaultModifier;
+import com.codecrate.shard.KeyedModifier;
 import com.codecrate.shard.Modifier;
 import com.codecrate.shard.armorclass.DefaultArmorClass;
 import com.codecrate.shard.skill.DefaultSkill;
-import com.codecrate.shard.skill.SkillEntryModifier;
 
 /**
  * Note: Large or larger creatures using reach weapons can strike up to double their natural reach 
@@ -52,8 +53,8 @@ public class DefaultRacialSize implements RacialSize {
 	public static final RacialSize SMALL = new DefaultRacialSize(
 			"Small", 1,
 			new DefaultModifier(DefaultArmorClass.SIZE, 1),
-			new BigDecimal("5"), 5, Arrays.asList(new SkillEntryModifier[] {
-					new SkillEntryModifier(DefaultSkill.HIDE, new DefaultModifier(DefaultSkill.TYPE_SIZE, 4))}),
+			new BigDecimal("5"), 5, Arrays.asList(new KeyedModifier[] {
+					new DefaultKeyedModifier(DefaultSkill.HIDE, DefaultSkill.TYPE_SIZE, 4)}),
 					new BigDecimal(".75"));
 
 	public static final RacialSize MEDIUM = new DefaultRacialSize(

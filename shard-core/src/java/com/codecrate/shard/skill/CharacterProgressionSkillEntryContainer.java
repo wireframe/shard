@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.codecrate.shard.KeyedModifier;
 import com.codecrate.shard.character.CharacterLevel;
 import com.codecrate.shard.character.CharacterProgression;
 import com.codecrate.shard.kit.CharacterClass;
@@ -32,35 +33,29 @@ public class CharacterProgressionSkillEntryContainer implements SkillEntryContai
     private final SkillEntryContainer delegate;
 
     public CharacterProgressionSkillEntryContainer(CharacterProgression progression) {
+        delegate = new DefaultSkillEntryContainer(new HashMap(), progression.getCharacterLevel());
+        
         Map classesUsed = new HashMap();
-        Map entries = new HashMap();
         Iterator levels = progression.getCharacterLevels().iterator();
         while (levels.hasNext()) {
             CharacterLevel level = (CharacterLevel) levels.next();
             CharacterClass kit = level.getClassLevel().getCharacterClass();
             if (null == classesUsed.get(kit)) {
                 Collection grantedSkills = kit.getSkills();
-                populateEntries(entries, grantedSkills);
+                populateEntries(grantedSkills);
                 classesUsed.put(kit, Boolean.TRUE);
             }
             
             Collection ranks = level.getSkillRanks();
-            populateEntries(entries, ranks);
+            populateEntries(ranks);
         }
-        delegate = new DefaultSkillEntryContainer(entries, progression.getCharacterLevel());
     }
     
-    private void populateEntries(Map entries, Collection modifiers) {
+    private void populateEntries(Collection modifiers) {
         Iterator skills = modifiers.iterator();
         while (skills.hasNext()) {
-            SkillEntryModifier rank = (SkillEntryModifier) skills.next();
-            Skill skill = rank.getSkill();
-            if (!entries.containsKey(skill)) {
-                SkillEntry entry = new SkillEntry(skill);
-                entries.put(skill, entry);
-            } 
-            SkillEntry skillEntry = (SkillEntry) entries.get(skill);
-            skillEntry.addModifier(rank.getModifier());
+            KeyedModifier rank = (KeyedModifier) skills.next();
+            addModifier(rank);
         }
     }
     
@@ -79,7 +74,10 @@ public class CharacterProgressionSkillEntryContainer implements SkillEntryContai
     public boolean hasSkill(Skill skill) {
         return delegate.hasSkill(skill);
     }
-    public void addEntry(SkillEntry entry) {
-        delegate.addEntry(entry);
+    public void addModifier(KeyedModifier modifier) {
+        delegate.addModifier(modifier);
+    }
+    public void removeModifier(KeyedModifier modifier) {
+        delegate.removeModifier(modifier);
     }
 }

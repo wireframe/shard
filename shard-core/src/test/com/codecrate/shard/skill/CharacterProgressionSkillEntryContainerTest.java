@@ -22,7 +22,8 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.DefaultModifier;
+import com.codecrate.shard.DefaultKeyedModifier;
+import com.codecrate.shard.KeyedModifier;
 import com.codecrate.shard.character.CharacterLevel;
 import com.codecrate.shard.character.CharacterProgression;
 import com.codecrate.shard.kit.DefaultCharacterClass;
@@ -36,8 +37,8 @@ public class CharacterProgressionSkillEntryContainerTest extends TestCase {
         level.getClassLevel();
         mockLevel.setReturnValue(new DefaultClassLevel(1, DefaultCharacterClass.BARBARIAN, 1, 1, 1, 1));
         level.getSkillRanks();
-        mockLevel.setReturnValue(Arrays.asList(new SkillEntryModifier[] {
-                new SkillEntryModifier(DefaultSkill.SWIM, new DefaultModifier(DefaultSkill.TYPE_RANK, 1))}));
+        mockLevel.setReturnValue(Arrays.asList(new KeyedModifier[] {
+                new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultSkill.TYPE_RANK, 1)}));
         mockLevel.replay();
         
         MockControl mockProgression = MockControl.createControl(CharacterProgression.class);
@@ -59,8 +60,8 @@ public class CharacterProgressionSkillEntryContainerTest extends TestCase {
         level1.getClassLevel();
         mockLevel1.setReturnValue(new DefaultClassLevel(1, DefaultCharacterClass.BARBARIAN, 1, 1, 1, 1));
         level1.getSkillRanks();
-        mockLevel1.setReturnValue(Arrays.asList(new SkillEntryModifier[] {
-                new SkillEntryModifier(DefaultSkill.SWIM, new DefaultModifier(DefaultSkill.TYPE_RANK, 1))}));
+        mockLevel1.setReturnValue(Arrays.asList(new KeyedModifier[] {
+                new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultSkill.TYPE_RANK, 1)}));
         mockLevel1.replay();
 
         MockControl mockLevel2 = MockControl.createControl(CharacterLevel.class);
@@ -68,8 +69,8 @@ public class CharacterProgressionSkillEntryContainerTest extends TestCase {
         level2.getClassLevel();
         mockLevel2.setReturnValue(new DefaultClassLevel(1, DefaultCharacterClass.BARBARIAN, 1, 1, 1, 1));
         level2.getSkillRanks();
-        mockLevel2.setReturnValue(Arrays.asList(new SkillEntryModifier[] {
-                new SkillEntryModifier(DefaultSkill.SWIM, new DefaultModifier(DefaultSkill.TYPE_RANK, 1))}));
+        mockLevel2.setReturnValue(Arrays.asList(new KeyedModifier[] {
+                new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultSkill.TYPE_RANK, 1)}));
         mockLevel2.replay();
 
         MockControl mockProgression = MockControl.createControl(CharacterProgression.class);

@@ -21,6 +21,8 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.codecrate.shard.KeyedModifier;
+
 public class DefaultSkillEntryContainer implements SkillEntryContainer {
 	private static final Log LOG = LogFactory.getLog(DefaultSkillEntryContainer.class);
 
@@ -60,7 +62,24 @@ public class DefaultSkillEntryContainer implements SkillEntryContainer {
 		return getMaxClassSkillLevel() / 2;
 	}
 
-    public void addEntry(SkillEntry entry) {
-        skills.put(entry.getSkill(), entry);
+    public void addModifier(KeyedModifier modifier) {
+        Skill skill = (Skill) modifier.getKey();
+        SkillEntry skillEntry = getSkillEntry(skill);
+        if (null == skillEntry) {
+            LOG.info("Container does not currently have skill: " + skill);
+            skillEntry = new SkillEntry(skill);
+            skills.put(skill, skillEntry);
+        } 
+        skillEntry.addModifier(modifier);
+    }
+
+    public void removeModifier(KeyedModifier modifier) {
+        Skill skill = (Skill) modifier.getKey();
+        if (!hasSkill(skill)) {
+            LOG.info("Cannot remove modifier without skill: " + skill);
+        } else {
+            SkillEntry skillEntry = getSkillEntry(skill);
+            skillEntry.removeModifier(modifier);
+        }
     }
 }
