@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <projectDescription>
-  <name>shard-core</name>
-  <comment>shard core module</comment>
+  <name>shard-hibernate</name>
+  <comment>shard hibernate module</comment>
   <projects>
     <project>shard-dice</project>
     <project>shard-core</project>

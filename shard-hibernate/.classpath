@@ -3,11 +3,11 @@
 <classpath>
   <classpathentry excluding="" kind="src" path="src/java">
   </classpathentry>
+  <classpathentry excluding="" including="**/*.xml|**/*.properties|" kind="src" path="src/hibernate">
+  </classpathentry>
   <classpathentry output="target/test-classes" kind="src" path="src/test">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.1.jar">
-  </classpathentry>
-  <classpathentry output="target/test-classes" excluding="" including="**/*.xml|**/*.properties|" kind="src" path="src/hibernate">
   </classpathentry>
   <classpathentry output="target/test-classes" excluding="" including="**/*.xml|" kind="src" path="src/data">
   </classpathentry>
