@@ -165,7 +165,7 @@ public class DefaultSkill implements Skill {
         return usableUntrained;
     }
 
-    public Collection getSkillSynergies() {
+    public Collection getChildSkillSynergies() {
     	if (null == skillSynergies) {
             this.skillSynergies = skillDao.getSynergeticSkills(this);
     	}

@@ -227,10 +227,38 @@ use <null/> to specify a null value for an entry
     
     <table name="SHA_SKILL_SYNERGY">
         <column>ID</column>
-        <column>SYNERGETIC_SKILL_ID</column>
+        <column>CHILD_SKILL_ID</column>
         <row>
-            <value>Balance</value>
             <value>Tumble</value>
+            <value>Balance</value>
+        </row>
+        <row>
+            <value>Tumble</value>
+            <value>Jump</value>
+        </row>
+        <row>
+            <value>Jump</value>
+            <value>Tumble</value>
+        </row>
+        <row>
+            <value>Bluff</value>
+            <value>Disguise</value>
+        </row>
+        <row>
+            <value>Bluff</value>
+            <value>Intimidate</value>
+        </row>
+        <row>
+            <value>Bluff</value>
+            <value>Sleight of Hand</value>
+        </row>
+        <row>
+            <value>Handle Animal</value>
+            <value>Ride</value>
+        </row>
+        <row>
+            <value>Sense Motive</value>
+            <value>Diplomacy</value>
         </row>
     </table>
 </dataset>

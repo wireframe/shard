@@ -28,7 +28,7 @@ public class HibernateSkill implements Skill, Identifiable {
     private Ability ability;
     private boolean usableUntrained;
     private boolean armorCheckPenalty;
-    private Collection skillSynergies;
+    private Collection childSkillSynergies;
 
     /**
      * hibernate constructor.
@@ -68,22 +68,23 @@ public class HibernateSkill implements Skill, Identifiable {
         return usableUntrained;
     }
 
-    public Collection getSkillSynergies() {
-        return skillSynergies;
+    public Collection getChildSkillSynergies() {
+        return childSkillSynergies;
     }
 
+    /**
+     * @param skillSynergies The skillSynergies to set.
+     */
+    public void setChildSkillSynergies(Collection childSkillSynergies) {
+        this.childSkillSynergies = childSkillSynergies;
+    }
+    
     public boolean hasArmorCheckPenalty() {
         return armorCheckPenalty;
     }
     
     public boolean isArmorCheckPenalty() {
         return armorCheckPenalty;
-    }
-    /**
-     * @param skillSynergies The skillSynergies to set.
-     */
-    public void setSkillSynergies(Collection skillSynergies) {
-        this.skillSynergies = skillSynergies;
     }
     /**
      * @param usableUntrained The usableUntrained to set.

@@ -40,14 +40,13 @@ public interface Skill {
 	boolean isUsableUntrained();
 	
 	/**
-	 * gets the skills that this skill has synergy with.
-	 * this returns the "parent" synergies of a given skill.  meaning 
-	 * you need 5+ ranks in the given skills to get a +2 bonus on the 
-	 * current skill.
-	 * ex: +2 bonus for Jump if 5+ ranks in Tumble.
+	 * gets the skills that this skill grants a synergy bonus to.
+	 * a skill entry needs 5+ ranks in this skill 
+	 * to grant a +2 bonus on the child skills.
+	 * ex: if 5+ ranks in Tumble, +2 bonus for Jump 
 	 * @return
 	 */
-	Collection getSkillSynergies();
+	Collection getChildSkillSynergies();
 
     /**
      * boolean flag for if the skill has an armor check penalty.

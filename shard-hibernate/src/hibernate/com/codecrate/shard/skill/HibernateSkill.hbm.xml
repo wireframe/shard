@@ -25,12 +25,12 @@
          column="ABILITY" 
          cascade="all"/>
          
-        <set name="skillSynergies"
+        <set name="childSkillSynergies"
          lazy="false"
          table="SHA_SKILL_SYNERGY">
           <key column="ID"/>
           <many-to-many class="com.codecrate.shard.skill.HibernateSkill"
-           column="SYNERGETIC_SKILL_ID"/>
+           column="CHILD_SKILL_ID"/>
     </set>        
     </class>
 
