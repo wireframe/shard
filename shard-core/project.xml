@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+  <extend>${basedir}/../shard-root/project.xml</extend>
+  <pomVersion>3</pomVersion>
+  <groupId>shard</groupId>
+  <id>shard-core</id>
+  <name>shard core module</name>
+  <description>shard core module</description>
+  <shortDescription>shard core module</shortDescription>
+  
+  <dependencies>
+    <dependency>
+      <groupId>shard</groupId>
+      <artifactId>shard-dice</artifactId>
+      <version>SNAPSHOT</version>
+      <properties>
+        <eclipse.dependency>true</eclipse.dependency>
+      </properties>
+    </dependency>
+  </dependencies>
+    
+  <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/conf</directory>
+        <includes>
+          <include>**/*.xml</include>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+    
+  	<unitTest>
+      <resources>
+        <resource>
+          <directory>${basedir}/src/test</directory>
+          <includes>
+            <include>**/*.xml</include>
+          </includes>
+        </resource>
+      </resources>
+    </unitTest>
+  </build>  
+</project>
