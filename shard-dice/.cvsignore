@@ -4,3 +4,4 @@ target
 log
 bpi.ser
 logs
+jcoverage.ser
