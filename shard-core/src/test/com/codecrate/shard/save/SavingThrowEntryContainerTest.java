@@ -23,4 +23,10 @@ public class SavingThrowEntryContainerTest extends TestCase {
 		SavingThrowEntryContainer container = new SavingThrowEntryContainer();
 		assertNotNull(container.getFortitudeSavingThrow());
 	}
+
+	public void testLookupByKeyReturnsSameAsActualCall() {
+		SavingThrowEntryContainer container = new SavingThrowEntryContainer();
+		assertSame(container.getReflexSavingThrow(), container.getSavingThrowEntry(DefaultSavingThrow.REFLEX));
+	    
+	}
 }
