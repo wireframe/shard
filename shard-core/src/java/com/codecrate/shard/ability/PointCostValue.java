@@ -28,13 +28,8 @@ public class PointCostValue {
      * @return Returns the abilityScore.
      * 
      * @hibernate.id
-     *  column="ABILITY_SCORE"
-     *  type="int"
-     *  unsaved-value="null"
-     *  length="3"
      *  generator-class="uuid.hex"
-     *  sql-type="char(32)"
-     *  not-null="true"
+     *  length="3"
      */
     public int getAbilityScore() {
         return abilityScore;
@@ -43,7 +38,6 @@ public class PointCostValue {
      * @return Returns the pointCost.
      * 
      * @hibernate.property
-     *  name="POINT_COST"
      *  length="3"
      *  not-null="true"
      */
