@@ -15,17 +15,27 @@
  */
 package com.codecrate.shard.skill;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class SkillEntry {
 
 	private final Skill skill;
-	private final int ranks;
+	private Collection modifiers = new ArrayList();
 
-	public SkillEntry(Skill skill, int ranks) {
+	public SkillEntry(Skill skill) {
 		this.skill = skill;
-		this.ranks = ranks;
 	}
 	
-	public int getModifier() {
-		return ranks;
+	public void addModifier(SkillModifier modifier) {
+		modifiers.add(modifier);
+	}
+	
+	public void removeModifier(SkillModifier modifier) {
+		modifiers.remove(modifier);
+	}
+	
+	public Collection getModifiers() {
+		return modifiers;
 	}
 }

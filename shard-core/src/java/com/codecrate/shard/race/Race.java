@@ -17,6 +17,7 @@ package com.codecrate.shard.race;
 
 import java.util.Collection;
 
+import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Movement;
 
 /**
@@ -83,9 +84,22 @@ public interface Race {
 	 * @return
 	 */
 	Vision getVision();
+
+	/**
+	 * gets the skill modifiers for the race.
+	 * ex: Elves have +2 bonus to listen.
+	 * @return
+	 */
+	Collection getSkillModifiers();
+
+	/**
+	 * gets the favored class for this race.
+	 * the favored class is used to determine whether or not an EXP penaly 
+	 * applies to multiclassed characters.
+	 * @return the favored class or null if no favored class.
+	 */
+	CharacterClass getFavoredClass();
     
     //boolean isImmuneToCriticalHits();
-    //getFavoredClass();
-    //skill modifiers
     //saving throw modifiers
 }

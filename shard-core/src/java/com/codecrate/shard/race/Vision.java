@@ -30,5 +30,5 @@ public interface Vision {
 	/**
 	 * @return
 	 */
-	int getDistance();
+	int getDarkDistance();
 }

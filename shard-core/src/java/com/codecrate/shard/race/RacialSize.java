@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.race;
 
+import java.util.Collection;
+
 import com.codecrate.shard.armorclass.ArmorClassModifier;
 
 /**
@@ -47,4 +49,11 @@ public interface RacialSize  {
 	 * @return
 	 */
 	int getReach();
+
+	/**
+	 * gets the skill modifiers imposed on this size.
+	 * ex: small characters get +4 bonus to hide.
+	 * @return
+	 */
+	Collection getSkillModifiers();
 }

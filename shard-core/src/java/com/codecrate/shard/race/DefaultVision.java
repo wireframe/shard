@@ -22,23 +22,29 @@ package com.codecrate.shard.race;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultVision implements Vision {
-	public static final Vision NORMAL = new DefaultVision("Normal", 30);
-	public static final Vision LOW_LIGHT_VISION = new DefaultVision("Low-Light", 60);
-	public static final Vision DARKVISION = new DefaultVision("Darkvision", 90);
+	public static final Vision NORMAL = new DefaultVision("Normal", 0, 0);
+	public static final Vision LOW_LIGHT_VISION = new DefaultVision("Low-Light", 0, 2);
+	public static final Vision DARKVISION = new DefaultVision("Darkvision", 60, 0);
 	
 	private final String name;
 	private final int distance;
+	private final int lightMultiplier;
 	
-	public DefaultVision(String name, int distance) {
+	public DefaultVision(String name, int distance, int lightMultiplier) {
 		this.name = name;
 		this.distance = distance;
+		this.lightMultiplier = lightMultiplier;
 	}
 	
 	public String getName() {
 		return name;
 	}
 	
-	public int getDistance() {
+	public int getDarkDistance() {
 		return distance;
+	}
+	
+	public int getLightMultiplier() {
+		return lightMultiplier;
 	}
 }
