@@ -5,7 +5,7 @@
   <groupId>shard</groupId>
   <id>shard-root</id>
   <name>shard root module</name>
-  <currentVersion>0.1.0</currentVersion>
+  <currentVersion>0.1.0-SNAPSHOT</currentVersion>
 
   <organization>
     <name>codecrate consulting</name>
@@ -117,10 +117,10 @@
     </dependency>
     
     <dependency>
-      <groupId>maven</groupId>
+      <groupId>maven-plugins</groupId>
       <artifactId>maven-findbugs-plugin</artifactId>
       <type>plugin</type>
-      <version>0.8.2</version>
+      <version>0.8.4</version>
       <url>http://maven-plugins.sourceforge.net/maven-findbugs-plugin/index.html</url>
     </dependency>
   </dependencies>

@@ -32,6 +32,10 @@ public class DefaultMovement implements Movement {
 		this.baseMovementRate = baseMovementRate;
 	}
 	
+	public String toString() {
+	    return Integer.toString(baseMovementRate);
+	}
+	
 	public int getBaseMovementRate() {
 		return baseMovementRate;
 	}
