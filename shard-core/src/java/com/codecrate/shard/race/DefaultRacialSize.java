@@ -13,10 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character.race;
+package com.codecrate.shard.race;
 
-import com.codecrate.shard.character.armorclass.ArmorClassModifier;
-import com.codecrate.shard.character.armorclass.DefaultArmorClass;
+import com.codecrate.shard.armorclass.ArmorClassModifier;
+import com.codecrate.shard.armorclass.DefaultArmorClass;
 
 /**
  * 

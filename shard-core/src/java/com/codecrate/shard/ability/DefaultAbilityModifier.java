@@ -13,30 +13,30 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character.ability;
-
-import java.util.HashMap;
-import java.util.Map;
+package com.codecrate.shard.ability;
 
 /**
+ * Helper class to easily work with ability modifiers.
+ * provides basic defaults for how ability modifiers should work.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DefaultAbilityContainer implements AbilityContainer {
-	public static final String STRENGTH = "strength";
-	public static final String DEXTERITY = "dexterity";
-	public static final String CONSTITUTION = "constitution";
-	public static final String WISDOM = "wisdom";
-	public static final String INTELLIGENCE = "intelligence";
-	public static final String CHARISMA = "charisma";
-	
-	private Map scores = new HashMap();
-	
-	public Ability getAbility(String name) {
-		return (Ability) scores.get(name);
+public class DefaultAbilityModifier implements AbilityModifier {
+
+	private final String abilityName;
+	private final int modifier;
+
+	public DefaultAbilityModifier(String abilityName, int modifier) {
+		this.abilityName = abilityName;
+		this.modifier = modifier;
 	}
-	
-	public void setAbility(String name, Ability ability) {
-		scores.put(name, ability);
+
+	public String getAbilityName() {
+		return abilityName;
 	}
+
+	public int getModifier() {
+		return modifier;
+	}
+
 }

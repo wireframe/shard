@@ -13,30 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character.ability;
+package com.codecrate.shard.movement;
 
 /**
- * Helper class to easily work with ability modifiers.
- * provides basic defaults for how ability modifiers should work.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DefaultAbilityModifier implements AbilityModifier {
+public interface Movement {
 
-	private final String abilityName;
-	private final int modifier;
-
-	public DefaultAbilityModifier(String abilityName, int modifier) {
-		this.abilityName = abilityName;
-		this.modifier = modifier;
-	}
-
-	public String getAbilityName() {
-		return abilityName;
-	}
-
-	public int getModifier() {
-		return modifier;
-	}
-
+	/**
+	 * @return
+	 */
+	int getBaseMovementRate(); 
 }

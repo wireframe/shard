@@ -13,11 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character.ability;
+package com.codecrate.shard.ability;
 
 import junit.framework.TestCase;
 
 import org.easymock.MockControl;
+
+import com.codecrate.shard.ability.AbilityModifier;
+import com.codecrate.shard.ability.DefaultAbility;
 
 public class DefaultAbilityTest extends TestCase {
 

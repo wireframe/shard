@@ -13,15 +13,17 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character.armorclass;
+package com.codecrate.shard.armorclass;
 
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface ArmorClassModifier {
+public interface ArmorClass {
 
-	String getModifierType();
+	int getValue();
 	
-	int getModifier();
+	void addArmorClassModifier(ArmorClassModifier modifier);
+	
+	void removeArmorClassModifier(ArmorClassModifier modifier);
 }

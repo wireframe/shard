@@ -13,17 +13,42 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character.armorclass;
+package com.codecrate.shard.ability;
 
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface ArmorClass {
+public interface Ability {
+	/**
+	 * gets the name of the ability. 
+	 * @return
+	 */
+	String getName();
+	
+	/**
+	 * gets the current value of the ability.
+	 * includes modifiers.
+	 * @return value.
+	 */
+	int getScore();
 
-	int getValue();
-	
-	void addArmorClassModifier(ArmorClassModifier modifier);
-	
-	void removeArmorClassModifier(ArmorClassModifier modifier);
+	/**
+	 * gets the bonus from the ability value.
+	 * ex: value of 10 = bonus of 0
+	 * @return bonus.
+	 */
+	int getModifier();
+
+	/**
+	 * adds a modifier to the ability.
+	 * @param modifier
+	 */
+	void addAbilityModifier(AbilityModifier modifier);
+
+	/**
+	 * removes a modifier from the ability.
+	 * @param modifier
+	 */
+	void removeAbilityModifier(AbilityModifier modifier);
 }

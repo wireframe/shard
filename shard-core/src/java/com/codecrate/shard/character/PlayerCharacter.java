@@ -15,7 +15,7 @@
  */
 package com.codecrate.shard.character;
 
-import com.codecrate.shard.character.ability.AbilityContainer;
+import com.codecrate.shard.ability.AbilityContainer;
 
 /**
  * 

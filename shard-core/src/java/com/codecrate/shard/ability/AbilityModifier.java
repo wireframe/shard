@@ -13,42 +13,27 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character.ability;
+package com.codecrate.shard.ability;
 
 /**
+ * Define AbilityModifier interface.
+ * Ability modifiers can come from a variety of sources, but their purpose 
+ * is to just modify an ability score.  Ex: Elf characters have bonus to DEX.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface Ability {
+public interface AbilityModifier {
+
 	/**
-	 * gets the name of the ability. 
-	 * @return
+	 * gets the identifier of what ability to modify.
+	 * @return ability name that modifier applies to.
 	 */
-	String getName();
+	String getAbilityName();
 	
 	/**
-	 * gets the current value of the ability.
-	 * includes modifiers.
-	 * @return value.
-	 */
-	int getScore();
-
-	/**
-	 * gets the bonus from the ability value.
-	 * ex: value of 10 = bonus of 0
-	 * @return bonus.
+	 * gets the modifier for the ability.
+	 * usually ranges from -5 to 5.
+	 * @return int modifier value.
 	 */
 	int getModifier();
-
-	/**
-	 * adds a modifier to the ability.
-	 * @param modifier
-	 */
-	void addAbilityModifier(AbilityModifier modifier);
-
-	/**
-	 * removes a modifier from the ability.
-	 * @param modifier
-	 */
-	void removeAbilityModifier(AbilityModifier modifier);
 }

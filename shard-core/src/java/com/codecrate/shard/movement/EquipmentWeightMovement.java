@@ -13,26 +13,22 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character;
+package com.codecrate.shard.movement;
+
+import com.codecrate.shard.equipment.ItemContainer;
+import com.codecrate.shard.race.RacialSize;
 
 /**
- * Default implementation of movement handles base movement rate.
- * can be used as base movement rate for races.  ex: human=30
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DefaultMovement implements Movement {
+public class EquipmentWeightMovement implements Movement {
 
-	private int baseMovementRate;
-	
-	public DefaultMovement(int baseMovementRate) {
-		if (0 > baseMovementRate) {
-			throw new IllegalArgumentException("Base movement rate can not be lower than zero.");
-		}
-		this.baseMovementRate = baseMovementRate;
+	public EquipmentWeightMovement(ItemContainer container, RacialSize size) {
+		
 	}
 	
 	public int getBaseMovementRate() {
-		return baseMovementRate;
+		return 0;
 	}
 }

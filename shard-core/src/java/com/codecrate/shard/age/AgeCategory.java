@@ -13,29 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character.ability;
+package com.codecrate.shard.age;
+
+import java.util.Collection;
 
 /**
- * Defines an interface for objects that contain Abilities.
- * the caller must be aware that not all ability containers 
- * will have all abilities.  ex: some creatures do not have a
- * strength ability, like wraithes.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface AbilityContainer {
-	
-	/**
-	 * gets an ability with the specified name.
-	 * @param name
-	 * @return the ability or null if not found.
-	 */
-	Ability getAbility(String name);
+public interface AgeCategory {
+	String getName();
 
-	/**
-	 * sets the ability.
-	 * @param name
-	 * @param ability
-	 */
-	void setAbility(String name, Ability ability);
+	Collection getAbilityModifiers();
 }

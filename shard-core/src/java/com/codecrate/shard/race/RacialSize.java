@@ -13,16 +13,20 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character;
+package com.codecrate.shard.race;
+
+import com.codecrate.shard.armorclass.ArmorClassModifier;
 
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface Movement {
-
-	/**
-	 * @return
-	 */
-	int getBaseMovementRate(); 
+public interface RacialSize extends ArmorClassModifier {
+    int getBaseAttackBonusModifier();
+    
+    //small characters 3/4 max weight of medium.
+    //float getMaxWeightModifier();
+    
+    //small characters 2/3 max weight of medium.
+    //int getMovementRateModifier();
 }

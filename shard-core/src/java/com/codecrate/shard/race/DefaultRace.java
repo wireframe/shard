@@ -13,17 +13,17 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character.race;
+package com.codecrate.shard.race;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.codecrate.shard.character.DefaultMovement;
-import com.codecrate.shard.character.Movement;
-import com.codecrate.shard.character.ability.AbilityModifier;
-import com.codecrate.shard.character.ability.DefaultAbilityContainer;
-import com.codecrate.shard.character.ability.DefaultAbilityModifier;
+import com.codecrate.shard.ability.AbilityModifier;
+import com.codecrate.shard.ability.DefaultAbilityContainer;
+import com.codecrate.shard.ability.DefaultAbilityModifier;
+import com.codecrate.shard.movement.DefaultMovement;
+import com.codecrate.shard.movement.Movement;
 
 /**
  * <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>

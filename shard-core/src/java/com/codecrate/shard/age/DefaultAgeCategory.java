@@ -13,15 +13,15 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character.age;
+package com.codecrate.shard.age;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.codecrate.shard.character.ability.AbilityModifier;
-import com.codecrate.shard.character.ability.DefaultAbilityContainer;
-import com.codecrate.shard.character.ability.DefaultAbilityModifier;
+import com.codecrate.shard.ability.AbilityModifier;
+import com.codecrate.shard.ability.DefaultAbilityContainer;
+import com.codecrate.shard.ability.DefaultAbilityModifier;
 
 /**
  * Default age category definition.

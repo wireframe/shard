@@ -13,27 +13,26 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character.ability;
+package com.codecrate.shard.movement;
 
 /**
- * Define AbilityModifier interface.
- * Ability modifiers can come from a variety of sources, but their purpose 
- * is to just modify an ability score.  Ex: Elf characters have bonus to DEX.
+ * Default implementation of movement handles base movement rate.
+ * can be used as base movement rate for races.  ex: human=30
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface AbilityModifier {
+public class DefaultMovement implements Movement {
 
-	/**
-	 * gets the identifier of what ability to modify.
-	 * @return ability name that modifier applies to.
-	 */
-	String getAbilityName();
+	private int baseMovementRate;
 	
-	/**
-	 * gets the modifier for the ability.
-	 * usually ranges from -5 to 5.
-	 * @return int modifier value.
-	 */
-	int getModifier();
+	public DefaultMovement(int baseMovementRate) {
+		if (0 > baseMovementRate) {
+			throw new IllegalArgumentException("Base movement rate can not be lower than zero.");
+		}
+		this.baseMovementRate = baseMovementRate;
+	}
+	
+	public int getBaseMovementRate() {
+		return baseMovementRate;
+	}
 }

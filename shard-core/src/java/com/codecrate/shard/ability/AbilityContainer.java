@@ -13,22 +13,29 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character;
-
-import com.codecrate.shard.character.race.RacialSize;
-import com.codecrate.shard.equipment.ItemContainer;
+package com.codecrate.shard.ability;
 
 /**
+ * Defines an interface for objects that contain Abilities.
+ * the caller must be aware that not all ability containers 
+ * will have all abilities.  ex: some creatures do not have a
+ * strength ability, like wraithes.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class EquipmentWeightMovement implements Movement {
-
-	public EquipmentWeightMovement(ItemContainer container, RacialSize size) {
-		
-	}
+public interface AbilityContainer {
 	
-	public int getBaseMovementRate() {
-		return 0;
-	}
+	/**
+	 * gets an ability with the specified name.
+	 * @param name
+	 * @return the ability or null if not found.
+	 */
+	Ability getAbility(String name);
+
+	/**
+	 * sets the ability.
+	 * @param name
+	 * @param ability
+	 */
+	void setAbility(String name, Ability ability);
 }

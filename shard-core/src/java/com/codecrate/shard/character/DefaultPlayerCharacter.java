@@ -17,9 +17,9 @@ package com.codecrate.shard.character;
 
 import java.util.List;
 
-import com.codecrate.shard.character.ability.AbilityContainer;
-import com.codecrate.shard.character.ability.DefaultAbilityContainer;
-import com.codecrate.shard.character.race.Race;
+import com.codecrate.shard.ability.AbilityContainer;
+import com.codecrate.shard.ability.DefaultAbilityContainer;
+import com.codecrate.shard.race.Race;
 
 /**
  * Default character.
