@@ -24,7 +24,18 @@ package com.codecrate.shard.ability;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface AbilityContainer {
+	Ability getStrength();
 	
+	Ability getDexterity();
+	
+	Ability getWisdom();
+	
+	Ability getIntelligence();
+	
+	Ability getConstitution();
+
+	Ability getCharisma();
+
 	/**
 	 * gets an ability with the specified name.
 	 * @param name

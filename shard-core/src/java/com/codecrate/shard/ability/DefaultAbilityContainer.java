@@ -38,4 +38,28 @@ public class DefaultAbilityContainer implements AbilityContainer {
 	public Ability getAbility(String name) {
 		return (Ability) scores.get(name);
 	}
+
+    public Ability getStrength() {
+        return getAbility(STRENGTH);
+    }
+
+    public Ability getDexterity() {
+        return getAbility(DEXTERITY);
+    }
+
+    public Ability getWisdom() {
+        return getAbility(WISDOM);
+    }
+
+    public Ability getIntelligence() {
+        return getAbility(INTELLIGENCE);
+    }
+
+    public Ability getConstitution() {
+        return getAbility(CONSTITUTION);
+    }
+
+    public Ability getCharisma() {
+        return getAbility(CHARISMA);
+    }
 }
