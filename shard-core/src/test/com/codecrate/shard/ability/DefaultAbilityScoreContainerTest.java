@@ -37,4 +37,13 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 		DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 		assertFalse(container.hasAbilityScore(DefaultAbility.STRENGTH));
 	}
+	
+	public void testAbilityScoresReturned() {
+		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10);
+		Map abilities = new HashMap();
+		abilities.put(DefaultAbility.STRENGTH, ability);
+		DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
+
+		assertEquals(1, container.getAbilityScores().size());
+	}
 }

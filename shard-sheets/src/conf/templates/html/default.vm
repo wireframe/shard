@@ -11,7 +11,7 @@
 	  <td colspan="2">|PLAYERNAME|</td>
 	  <td>$character.alignment.name</td>
 	  <td>|DEITY|</td>
-	  <td>$character.abilities.totalPointCost</td>
+	  <td>$character.abilities.totalPointScore</td>
 	  <td rowspan="6"><IMG SRC="|PORTRAIT|" height="100"></td>
 	 </tr>
 	 <tr>

@@ -29,7 +29,7 @@ import org.apache.commons.logging.LogFactory;
 public class DefaultAbilityScoreContainer implements AbilityScoreContainer {
 	private static final Log LOG = LogFactory.getLog(DefaultAbilityScoreContainer.class);
 	
-	private Map scores;
+	private final Map scores;
 
 	public DefaultAbilityScoreContainer(Map scores) {
 	    this.scores = scores;
