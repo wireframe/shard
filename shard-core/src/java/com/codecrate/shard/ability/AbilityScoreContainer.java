@@ -49,4 +49,10 @@ public interface AbilityScoreContainer {
 	 * @return true if ability exists, else false.
 	 */
 	boolean hasAbilityScore(Ability ability);
+	
+	/**
+	 * gets the total point score for the abilities.
+	 * @return
+	 */
+	int getTotalPointScore();
 }

@@ -34,6 +34,12 @@ public interface AbilityScore {
 	int getScore();
 
 	/**
+	 * gets the point cost associated with the score.
+	 * @return
+	 */
+	int getPointCost();
+	
+	/**
 	 * gets the bonus from the ability value.
 	 * ex: value of 10 = bonus of 0
 	 * @return bonus.

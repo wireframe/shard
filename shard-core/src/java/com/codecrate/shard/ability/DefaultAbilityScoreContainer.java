@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.ability;
 
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -48,6 +49,16 @@ public class DefaultAbilityScoreContainer implements AbilityScoreContainer {
 	    return true;
 	}
 
+	public int getTotalPointScore() {
+		int points = 0;
+		Iterator iterator = scores.values().iterator();
+		while (iterator.hasNext()) {
+			AbilityScore score = (AbilityScore) iterator.next();
+			points += score.getPointCost();
+		}
+		return points;
+	}
+	
     public AbilityScore getStrength() {
         return getAbilityScore(DefaultAbility.STRENGTH);
     }
