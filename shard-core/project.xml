@@ -8,6 +8,7 @@
   <name>shard core module</name>
   <description>shard core module</description>
   <shortDescription>shard core module</shortDescription>
+  
   <dependencies>
     <dependency>
       <groupId>shard</groupId>
@@ -17,7 +18,31 @@
         <eclipse.dependency>true</eclipse.dependency>
       </properties>
     </dependency>
+    
+    <!-- HSQL dependencies -->
+    <dependency>
+      <groupId>hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>1.7.2.2</version>
+      <url>http://hsqldb.sf.net</url>
+    </dependency>
+          
+    <!-- DBUnit dependencies -->
+    <dependency>
+      <groupId>dbunit</groupId>
+      <artifactId>dbunit</artifactId>
+      <version>2.1</version>
+      <url>http://dbunit.sf.net</url>
+    </dependency>
+    <dependency>
+      <groupId>maven-plugins</groupId>
+      <artifactId>maven-dbunit-plugin</artifactId>
+      <type>plugin</type>
+      <version>1.5</version>
+      <url>http://maven-plugins.sourceforge.net/maven-dbunit-plugin/</url>
+    </dependency>
   </dependencies>
+  
   <build>
     <resources>
       <resource>

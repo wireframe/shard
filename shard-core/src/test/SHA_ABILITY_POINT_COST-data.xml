@@ -1,0 +1,15 @@
+<!--
+<!DOCTYPE dataset SYSTEM "dataset.dtd">
+use <null/> to specify a null value for an entry
+-->
+
+<dataset>
+    <table name="SHA_ABILITY_POINT_COST">
+        <column>SCORE</column>
+        <column>POINT_COST</column>
+        <row>
+            <value>1</value>
+            <value>0</value>
+        </row>
+    </table>
+</dataset>
