@@ -47,6 +47,7 @@ import com.codecrate.shard.character.DefaultPlayerCharacter;
 import com.codecrate.shard.character.HitPoints;
 import com.codecrate.shard.character.Initiative;
 import com.codecrate.shard.character.RacialCategorizedAge;
+import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.Coin;
 import com.codecrate.shard.equipment.DefaultItemEntryContainer;
 import com.codecrate.shard.equipment.ItemEntry;
@@ -120,12 +121,18 @@ public class PrintCharacterActionTest extends TestCase {
 		
 		Initiative initiative = new Initiative(abilities);
 		
+		MockControl mockDeity = MockControl.createControl(Deity.class);
+		Deity deity = (Deity) mockDeity.getMock();
+		deity.getName();
+		mockDeity.setReturnValue("Bob the Almighty");
+		mockDeity.replay();
+		
 		FeatContainer feats = new FeatContainer(new ArrayList());
 		DefaultPlayerCharacter character = new DefaultPlayerCharacter("Gunthor the Terrible",
 				DefaultRace.HUMAN, DefaultGender.MALE,
 				DefaultAlignment.LAWFUL_GOOD, abilities, hitPoints, armorClass,
 				encumberance, age, progression, savingThrows, itemContainer, 0, skills, new BigDecimal(20),
-				initiative, feats, null);
+				initiative, feats, deity);
 		
 		PrintCharacterAction output = new PrintCharacterAction(character, template);
 		System.out.println(output.render());
