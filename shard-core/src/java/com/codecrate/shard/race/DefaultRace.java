@@ -161,6 +161,10 @@ public class DefaultRace implements Race {
         this.maxAgeDice = maxAgeDice;
 	}
 
+	public String toString() {
+	    return name;
+	}
+	
 	public boolean isSame(Race race) {
 	    return equals(race);
 	}

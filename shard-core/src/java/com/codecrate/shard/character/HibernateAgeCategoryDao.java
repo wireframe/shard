@@ -64,7 +64,7 @@ public class HibernateAgeCategoryDao implements AgeCategoryDao {
                 }
             }
         } catch (HibernateException e) {
-            LOG.error("Unable to lookup races.", e);
+            LOG.error("Unable to lookup age category.", e);
         }
         LOG.warn("Unable to find age category for race " + race + " and age " + age);
         return null;

@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.character;
 
+import com.codecrate.shard.race.Race;
+
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -24,7 +26,8 @@ package com.codecrate.shard.character;
  */
 public class RaceAgeEntry {
 
-    private String race;
+    private String id;
+    private Race race;
     private int ageAdult;
     private int ageMiddleAge;
     private int ageOld;
@@ -35,14 +38,34 @@ public class RaceAgeEntry {
      * @return
      * 
      * @hibernate.id
-     *  column="RACE"
-     *  generator-class="uuid.hex"
+     *  column="NAME"
+     *  type="java.lang.String"
+     *  generator-class="foreign"
+     * @hibernate.generator-param
+     *  name="property"
+     *  value="name"
      */
-    public String getRace() {
+    public String getId() {
+        return id;
+    }
+    
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    /**
+     * 
+     * @return
+     * 
+     * @hibernate.one-to-one
+     *  class="com.codecrate.shard.race.DefaultRace"
+     *  cascade="all"
+     */
+    public Race getRace() {
         return race;
     }
     
-    public void setRace(String name) {
+    public void setRace(Race name) {
         this.race = name;
     }
     
