@@ -64,7 +64,7 @@ public class DexterityArmorClassTest extends TestCase {
         DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10);
 
         ModifierType type = new DefaultModifierType("type", true);
-        DefaultAbilityScoreModifier modifier = new DefaultAbilityScoreModifier(type, DefaultAbility.DEXTERITY, 18);
+        DefaultAbilityScoreModifier modifier = new DefaultAbilityScoreModifier(type, DefaultAbility.DEXTERITY, 8);
 
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
