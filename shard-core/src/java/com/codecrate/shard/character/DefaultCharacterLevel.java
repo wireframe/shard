@@ -17,6 +17,8 @@ package com.codecrate.shard.character;
 
 import java.util.Collection;
 
+import com.codecrate.shard.ability.AbilityScoreContainer;
+import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.kit.ClassLevel;
 
 /**
@@ -29,15 +31,20 @@ public class DefaultCharacterLevel implements CharacterLevel {
     private final int hitpoints;
     private final ClassLevel classLevel;
 	private final Collection skillRanks;
+    private final PlayerCharacter character;
     
-    public DefaultCharacterLevel(int level, int hitpoints, 
+    public DefaultCharacterLevel(PlayerCharacter character, int level, int hitpoints, 
     		ClassLevel classLevel, Collection skillRanks) {
+        this.character = character;
         this.level = level;
     	this.hitpoints = hitpoints;
     	this.classLevel = classLevel;
 		this.skillRanks = skillRanks;
     }
     
+    public PlayerCharacter getCharacter() {
+        return character;
+    }
     public int getLevel() {
         return level;
     }
@@ -53,4 +60,19 @@ public class DefaultCharacterLevel implements CharacterLevel {
 	public Collection getSkillRanks() {
 		return skillRanks;
 	}
+
+    public int getSkillPoints() {
+        int intBonus = 0;
+        int modifier = 1;
+        if (1 == level) {
+            modifier = 4;
+        }
+        
+        AbilityScoreContainer abilities = character.getAbilities();
+        if (abilities.hasAbilityScore(DefaultAbility.INTELLIGENCE)) {
+            intBonus = abilities.getIntelligence().getModifier();
+        }
+        
+        return modifier * (classLevel.getCharacterClass().getBaseSkillPointsPerLevel() + intBonus);
+    }
 }

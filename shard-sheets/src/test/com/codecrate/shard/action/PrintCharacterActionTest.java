@@ -89,12 +89,12 @@ public class PrintCharacterActionTest extends TestCase {
 		DefaultAbilityScoreContainer abilities = new DefaultAbilityScoreContainer(scores);
 		
 		Collection levels = new ArrayList();
-		levels.add(new DefaultCharacterLevel(1, 1,
+		levels.add(new DefaultCharacterLevel(null, 1, 1,
                 DefaultCharacterClass.BARBARIAN.getClassProgression().getClassLevel(1), 
                 Arrays.asList(new KeyedModifier[] { 
                                 new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultSkill.TYPE_RANK, 1), 
                                 new DefaultKeyedModifier(DefaultSkill.INTIMIDATE, DefaultSkill.TYPE_RANK, 1)})));
-		levels.add(new DefaultCharacterLevel(2, 1, 
+		levels.add(new DefaultCharacterLevel(null, 2, 1, 
 		        DefaultCharacterClass.FIGHTER.getClassProgression().getClassLevel(1), 
                 Arrays.asList(new KeyedModifier[] { 
                         new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultSkill.TYPE_RANK, 1) })));

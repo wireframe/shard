@@ -20,6 +20,12 @@ import java.util.Collection;
 import com.codecrate.shard.kit.ClassLevel;
 
 public interface CharacterLevel {
+    /**
+     * gets the player character this level belongs to.
+     * @return
+     */
+    PlayerCharacter getCharacter();
+    
     int getLevel();
 
     ClassLevel getClassLevel();
@@ -31,4 +37,12 @@ public interface CharacterLevel {
      * @return
      */
     Collection getSkillRanks();
+
+    /**
+     * gets the number of skill points awarded for this level.
+     * the first level granted to a character will have 4 times the normal 
+     * amount.
+     * @return
+     */
+    int getSkillPoints();
 }
