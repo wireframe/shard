@@ -17,6 +17,7 @@ package com.codecrate.shard.race;
 
 import java.util.Collection;
 
+import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Movement;
 
@@ -100,6 +101,11 @@ public interface Race {
 	 */
 	CharacterClass getFavoredClass();
     
-    //boolean isImmuneToCriticalHits();
-    //saving throw modifiers
+	/**
+	 * gets the dice to roll for determining max age.
+	 * max age is determined for each character with the formula:
+	 * character_max_age = racial.venerable_age + random(racial.max_age_dice)
+	 * @return
+	 */
+	Dice getMaxAgeDice();
 }
