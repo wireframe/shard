@@ -24,40 +24,43 @@ import com.codecrate.shard.level.LevelCalculator;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class CalculatedClassLevel implements ClassLevel {
-    private ClassLevel delegate;
 
-    public CalculatedClassLevel(int level, CharacterClass characterClass, 
+    private final int level;
+	private final CharacterClass characterClass;
+	private final LevelCalculator baseAttackCalculator;
+	private final LevelCalculator fortitudeSaveCalculator;
+	private final LevelCalculator reflexSaveCalculator;
+	private final LevelCalculator willpowerSaveCalculator;
+    
+	public CalculatedClassLevel(int level, CharacterClass characterClass, 
             LevelCalculator baseAttackCalculator, LevelCalculator fortitudeSaveCalculator, 
             LevelCalculator reflexSaveCalculator, LevelCalculator willpowerSaveCalculator) {
-        delegate = new DefaultClassLevel(level, characterClass, 
-                baseAttackCalculator.calculateValue(level),
-                fortitudeSaveCalculator.calculateValue(level),
-                reflexSaveCalculator.calculateValue(level),
-                willpowerSaveCalculator.calculateValue(level));
-    }
-    
-    public String toString() {
-    	return delegate.toString();
+				this.level = level;
+				this.characterClass = characterClass;
+				this.baseAttackCalculator = baseAttackCalculator;
+				this.fortitudeSaveCalculator = fortitudeSaveCalculator;
+				this.reflexSaveCalculator = reflexSaveCalculator;
+				this.willpowerSaveCalculator = willpowerSaveCalculator;
     }
     
     public CharacterClass getCharacterClass() {
-    	return delegate.getCharacterClass();
+    	return characterClass;
     }
     
     public int getLevel() {
-    	return delegate.getLevel();
+    	return level;
     }
     
     public int getBaseAttackBonus() {
-        return delegate.getBaseAttackBonus();
+        return baseAttackCalculator.calculateValue(level);
     }
     public int getFortituteSaveBonus() {
-        return delegate.getFortituteSaveBonus();
+        return fortitudeSaveCalculator.calculateValue(level);
     }
     public int getReflexSaveBonus() {
-        return delegate.getReflexSaveBonus();
+        return reflexSaveCalculator.calculateValue(level);
     }
     public int getWillpowerSaveBonus() {
-        return delegate.getWillpowerSaveBonus();
+        return willpowerSaveCalculator.calculateValue(level);
     }
 }
