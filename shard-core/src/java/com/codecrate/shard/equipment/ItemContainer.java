@@ -15,15 +15,36 @@
  */
 package com.codecrate.shard.equipment;
 
+import java.util.Collection;
+
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface ItemContainer {
 
+	/**
+	 * check for if the item can be added to the container.
+	 * @param equipment
+	 * @return
+	 */
 	boolean canAdd(Item equipment);
 	
+	/**
+	 * adds the item to the container.
+	 * @param equipment
+	 */
 	void add(Item equipment);
 	
+	/**
+	 * removes the item from the container.
+	 * @param equipment
+	 */
 	void remove(Item equipment);
+	
+	/**
+	 * gets the items the container holds.
+	 * @return
+	 */
+	Collection getItems();
 }

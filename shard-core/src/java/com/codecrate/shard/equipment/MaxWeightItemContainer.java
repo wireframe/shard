@@ -55,4 +55,8 @@ public class MaxWeightItemContainer implements ItemContainer {
 	public void remove(Item equipment) {
 		items.remove(equipment);
 	}
+	
+	public Collection getItems() {
+		return items;
+	}
 }
