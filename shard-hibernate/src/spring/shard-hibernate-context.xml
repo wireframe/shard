@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	  <property name="driverClassName">
+	    <value>org.hsqldb.jdbcDriver</value>
+	  </property>
+	  <property name="url">
+	    <value>jdbc:hsqldb:.</value>
+	  </property>
+	  <property name="username">
+	    <value>sa</value>
+	  </property>
+	  <property name="password">
+	    <value></value>
+	  </property>
+	</bean>
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate.LocalSessionFactoryBean">
+	  <property name="dataSource">
+	    <ref bean="dataSource"/>
+	  </property>
+	  <property name="hibernateProperties">
+	    <props>
+	      <prop key="hibernate.dialect">net.sf.hibernate.dialect.HSQLDialect</prop>
+	      <prop key="hibernate.show_sql">true</prop>
+	      <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+	    </props>
+	  </property>
+	  <property name="mappingResources">
+	    <list>
+	      <value>com/codecrate/shard/ability/HibernateAbility.hbm.xml</value>
+	      <value>com/codecrate/shard/ability/PointCostValue.hbm.xml</value>
+	      <value>com/codecrate/shard/character/RaceAgeEntry.hbm.xml</value>
+	      <value>com/codecrate/shard/kit/HibernateCharacterClass.hbm.xml</value>
+	      <value>com/codecrate/shard/movement/EncumberanceEntry.hbm.xml</value>
+	      <value>com/codecrate/shard/race/HibernateLanguage.hbm.xml</value>
+	      <value>com/codecrate/shard/race/HibernateRace.hbm.xml</value>
+	      <value>com/codecrate/shard/skill/HibernateSkill.hbm.xml</value>
+	    </list>
+	  </property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate.HibernateTransactionManager">
+	  <property name="sessionFactory">
+	    <ref bean="sessionFactory"/>
+	  </property>
+	</bean>
+
+    <!--
+    example from http://blog.exis.com/colin/archives/2004/07/31/concise-transaction-definitions-spring-11/
+    -->	
+	<bean id="transactionTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+	  <property name="transactionManager"><ref local="transactionManager"/></ref></property>
+	  <property name="transactionAttributes">
+	    <props>
+	      <prop key="*">PROPAGATION_REQUIRED</prop>
+	    </props>
+	  </property>
+	</bean>
+
+	<bean id="skillDao" parent="transactionTemplate">
+	  <property name="target">
+	    <bean class="com.codecrate.shard.skill.HibernateSkillDao">
+  	      <property name="sessionFactory">
+	        <ref bean="sessionFactory"/>
+	      </property>
+	    </bean>
+	  </property>
+	</bean>
+
+</beans>
