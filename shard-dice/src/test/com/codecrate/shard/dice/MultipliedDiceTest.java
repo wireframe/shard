@@ -36,6 +36,11 @@ public class MultipliedDiceTest extends TestCase {
         } catch (IllegalArgumentException expected) {}
     }
     
+    public void testRollMulitipliesDice() {
+    	MultipliedDice dice = new MultipliedDice(new MaxValueDice(DefaultDice.d6), 2);
+    	assertEquals(12, dice.roll());
+    }
+    
     public void testMaxValue() {
     	MultipliedDice dice = new MultipliedDice(DefaultDice.d6, 1);
     	assertEquals(6, dice.getMaxValue());

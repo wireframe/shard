@@ -48,6 +48,6 @@ public class FixedValueDiceTest extends TestCase {
 	
 	public void testMaxValueDelegatesToDefaultDice() {
     	FixedValueDice dice = new FixedValueDice(DefaultDice.d6, 2);
-    	assertEquals(6, dice.getMinValue());
+    	assertEquals(6, dice.getMaxValue());
 	}
 }
