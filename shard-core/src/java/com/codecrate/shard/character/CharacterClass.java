@@ -19,6 +19,12 @@ import java.util.Collection;
 
 import com.codecrate.shard.dice.Dice;
 
+/**
+ * Definition of a character class.
+ * ex: Ranger
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public interface CharacterClass {
 
 	/**

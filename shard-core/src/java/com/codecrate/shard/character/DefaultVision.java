@@ -17,6 +17,8 @@ package com.codecrate.shard.character;
 
 
 /**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultVision implements Vision {
 	private int distance;

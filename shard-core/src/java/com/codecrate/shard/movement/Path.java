@@ -18,6 +18,10 @@ package com.codecrate.shard.movement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public class Path {
 	private List locations = new ArrayList();
 

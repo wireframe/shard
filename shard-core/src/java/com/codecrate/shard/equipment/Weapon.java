@@ -17,6 +17,10 @@ package com.codecrate.shard.equipment;
 
 import com.codecrate.shard.dice.Dice;
 
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public interface Weapon extends Item {
 
     Dice getDamageSmall();

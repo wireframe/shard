@@ -15,6 +15,10 @@
  */
 package com.codecrate.shard.character;
 
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public class DefaultGender implements Gender {
 	public static final Gender MALE = new DefaultGender("Male");
 	public static final Gender FEMALE = new DefaultGender("Female");

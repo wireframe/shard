@@ -15,6 +15,10 @@
  */
 package com.codecrate.shard.character;
 
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public class ExperienceTable {
 
     public int getLevel(int experience) {

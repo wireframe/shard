@@ -22,6 +22,10 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public class DefaultArmorClass implements ArmorClass {
 	public static final String TYPE_DEXTERITY = "dexterity";
 	public static final String TYPE_ARMOR = "armor";

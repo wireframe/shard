@@ -17,6 +17,10 @@ package com.codecrate.shard.character.race;
 
 import com.codecrate.shard.character.armorclass.ArmorClassModifier;
 
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public interface RacialSize extends ArmorClassModifier {
     int getBaseAttackBonusModifier();
     

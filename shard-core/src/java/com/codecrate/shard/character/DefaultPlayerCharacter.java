@@ -17,12 +17,15 @@ package com.codecrate.shard.character;
 
 import java.util.List;
 
-import com.codecrate.shard.character.ability.Ability;
 import com.codecrate.shard.character.ability.AbilityContainer;
 import com.codecrate.shard.character.ability.DefaultAbilityContainer;
 import com.codecrate.shard.character.race.Race;
 
-
+/**
+ * Default character.
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public class DefaultPlayerCharacter implements PlayerCharacter {
     private int currentHitPoints;
     private int maxHitPoints;
@@ -37,12 +40,15 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     private Race race;
     private Gender gender;
     private Alignment alignment;
-    
-    private int baseAttackBonus;
 
-    public DefaultPlayerCharacter(Race race, Gender gender) {
+    /**
+     * default constructor.
+     */
+    public DefaultPlayerCharacter(Race race, Gender gender, Alignment alignment, AbilityContainer abilities) {
     	this.race = race;
     	this.gender = gender;
+    	this.alignment = alignment;
+    	this.abilities = abilities;
     }
     
     public int getChallengeRating() {
@@ -53,12 +59,8 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     	return 0;
     }
 
-	public Ability getAbility(String name) {
-		return abilities.getAbility(name);
-	}
-
-	public void setAbility(String name, Ability ability) {
-		abilities.setAbility(name, ability);
+	public AbilityContainer getAbilities() {
+		return abilities;
 	}
 
 	public int getBaseAttackBonus() {
@@ -67,5 +69,9 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 	
 	public Gender getGender() {
 		return gender;
+	}
+	
+	public Alignment getAlignment() {
+		return alignment;
 	}
 }

@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public class MaxWeightItemContainer implements ItemContainer {
 
 	private int maxWeight;

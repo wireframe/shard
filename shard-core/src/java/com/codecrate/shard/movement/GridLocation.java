@@ -15,6 +15,10 @@
  */
 package com.codecrate.shard.movement;
 
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public class GridLocation {
 	private static final TerrainCondition CONDITION_IMPASSIBLE = new TerrainCondition(false);
 	private static final TerrainCondition CONDITION_DIFFICULT = new TerrainCondition(true);

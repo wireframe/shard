@@ -26,6 +26,8 @@ import java.util.TreeMap;
 /**
  * Map that fallsback to previous entry if value is not found.
  * example map: {1=me, 3=you} if search for 2, get the value for 1.
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class FallBackMap implements SortedMap {
     private SortedMap map = new TreeMap();

@@ -15,6 +15,10 @@
  */
 package com.codecrate.shard.character.armorclass;
 
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public interface ArmorClassModifier {
 
 	String getModifierType();

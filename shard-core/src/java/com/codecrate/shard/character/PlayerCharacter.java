@@ -17,8 +17,14 @@ package com.codecrate.shard.character;
 
 import com.codecrate.shard.character.ability.AbilityContainer;
 
-public interface PlayerCharacter extends AbilityContainer {
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
+public interface PlayerCharacter {
 	int getChallengeRating();
+	
+	AbilityContainer getAbilities();
 	
 	/**
 	 * gets the effective character level of a character.
@@ -45,4 +51,6 @@ public interface PlayerCharacter extends AbilityContainer {
 	 * @return
 	 */
 	Gender getGender();
+	
+	Alignment getAlignment();
 }

@@ -15,6 +15,10 @@
  */
 package com.codecrate.shard.movement;
 
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public class GridKey {
 
 	private int x;

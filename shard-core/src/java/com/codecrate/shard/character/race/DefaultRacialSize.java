@@ -18,6 +18,10 @@ package com.codecrate.shard.character.race;
 import com.codecrate.shard.character.armorclass.ArmorClassModifier;
 import com.codecrate.shard.character.armorclass.DefaultArmorClass;
 
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public class DefaultRacialSize implements RacialSize {
     public static final RacialSize FINE = new DefaultRacialSize(0, 8);
     public static final RacialSize DIMINUTIVE = new DefaultRacialSize(0, 4);

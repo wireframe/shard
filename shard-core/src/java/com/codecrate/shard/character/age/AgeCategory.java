@@ -17,6 +17,10 @@ package com.codecrate.shard.character.age;
 
 import java.util.Collection;
 
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public interface AgeCategory {
 	String getName();
 
