@@ -31,4 +31,10 @@ public class DefaultAbilityContainerTest extends TestCase {
 		assertSame(ability, container.getStrength());
 		assertSame(ability, container.getAbility(DefaultAbilityContainer.STRENGTH));
 	}
+	
+	public void testHasAbilityFailsForNoAbility() {
+		Map abilities = new HashMap();
+		DefaultAbilityContainer container = new DefaultAbilityContainer(abilities);
+		assertFalse(container.hasAbility(DefaultAbilityContainer.STRENGTH));
+	}
 }

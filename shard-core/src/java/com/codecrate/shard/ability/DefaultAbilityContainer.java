@@ -47,6 +47,13 @@ public class DefaultAbilityContainer implements AbilityContainer {
 	    }
 		return ability;
 	}
+	
+	public boolean hasAbility(String name) {
+	    if (null == getAbility(name)) {
+	        return false;
+	    }
+	    return true;
+	}
 
     public Ability getStrength() {
         return getAbility(STRENGTH);

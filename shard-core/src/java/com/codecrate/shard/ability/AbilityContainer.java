@@ -42,4 +42,11 @@ public interface AbilityContainer {
 	 * @return the ability or null if not found.
 	 */
 	Ability getAbility(String name);
+	
+	/**
+	 * allows checking if container has an ability.
+	 * @param name
+	 * @return true if ability exists, else false.
+	 */
+	boolean hasAbility(String name);
 }
