@@ -3,10 +3,10 @@
   <extend>${basedir}/../shard-root/project.xml</extend>
   <pomVersion>3</pomVersion>
   <groupId>shard</groupId>
-  <id>shard-core</id>
-  <name>shard core module</name>
-  <description>shard core module</description>
-  <shortDescription>shard core module</shortDescription>
+  <id>shard-sheets</id>
+  <name>shard sheets module</name>
+  <description>shard sheets module</description>
+  <shortDescription>shard sheets module</shortDescription>
   
   <dependencies>
     <dependency>
@@ -17,6 +17,29 @@
         <eclipse.dependency>true</eclipse.dependency>
       </properties>
     </dependency>
+    <dependency>
+      <groupId>shard</groupId>
+      <artifactId>shard-core</artifactId>
+      <version>SNAPSHOT</version>
+      <properties>
+        <eclipse.dependency>true</eclipse.dependency>
+      </properties>
+    </dependency>
+    
+    <!-- Velocity dependencies -->
+    <dependency>
+      <groupId>velocity</groupId>
+      <artifactId>velocity</artifactId>
+      <version>1.4</version>
+      <url>http://jakarta.apache.org/velocity</url>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.8</version>
+      <url>http://logging.apache.org/log4j/</url>
+    </dependency>
+    
   </dependencies>
     
   <build>
@@ -26,6 +49,7 @@
         <includes>
           <include>**/*.xml</include>
           <include>**/*.properties</include>
+          <include>**/*.vm</include>
         </includes>
       </resource>
     </resources>
