@@ -40,7 +40,7 @@ public class HibernateLanguageDaoTest extends DatabaseTestCase {
     
     public HibernateLanguageDaoTest(String name) throws Exception {
         super(name);
-        File file = new File("hibernate.cfg.xml");
+        File file = new File("src/hibernate/hibernate.cfg.xml");
         sessionFactory = new Configuration().configure(file).buildSessionFactory();
         session = sessionFactory.openSession();
         connection = session.connection();
@@ -52,7 +52,7 @@ public class HibernateLanguageDaoTest extends DatabaseTestCase {
     }
 
     protected IDataSet getDataSet() throws Exception {
-        return new XmlDataSet(new FileInputStream("SHA_LANGUAGE-data.xml"));
+        return new XmlDataSet(new FileInputStream("src/data/SHA_LANGUAGE-data.xml"));
     }
 
     public void testLoadsLanguages() throws Exception {

@@ -48,7 +48,7 @@ public class HibernateEncumberanceDaoTest extends DatabaseTestCase {
     
     public HibernateEncumberanceDaoTest(String name) throws Exception {
         super(name);
-        File file = new File("/home/rsonnek/Projects/shard/shard-core/target/generated-sources/xdoclet/hibernate.cfg.xml");
+        File file = new File("src/hibernate/hibernate.cfg.xml");
         sessionFactory = new Configuration().configure(file).buildSessionFactory();
         session = sessionFactory.openSession();
         connection = session.connection();
@@ -60,7 +60,7 @@ public class HibernateEncumberanceDaoTest extends DatabaseTestCase {
     }
 
     protected IDataSet getDataSet() throws Exception {
-        return new XmlDataSet(new FileInputStream("/home/rsonnek/Projects/shard/shard-core/src/data/SHA_ENCUMBERANCE_ENTRY-data.xml"));
+        return new XmlDataSet(new FileInputStream("src/data/SHA_ENCUMBERANCE_ENTRY-data.xml"));
     }
     
     public void testLookupOfEncumberanceEntry() throws Exception {

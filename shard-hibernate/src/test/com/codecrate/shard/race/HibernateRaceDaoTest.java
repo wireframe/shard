@@ -40,7 +40,7 @@ public class HibernateRaceDaoTest extends DatabaseTestCase {
     
     public HibernateRaceDaoTest(String name) throws Exception {
         super(name);
-        File file = new File("/home/rsonnek/Projects/shard/shard-core/target/generated-sources/xdoclet/hibernate.cfg.xml");
+        File file = new File("src/hibernate/hibernate.cfg.xml");
         sessionFactory = new Configuration().configure(file).buildSessionFactory();
         session = sessionFactory.openSession();
         connection = session.connection();
@@ -52,7 +52,7 @@ public class HibernateRaceDaoTest extends DatabaseTestCase {
     }
 
     protected IDataSet getDataSet() throws Exception {
-        return new XmlDataSet(new FileInputStream("/home/rsonnek/Projects/shard/shard-core/src/data/SHA_RACE-data.xml"));
+        return new XmlDataSet(new FileInputStream("src/data/SHA_RACE-data.xml"));
     }
 
     public void testLoadsRaces() throws Exception {
