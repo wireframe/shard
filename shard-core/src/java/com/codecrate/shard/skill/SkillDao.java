@@ -133,12 +133,12 @@ public class SkillDao {
     
     private Collection getLanguageSkills() {
         Collection skills = new ArrayList();
-        LanguageDao languageDao = new LanguageDao();
-        Iterator languages = languageDao.getLanguages().iterator();
-        while (languages.hasNext()) {
-            Language language = (Language) languages.next();
-            skills.add(getLanguageSkill(language));
-        }
+//        LanguageDao languageDao = new LanguageDao();
+//        Iterator languages = languageDao.getLanguages().iterator();
+//        while (languages.hasNext()) {
+//            Language language = (Language) languages.next();
+//            skills.add(getLanguageSkill(language));
+//        }
         return skills;
     }
     

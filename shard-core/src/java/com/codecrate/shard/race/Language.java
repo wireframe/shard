@@ -15,12 +15,17 @@
  */
 package com.codecrate.shard.race;
 
+import com.codecrate.shard.Identifiable;
+
 /**
  * Defines a language spoken by races.
  * 
  * @see http://www.d20srd.org/srd/skills/speakLanguage.htm
+ * 
+ * @hibernate.class
+ *  table="SHA_LANGUAGE"
  */
-public class Language {
+public class Language implements Identifiable {
 	public static final Language ABYSSAL = new Language("Abyssal", "Infernal");
 	public static final Language AQUAN = new Language("Aquan", "Elven");
 	public static final Language AURAN = new Language("Auran", "Draconic");
@@ -41,10 +46,16 @@ public class Language {
 	public static final Language SYLVAN = new Language("Sylvan", "Elven");
 	public static final Language TERRAN = new Language("Terran", "Dwarven");
 	public static final Language UNDERCOMMON = new Language("Undercommon", "Elven");
-	
-	private final String name;
-	private final String alphabet;
+    
+	private String name;
+	private String alphabet;
 
+	/**
+	 * hibernate constructor.
+	 */
+	public Language() {
+	}
+	
 	public Language(String name, String alphabet) {
 		this.name = name;
 		this.alphabet = alphabet;
@@ -54,11 +65,35 @@ public class Language {
 		return name;
 	}
 	
+	/**
+	 * 
+     * @hibernate.id
+     *  generator-class="assigned"
+	 */
+	public String getId() {
+	    return name;
+	}
+	
+	public void setId(String id) {
+	    this.name = id;
+	}
+	
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 * 
+	 * @hibernate.property
+	 *  column="ALPHABET"
+	 */
 	public String getAlphabet() {
 		return alphabet;
+	}
+	
+	public void setAlphabet(String alphabet) {
+	    this.alphabet = alphabet;
 	}
 }

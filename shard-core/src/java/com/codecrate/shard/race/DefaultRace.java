@@ -45,7 +45,7 @@ public class DefaultRace implements Race {
 	public static final Race HUMAN = new DefaultRace("Human", DefaultRacialSize.MEDIUM,
 			new DefaultMovement(30), new ArrayList(), new ArrayList(), 
 			0, 
-			Arrays.asList(new Language[] {Language.COMMON}), new LanguageDao().getLanguages(),
+			Arrays.asList(new Language[] {Language.COMMON}), new ArrayList(),
 			DefaultVision.NORMAL, null, new MultipleDice(DefaultDice.d20, 2));
 
 	public static final Race HALF_ELF = new DefaultRace("Half-Elf",
@@ -56,7 +56,7 @@ public class DefaultRace implements Race {
 					        new DefaultKeyedModifier(DefaultSkill.SPOT, DefaultSkill.TYPE_RACE, 1),
 					        new DefaultKeyedModifier(DefaultSkill.SEARCH, DefaultSkill.TYPE_RACE, 1)}), 
 					0, 
-			Arrays.asList(new Language[] {Language.COMMON, Language.ELVEN}), new LanguageDao().getLanguages(),
+			Arrays.asList(new Language[] {Language.COMMON, Language.ELVEN}), new ArrayList(),
 			DefaultVision.LOW_LIGHT_VISION, null, new MultipleDice(DefaultDice.d20, 3));
 
 	public static final Race HALF_ORC = new DefaultRace("Half-Orc",

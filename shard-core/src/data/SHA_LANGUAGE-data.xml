@@ -1,0 +1,91 @@
+<!--
+<!DOCTYPE dataset SYSTEM "dataset.dtd">
+use <null/> to specify a null value for an entry
+-->
+
+<dataset>
+    <table name="SHA_LANGUAGE">
+        <column>ID</column>
+        <column>ALPHABET</column>
+        <row>
+            <value>Common</value>
+            <value>Common</value>
+        </row>
+        <row>
+            <value>Elven</value>
+            <value>Elven</value>
+        </row>
+        <row>
+            <value>Dwarven</value>
+            <value>Dwarven</value>
+        </row>
+        <row>
+            <value>Celestial</value>
+            <value>Celestial</value>
+        </row>
+        <row>
+            <value>Infernal</value>
+            <value>Infernal</value>
+        </row>
+        <row>
+            <value>Draconic</value>
+            <value>Draconic</value>
+        </row>
+        <row>
+            <value>Abyssal</value>
+            <value>Infernal</value>
+        </row>
+        <row>
+            <value>Druidic</value>
+            <value>Druidic</value>
+        </row>
+        <row>
+            <value>Aquan</value>
+            <value>Elven</value>
+        </row>
+        <row>
+            <value>Undercommon</value>
+            <value>Elven</value>
+        </row>
+        <row>
+            <value>Sylvan</value>
+            <value>Elven</value>
+        </row>
+        <row>
+            <value>Auran</value>
+            <value>Draconic</value>
+        </row>
+        <row>
+            <value>Ignan</value>
+            <value>Draconic</value>
+        </row>
+        <row>
+            <value>Giant</value>
+            <value>Giant</value>
+        </row>
+        <row>
+            <value>Gnome</value>
+            <value>Dwarven</value>
+        </row>
+        <row>
+            <value>Goblin</value>
+            <value>Dwarven</value>
+        </row>
+        <row>
+            <value>Orc</value>
+            <value>Dwarven</value>
+        </row>
+        <row>
+            <value>Terran</value>
+            <value>Dwarven</value>
+        </row>
+        <row>
+            <value>Gnoll</value>
+            <value>Common</value>
+        </row>
+        <row>
+            <value>Halfling</value>
+            <value>Common</value>
+        </row>
+    </table>
+</dataset>
