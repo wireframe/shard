@@ -15,8 +15,6 @@
  */
 package com.codecrate.shard.armorclass;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -48,46 +46,36 @@ public class DefaultArmorClass implements ArmorClass {
 		Iterator it = modifiers.keySet().iterator();
 		while (it.hasNext()) {
 			ArmorClassModifierType type = (ArmorClassModifierType) it.next();
-			int typeTotal = 0;
-			Iterator mods = ((Collection)modifiers.get(type)).iterator();
-			while (mods.hasNext()) {
-				ArmorClassModifier modifier = (ArmorClassModifier) mods.next();
-				int modifierValue = modifier.getModifier();
-				if (type.isStackable()) {
-					typeTotal += modifierValue;
-				} else if (typeTotal < modifierValue) {
-					typeTotal = modifierValue;
-				}
-			}
-			value += typeTotal;
+			ArmorClassComponent component = (ArmorClassComponent) modifiers.get(type);
+			value += component.getValue();
 		}
 		return value;
 	}
 	
 	public void addArmorClassModifier(ArmorClassModifier modifier) {
 		ArmorClassModifierType type = modifier.getModifierType();
-		Collection mods = getModifiers(type);
-		mods.add(modifier);
-		updateModifiers(type, mods);
+		ArmorClassComponent component = getModifier(type);
+		component.addModifier(modifier);
+		updateModifier(type, component);
 	}
 	
 	public void removeArmorClassModifier(ArmorClassModifier modifier) {
 		ArmorClassModifierType type = modifier.getModifierType();
-		Collection mods = getModifiers(type);
-		mods.remove(modifier);
-		updateModifiers(type, mods);
+		ArmorClassComponent component = getModifier(type);
+		component.removeModifier(modifier);
+		updateModifier(type, component);
 	}
 	
-	private Collection getModifiers(ArmorClassModifierType type) {
-		Collection mods = (Collection) modifiers.get(type);
-		if (null == mods) {
+	private ArmorClassComponent getModifier(ArmorClassModifierType type) {
+		ArmorClassComponent component = (ArmorClassComponent) modifiers.get(type);
+		if (null == component) {
 			LOG.debug("No modifiers found for type: " + type);
-			mods = new ArrayList();
+			component = new ArmorClassComponent(type);
 		}
-		return mods;
+		return component;
 	}
 	
-	private void updateModifiers(ArmorClassModifierType type, Collection mods) {
-		modifiers.put(type, mods);
+	private void updateModifier(ArmorClassModifierType type, ArmorClassComponent component) {
+		modifiers.put(type, component);
 	}
 }
