@@ -46,7 +46,7 @@ public class DefaultRace implements Race {
 			new DefaultMovement(30), new ArrayList(), new ArrayList(), 
 			0, 
 			Arrays.asList(new Language[] {Language.COMMON}), new ArrayList(),
-			DefaultVision.NORMAL, null, new MultipleDice(DefaultDice.d20, 2));
+			DefaultVision.NORMAL, null, new MultipleDice(DefaultDice.d20, 2), 1);
 
 	public static final Race HALF_ELF = new DefaultRace("Half-Elf",
 			DefaultRacialSize.MEDIUM, new DefaultMovement(30), new ArrayList(), 
@@ -57,7 +57,7 @@ public class DefaultRace implements Race {
 					        new DefaultKeyedModifier(DefaultSkill.SEARCH, DefaultSkill.TYPE_RACE, 1)}), 
 					0, 
 			Arrays.asList(new Language[] {Language.COMMON, Language.ELVEN}), new ArrayList(),
-			DefaultVision.LOW_LIGHT_VISION, null, new MultipleDice(DefaultDice.d20, 3));
+			DefaultVision.LOW_LIGHT_VISION, null, new MultipleDice(DefaultDice.d20, 3), 0);
 
 	public static final Race HALF_ORC = new DefaultRace("Half-Orc",
 			DefaultRacialSize.MEDIUM, new DefaultMovement(30), Arrays
@@ -69,7 +69,7 @@ public class DefaultRace implements Race {
 			Arrays.asList(new Language[] {Language.COMMON, Language.ORC}), 
 			Arrays.asList(new Language[] {Language.DRACONIC, Language.GIANT, Language.GNOLL, 
 					Language.GOBLIN, Language.ABYSSAL}),
-					DefaultVision.DARKVISION, DefaultCharacterClass.BARBARIAN, new MultipleDice(DefaultDice.d10, 2));
+					DefaultVision.DARKVISION, DefaultCharacterClass.BARBARIAN, new MultipleDice(DefaultDice.d10, 2), 0);
 
 	public static final Race ELF = new DefaultRace("Elf", DefaultRacialSize.MEDIUM,
 			new DefaultMovement(30), Arrays.asList(new KeyedModifier[] {
@@ -84,7 +84,7 @@ public class DefaultRace implements Race {
 							Arrays.asList(new Language[] {Language.COMMON, Language.ELVEN}), 
 							Arrays.asList(new Language[] {Language.DRACONIC, Language.GNOLL, 
 									Language.GNOME, Language.GOBLIN, Language.ORC, Language.SYLVAN}),
-									DefaultVision.LOW_LIGHT_VISION, DefaultCharacterClass.WIZARD, new MultipleDice(DefaultDice.d100, 4));
+									DefaultVision.LOW_LIGHT_VISION, DefaultCharacterClass.WIZARD, new MultipleDice(DefaultDice.d100, 4), 0);
 
 	public static final Race DWARF = new DefaultRace("Dwarf", DefaultRacialSize.MEDIUM,
 			new DefaultMovement(20), Arrays.asList(new KeyedModifier[] {
@@ -94,7 +94,7 @@ public class DefaultRace implements Race {
 							Arrays.asList(new Language[] {Language.COMMON, Language.DWARVEN}), 
 							Arrays.asList(new Language[] {Language.GIANT, Language.GNOME, 
 									Language.GOBLIN, Language.ORC, Language.TERRAN, Language.UNDERCOMMON}),
-									DefaultVision.DARKVISION, DefaultCharacterClass.FIGHTER, new MultipleDice(DefaultDice.d100, 2));
+									DefaultVision.DARKVISION, DefaultCharacterClass.FIGHTER, new MultipleDice(DefaultDice.d100, 2), 0);
 
 	public static final Race GNOME = new DefaultRace("Gnome", DefaultRacialSize.SMALL,
 			new DefaultMovement(20), Arrays.asList(new KeyedModifier[] {
@@ -107,7 +107,7 @@ public class DefaultRace implements Race {
 							Arrays.asList(new Language[] {Language.COMMON, Language.GNOME}), 
 							Arrays.asList(new Language[] {Language.DRACONIC, Language.DWARVEN, 
 									Language.ELVEN, Language.GIANT, Language.GOBLIN, Language.ORC}),
-									DefaultVision.LOW_LIGHT_VISION, DefaultCharacterClass.BARD, new MultipleDice(DefaultDice.d100, 3));
+									DefaultVision.LOW_LIGHT_VISION, DefaultCharacterClass.BARD, new MultipleDice(DefaultDice.d100, 3), 0);
 	
 	public static final Race HALFLING = new DefaultRace("Halfling", 
 			DefaultRacialSize.SMALL, new DefaultMovement(20), Arrays
@@ -123,7 +123,7 @@ public class DefaultRace implements Race {
 									Arrays.asList(new Language[] {Language.COMMON, Language.HALFLING}), 
 									Arrays.asList(new Language[] {Language.DWARVEN, Language.ELVEN, 
 											Language.GNOME, Language.GOBLIN, Language.ORC}),
-											DefaultVision.NORMAL, DefaultCharacterClass.ROUGE, new MultipleDice(DefaultDice.d20, 5));
+											DefaultVision.NORMAL, DefaultCharacterClass.ROUGE, new MultipleDice(DefaultDice.d20, 5), 0);
 	
 	private String name;
 	private RacialSize size;
@@ -136,6 +136,7 @@ public class DefaultRace implements Race {
 	private Collection skillModifiers;
 	private CharacterClass favoredClass;
     private Dice maxAgeDice;
+    private int baseSkillPointsPerLevel;
 	
     /**
      * constructor for hibernate.
@@ -147,7 +148,8 @@ public class DefaultRace implements Race {
 			Collection abilityModifiers, Collection skillModifiers, 
 			int levelAdjustment, 
 			Collection grantedLanguages, Collection availableLanguages,
-			Vision vision, CharacterClass favoredClass, Dice maxAgeDice) {
+			Vision vision, CharacterClass favoredClass, Dice maxAgeDice, 
+			int baseSkillPointsPerLevel) {
 		this.name = name;
 		this.size = size;
 		this.movement = movement;
@@ -159,6 +161,7 @@ public class DefaultRace implements Race {
 		this.vision = vision;
 		this.favoredClass = favoredClass;
         this.maxAgeDice = maxAgeDice;
+        this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
 	}
 
 	public String toString() {
@@ -250,5 +253,20 @@ public class DefaultRace implements Race {
 	
 	public Dice getMaxAgeDice() {
 	    return maxAgeDice;
+	}
+	
+	/**
+	 * 
+     * @hibernate.property
+     *  column="BASE_SKILL_POINTS_PER_LEVEL"
+     *  length="2"
+     *  not-null="true"
+	 */
+	public int getBaseSkillPointsPerLevel() {
+	    return baseSkillPointsPerLevel;
+	}
+	
+	public void setBaseSkillPointsPerLevel(int points) {
+	    this.baseSkillPointsPerLevel = points;
 	}
 }

@@ -109,4 +109,10 @@ public interface Race extends Identifiable {
 	 * @return
 	 */
 	Dice getMaxAgeDice();
+
+    /**
+     * gets the number of extra skill points grated per level.
+     * ex: humans get +4 skill points at level 1 and +1 each other level.
+     */
+    int getBaseSkillPointsPerLevel();
 }

@@ -19,7 +19,9 @@ import java.util.Collection;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbility;
+import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.ClassLevel;
+import com.codecrate.shard.race.Race;
 
 /**
  * 
@@ -73,6 +75,8 @@ public class DefaultCharacterLevel implements CharacterLevel {
             intBonus = abilities.getIntelligence().getModifier();
         }
         
-        return modifier * (classLevel.getCharacterClass().getBaseSkillPointsPerLevel() + intBonus);
+        CharacterClass kit = classLevel.getCharacterClass();
+        Race race = character.getRace();
+        return modifier * (kit.getBaseSkillPointsPerLevel() + race.getBaseSkillPointsPerLevel() + intBonus);
     }
 }
