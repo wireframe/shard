@@ -21,9 +21,7 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.modifier.DefaultKeyedModifier;
 import com.codecrate.shard.modifier.DefaultModifier;
-import com.codecrate.shard.modifier.KeyedModifier;
 import com.codecrate.shard.modifier.Modifier;
 
 /**
