@@ -17,10 +17,31 @@ package com.codecrate.shard.character;
 
 import com.codecrate.shard.kit.ClassLevel;
 
-public interface CharacterLevel {
-    int getLevel();
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
+public class DefaultCharacterLevel implements CharacterLevel {
 
-    ClassLevel getClassLevel();
-
-    int getHitpoints();
+    private int level;
+    private int hitpoints;
+    private ClassLevel classLevel;
+    
+    public DefaultCharacterLevel(int level, int hitpoints, ClassLevel classLevel) {
+        this.level = level;
+    	this.hitpoints = hitpoints;
+    	this.classLevel = classLevel;
+    }
+    
+    public int getLevel() {
+        return level;
+    }
+    
+	public ClassLevel getClassLevel() {
+		return classLevel;
+	}
+	
+	public int getHitpoints() {
+		return hitpoints;
+	}
 }

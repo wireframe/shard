@@ -19,7 +19,6 @@ import java.util.Collection;
 
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.ClassLevel;
-import com.codecrate.shard.kit.DefaultClassLevel;
 
 public interface CharacterProgression {
 

@@ -40,8 +40,8 @@ public class DefaultCharacterProgressionTest extends TestCase {
     	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
     	ClassLevel fighterLevel1 = new DefaultClassLevel(1, fighter, 1, 1, 1, 1);
     	
-    	CharacterLevel characterLevel1 = new CharacterLevel(1, 3, rangerLevel1);
-    	CharacterLevel characterLevel2 = new CharacterLevel(2, 4, fighterLevel1);
+    	CharacterLevel characterLevel1 = new DefaultCharacterLevel(1, 3, rangerLevel1);
+    	CharacterLevel characterLevel2 = new DefaultCharacterLevel(2, 4, fighterLevel1);
     	
     	Collection levels = new ArrayList();
     	levels.add(characterLevel1);
@@ -60,8 +60,8 @@ public class DefaultCharacterProgressionTest extends TestCase {
     	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
     	ClassLevel rangerLevel2 = new DefaultClassLevel(2, ranger, 1, 1, 1, 1);
     	
-    	CharacterLevel characterLevel1 = new CharacterLevel(1, 2, rangerLevel1);
-    	CharacterLevel characterLevel2 = new CharacterLevel(1, 1, rangerLevel2);
+    	CharacterLevel characterLevel1 = new DefaultCharacterLevel(1, 2, rangerLevel1);
+    	CharacterLevel characterLevel2 = new DefaultCharacterLevel(1, 1, rangerLevel2);
     	
     	Collection levels = new ArrayList();
     	levels.add(characterLevel1);
@@ -81,7 +81,7 @@ public class DefaultCharacterProgressionTest extends TestCase {
 		mockClass2.replay();
 		
     	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
-    	CharacterLevel characterLevel1 = new CharacterLevel(1, 5, rangerLevel1);
+    	CharacterLevel characterLevel1 = new DefaultCharacterLevel(1, 5, rangerLevel1);
     	
     	Collection levels = new ArrayList();
     	levels.add(characterLevel1);
