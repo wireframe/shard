@@ -16,6 +16,7 @@
 package com.codecrate.shard.equipment;
 
 import com.codecrate.shard.dice.Dice;
+import com.codecrate.shard.race.RacialSize;
 
 /**
  * 
@@ -35,7 +36,17 @@ public interface Weapon extends Item {
 	 */
 	String getType();
 	
-    Dice getDamageSmall();
+	/**
+	 * gets the damage that the weapon does.
+	 * @return
+	 */
+    Dice getDamage();
     
-    Dice getDamageMedium();
+    /**
+     * gets the size that this weapon is balanced for.
+     * this is important because a short sword to a large character isn't 
+     * balanced the same as a long sword to a small character.
+     * @return
+     */
+    RacialSize getIntendedSize();
 }
