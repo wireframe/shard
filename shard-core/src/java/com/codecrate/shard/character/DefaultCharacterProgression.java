@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import com.codecrate.shard.kit.CharacterClass;
+import com.codecrate.shard.kit.ClassLevel;
 
 public class DefaultCharacterProgression implements CharacterProgression {
 
@@ -44,5 +45,40 @@ public class DefaultCharacterProgression implements CharacterProgression {
 	
 	public int getLevel() {
 		return levels.size();
+	}
+	
+	public ClassLevel getMaxLevel(CharacterClass kit) {
+		ClassLevel level = null;
+		Iterator it = levels.iterator();
+		while (it.hasNext()) {
+			CharacterLevel characterLevel = (CharacterLevel) it.next();
+			ClassLevel classLevel = characterLevel.getClassLevel();
+			if (kit.equals(classLevel.getCharacterClass())) {
+				if (null == level || level.getLevel() < classLevel.getLevel())
+					level = classLevel;
+			}
+		}
+		return level;
+	}
+	
+	/**
+	 * returns result formatted like this:
+	 * Wizard (5) / Fighter (10)
+	 */
+	public String toString() {
+		StringBuffer result = new StringBuffer();
+		int x = 0;
+		Iterator classes = getClasses().iterator();
+		while (classes.hasNext()) {
+			CharacterClass kit = (CharacterClass) classes.next();
+			ClassLevel maxLevel = getMaxLevel(kit);
+			result.append(maxLevel);
+			
+			if (x != levels.size()) {
+				result.append(" / ");
+			}
+			x++;
+		}
+		return result.toString();
 	}
 }

@@ -22,13 +22,15 @@ package com.codecrate.shard.kit;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class ClassLevel {
+	private int level;
     private int baseAttackBonus;
     private int fortituteSaveBonus;
     private int reflexSaveBonus;
     private int willpowerSaveBonus;
     private CharacterClass characterClass;
 
-    public ClassLevel(CharacterClass characterClass, int baseAttackBonus, int fortitueSaveBonus, int reflexSaveBonus, int willpowerSaveBonus) {
+    public ClassLevel(int level, CharacterClass characterClass, int baseAttackBonus, int fortitueSaveBonus, int reflexSaveBonus, int willpowerSaveBonus) {
+    	this.level = level;
     	this.characterClass = characterClass;
         this.baseAttackBonus = baseAttackBonus;
         this.fortituteSaveBonus = fortitueSaveBonus;
@@ -36,8 +38,16 @@ public class ClassLevel {
         this.willpowerSaveBonus = willpowerSaveBonus;
     }
     
+    public String toString() {
+    	return characterClass + " (" + level + ")";
+    }
+    
     public CharacterClass getCharacterClass() {
     	return characterClass;
+    }
+    
+    public int getLevel() {
+    	return level;
     }
     
     public int getBaseAttackBonus() {
