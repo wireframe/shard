@@ -32,6 +32,8 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     private List feats;
     private List equipment;
     
+    private int age;
+    private int maxAge;
     private int challengeRating;
     private Race race;
     private Gender gender;
@@ -83,5 +85,17 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 	
 	public Encumberance getEncumberance() {
 		return encumberance;
+	}
+	
+	public int getAge() {
+		return age;
+	}
+	
+	public int getMaxAge() {
+		return maxAge;
+	}
+	
+	public Race getRace() {
+		return race;
 	}
 }

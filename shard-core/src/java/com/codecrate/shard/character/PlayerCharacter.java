@@ -17,6 +17,7 @@ package com.codecrate.shard.character;
 
 import com.codecrate.shard.ability.AbilityContainer;
 import com.codecrate.shard.movement.Encumberance;
+import com.codecrate.shard.race.Race;
 
 /**
  * 
@@ -29,11 +30,11 @@ public interface PlayerCharacter {
 	
 	/**
 	 * gets the effective character level of a character.
-	 * A character’s ECL affects the experience the character earns, 
+	 * A characterï¿½s ECL affects the experience the character earns, 
 	 * the amount of experience the character must have before gaining a new level, 
-	 * and the character’s starting equipment.
+	 * and the characterï¿½s starting equipment.
 	 * this number is the sum of:
-	 * * the creature’s total Hit Dice
+	 * * the creatureï¿½s total Hit Dice
 	 * * class levels
 	 * * racial level adjustment
 	 * @return
@@ -48,11 +49,21 @@ public interface PlayerCharacter {
 	int getBaseAttackBonus();
 	
 	/**
-	 * gets the gender for the character;
+	 * gets the gender for the character.
 	 * @return
 	 */
 	Gender getGender();
 	
+	/**
+	 * gets the race of the character.
+	 * @return
+	 */
+	Race getRace();
+	
+	/**
+	 * gets the alignment of the character.
+	 * @return
+	 */
 	Alignment getAlignment();
 
 	/**
@@ -67,4 +78,18 @@ public interface PlayerCharacter {
 	 * @return
 	 */
 	Encumberance getEncumberance();
+	
+	/**
+	 * gets the age of the character.
+	 * @return
+	 */
+	int getAge();
+	
+	/**
+	 * gets the maximum age for this character.
+	 * determined at creation time using the character's race to determine 
+	 * the max age.
+	 * @return
+	 */
+	int getMaxAge();
 }
