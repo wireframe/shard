@@ -91,4 +91,15 @@ public class TypeGroupedModifier implements Modifier, ModifierContainer {
     public Collection getModifiers() {
         return modifiers;
     }
+    
+    public boolean isBonus() {
+        if (0 <= getModifier()) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean isPenalty() {
+        return !isBonus();
+    }
 }

@@ -40,4 +40,14 @@ public class DefaultModifier implements Modifier {
         return value;
     }
 
+    public boolean isBonus() {
+        if (0 <= getModifier()) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean isPenalty() {
+        return !isBonus();
+    }
 }

@@ -39,12 +39,15 @@ public interface Modifier {
 	
 	/**
 	 * flag for if the modifier is a bonus.
+	 * a modifier is a bonus if the modifier value is greater than or equal 
+	 * to zero.
 	 * @return
 	 */
 	boolean isBonus();
 	
 	/**
 	 * flag for if the modifier is a penalty.
+	 * a modifier is a penalty if the modifier value is less than zero.
 	 * @return
 	 */
 	boolean isPenalty();
