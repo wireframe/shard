@@ -29,6 +29,7 @@ public class DefaultAbilityScore implements AbilityScore {
 	private Ability ability;
     private int baseScore;
     private CompositeAbilityScoreModifier modifiers;
+    private CompositeAbilityScoreListener listeners;
     
     public DefaultAbilityScore(Ability ability, int baseScore) {
     	this.ability = ability;
@@ -135,9 +136,19 @@ public class DefaultAbilityScore implements AbilityScore {
 
 	public void addAbilityModifier(AbilityScoreModifier modifier) {
 		modifiers.addAbilityModifier(modifier);
+		listeners.onModify();
 	}
 	
 	public void removeAbilityModifier(AbilityScoreModifier modifier) {
 		modifiers.removeAbilityModifier(modifier);
+		listeners.onModify();
+	}
+
+	public void addListener(AbilityScoreListener listener) {
+		listeners.addListener(listener);
+	}
+
+	public void removeListener(AbilityScoreListener listener) {
+		listeners.removeListener(listener);
 	}
 }

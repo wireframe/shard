@@ -57,4 +57,16 @@ public interface AbilityScore {
 	 * @param modifier
 	 */
 	void removeAbilityModifier(AbilityScoreModifier modifier);
+	
+	/**
+	 * adds a listener.
+	 * @param listener
+	 */
+	void addListener(AbilityScoreListener listener);
+	
+	/**
+	 * removes a listener.
+	 * @param listener
+	 */
+	void removeListener(AbilityScoreListener listener);
 }
