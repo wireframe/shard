@@ -17,6 +17,8 @@ package com.codecrate.shard.skill;
 
 import java.util.Collection;
 
+import com.codecrate.shard.ability.Ability;
+
 /**
  * Data access object to retrieve skills.
  * 
@@ -30,11 +32,21 @@ public interface SkillDao {
      * manually check the isUsableUntrained flag.
      * @return
      */
-    public abstract Collection getUntrainedSkills();
+    Collection getUntrainedSkills();
 
     /**
      * gets all skills
      * @return
      */
-    public abstract Collection getSkills();
+    Collection getSkills();
+
+    /**
+     * creates a new skill.
+     * @param name
+     * @param usableUntrained
+     * @param ability
+     * @param armorPenalty
+     * @return
+     */
+    Skill createSkill(String name, boolean usableUntrained, Ability ability, boolean armorPenalty);
 }

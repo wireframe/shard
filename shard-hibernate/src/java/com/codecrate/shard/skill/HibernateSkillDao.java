@@ -25,6 +25,8 @@ import net.sf.hibernate.Session;
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
+import com.codecrate.shard.ability.Ability;
+
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
@@ -47,5 +49,10 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao {
                 return query.list();
             }
         });
+    }
+    
+    public Skill createSkill(String name, boolean usableUntrained, Ability ability, boolean armorPenalty) {
+        Skill skill = new HibernateSkill(name, usableUntrained, ability, armorPenalty);
+        return (Skill) getHibernateTemplate().save(skill);
     }
 }

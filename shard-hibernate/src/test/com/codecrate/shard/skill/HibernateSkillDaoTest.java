@@ -18,6 +18,7 @@ package com.codecrate.shard.skill;
 import java.util.Collection;
 
 import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
+import com.codecrate.shard.ability.DefaultAbility;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -41,5 +42,11 @@ public class HibernateSkillDaoTest extends ShardHibernateDbUnitTestCaseSupport {
         SkillDao skillDao = (SkillDao) getContext().getBean("skillDao");
         Collection skills = skillDao.getUntrainedSkills();
         assertFalse(skills.isEmpty());
+    }
+    
+    public void testSkillCreation() throws Exception {
+        SkillDao skillDao = (SkillDao) getContext().getBean("skillDao");
+        Skill skill = skillDao.createSkill("test skill", true, DefaultAbility.STRENGTH, false);
+        assertNotNull(skill);
     }
 }
