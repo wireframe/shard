@@ -70,7 +70,7 @@
 	          <td align="center" width="20%" class="font4">TEMPORARY<br />SCORE</td>
 	          <td align="center" width="20%" class="font4">TEMPORARY<br />MODIFIER</td>
 	        </tr>
-	        #foreach(abilityScore in $character.abilites.scores)
+	        #foreach($abilityScore in $character.abilites.abilityScores)
 	        <tr>
 	          <td><b>$abilityScore.ability.abbreviation</b><br />$abilityScore.ability.name</td>
 	          <td>$abilityScore.value</td>
@@ -96,7 +96,7 @@
 	        <tr>
 	          <td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>HP</b></font>
 	            <font style="font-size:5pt" color="white"><br />Hit Points</font></td>
-	          <td align="center" class="border9"><b>|HP|</b></td>
+	          <td align="center" class="border9"><b>$character.hitpoints.max</b></td>
 	          <td align="center"><br /></td>
 	          <td align="center" class="border9"><br /></td>
 	          <td align="center"><br /></td>
@@ -112,7 +112,7 @@
 	        <tr>
 	          <td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>AC</b></font>
 	            <font style="font-size:5pt" color="white"><br />Armour Class</font></td>
-	          <td align="center" class="border9"><b>|AC.Total|</b></td>
+	          <td align="center" class="border9"><b>$character.armorClass.value</b></td>
 	          <td align="center" class="font7"><b>:</b></td>
 	          <td align="center" class="border9"><b>|AC.Flatfooted|</b></td>
 	          <td align="center" class="font7"><b>:</b></td>
