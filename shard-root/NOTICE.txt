@@ -1,7 +1,8 @@
 This product includes software developed by
 codecrate consulting (http://www.codecrate.com).
 
-It utilizes software by:
-www.jfree.org
-www.opensymphony.com
-joe.truemesh.com
+A complete list of software used by this project 
+can be found by browsing the project documentation.  The project 
+dependency report is built dynamically and ensures that the list 
+of projects is always uptodate.
+http://shard.codecrate.com/dependency-convergence-report.html
