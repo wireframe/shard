@@ -27,25 +27,25 @@ import com.codecrate.shard.dice.Dice;
  */
 public class DefaultCharacterClass implements CharacterClass {
     public static final CharacterClass BARBARIAN = new DefaultCharacterClass(
-            "Barbarian", DefaultDice.d12, new ArrayList(), 4, new ClassProgression(new ArrayList()));
+            "Barbarian", DefaultDice.d12, new ArrayList(), 4, new DefaultClassProgression(new ArrayList()));
     public static final CharacterClass BARD = new DefaultCharacterClass(
-            "Bard", DefaultDice.d6, new ArrayList(), 6, new ClassProgression(new ArrayList()));
+            "Bard", DefaultDice.d6, new ArrayList(), 6, new DefaultClassProgression(new ArrayList()));
     public static final CharacterClass CLERIC = new DefaultCharacterClass(
-            "Cleric", DefaultDice.d8, new ArrayList(), 2, new ClassProgression(new ArrayList()));
+            "Cleric", DefaultDice.d8, new ArrayList(), 2, new DefaultClassProgression(new ArrayList()));
     public static final CharacterClass FIGHTER = new DefaultCharacterClass(
-            "Fighter", DefaultDice.d10, new ArrayList(), 2, new ClassProgression(new ArrayList()));
+            "Fighter", DefaultDice.d10, new ArrayList(), 2, new DefaultClassProgression(new ArrayList()));
     public static final CharacterClass MONK = new DefaultCharacterClass(
-            "Monk", DefaultDice.d8, new ArrayList(), 4, new ClassProgression(new ArrayList()));
+            "Monk", DefaultDice.d8, new ArrayList(), 4, new DefaultClassProgression(new ArrayList()));
     public static final CharacterClass PALADIN = new DefaultCharacterClass(
-            "Paladin", DefaultDice.d10, new ArrayList(), 2, new ClassProgression(new ArrayList()));
+            "Paladin", DefaultDice.d10, new ArrayList(), 2, new DefaultClassProgression(new ArrayList()));
     public static final CharacterClass RANGER = new DefaultCharacterClass(
-            "Ranger", DefaultDice.d8, new ArrayList(), 6, new ClassProgression(new ArrayList()));
+            "Ranger", DefaultDice.d8, new ArrayList(), 6, new DefaultClassProgression(new ArrayList()));
     public static final CharacterClass ROUGE = new DefaultCharacterClass(
-            "Rouge", DefaultDice.d6, new ArrayList(), 8, new ClassProgression(new ArrayList()));
+            "Rouge", DefaultDice.d6, new ArrayList(), 8, new DefaultClassProgression(new ArrayList()));
     public static final CharacterClass SORCERER = new DefaultCharacterClass(
-            "Sorcerer", DefaultDice.d4, new ArrayList(), 2, new ClassProgression(new ArrayList()));
+            "Sorcerer", DefaultDice.d4, new ArrayList(), 2, new DefaultClassProgression(new ArrayList()));
     public static final CharacterClass WIZARD = new DefaultCharacterClass(
-            "Wizard", DefaultDice.d4, new ArrayList(), 2, new ClassProgression(new ArrayList()));
+            "Wizard", DefaultDice.d4, new ArrayList(), 2, new DefaultClassProgression(new ArrayList()));
 
     
     private Collection classSkills;
