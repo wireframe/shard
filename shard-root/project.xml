@@ -30,7 +30,7 @@
   
   <versions>
     <version>
-      <id>shard-0.1.0</id>
+      <id>0.1.0</id>
       <name>shard-0.1.0</name>
       <tag>SHARD_0_1_0</tag>
     </version>
