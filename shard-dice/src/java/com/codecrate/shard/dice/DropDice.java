@@ -69,6 +69,6 @@ public class DropDice implements Dice {
     }
     
     public String toString() {
-        return dice.toString() + (dropHigh ?  "dh" : "dl") + drop;
+        return "drop(" + dice.toString() + (dropHigh ?  ", high " : ", low ") + drop + ")";
     }
 }
