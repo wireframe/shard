@@ -165,6 +165,19 @@ public class DefaultRace implements Race {
 	    return name;
 	}
 	
+	/**
+	 * 
+     * @hibernate.id
+     *  generator-class="uuid.hex"
+	 */
+	public String getId() {
+	    return name;
+	}
+	
+	public void setId(String id) {
+	    this.name = id;
+	}
+	
 	public boolean isSame(Race race) {
 	    return equals(race);
 	}
@@ -208,12 +221,6 @@ public class DefaultRace implements Race {
 		return vision;
 	}
 	
-	/**
-	 * 
-     * @hibernate.id
-     *  column="NAME"
-     *  generator-class="uuid.hex"
-	 */
 	public String getName() {
 		return name;
 	}

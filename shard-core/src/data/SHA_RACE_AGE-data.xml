@@ -5,7 +5,7 @@ use <null/> to specify a null value for an entry
 
 <dataset>
     <table name="SHA_RACE_AGE">
-        <column>NAME</column>
+        <column>ID</column>
         <column>AGE_ADULT</column>
         <column>AGE_MIDDLE_AGE</column>
         <column>AGE_OLD</column>

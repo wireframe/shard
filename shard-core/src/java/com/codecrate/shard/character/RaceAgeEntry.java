@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.character;
 
+import com.codecrate.shard.Identifiable;
 import com.codecrate.shard.race.Race;
 
 
@@ -24,7 +25,7 @@ import com.codecrate.shard.race.Race;
  * @hibernate.class 
  *  table="SHA_RACE_AGE"
  */
-public class RaceAgeEntry {
+public class RaceAgeEntry implements Identifiable{
 
     private String id;
     private Race race;
@@ -38,12 +39,10 @@ public class RaceAgeEntry {
      * @return
      * 
      * @hibernate.id
-     *  column="NAME"
-     *  type="java.lang.String"
      *  generator-class="foreign"
      * @hibernate.generator-param
      *  name="property"
-     *  value="name"
+     *  value="id"
      */
     public String getId() {
         return id;

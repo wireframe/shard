@@ -17,6 +17,7 @@ package com.codecrate.shard.race;
 
 import java.util.Collection;
 
+import com.codecrate.shard.Identifiable;
 import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Movement;
@@ -26,7 +27,7 @@ import com.codecrate.shard.movement.Movement;
  * 
  * <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface Race {
+public interface Race extends Identifiable {
 	/**
 	 * gets the name of the race.
 	 * @return
