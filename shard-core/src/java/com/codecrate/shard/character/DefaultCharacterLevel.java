@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.character;
 
+import java.util.Collection;
+
 import com.codecrate.shard.kit.ClassLevel;
 
 /**
@@ -23,14 +25,17 @@ import com.codecrate.shard.kit.ClassLevel;
  */
 public class DefaultCharacterLevel implements CharacterLevel {
 
-    private int level;
-    private int hitpoints;
-    private ClassLevel classLevel;
+    private final int level;
+    private final int hitpoints;
+    private final ClassLevel classLevel;
+	private final Collection skillRanks;
     
-    public DefaultCharacterLevel(int level, int hitpoints, ClassLevel classLevel) {
+    public DefaultCharacterLevel(int level, int hitpoints, 
+    		ClassLevel classLevel, Collection skillRanks) {
         this.level = level;
     	this.hitpoints = hitpoints;
     	this.classLevel = classLevel;
+		this.skillRanks = skillRanks;
     }
     
     public int getLevel() {
@@ -43,5 +48,9 @@ public class DefaultCharacterLevel implements CharacterLevel {
 	
 	public int getHitpoints() {
 		return hitpoints;
+	}
+	
+	public Collection getSkillRanks() {
+		return skillRanks;
 	}
 }
