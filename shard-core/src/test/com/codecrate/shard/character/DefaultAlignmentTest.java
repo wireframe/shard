@@ -19,27 +19,29 @@ import junit.framework.TestCase;
 
 public class DefaultAlignmentTest extends TestCase {
 
-    public void testEqualsMatchesLawfulGoodCharacters() {
-        DefaultAlignment alignment = new DefaultAlignment(AlignmentComponent.POSITIVE, AlignmentComponent.POSITIVE, "Test Lawful Good", "TLG");
-        assertTrue(alignment.isSame(DefaultAlignment.LAWFUL_GOOD));
-        assertFalse(alignment.isSame(DefaultAlignment.LAWFUL_NEUTRAL));
-        assertFalse(alignment.isSame(DefaultAlignment.LAWFUL_EVIL));
-        assertFalse(alignment.isSame(DefaultAlignment.NEUTRAL_GOOD));
-        assertFalse(alignment.isSame(DefaultAlignment.NEUTRAL_NEUTRAL));
-        assertFalse(alignment.isSame(DefaultAlignment.NEUTRAL_EVIL));
-    }
-
-    public void testEqualsMatchesChaoticEvilCharacters() {
-        DefaultAlignment alignment = new DefaultAlignment(AlignmentComponent.NEGATIVE, AlignmentComponent.NEGATIVE, "Test Chaotic Evil", "TCE");
-        assertTrue(alignment.isSame(DefaultAlignment.CHAOTIC_EVIL));
-        assertFalse(alignment.isSame(DefaultAlignment.CHAOTIC_GOOD));
-        assertFalse(alignment.isSame(DefaultAlignment.CHAOTIC_NEUTRAL));
-    }
-
-    public void testEqualsMatchesNeutralCharacters() {
-        DefaultAlignment alignment = new DefaultAlignment(AlignmentComponent.NEUTRAL, AlignmentComponent.NEUTRAL, "Test True Neutral", "TN");
-        assertTrue(alignment.isSame(DefaultAlignment.NEUTRAL_NEUTRAL));
-        assertFalse(alignment.isSame(DefaultAlignment.NEUTRAL_GOOD));
-        assertFalse(alignment.isSame(DefaultAlignment.NEUTRAL_EVIL));
-    }
+	public void testIsSameOnlyWorksOnSameAlignment() {
+		Alignment[] alignments = new Alignment[] {
+				DefaultAlignment.LAWFUL_GOOD,
+				DefaultAlignment.LAWFUL_NEUTRAL,
+				DefaultAlignment.LAWFUL_EVIL,
+				DefaultAlignment.NEUTRAL_GOOD,
+				DefaultAlignment.NEUTRAL_NEUTRAL,
+				DefaultAlignment.NEUTRAL_EVIL,
+				DefaultAlignment.CHAOTIC_GOOD,
+				DefaultAlignment.CHAOTIC_NEUTRAL,
+				DefaultAlignment.CHAOTIC_EVIL
+		};
+		
+		for (int x = 0; x < alignments.length; x++) {
+			Alignment currentAlignment = alignments[x];
+			for (int y = 0; y < alignments.length; y++) {
+				Alignment testAlignment = alignments[y];
+				if (x == y) {
+					assertTrue(currentAlignment + " == " + testAlignment, currentAlignment.isSame(testAlignment));
+				} else {
+					assertFalse(currentAlignment + " != " + testAlignment, currentAlignment.isSame(testAlignment));
+				}
+			}
+		}
+	}
 }

@@ -42,7 +42,10 @@ public class AlignmentComponent {
     }
 
     public boolean isNegative() {
-        return !isPositive();
+        if (null != alignment) {
+            return !alignment.booleanValue();
+        }
+        return false;
     }
     
     public boolean isNeutral() {

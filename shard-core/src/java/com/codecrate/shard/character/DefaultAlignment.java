@@ -58,28 +58,39 @@ public class DefaultAlignment implements Alignment {
     }
     
     public boolean isSame(Alignment alignment) {
-        if (isLawful() && !alignment.isLawful()) {
-            return false;
-        }
-        if (isChaotic() && !alignment.isChaotic()) {
-            return false;
-        }
-        if (isGood() && !alignment.isGood()) {
-            return false;
-        }
-        if (isEvil() && !alignment.isEvil()) {
-            return false;
-        }
-        if (isEthicalNeutral() && !alignment.isEthicalNeutral()) {
-        	return false;
-        }
-        if (isMoralNeutral() && !alignment.isMoralNeutral()) {
-        	return false;
-        }
-//      if (isTrueNeutral() && !alignment.isTrueNeutral()) {
-//      return false;
-//  }
+    	if (!isSameEthicalAlignment(alignment)) {
+    		return false;
+    	}
+    	if (!isSameMoralAlignment(alignment)) {
+    		return false;
+    	}
         return true;
+    }
+    
+    private boolean isSameEthicalAlignment(Alignment alignment) {
+        if (isLawful() && alignment.isLawful()) {
+            return true;
+        }
+        if (isChaotic() && alignment.isChaotic()) {
+            return true;
+        }
+        if (isEthicalNeutral() && alignment.isEthicalNeutral()) {
+        	return true;
+        }
+        return false;
+    }
+    
+    private boolean isSameMoralAlignment(Alignment alignment) {
+        if (isGood() && alignment.isGood()) {
+            return true;
+        }
+        if (isEvil() && alignment.isEvil()) {
+            return true;
+        }
+        if (isMoralNeutral() && alignment.isMoralNeutral()) {
+        	return true;
+        }
+        return false;
     }
 
     public boolean isTrueNeutral() {
@@ -106,19 +117,19 @@ public class DefaultAlignment implements Alignment {
         return moralAlignment.isNegative();
     }
     
-	public String getAbbreviation() {
-		return abbreviation;
-	}
-	
-	public String getName() {
-		return name;
-	}
-
 	public boolean isEthicalNeutral() {
 		return ethicalAlignment.isNeutral();
 	}
 
 	public boolean isMoralNeutral() {
 		return moralAlignment.isNeutral();
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getAbbreviation() {
+		return abbreviation;
 	}
 }
