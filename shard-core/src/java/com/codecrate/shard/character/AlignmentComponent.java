@@ -24,9 +24,16 @@ package com.codecrate.shard.character;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class AlignmentComponent {
+    public static final AlignmentComponent POSITIVE = new AlignmentComponent(Boolean.TRUE);
+    public static final AlignmentComponent NEGATIVE = new AlignmentComponent(Boolean.FALSE);
+    public static final AlignmentComponent NEUTRAL = new AlignmentComponent(null);
 
     private Boolean alignment;
-    
+
+    public AlignmentComponent(Boolean alignment) {
+        this.alignment = alignment;
+    }
+   
     public boolean isPositive() {
         if (null != alignment) {
             return alignment.booleanValue();

@@ -21,6 +21,25 @@ package com.codecrate.shard.character;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultAlignment implements Alignment {
+    public static final Alignment LAWFUL_GOOD = new DefaultAlignment(AlignmentComponent.POSITIVE, 
+        AlignmentComponent.POSITIVE);
+    public static final Alignment LAWFUL_NEUTRAL = new DefaultAlignment(AlignmentComponent.POSITIVE,
+        AlignmentComponent.NEUTRAL);
+    public static final Alignment LAWFUL_EVIL = new DefaultAlignment(AlignmentComponent.POSITIVE,
+        AlignmentComponent.NEGATIVE);
+    public static final Alignment NEUTRAL_GOOD = new DefaultAlignment(AlignmentComponent.NEUTRAL, 
+        AlignmentComponent.POSITIVE);
+    public static final Alignment NEUTRAL_NEUTRAL = new DefaultAlignment(AlignmentComponent.NEUTRAL,
+        AlignmentComponent.NEUTRAL);
+    public static final Alignment NEUTRAL_EVIL = new DefaultAlignment(AlignmentComponent.NEUTRAL,
+        AlignmentComponent.NEGATIVE);
+    public static final Alignment CHAOTIC_GOOD = new DefaultAlignment(AlignmentComponent.NEGATIVE,
+        AlignmentComponent.POSITIVE);
+    public static final Alignment CHAOTIC_NEUTRAL = new DefaultAlignment(AlignmentComponent.NEGATIVE,
+        AlignmentComponent.NEUTRAL);
+    public static final Alignment CHAOTIC_EVIL = new DefaultAlignment(AlignmentComponent.NEGATIVE,
+        AlignmentComponent.NEGATIVE);
+
 
     private AlignmentComponent lawfulAlignment;
     private AlignmentComponent goodAlignment;
@@ -28,6 +47,26 @@ public class DefaultAlignment implements Alignment {
     public DefaultAlignment(AlignmentComponent lawfulAlignment, AlignmentComponent goodAlignment) {
         this.lawfulAlignment = lawfulAlignment;
         this.goodAlignment = goodAlignment;
+    }
+
+    public boolean equals(Object target) {
+        Alignment alignment = (Alignment) target;
+        if (isLawful() && !alignment.isLawful()) {
+            return false;
+        }
+        if (isChaotic() && !alignment.isChaotic()) {
+            return false;
+        }
+        if (isGood() && !alignment.isGood()) {
+            return false;
+        }
+        if (isEvil() && !alignment.isEvil()) {
+            return false;
+        }
+        if (isNeutral() && !alignment.isNeutral()) {
+            return false;
+        }
+        return true;
     }
 
     public boolean isLawful() {
