@@ -19,8 +19,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.codecrate.shard.character.Alignment;
-import com.codecrate.shard.character.Deity;
 import com.codecrate.shard.character.PlayerCharacter;
+import com.codecrate.shard.divine.Deity;
 
 /**
  * Prerequisite to match Deity's alignment.

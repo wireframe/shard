@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
+import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;

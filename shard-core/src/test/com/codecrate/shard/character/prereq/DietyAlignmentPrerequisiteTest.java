@@ -20,8 +20,8 @@ import junit.framework.TestCase;
 import org.easymock.MockControl;
 
 import com.codecrate.shard.character.Alignment;
-import com.codecrate.shard.character.Deity;
 import com.codecrate.shard.character.PlayerCharacter;
+import com.codecrate.shard.divine.Deity;
 
 public class DietyAlignmentPrerequisiteTest extends TestCase {
 

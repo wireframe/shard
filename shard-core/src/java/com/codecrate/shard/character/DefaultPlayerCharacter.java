@@ -20,6 +20,7 @@ import java.util.Iterator;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
+import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Encumberance;
