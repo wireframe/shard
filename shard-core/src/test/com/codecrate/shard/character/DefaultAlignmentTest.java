@@ -21,22 +21,25 @@ public class DefaultAlignmentTest extends TestCase {
 
     public void testEqualsMatchesLawfulGoodCharacters() {
         DefaultAlignment alignment = new DefaultAlignment(AlignmentComponent.POSITIVE, AlignmentComponent.POSITIVE, "Test Lawful Good", "TLG");
-        assertEquals(DefaultAlignment.LAWFUL_GOOD, alignment);
-        assertFalse(alignment.equals(DefaultAlignment.LAWFUL_NEUTRAL));
-        assertFalse(alignment.equals(DefaultAlignment.LAWFUL_EVIL));
+        assertTrue(alignment.isSame(DefaultAlignment.LAWFUL_GOOD));
+        assertFalse(alignment.isSame(DefaultAlignment.LAWFUL_NEUTRAL));
+        assertFalse(alignment.isSame(DefaultAlignment.LAWFUL_EVIL));
+        assertFalse(alignment.isSame(DefaultAlignment.NEUTRAL_GOOD));
+        assertFalse(alignment.isSame(DefaultAlignment.NEUTRAL_NEUTRAL));
+        assertFalse(alignment.isSame(DefaultAlignment.NEUTRAL_EVIL));
     }
 
     public void testEqualsMatchesChaoticEvilCharacters() {
         DefaultAlignment alignment = new DefaultAlignment(AlignmentComponent.NEGATIVE, AlignmentComponent.NEGATIVE, "Test Chaotic Evil", "TCE");
-        assertTrue(alignment.equals(DefaultAlignment.CHAOTIC_EVIL));
-        assertFalse(alignment.equals(DefaultAlignment.CHAOTIC_GOOD));
-        assertFalse(alignment.equals(DefaultAlignment.CHAOTIC_NEUTRAL));
+        assertTrue(alignment.isSame(DefaultAlignment.CHAOTIC_EVIL));
+        assertFalse(alignment.isSame(DefaultAlignment.CHAOTIC_GOOD));
+        assertFalse(alignment.isSame(DefaultAlignment.CHAOTIC_NEUTRAL));
     }
 
     public void testEqualsMatchesNeutralCharacters() {
         DefaultAlignment alignment = new DefaultAlignment(AlignmentComponent.NEUTRAL, AlignmentComponent.NEUTRAL, "Test True Neutral", "TN");
-        assertTrue(alignment.equals(DefaultAlignment.NEUTRAL_NEUTRAL));
-        assertFalse(alignment.equals(DefaultAlignment.NEUTRAL_GOOD));
-        assertFalse(alignment.equals(DefaultAlignment.NEUTRAL_EVIL));
+        assertTrue(alignment.isSame(DefaultAlignment.NEUTRAL_NEUTRAL));
+        assertFalse(alignment.isSame(DefaultAlignment.NEUTRAL_GOOD));
+        assertFalse(alignment.isSame(DefaultAlignment.NEUTRAL_EVIL));
     }
 }

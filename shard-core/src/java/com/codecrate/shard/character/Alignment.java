@@ -37,15 +37,17 @@ public interface Alignment {
 	String getAbbreviation();
 	
     boolean isLawful();
+    boolean isEthicalNeutral();
     boolean isChaotic();
     
     /**
-     * returns if the alignment is neutral.
+     * returns if the alignment is true neutral.
      * @return
      */
-    boolean isNeutral();
+    boolean isTrueNeutral();
     
     boolean isGood();
+    boolean isMoralNeutral();
     boolean isEvil();
     
     boolean isSame(Alignment alignment);

@@ -72,9 +72,7 @@ public class AbilityScorePrerequisiteTest extends TestCase {
 		MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
 		AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
 		abilities.hasAbilityScore(DefaultAbility.STRENGTH);
-		mockAbilities.setReturnValue(true);
-		abilities.getAbilityScore(DefaultAbility.STRENGTH);
-		mockAbilities.setReturnValue(new DefaultAbilityScore(DefaultAbility.STRENGTH, 0));
+		mockAbilities.setReturnValue(false);
 		mockAbilities.replay();
 		
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);

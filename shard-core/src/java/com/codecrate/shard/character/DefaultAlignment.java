@@ -70,18 +70,25 @@ public class DefaultAlignment implements Alignment {
         if (isEvil() && !alignment.isEvil()) {
             return false;
         }
-        if (isNeutral() && !alignment.isNeutral()) {
-            return false;
+        if (isEthicalNeutral() && !alignment.isEthicalNeutral()) {
+        	return false;
         }
+        if (isMoralNeutral() && !alignment.isMoralNeutral()) {
+        	return false;
+        }
+//      if (isTrueNeutral() && !alignment.isTrueNeutral()) {
+//      return false;
+//  }
         return true;
     }
 
-    public boolean isNeutral() {
-        if (ethicalAlignment.isNeutral() && moralAlignment.isNeutral()) {
+    public boolean isTrueNeutral() {
+        if (isEthicalNeutral() && isMoralNeutral()) {
             return true;
         }
         return false;
     }
+    
     
     public boolean isLawful() {
         return ethicalAlignment.isPositive();
@@ -96,7 +103,7 @@ public class DefaultAlignment implements Alignment {
     }
 
     public boolean isEvil() {
-        return moralAlignment.isPositive();
+        return moralAlignment.isNegative();
     }
     
 	public String getAbbreviation() {
@@ -105,5 +112,13 @@ public class DefaultAlignment implements Alignment {
 	
 	public String getName() {
 		return name;
+	}
+
+	public boolean isEthicalNeutral() {
+		return ethicalAlignment.isNeutral();
+	}
+
+	public boolean isMoralNeutral() {
+		return moralAlignment.isNeutral();
 	}
 }
