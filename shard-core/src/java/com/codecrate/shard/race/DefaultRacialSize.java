@@ -23,23 +23,33 @@ import com.codecrate.shard.armorclass.DefaultArmorClass;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultRacialSize implements RacialSize {
-    public static final RacialSize FINE = new DefaultRacialSize(0, 8);
-    public static final RacialSize DIMINUTIVE = new DefaultRacialSize(0, 4);
-    public static final RacialSize TINY = new DefaultRacialSize(0, 2);
-    public static final RacialSize SMALL = new DefaultRacialSize(1, 1);
-    public static final RacialSize MEDIUM = new DefaultRacialSize(0, 0);
-    public static final RacialSize LARGE = new DefaultRacialSize(0, -1);
-    public static final RacialSize HUGE = new DefaultRacialSize(0, -2);
-    public static final RacialSize GARGANTUAN = new DefaultRacialSize(0, -4);
-    public static final RacialSize COLOSSAL = new DefaultRacialSize(0, -8);
+    public static final RacialSize FINE = new DefaultRacialSize("Fine", 0, 8);
+    public static final RacialSize DIMINUTIVE = new DefaultRacialSize("Diminutive", 0, 4);
+    public static final RacialSize TINY = new DefaultRacialSize("Tiny", 0, 2);
+    public static final RacialSize SMALL = new DefaultRacialSize("Small", 1, 1);
+    public static final RacialSize MEDIUM = new DefaultRacialSize("Medium", 0, 0);
+    public static final RacialSize LARGE = new DefaultRacialSize("Large", 0, -1);
+    public static final RacialSize HUGE = new DefaultRacialSize("Huge", 0, -2);
+    public static final RacialSize GARGANTUAN = new DefaultRacialSize("Gargantuan", 0, -4);
+    public static final RacialSize COLOSSAL = new DefaultRacialSize("Colossal", 0, -8);
 
     
+    private String name;
     private ArmorClassModifier armorClassModifier;
     private int baseAttackBonusModifier;
 
-    public DefaultRacialSize(int armorClassModifier, int baseAttackBonusModifier) {
+    public DefaultRacialSize(String name, int armorClassModifier, int baseAttackBonusModifier) {
+    	this.name = name;
         this.armorClassModifier = new RacialSizeArmorClassModifier(armorClassModifier);
         this.baseAttackBonusModifier = baseAttackBonusModifier;
+    }
+    
+    public String toString() {
+    	return name;
+    }
+    
+    public String getName() {
+    	return name;
     }
     
     public int getBaseAttackBonusModifier() {

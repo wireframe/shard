@@ -23,6 +23,12 @@ import com.codecrate.shard.armorclass.ArmorClassModifier;
  */
 public interface RacialSize extends ArmorClassModifier {
     int getBaseAttackBonusModifier();
+
+	/**
+	 * gets the name of the racial size.
+	 * @return
+	 */
+	String getName();
     
     //small characters 3/4 max weight of medium.
     //float getMaxWeightModifier();
