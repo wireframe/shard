@@ -68,14 +68,13 @@
 	          <td align="center" width="20%" class="font4">ABILITY<br />SCORE</td>
 	          <td align="center" width="20%" class="font4">ABILITY<br />MODIFIER</td>
 	        </tr>
-	        $character.abilities.abilityScores
-	        #foreach($abilityScore in $character.abilites.getAbilityScores())
+#foreach($abilityScore in $abilities)
 	        <tr>
 	          <td><b>$abilityScore.ability.abbreviation</b><br />$abilityScore.ability.name</td>
-	          <td>$abilityScore.value</td>
+	          <td>$abilityScore.score</td>
 	          <td>$abilityScore.modifier</td>
 	        </tr>
-	        #end
+#end
 	      </table> <!-- STOP Abilities Table -->
 	    </td>
 	    <td colspan="2" valign="top">

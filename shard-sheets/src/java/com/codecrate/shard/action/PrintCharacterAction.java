@@ -38,6 +38,7 @@ public class PrintCharacterAction {
 	
 	public PrintCharacterAction(PlayerCharacter character, Template template) {
 		context.put("character", character);
+		context.put("abilities", character.getAbilities().getAbilityScores());
 		context.put("runtime", new ShardRuntime());
 		context.put("date", new Date());
 		context.put("renderTool", new RenderTool());
