@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping
+    PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+
+<hibernate-mapping package="com.codecrate.shard.movement">
+
+    <class name="EncumberanceEntry" table="SHA_ENCUMBERANCE_ENTRY">
+
+        <id name="id" type="string" unsaved-value="null" >
+            <column name="ID" sql-type="char(32)" not-null="true"/>
+            <generator class="assigned"/>
+        </id>
+
+        <property name="weightLight">
+            <column name="WEIGHT_LIGHT" length="5" not-null="true"/>
+        </property>
+        
+        <property name="weightMedium">
+            <column name="WEIGHT_MEDIUM" length="5" not-null="true"/>
+        </property>
+        
+        <property name="weightHeavy">
+            <column name="WEIGHT_HEAVY" length="5" not-null="true"/>
+        </property>
+    </class>
+
+</hibernate-mapping>

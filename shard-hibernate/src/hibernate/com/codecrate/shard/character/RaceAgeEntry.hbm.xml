@@ -30,7 +30,9 @@
             <column name="AGE_VENERABLE" length="4" not-null="true"/>
         </property>
         
-        <one-to-one class="com.codecrate.shard.race.HibernateRace" cascade="all" />
+        <one-to-one class="com.codecrate.shard.race.HibernateRace" 
+         name="race"
+         cascade="all" />
     </class>
 
 </hibernate-mapping>

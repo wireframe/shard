@@ -5,7 +5,7 @@ use <null/> to specify a null value for an entry
 
 <dataset>
     <table name="SHA_ENCUMBERANCE_ENTRY">
-        <column>ABILITY_SCORE</column>
+        <column>ID</column>
         <column>WEIGHT_LIGHT</column>
         <column>WEIGHT_MEDIUM</column>
         <column>WEIGHT_HEAVY</column>

@@ -38,7 +38,7 @@ public class HibernateAbilityScoreDao implements AbilityScoreDao {
     
     public int getPointCost(int score) {
         try {
-            Query query = session.createQuery("from PointCostValue value where value.abilityScore = :abilityScore");
+            Query query = session.createQuery("from PointCostValue value where value.id = :abilityScore");
             query.setInteger("abilityScore", score);
             List values = query.list();
             if (1 == values.size()) {

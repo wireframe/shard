@@ -62,40 +62,48 @@ use <null/> to specify a null value for an entry
         <column>ID</column>
         <column>LEVEL_ADJUSTMENT</column>
         <column>FAVORED_CLASS</column>
+        <column>BASE_SKILL_POINTS_PER_LEVEL</column>
         <row>
             <value>Human</value>
             <value>0</value>
             <null/>
+            <value>1</value>
         </row>
         <row>
             <value>Elf</value>
             <value>0</value>
             <value>Wizard</value>
+            <value>0</value>
         </row>
         <row>
             <value>Dwarf</value>
             <value>0</value>
             <value>Fighter</value>
+            <value>0</value>
         </row>
         <row>
             <value>Half-Elf</value>
             <value>0</value>
             <null/>
+            <value>0</value>
         </row>
         <row>
             <value>Half-Orc</value>
             <value>0</value>
             <value>Barbarian</value>
+            <value>0</value>
         </row>
         <row>
             <value>Gnome</value>
             <value>0</value>
             <value>Bard</value>
+            <value>0</value>
         </row>
         <row>
             <value>Halfling</value>
             <value>0</value>
             <value>Rouge</value>
+            <value>0</value>
         </row>
     </table>
 </dataset>

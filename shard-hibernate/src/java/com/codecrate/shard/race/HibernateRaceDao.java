@@ -38,7 +38,7 @@ public class HibernateRaceDao {
     
     public Collection getRaces() {
         try {
-            Query query = session.createQuery("from DefaultRace");
+            Query query = session.createQuery("from HibernateRace");
             return query.list();
         } catch (HibernateException e) {
             LOG.error("Unable to lookup races.", e);

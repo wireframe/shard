@@ -38,7 +38,7 @@ public class HibernateCharacterClassDao implements CharacterClassDao {
     
     public Collection getClasses() {
         try {
-            Query query = session.createQuery("from DefaultCharacterClass");
+            Query query = session.createQuery("from HibernateCharacterClass");
             return query.list();
         } catch (HibernateException e) {
             LOG.error("Unable to lookup races.", e);

@@ -51,7 +51,7 @@ public class HibernateEncumberanceDao implements EncumberanceDao {
         int score = strength.getModifiedValue();
         int effectiveWeight = inventory.getTotalWeight().divide(size.getEncumberanceMultiplier(), 0).intValue();
         try {
-            Query query = session.createQuery("from EncumberanceEntry value where value.abilityScore = :abilityScore");
+            Query query = session.createQuery("from EncumberanceEntry value where value.id = :abilityScore");
             query.setInteger("abilityScore", score);
             List values = query.list();
             if (1 == values.size()) {

@@ -3,9 +3,9 @@
     PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
 
-<hibernate-mapping>
+<hibernate-mapping package="com.codecrate.shard.kit">
 
-    <class name="com.codecrate.shard.character.RaceAgeEntry" table="SHA_CLASS">
+    <class name="HibernateCharacterClass" table="SHA_CLASS">
 
         <id name="id" type="string" unsaved-value="null" >
             <column name="ID" sql-type="char(32)" not-null="true"/>
@@ -17,20 +17,6 @@
         <property name="baseSkillPointsPerLevel">
             <column name="BASE_SKILL_POINTS_PER_LEVEL" length="4" not-null="true"/>
         </property>
-
-        <property name="ageMiddleAge">
-            <column name="AGE_MIDDLE_AGE" length="4" not-null="true"/>
-        </property>
-
-        <property name="ageOld">
-            <column name="AGE_OLD" length="4" not-null="true"/>
-        </property>
-
-        <property name="ageVenerable">
-            <column name="AGE_VENERABLE" length="4" not-null="true"/>
-        </property>
-        
-        <one-to-one class="com.codecrate.shard.race.HibernateRace" cascade="all" />
     </class>
 
 </hibernate-mapping>

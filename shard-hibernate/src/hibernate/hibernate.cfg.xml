@@ -16,6 +16,8 @@
     <mapping resource="com/codecrate/shard/character/RaceAgeEntry.hbm.xml"/>
 
     <mapping resource="com/codecrate/shard/kit/HibernateCharacterClass.hbm.xml"/>
+
+    <mapping resource="com/codecrate/shard/movement/EncumberanceEntry.hbm.xml"/>
     
     <mapping resource="com/codecrate/shard/race/HibernateLanguage.hbm.xml"/>
     <mapping resource="com/codecrate/shard/race/HibernateRace.hbm.xml"/>

@@ -15,25 +15,29 @@
  */
 package com.codecrate.shard.movement;
 
+import com.codecrate.shard.Identifiable;
+
 /**
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ * persistant class for storing encumberance table info.
  * 
- * @hibernate.class 
- *  table="SHA_ENCUMBERANCE_ENTRY"
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class EncumberanceEntry {
+public class EncumberanceEntry implements Identifiable {
     private int abilityScore;
     private int weightLight;
     private int weightMedium;
     private int weightHeavy;
     
+    public String getId() {
+    	return Integer.toString(abilityScore);
+    }
+    
+    public void setId(String id) {
+    	this.abilityScore = Integer.parseInt(id);
+    }
+    
     /**
      * @return Returns the abilityScore.
-     * 
-     * @hibernate.id
-     *  column="ABILITY_SCORE"
-     *  generator-class="uuid.hex"
-     *  length="3"
      */
     public int getAbilityScore() {
         return abilityScore;
