@@ -24,10 +24,13 @@ public class CalculatedClassProgression implements ClassProgression {
 
     private DefaultClassProgression delegate;
     
-    public CalculatedClassProgression(int maxLevel, CharacterClass kit, LevelCalculator baseAttackCalculator) {
+    public CalculatedClassProgression(int maxLevel, CharacterClass kit, 
+            LevelCalculator baseAttackCalculator, LevelCalculator fortitudeSaveCalculator, 
+            LevelCalculator reflexSaveCalculator, LevelCalculator willpowerSaveCalculator) {
         Collection levels = new ArrayList();
         for (int x = 1; x <= maxLevel; x++) {
-            ClassLevel level = new DefaultClassLevel(x, kit, baseAttackCalculator.calculateValue(x), 0, 0, 0);
+            ClassLevel level = new CalculatedClassLevel(x, kit, baseAttackCalculator, 
+                    fortitudeSaveCalculator, reflexSaveCalculator, willpowerSaveCalculator);
             levels.add(level);
         }
         
