@@ -20,7 +20,6 @@ import junit.framework.TestCase;
 import org.easymock.MockControl;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
 import com.codecrate.shard.character.PlayerCharacter;
@@ -33,7 +32,7 @@ public class AbilityScorePrerequisiteTest extends TestCase {
 		abilities.hasAbilityScore(DefaultAbility.STRENGTH);
 		mockAbilities.setReturnValue(true);
 		abilities.getAbilityScore(DefaultAbility.STRENGTH);
-		mockAbilities.setReturnValue(new DefaultAbilityScore(DefaultAbility.STRENGTH, 5, new AbilityScoreDao()));
+		mockAbilities.setReturnValue(new DefaultAbilityScore(DefaultAbility.STRENGTH, 5, null));
 		mockAbilities.replay();
 		
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
@@ -44,7 +43,7 @@ public class AbilityScorePrerequisiteTest extends TestCase {
 		mockCharacter.setReturnValue(abilities);
 		mockCharacter.replay();
 		
-		AbilityScorePrerequisite prereq = new AbilityScorePrerequisite(new DefaultAbilityScore(DefaultAbility.STRENGTH, 1, new AbilityScoreDao()));
+		AbilityScorePrerequisite prereq = new AbilityScorePrerequisite(new DefaultAbilityScore(DefaultAbility.STRENGTH, 1, null));
 		assertTrue(prereq.hasMetPrerequisite(character));
 	}
 	
@@ -54,7 +53,7 @@ public class AbilityScorePrerequisiteTest extends TestCase {
 		abilities.hasAbilityScore(DefaultAbility.STRENGTH);
 		mockAbilities.setReturnValue(true);
 		abilities.getAbilityScore(DefaultAbility.STRENGTH);
-		mockAbilities.setReturnValue(new DefaultAbilityScore(DefaultAbility.STRENGTH, 0, new AbilityScoreDao()));
+		mockAbilities.setReturnValue(new DefaultAbilityScore(DefaultAbility.STRENGTH, 0, null));
 		mockAbilities.replay();
 		
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
@@ -65,7 +64,7 @@ public class AbilityScorePrerequisiteTest extends TestCase {
 		mockCharacter.setReturnValue(abilities);
 		mockCharacter.replay();
 		
-		AbilityScorePrerequisite prereq = new AbilityScorePrerequisite(new DefaultAbilityScore(DefaultAbility.STRENGTH, 1, new AbilityScoreDao()));
+		AbilityScorePrerequisite prereq = new AbilityScorePrerequisite(new DefaultAbilityScore(DefaultAbility.STRENGTH, 1, null));
 		assertFalse(prereq.hasMetPrerequisite(character));
 	}
 	
@@ -82,7 +81,7 @@ public class AbilityScorePrerequisiteTest extends TestCase {
 		mockCharacter.setReturnValue(abilities);
 		mockCharacter.replay();
 		
-		AbilityScorePrerequisite prereq = new AbilityScorePrerequisite(new DefaultAbilityScore(DefaultAbility.STRENGTH, 1, new AbilityScoreDao()));
+		AbilityScorePrerequisite prereq = new AbilityScorePrerequisite(new DefaultAbilityScore(DefaultAbility.STRENGTH, 1, null));
 		assertFalse(prereq.hasMetPrerequisite(character));
 	}
 }

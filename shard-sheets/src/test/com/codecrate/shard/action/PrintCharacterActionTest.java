@@ -27,6 +27,8 @@ import junit.framework.TestCase;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.tools.generic.log.CommonsLogLogSystem;
+import org.easymock.MockControl;
 
 import com.codecrate.shard.DefaultKeyedModifier;
 import com.codecrate.shard.KeyedModifier;
@@ -68,13 +70,21 @@ public class PrintCharacterActionTest extends TestCase {
 		VelocityEngine engine = new VelocityEngine();
 		Properties p = new Properties();
 	    p.setProperty("file.resource.loader.path", "/home/rsonnek/Projects/shard/shard-sheets/src/conf/templates/html");
-	    p.setProperty("runtime.log.logsystem.class", "org.apache.velocity.tools.generic.log.CommonsLogLogSystem");
+	    p.setProperty("runtime.log.logsystem.class", CommonsLogLogSystem.class.getName());
 	    engine.init(p);
 		Template template = engine.getTemplate("default.vm");
 
+		MockControl mockDao = MockControl.createControl(AbilityScoreDao.class);
+		AbilityScoreDao dao = (AbilityScoreDao) mockDao.getMock();
+		dao.getPointCost(10);
+		mockDao.setReturnValue(1);
+		dao.getPointCost(18);
+		mockDao.setReturnValue(14);
+		mockDao.replay();
+		
 		Map scores = new HashMap();
-		scores.put(DefaultAbility.STRENGTH, new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, new AbilityScoreDao()));
-		scores.put(DefaultAbility.DEXTERITY, new DefaultAbilityScore(DefaultAbility.DEXTERITY, 18, new AbilityScoreDao()));
+		scores.put(DefaultAbility.STRENGTH, new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, dao));
+		scores.put(DefaultAbility.DEXTERITY, new DefaultAbilityScore(DefaultAbility.DEXTERITY, 18, dao));
 		DefaultAbilityScoreContainer abilities = new DefaultAbilityScoreContainer(scores);
 		
 		Collection levels = new ArrayList();

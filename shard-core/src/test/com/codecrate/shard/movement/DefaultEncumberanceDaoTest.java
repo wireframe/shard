@@ -23,7 +23,6 @@ import org.easymock.MockControl;
 
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
 import com.codecrate.shard.equipment.ItemEntryContainer;
@@ -36,7 +35,7 @@ public class DefaultEncumberanceDaoTest extends TestCase {
      * strength of 10: light=33, medium=66, heavy=100
      */
     public void testEffectiveWeightCalculatedUsingRacialSize() {
-        AbilityScore score = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, new AbilityScoreDao());
+        AbilityScore score = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, null);
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();

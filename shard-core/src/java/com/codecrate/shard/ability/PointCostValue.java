@@ -28,6 +28,7 @@ public class PointCostValue {
      * @return Returns the abilityScore.
      * 
      * @hibernate.id
+     *  column="ABILITY_SCORE"
      *  generator-class="uuid.hex"
      *  length="3"
      */
@@ -38,10 +39,23 @@ public class PointCostValue {
      * @return Returns the pointCost.
      * 
      * @hibernate.property
+     *  column="POINT_COST"
      *  length="3"
      *  not-null="true"
      */
     public int getPointCost() {
         return pointCost;
+    }
+    /**
+     * @param abilityScore The abilityScore to set.
+     */
+    public void setAbilityScore(int abilityScore) {
+        this.abilityScore = abilityScore;
+    }
+    /**
+     * @param pointCost The pointCost to set.
+     */
+    public void setPointCost(int pointCost) {
+        this.pointCost = pointCost;
     }
 }

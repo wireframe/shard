@@ -27,7 +27,7 @@ import com.codecrate.shard.ModifierType;
 
 public class DefaultAbilityScoreTest extends TestCase {
 	public void testBonusCanGoNegative() {
-		DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 1, new AbilityScoreDao());
+		DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 1, null);
 		assertEquals(-4, ability.getBonus());
 	}
 	
@@ -40,7 +40,7 @@ public class DefaultAbilityScoreTest extends TestCase {
 	    
 	    ModifierType type = new DefaultModifierType("type", false);
 	    Modifier modifier = new DefaultModifier(type, 2);
-	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, new AbilityScoreDao());
+	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, null);
 	    ability.addListener(listener);
 	    ability.addModifier(modifier);
 	    
@@ -56,10 +56,22 @@ public class DefaultAbilityScoreTest extends TestCase {
 	    
 	    ModifierType type = new DefaultModifierType("type", false);
 	    Modifier modifier = new DefaultModifier(type, 2);
-	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, new AbilityScoreDao());
+	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, null);
 	    ability.addListener(listener);
 	    ability.removeModifier(modifier);
 	    
 	    mockListener.verify();
+	}
+	
+	public void testDaoUsedToLookupPointCost() {
+	    MockControl mockAbilityScoreDao = MockControl.createControl(AbilityScoreDao.class);
+	    AbilityScoreDao abilityScoreDao = (AbilityScoreDao) mockAbilityScoreDao.getMock();
+	    abilityScoreDao.getPointCost(10);
+	    mockAbilityScoreDao.setReturnValue(1);
+	    mockAbilityScoreDao.replay();
+	    
+	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, abilityScoreDao);
+	    int pointCost = ability.getPointCost();
+	    assertEquals(1, pointCost);
 	}
 }

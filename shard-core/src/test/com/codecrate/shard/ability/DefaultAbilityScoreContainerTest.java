@@ -30,7 +30,7 @@ import com.codecrate.shard.ModifierType;
 public class DefaultAbilityScoreContainerTest extends TestCase {
 
 	public void testGetAbilityReturnsSameObject() {
-		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, new AbilityScoreDao());
+		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, null);
 		Map abilities = new HashMap();
 		abilities.put(DefaultAbility.STRENGTH, ability);
 		
@@ -47,7 +47,7 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 	
 	public void testHasAbilitySucceedsWhenAbilityExists() {
 		Map abilities = new HashMap();
-		abilities.put(DefaultAbility.STRENGTH, new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, new AbilityScoreDao()));
+		abilities.put(DefaultAbility.STRENGTH, new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, null));
 		DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 		assertTrue(container.hasAbilityScore(DefaultAbility.STRENGTH));
 	}
@@ -68,7 +68,7 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 	}
 
 	public void testAbilityScoresReturned() {
-		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, new AbilityScoreDao());
+		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, null);
 		Map abilities = new HashMap();
 		abilities.put(DefaultAbility.STRENGTH, ability);
 		DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
@@ -77,7 +77,7 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 	}
 	
 	public void testAddModifierAttachesModifierToScore() {
-		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, new AbilityScoreDao());
+		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, null);
 		Map abilities = new HashMap();
 		abilities.put(DefaultAbility.STRENGTH, ability);
 	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
@@ -97,7 +97,7 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 	
 	
 	public void testRemoveModifierModifierToScore() {
-		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, new AbilityScoreDao());
+		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, null);
 		Map abilities = new HashMap();
 		abilities.put(DefaultAbility.STRENGTH, ability);
 	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
