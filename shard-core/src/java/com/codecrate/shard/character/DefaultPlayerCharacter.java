@@ -66,7 +66,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     }
 
     public int getEffectiveCharacterLevel() {
-    	return characterProgression.getLevel() + race.getLevelAdjustment();
+    	return characterProgression.getMaxCharacterLevel() + race.getLevelAdjustment();
     }
 
 	public AbilityContainer getAbilities() {

@@ -23,12 +23,18 @@ import com.codecrate.shard.kit.ClassLevel;
  */
 public class CharacterLevel {
 
+    private int level;
     private int hitpoints;
     private ClassLevel classLevel;
     
-    public CharacterLevel(int hitpoints, ClassLevel classLevel) {
+    public CharacterLevel(int level, int hitpoints, ClassLevel classLevel) {
+        this.level = level;
     	this.hitpoints = hitpoints;
     	this.classLevel = classLevel;
+    }
+    
+    public int getLevel() {
+        return level;
     }
     
 	public ClassLevel getClassLevel() {

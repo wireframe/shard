@@ -21,7 +21,26 @@ import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.ClassLevel;
 
 public interface CharacterProgression {
+
+    /**
+     * gets all character levels.
+     * @return
+     */
+    Collection getCharacterLevels();
+
+	/**
+	 * gets the number of levels the character has.
+	 * @return
+	 */
+	int getMaxCharacterLevel();
 	
+    /**
+     * gets a specific character level.
+     * @param level
+     * @return
+     */
+    CharacterLevel getCharacterLevel(int level);
+    
 	/**
 	 * gets the different classes that the character has.
 	 * @return
@@ -29,15 +48,9 @@ public interface CharacterProgression {
 	Collection getClasses();
 
 	/**
-	 * gets the number of levels the character has.
-	 * @return
-	 */
-	int getLevel();
-	
-	/**
 	 * gets the max level of a class.
 	 * @param kit
 	 * @return
 	 */
-	ClassLevel getMaxLevel(CharacterClass kit);
+	ClassLevel getMaxClassLevel(CharacterClass kit);
 }

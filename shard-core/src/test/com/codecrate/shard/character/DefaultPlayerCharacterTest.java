@@ -32,7 +32,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
 
 		MockControl mockProgression = MockControl.createControl(CharacterProgression.class);
 		CharacterProgression levels = (CharacterProgression) mockProgression.getMock();
-		levels.getLevel();
+		levels.getMaxCharacterLevel();
 		mockProgression.setReturnValue(1);
 		mockProgression.replay();
 	    

@@ -16,6 +16,7 @@
 package com.codecrate.shard.kit;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 public class ClassProgression {
 	
@@ -27,5 +28,21 @@ public class ClassProgression {
 	
 	public Collection getClassLevels() {
 		return levels;
+	}
+	
+	public int getMaxLevel() {
+	    return levels.size();
+	}
+	
+	public ClassLevel getClassLevel(int level) {
+	    ClassLevel kit = null;
+	    Iterator it = levels.iterator();
+	    while (it.hasNext()) {
+	        ClassLevel object = (ClassLevel) it.next();
+	        if (level == object.getLevel()) {
+	            return object;
+	        }
+	    }
+	    return kit;
 	}
 }
