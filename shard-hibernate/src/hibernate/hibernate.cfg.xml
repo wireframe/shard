@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Mapping DTD 2.0//EN" "http://hibernate.sourceforge.net/configuration-2.0.dtd">
+
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+    <property name="hibernate.connection.url">jdbc:hsqldb:.</property>
+    <property name="hibernate.connection.username">sa</property>
+    <property name="hibernate.connection.password"/>
+    <property name="hibernate.dialect">net.sf.hibernate.dialect.HSQLDialect</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.hbm2ddl.auto">create-drop</property>
+    <mapping resource="com/codecrate/shard/ability/PointCostValue.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

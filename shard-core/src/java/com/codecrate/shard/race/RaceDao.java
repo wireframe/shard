@@ -17,6 +17,10 @@ package com.codecrate.shard.race;
 
 import java.util.Collection;
 
-public interface LanguageDao {
-    Collection getLanguages();
+/**
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
+public interface RaceDao {
+
+    Collection getRaces();
 }

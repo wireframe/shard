@@ -15,85 +15,13 @@
  */
 package com.codecrate.shard.race;
 
-import com.codecrate.shard.Identifiable;
-
 /**
- * Defines a language spoken by races.
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  * 
  * @see http://www.d20srd.org/srd/skills/speakLanguage.htm
- * 
- * @hibernate.class
- *  table="SHA_LANGUAGE"
  */
-public class Language implements Identifiable {
-	public static final Language ABYSSAL = new Language("Abyssal", "Infernal");
-	public static final Language AQUAN = new Language("Aquan", "Elven");
-	public static final Language AURAN = new Language("Auran", "Draconic");
-	public static final Language CELESTIAL = new Language("Celestial", "Celestial");
-	public static final Language COMMON = new Language("Common", "Common");
-	public static final Language DRACONIC = new Language("Draconic", "Draconic");
-	public static final Language DRUIDIC = new Language("Druidic", "Druidic");
-	public static final Language DWARVEN = new Language("Dwarven", "Dwarven");
-	public static final Language ELVEN = new Language("Elven", "Elven");
-	public static final Language GIANT = new Language("Giant", "Dwarven");
-	public static final Language GNOME = new Language("Gnome", "Dwarven");
-	public static final Language GOBLIN = new Language("Goblin", "Dwarven");
-	public static final Language GNOLL = new Language("Gnoll", "Common");
-	public static final Language HALFLING = new Language("Halfling", "Common");
-	public static final Language IGNAN = new Language("Ignan", "Draconic");
-	public static final Language INFERNAL = new Language("Infernal", "Infernal");
-	public static final Language ORC = new Language("Orc", "Dwarven");
-	public static final Language SYLVAN = new Language("Sylvan", "Elven");
-	public static final Language TERRAN = new Language("Terran", "Dwarven");
-	public static final Language UNDERCOMMON = new Language("Undercommon", "Elven");
+public interface Language {
+    String getName();
     
-	private String name;
-	private String alphabet;
-
-	/**
-	 * hibernate constructor.
-	 */
-	public Language() {
-	}
-	
-	public Language(String name, String alphabet) {
-		this.name = name;
-		this.alphabet = alphabet;
-	}
-
-	public String toString() {
-		return name;
-	}
-	
-	/**
-	 * 
-     * @hibernate.id
-     *  generator-class="assigned"
-	 */
-	public String getId() {
-	    return name;
-	}
-	
-	public void setId(String id) {
-	    this.name = id;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 * 
-	 * @hibernate.property
-	 *  column="ALPHABET"
-	 */
-	public String getAlphabet() {
-		return alphabet;
-	}
-	
-	public void setAlphabet(String alphabet) {
-	    this.alphabet = alphabet;
-	}
+    String getAlphabet();
 }

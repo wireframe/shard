@@ -29,7 +29,7 @@ import com.codecrate.shard.dice.DefaultDice;
 import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.modifier.DefaultKeyedModifier;
 import com.codecrate.shard.modifier.KeyedModifier;
-import com.codecrate.shard.race.Language;
+import com.codecrate.shard.race.DefaultLanguage;
 import com.codecrate.shard.skill.DefaultSkill;
 import com.codecrate.shard.skill.Feat;
 import com.codecrate.shard.skill.SkillDao;
@@ -74,7 +74,7 @@ public class DefaultCharacterClass implements CharacterClass {
     public static final CharacterClass CLERIC = new DefaultCharacterClass(
             "Cleric", DefaultDice.d8, new SkillDao(), 2, 
             new DefaultClassProgressionDao(), new DeityAlignmentPrerequisite(), 
-            Arrays.asList(new Language[]{Language.ABYSSAL, Language.CELESTIAL, Language.INFERNAL}),
+            Arrays.asList(new DefaultLanguage[]{DefaultLanguage.ABYSSAL, DefaultLanguage.CELESTIAL, DefaultLanguage.INFERNAL}),
             Arrays.asList(new Feat[]{Feat.ARMOR_PROFICIENCY_LIGHT, Feat.ARMOR_PROFICIENCY_MEDIUM,
                     Feat.ARMOR_PROFICIENCY_HEAVY,
                             Feat.SHIELD_PROFICIENCY }), Arrays
@@ -91,7 +91,7 @@ public class DefaultCharacterClass implements CharacterClass {
                             DefaultAlignment.CHAOTIC_NEUTRAL, 
                             DefaultAlignment.CHAOTIC_EVIL 
                             }), 
-                            Arrays.asList(new Language[]{Language.SYLVAN}),
+                            Arrays.asList(new DefaultLanguage[]{DefaultLanguage.SYLVAN}),
                             new ArrayList(), Arrays
                             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                                     DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
@@ -150,7 +150,7 @@ public class DefaultCharacterClass implements CharacterClass {
             "Wizard", DefaultDice.d4, new SkillDao(), 2, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), 
             Arrays
-                    .asList(new Language[] { Language.DRACONIC }),
+                    .asList(new DefaultLanguage[] { DefaultLanguage.DRACONIC }),
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));

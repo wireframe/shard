@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import com.codecrate.shard.Identifiable;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.dice.DefaultDice;
 import com.codecrate.shard.dice.Dice;
@@ -35,20 +36,17 @@ import com.codecrate.shard.skill.DefaultSkill;
 
 /**
  * <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
- * 
- * @hibernate.class 
- *  table="SHA_RACE"
  */
-public class DefaultRace implements Race {
+public class HibernateRace implements Race, Identifiable {
     private static final ModifierType RACE = new DefaultModifierType("race", false);
     
-	public static final Race HUMAN = new DefaultRace("Human", DefaultRacialSize.MEDIUM,
+	public static final Race HUMAN = new HibernateRace("Human", DefaultRacialSize.MEDIUM,
 			new DefaultMovement(30), new ArrayList(), new ArrayList(), 
 			0, 
 			Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON}), new ArrayList(),
 			DefaultVision.NORMAL, null, new MultipleDice(DefaultDice.d20, 2), 1);
 
-	public static final Race HALF_ELF = new DefaultRace("Half-Elf",
+	public static final Race HALF_ELF = new HibernateRace("Half-Elf",
 			DefaultRacialSize.MEDIUM, new DefaultMovement(30), new ArrayList(), 
 			Arrays.asList(
 					new KeyedModifier[] { 
@@ -59,7 +57,7 @@ public class DefaultRace implements Race {
 			Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON, DefaultLanguage.ELVEN}), new ArrayList(),
 			DefaultVision.LOW_LIGHT_VISION, null, new MultipleDice(DefaultDice.d20, 3), 0);
 
-	public static final Race HALF_ORC = new DefaultRace("Half-Orc",
+	public static final Race HALF_ORC = new HibernateRace("Half-Orc",
 			DefaultRacialSize.MEDIUM, new DefaultMovement(30), Arrays
 					.asList(new KeyedModifier[] {
 							new DefaultKeyedModifier(DefaultAbility.STRENGTH, RACE, 2),
@@ -71,7 +69,7 @@ public class DefaultRace implements Race {
 					DefaultLanguage.GOBLIN, DefaultLanguage.ABYSSAL}),
 					DefaultVision.DARKVISION, DefaultCharacterClass.BARBARIAN, new MultipleDice(DefaultDice.d10, 2), 0);
 
-	public static final Race ELF = new DefaultRace("Elf", DefaultRacialSize.MEDIUM,
+	public static final Race ELF = new HibernateRace("Elf", DefaultRacialSize.MEDIUM,
 			new DefaultMovement(30), Arrays.asList(new KeyedModifier[] {
 					new DefaultKeyedModifier(DefaultAbility.DEXTERITY, RACE, 2),
 					new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, RACE, -2) }), 
@@ -86,7 +84,7 @@ public class DefaultRace implements Race {
 									DefaultLanguage.GNOME, DefaultLanguage.GOBLIN, DefaultLanguage.ORC, DefaultLanguage.SYLVAN}),
 									DefaultVision.LOW_LIGHT_VISION, DefaultCharacterClass.WIZARD, new MultipleDice(DefaultDice.d100, 4), 0);
 
-	public static final Race DWARF = new DefaultRace("Dwarf", DefaultRacialSize.MEDIUM,
+	public static final Race DWARF = new HibernateRace("Dwarf", DefaultRacialSize.MEDIUM,
 			new DefaultMovement(20), Arrays.asList(new KeyedModifier[] {
 					new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, RACE, 2),
 					new DefaultKeyedModifier(DefaultAbility.CHARISMA, RACE, -2) }), 
@@ -96,7 +94,7 @@ public class DefaultRace implements Race {
 									DefaultLanguage.GOBLIN, DefaultLanguage.ORC, DefaultLanguage.TERRAN, DefaultLanguage.UNDERCOMMON}),
 									DefaultVision.DARKVISION, DefaultCharacterClass.FIGHTER, new MultipleDice(DefaultDice.d100, 2), 0);
 
-	public static final Race GNOME = new DefaultRace("Gnome", DefaultRacialSize.SMALL,
+	public static final Race GNOME = new HibernateRace("Gnome", DefaultRacialSize.SMALL,
 			new DefaultMovement(20), Arrays.asList(new KeyedModifier[] {
 					new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, RACE, 2),
 					new DefaultKeyedModifier(DefaultAbility.STRENGTH, RACE,-2) }), 
@@ -109,7 +107,7 @@ public class DefaultRace implements Race {
 									DefaultLanguage.ELVEN, DefaultLanguage.GIANT, DefaultLanguage.GOBLIN, DefaultLanguage.ORC}),
 									DefaultVision.LOW_LIGHT_VISION, DefaultCharacterClass.BARD, new MultipleDice(DefaultDice.d100, 3), 0);
 	
-	public static final Race HALFLING = new DefaultRace("Halfling", 
+	public static final Race HALFLING = new HibernateRace("Halfling", 
 			DefaultRacialSize.SMALL, new DefaultMovement(20), Arrays
 					.asList(new KeyedModifier[] {
 							new DefaultKeyedModifier(DefaultAbility.DEXTERITY, RACE, 2),
@@ -141,10 +139,10 @@ public class DefaultRace implements Race {
     /**
      * constructor for hibernate.
      */
-    public DefaultRace() {
+    public HibernateRace() {
     }
     
-	public DefaultRace(String name, RacialSize size, Movement movement, 
+	public HibernateRace(String name, RacialSize size, Movement movement, 
 			Collection abilityModifiers, Collection skillModifiers, 
 			int levelAdjustment, 
 			Collection grantedLanguages, Collection availableLanguages,
@@ -168,11 +166,6 @@ public class DefaultRace implements Race {
 	    return name;
 	}
 	
-	/**
-	 * 
-     * @hibernate.id
-     *  generator-class="assigned"
-	 */
 	public String getId() {
 	    return name;
 	}
@@ -197,13 +190,6 @@ public class DefaultRace implements Race {
 		return abilityModifiers;
 	}
 	
-	/**
-	 * 
-     * @hibernate.property
-     *  column="LEVEL_ADJUSTMENT"
-     *  length="2"
-     *  not-null="true"
-	 */
 	public int getLevelAdjustment() {
 		return levelAdjustment;
 	}
@@ -236,13 +222,6 @@ public class DefaultRace implements Race {
 		return skillModifiers;
 	}
 	
-	/**
-	 * 
-     * @hibernate.many-to-one
-     *  class="com.codecrate.shard.kit.DefaultCharacterClass"
-     *  cascade="all"
-     *  column="FAVORED_CLASS"
-	 */
 	public CharacterClass getFavoredClass() {
 		return favoredClass;
 	}
@@ -255,13 +234,6 @@ public class DefaultRace implements Race {
 	    return maxAgeDice;
 	}
 	
-	/**
-	 * 
-     * @hibernate.property
-     *  column="BASE_SKILL_POINTS_PER_LEVEL"
-     *  length="2"
-     *  not-null="true"
-	 */
 	public int getBaseSkillPointsPerLevel() {
 	    return baseSkillPointsPerLevel;
 	}

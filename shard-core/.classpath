@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <classpath>
-  <classpathentry kind="src" path="target/generated-sources/xdoclet">
-  </classpathentry>
   <classpathentry excluding="" kind="src" path="src/java">
   </classpathentry>
   <classpathentry output="target/test-classes" kind="src" path="src/test">
@@ -12,26 +10,6 @@
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
   </classpathentry>
   <classpathentry kind="src" path="/shard-dice">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/hsqldb/jars/hsqldb-1.7.2.2.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/dbunit/jars/dbunit-2.1.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/hibernate/jars/hibernate-2.1.6.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/dom4j/jars/dom4j-1.5.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/odmg/jars/odmg-3.0.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/ehcache/jars/ehcache-0.9.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/cglib/jars/cglib-2.0.2.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/asm/jars/asm-1.4.3.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/geronimo-spec/jars/geronimo-spec-jta-1.0-M1.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/xdoclet-plugins/jars/xdoclet-plugin-hibernate-SNAPSHOT.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar">
   </classpathentry>

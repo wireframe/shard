@@ -1,8 +1,0 @@
-<project 
- xmlns:maven="jelly:maven"
- xmlns:j="jelly:core"> 
- 
-    <preGoal name="java:compile">
-        <attainGoal name="xdoclet2"/>
-    </preGoal>
-</project>

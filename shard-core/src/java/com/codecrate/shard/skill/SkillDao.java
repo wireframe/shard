@@ -22,7 +22,7 @@ import java.util.Iterator;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.DefaultCharacterClass;
-import com.codecrate.shard.race.Language;
+import com.codecrate.shard.race.DefaultLanguage;
 import com.codecrate.shard.race.LanguageDao;
 
 public class SkillDao {
@@ -142,7 +142,7 @@ public class SkillDao {
         return skills;
     }
     
-    private Skill getLanguageSkill(Language language) {
+    private Skill getLanguageSkill(DefaultLanguage language) {
         Skill languageSkill = new DefaultSkill("Speak Language ("
                 + language.getName() + ")", false,
                 DefaultAbility.INTELLIGENCE, false, this);

@@ -27,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateCharacterClassDao {
+public class HibernateCharacterClassDao implements CharacterClassDao {
     private static final Log LOG = LogFactory.getLog(HibernateCharacterClassDao.class);
     
     private final Session session;

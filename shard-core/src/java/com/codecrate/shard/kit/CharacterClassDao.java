@@ -13,10 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.race;
+package com.codecrate.shard.kit;
 
 import java.util.Collection;
 
-public interface LanguageDao {
-    Collection getLanguages();
+/**
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
+public interface CharacterClassDao {
+
+    Collection getClasses();
 }
