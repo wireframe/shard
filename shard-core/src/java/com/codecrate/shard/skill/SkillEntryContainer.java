@@ -27,7 +27,7 @@ public interface SkillEntryContainer extends KeyedModifierContainer {
 
     boolean hasSkill(Skill skill);
 
-    SkillEntry getSkillEntry(Skill skill);
+    DefaultSkillEntry getSkillEntry(Skill skill);
 
     int getMaxClassSkillLevel();
 

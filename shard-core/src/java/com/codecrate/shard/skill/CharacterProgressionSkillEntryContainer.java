@@ -65,7 +65,7 @@ public class CharacterProgressionSkillEntryContainer implements SkillEntryContai
     public int getMaxCrossClassSkillLevel() {
         return delegate.getMaxCrossClassSkillLevel();
     }
-    public SkillEntry getSkillEntry(Skill skill) {
+    public DefaultSkillEntry getSkillEntry(Skill skill) {
         return delegate.getSkillEntry(skill);
     }
     public Collection getSkills() {

@@ -72,7 +72,7 @@ public class ModifiableObject implements Modifiable, ModifierListenerContainer {
 		updateModifier(type, modifiers);
 	}
 	
-	private TypeGroupedModifier getModifier(ModifierType type) {
+	protected TypeGroupedModifier getModifier(ModifierType type) {
 	    TypeGroupedModifier modifier = (TypeGroupedModifier) modifiers.get(type);
 		if (null == modifier) {
 			LOG.debug("No modifiers found for type: " + type);

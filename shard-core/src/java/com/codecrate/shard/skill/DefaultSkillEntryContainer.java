@@ -46,8 +46,8 @@ public class DefaultSkillEntryContainer implements SkillEntryContainer {
 		return true;
 	}
 	
-	public SkillEntry getSkillEntry(Skill skill) {
-		SkillEntry entry = (SkillEntry) skills.get(skill);
+	public DefaultSkillEntry getSkillEntry(Skill skill) {
+		DefaultSkillEntry entry = (DefaultSkillEntry) skills.get(skill);
 		if (null == entry) {
 			LOG.debug("No skill entry found for skill: " + skill);
 		}
@@ -64,10 +64,10 @@ public class DefaultSkillEntryContainer implements SkillEntryContainer {
 
     public void addModifier(KeyedModifier modifier) {
         Skill skill = (Skill) modifier.getKey();
-        SkillEntry skillEntry = getSkillEntry(skill);
+        DefaultSkillEntry skillEntry = getSkillEntry(skill);
         if (null == skillEntry) {
             LOG.info("Container does not currently have skill: " + skill);
-            skillEntry = new SkillEntry(skill);
+            skillEntry = new DefaultSkillEntry(skill);
             skills.put(skill, skillEntry);
         } 
         skillEntry.addModifier(modifier);
@@ -78,7 +78,7 @@ public class DefaultSkillEntryContainer implements SkillEntryContainer {
         if (!hasSkill(skill)) {
             LOG.info("Cannot remove modifier without skill: " + skill);
         } else {
-            SkillEntry skillEntry = getSkillEntry(skill);
+            DefaultSkillEntry skillEntry = getSkillEntry(skill);
             skillEntry.removeModifier(modifier);
         }
     }

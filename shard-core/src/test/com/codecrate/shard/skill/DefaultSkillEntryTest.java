@@ -22,10 +22,10 @@ import com.codecrate.shard.modifier.DefaultModifier;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class SkillEntryTest extends TestCase {
+public class DefaultSkillEntryTest extends TestCase {
 
     public void testMultipleModifiersUsedForValue() {
-        SkillEntry entry = new SkillEntry(DefaultSkill.SWIM);
+        DefaultSkillEntry entry = new DefaultSkillEntry(DefaultSkill.SWIM);
         entry.addModifier(new DefaultModifier(DefaultSkill.TYPE_RANK, 1));
         entry.addModifier(new DefaultModifier(DefaultSkill.TYPE_RANK, 1));
         assertEquals(2, entry.getModifiedValue());

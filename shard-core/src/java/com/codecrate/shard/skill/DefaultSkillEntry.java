@@ -15,24 +15,34 @@
  */
 package com.codecrate.shard.skill;
 
+import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.Modifiable;
+import com.codecrate.shard.modifier.ModifiableObject;
 import com.codecrate.shard.modifier.Modifier;
+import com.codecrate.shard.modifier.ModifierType;
 
 /**
- * Represents a skill entry for a particular character.
- * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface SkillEntry extends Modifiable {
-    /**
-     * gets the skill this entry is for.
-     * @return
-     */
-    Skill getSkill();
+public class DefaultSkillEntry extends ModifiableObject implements Modifiable, SkillEntry {
+    public static final ModifierType TYPE_RANK = new DefaultModifierType("rank", true);
+    
+	private final Skill skill;
 
-    /**
-     * gets the rank currently held for this skill.
-     * @return
-     */
-    Modifier getRank();
+	public DefaultSkillEntry(Skill skill) {
+	    super();
+		this.skill = skill;
+	}
+	
+	public Skill getSkill() {
+		return skill;
+	}
+	
+	public Modifier getRank() {
+	    return getModifier(TYPE_RANK);
+	}
+	
+	public String toString() {
+	    return skill + "(" + getModifiedValue() + ")";
+	}
 }
