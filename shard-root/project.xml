@@ -72,6 +72,11 @@
       <email>wireframe@dev.java.net</email>
       <url>http://www.jroller.com/page/wireframe</url>
     </developer>
+    <developer>
+      <name>John Leagjeld</name>
+      <id>jleagjeld</id>
+      <email>jleagjeld@dev.java.net</email>
+    </developer>
   </developers>
 
   <licenses>
