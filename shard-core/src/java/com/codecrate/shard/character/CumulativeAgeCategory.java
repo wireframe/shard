@@ -24,14 +24,17 @@ import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScoreModifier;
 
 /**
- * Default age category definition.
+ * Age category to encasulate cumulative modifier logic.
  * effects of age are cumulative (ex: when old, also have modifiers from middle age)
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DefaultAgeCategory implements AgeCategory {
-	public static final AgeCategory ADULT = new DefaultAgeCategory("Adult", new ArrayList());
-	public static final AgeCategory MIDDLE_AGE = new DefaultAgeCategory("Middle Age", Arrays.asList(new AbilityScoreModifier[] {
+public class CumulativeAgeCategory implements AgeCategory {
+	public static final AgeCategory ADULT = new CumulativeAgeCategory(null, 
+			"Adult", new ArrayList());
+	
+	public static final AgeCategory MIDDLE_AGE = new CumulativeAgeCategory(ADULT,
+			"Middle Age", Arrays.asList(new AbilityScoreModifier[] {
 			new DefaultAbilityScoreModifier(DefaultAbility.STRENGTH, -1)
 			, new DefaultAbilityScoreModifier(DefaultAbility.DEXTERITY, -1)
 			, new DefaultAbilityScoreModifier(DefaultAbility.CONSTITUTION, -1)
@@ -39,7 +42,9 @@ public class DefaultAgeCategory implements AgeCategory {
 			, new DefaultAbilityScoreModifier(DefaultAbility.WISDOM, 1)
 			, new DefaultAbilityScoreModifier(DefaultAbility.CHARISMA, 1)
 		}));
-	public static final AgeCategory OLD = new DefaultAgeCategory("Old", Arrays.asList(new AbilityScoreModifier[] {
+
+	public static final AgeCategory OLD = new CumulativeAgeCategory(MIDDLE_AGE,
+			"Old", Arrays.asList(new AbilityScoreModifier[] {
 			new DefaultAbilityScoreModifier(DefaultAbility.STRENGTH, -2)
 			, new DefaultAbilityScoreModifier(DefaultAbility.DEXTERITY, -2)
 			, new DefaultAbilityScoreModifier(DefaultAbility.CONSTITUTION, -2)
@@ -47,7 +52,9 @@ public class DefaultAgeCategory implements AgeCategory {
 			, new DefaultAbilityScoreModifier(DefaultAbility.WISDOM, 1)
 			, new DefaultAbilityScoreModifier(DefaultAbility.CHARISMA, 1)
 		}));
-	public static final AgeCategory VENERABLE = new DefaultAgeCategory("Venerable", Arrays.asList(new AbilityScoreModifier[] {
+	
+	public static final AgeCategory VENERABLE = new CumulativeAgeCategory(OLD,
+			"Venerable", Arrays.asList(new AbilityScoreModifier[] {
 			new DefaultAbilityScoreModifier(DefaultAbility.STRENGTH, -3)
 			, new DefaultAbilityScoreModifier(DefaultAbility.DEXTERITY, -3)
 			, new DefaultAbilityScoreModifier(DefaultAbility.CONSTITUTION, -3)
@@ -57,12 +64,15 @@ public class DefaultAgeCategory implements AgeCategory {
 		}));
 	
 	
-	private String name;
-	private Collection abilityModifiers = new ArrayList();
+	private final String name;
+	private Collection abilityModifiers;
 
-	public DefaultAgeCategory(String name, Collection abilityModifiers) {
+	public CumulativeAgeCategory(AgeCategory previousCategory, String name, Collection abilityModifiers) {
 		this.name = name;
-		this.abilityModifiers = abilityModifiers;
+		this.abilityModifiers = new ArrayList(abilityModifiers);
+		if (null != previousCategory) {
+			this.abilityModifiers.addAll(previousCategory.getAbilityModifiers());
+		}
 	}
 	
 	public String toString() {
