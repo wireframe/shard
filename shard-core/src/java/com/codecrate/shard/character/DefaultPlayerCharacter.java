@@ -18,7 +18,7 @@ package com.codecrate.shard.character;
 import java.util.List;
 
 import com.codecrate.shard.ability.AbilityContainer;
-import com.codecrate.shard.ability.DefaultAbilityContainer;
+import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
 
 /**
@@ -38,16 +38,19 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     private Alignment alignment;
     private AbilityContainer abilities;
     private HitPoints hitPoints;
+    private Encumberance encumberance;
     
     /**
      * default constructor.
      */
-    public DefaultPlayerCharacter(Race race, Gender gender, Alignment alignment, AbilityContainer abilities, HitPoints hitPoints) {
+    public DefaultPlayerCharacter(Race race, Gender gender, Alignment alignment, 
+    		AbilityContainer abilities, HitPoints hitPoints, Encumberance encumberance) {
     	this.race = race;
     	this.gender = gender;
     	this.alignment = alignment;
     	this.abilities = abilities;
     	this.hitPoints = hitPoints;
+    	this.encumberance = encumberance;
     }
     
     public int getChallengeRating() {
@@ -76,5 +79,9 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 	
 	public HitPoints getHitPoints() {
 		return hitPoints;
+	}
+	
+	public Encumberance getEncumberance() {
+		return encumberance;
 	}
 }

@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard.ability;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -30,13 +29,13 @@ public class DefaultAbilityContainer implements AbilityContainer {
 	public static final String INTELLIGENCE = "intelligence";
 	public static final String CHARISMA = "charisma";
 	
-	private Map scores = new HashMap();
+	private Map scores;
+
+	public DefaultAbilityContainer(Map scores) {
+	    this.scores = scores;
+	}
 	
 	public Ability getAbility(String name) {
 		return (Ability) scores.get(name);
-	}
-	
-	public void setAbility(String name, Ability ability) {
-		scores.put(name, ability);
 	}
 }

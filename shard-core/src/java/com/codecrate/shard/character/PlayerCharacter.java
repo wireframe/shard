@@ -16,6 +16,7 @@
 package com.codecrate.shard.character;
 
 import com.codecrate.shard.ability.AbilityContainer;
+import com.codecrate.shard.movement.Encumberance;
 
 /**
  * 
@@ -59,4 +60,11 @@ public interface PlayerCharacter {
 	 * @return
 	 */
 	HitPoints getHitPoints();
+	
+	/**
+	 * gets the encumberance the character is under from equipment or armor.
+	 * ex: Medium load or Medium armor cause Medium encumberance.
+	 * @return
+	 */
+	Encumberance getEncumberance();
 }

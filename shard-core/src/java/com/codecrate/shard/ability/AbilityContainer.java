@@ -31,11 +31,4 @@ public interface AbilityContainer {
 	 * @return the ability or null if not found.
 	 */
 	Ability getAbility(String name);
-
-	/**
-	 * sets the ability.
-	 * @param name
-	 * @param ability
-	 */
-	void setAbility(String name, Ability ability);
 }

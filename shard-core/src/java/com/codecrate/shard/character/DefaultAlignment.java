@@ -43,12 +43,12 @@ public class DefaultAlignment implements Alignment {
 
     private String name;
     private String abbreviation;
-    private AlignmentComponent lawfulAlignment;
-    private AlignmentComponent goodAlignment;
+    private AlignmentComponent ethicalAlignment;
+    private AlignmentComponent moralAlignment;
 
-    public DefaultAlignment(AlignmentComponent lawfulAlignment, AlignmentComponent goodAlignment, String name, String abbreviation) {
-        this.lawfulAlignment = lawfulAlignment;
-        this.goodAlignment = goodAlignment;
+    public DefaultAlignment(AlignmentComponent ethicalAlignment, AlignmentComponent moralAlignment, String name, String abbreviation) {
+        this.ethicalAlignment = ethicalAlignment;
+        this.moralAlignment = moralAlignment;
         this.name = name;
         this.abbreviation = abbreviation;
     }
@@ -82,26 +82,26 @@ public class DefaultAlignment implements Alignment {
     }
 
     public boolean isNeutral() {
-        if (lawfulAlignment.isNeutral() && goodAlignment.isNeutral()) {
+        if (ethicalAlignment.isNeutral() && moralAlignment.isNeutral()) {
             return true;
         }
         return false;
     }
     
     public boolean isLawful() {
-        return lawfulAlignment.isPositive();
+        return ethicalAlignment.isPositive();
     }
 
     public boolean isChaotic() {
-        return lawfulAlignment.isNegative();
+        return ethicalAlignment.isNegative();
     }
 
     public boolean isGood() {
-        return goodAlignment.isPositive();
+        return moralAlignment.isPositive();
     }
 
     public boolean isEvil() {
-        return goodAlignment.isPositive();
+        return moralAlignment.isPositive();
     }
     
 	public String getAbbreviation() {
