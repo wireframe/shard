@@ -21,6 +21,7 @@ import java.util.Collection;
 
 import com.codecrate.shard.ability.AbilityScoreModifier;
 import com.codecrate.shard.ability.DefaultAbility;
+import com.codecrate.shard.ability.DefaultAbilityModifierType;
 import com.codecrate.shard.ability.DefaultAbilityScoreModifier;
 import com.codecrate.shard.dice.DefaultDice;
 import com.codecrate.shard.dice.Dice;
@@ -31,6 +32,7 @@ import com.codecrate.shard.movement.DefaultMovement;
 import com.codecrate.shard.movement.Movement;
 import com.codecrate.shard.skill.DefaultSkill;
 import com.codecrate.shard.skill.DefaultSkillModifier;
+import com.codecrate.shard.skill.DefaultSkillModifierType;
 import com.codecrate.shard.skill.SkillModifier;
 
 /**
@@ -47,9 +49,9 @@ public class DefaultRace implements Race {
 			DefaultRacialSize.MEDIUM, new DefaultMovement(30), new ArrayList(), 
 			Arrays.asList(
 					new SkillModifier[] { new DefaultSkillModifier(
-					DefaultSkillModifier.TYPE_RACE, 2, DefaultSkill.LISTEN),
-					new DefaultSkillModifier(DefaultSkillModifier.TYPE_RACE, 1, DefaultSkill.SPOT),
-					new DefaultSkillModifier(DefaultSkillModifier.TYPE_RACE, 1, DefaultSkill.SEARCH)}), 
+					DefaultSkillModifierType.RACE, 2, DefaultSkill.LISTEN),
+					new DefaultSkillModifier(DefaultSkillModifierType.RACE, 1, DefaultSkill.SPOT),
+					new DefaultSkillModifier(DefaultSkillModifierType.RACE, 1, DefaultSkill.SEARCH)}), 
 					0, 
 			Arrays.asList(new Language[] {Language.COMMON, Language.ELVEN}), new LanguageDao().getLanguages(),
 			DefaultVision.LOW_LIGHT_VISION, null, new MultipleDice(DefaultDice.d20, 3));
@@ -57,11 +59,11 @@ public class DefaultRace implements Race {
 	public static final Race HALF_ORC = new DefaultRace("Half-Orc",
 			DefaultRacialSize.MEDIUM, new DefaultMovement(30), Arrays
 					.asList(new AbilityScoreModifier[] {
-							new DefaultAbilityScoreModifier(
+							new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
 									DefaultAbility.STRENGTH, 2),
-							new DefaultAbilityScoreModifier(
+							new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
 									DefaultAbility.INTELLIGENCE, -2),
-							new DefaultAbilityScoreModifier(
+							new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
 									DefaultAbility.CHARISMA, -2) }), 
 									new ArrayList(), 0, 
 			Arrays.asList(new Language[] {Language.COMMON, Language.ORC}), 
@@ -71,15 +73,15 @@ public class DefaultRace implements Race {
 
 	public static final Race ELF = new DefaultRace("Elf", DefaultRacialSize.MEDIUM,
 			new DefaultMovement(30), Arrays.asList(new AbilityScoreModifier[] {
-					new DefaultAbilityScoreModifier(
+					new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
 							DefaultAbility.DEXTERITY, 2),
-					new DefaultAbilityScoreModifier(
+					new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
 							DefaultAbility.CONSTITUTION, -2) }), 
 					Arrays.asList(
 							new SkillModifier[] { new DefaultSkillModifier(
-							DefaultSkillModifier.TYPE_RACE, 2, DefaultSkill.LISTEN),
-							new DefaultSkillModifier(DefaultSkillModifier.TYPE_RACE, 2, DefaultSkill.SPOT),
-							new DefaultSkillModifier(DefaultSkillModifier.TYPE_RACE, 2, DefaultSkill.SEARCH)}),
+							DefaultSkillModifierType.RACE, 2, DefaultSkill.LISTEN),
+							new DefaultSkillModifier(DefaultSkillModifierType.RACE, 2, DefaultSkill.SPOT),
+							new DefaultSkillModifier(DefaultSkillModifierType.RACE, 2, DefaultSkill.SEARCH)}),
 							0, 
 							Arrays.asList(new Language[] {Language.COMMON, Language.ELVEN}), 
 							Arrays.asList(new Language[] {Language.DRACONIC, Language.GNOLL, 
@@ -88,9 +90,9 @@ public class DefaultRace implements Race {
 
 	public static final Race DWARF = new DefaultRace("Dwarf", DefaultRacialSize.MEDIUM,
 			new DefaultMovement(20), Arrays.asList(new AbilityScoreModifier[] {
-					new DefaultAbilityScoreModifier(
+					new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
 							DefaultAbility.CONSTITUTION, 2),
-					new DefaultAbilityScoreModifier(
+					new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
 							DefaultAbility.CHARISMA, -2) }), 
 							new ArrayList(), 0, 
 							Arrays.asList(new Language[] {Language.COMMON, Language.DWARVEN}), 
@@ -100,12 +102,12 @@ public class DefaultRace implements Race {
 
 	public static final Race GNOME = new DefaultRace("Gnome", DefaultRacialSize.SMALL,
 			new DefaultMovement(20), Arrays.asList(new AbilityScoreModifier[] {
-					new DefaultAbilityScoreModifier(
+					new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
 							DefaultAbility.CONSTITUTION, 2),
-					new DefaultAbilityScoreModifier(
+					new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
 							DefaultAbility.STRENGTH, -2) }), 
 					Arrays.asList(new SkillModifier[] {
-						new DefaultSkillModifier(DefaultSkillModifier.TYPE_RACE, 2, DefaultSkill.LISTEN)	
+						new DefaultSkillModifier(DefaultSkillModifierType.RACE, 2, DefaultSkill.LISTEN)	
 					}),
 							0, 
 							Arrays.asList(new Language[] {Language.COMMON, Language.GNOME}), 
@@ -116,15 +118,15 @@ public class DefaultRace implements Race {
 	public static final Race HALFLING = new DefaultRace("Halfling", 
 			DefaultRacialSize.SMALL, new DefaultMovement(20), Arrays
 					.asList(new AbilityScoreModifier[] {
-							new DefaultAbilityScoreModifier(
+							new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
 									DefaultAbility.DEXTERITY, 2),
-							new DefaultAbilityScoreModifier(
+							new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
 									DefaultAbility.STRENGTH, -2) }), 
 									Arrays.asList(new SkillModifier[] {
-										new DefaultSkillModifier(DefaultSkillModifier.TYPE_RACE, 2, DefaultSkill.LISTEN),
-										new DefaultSkillModifier(DefaultSkillModifier.TYPE_RACE, 2, DefaultSkill.CLIMB),
-										new DefaultSkillModifier(DefaultSkillModifier.TYPE_RACE, 2, DefaultSkill.JUMP),
-										new DefaultSkillModifier(DefaultSkillModifier.TYPE_RACE, 2, DefaultSkill.MOVE_SILENTLY)
+										new DefaultSkillModifier(DefaultSkillModifierType.RACE, 2, DefaultSkill.LISTEN),
+										new DefaultSkillModifier(DefaultSkillModifierType.RACE, 2, DefaultSkill.CLIMB),
+										new DefaultSkillModifier(DefaultSkillModifierType.RACE, 2, DefaultSkill.JUMP),
+										new DefaultSkillModifier(DefaultSkillModifierType.RACE, 2, DefaultSkill.MOVE_SILENTLY)
 									}), 0,
 									Arrays.asList(new Language[] {Language.COMMON, Language.HALFLING}), 
 									Arrays.asList(new Language[] {Language.DWARVEN, Language.ELVEN, 

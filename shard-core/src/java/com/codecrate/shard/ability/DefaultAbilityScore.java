@@ -20,6 +20,8 @@ import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.codecrate.shard.Modifier;
+
 
 /**
  * 
@@ -136,13 +138,13 @@ public class DefaultAbilityScore implements AbilityScore {
     	return points;
     }
 
-	public void addAbilityModifier(AbilityScoreModifier modifier) {
-		modifiers.addAbilityModifier(modifier);
+	public void addModifier(Modifier modifier) {
+		modifiers.addAbilityModifier((AbilityScoreModifier) modifier);
 		listeners.onModify();
 	}
 	
-	public void removeAbilityModifier(AbilityScoreModifier modifier) {
-		modifiers.removeAbilityModifier(modifier);
+	public void removeModifier(Modifier modifier) {
+		modifiers.removeAbilityModifier((AbilityScoreModifier) modifier);
 		listeners.onModify();
 	}
 
@@ -157,4 +159,8 @@ public class DefaultAbilityScore implements AbilityScore {
 	public Collection getListeners() {
 	    return listeners.getListeners();
 	}
+
+    public Collection getModifiers() {
+        return modifiers.getModifiers();
+    }
 }

@@ -18,7 +18,7 @@ package com.codecrate.shard.race;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-import com.codecrate.shard.armorclass.ArmorClassModifier;
+import com.codecrate.shard.Modifier;
 
 /**
  * 
@@ -31,7 +31,7 @@ public interface RacialSize  {
 	 */
     int getBaseAttackBonusModifier();
     
-    ArmorClassModifier getArmorClassModifier();
+    Modifier getArmorClassModifier();
 
 	/**
 	 * gets the name of the racial size.

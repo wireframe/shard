@@ -23,6 +23,10 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.codecrate.shard.Modifier;
+import com.codecrate.shard.ModifierType;
+import com.codecrate.shard.TypeGroupedModifier;
+
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -46,37 +50,37 @@ public class DefaultArmorClass implements ArmorClass {
 		
 		Iterator it = modifiers.keySet().iterator();
 		while (it.hasNext()) {
-			ArmorClassModifierType type = (ArmorClassModifierType) it.next();
-			CompositeArmorClassModifier modifier = (CompositeArmorClassModifier) modifiers.get(type);
+			ModifierType type = (ModifierType) it.next();
+			TypeGroupedModifier modifier = (TypeGroupedModifier) modifiers.get(type);
             value += modifier.getModifier();
 		}
 		return value;
 	}
 	
-	public void addArmorClassModifier(ArmorClassModifier modifier) {
-		ArmorClassModifierType type = modifier.getModifierType();
-		CompositeArmorClassModifier modifiers = getModifier(type);
-		modifiers.addArmorClassModifier(modifier);
+	public void addModifier(Modifier modifier) {
+		ModifierType type = modifier.getModifierType();
+		TypeGroupedModifier modifiers = getModifier(type);
+		modifiers.addModifier(modifier);
 		updateModifier(type, modifiers);
 	}
 	
-	public void removeArmorClassModifier(ArmorClassModifier modifier) {
-		ArmorClassModifierType type = modifier.getModifierType();
-		CompositeArmorClassModifier modifiers = getModifier(type);
-		modifiers.removeArmorClassModifier(modifier);
+	public void removeModifier(Modifier modifier) {
+		ModifierType type = modifier.getModifierType();
+		TypeGroupedModifier modifiers = getModifier(type);
+		modifiers.removeModifier(modifier);
 		updateModifier(type, modifiers);
 	}
 	
-	private CompositeArmorClassModifier getModifier(ArmorClassModifierType type) {
-		CompositeArmorClassModifier modifier = (CompositeArmorClassModifier) modifiers.get(type);
+	private TypeGroupedModifier getModifier(ModifierType type) {
+	    TypeGroupedModifier modifier = (TypeGroupedModifier) modifiers.get(type);
 		if (null == modifier) {
 			LOG.debug("No modifiers found for type: " + type);
-			modifier = new CompositeArmorClassModifier(type);
+			modifier = new TypeGroupedModifier(type);
 		}
 		return modifier;
 	}
 	
-	private void updateModifier(ArmorClassModifierType type, CompositeArmorClassModifier modifier) {
+	private void updateModifier(ModifierType type, TypeGroupedModifier modifier) {
 		modifiers.put(type, modifier);
 	}
 

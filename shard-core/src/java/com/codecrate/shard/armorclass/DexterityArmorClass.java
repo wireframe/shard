@@ -20,6 +20,8 @@ import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.codecrate.shard.DefaultModifier;
+import com.codecrate.shard.Modifier;
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.AbilityScoreListener;
@@ -38,7 +40,7 @@ public class DexterityArmorClass implements ArmorClass, AbilityScoreListener {
     private final ArmorClass delegate;
     private final Encumberance encumberance;
     private AbilityScore abilityScore;
-    private ArmorClassModifier modifier;
+    private Modifier modifier;
 
     public DexterityArmorClass(AbilityScoreContainer abilities, Encumberance encumberance, ArmorClass delegate) {
         this.encumberance = encumberance;
@@ -51,14 +53,14 @@ public class DexterityArmorClass implements ArmorClass, AbilityScoreListener {
         onModify();
     }
     
-    public void addArmorClassModifier(ArmorClassModifier modifier) {
-        delegate.addArmorClassModifier(modifier);
+    public void addModifier(Modifier modifier) {
+        delegate.addModifier(modifier);
     }
     public int getValue() {
         return delegate.getValue();
     }
-    public void removeArmorClassModifier(ArmorClassModifier modifier) {
-        delegate.removeArmorClassModifier(modifier);
+    public void removeModifier(Modifier modifier) {
+        delegate.removeModifier(modifier);
     }
     public Collection getModifiers() {
     	return delegate.getModifiers();
@@ -68,7 +70,7 @@ public class DexterityArmorClass implements ArmorClass, AbilityScoreListener {
         if (null != abilityScore) {
             LOG.debug("Updating dexterity armor class modifier.");
             if (null != modifier) {
-                removeArmorClassModifier(modifier);
+                removeModifier(modifier);
             }
             int value = abilityScore.getModifier();
             int maxValue = encumberance.getMaxDexterityModifier();
@@ -76,8 +78,8 @@ public class DexterityArmorClass implements ArmorClass, AbilityScoreListener {
                 LOG.info("Encumberance limits dexterity modifier to " + maxValue);
                 value = maxValue;
             }
-            modifier = new DefaultArmorClassModifier(DefaultArmorClassModifierType.DEXTERITY, value);
-            addArmorClassModifier(modifier);
+            modifier = new DefaultModifier(DefaultArmorClassModifierType.DEXTERITY, value);
+            addModifier(modifier);
         }
     }
 }

@@ -13,22 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.ability;
-
-import com.codecrate.shard.Modifier;
+package com.codecrate.shard;
 
 /**
- * Define AbilityModifier interface.
- * Ability modifiers can come from a variety of sources, but their purpose 
- * is to just modify an ability score.  Ex: Elf characters have bonus to DEX.
+ * Generic modifier for shard objects.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface AbilityScoreModifier extends Modifier {
+public interface Modifier {
 
-	/**
-	 * gets the identifier of what ability to modify.
-	 * @return ability name that modifier applies to.
-	 */
-	Ability getAbility();
+	ModifierType getModifierType();
+	
+	int getModifier();
 }

@@ -15,34 +15,20 @@
  */
 package com.codecrate.shard.armorclass;
 
-public class DefaultArmorClassModifierType implements ArmorClassModifierType {
-	public static final ArmorClassModifierType DEXTERITY = new DefaultArmorClassModifierType("dexterity", false);
-	public static final ArmorClassModifierType ARMOR = new DefaultArmorClassModifierType("armor", false);
-	public static final ArmorClassModifierType SHIELD = new DefaultArmorClassModifierType("shield", false);
-	public static final ArmorClassModifierType NATURAL = new DefaultArmorClassModifierType("natural", false);
-	public static final ArmorClassModifierType SIZE= new DefaultArmorClassModifierType("size", false);
-	public static final ArmorClassModifierType ENHANCEMENT = new DefaultArmorClassModifierType("enhancement", false);
-	public static final ArmorClassModifierType DEFLECTION = new DefaultArmorClassModifierType("deflection", false);
-	public static final ArmorClassModifierType DODGE = new DefaultArmorClassModifierType("dodge", true);
-	
-	
-	private final String name;
-	private final boolean isStackable;
+import com.codecrate.shard.DefaultModifierType;
+import com.codecrate.shard.ModifierType;
 
+public class DefaultArmorClassModifierType extends DefaultModifierType implements ModifierType {
+	public static final ModifierType DEXTERITY = new DefaultArmorClassModifierType("dexterity", false);
+	public static final ModifierType ARMOR = new DefaultArmorClassModifierType("armor", false);
+	public static final ModifierType SHIELD = new DefaultArmorClassModifierType("shield", false);
+	public static final ModifierType NATURAL = new DefaultArmorClassModifierType("natural", false);
+	public static final ModifierType SIZE= new DefaultArmorClassModifierType("size", false);
+	public static final ModifierType ENHANCEMENT = new DefaultArmorClassModifierType("enhancement", false);
+	public static final ModifierType DEFLECTION = new DefaultArmorClassModifierType("deflection", false);
+	public static final ModifierType DODGE = new DefaultArmorClassModifierType("dodge", true);
+	
 	public DefaultArmorClassModifierType(String name, boolean isStackable) {
-		this.name = name;
-		this.isStackable = isStackable;
-	}
-	
-	public String toString() {
-		return name;
-	}
-	
-	public boolean isStackable() {
-		return isStackable;
-	}
-	
-	public String getName() {
-		return name;
+	    super(name, isStackable);
 	}
 }

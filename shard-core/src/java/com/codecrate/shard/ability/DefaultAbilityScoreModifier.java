@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.ability;
 
+import com.codecrate.shard.ModifierType;
+
 /**
  * Helper class to easily work with ability modifiers.
  * provides basic defaults for how ability modifiers should work.
@@ -25,9 +27,11 @@ public class DefaultAbilityScoreModifier implements AbilityScoreModifier {
 
 	private final Ability ability;
 	private final int modifier;
+    private final ModifierType type;
 
-	public DefaultAbilityScoreModifier(Ability ability, int modifier) {
-		this.ability = ability;
+	public DefaultAbilityScoreModifier(ModifierType type, Ability ability, int modifier) {
+		this.type = type;
+        this.ability = ability;
 		this.modifier = modifier;
 	}
 
@@ -38,5 +42,9 @@ public class DefaultAbilityScoreModifier implements AbilityScoreModifier {
 	public int getModifier() {
 		return modifier;
 	}
+
+    public ModifierType getModifierType() {
+        return type;
+    }
 
 }

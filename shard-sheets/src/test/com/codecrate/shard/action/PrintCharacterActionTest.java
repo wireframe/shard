@@ -58,6 +58,7 @@ import com.codecrate.shard.save.SavingThrowContainer;
 import com.codecrate.shard.skill.CharacterProgressionSkillEntryContainer;
 import com.codecrate.shard.skill.DefaultSkill;
 import com.codecrate.shard.skill.DefaultSkillModifier;
+import com.codecrate.shard.skill.DefaultSkillModifierType;
 import com.codecrate.shard.skill.SkillEntryContainer;
 import com.codecrate.shard.skill.SkillModifier;
 
@@ -80,12 +81,12 @@ public class PrintCharacterActionTest extends TestCase {
 		levels.add(new DefaultCharacterLevel(1, 1,
                 DefaultCharacterClass.BARBARIAN.getClassProgression().getClassLevel(1), 
                 Arrays.asList(new SkillModifier[] { 
-                                new DefaultSkillModifier("rank", 1, DefaultSkill.SWIM), 
-                                new DefaultSkillModifier("rank", 1, DefaultSkill.INTIMIDATE)})));
+                                new DefaultSkillModifier(DefaultSkillModifierType.RANK, 1, DefaultSkill.SWIM), 
+                                new DefaultSkillModifier(DefaultSkillModifierType.RANK, 1, DefaultSkill.INTIMIDATE)})));
 		levels.add(new DefaultCharacterLevel(2, 1, 
 		        DefaultCharacterClass.FIGHTER.getClassProgression().getClassLevel(1), 
                 Arrays.asList(new SkillModifier[] { 
-                        new DefaultSkillModifier("rank", 1, DefaultSkill.SWIM) })));
+                        new DefaultSkillModifier(DefaultSkillModifierType.RANK, 1, DefaultSkill.SWIM) })));
 		CharacterProgression progression = new DefaultCharacterProgression(levels);
 		
 		Age age = new RacialCategorizedAge(20, DefaultRace.HUMAN, new AgeCategoryDao(), 100);

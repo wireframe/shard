@@ -15,11 +15,9 @@
  */
 package com.codecrate.shard.skill;
 
-public interface SkillModifier {
+import com.codecrate.shard.Modifier;
 
-	String getType();
-	
-	int getValue();
+public interface SkillModifier extends Modifier {
 
 	/**
 	 * gets the skill that this modifier applies to.

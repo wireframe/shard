@@ -19,8 +19,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.codecrate.shard.Modifier;
+import com.codecrate.shard.ModifierContainer;
 
-public class SavingThrowEntry {
+
+public class SavingThrowEntry implements ModifierContainer {
 
 	private final SavingThrow save;
 	private Collection modifiers = new ArrayList();
@@ -37,17 +40,21 @@ public class SavingThrowEntry {
 		int value = 0;
 		Iterator it = modifiers.iterator();
 		while (it.hasNext()) {
-			SavingThrowModifier modifier = (SavingThrowModifier) it.next();
+			Modifier modifier = (Modifier) it.next();
 			value += modifier.getModifier();
 		}
 		return value;
 	}
 
-	public void addSavingThrowModifier(SavingThrowModifier modifier) {
+	public void addModifier(Modifier modifier) {
 		modifiers.add(modifier);
 	}
 
-	public void removeSavingThrowModifier(SavingThrowModifier modifier) {
+	public void removeModifier(Modifier modifier) {
 		modifiers.remove(modifier);
+	}
+	
+	public Collection getModifiers() {
+	    return modifiers;
 	}
 }

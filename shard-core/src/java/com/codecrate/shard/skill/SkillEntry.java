@@ -19,7 +19,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class SkillEntry {
+import com.codecrate.shard.Modifier;
+import com.codecrate.shard.ModifierContainer;
+
+public class SkillEntry implements ModifierContainer {
 
 	private final Skill skill;
 	private Collection modifiers = new ArrayList();
@@ -37,16 +40,16 @@ public class SkillEntry {
 		Iterator it = modifiers.iterator();
 		while (it.hasNext()) {
 			SkillModifier modifier = (SkillModifier) it.next();
-			value += modifier.getValue();
+			value += modifier.getModifier();
 		}
 		return value;
 	}
 	
-	public void addModifier(SkillModifier modifier) {
+	public void addModifier(Modifier modifier) {
 		modifiers.add(modifier);
 	}
 	
-	public void removeModifier(SkillModifier modifier) {
+	public void removeModifier(Modifier modifier) {
 		modifiers.remove(modifier);
 	}
 	

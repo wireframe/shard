@@ -32,7 +32,7 @@ public class DefaultAbilityScoreTest extends TestCase {
 		abilityModifierControl.replay();
 		
 		DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10);
-		ability.addAbilityModifier(modifier);
+		ability.addModifier(modifier);
 		
 		assertEquals(10, ability.getScore());
 	}

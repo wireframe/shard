@@ -15,7 +15,7 @@
  */
 package com.codecrate.shard.armorclass;
 
-import java.util.Collection;
+import com.codecrate.shard.ModifierContainer;
 
 /**
  * Defines an armor class.
@@ -25,17 +25,7 @@ import java.util.Collection;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface ArmorClass {
+public interface ArmorClass extends ModifierContainer {
 
 	int getValue();
-	
-	void addArmorClassModifier(ArmorClassModifier modifier);
-	
-	void removeArmorClassModifier(ArmorClassModifier modifier);
-
-	/**
-	 * gets the modifiers for the armor class.
-	 * @return
-	 */
-	Collection getModifiers();
 }

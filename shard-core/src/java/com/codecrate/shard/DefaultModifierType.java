@@ -13,11 +13,27 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.save;
+package com.codecrate.shard;
 
-public interface SavingThrowModifier {
+/**
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
+public class DefaultModifierType implements ModifierType {
 
-    SavingThrow getSave();
-    
-	int getModifier();
+    private final String name;
+    private final boolean isStackable;
+
+    public DefaultModifierType(String name, boolean isStackable) {
+        this.name = name;
+        this.isStackable = isStackable;
+        
+    }
+    public String getName() {
+        return name;
+    }
+
+    public boolean isStackable() {
+        return isStackable;
+    }
+
 }

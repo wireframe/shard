@@ -17,11 +17,13 @@ package com.codecrate.shard.ability;
 
 import java.util.Collection;
 
+import com.codecrate.shard.ModifierContainer;
+
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface AbilityScore {
+public interface AbilityScore extends ModifierContainer {
 	/**
 	 * gets the name of the ability. 
 	 * @return
@@ -48,18 +50,6 @@ public interface AbilityScore {
 	 */
 	int getModifier();
 
-	/**
-	 * adds a modifier to the ability.
-	 * @param modifier
-	 */
-	void addAbilityModifier(AbilityScoreModifier modifier);
-
-	/**
-	 * removes a modifier from the ability.
-	 * @param modifier
-	 */
-	void removeAbilityModifier(AbilityScoreModifier modifier);
-	
 	/**
 	 * adds a listener.
 	 * @param listener

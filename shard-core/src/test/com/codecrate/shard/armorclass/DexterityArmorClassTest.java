@@ -19,6 +19,8 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
+import com.codecrate.shard.DefaultModifierType;
+import com.codecrate.shard.ModifierType;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
@@ -59,6 +61,7 @@ public class DexterityArmorClassTest extends TestCase {
     }
     
     public void testArmorClassUpdatedWhenAbilityChanged() {
+        ModifierType type = new DefaultModifierType("type", true);
         DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 1);
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
@@ -71,11 +74,12 @@ public class DexterityArmorClassTest extends TestCase {
         
         DefaultArmorClass defaultArmorClass = new DefaultArmorClass();
         new DexterityArmorClass(abilities, DefaultEncumberance.LIGHT, defaultArmorClass);
-        abilityScore.addAbilityModifier(new DefaultAbilityScoreModifier(DefaultAbility.DEXTERITY, 9));
+        abilityScore.addModifier(new DefaultAbilityScoreModifier(type, DefaultAbility.DEXTERITY, 9));
         assertEquals(10, defaultArmorClass.getValue());
     }
     
     public void testModifierLimitedToEncumberanceMaxValue() {
+        ModifierType type = new DefaultModifierType("type", true);
         DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10);
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
@@ -88,7 +92,7 @@ public class DexterityArmorClassTest extends TestCase {
         
         DefaultArmorClass defaultArmorClass = new DefaultArmorClass();
         new DexterityArmorClass(abilities, DefaultEncumberance.HEAVY, defaultArmorClass);
-        abilityScore.addAbilityModifier(new DefaultAbilityScoreModifier(DefaultAbility.DEXTERITY, 8));
+        abilityScore.addModifier(new DefaultAbilityScoreModifier(type, DefaultAbility.DEXTERITY, 8));
         assertEquals(11, defaultArmorClass.getValue());
     }
 }

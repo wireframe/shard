@@ -13,23 +13,23 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.armorclass;
+package com.codecrate.shard;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * ArmorClass Modifier for a specific modifier type.
+ * Modifier for a specific modifier type.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class CompositeArmorClassModifier implements ArmorClassModifier {
+public class TypeGroupedModifier implements Modifier, ModifierContainer {
     
-    private ArmorClassModifierType type;
+    private ModifierType type;
     private Collection modifiers = new ArrayList();
 
-    public CompositeArmorClassModifier(ArmorClassModifierType type) {
+    public TypeGroupedModifier(ModifierType type) {
         this.type = type;
     }
     
@@ -44,7 +44,7 @@ public class CompositeArmorClassModifier implements ArmorClassModifier {
 		int value = -100;
 		Iterator mods = modifiers.iterator();
 		while (mods.hasNext()) {
-			ArmorClassModifier modifier = (ArmorClassModifier) mods.next();
+			Modifier modifier = (Modifier) mods.next();
 			int modifierValue = modifier.getModifier();
 			if (value < modifierValue) {
 				value = modifierValue;
@@ -57,22 +57,26 @@ public class CompositeArmorClassModifier implements ArmorClassModifier {
 		int value = 0;
 		Iterator mods = modifiers.iterator();
 		while (mods.hasNext()) {
-			ArmorClassModifier modifier = (ArmorClassModifier) mods.next();
+			Modifier modifier = (Modifier) mods.next();
 			int modifierValue = modifier.getModifier();
 			value += modifierValue;
 		}
 		return value;
     }
     
-    public void addArmorClassModifier(ArmorClassModifier modifier) {
+    public void addModifier(Modifier modifier) {
         modifiers.add(modifier);
     }
     
-    public void removeArmorClassModifier(ArmorClassModifier modifier) {
+    public void removeModifier(Modifier modifier) {
         modifiers.remove(modifier);
     }
 
-    public ArmorClassModifierType getModifierType() {
+    public ModifierType getModifierType() {
         return type;
+    }
+
+    public Collection getModifiers() {
+        return modifiers;
     }
 }

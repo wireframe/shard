@@ -20,11 +20,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.codecrate.shard.armorclass.ArmorClassModifier;
-import com.codecrate.shard.armorclass.DefaultArmorClassModifier;
+import com.codecrate.shard.DefaultModifier;
+import com.codecrate.shard.Modifier;
 import com.codecrate.shard.armorclass.DefaultArmorClassModifierType;
 import com.codecrate.shard.skill.DefaultSkill;
 import com.codecrate.shard.skill.DefaultSkillModifier;
+import com.codecrate.shard.skill.DefaultSkillModifierType;
 import com.codecrate.shard.skill.SkillModifier;
 
 /**
@@ -36,83 +37,83 @@ import com.codecrate.shard.skill.SkillModifier;
 public class DefaultRacialSize implements RacialSize {
     public static final RacialSize FINE = new DefaultRacialSize(
 			"Fine", 8,
-			new DefaultArmorClassModifier(DefaultArmorClassModifierType.SIZE, 8),
+			new DefaultModifier(DefaultArmorClassModifierType.SIZE, 8),
 			new BigDecimal(".5"), 0, new ArrayList(), new BigDecimal(".125"));
 
 	public static final RacialSize DIMINUTIVE = new DefaultRacialSize(
-			"Diminutive", 4, new DefaultArmorClassModifier(
+			"Diminutive", 4, new DefaultModifier(
 					DefaultArmorClassModifierType.SIZE, 4), new BigDecimal("1"), 
 					0, new ArrayList(), 
 					new BigDecimal(".25"));
 
 	public static final RacialSize TINY = new DefaultRacialSize(
 			"Tiny", 2,
-			new DefaultArmorClassModifier(DefaultArmorClassModifierType.SIZE, 2),
+			new DefaultModifier(DefaultArmorClassModifierType.SIZE, 2),
 			new BigDecimal("2.5"), 0, new ArrayList(), new BigDecimal(".5"));
 
 	public static final RacialSize SMALL = new DefaultRacialSize(
 			"Small", 1,
-			new DefaultArmorClassModifier(DefaultArmorClassModifierType.SIZE, 1),
+			new DefaultModifier(DefaultArmorClassModifierType.SIZE, 1),
 			new BigDecimal("5"), 5, Arrays.asList(new SkillModifier[] {
-					new DefaultSkillModifier("size", 4, DefaultSkill.HIDE)}),
+					new DefaultSkillModifier(DefaultSkillModifierType.SIZE, 4, DefaultSkill.HIDE)}),
 					new BigDecimal(".75"));
 
 	public static final RacialSize MEDIUM = new DefaultRacialSize(
 			"Medium", 0,
-			new DefaultArmorClassModifier(DefaultArmorClassModifierType.SIZE, 0),
+			new DefaultModifier(DefaultArmorClassModifierType.SIZE, 0),
 			new BigDecimal("5"), 5, new ArrayList(), new BigDecimal("1"));
 
 	public static final RacialSize LARGE_TALL = new DefaultRacialSize(
-			"Large (Tall)", -1, new DefaultArmorClassModifier(
+			"Large (Tall)", -1, new DefaultModifier(
 					DefaultArmorClassModifierType.SIZE, -1), new BigDecimal("10"), 
 					10, new ArrayList(),
 					new BigDecimal("2"));
 
 	public static final RacialSize LARGE_LONG = new DefaultRacialSize(
-			"Large (Long)", -1, new DefaultArmorClassModifier(
+			"Large (Long)", -1, new DefaultModifier(
 					DefaultArmorClassModifierType.SIZE, -1), new BigDecimal("10"), 
 					5, new ArrayList(), 
 					new BigDecimal("2"));
 
 	public static final RacialSize HUGE_TALL = new DefaultRacialSize(
-			"Huge (Tall)", -2, new DefaultArmorClassModifier(
+			"Huge (Tall)", -2, new DefaultModifier(
 					DefaultArmorClassModifierType.SIZE, -2), new BigDecimal("15"), 
 					15, new ArrayList(),
 					new BigDecimal("4"));
 
 	public static final RacialSize HUGE_LONG = new DefaultRacialSize(
-			"Huge (Long)", -2, new DefaultArmorClassModifier(
+			"Huge (Long)", -2, new DefaultModifier(
 					DefaultArmorClassModifierType.SIZE, -2), new BigDecimal("15"), 
 					10, new ArrayList(), 
 					new BigDecimal("4"));
 
 	public static final RacialSize GARGANTUAN_TALL = new DefaultRacialSize(
-			"Gargantuan (Tall)", -4, new DefaultArmorClassModifier(
+			"Gargantuan (Tall)", -4, new DefaultModifier(
 					DefaultArmorClassModifierType.SIZE, -4), new BigDecimal("20"), 
 					20, new ArrayList(), 
 					new BigDecimal("8"));
 
 	public static final RacialSize GARGANTUAN_LONG = new DefaultRacialSize(
-			"Gargantuan (Long)", -4, new DefaultArmorClassModifier(
+			"Gargantuan (Long)", -4, new DefaultModifier(
 					DefaultArmorClassModifierType.SIZE, -4), new BigDecimal("20"), 
 					15, new ArrayList(), 
 					new BigDecimal("8"));
 
 	public static final RacialSize COLOSSAL_TALL = new DefaultRacialSize(
-			"Colossal (Tall)", -8, new DefaultArmorClassModifier(
+			"Colossal (Tall)", -8, new DefaultModifier(
 					DefaultArmorClassModifierType.SIZE, -8), new BigDecimal("30"), 
 					30, new ArrayList(), 
 					new BigDecimal("16"));
 
 	public static final RacialSize COLOSSAL_LONG = new DefaultRacialSize(
-			"Colossal (Long)", -8, new DefaultArmorClassModifier(
+			"Colossal (Long)", -8, new DefaultModifier(
 					DefaultArmorClassModifierType.SIZE, -8), new BigDecimal("30"), 
 					20, new ArrayList(),
 					new BigDecimal("16"));
 
     
     private final String name;
-    private final ArmorClassModifier armorClassModifier;
+    private final Modifier modifier;
     private final int baseAttackBonusModifier;
     private final BigDecimal space;
     private final int reach;
@@ -120,11 +121,11 @@ public class DefaultRacialSize implements RacialSize {
     private final BigDecimal encumberanceMultiplier;
 
     public DefaultRacialSize(String name, int baseAttackBonusModifier, 
-    		ArmorClassModifier armorClassModifier, BigDecimal space, int reach,
+    		Modifier modifier, BigDecimal space, int reach,
 			Collection skillModifiers, BigDecimal encumberanceMultiplier) {
     	this.name = name;
         this.baseAttackBonusModifier = baseAttackBonusModifier;
-        this.armorClassModifier = armorClassModifier;
+        this.modifier = modifier;
         this.space = space;
         this.reach = reach;
 		this.skillModifiers = skillModifiers;
@@ -143,8 +144,8 @@ public class DefaultRacialSize implements RacialSize {
         return baseAttackBonusModifier;
     }
 
-	public ArmorClassModifier getArmorClassModifier() {
-		return armorClassModifier;
+    public Modifier getArmorClassModifier() {
+		return modifier;
 	}
 	
 	public BigDecimal getSpace() {

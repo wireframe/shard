@@ -35,7 +35,7 @@ public class CharacterProgressionSkillEntryContainerTest extends TestCase {
         level.getClassLevel();
         mockLevel.setReturnValue(new DefaultClassLevel(1, DefaultCharacterClass.BARBARIAN, 1, 1, 1, 1));
         level.getSkillRanks();
-        mockLevel.setReturnValue(Arrays.asList(new SkillModifier[] {new DefaultSkillModifier("rank", 1, DefaultSkill.SWIM)}));
+        mockLevel.setReturnValue(Arrays.asList(new SkillModifier[] {new DefaultSkillModifier(DefaultSkillModifierType.RANK, 1, DefaultSkill.SWIM)}));
         mockLevel.replay();
         
         MockControl mockProgression = MockControl.createControl(CharacterProgression.class);
@@ -57,7 +57,7 @@ public class CharacterProgressionSkillEntryContainerTest extends TestCase {
         level1.getClassLevel();
         mockLevel1.setReturnValue(new DefaultClassLevel(1, DefaultCharacterClass.BARBARIAN, 1, 1, 1, 1));
         level1.getSkillRanks();
-        mockLevel1.setReturnValue(Arrays.asList(new SkillModifier[] {new DefaultSkillModifier("rank", 1, DefaultSkill.SWIM)}));
+        mockLevel1.setReturnValue(Arrays.asList(new SkillModifier[] {new DefaultSkillModifier(DefaultSkillModifierType.RANK, 1, DefaultSkill.SWIM)}));
         mockLevel1.replay();
 
         MockControl mockLevel2 = MockControl.createControl(CharacterLevel.class);
@@ -65,7 +65,7 @@ public class CharacterProgressionSkillEntryContainerTest extends TestCase {
         level2.getClassLevel();
         mockLevel2.setReturnValue(new DefaultClassLevel(1, DefaultCharacterClass.BARBARIAN, 1, 1, 1, 1));
         level2.getSkillRanks();
-        mockLevel2.setReturnValue(Arrays.asList(new SkillModifier[] {new DefaultSkillModifier("rank", 1, DefaultSkill.SWIM)}));
+        mockLevel2.setReturnValue(Arrays.asList(new SkillModifier[] {new DefaultSkillModifier(DefaultSkillModifierType.RANK, 1, DefaultSkill.SWIM)}));
         mockLevel2.replay();
 
         MockControl mockProgression = MockControl.createControl(CharacterProgression.class);

@@ -13,23 +13,21 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.armorclass;
+package com.codecrate.shard;
 
-public class DefaultArmorClassModifier implements ArmorClassModifier {
+/**
+ * Defines a modifier type.
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
+public interface ModifierType {
 
-	private final ArmorClassModifierType modifierType;
-	private final int modifier;
-
-	public DefaultArmorClassModifier(ArmorClassModifierType type, int modifier) {
-		this.modifierType = type;
-		this.modifier= modifier;
-	}
-
-	public int getModifier() {
-		return modifier;
-	}
+	String getName();
 	
-	public ArmorClassModifierType getModifierType() {
-		return modifierType;
-	}
+	/**
+	 * flag for if this modifier type is stackable.
+	 * ex: Dodge bonus is stackable.
+	 * @return
+	 */
+	boolean isStackable();
 }

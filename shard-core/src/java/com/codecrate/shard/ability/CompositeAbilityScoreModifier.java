@@ -16,11 +16,14 @@
 package com.codecrate.shard.ability;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.codecrate.shard.ModifierType;
 
 public class CompositeAbilityScoreModifier implements AbilityScoreModifier {
     private static final Log LOG = LogFactory.getLog(CompositeAbilityScoreModifier.class);
@@ -57,4 +60,16 @@ public class CompositeAbilityScoreModifier implements AbilityScoreModifier {
 	void removeAbilityModifier(AbilityScoreModifier modifier) {
 		modifiers.remove(modifier);
 	}
+
+    /* (non-Javadoc)
+     * @see com.codecrate.shard.Modifier#getModifierType()
+     */
+    public ModifierType getModifierType() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Collection getModifiers() {
+        return modifiers;
+    }
 }

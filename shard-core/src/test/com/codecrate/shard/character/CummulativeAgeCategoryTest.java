@@ -23,6 +23,8 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
+import com.codecrate.shard.DefaultModifierType;
+import com.codecrate.shard.ModifierType;
 import com.codecrate.shard.ability.AbilityScoreModifier;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScoreModifier;
@@ -33,9 +35,11 @@ import com.codecrate.shard.ability.DefaultAbilityScoreModifier;
 public class CummulativeAgeCategoryTest extends TestCase {
 
 	public void testPreviousCategoryAbilityModifiersAdded() {
+        ModifierType type = new DefaultModifierType("type", true);
+
 		List modifiers = Arrays
 		.asList(new AbilityScoreModifier[] { new DefaultAbilityScoreModifier(
-				DefaultAbility.STRENGTH, 1) });
+				type, DefaultAbility.STRENGTH, 1) });
 		MockControl mockAgeCategory = MockControl.createControl(AgeCategory.class);
 		AgeCategory previousAgeCategory = (AgeCategory) mockAgeCategory.getMock();
 		previousAgeCategory.getAbilityModifiers();
