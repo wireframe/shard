@@ -24,11 +24,29 @@ import com.codecrate.shard.Modifier;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface AbilityScoreModifier extends Modifier {
+public class AbilityScoreModifier {
 
+    private final Ability ability;
+    private final Modifier modifier;
+
+    public AbilityScoreModifier(Ability ability, Modifier modifier) {
+        this.ability = ability;
+        this.modifier = modifier;
+    }
+    
 	/**
 	 * gets the identifier of what ability to modify.
 	 * @return ability name that modifier applies to.
 	 */
-	Ability getAbility();
+	Ability getAbility() {
+	    return ability;
+	}
+	
+	/**
+	 * gets the modifier for the ability.
+	 * @return
+	 */
+	Modifier getModifier() {
+	    return modifier;
+	}
 }

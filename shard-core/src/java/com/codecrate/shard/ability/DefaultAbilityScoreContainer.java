@@ -44,7 +44,7 @@ public class DefaultAbilityScoreContainer implements AbilityScoreContainer {
 	}
 	
 	public boolean hasAbilityScore(Ability ability) {
-	    if (null == getAbilityScore(ability)) {
+	    if (null == scores.get(ability)) {
 	        return false;
 	    }
 	    return true;
@@ -90,5 +90,23 @@ public class DefaultAbilityScoreContainer implements AbilityScoreContainer {
 
     public AbilityScore getCharisma() {
         return getAbilityScore(DefaultAbility.CHARISMA);
+    }
+
+    public void addAbilityScoreModifier(AbilityScoreModifier modifier) {
+        Ability ability = modifier.getAbility();
+        if (!hasAbilityScore(ability)) {
+            LOG.info("Ability " + ability + " does not exist to attach modifier to.");
+            return;
+        } 
+        getAbilityScore(ability).addModifier(modifier.getModifier());
+    }
+
+    public void removeAbilityScoreModifier(AbilityScoreModifier modifier) {
+        Ability ability = modifier.getAbility();
+        if (!hasAbilityScore(ability)) {
+            LOG.info("Ability " + ability + " does not exist to remove modifier from.");
+            return;
+        } 
+        getAbilityScore(ability).removeModifier(modifier.getModifier());
     }
 }

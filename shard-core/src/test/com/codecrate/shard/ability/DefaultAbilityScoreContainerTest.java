@@ -22,6 +22,10 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
+import com.codecrate.shard.DefaultModifier;
+import com.codecrate.shard.DefaultModifierType;
+import com.codecrate.shard.ModifierType;
+
 public class DefaultAbilityScoreContainerTest extends TestCase {
 
 	public void testGetAbilityReturnsSameObject() {
@@ -69,5 +73,46 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 		DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 
 		assertEquals(1, container.getAbilityScores().size());
+	}
+	
+	public void testAddModifierAttachesModifierToScore() {
+		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, new AbilityScoreDao());
+		Map abilities = new HashMap();
+		abilities.put(DefaultAbility.STRENGTH, ability);
+	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
+	    ModifierType type = new DefaultModifierType("test", false);
+	    container.addAbilityScoreModifier(new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(type, 8)));
+
+	    assertEquals(18, ability.getModifiedValue());
+	}
+	
+	public void testModifierNotUsedWithoutAbilityScore() {
+		Map abilities = new HashMap();
+	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
+	    ModifierType type = new DefaultModifierType("test", false);
+	    container.addAbilityScoreModifier(new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(type, 8)));
+	    assertFalse(container.hasAbilityScore(DefaultAbility.STRENGTH));
+	}
+	
+	
+	public void testRemoveModifierModifierToScore() {
+		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, new AbilityScoreDao());
+		Map abilities = new HashMap();
+		abilities.put(DefaultAbility.STRENGTH, ability);
+	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
+	    ModifierType type = new DefaultModifierType("test", false);
+	    AbilityScoreModifier modifier = new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(type, 8));
+        container.addAbilityScoreModifier(modifier);
+	    container.removeAbilityScoreModifier(modifier);
+
+	    assertEquals(10, ability.getModifiedValue());
+	}
+	
+	public void testModifierNotRemovedWithoutAbilityScore() {
+		Map abilities = new HashMap();
+	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
+	    ModifierType type = new DefaultModifierType("test", false);
+	    container.removeAbilityScoreModifier(new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(type, 8)));
+	    assertFalse(container.hasAbilityScore(DefaultAbility.STRENGTH));
 	}
 }

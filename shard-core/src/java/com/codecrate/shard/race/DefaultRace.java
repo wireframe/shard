@@ -19,10 +19,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import com.codecrate.shard.DefaultModifier;
 import com.codecrate.shard.ability.AbilityScoreModifier;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityModifierType;
-import com.codecrate.shard.ability.DefaultAbilityScoreModifier;
 import com.codecrate.shard.dice.DefaultDice;
 import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.dice.MultipleDice;
@@ -58,12 +58,12 @@ public class DefaultRace implements Race {
 	public static final Race HALF_ORC = new DefaultRace("Half-Orc",
 			DefaultRacialSize.MEDIUM, new DefaultMovement(30), Arrays
 					.asList(new AbilityScoreModifier[] {
-							new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
-									DefaultAbility.STRENGTH, 2),
-							new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
-									DefaultAbility.INTELLIGENCE, -2),
-							new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
-									DefaultAbility.CHARISMA, -2) }), 
+							new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(
+							        DefaultAbilityModifierType.RACE, 2)),
+							new AbilityScoreModifier(DefaultAbility.INTELLIGENCE, new DefaultModifier(
+							        DefaultAbilityModifierType.RACE, -2)),
+							new AbilityScoreModifier(DefaultAbility.CHARISMA, new DefaultModifier(
+							        DefaultAbilityModifierType.RACE, -2)) }), 
 									new ArrayList(), 0, 
 			Arrays.asList(new Language[] {Language.COMMON, Language.ORC}), 
 			Arrays.asList(new Language[] {Language.DRACONIC, Language.GIANT, Language.GNOLL, 
@@ -72,10 +72,10 @@ public class DefaultRace implements Race {
 
 	public static final Race ELF = new DefaultRace("Elf", DefaultRacialSize.MEDIUM,
 			new DefaultMovement(30), Arrays.asList(new AbilityScoreModifier[] {
-					new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
-							DefaultAbility.DEXTERITY, 2),
-					new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
-							DefaultAbility.CONSTITUTION, -2) }), 
+					new AbilityScoreModifier(DefaultAbility.DEXTERITY, new DefaultModifier(
+					        DefaultAbilityModifierType.RACE, 2)),
+					new AbilityScoreModifier(DefaultAbility.CONSTITUTION, new DefaultModifier(
+					        DefaultAbilityModifierType.RACE, -2)) }), 
 					Arrays.asList(
 							new SkillEntryModifier[] { new DefaultSkillEntryModifier(
 							DefaultSkill.TYPE_RACE, 2, DefaultSkill.LISTEN),
@@ -89,10 +89,10 @@ public class DefaultRace implements Race {
 
 	public static final Race DWARF = new DefaultRace("Dwarf", DefaultRacialSize.MEDIUM,
 			new DefaultMovement(20), Arrays.asList(new AbilityScoreModifier[] {
-					new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
-							DefaultAbility.CONSTITUTION, 2),
-					new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
-							DefaultAbility.CHARISMA, -2) }), 
+					new AbilityScoreModifier(DefaultAbility.CONSTITUTION, new DefaultModifier(
+					        DefaultAbilityModifierType.RACE, 2)),
+					new AbilityScoreModifier(DefaultAbility.CHARISMA, new DefaultModifier(
+					        DefaultAbilityModifierType.RACE, -2)) }), 
 							new ArrayList(), 0, 
 							Arrays.asList(new Language[] {Language.COMMON, Language.DWARVEN}), 
 							Arrays.asList(new Language[] {Language.GIANT, Language.GNOME, 
@@ -101,10 +101,10 @@ public class DefaultRace implements Race {
 
 	public static final Race GNOME = new DefaultRace("Gnome", DefaultRacialSize.SMALL,
 			new DefaultMovement(20), Arrays.asList(new AbilityScoreModifier[] {
-					new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
-							DefaultAbility.CONSTITUTION, 2),
-					new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
-							DefaultAbility.STRENGTH, -2) }), 
+					new AbilityScoreModifier(DefaultAbility.CONSTITUTION, new DefaultModifier(
+					        DefaultAbilityModifierType.RACE, 2)),
+					new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(
+					        DefaultAbilityModifierType.RACE,-2)) }), 
 					Arrays.asList(new SkillEntryModifier[] {
 						new DefaultSkillEntryModifier(DefaultSkill.TYPE_RACE, 2, DefaultSkill.LISTEN)	
 					}),
@@ -117,10 +117,10 @@ public class DefaultRace implements Race {
 	public static final Race HALFLING = new DefaultRace("Halfling", 
 			DefaultRacialSize.SMALL, new DefaultMovement(20), Arrays
 					.asList(new AbilityScoreModifier[] {
-							new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
-									DefaultAbility.DEXTERITY, 2),
-							new DefaultAbilityScoreModifier(DefaultAbilityModifierType.RACE,
-									DefaultAbility.STRENGTH, -2) }), 
+							new AbilityScoreModifier(DefaultAbility.DEXTERITY, new DefaultModifier(
+							        DefaultAbilityModifierType.RACE, 2)),
+							new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(
+							        DefaultAbilityModifierType.RACE, -2)) }), 
 									Arrays.asList(new SkillEntryModifier[] {
 										new DefaultSkillEntryModifier(DefaultSkill.TYPE_RACE, 2, DefaultSkill.LISTEN),
 										new DefaultSkillEntryModifier(DefaultSkill.TYPE_RACE, 2, DefaultSkill.CLIMB),

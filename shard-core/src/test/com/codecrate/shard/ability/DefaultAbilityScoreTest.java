@@ -19,7 +19,9 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
+import com.codecrate.shard.DefaultModifier;
 import com.codecrate.shard.DefaultModifierType;
+import com.codecrate.shard.Modifier;
 import com.codecrate.shard.ModifierType;
 
 public class DefaultAbilityScoreTest extends TestCase {
@@ -36,7 +38,7 @@ public class DefaultAbilityScoreTest extends TestCase {
 	    mockListener.replay();
 	    
 	    ModifierType type = new DefaultModifierType("type", false);
-	    AbilityScoreModifier modifier = new DefaultAbilityScoreModifier(type, DefaultAbility.CHARISMA, 2);
+	    Modifier modifier = new DefaultModifier(type, 2);
 	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, new AbilityScoreDao());
 	    ability.addListener(listener);
 	    ability.addModifier(modifier);
@@ -52,7 +54,7 @@ public class DefaultAbilityScoreTest extends TestCase {
 	    mockListener.replay();
 	    
 	    ModifierType type = new DefaultModifierType("type", false);
-	    AbilityScoreModifier modifier = new DefaultAbilityScoreModifier(type, DefaultAbility.CHARISMA, 2);
+	    Modifier modifier = new DefaultModifier(type, 2);
 	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, new AbilityScoreDao());
 	    ability.addListener(listener);
 	    ability.removeModifier(modifier);

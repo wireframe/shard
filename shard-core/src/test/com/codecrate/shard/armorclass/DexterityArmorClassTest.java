@@ -19,13 +19,14 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
+import com.codecrate.shard.DefaultModifier;
 import com.codecrate.shard.DefaultModifierType;
+import com.codecrate.shard.Modifier;
 import com.codecrate.shard.ModifierType;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
-import com.codecrate.shard.ability.DefaultAbilityScoreModifier;
 import com.codecrate.shard.movement.DefaultEncumberance;
 
 public class DexterityArmorClassTest extends TestCase {
@@ -65,7 +66,7 @@ public class DexterityArmorClassTest extends TestCase {
         DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10, new AbilityScoreDao());
 
         ModifierType type = new DefaultModifierType("type", true);
-        DefaultAbilityScoreModifier modifier = new DefaultAbilityScoreModifier(type, DefaultAbility.DEXTERITY, 8);
+        Modifier modifier = new DefaultModifier(type, 8);
 
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
@@ -84,7 +85,7 @@ public class DexterityArmorClassTest extends TestCase {
         DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10, new AbilityScoreDao());
         
         ModifierType type = new DefaultModifierType("type", true);
-        DefaultAbilityScoreModifier modifier = new DefaultAbilityScoreModifier(type, DefaultAbility.DEXTERITY, 18);
+        Modifier modifier = new DefaultModifier(type, 8);
 
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();

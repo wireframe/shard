@@ -63,4 +63,16 @@ public interface AbilityScoreContainer {
 	 * @return
 	 */
 	int getTotalPointScore();
+	
+	/**
+	 * adds a modifier for an ability score.
+	 * @param modifier
+	 */
+	void addAbilityScoreModifier(AbilityScoreModifier modifier);
+	
+	/**
+	 * removes a modifier from an ability score.
+	 * @param modifier
+	 */
+	void removeAbilityScoreModifier(AbilityScoreModifier modifier);
 }

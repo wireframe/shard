@@ -26,8 +26,12 @@ public class DefaultModifierType implements ModifierType {
     public DefaultModifierType(String name, boolean isStackable) {
         this.name = name;
         this.isStackable = isStackable;
-        
     }
+
+    public String toString() {
+        return name;
+    }
+    
     public String getName() {
         return name;
     }

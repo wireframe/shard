@@ -26,8 +26,12 @@ public class DefaultModifier implements Modifier {
     public DefaultModifier(ModifierType type, int value) {
         this.type = type;
         this.value = value;
-        
     }
+    
+    public String toString() {
+        return type + ": " + value;
+    }
+    
     public ModifierType getModifierType() {
         return type;
     }

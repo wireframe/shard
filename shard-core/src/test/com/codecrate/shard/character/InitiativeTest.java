@@ -19,13 +19,13 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
+import com.codecrate.shard.DefaultModifier;
 import com.codecrate.shard.DefaultModifierType;
 import com.codecrate.shard.ModifierType;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
-import com.codecrate.shard.ability.DefaultAbilityScoreModifier;
 
 public class InitiativeTest extends TestCase {
 
@@ -72,7 +72,7 @@ public class InitiativeTest extends TestCase {
         mockAbilities.replay();
         
         Initiative initiative = new Initiative(abilities);
-        abilityScore.addModifier(new DefaultAbilityScoreModifier(type, DefaultAbility.DEXTERITY, 8));
+        abilityScore.addModifier(new DefaultModifier(type, 8));
         assertEquals(4, initiative.getModifiedValue());
     }
 }
