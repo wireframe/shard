@@ -17,6 +17,15 @@
         <eclipse.dependency>true</eclipse.dependency>
       </properties>
     </dependency>
+    
+    <!-- Velocity dependencies -->
+    <dependency>
+      <groupId>velocity</groupId>
+      <artifactId>velocity</artifactId>
+      <version>1.4</version>
+      <url>http://jakarta.apache.org/velocity</url>
+    </dependency>
+    
   </dependencies>
     
   <build>

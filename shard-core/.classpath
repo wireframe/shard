@@ -11,6 +11,8 @@
   </classpathentry>
   <classpathentry kind="src" path="/shard-dice">
   </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/velocity/jars/velocity-1.4.jar">
+  </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-2.1.jar">
