@@ -297,7 +297,8 @@ public class Money implements Comparable {
      * @return Money
      */
     public static Money valueOf(String str) throws java.text.ParseException {
-        Currency currency = new CurrencyDao().getCurrency(str.substring(str.length() - 3));
+        String[] tokens = str.split(" ");
+        Currency currency = new CurrencyDao().getCurrency(tokens[1]);
         //Currency.getInstance(str.substring(str.length() - 3));
 
         Number number = getFormatter(currency).parse(str);
@@ -308,7 +309,7 @@ public class Money implements Comparable {
         NumberFormat formatter = NumberFormat.getInstance();
         if (formatter instanceof DecimalFormat) {
             DecimalFormat decimalFormatter = (DecimalFormat) formatter;
-            decimalFormatter.applyPattern("#,##0.00 ¤¤");
+            decimalFormatter.applyPattern("#,##0.00 \u00A4\u00A4");
 
             //preferred method, but can't use because of our custom currency
             //FORMATTER.setCurrency(currency);

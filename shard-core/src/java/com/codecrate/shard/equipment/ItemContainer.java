@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.equipment;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
 /**
@@ -47,4 +48,16 @@ public interface ItemContainer {
 	 * @return
 	 */
 	Collection getItems();
+
+    /**
+     * gets the total wieght for all items in the container.
+     * @return
+     */
+    BigDecimal getTotalWeight();
+    
+    /**
+     * gets total cost for all items in the container.
+     * @return
+     */
+    Money getTotalCost();
 }

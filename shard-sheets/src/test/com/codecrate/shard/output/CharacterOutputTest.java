@@ -22,7 +22,7 @@ public class CharacterOutputTest extends TestCase {
 	    engine.init(p);
 		Template template = engine.getTemplate("default.vm");
 		CharacterProgression progression = new DefaultCharacterProgression(new ArrayList());
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter("test", DefaultRace.HUMAN, null, null, null, null, null, null, null, progression, null, null, 0, null, 0);
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter("test", DefaultRace.HUMAN, null, null, null, null, null, null, null, progression, null, null, 0, null, null);
 		CharacterOutput output = new CharacterOutput(character, template);
 		System.out.println(output.render());
 	}

@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.character;
 
+import java.math.BigDecimal;
+
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
 import com.codecrate.shard.equipment.ItemContainer;
@@ -28,7 +30,12 @@ import com.codecrate.shard.skill.SkillEntryContainer;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface PlayerCharacter {
-	int getChallengeRating();
+    /**
+     * gets the challenge rating for the character.
+     * can range from 0.1 to any number.
+     * @return
+     */
+	BigDecimal getChallengeRating();
 	
 	/**
 	 * gets the name of the character.

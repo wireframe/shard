@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.race;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
 import com.codecrate.shard.armorclass.ArmorClassModifier;
@@ -42,7 +43,7 @@ public interface RacialSize  {
 	 * gets the amount of space the creature occupies.
 	 * @return
 	 */
-	float getSpace();
+	BigDecimal getSpace();
 
 	/**
 	 * gets the reach of the creature.
@@ -56,4 +57,11 @@ public interface RacialSize  {
 	 * @return
 	 */
 	Collection getSkillModifiers();
+
+    /**
+     * gets the encumberance mulitplier for creatues of this size.
+     * ex: large creatures can carry 2 times as much as medium creatures.
+     * @return
+     */
+    BigDecimal getEncumberanceMultiplier();
 }

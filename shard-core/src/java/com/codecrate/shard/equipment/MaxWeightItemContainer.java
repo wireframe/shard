@@ -60,4 +60,24 @@ public class MaxWeightItemContainer implements ItemContainer {
 	public Collection getItems() {
 		return items;
 	}
+	
+	public BigDecimal getTotalWeight() {
+	    BigDecimal total = new BigDecimal(0);
+	    Iterator it = items.iterator();
+	    while (it.hasNext()) {
+	        Item item = (Item) it.next();
+	        total = total.add(item.getWeight());
+	    }
+	    return total;
+	}
+	
+	public Money getTotalCost() {
+	    Money total = new Money(0, DefaultCurrency.GOLD);
+	    Iterator it = items.iterator();
+	    while (it.hasNext()) {
+	        Item item = (Item) it.next();
+	        total = total.add(item.getCost());
+	    }
+	    return total;
+	}
 }

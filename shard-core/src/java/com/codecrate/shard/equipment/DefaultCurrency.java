@@ -17,9 +17,9 @@ package com.codecrate.shard.equipment;
 
 public class DefaultCurrency implements Currency {
 
-    public static final Currency COPPER = new DefaultCurrency("CP ", "c", 0);
-    public static final Currency SILVER = new DefaultCurrency("SP ", "s", 0);
-    public static final Currency GOLD = new DefaultCurrency("GP ", "g", 0);
+    public static final Currency COPPER = new DefaultCurrency("CP", "c", 0);
+    public static final Currency SILVER = new DefaultCurrency("SP", "s", 0);
+    public static final Currency GOLD = new DefaultCurrency("GP", "g", 0);
     
     
     private final String currencyCode;

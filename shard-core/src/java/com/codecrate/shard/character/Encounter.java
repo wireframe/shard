@@ -19,31 +19,22 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.codecrate.shard.equipment.Money;
+
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ * 
+ * @see http://d20srd.org/encounterCalculator
  */
-public class Party {
+public class Encounter {
     private final Collection characters;
 
-    public Party(Collection characters) {
+    public Encounter(Collection characters) {
         this.characters = characters;
     }
     
-    /**
-     * returns the average ECL for a 4 character party.
-     * parties with more or less characters have a modified level.
-     */
-    public int getLevel() {
-    
-        return 0;
-    }
-    
-    /**
-     * average challange rating for the party.
-     * @return
-     */
-    public BigDecimal getChallengeRating() {
+    public BigDecimal getEncounterLevel() {
         BigDecimal total = new BigDecimal(0);
         Iterator it = characters.iterator(); 
         while (it.hasNext()) {
@@ -51,5 +42,13 @@ public class Party {
             total = total.add(character.getChallengeRating());
         }
         return total.divide(new BigDecimal(characters.size()), 0);
+    }
+    
+    public Difficulty getDifficulty() {
+        return null;
+    }
+    
+    public Money getTreasureValue() {
+        return null;
     }
 }

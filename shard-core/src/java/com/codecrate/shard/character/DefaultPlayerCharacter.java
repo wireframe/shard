@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.character;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
@@ -34,7 +35,7 @@ import com.codecrate.shard.skill.SkillEntryContainer;
 public class DefaultPlayerCharacter implements PlayerCharacter {
     private final int experience;
     private final Age age;
-    private final int challengeRating;
+    private final BigDecimal challengeRating;
     private final Race race;
     private final Gender gender;
     private final Alignment alignment;
@@ -56,7 +57,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     public DefaultPlayerCharacter(String name, Race race, Gender gender, Alignment alignment, 
     		AbilityScoreContainer abilities, HitPoints hitPoints, ArmorClass armorClass, Encumberance encumberance, 
     		Age age, CharacterProgression characterProgression, SavingThrowContainer savingThrows, 
-    		ItemContainer items, int experience, SkillEntryContainer skills, int challengeRating) {
+    		ItemContainer items, int experience, SkillEntryContainer skills, BigDecimal challengeRating) {
     	this.name = name;
         this.race = race;
     	this.gender = gender;
@@ -74,7 +75,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
         this.challengeRating = challengeRating;
     }
     
-    public int getChallengeRating() {
+    public BigDecimal getChallengeRating() {
         return challengeRating;
     }
 
