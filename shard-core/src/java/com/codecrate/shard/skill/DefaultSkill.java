@@ -125,9 +125,11 @@ public class DefaultSkill implements Skill {
 
     private final String name;
     private final boolean usableUntrained;
-    private final Collection skillSynergies;
+    private Collection skillSynergies;
     private final Ability ability;
     private final boolean armorPenalty;
+
+	private final SkillDao skillDao;
 
     public DefaultSkill(String name, boolean usableUntrained, Ability ability,
             boolean armorPenalty, SkillDao skillDao) {
@@ -135,7 +137,7 @@ public class DefaultSkill implements Skill {
         this.usableUntrained = usableUntrained;
         this.ability = ability;
         this.armorPenalty = armorPenalty;
-        this.skillSynergies = skillDao.getSynergeticSkills(this);
+		this.skillDao = skillDao;
     }
 
     public String getName() {
@@ -151,6 +153,9 @@ public class DefaultSkill implements Skill {
     }
 
     public Collection getSkillSynergies() {
+    	if (null == skillSynergies) {
+            this.skillSynergies = skillDao.getSynergeticSkills(this);
+    	}
         return skillSynergies;
     }
 

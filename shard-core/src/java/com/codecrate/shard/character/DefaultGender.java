@@ -24,13 +24,17 @@ public class DefaultGender implements Gender {
 	public static final Gender FEMALE = new DefaultGender("Female");
 	
 	
-	private String name;
+	private final String name;
 	
 	public DefaultGender(String name) {
 		this.name = name;
 	}
 	
 	public String getName() {
+		return name;
+	}
+	
+	public String toString() {
 		return name;
 	}
 }

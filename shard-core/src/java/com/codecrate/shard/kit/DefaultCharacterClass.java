@@ -159,7 +159,7 @@ public class DefaultCharacterClass implements CharacterClass {
                     Feat.ARMOR_PROFICIENCY_HEAVY, Feat.SHIELD_PROFICIENCY}), new ArrayList());
 
     
-    private final Collection classSkills;
+    private Collection classSkills;
     private final Collection bonusLanguages;
     private final Collection feats;
     private final Dice hitDicePerLevel;
@@ -168,6 +168,8 @@ public class DefaultCharacterClass implements CharacterClass {
     private final ClassProgression progression;
     private final CharacterPrerequisite prereq;
     private final Collection skillModifiers;
+
+	private final SkillDao skillDao;
     
     public DefaultCharacterClass(String name, Dice hitDicePerLevel,
             SkillDao skillDao, int baseSkillPointsPerLevel, 
@@ -175,13 +177,14 @@ public class DefaultCharacterClass implements CharacterClass {
 			Collection bonusLanguages, Collection feats, Collection skillModifiers) {
         this.name = name;
         this.hitDicePerLevel = hitDicePerLevel;
+		this.skillDao = skillDao;
         this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
         this.prereq = prereq;
         this.bonusLanguages = bonusLanguages;
         this.feats = feats;
         this.skillModifiers = skillModifiers;
         this.progression = progressionDao.getClassProgress(this);
-        this.classSkills = skillDao.getClassSkills(this);
+        
     }
     
     public String toString() {
@@ -193,6 +196,9 @@ public class DefaultCharacterClass implements CharacterClass {
     }
 
     public Collection getClassSkills() {
+    	if (null == classSkills) {
+            this.classSkills = skillDao.getClassSkills(this);
+    	}
         return classSkills;
     }
 
