@@ -20,29 +20,10 @@ import junit.framework.TestCase;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class MultipliedDiceTest extends TestCase {
-    
-    public void testCannotUseNegativeMultiplier() {
-        try {
-            new MultipliedDice(DefaultDice.d6, -1);
-            fail();
-        } catch (IllegalArgumentException expected) {}
-    }
-    
-    public void testCannotUseZeroMultiplier() {
-        try {
-            new MultipliedDice(DefaultDice.d6, 0);
-            fail();
-        } catch (IllegalArgumentException expected) {}
-    }
-    
-    public void testMaxValue() {
-    	MultipliedDice dice = new MultipliedDice(DefaultDice.d6, 1);
-    	assertEquals(6, dice.getMaxValue());
-    }
-    
-    public void testMinValue() {
-    	MultipliedDice dice = new MultipliedDice(DefaultDice.d6, 1);
-    	assertEquals(1, dice.getMinValue());
+public class MaxValueDiceTest extends TestCase {
+
+	public void testRollReturnsMaxValue() {
+    	MaxValueDice dice = new MaxValueDice(DefaultDice.d6);
+    	assertEquals(6, dice.roll());
     }
 }
