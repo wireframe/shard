@@ -1,5 +1,7 @@
 package com.codecrate.shard.equipment;
 
+import java.math.BigDecimal;
+
 import junit.framework.TestCase;
 
 import org.easymock.MockControl;
@@ -10,9 +12,9 @@ public class MaxWeightItemContainerTest extends TestCase {
 		MockControl mockItem = MockControl.createControl(Item.class);
 		Item item = (Item) mockItem.getMock();
 		item.getWeight();
-		mockItem.setReturnValue(2);
+		mockItem.setReturnValue(new BigDecimal(2));
 		item.getWeight();
-		mockItem.setReturnValue(2);
+		mockItem.setReturnValue(new BigDecimal(2));
 		mockItem.replay();
 		
 		MaxWeightItemContainer container = new MaxWeightItemContainer(1);

@@ -308,7 +308,7 @@ public class Money implements Comparable {
         NumberFormat formatter = NumberFormat.getInstance();
         if (formatter instanceof DecimalFormat) {
             DecimalFormat decimalFormatter = (DecimalFormat) formatter;
-            decimalFormatter.applyPattern("#,##0.00 ¤¤");
+            decimalFormatter.applyPattern("#,##0.00 Â¤Â¤");
 
             //preferred method, but can't use because of our custom currency
             //FORMATTER.setCurrency(currency);

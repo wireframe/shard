@@ -67,8 +67,6 @@
 	          <td align="center" width="20%" class="font4">ABILITY<br />NAME</td>
 	          <td align="center" width="20%" class="font4">ABILITY<br />SCORE</td>
 	          <td align="center" width="20%" class="font4">ABILITY<br />MODIFIER</td>
-	          <td align="center" width="20%" class="font4">TEMPORARY<br />SCORE</td>
-	          <td align="center" width="20%" class="font4">TEMPORARY<br />MODIFIER</td>
 	        </tr>
 	        #foreach($abilityScore in $character.abilites.abilityScores)
 	        <tr>
@@ -108,10 +106,10 @@
 	          </tr>
 	        </table> <!-- STOP Hit Point Table -->
 	
-	      <table summary="AC Table"> <!-- Armour Class Table -->
+	      <table summary="AC Table"> <!-- Armor Class Table -->
 	        <tr>
 	          <td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>AC</b></font>
-	            <font style="font-size:5pt" color="white"><br />Armour Class</font></td>
+	            <font style="font-size:5pt" color="white"><br />Armor Class</font></td>
 	          <td align="center" class="border9"><b>$character.armorClass.value</b></td>
 	          <td align="center" class="font7"><b>:</b></td>
 	          <td align="center" class="border9"><b>|AC.Flatfooted|</b></td>
@@ -121,10 +119,8 @@
 	          <td align="center" class="border9"><b>|AC.Base|</b></td>
 	          <td align="center" class="font7"><b>+</b></td>
 	          <td align="center" class="border9"><b>|AC.Armor|</b></td>
-	
 	          <td align="center" class="font7"><b>+</b></td>
 	          <td align="center" class="border9"><b>|AC.Shield|</b></td>
-	
 	          <td align="center" class="font7"><b>+</b></td>
 	          <td align="center" class="border9"><b>|AC.Ability|</b></td>
 	          <td align="center" class="font7"><b>+</b></td>
@@ -184,6 +180,76 @@
 	      </td>
 	    </tr>
 	  <tr>
+	  <td valign="top">
+	<!-- START Initiative Table -->
+	   <table width="100%" summary="Initiative Table">
+	    <tr>
+	     <td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>INITIATIVE</b></font><font style="font-size:5pt" color="white"><br />Modifier</font></td>
+	     <td align="center" class="border10"><b>|INITIATIVEMOD|</b></td>
+	     <td align="center" class="font7"><b>=</b></td>
+	     <td align="center" class="border10"><b>|STAT.1.MOD|</b></td>
+	     <td align="center" class="font7"><b>+</b></td>
+	     <td align="center" class="border10"><b>|INITIATIVEBONUS|</b></td>
+	     <td width="50%" rowspan="2" align="center"><br /></td>
+	    </tr>
+	    <tr>
+	     <td align="center" width="50" class="font7"></td>
+	     <td align="center" width="25" valign="top" class="font7">TOTAL</td>
+	     <td align="center"></td>
+	     <td align="center" width="25" class="font5">DEX</td>
+	     <td align="center"></td>
+	     <td align="center" width="25" class="font5">MISC</td>
+	    </tr>
+	   </table>
+	<!-- STOP Initiative Table -->
+	<!-- START Base Attack Table -->
+	   <table width="100%" summary="Base Attack Table">
+	    <tr>
+	     <td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>BASE ATTACK</b></font><font style="font-size:5pt" color="white"><br />Bonus</font></td>
+	     <td align="center" width="94" class="border"><font style="font-size: 10pt"><b>|ATTACK.MELEE|<br /></b></font></td>
+	     <td align="center" width="50%"><br /></td>
+	    </tr>
+	   </table>
+	<!-- STOP Base Attack Table -->
+	  </td>
+	  <td rowspan="2" valign="top" width="50%">
+	<!-- START Skills Table -->
+	   <table cellpadding="0" cellspacing="0" border="0" width="100%" summary="Skills Table">
+	    <tr>
+	     <td height="30" bgcolor="black"></td>
+	     <td height="30" bgcolor="black" align="center"><font style="font-size: 9pt" color="white"><b>SKILLS</b></font></td>
+	     <td colspan="4" height="30" bgcolor="black" align="center"></td>
+	     <td height="30" bgcolor="black" align="right" ></td>
+	     <td height="30" bgcolor="black" align="center"><font style="font-size: 7pt" color="white" >MAX<br />RANKS</font></td>
+	     <td colspan="2" height="30"  bgcolor="white" align="center" class="skl"><b>|MAXSKILLLEVEL|/|MAXCCSKILLLEVEL|</b></td>
+	    </tr>
+	    <tr>
+	     <td colspan="2" align="center" width="40%" class="border4">SKILL NAME</td>
+	     <td align="center" width="5%" class="border4">ABILITY</td>
+	     <td align="center" width="13%" colspan="1" class="border4">SKILL<br />MODIFIER</td>
+	     <td align="center" width="13%" colspan="2" class="border4">ABILITY<br />MODIFIER</td>
+	     <td align="center" width="13%" colspan="2" class="border4">RANKS</td>
+	     <td align="center" width="13%" colspan="2" class="border4">MISC<br />MODIFIER</td>
+	    </tr>
+	|FOR,%skill,0,COUNT[SKILLS]-1,1,0|
+	|OIF(EVEN:%skill,<tr bgcolor="#DDDDDD">,<tr bgcolor="white">)|
+	     <td align="center" ><font face="Wingdings" style="font-size: 7pt">|OIF(SKILL%skill.UNTRAINED,u,)|</font></td>
+	     <td align="left" class="font8">&nbsp;&nbsp;|SKILL.%skill|</td>
+	     <td align="center" class="font8">|SKILL.%skill.ABILITY|</td>
+	     <td align="center" class="borderbottom8" valign="bottom"><b>|SKILL.%skill.TOTAL|</b></td>
+	     <td align="center" valign="bottom" class="font8"><b>=</b></td>
+	     <td align="center" class="borderbottom8" valign="bottom">|SKILL.%skill.ABMOD|<br /></td>
+	     <td align="center" valign="bottom" class="font8"><b>+</b></td>
+	     <td align="center" class="borderbottom8" valign="bottom">|SKILL.%skill.RANK|<br /></td>
+	     <td align="center" valign="bottom" class="font8"><b>+</b></td>
+	     <td align="center" class="borderbottom8" valign="bottom">|SKILL.%skill.MISC|<br /></td>
+	    </tr>
+	|ENDFOR|
+	   </table>
+	   <font face="Wingdings" style="font-size: 6pt">u</font><font face="Arial" style="font-size: 8pt">= Useable Untrained</font>
+	<!-- STOP Skills Table -->
+	  </td>
+	 </tr>
 	</table>  
 	<!-- END Page Master Table -->
 	

@@ -15,12 +15,14 @@
  */
 package com.codecrate.shard.equipment;
 
+import java.math.BigDecimal;
+
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface Item {
-    int getWeight();
+    BigDecimal getWeight();
     
     Money getCost();
 }

@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.equipment;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -33,14 +34,14 @@ public class MaxWeightItemContainer implements ItemContainer {
 	}
 
 	public boolean canAdd(Item equipment) {
-		int weight = 0;
+		BigDecimal weight = new BigDecimal(0);
 		Iterator it = items.iterator();
 		while (it.hasNext()) {
 			Item item = (Item) it.next();
-			weight += item.getWeight();
+			weight = weight.add(item.getWeight());
 		}
 		
-		if (weight + equipment.getWeight() <= maxWeight) {
+		if (weight.add(equipment.getWeight()).intValue() <= maxWeight) {
 			return true;
 		}
 		return false;
