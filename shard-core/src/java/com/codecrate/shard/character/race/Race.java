@@ -15,15 +15,37 @@
  */
 package com.codecrate.shard.character.race;
 
+import java.util.Collection;
 
+import com.codecrate.shard.character.Movement;
+
+/**
+ * Defines a Race (ex: Human, Elf).
+ * 
+ * <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public interface Race {
+	/**
+	 * gets the default racial size.
+	 * @return
+	 */
     RacialSize getSize();
-    boolean isImmuneToCriticalHits();
     
+    /**
+     * gets the ability modifiers for this race.
+     * ex: elf has +2 Dex, -2 Con.
+     * @return
+     */
+    Collection getAbilityModifiers();
+
+    /**
+     * gets the default movement rate for the race.
+     * @return
+     */
+    Movement getMovement();
+    
+    //boolean isImmuneToCriticalHits();
     //getFavoredClass();
-    //getMovement();
-    
-    //ability modifiers
     //skill modifiers
     //saving throw modifiers
 }

@@ -23,7 +23,7 @@ public class DefaultRacialSize implements RacialSize {
     public static final RacialSize DIMINUTIVE = new DefaultRacialSize(0, 4);
     public static final RacialSize TINY = new DefaultRacialSize(0, 2);
     public static final RacialSize SMALL = new DefaultRacialSize(1, 1);
-    public static final RacialSize MEDUIM = new DefaultRacialSize(0, 0);
+    public static final RacialSize MEDIUM = new DefaultRacialSize(0, 0);
     public static final RacialSize LARGE = new DefaultRacialSize(0, -1);
     public static final RacialSize HUGE = new DefaultRacialSize(0, -2);
     public static final RacialSize GARGANTUAN = new DefaultRacialSize(0, -4);

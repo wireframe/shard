@@ -16,18 +16,16 @@
 package com.codecrate.shard.skill;
 
 /**
- * Definition of a Skill.
- * A skill is something that every character class has access to.  For each class 
- * a skill is either a class skill, or a cross class skill.  If a skill should not
- * be available to a class, it should be redefined as a Feat.
+ * Definition of a Varient Skill.
+ * Varient skills can be used to create skill "subtypes".  ex: Craft (Bow), 
+ * Craft (Longsword). Craft, Knowledge, Profession, Perform and Read/Write 
+ * are all possible varient skills. 
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface Skill {
-	
-	String getAbilityName();
-	
-	String getName();
-	
-	boolean isUsableUntrained();
+public class VarientSkill extends DefaultSkill {
+
+	public VarientSkill(String name, String varientName, boolean usableUntrained, String abilityName) {
+		super(name + " (" + varientName + ")", usableUntrained, abilityName);
+	}
 }

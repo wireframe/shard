@@ -16,18 +16,28 @@
 package com.codecrate.shard.skill;
 
 /**
- * Definition of a Skill.
- * A skill is something that every character class has access to.  For each class 
- * a skill is either a class skill, or a cross class skill.  If a skill should not
- * be available to a class, it should be redefined as a Feat.
- * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface Skill {
+public class DefaultSkill implements Skill {
+	private final String abilityName;
+	private final String name;
+	private final boolean usableUntrained;
 	
-	String getAbilityName();
+	public DefaultSkill(String name, boolean usableUntrained, String abilityName) {
+		this.name = name;
+		this.usableUntrained = usableUntrained;
+		this.abilityName = abilityName;
+	}
 	
-	String getName();
+	public String getAbilityName() {
+		return abilityName;
+	}
 	
-	boolean isUsableUntrained();
+	public String getName() {
+		return name;
+	}
+	
+	public boolean isUsableUntrained() {
+		return usableUntrained;
+	}
 }
