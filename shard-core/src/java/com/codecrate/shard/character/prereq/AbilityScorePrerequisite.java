@@ -18,6 +18,9 @@ package com.codecrate.shard.character.prereq;
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.character.PlayerCharacter;
 
+/**
+ * prereq for character must have a certain ability score.
+ */
 public class AbilityScorePrerequisite implements CharacterPrerequisite {
     private final AbilityScore abilityScore;
 	
