@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard.character;
 
-import com.codecrate.shard.race.Race;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -24,30 +23,29 @@ import com.codecrate.shard.race.Race;
  *  table="SHA_RACE_AGE"
  */
 public class RaceAgeEntry {
-    
-    private Race race;
+
+    private String race;
     private int ageAdult;
     private int ageMiddleAge;
     private int ageOld;
     private int ageVenerable;
 
     /**
-     * @return Returns the race.
+     * 
+     * @return
      * 
      * @hibernate.id
      *  column="RACE"
-     *  generator-class="foreign"
+     *  generator-class="uuid.hex"
      */
-    public Race getRace() {
+    public String getRace() {
         return race;
     }
-    /**
-     * @param race The race to set.
-     */
-    public void setRace(Race race) {
-        this.race = race;
+    
+    public void setRace(String name) {
+        this.race = name;
     }
-
+    
     /**
      * @return Returns the ageAdult.
      * 
