@@ -49,9 +49,13 @@ public class DefaultAbilityScoreContainer implements AbilityScoreContainer {
 	    }
 	    return true;
 	}
+	
+	public String toString() {
+		return getAbilityScores().toString();
+	}
 
 	public Collection getAbilityScores() {
-	    return scores.values();
+		return scores.values();
 	}
 	
 	public int getTotalPointScore() {

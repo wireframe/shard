@@ -29,4 +29,18 @@ public class RenderTool {
     public boolean isOdd(int value) {
         return !isEven(value);
     }
+    
+    /**
+     * gets the css class name for a table row.
+     * this is heavily tied to what css is used for the output sheet.
+     * @param value
+     * @return
+     */
+    public String getRowCssClassName(int value) {
+    	// TODO: make these values driven by property values. 
+    	if (isEven(value)) {
+    		return "tr.even";
+    	}
+    	return "tr.odd";
+    }
 }

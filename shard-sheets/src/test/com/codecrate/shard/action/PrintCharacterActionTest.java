@@ -31,15 +31,18 @@ public class PrintCharacterActionTest extends TestCase {
 		VelocityEngine engine = new VelocityEngine();
 		Properties p = new Properties();
 	    p.setProperty("file.resource.loader.path", "/home/rsonnek/Projects/shard/shard-sheets/src/conf/templates/html");
+	    p.setProperty("runtime.log.logsystem.class", "org.apache.velocity.tools.generic.log.CommonsLogLogSystem");
 	    engine.init(p);
 		Template template = engine.getTemplate("default.vm");
 
 		Map scores = new HashMap();
 		scores.put(DefaultAbility.STRENGTH, new DefaultAbilityScore(DefaultAbility.STRENGTH, 10));
+		scores.put(DefaultAbility.DEXTERITY, new DefaultAbilityScore(DefaultAbility.DEXTERITY, 18));
 		DefaultAbilityScoreContainer abilities = new DefaultAbilityScoreContainer(scores);
 		
 		Collection levels = new ArrayList();
 		levels.add(new DefaultCharacterLevel(1, 1, DefaultCharacterClass.BARBARIAN.getClassProgression().getClassLevel(1), new ArrayList()));
+		levels.add(new DefaultCharacterLevel(2, 1, DefaultCharacterClass.FIGHTER.getClassProgression().getClassLevel(1), new ArrayList()));
 		CharacterProgression progression = new DefaultCharacterProgression(levels);
 		
 		Age age = new Age(20, 100, CumulativeAgeCategory.ADULT);
