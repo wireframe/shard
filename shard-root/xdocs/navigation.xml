@@ -25,5 +25,7 @@
       <item name="Wiki" href="http://www.codecrate.com" />
       <item name="Issues/Roadmap" href="http://jira.codecrate.com" />
     </menu>
+    
+    <search/> 
   </body>
 </project>
