@@ -17,6 +17,7 @@ package com.codecrate.shard.action;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,9 +55,11 @@ import com.codecrate.shard.movement.EncumberanceDao;
 import com.codecrate.shard.movement.InventoryWeightEncumberance;
 import com.codecrate.shard.race.DefaultRace;
 import com.codecrate.shard.save.SavingThrowContainer;
+import com.codecrate.shard.skill.CharacterProgressionSkillEntryContainer;
 import com.codecrate.shard.skill.DefaultSkill;
-import com.codecrate.shard.skill.SkillEntry;
+import com.codecrate.shard.skill.DefaultSkillModifier;
 import com.codecrate.shard.skill.SkillEntryContainer;
+import com.codecrate.shard.skill.SkillModifier;
 
 public class PrintCharacterActionTest extends TestCase {
 
@@ -74,8 +77,14 @@ public class PrintCharacterActionTest extends TestCase {
 		DefaultAbilityScoreContainer abilities = new DefaultAbilityScoreContainer(scores);
 		
 		Collection levels = new ArrayList();
-		levels.add(new DefaultCharacterLevel(1, 1, DefaultCharacterClass.BARBARIAN.getClassProgression().getClassLevel(1), new ArrayList()));
-		levels.add(new DefaultCharacterLevel(2, 1, DefaultCharacterClass.FIGHTER.getClassProgression().getClassLevel(1), new ArrayList()));
+		levels.add(new DefaultCharacterLevel(1, 1,
+                DefaultCharacterClass.BARBARIAN.getClassProgression().getClassLevel(1), 
+                Arrays.asList(new SkillModifier[] { 
+                                new DefaultSkillModifier("rank", 1, DefaultSkill.SWIM) })));
+		levels.add(new DefaultCharacterLevel(2, 1, 
+		        DefaultCharacterClass.FIGHTER.getClassProgression().getClassLevel(1), 
+                Arrays.asList(new SkillModifier[] { 
+                        new DefaultSkillModifier("rank", 1, DefaultSkill.SWIM) })));
 		CharacterProgression progression = new DefaultCharacterProgression(levels);
 		
 		Age age = new RacialCategorizedAge(20, DefaultRace.HUMAN, new AgeCategoryDao(), 100);
@@ -89,9 +98,7 @@ public class PrintCharacterActionTest extends TestCase {
 		ItemContainer itemContainer = new MaxWeightItemContainer(9999);
 		itemContainer.add(new ItemEntry(Coin.GOLD_PIECE, 100));
 		
-		Map skillMap = new HashMap();
-		skillMap.put(DefaultSkill.SWIM, new SkillEntry(DefaultSkill.SWIM));
-		SkillEntryContainer skills = new SkillEntryContainer(skillMap, 3);
+		SkillEntryContainer skills = new CharacterProgressionSkillEntryContainer(progression);
 		
 		Encumberance encumberance = new InventoryWeightEncumberance(abilities, itemContainer, DefaultRace.HUMAN.getSize(), new EncumberanceDao());
 		

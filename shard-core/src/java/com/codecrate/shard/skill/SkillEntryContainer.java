@@ -16,47 +16,24 @@
 package com.codecrate.shard.skill;
 
 import java.util.Collection;
-import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+/**
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
+public interface SkillEntryContainer {
+    Collection getSkills();
 
-public class SkillEntryContainer {
-	private static final Log LOG = LogFactory.getLog(SkillEntryContainer.class);
+    boolean hasSkill(Skill skill);
 
-	private final int characterLevel;
-	private final Map skills;
-	
-	public SkillEntryContainer(Map skills, int characterLevel) {
-		this.skills = skills;
-		this.characterLevel = characterLevel;
-	}
-	
-	public Collection getSkills() {
-		return skills.values();
-	}
-	
-	public boolean hasSkill(Skill skill) {
-		SkillEntry entry = getSkillEntry(skill);
-		if (null == entry) {
-			return false;
-		}
-		return true;
-	}
-	
-	public SkillEntry getSkillEntry(Skill skill) {
-		SkillEntry entry = (SkillEntry) skills.get(skill);
-		if (null == entry) {
-			LOG.debug("No skill entry found for skill: " + skill);
-		}
-		return entry;
-	}
-	
-	public int getMaxClassSkillLevel() {
-		return 3 + characterLevel;
-	}
-	
-	public int getMaxCrossClassSkillLevel() {
-		return getMaxClassSkillLevel() / 2;
-	}
+    SkillEntry getSkillEntry(Skill skill);
+
+    int getMaxClassSkillLevel();
+
+    int getMaxCrossClassSkillLevel();
+
+    /**
+     * add a new skill entry to the container.
+     * @param entry 
+     */
+    void addEntry(SkillEntry entry);
 }
