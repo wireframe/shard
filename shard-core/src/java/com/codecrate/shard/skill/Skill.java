@@ -15,6 +15,14 @@
  */
 package com.codecrate.shard.skill;
 
+/**
+ * Definition of a Skill.
+ * A skill is something that every character class has access to.  For each class 
+ * a skill is either a class skill, or a cross class skill.  If a skill should not
+ * be available to a class, it should be redefined as a Feat.
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public class Skill {
 	private final String abilityName;
 	private final String name;
