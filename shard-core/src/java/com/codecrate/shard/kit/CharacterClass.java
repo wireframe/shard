@@ -47,4 +47,11 @@ public interface CharacterClass {
 	 * @return number of skill points per level (before intelligence modifier).
 	 */
 	int getBaseSkillPointsPerLevel();
+
+    /**
+     * gets the name of the class.
+     * ex: Ranger
+     * @return
+     */
+    String getName();
 }

@@ -18,6 +18,7 @@ package com.codecrate.shard.character;
 import java.util.List;
 
 import com.codecrate.shard.ability.AbilityContainer;
+import com.codecrate.shard.armorclass.ArmorClass;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
 
@@ -41,17 +42,19 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     private AbilityContainer abilities;
     private HitPoints hitPoints;
     private Encumberance encumberance;
+    private final ArmorClass armorClass;
     
     /**
      * default constructor.
      */
     public DefaultPlayerCharacter(Race race, Gender gender, Alignment alignment, 
-    		AbilityContainer abilities, HitPoints hitPoints, Encumberance encumberance) {
+    		AbilityContainer abilities, HitPoints hitPoints, ArmorClass armorClass, Encumberance encumberance) {
     	this.race = race;
     	this.gender = gender;
     	this.alignment = alignment;
     	this.abilities = abilities;
     	this.hitPoints = hitPoints;
+        this.armorClass = armorClass;
     	this.encumberance = encumberance;
     }
     
@@ -98,4 +101,8 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 	public Race getRace() {
 		return race;
 	}
+	
+    public ArmorClass getArmorClass() {
+        return armorClass;
+    }
 }

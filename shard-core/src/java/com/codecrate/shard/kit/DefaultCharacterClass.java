@@ -15,36 +15,65 @@
  */
 package com.codecrate.shard.kit;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
+import com.codecrate.shard.dice.DefaultDice;
 import com.codecrate.shard.dice.Dice;
 
 /**
  * 
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek </a>
  */
 public class DefaultCharacterClass implements CharacterClass {
+    public static final CharacterClass BARBARIAN = new DefaultCharacterClass(
+            "Barbarian", DefaultDice.d12, new ArrayList(), 4);
+    public static final CharacterClass BARD = new DefaultCharacterClass(
+            "Bard", DefaultDice.d6, new ArrayList(), 6);
+    public static final CharacterClass CLERIC = new DefaultCharacterClass(
+            "Cleric", DefaultDice.d8, new ArrayList(), 2);
+    public static final CharacterClass FIGHTER = new DefaultCharacterClass(
+            "Fighter", DefaultDice.d10, new ArrayList(), 2);
+    public static final CharacterClass MONK = new DefaultCharacterClass(
+            "Monk", DefaultDice.d8, new ArrayList(), 4);
+    public static final CharacterClass PALADIN = new DefaultCharacterClass(
+            "Paladin", DefaultDice.d10, new ArrayList(), 2);
+    public static final CharacterClass RANGER = new DefaultCharacterClass(
+            "Ranger", DefaultDice.d8, new ArrayList(), 6);
+    public static final CharacterClass ROUGE = new DefaultCharacterClass(
+            "Rouge", DefaultDice.d6, new ArrayList(), 8);
+    public static final CharacterClass SORCERER = new DefaultCharacterClass(
+            "Sorcerer", DefaultDice.d4, new ArrayList(), 2);
+    public static final CharacterClass WIZARD = new DefaultCharacterClass(
+            "Wizard", DefaultDice.d4, new ArrayList(), 2);
 
-	private Collection classSkills;
-	private Dice hitDicePerLevel;
-	private final int baseSkillPointsPerLevel;
+    
+    private Collection classSkills;
+    private Dice hitDicePerLevel;
+    private final int baseSkillPointsPerLevel;
+    private final String name;
 
-	public DefaultCharacterClass(Dice hitDicePerLevel, Collection classSkills, int baseSkillPointsPerLevel) {
-		this.hitDicePerLevel = hitDicePerLevel;
-		this.classSkills = classSkills;
-		this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
-	}
-	
-	public Dice getHitDicePerLevel() {
-		return hitDicePerLevel;
-	}
+    public DefaultCharacterClass(String name, Dice hitDicePerLevel,
+            Collection classSkills, int baseSkillPointsPerLevel) {
+        this.name = name;
+        this.hitDicePerLevel = hitDicePerLevel;
+        this.classSkills = classSkills;
+        this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
+    }
 
-	public Collection getClassSkills() {
-		return classSkills;
-	}
-	
-	public int getBaseSkillPointsPerLevel() {
-		return baseSkillPointsPerLevel;
-	}
+    public Dice getHitDicePerLevel() {
+        return hitDicePerLevel;
+    }
 
+    public Collection getClassSkills() {
+        return classSkills;
+    }
+
+    public int getBaseSkillPointsPerLevel() {
+        return baseSkillPointsPerLevel;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

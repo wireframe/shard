@@ -16,6 +16,7 @@
 package com.codecrate.shard.character;
 
 import com.codecrate.shard.ability.AbilityContainer;
+import com.codecrate.shard.armorclass.ArmorClass;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
 
@@ -71,6 +72,12 @@ public interface PlayerCharacter {
 	 * @return
 	 */
 	HitPoints getHitPoints();
+	
+	/**
+	 * gets the armor class for the character.
+	 * @return
+	 */
+	ArmorClass getArmorClass();
 	
 	/**
 	 * gets the encumberance the character is under from equipment or armor.
