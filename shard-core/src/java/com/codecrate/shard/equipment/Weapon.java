@@ -49,4 +49,10 @@ public interface Weapon extends Item {
      * @return
      */
     RacialSize getIntendedSize();
+    
+    /**
+     * gets the multiplier used for a critical hit.
+     * @return
+     */
+    int getCriticalMultiplier();
 }
