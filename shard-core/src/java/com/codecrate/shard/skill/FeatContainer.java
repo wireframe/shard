@@ -13,19 +13,29 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character.prereq;
+package com.codecrate.shard.skill;
 
-import com.codecrate.shard.character.PlayerCharacter;
-import com.codecrate.shard.skill.Feat;
+import java.util.Collection;
 
-public class FeatPrerequisite implements CharacterPrerequisite {
-    private final Feat feat;
 
-    public FeatPrerequisite(Feat feat) {
-        this.feat = feat;
+/**
+ * Container for managing feats.
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
+public class FeatContainer {
+    
+    private final Collection feats;
+
+    public FeatContainer(Collection feats) {
+        this.feats = feats;
     }
-
-    public boolean hasMetPrerequisite(PlayerCharacter character) {
-        return character.getFeats().hasFeat(feat);
-	}
+    
+    public boolean hasFeat(Feat feat) {
+        return feats.contains(feat);
+    }
+    
+    public Collection getFeats() {
+        return feats;
+    }
 }

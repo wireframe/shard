@@ -15,17 +15,28 @@
  */
 package com.codecrate.shard.character.prereq;
 
+import java.util.Arrays;
+
+import junit.framework.TestCase;
+
+import org.easymock.MockControl;
+
 import com.codecrate.shard.character.PlayerCharacter;
 import com.codecrate.shard.skill.Feat;
+import com.codecrate.shard.skill.FeatContainer;
 
-public class FeatPrerequisite implements CharacterPrerequisite {
-    private final Feat feat;
+public class FeatPrerequisiteTest extends TestCase {
 
-    public FeatPrerequisite(Feat feat) {
-        this.feat = feat;
-    }
-
-    public boolean hasMetPrerequisite(PlayerCharacter character) {
-        return character.getFeats().hasFeat(feat);
+	public void testPrereqMetWhenHasFeat() {
+	    FeatContainer feats = new FeatContainer(Arrays.asList(new Feat[]{Feat.ARMOR_PROFICIENCY_HEAVY}));
+	    
+		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
+		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
+		character.getFeats();
+		mockCharacter.setReturnValue(feats);
+		mockCharacter.replay();
+		
+		FeatPrerequisite prereq = new FeatPrerequisite(Feat.ARMOR_PROFICIENCY_HEAVY);
+		assertTrue(prereq.hasMetPrerequisite(character));
 	}
 }

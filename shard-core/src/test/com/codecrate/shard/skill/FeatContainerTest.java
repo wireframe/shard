@@ -13,19 +13,19 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character.prereq;
+package com.codecrate.shard.skill;
 
-import com.codecrate.shard.character.PlayerCharacter;
-import com.codecrate.shard.skill.Feat;
+import java.util.Arrays;
 
-public class FeatPrerequisite implements CharacterPrerequisite {
-    private final Feat feat;
+import junit.framework.TestCase;
 
-    public FeatPrerequisite(Feat feat) {
-        this.feat = feat;
+/**
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
+public class FeatContainerTest extends TestCase {
+
+    public void testHasFeatTrueWhenHasFeat() {
+        FeatContainer container = new FeatContainer(Arrays.asList(new Feat[] {Feat.ARMOR_PROFICIENCY_HEAVY}));
+        assertTrue(container.hasFeat(Feat.ARMOR_PROFICIENCY_HEAVY));
     }
-
-    public boolean hasMetPrerequisite(PlayerCharacter character) {
-        return character.getFeats().hasFeat(feat);
-	}
 }

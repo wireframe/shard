@@ -59,6 +59,7 @@ import com.codecrate.shard.save.SavingThrowEntryContainer;
 import com.codecrate.shard.skill.CharacterProgressionSkillEntryContainer;
 import com.codecrate.shard.skill.DefaultSkill;
 import com.codecrate.shard.skill.DefaultSkillEntryModifier;
+import com.codecrate.shard.skill.FeatContainer;
 import com.codecrate.shard.skill.SkillEntryContainer;
 import com.codecrate.shard.skill.SkillEntryModifier;
 
@@ -104,11 +105,13 @@ public class PrintCharacterActionTest extends TestCase {
 		ArmorClass armorClass = new DexterityArmorClass(abilities, encumberance, new DefaultArmorClass());
 		
 		Initiative initiative = new Initiative(abilities);
+		
+		FeatContainer feats = new FeatContainer(new ArrayList());
 		DefaultPlayerCharacter character = new DefaultPlayerCharacter("Gunthor the Terrible",
 				DefaultRace.HUMAN, DefaultGender.MALE,
 				DefaultAlignment.LAWFUL_GOOD, abilities, hitPoints, armorClass,
 				encumberance, age, progression, savingThrows, itemContainer, 0, skills, new BigDecimal(20),
-				initiative);
+				initiative, feats);
 		
 		PrintCharacterAction output = new PrintCharacterAction(character, template);
 		System.out.println(output.render());
