@@ -43,12 +43,12 @@ public class DefaultAbility implements Ability {
     	return name;
     }
     
-    public int getValue() {
+    public int getScore() {
     	return baseScore + modifiers.getModifier();
     }
     
-    public int getBonus() {
-        return (int) Math.floor((getValue() - 10) / 2);
+    public int getModifier() {
+        return (int) Math.floor((getScore() - 10) / 2);
     }
 
 	public void addAbilityModifier(AbilityModifier modifier) {

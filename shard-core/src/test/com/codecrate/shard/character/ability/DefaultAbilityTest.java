@@ -16,6 +16,6 @@ public class DefaultAbilityTest extends TestCase {
 		DefaultAbility ability = new DefaultAbility("match", 10);
 		ability.addAbilityModifier(modifier);
 		
-		assertEquals(10, ability.getValue());
+		assertEquals(10, ability.getScore());
 	}
 }

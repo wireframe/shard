@@ -31,14 +31,14 @@ public interface Ability {
 	 * includes modifiers.
 	 * @return value.
 	 */
-	int getValue();
+	int getScore();
 
 	/**
 	 * gets the bonus from the ability value.
 	 * ex: value of 10 = bonus of 0
 	 * @return bonus.
 	 */
-	int getBonus();
+	int getModifier();
 
 	/**
 	 * adds a modifier to the ability.

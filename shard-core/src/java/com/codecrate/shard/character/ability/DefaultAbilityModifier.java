@@ -16,24 +16,27 @@
 package com.codecrate.shard.character.ability;
 
 /**
- * Define AbilityModifier interface.
- * Ability modifiers can come from a variety of sources, but their purpose 
- * is to just modify an ability score.  Ex: Elf characters have bonus to DEX.
+ * Helper class to easily work with ability modifiers.
+ * provides basic defaults for how ability modifiers should work.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface AbilityModifier {
+public class DefaultAbilityModifier implements AbilityModifier {
 
-	/**
-	 * gets the identifier of what ability to modify.
-	 * @return ability name that modifier applies to.
-	 */
-	String getAbilityName();
-	
-	/**
-	 * gets the modifier for the ability.
-	 * usually ranges from -5 to 5.
-	 * @return int modifier value.
-	 */
-	int getModifier();
+	private final String abilityName;
+	private final int modifier;
+
+	public DefaultAbilityModifier(String abilityName, int modifier) {
+		this.abilityName = abilityName;
+		this.modifier = modifier;
+	}
+
+	public String getAbilityName() {
+		return abilityName;
+	}
+
+	public int getModifier() {
+		return modifier;
+	}
+
 }
