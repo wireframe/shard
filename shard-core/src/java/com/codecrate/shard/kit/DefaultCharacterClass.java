@@ -36,7 +36,10 @@ import com.codecrate.shard.skill.SkillDao;
 
 /**
  * 
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek </a>
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ * 
+ * @hibernate.class 
+ *  table="SHA_CLASS"
  */
 public class DefaultCharacterClass implements CharacterClass {
     public static final CharacterClass BARBARIAN = new DefaultCharacterClass(
@@ -161,17 +164,23 @@ public class DefaultCharacterClass implements CharacterClass {
 
     
     private Collection classSkills;
-    private final Collection bonusLanguages;
-    private final Collection feats;
-    private final Dice hitDicePerLevel;
-    private final int baseSkillPointsPerLevel;
-    private final String name;
-    private final ClassProgression progression;
-    private final CharacterPrerequisite prereq;
-    private final Collection skillModifiers;
+    private Collection bonusLanguages;
+    private Collection feats;
+    private Dice hitDicePerLevel;
+    private int baseSkillPointsPerLevel;
+    private String name;
+    private ClassProgression progression;
+    private CharacterPrerequisite prereq;
+    private Collection skillModifiers;
 
-	private final SkillDao skillDao;
+	private SkillDao skillDao;
     
+	/**
+	 * hibernate constructor.
+	 */
+	public DefaultCharacterClass() {
+	}
+	
     public DefaultCharacterClass(String name, Dice hitDicePerLevel,
             SkillDao skillDao, int baseSkillPointsPerLevel, 
 			ClassProgressionDao progressionDao, CharacterPrerequisite prereq, 
@@ -192,6 +201,19 @@ public class DefaultCharacterClass implements CharacterClass {
     	return name;
     }
 
+	/**
+	 * 
+     * @hibernate.id
+     *  generator-class="assigned"
+	 */
+    public String getId() {
+        return name;
+    }
+    
+    public void setId(String id) {
+        this.name = id;
+    }
+    
     public Dice getHitDicePerLevel() {
         return hitDicePerLevel;
     }
@@ -203,10 +225,21 @@ public class DefaultCharacterClass implements CharacterClass {
         return classSkills;
     }
 
+    /**
+     * @hibernate.property
+     *  column="BASE_SKILL_POINTS_PER_LEVEL"
+     */
     public int getBaseSkillPointsPerLevel() {
         return baseSkillPointsPerLevel;
     }
 
+    /**
+     * @param baseSkillPointsPerLevel The baseSkillPointsPerLevel to set.
+     */
+    public void setBaseSkillPointsPerLevel(int baseSkillPointsPerLevel) {
+        this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
+    }
+    
     public String getName() {
         return name;
     }

@@ -168,7 +168,7 @@ public class DefaultRace implements Race {
 	/**
 	 * 
      * @hibernate.id
-     *  generator-class="uuid.hex"
+     *  generator-class="assigned"
 	 */
 	public String getId() {
 	    return name;
