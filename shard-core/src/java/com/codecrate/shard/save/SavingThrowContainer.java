@@ -21,10 +21,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class SavingThrowContainer {
-	public static final String REFLEX = "reflex";
-	public static final String FORTITUDE = "fortitude";
-	public static final String WILLPOWER = "willpower";
-
 	private static final Log LOG = LogFactory.getLog(SavingThrowContainer.class);
 	private Map savingThrows;
 
@@ -32,22 +28,22 @@ public class SavingThrowContainer {
 		this.savingThrows = savingThrows;
 	}
 	
-	public SavingThrow getReflexSavingThrow() {
-		return getSavingThrow(REFLEX);
+	public SavingThrowEntry getReflexSavingThrow() {
+		return getSavingThrowEntry(DefaultSavingThrow.REFLEX);
 	}
 	
-	public SavingThrow getFortitudeSavingThrow() {
-		return getSavingThrow(FORTITUDE);
+	public SavingThrowEntry getFortitudeSavingThrow() {
+		return getSavingThrowEntry(DefaultSavingThrow.FORTITUDE);
 	}
 	
-	public SavingThrow getWillpowerSavingThrow() {
-		return getSavingThrow(WILLPOWER);
+	public SavingThrowEntry getWillpowerSavingThrow() {
+		return getSavingThrowEntry(DefaultSavingThrow.WILLPOWER);
 	}
 	
-	public SavingThrow getSavingThrow(String name) {
-		SavingThrow savingThrow = (SavingThrow) savingThrows.get(name);
+	public SavingThrowEntry getSavingThrowEntry(SavingThrow save) {
+		SavingThrowEntry savingThrow = (SavingThrowEntry) savingThrows.get(save);
 		if (null == savingThrow) {
-			LOG.debug("No saving throw found with name: " + name);
+			LOG.debug("No saving throw found with name: " + save);
 		}
 		return savingThrow;
 	}

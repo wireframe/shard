@@ -15,9 +15,22 @@
  */
 package com.codecrate.shard.save;
 
-public interface SavingThrowModifier {
-
-    SavingThrow getSave();
+public class DefaultSavingThrow implements SavingThrow {
+    public static final SavingThrow REFLEX = new DefaultSavingThrow("Reflex");
+	public static final SavingThrow FORTITUDE = new DefaultSavingThrow("Fortitude");
+	public static final SavingThrow WILLPOWER = new DefaultSavingThrow("Willpower");
     
-	int getModifier();
+    private final String name;
+    
+    public DefaultSavingThrow(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public String getAbbreviation() {
+        return name.toUpperCase().substring(0, 3);
+    }
 }

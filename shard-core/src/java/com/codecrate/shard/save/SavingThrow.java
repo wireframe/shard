@@ -15,39 +15,9 @@
  */
 package com.codecrate.shard.save;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+public interface SavingThrow {
 
-
-public class SavingThrow {
-
-	private final String name;
-	private Collection modifiers = new ArrayList();
-	
-	public SavingThrow(String name) {
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
-	}
-
-	public int getModifier() {
-		int value = 0;
-		Iterator it = modifiers.iterator();
-		while (it.hasNext()) {
-			SavingThrowModifier modifier = (SavingThrowModifier) it.next();
-			value += modifier.getModifier();
-		}
-		return value;
-	}
-
-	public void addSavingThrowModifier(SavingThrowModifier modifier) {
-		modifiers.add(modifier);
-	}
-
-	public void removeSavingThrowModifier(SavingThrowModifier modifier) {
-		modifiers.remove(modifier);
-	}
+    String getName();
+    
+    String getAbbreviation();
 }
