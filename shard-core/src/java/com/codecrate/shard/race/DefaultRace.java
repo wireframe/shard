@@ -233,8 +233,19 @@ public class DefaultRace implements Race {
 		return skillModifiers;
 	}
 	
+	/**
+	 * 
+     * @hibernate.many-to-one
+     *  class="com.codecrate.shard.kit.DefaultCharacterClass"
+     *  cascade="all"
+     *  column="FAVORED_CLASS"
+	 */
 	public CharacterClass getFavoredClass() {
 		return favoredClass;
+	}
+	
+	public void setFavoredClass(CharacterClass kit) {
+	    this.favoredClass = kit;
 	}
 	
 	public Dice getMaxAgeDice() {
