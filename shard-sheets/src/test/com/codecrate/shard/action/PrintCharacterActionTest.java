@@ -54,8 +54,9 @@ import com.codecrate.shard.equipment.DefaultItemEntryContainer;
 import com.codecrate.shard.equipment.ItemEntry;
 import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.kit.DefaultCharacterClass;
-import com.codecrate.shard.movement.DefaultEncumberanceDao;
+import com.codecrate.shard.movement.DefaultEncumberance;
 import com.codecrate.shard.movement.Encumberance;
+import com.codecrate.shard.movement.EncumberanceDao;
 import com.codecrate.shard.movement.InventoryWeightEncumberance;
 import com.codecrate.shard.race.DefaultRace;
 import com.codecrate.shard.save.SavingThrowEntryContainer;
@@ -109,7 +110,13 @@ public class PrintCharacterActionTest extends TestCase {
 		
 		SkillEntryContainer skills = new CharacterProgressionSkillEntryContainer(progression);
 		
-		Encumberance encumberance = new InventoryWeightEncumberance(abilities, itemContainer, DefaultRace.HUMAN.getSize(), new DefaultEncumberanceDao());
+		MockControl mockEncumberanceDao = MockControl.createControl(EncumberanceDao.class);
+		EncumberanceDao encumberanceDao = (EncumberanceDao) mockEncumberanceDao.getMock();
+		encumberanceDao.getEncumberance(abilities, itemContainer, DefaultRace.HUMAN.getSize());
+		mockEncumberanceDao.setReturnValue(DefaultEncumberance.LIGHT);
+		mockEncumberanceDao.replay();
+		
+		Encumberance encumberance = new InventoryWeightEncumberance(abilities, itemContainer, DefaultRace.HUMAN.getSize(), encumberanceDao);
 		
 		ArmorClass armorClass = new DexterityArmorClass(abilities, encumberance);
 		
