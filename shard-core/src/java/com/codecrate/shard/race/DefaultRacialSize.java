@@ -24,9 +24,8 @@ import com.codecrate.shard.DefaultModifier;
 import com.codecrate.shard.Modifier;
 import com.codecrate.shard.armorclass.DefaultArmorClass;
 import com.codecrate.shard.skill.DefaultSkill;
-import com.codecrate.shard.skill.DefaultSkillModifier;
-import com.codecrate.shard.skill.DefaultSkillModifierType;
-import com.codecrate.shard.skill.SkillModifier;
+import com.codecrate.shard.skill.DefaultSkillEntryModifier;
+import com.codecrate.shard.skill.SkillEntryModifier;
 
 /**
  * Note: Large or larger creatures using reach weapons can strike up to double their natural reach 
@@ -54,8 +53,8 @@ public class DefaultRacialSize implements RacialSize {
 	public static final RacialSize SMALL = new DefaultRacialSize(
 			"Small", 1,
 			new DefaultModifier(DefaultArmorClass.SIZE, 1),
-			new BigDecimal("5"), 5, Arrays.asList(new SkillModifier[] {
-					new DefaultSkillModifier(DefaultSkillModifierType.SIZE, 4, DefaultSkill.HIDE)}),
+			new BigDecimal("5"), 5, Arrays.asList(new SkillEntryModifier[] {
+					new DefaultSkillEntryModifier(DefaultSkill.TYPE_SIZE, 4, DefaultSkill.HIDE)}),
 					new BigDecimal(".75"));
 
 	public static final RacialSize MEDIUM = new DefaultRacialSize(

@@ -17,7 +17,7 @@ package com.codecrate.shard.skill;
 
 import com.codecrate.shard.Modifier;
 
-public interface SkillModifier extends Modifier {
+public interface SkillEntryModifier extends Modifier {
 
 	/**
 	 * gets the skill that this modifier applies to.

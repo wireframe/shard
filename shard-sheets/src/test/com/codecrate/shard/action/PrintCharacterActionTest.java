@@ -47,9 +47,9 @@ import com.codecrate.shard.character.HitPoints;
 import com.codecrate.shard.character.Initiative;
 import com.codecrate.shard.character.RacialCategorizedAge;
 import com.codecrate.shard.equipment.Coin;
-import com.codecrate.shard.equipment.ItemEntryContainer;
-import com.codecrate.shard.equipment.ItemEntry;
 import com.codecrate.shard.equipment.DefaultItemEntryContainer;
+import com.codecrate.shard.equipment.ItemEntry;
+import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.movement.DefaultEncumberanceDao;
 import com.codecrate.shard.movement.Encumberance;
@@ -58,10 +58,9 @@ import com.codecrate.shard.race.DefaultRace;
 import com.codecrate.shard.save.SavingThrowContainer;
 import com.codecrate.shard.skill.CharacterProgressionSkillEntryContainer;
 import com.codecrate.shard.skill.DefaultSkill;
-import com.codecrate.shard.skill.DefaultSkillModifier;
-import com.codecrate.shard.skill.DefaultSkillModifierType;
+import com.codecrate.shard.skill.DefaultSkillEntryModifier;
 import com.codecrate.shard.skill.SkillEntryContainer;
-import com.codecrate.shard.skill.SkillModifier;
+import com.codecrate.shard.skill.SkillEntryModifier;
 
 public class PrintCharacterActionTest extends TestCase {
 
@@ -81,13 +80,13 @@ public class PrintCharacterActionTest extends TestCase {
 		Collection levels = new ArrayList();
 		levels.add(new DefaultCharacterLevel(1, 1,
                 DefaultCharacterClass.BARBARIAN.getClassProgression().getClassLevel(1), 
-                Arrays.asList(new SkillModifier[] { 
-                                new DefaultSkillModifier(DefaultSkillModifierType.RANK, 1, DefaultSkill.SWIM), 
-                                new DefaultSkillModifier(DefaultSkillModifierType.RANK, 1, DefaultSkill.INTIMIDATE)})));
+                Arrays.asList(new SkillEntryModifier[] { 
+                                new DefaultSkillEntryModifier(DefaultSkill.TYPE_RANK, 1, DefaultSkill.SWIM), 
+                                new DefaultSkillEntryModifier(DefaultSkill.TYPE_RANK, 1, DefaultSkill.INTIMIDATE)})));
 		levels.add(new DefaultCharacterLevel(2, 1, 
 		        DefaultCharacterClass.FIGHTER.getClassProgression().getClassLevel(1), 
-                Arrays.asList(new SkillModifier[] { 
-                        new DefaultSkillModifier(DefaultSkillModifierType.RANK, 1, DefaultSkill.SWIM) })));
+                Arrays.asList(new SkillEntryModifier[] { 
+                        new DefaultSkillEntryModifier(DefaultSkill.TYPE_RANK, 1, DefaultSkill.SWIM) })));
 		CharacterProgression progression = new DefaultCharacterProgression(levels);
 		
 		Age age = new RacialCategorizedAge(20, DefaultRace.HUMAN, new AgeCategoryDao(), 100);

@@ -53,7 +53,7 @@ public class CharacterProgressionSkillEntryContainer implements SkillEntryContai
     private void populateEntries(Map entries, Collection modifiers) {
         Iterator skills = modifiers.iterator();
         while (skills.hasNext()) {
-            SkillModifier rank = (SkillModifier) skills.next();
+            SkillEntryModifier rank = (SkillEntryModifier) skills.next();
             Skill skill = rank.getSkill();
             if (!entries.containsKey(skill)) {
                 SkillEntry entry = new SkillEntry(skill);

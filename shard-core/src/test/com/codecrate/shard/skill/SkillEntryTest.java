@@ -24,8 +24,8 @@ public class SkillEntryTest extends TestCase {
 
     public void testMultipleModifiersUsedForValue() {
         SkillEntry entry = new SkillEntry(DefaultSkill.SWIM);
-        entry.addModifier(new DefaultSkillModifier(DefaultSkillModifierType.RANK, 1, DefaultSkill.SWIM));
-        entry.addModifier(new DefaultSkillModifier(DefaultSkillModifierType.RANK, 1, DefaultSkill.SWIM));
+        entry.addModifier(new DefaultSkillEntryModifier(DefaultSkill.TYPE_RANK, 1, DefaultSkill.SWIM));
+        entry.addModifier(new DefaultSkillEntryModifier(DefaultSkill.TYPE_RANK, 1, DefaultSkill.SWIM));
         assertEquals(2, entry.getValue());
     }
 }

@@ -15,18 +15,30 @@
  */
 package com.codecrate.shard.skill;
 
-import com.codecrate.shard.DefaultModifierType;
 import com.codecrate.shard.ModifierType;
 
-public class DefaultSkillModifierType extends DefaultModifierType implements ModifierType {
-	public static final ModifierType RACE = new DefaultSkillModifierType("race", false);
-	public static final ModifierType RANK = new DefaultSkillModifierType("rank", true);
-	public static final ModifierType ABILITY = new DefaultSkillModifierType("ability", false);
-    public static final ModifierType CLASS = new DefaultSkillModifierType("class", false);
-    public static final ModifierType SIZE = new DefaultSkillModifierType("size", false);
-	
-	
-	public DefaultSkillModifierType(String name, boolean isStackable) {
-	    super(name, isStackable);
+
+public class DefaultSkillEntryModifier implements SkillEntryModifier {
+	private final int value;
+	private final Skill skill;
+    private final ModifierType type;
+
+	public DefaultSkillEntryModifier(ModifierType type, int value, Skill skill) {
+		this.type = type;
+        this.value = value;
+		this.skill = skill;
+		
 	}
+
+	public Skill getSkill() {
+		return skill;
+	}
+
+    public ModifierType getModifierType() {
+        return type;
+    }
+
+    public int getModifier() {
+        return value;
+    }
 }
