@@ -15,7 +15,12 @@
  */
 package com.codecrate.shard.dice;
 
+import java.util.StringTokenizer;
+
 /**
+ * parses a dice expression into a set of dice.
+ * ex: 1d4+2
+ * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class CustomDice implements Dice {
@@ -29,15 +34,15 @@ public class CustomDice implements Dice {
     
     private Dice dice;
     
-    public CustomDice(String diceString) {
-        diceString = diceString.replaceAll(" ", "");
-        dice = new DefaultDice(parseDiceSides(diceString));
-        dice = new MultipleDice(dice, parseNumberOfDice(diceString));
+    public CustomDice(String diceExpression) {
+        diceExpression = diceExpression.replaceAll(" ", "");
+        dice = new DefaultDice(parseDiceSides(diceExpression));
+        dice = new MultipleDice(dice, parseNumberOfDice(diceExpression));
 
-        int modifier = parseModifier(diceString);
-        int multiplier = parseMultiplier(diceString);
+        int modifier = parseModifier(diceExpression);
+        int multiplier = parseMultiplier(diceExpression);
         if (DEFAULT_MODIFIER !=  modifier && DEFAULT_MULTIPLIER != multiplier) {
-            throw new IllegalArgumentException("Cannot use both modifier and multiplier on dice: " + diceString);
+            throw new IllegalArgumentException("Cannot use both modifier and multiplier on dice: " + diceExpression);
         } else if (DEFAULT_MODIFIER != modifier) {
             dice = new ModifiedDice(dice, modifier);
         } else if (DEFAULT_MULTIPLIER != multiplier) {
@@ -61,52 +66,66 @@ public class CustomDice implements Dice {
         return dice.toString();
     }
     
-    private static int parseDiceSides(String diceString) {
-        int indexOfDice = diceString.indexOf(DICE_CHARACTER);
+    private static int parseDiceSides(String diceExpression) {
+        int indexOfDice = diceExpression.indexOf(DICE_CHARACTER);
         
-        int indexOfNextModifier = diceString.indexOf(MODIFIER_POSITIVE);
+        int indexOfNextModifier = diceExpression.indexOf(MODIFIER_POSITIVE);
         if (-1 == indexOfNextModifier) {
-            indexOfNextModifier = diceString.indexOf(MODIFIER_NEGATIVE);
+            indexOfNextModifier = diceExpression.indexOf(MODIFIER_NEGATIVE);
         }
         if (-1 == indexOfNextModifier) {
-            indexOfNextModifier = diceString.indexOf(MULTIPLIER);
+            indexOfNextModifier = diceExpression.indexOf(MULTIPLIER);
         }
         if (-1 == indexOfNextModifier) {
-            indexOfNextModifier = diceString.length();
+            indexOfNextModifier = diceExpression.length();
         }
         
-        return Integer.parseInt(diceString.substring(indexOfDice + 1, indexOfNextModifier));
+        return Integer.parseInt(diceExpression.substring(indexOfDice + 1, indexOfNextModifier));
     }
     
-    private static int parseNumberOfDice(String diceString) {
+    private static int parseNumberOfDice(String diceExpression) {
         int multiple = 1;
         
         //get multiple dice
-        int indexOfDice = diceString.indexOf(DICE_CHARACTER);
+        int indexOfDice = diceExpression.indexOf(DICE_CHARACTER);
         if (0 <  indexOfDice) {
-            multiple = Integer.parseInt(diceString.substring(0, indexOfDice));
+            multiple = Integer.parseInt(diceExpression.substring(0, indexOfDice));
         }
         return multiple;
     }
     
-    private static int parseModifier(String diceString) {
+    private static int parseModifier(String diceExpression) {
         int modifier = DEFAULT_MODIFIER;
-        int indexOfPositive = diceString.indexOf(MODIFIER_POSITIVE);
-        int indexOfNegative = diceString.indexOf(MODIFIER_NEGATIVE);
+        int indexOfPositive = diceExpression.indexOf(MODIFIER_POSITIVE);
+        int indexOfNegative = diceExpression.indexOf(MODIFIER_NEGATIVE);
         if (0 <  indexOfPositive) {
-            modifier = Integer.parseInt(diceString.substring(indexOfPositive + 1, diceString.length()));
+            modifier = Integer.parseInt(diceExpression.substring(indexOfPositive + 1, diceExpression.length()));
         } else if (0 <  indexOfNegative) {
-            modifier = Integer.parseInt(diceString.substring(indexOfNegative + 1, diceString.length())) * -1;
+            modifier = Integer.parseInt(diceExpression.substring(indexOfNegative + 1, diceExpression.length())) * -1;
         }
         return modifier;
     }
     
-    private static int parseMultiplier(String diceString) {
+    private static int parseMultiplier(String diceExpression) {
         int multiplier = DEFAULT_MULTIPLIER;
-        int indexOfMultiplier = diceString.indexOf(MULTIPLIER);
+        int indexOfMultiplier = diceExpression.indexOf(MULTIPLIER);
         if (0 <  indexOfMultiplier) {
-            multiplier = Integer.parseInt(diceString.substring(indexOfMultiplier + 1, diceString.length()));
+            multiplier = Integer.parseInt(diceExpression.substring(indexOfMultiplier + 1, diceExpression.length()));
         }
         return multiplier;
+    }
+    
+    private static String getNextElement(String diceExpression) {
+        String DELIMITERS = DICE_CHARACTER + MULTIPLIER + MODIFIER_NEGATIVE + MODIFIER_POSITIVE;
+        
+    	StringTokenizer tokenizer = new StringTokenizer(diceExpression, DELIMITERS, true);
+    	while (tokenizer.hasMoreTokens()) {
+    		String token = tokenizer.nextToken();
+    		if (-1 != DELIMITERS.indexOf(token)) {
+    			String value = tokenizer.nextToken();
+    			
+    		}
+    	}
+    	return null;
     }
 }
