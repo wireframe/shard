@@ -90,6 +90,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 			CharacterClass kit = (CharacterClass) it.next();
 			value += characterProgression.getMaxClassLevel(kit).getBaseAttackBonus();
 		}
+		value += race.getSize().getBaseAttackBonusModifier();
 		return value;
 	}
 	

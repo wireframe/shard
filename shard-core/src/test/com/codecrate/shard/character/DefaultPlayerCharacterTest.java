@@ -24,6 +24,7 @@ import org.easymock.MockControl;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.ClassLevel;
 import com.codecrate.shard.kit.DefaultCharacterClass;
+import com.codecrate.shard.race.DefaultRacialSize;
 import com.codecrate.shard.race.Race;
 
 public class DefaultPlayerCharacterTest extends TestCase {
@@ -64,7 +65,13 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		mockProgression.setReturnValue(classLevel);
 		mockProgression.replay();
 	    
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter("name", null, null, null, null, null, null, null, null, progression, null, null, 0);
-		assertEquals(2, character.getBaseAttackBonus());
+		MockControl mockRace = MockControl.createControl(Race.class);
+		Race race = (Race) mockRace.getMock();
+		race.getSize();
+		mockRace.setReturnValue(DefaultRacialSize.SMALL);
+		mockRace.replay();
+		
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter("name", race, null, null, null, null, null, null, null, progression, null, null, 0);
+		assertEquals(3, character.getBaseAttackBonus());
 	}
 }

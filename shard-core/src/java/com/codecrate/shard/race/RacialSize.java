@@ -22,6 +22,10 @@ import com.codecrate.shard.armorclass.ArmorClassModifier;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface RacialSize  {
+	/**
+	 * gets the base attack bonus for the creature size.
+	 * @return
+	 */
     int getBaseAttackBonusModifier();
     
     ArmorClassModifier getArmorClassModifier();
@@ -31,10 +35,16 @@ public interface RacialSize  {
 	 * @return
 	 */
 	String getName();
-    
-    //small characters 3/4 max weight of medium.
-    //float getMaxWeightModifier();
-    
-    //small characters 2/3 max weight of medium.
-    //int getMovementRateModifier();
+
+	/**
+	 * gets the amount of space the creature occupies.
+	 * @return
+	 */
+	float getSpace();
+
+	/**
+	 * gets the reach of the creature.
+	 * @return
+	 */
+	int getReach();
 }
