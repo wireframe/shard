@@ -4,12 +4,18 @@ import java.math.BigDecimal;
 
 public class CurrencyConverter {
     public Money convert(Money money, Currency currency) {
-        BigDecimal rate = new BigDecimal(getFactor(money.getCurrency())).setScale(2);
-        BigDecimal rate2 = new BigDecimal(getFactor(currency)).setScale(2);
-        rate = rate.divide(rate2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal rate = getConversionRate(money.getCurrency(), currency);
         BigDecimal amount = money.getAmount().multiply(rate);
         
         return new Money(amount.doubleValue(), currency);
+    }
+    
+    public BigDecimal getConversionRate(Currency from, Currency to) {
+        BigDecimal rate = new BigDecimal(getFactor(from)).setScale(2);
+        BigDecimal rate2 = new BigDecimal(getFactor(to)).setScale(2);
+        rate = rate.divide(rate2, BigDecimal.ROUND_HALF_UP);
+        
+        return rate;
     }
     
     private int getFactor(Currency currency) {
