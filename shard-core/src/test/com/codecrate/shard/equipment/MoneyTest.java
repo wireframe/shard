@@ -8,4 +8,14 @@ public class MoneyTest extends TestCase {
         Money money = new Money(1, DefaultCurrency.COPPER);
         assertEquals("1 CP ", money.toString());
     }
+    
+    public void testCanNotAddDifferentCurrencies() {
+        Money copper = new Money(1, DefaultCurrency.COPPER);
+        Money gold = new Money(1, DefaultCurrency.GOLD);
+        
+        try {
+            copper.add(gold);
+            fail();
+        } catch (IllegalArgumentException expected) {}
+    }
 }

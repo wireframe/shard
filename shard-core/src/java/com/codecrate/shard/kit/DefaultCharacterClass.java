@@ -16,6 +16,7 @@
 package com.codecrate.shard.kit;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 import com.codecrate.shard.character.Alignment;
@@ -25,6 +26,8 @@ import com.codecrate.shard.character.prereq.CharacterPrerequisite;
 import com.codecrate.shard.character.prereq.NullPrerequisite;
 import com.codecrate.shard.dice.DefaultDice;
 import com.codecrate.shard.dice.Dice;
+import com.codecrate.shard.race.Language;
+import com.codecrate.shard.skill.Feat;
 
 /**
  * 
@@ -41,7 +44,8 @@ public class DefaultCharacterClass implements CharacterClass {
                             DefaultAlignment.CHAOTIC_GOOD, 
                             DefaultAlignment.CHAOTIC_NEUTRAL, 
                             DefaultAlignment.CHAOTIC_EVIL 
-                            }));
+                            }),
+    		new ArrayList(), new ArrayList());
     
     public static final CharacterClass BARD = new DefaultCharacterClass(
             "Bard", DefaultDice.d6, new ArrayList(), 6, 
@@ -53,11 +57,15 @@ public class DefaultCharacterClass implements CharacterClass {
                             DefaultAlignment.CHAOTIC_GOOD, 
                             DefaultAlignment.CHAOTIC_NEUTRAL, 
                             DefaultAlignment.CHAOTIC_EVIL 
-                            }));
+                            }),
+    				new ArrayList(), new ArrayList());
 
     public static final CharacterClass CLERIC = new DefaultCharacterClass(
             "Cleric", DefaultDice.d8, new ArrayList(), 2, 
-            new DefaultClassProgressionDao(), new NullPrerequisite());
+            new DefaultClassProgressionDao(), new NullPrerequisite(), 
+            Arrays.asList(new Language[]{Language.ABYSSAL, Language.CELESTIAL, Language.INFERNAL}),
+            Arrays.asList(new Feat[]{Feat.ARMOR_PROFICIENCY_LIGHT, Feat.ARMOR_PROFICIENCY_MEDIUM,
+                    Feat.ARMOR_PROFICIENCY_HEAVY, Feat.SHIELD_PROFICIENCY}));
     
     public static final CharacterClass DRUID = new DefaultCharacterClass(
             "Druid", DefaultDice.d8, new ArrayList(), 4, 
@@ -68,11 +76,14 @@ public class DefaultCharacterClass implements CharacterClass {
                             DefaultAlignment.NEUTRAL_NEUTRAL, 
                             DefaultAlignment.CHAOTIC_NEUTRAL, 
                             DefaultAlignment.CHAOTIC_EVIL 
-                            }));
+                            }), 
+                            Arrays.asList(new Language[]{Language.SYLVAN}),
+                            new ArrayList());
     
     public static final CharacterClass FIGHTER = new DefaultCharacterClass(
             "Fighter", DefaultDice.d10, new ArrayList(), 2, 
-            new DefaultClassProgressionDao(), new NullPrerequisite());
+            new DefaultClassProgressionDao(), new NullPrerequisite(), new ArrayList(), 
+            new ArrayList());
     
     public static final CharacterClass MONK = new DefaultCharacterClass(
             "Monk", DefaultDice.d8, new ArrayList(), 4, 
@@ -81,34 +92,40 @@ public class DefaultCharacterClass implements CharacterClass {
                             DefaultAlignment.LAWFUL_GOOD, 
                             DefaultAlignment.LAWFUL_NEUTRAL, 
                             DefaultAlignment.LAWFUL_EVIL 
-                            }));
+                            }), new ArrayList(), new ArrayList());
 
     public static final CharacterClass PALADIN = new DefaultCharacterClass(
             "Paladin", DefaultDice.d10, new ArrayList(), 2, 
             new DefaultClassProgressionDao(), new AlignmentPrerequisite(
                     new Alignment[] {
                             DefaultAlignment.LAWFUL_GOOD 
-                            }));
+                            }), new ArrayList(), new ArrayList());
     
     public static final CharacterClass RANGER = new DefaultCharacterClass(
             "Ranger", DefaultDice.d8, new ArrayList(), 6, 
-            new DefaultClassProgressionDao(), new NullPrerequisite());
+            new DefaultClassProgressionDao(), new NullPrerequisite(), new ArrayList(), 
+            new ArrayList());
     
     public static final CharacterClass ROUGE = new DefaultCharacterClass(
             "Rouge", DefaultDice.d6, new ArrayList(), 8, 
-            new DefaultClassProgressionDao(), new NullPrerequisite());
+            new DefaultClassProgressionDao(), new NullPrerequisite(), new ArrayList(), 
+            new ArrayList());
     
     public static final CharacterClass SORCERER = new DefaultCharacterClass(
             "Sorcerer", DefaultDice.d4, new ArrayList(), 2, 
-            new DefaultClassProgressionDao(), new NullPrerequisite());
+            new DefaultClassProgressionDao(), new NullPrerequisite(), new ArrayList(), 
+            new ArrayList());
     
     public static final CharacterClass WIZARD = new DefaultCharacterClass(
             "Wizard", DefaultDice.d4, new ArrayList(), 2, 
-            new DefaultClassProgressionDao(), new NullPrerequisite());
+            new DefaultClassProgressionDao(), new NullPrerequisite(), 
+            Arrays.asList(new Language[]{Language.DRACONIC}), new ArrayList());
 
     
-    private Collection classSkills;
-    private Dice hitDicePerLevel;
+    private final Collection classSkills;
+    private final Collection bonusLanguages;
+    private final Collection feats;
+    private final Dice hitDicePerLevel;
     private final int baseSkillPointsPerLevel;
     private final String name;
     private final ClassProgression progression;
@@ -116,12 +133,15 @@ public class DefaultCharacterClass implements CharacterClass {
     
     public DefaultCharacterClass(String name, Dice hitDicePerLevel,
             Collection classSkills, int baseSkillPointsPerLevel, 
-			ClassProgressionDao progressionDao, CharacterPrerequisite prereq) {
+			ClassProgressionDao progressionDao, CharacterPrerequisite prereq, 
+			Collection bonusLanguages, Collection feats) {
         this.name = name;
         this.hitDicePerLevel = hitDicePerLevel;
         this.classSkills = classSkills;
         this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
         this.prereq = prereq;
+        this.bonusLanguages = bonusLanguages;
+        this.feats = feats;
         this.progression = progressionDao.getClassProgress(this);
     }
     
@@ -151,5 +171,13 @@ public class DefaultCharacterClass implements CharacterClass {
 	
 	public CharacterPrerequisite getPrerequisite() {
 	    return prereq;
+	}
+	
+	public Collection getBonusLanguages() {
+	    return bonusLanguages;
+	}
+	
+	public Collection getFeats() {
+	    return feats;
 	}
 }

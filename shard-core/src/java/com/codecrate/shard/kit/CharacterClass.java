@@ -43,6 +43,18 @@ public interface CharacterClass {
 	Collection getClassSkills();
 	
 	/**
+	 * certain classes have additional languages available to them.
+	 * @return
+	 */
+	Collection getBonusLanguages();
+	
+	/**
+	 * gets the feats automatically granted for this class.
+	 * @return
+	 */
+	Collection getFeats();
+	
+	/**
 	 * gets the number of base skill points per level.
 	 * this is before the intelligence modifier is added on.
 	 * @return number of skill points per level (before intelligence modifier).

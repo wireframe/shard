@@ -30,14 +30,6 @@ import java.text.NumberFormat;
  */
 public class Money implements Comparable {
     private static final int[] CENTS = new int[] { 1, 10, 100, 1000 };
-
-    private static NumberFormat FORMATTER = NumberFormat.getInstance();
-    static {
-        if (FORMATTER instanceof DecimalFormat) {
-            DecimalFormat format = (DecimalFormat) FORMATTER;
-            format.applyPattern("#,##0.00 ¤¤");
-        }
-    }
     
     /**
      * Amount of money in currency.
@@ -292,18 +284,7 @@ public class Money implements Comparable {
      * printing/parsing representation.
      */
     public String toString() {
-//        FORMATTER.setCurrency(currency);
-        if (FORMATTER instanceof DecimalFormat) {
-            DecimalFormat formatter = (DecimalFormat) FORMATTER;
-            DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
-            symbols.setInternationalCurrencySymbol(currency.getCurrencyCode());
-            symbols.setCurrencySymbol(currency.getSymbol());
-            formatter.setDecimalFormatSymbols(symbols);
-        }
-        FORMATTER.setMinimumFractionDigits(currency.getDefaultFractionDigits());
-        FORMATTER.setMaximumFractionDigits(currency.getDefaultFractionDigits());
-
-        return FORMATTER.format(getAmount().doubleValue());
+        return getFormatter(currency).format(getAmount().doubleValue());
     }
 
     /**
@@ -318,22 +299,31 @@ public class Money implements Comparable {
     public static Money valueOf(String str) throws java.text.ParseException {
         Currency currency = new CurrencyDao().getCurrency(str.substring(str.length() - 3));
         //Currency.getInstance(str.substring(str.length() - 3));
-        //FORMATTER.setCurrency(currency);
-        if (FORMATTER instanceof DecimalFormat) {
-            DecimalFormat formatter = (DecimalFormat) FORMATTER;
-            DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
-            symbols.setInternationalCurrencySymbol(currency.getCurrencyCode());
-            symbols.setCurrencySymbol(currency.getSymbol());
-            formatter.setDecimalFormatSymbols(symbols);
-        }
-        
-        FORMATTER.setMinimumFractionDigits(currency.getDefaultFractionDigits());
-        FORMATTER.setMaximumFractionDigits(currency.getDefaultFractionDigits());
 
-        Number number = FORMATTER.parse(str);
+        Number number = getFormatter(currency).parse(str);
         return new Money(number.doubleValue(), currency);
     }
 
+    private static NumberFormat getFormatter(Currency currency) {
+        NumberFormat formatter = NumberFormat.getInstance();
+        if (formatter instanceof DecimalFormat) {
+            DecimalFormat decimalFormatter = (DecimalFormat) formatter;
+            decimalFormatter.applyPattern("#,##0.00 ¤¤");
+
+            //preferred method, but can't use because of our custom currency
+            //FORMATTER.setCurrency(currency);
+            DecimalFormatSymbols symbols = decimalFormatter.getDecimalFormatSymbols();
+            symbols.setInternationalCurrencySymbol(currency.getCurrencyCode());
+            symbols.setCurrencySymbol(currency.getSymbol());
+            decimalFormatter.setDecimalFormatSymbols(symbols);
+        }
+        
+        formatter.setMinimumFractionDigits(currency.getDefaultFractionDigits());
+        formatter.setMaximumFractionDigits(currency.getDefaultFractionDigits());
+
+        return formatter;
+    }
+    
     /**
      * throw exception if not valid comparison.
      * Fowler's orgional definition:
