@@ -19,7 +19,7 @@
   <description>d20 gaming engine</description>
   <shortDescription>d20 gaming engine</shortDescription>
   <url>http://shard.codecrate.com</url>
-  <issueTrackingUrl>https://shard.dev.java.net/servlets/ProjectIssues</issueTrackingUrl>
+  <issueTrackingUrl>http://jira.codecrate.com/secure/BrowseProject.jspa?id=10002</issueTrackingUrl>
   <siteAddress>www.codecrate.com</siteAddress>
   <siteDirectory>/tomcat/webapps/shard</siteDirectory>
   <distributionSite>www.codecrate.com</distributionSite>
