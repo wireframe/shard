@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.character;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -96,5 +97,10 @@ public class DefaultCharacterProgression implements CharacterProgression {
 	        }
 	    }
 	    return kit;
+    }
+
+    public BigDecimal getMulticlassExperiencePenalty() {
+
+        return null;
     }
 }

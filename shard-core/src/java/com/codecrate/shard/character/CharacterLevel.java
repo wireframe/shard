@@ -26,5 +26,9 @@ public interface CharacterLevel {
 
     int getHitpoints();
     
+    /**
+     * gets the skills selected for this level.
+     * @return
+     */
     Collection getSkillRanks();
 }

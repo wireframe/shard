@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.character;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
 import com.codecrate.shard.kit.CharacterClass;
@@ -53,4 +54,11 @@ public interface CharacterProgression {
 	 * @return
 	 */
 	ClassLevel getClassLevel(CharacterClass kit);
+	
+	/**
+	 * gets the penalty this character is subjected to.
+	 * this takes into account the character's racial favored class.
+	 * @return
+	 */
+	BigDecimal getMulticlassExperiencePenalty();
 }
