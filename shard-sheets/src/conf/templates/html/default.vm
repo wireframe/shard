@@ -147,7 +147,7 @@
 	            <b>$abilityScore.ability.abbreviation</b>
 	          </td>
 	          <td class="abb">$abilityScore.modifiedValue</td>
-	          <td class="abb">$abilityScore.bonus</td>
+	          <td class="abb">$abilityScore.modifier</td>
 	        </tr>
 #end
 	      </table> <!-- STOP Abilities Table -->

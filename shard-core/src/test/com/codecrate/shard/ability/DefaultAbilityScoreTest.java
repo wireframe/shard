@@ -28,7 +28,7 @@ import com.codecrate.shard.ModifierType;
 public class DefaultAbilityScoreTest extends TestCase {
 	public void testBonusCanGoNegative() {
 		DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 1, null);
-		assertEquals(-4, ability.getBonus());
+		assertEquals(-4, ability.getModifier());
 	}
 	
 	public void testListenersFiredWhenModifierAdded() {

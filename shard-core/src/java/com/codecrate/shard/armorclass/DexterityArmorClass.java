@@ -57,7 +57,7 @@ public class DexterityArmorClass extends ModifiableObject implements ArmorClass,
             if (null != modifier) {
                 removeModifier(modifier);
             }
-            int value = abilityScore.getBonus();
+            int value = abilityScore.getModifier();
             int maxValue = encumberance.getMaxDexterityModifier();
             if (value > maxValue) {
                 LOG.info("Encumberance limits dexterity modifier to " + maxValue);

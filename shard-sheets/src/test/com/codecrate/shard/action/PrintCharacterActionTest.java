@@ -39,7 +39,7 @@ import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
 import com.codecrate.shard.armorclass.DexterityArmorClass;
 import com.codecrate.shard.character.Age;
-import com.codecrate.shard.character.AgeCategoryDao;
+import com.codecrate.shard.character.DefaultAgeCategoryDao;
 import com.codecrate.shard.character.CharacterProgression;
 import com.codecrate.shard.character.DefaultAlignment;
 import com.codecrate.shard.character.DefaultCharacterLevel;
@@ -100,7 +100,7 @@ public class PrintCharacterActionTest extends TestCase {
                         new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultSkill.TYPE_RANK, 1) })));
 		CharacterProgression progression = new DefaultCharacterProgression(levels);
 		
-		Age age = new RacialCategorizedAge(20, DefaultRace.HUMAN, new AgeCategoryDao(), 100);
+		Age age = new RacialCategorizedAge(20, DefaultRace.HUMAN, new DefaultAgeCategoryDao(), 100);
 		
 		HitPoints hitPoints = new HitPoints(12, 20, 5);
 		

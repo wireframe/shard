@@ -18,13 +18,10 @@ package com.codecrate.shard.character;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.codecrate.shard.DefaultModifier;
-import com.codecrate.shard.DefaultModifierType;
 import com.codecrate.shard.Modifiable;
 import com.codecrate.shard.ModifiableObject;
 import com.codecrate.shard.Modifier;
 import com.codecrate.shard.ModifierListener;
-import com.codecrate.shard.ModifierType;
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbility;
@@ -37,8 +34,6 @@ import com.codecrate.shard.ability.DefaultAbility;
 public class Initiative extends ModifiableObject implements Modifiable, ModifierListener {
     private static final Log LOG = LogFactory.getLog(Initiative.class);
     
-    private static final ModifierType DEXTERITY = new DefaultModifierType("dexterity", false);
-
     private AbilityScore abilityScore;
     private Modifier modifier;
 
@@ -57,9 +52,7 @@ public class Initiative extends ModifiableObject implements Modifiable, Modifier
             if (null != modifier) {
                 removeModifier(modifier);
             }
-            int value = abilityScore.getBonus();
-            modifier = new DefaultModifier(DEXTERITY, value);
-            addModifier(modifier);
+            addModifier(abilityScore);
         }
     }
 }

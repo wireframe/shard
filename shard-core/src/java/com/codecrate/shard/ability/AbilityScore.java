@@ -16,12 +16,15 @@
 package com.codecrate.shard.ability;
 
 import com.codecrate.shard.Modifiable;
+import com.codecrate.shard.Modifier;
 
 /**
+ * Ability score represents a characters individual statistic.
+ * ex: Strength=10
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface AbilityScore extends Modifiable {
+public interface AbilityScore extends Modifiable, Modifier {
 	/**
 	 * gets the name of the ability. 
 	 * @return
@@ -33,11 +36,4 @@ public interface AbilityScore extends Modifiable {
 	 * @return
 	 */
 	int getPointCost();
-	
-	/**
-	 * gets the bonus from the ability value.
-	 * ex: value of 10 = bonus of 0
-	 * @return bonus.
-	 */
-	int getBonus();
 }

@@ -15,7 +15,9 @@
  */
 package com.codecrate.shard.ability;
 
+import com.codecrate.shard.DefaultModifierType;
 import com.codecrate.shard.ModifiableObject;
+import com.codecrate.shard.ModifierType;
 
 
 /**
@@ -23,7 +25,9 @@ import com.codecrate.shard.ModifiableObject;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultAbilityScore extends ModifiableObject implements AbilityScore {
-	private final Ability ability;
+    private static final ModifierType MODIFIER_TYPE = new DefaultModifierType("ability", false); 
+
+    private final Ability ability;
     private AbilityScoreDao dao;
     
     public DefaultAbilityScore(Ability ability, int baseScore, AbilityScoreDao dao) {
@@ -33,18 +37,33 @@ public class DefaultAbilityScore extends ModifiableObject implements AbilityScor
     }
     
     public String toString() {
-        return ability + ": " + getModifiedValue() + " (" + getBonus() +")";
+        return ability + ": " + getModifiedValue() + " (" + getModifier() +")";
     }
     
     public Ability getAbility() {
     	return ability;
     }
     
-    public int getBonus() {
-        return (int) Math.floor((getModifiedValue() - 10) / 2);
-    }
-    
     public int getPointCost() {
     	return dao.getPointCost(getModifiedValue());
+    }
+
+    public ModifierType getModifierType() {
+        return MODIFIER_TYPE;
+    }
+
+    public int getModifier() {
+        return (int) Math.floor((getModifiedValue() - 10) / 2);
+    }
+
+    public boolean isBonus() {
+        if (0 <= getModifier()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isPenalty() {
+        return !isBonus();
     }
 }
