@@ -5,10 +5,73 @@
   </properties>
   <body>
 
-    <release version="0.1.0" date="IN CVS">
-      <action dev="wireframe" type="add">
-        Initial import of sources.
-      </action> 
+    <release version="0.1.0" date="20050210">
+      <action dev="wireframe" type="add" issue="SHA-27">
+        add initiative modifiers
+      </action>
+      <action dev="wireframe" type="fix" issue="SHA-26">
+        character class granted skills not added
+      </action>
+      <action dev="wireframe" type="add" issue="SHA-25">
+        calculate skill modifiers from character progression
+      </action>
+      <action dev="wireframe" type="update" issue="SHA-24">
+       	update encumberance dao to use correct stats.
+      </action>
+      <action dev="wireframe" type="update" issue="SHA-23">
+       	use correct data for racial age categories
+      </action>
+      <action dev="wireframe" type="add" issue="SHA-21">
+		update armor class when dexterity changes	
+	  </action>
+      <action dev="wireframe" type="update" issue="SHA-20">
+        refactor modifiers to common objects
+      </action>
+      <action dev="wireframe" type="add" issue="SHA-19">
+        granted skills for character class
+      </action>
+      <action dev="wireframe" type="add" issue="SHA-17">
+		granted feats for character class
+	  </action>
+      <action dev="wireframe" type="add" issue="SHA-16">
+		use full featured money system
+	  </action>
+      <action dev="wireframe" type="add" issue="SHA-15">
+		add point cost for ability scores
+      </action>
+      <action dev="wireframe" type="add" issue="SHA-14">
+       	create character output sheets
+      </action>
+      <action dev="wireframe" type="add" issue="SHA-13">
+      	add skill rankings for each level
+      </action>
+      <action dev="wireframe" type="fix" issue="SHA-12">
+		fix alignment.isSame
+      </action>
+      <action dev="wireframe" type="add" issue="SHA-11">
+		age category's ability modifiers need to be cumulative
+	  </action>
+      <action dev="wireframe" type="add" issue="SHA-10">
+      	use monster races as character classes
+      </action>
+      <action dev="wireframe" type="add" issue="SHA-7">
+        add character prereqs
+      </action>
+      <action dev="wireframe" type="add" issue="SHA-6">
+      	extract project version from manifest
+      </action>
+      <action dev="wireframe" type="add" issue="SHA-5">
+      	add saving throw support
+      </action>
+      <action dev="wireframe" type="add" issue="SHA-4">
+      	add racial languages
+      </action>
+      <action dev="wireframe" type="add" issue="SHA-3">
+      	add age categories by race
+      </action>
+      <action dev="wireframe" type="add" issue="SHA-2">
+      	add basic armor class support
+      </action>
     </release>
     
   </body>
