@@ -33,7 +33,7 @@ public class DefaultArmorClass extends ModifiableObject implements ArmorClass {
 	public static final ModifierType DEFLECTION = new DefaultModifierType("deflection", false);
 	public static final ModifierType DODGE = new DefaultModifierType("dodge", true);
 
-	private static final int BASE_ARMOR_CLASS = 10;
+	public static final int BASE_ARMOR_CLASS = 10;
 	
 	public DefaultArmorClass() {
 	    super(BASE_ARMOR_CLASS);

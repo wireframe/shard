@@ -13,20 +13,20 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.ability;
+package com.codecrate.shard;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class CompositeAbilityScoreListener implements AbilityScoreListener {
+public class CompositeModifierListener implements ModifierListener, ModifierListenerContainer {
 
-	private Collection delegates = new ArrayList();
+	private Collection listeners = new ArrayList();
 	
 	public void onModify() {
-		Iterator it = delegates.iterator();
+		Iterator it = listeners.iterator();
 		while (it.hasNext()) {
-			AbilityScoreListener listener = (AbilityScoreListener) it.next();
+			ModifierListener listener = (ModifierListener) it.next();
 			listener.onModify();
 		}
 	}
@@ -34,21 +34,21 @@ public class CompositeAbilityScoreListener implements AbilityScoreListener {
 	/**
 	 * @param listener
 	 */
-	public void addListener(AbilityScoreListener listener) {
-		delegates.add(listener);
+	public void addListener(ModifierListener listener) {
+		listeners.add(listener);
 	}
 
 	/**
 	 * @param listener
 	 */
-	public void removeListener(AbilityScoreListener listener) {
-		delegates.remove(listener);
+	public void removeListener(ModifierListener listener) {
+		listeners.remove(listener);
 	}
 
     /**
      * @return
      */
     public Collection getListeners() {
-        return delegates;
+        return listeners;
     }
 }

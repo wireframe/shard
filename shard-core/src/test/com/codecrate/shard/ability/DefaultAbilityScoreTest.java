@@ -22,6 +22,7 @@ import org.easymock.MockControl;
 import com.codecrate.shard.DefaultModifier;
 import com.codecrate.shard.DefaultModifierType;
 import com.codecrate.shard.Modifier;
+import com.codecrate.shard.ModifierListener;
 import com.codecrate.shard.ModifierType;
 
 public class DefaultAbilityScoreTest extends TestCase {
@@ -31,8 +32,8 @@ public class DefaultAbilityScoreTest extends TestCase {
 	}
 	
 	public void testListenersFiredWhenModifierAdded() {
-	    MockControl mockListener = MockControl.createControl(AbilityScoreListener.class);
-	    AbilityScoreListener listener = (AbilityScoreListener) mockListener.getMock();
+	    MockControl mockListener = MockControl.createControl(ModifierListener.class);
+	    ModifierListener listener = (ModifierListener) mockListener.getMock();
 	    listener.onModify();
 	    mockListener.setVoidCallable();
 	    mockListener.replay();
@@ -47,8 +48,8 @@ public class DefaultAbilityScoreTest extends TestCase {
 	}
 	
 	public void testListenersFiredWhenModifierRemoved() {
-	    MockControl mockListener = MockControl.createControl(AbilityScoreListener.class);
-	    AbilityScoreListener listener = (AbilityScoreListener) mockListener.getMock();
+	    MockControl mockListener = MockControl.createControl(ModifierListener.class);
+	    ModifierListener listener = (ModifierListener) mockListener.getMock();
 	    listener.onModify();
 	    mockListener.setVoidCallable();
 	    mockListener.replay();

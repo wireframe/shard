@@ -15,16 +15,15 @@
  */
 package com.codecrate.shard.armorclass;
 
-import java.util.Collection;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.codecrate.shard.DefaultModifier;
+import com.codecrate.shard.ModifiableObject;
 import com.codecrate.shard.Modifier;
+import com.codecrate.shard.ModifierListener;
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.ability.AbilityScoreListener;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.movement.Encumberance;
 
@@ -34,17 +33,16 @@ import com.codecrate.shard.movement.Encumberance;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DexterityArmorClass implements ArmorClass, AbilityScoreListener {
+public class DexterityArmorClass extends ModifiableObject implements ArmorClass, ModifierListener {
     private static final Log LOG = LogFactory.getLog(DexterityArmorClass.class);
     
-    private final ArmorClass delegate;
     private final Encumberance encumberance;
     private AbilityScore abilityScore;
     private Modifier modifier;
 
-    public DexterityArmorClass(AbilityScoreContainer abilities, Encumberance encumberance, ArmorClass delegate) {
+    public DexterityArmorClass(AbilityScoreContainer abilities, Encumberance encumberance) {
+        super(DefaultArmorClass.BASE_ARMOR_CLASS);
         this.encumberance = encumberance;
-        this.delegate = delegate;
         
         if (abilities.hasAbilityScore(DefaultAbility.DEXTERITY)) {
             abilityScore = abilities.getAbilityScore(DefaultAbility.DEXTERITY);
@@ -53,22 +51,6 @@ public class DexterityArmorClass implements ArmorClass, AbilityScoreListener {
         onModify();
     }
     
-    public void addModifier(Modifier modifier) {
-        delegate.addModifier(modifier);
-    }
-    public int getValue() {
-        return delegate.getValue();
-    }
-    public int getModifiedValue() {
-        return delegate.getModifiedValue();
-    }
-    public void removeModifier(Modifier modifier) {
-        delegate.removeModifier(modifier);
-    }
-    public Collection getModifiers() {
-    	return delegate.getModifiers();
-    }
-
     public void onModify() {
         if (null != abilityScore) {
             LOG.debug("Updating dexterity armor class modifier.");

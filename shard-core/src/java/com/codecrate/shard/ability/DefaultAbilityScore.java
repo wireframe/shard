@@ -15,10 +15,7 @@
  */
 package com.codecrate.shard.ability;
 
-import java.util.Collection;
-
 import com.codecrate.shard.ModifiableObject;
-import com.codecrate.shard.Modifier;
 
 
 /**
@@ -27,7 +24,6 @@ import com.codecrate.shard.Modifier;
  */
 public class DefaultAbilityScore extends ModifiableObject implements AbilityScore {
 	private final Ability ability;
-    private CompositeAbilityScoreListener listeners = new CompositeAbilityScoreListener();
     private AbilityScoreDao dao;
     
     public DefaultAbilityScore(Ability ability, int baseScore, AbilityScoreDao dao) {
@@ -51,26 +47,4 @@ public class DefaultAbilityScore extends ModifiableObject implements AbilityScor
     public int getPointCost() {
     	return dao.getPointCost(getModifiedValue());
     }
-
-	public void addListener(AbilityScoreListener listener) {
-		listeners.addListener(listener);
-	}
-
-	public void removeListener(AbilityScoreListener listener) {
-		listeners.removeListener(listener);
-	}
-	
-	public Collection getListeners() {
-	    return listeners.getListeners();
-	}
-	
-	public void addModifier(Modifier modifier) {
-	    super.addModifier(modifier);
-	    listeners.onModify();
-	}
-	
-	public void removeModifier(Modifier modifier) {
-	    super.removeModifier(modifier);
-	    listeners.onModify();
-	}
 }

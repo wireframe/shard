@@ -42,7 +42,7 @@ public class DexterityArmorClassTest extends TestCase {
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         
-        new DexterityArmorClass(abilities, DefaultEncumberance.LIGHT, new DefaultArmorClass());
+        new DexterityArmorClass(abilities, DefaultEncumberance.LIGHT);
         assertEquals(1, abilityScore.getListeners().size());
     }
     
@@ -57,8 +57,7 @@ public class DexterityArmorClassTest extends TestCase {
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         
-        DefaultArmorClass defaultArmorClass = new DefaultArmorClass();
-        new DexterityArmorClass(abilities, DefaultEncumberance.LIGHT, defaultArmorClass);
+        DexterityArmorClass defaultArmorClass = new DexterityArmorClass(abilities, DefaultEncumberance.LIGHT);
         assertEquals(6, defaultArmorClass.getModifiedValue());
     }
     
@@ -76,7 +75,7 @@ public class DexterityArmorClassTest extends TestCase {
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         
-        DexterityArmorClass armorClass = new DexterityArmorClass(abilities, DefaultEncumberance.LIGHT, new DefaultArmorClass());
+        DexterityArmorClass armorClass = new DexterityArmorClass(abilities, DefaultEncumberance.LIGHT);
         abilityScore.addModifier(modifier);
         assertEquals(14, armorClass.getModifiedValue());
     }
@@ -95,8 +94,7 @@ public class DexterityArmorClassTest extends TestCase {
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         
-        DefaultArmorClass defaultArmorClass = new DefaultArmorClass();
-        new DexterityArmorClass(abilities, DefaultEncumberance.HEAVY, defaultArmorClass);
+        DexterityArmorClass defaultArmorClass = new DexterityArmorClass(abilities, DefaultEncumberance.HEAVY);
         abilityScore.addModifier(modifier);
         assertEquals(11, defaultArmorClass.getModifiedValue());
     }

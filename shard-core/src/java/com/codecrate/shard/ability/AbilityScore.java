@@ -15,8 +15,6 @@
  */
 package com.codecrate.shard.ability;
 
-import java.util.Collection;
-
 import com.codecrate.shard.Modifiable;
 
 /**
@@ -42,22 +40,4 @@ public interface AbilityScore extends Modifiable {
 	 * @return bonus.
 	 */
 	int getBonus();
-
-	/**
-	 * adds a listener.
-	 * @param listener
-	 */
-	void addListener(AbilityScoreListener listener);
-	
-	/**
-	 * removes a listener.
-	 * @param listener
-	 */
-	void removeListener(AbilityScoreListener listener);
-
-    /**
-     * gets the listeners attached to this ability score.
-     * @return
-     */
-    Collection getListeners();
 }

@@ -35,7 +35,6 @@ import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
-import com.codecrate.shard.armorclass.DefaultArmorClass;
 import com.codecrate.shard.armorclass.DexterityArmorClass;
 import com.codecrate.shard.character.Age;
 import com.codecrate.shard.character.AgeCategoryDao;
@@ -102,7 +101,7 @@ public class PrintCharacterActionTest extends TestCase {
 		
 		Encumberance encumberance = new InventoryWeightEncumberance(abilities, itemContainer, DefaultRace.HUMAN.getSize(), new DefaultEncumberanceDao());
 		
-		ArmorClass armorClass = new DexterityArmorClass(abilities, encumberance, new DefaultArmorClass());
+		ArmorClass armorClass = new DexterityArmorClass(abilities, encumberance);
 		
 		Initiative initiative = new Initiative(abilities);
 		

@@ -27,11 +27,12 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class ModifiableObject implements Modifiable {
+public class ModifiableObject implements Modifiable, ModifierListenerContainer {
 	private static final Log LOG = LogFactory.getLog(ModifiableObject.class);
 	
 	private int baseValue;
 	private Map modifiers = new HashMap();
+	private CompositeModifierListener listeners = new CompositeModifierListener();
 	
 	public ModifiableObject() {
 		this(0);
@@ -82,9 +83,28 @@ public class ModifiableObject implements Modifiable {
 	
 	private void updateModifier(ModifierType type, TypeGroupedModifier modifier) {
 		modifiers.put(type, modifier);
+		listeners.onModify();
 	}
 
 	public Collection getModifiers() {
 		return modifiers.values();
 	}
+    /**
+     * @param listener
+     */
+    public void addListener(ModifierListener listener) {
+        listeners.addListener(listener);
+    }
+    /**
+     * @return
+     */
+    public Collection getListeners() {
+        return listeners.getListeners();
+    }
+    /**
+     * @param listener
+     */
+    public void removeListener(ModifierListener listener) {
+        listeners.removeListener(listener);
+    }
 }

@@ -23,10 +23,10 @@ import com.codecrate.shard.DefaultModifierType;
 import com.codecrate.shard.Modifiable;
 import com.codecrate.shard.ModifiableObject;
 import com.codecrate.shard.Modifier;
+import com.codecrate.shard.ModifierListener;
 import com.codecrate.shard.ModifierType;
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.ability.AbilityScoreListener;
 import com.codecrate.shard.ability.DefaultAbility;
 
 /**
@@ -34,7 +34,7 @@ import com.codecrate.shard.ability.DefaultAbility;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class Initiative extends ModifiableObject implements Modifiable, AbilityScoreListener {
+public class Initiative extends ModifiableObject implements Modifiable, ModifierListener {
     private static final Log LOG = LogFactory.getLog(Initiative.class);
     
     private static final ModifierType DEXTERITY = new DefaultModifierType("dexterity", false);

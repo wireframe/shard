@@ -15,23 +15,24 @@
  */
 package com.codecrate.shard;
 
-
+import java.util.Collection;
 
 /**
- * modifiable object holds modifiers and has calculated values.
- * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface Modifiable extends ModifierContainer, ModifierListenerContainer {
+public interface ModifierListenerContainer {
     /**
-     * gets the unmodified value.
+     * @param listener
+     */
+    void addListener(ModifierListener listener);
+
+    /**
+     * @param listener
+     */
+    void removeListener(ModifierListener listener);
+
+    /**
      * @return
      */
-    int getValue();
-    
-    /**
-     * gets the modified value.
-     * @return
-     */
-    int getModifiedValue();
+    Collection getListeners();
 }
