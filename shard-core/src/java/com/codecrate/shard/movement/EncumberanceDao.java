@@ -36,6 +36,207 @@ public class EncumberanceDao {
         int score = strength.getScore();
         int effectiveWeight = inventory.getTotalWeight().divide(size.getEncumberanceMultiplier(), 0).intValue();
         
+        if (1 == score) {
+            if (effectiveWeight <= 3) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 6) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 10) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (2 == score) {
+            if (effectiveWeight <= 6) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 13) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 20) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (3 == score) {
+            if (effectiveWeight <= 10) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 20) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 30) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (4 == score) {
+            if (effectiveWeight <= 13) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 26) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 40) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (5 == score) {
+            if (effectiveWeight <= 16) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 33) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 50) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (6 == score) {
+            if (effectiveWeight <= 20) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 40) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 60) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (7 == score) {
+            if (effectiveWeight <= 23) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 46) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 70) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (8 == score) {
+            if (effectiveWeight <= 26) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 53) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 80) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (9 == score) {
+            if (effectiveWeight <= 30) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 60) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 90) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (10 == score) {
+            if (effectiveWeight <= 33) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 66) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 100) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (11 == score) {
+            if (effectiveWeight <= 38) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 76) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 115) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (12 == score) {
+            if (effectiveWeight <= 43) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 86) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 130) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (13 == score) {
+            if (effectiveWeight <= 50) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 100) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 150) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (14 == score) {
+            if (effectiveWeight <= 58) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 116) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 175) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (15 == score) {
+            if (effectiveWeight <= 66) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 133) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 200) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (16 == score) {
+            if (effectiveWeight <= 76) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 153) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 230) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (17 == score) {
+            if (effectiveWeight <= 86) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 173) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 260) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        if (18 == score) {
+            if (effectiveWeight <= 100) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= 200) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= 300) {
+                return DefaultEncumberance.HEAVY;
+            }
+        }
+        
+        
+        LOG.warn("No encumberance found for strength score " + score + " and effective weight " + effectiveWeight);
         return null;
     }
 }
