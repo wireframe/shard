@@ -30,10 +30,10 @@ import com.codecrate.shard.character.ability.DefaultAbilityModifier;
  */
 public class DefaultRace implements Race {
 	public static final Race HUMAN = new DefaultRace(DefaultRacialSize.MEDIUM,
-			new DefaultMovement(30), new ArrayList());
+			new DefaultMovement(30), new ArrayList(), 0);
 
 	public static final Race HALF_ELF = new DefaultRace(
-			DefaultRacialSize.MEDIUM, new DefaultMovement(30), new ArrayList());
+			DefaultRacialSize.MEDIUM, new DefaultMovement(30), new ArrayList(), 0);
 
 	public static final Race HALF_ORC = new DefaultRace(
 			DefaultRacialSize.MEDIUM, new DefaultMovement(30), Arrays
@@ -43,28 +43,28 @@ public class DefaultRace implements Race {
 							new DefaultAbilityModifier(
 									DefaultAbilityContainer.INTELLIGENCE, -2),
 							new DefaultAbilityModifier(
-									DefaultAbilityContainer.CHARISMA, -2) }));
+									DefaultAbilityContainer.CHARISMA, -2) }), 0);
 
 	public static final Race ELF = new DefaultRace(DefaultRacialSize.MEDIUM,
 			new DefaultMovement(30), Arrays.asList(new AbilityModifier[] {
 					new DefaultAbilityModifier(
 							DefaultAbilityContainer.DEXTERITY, 2),
 					new DefaultAbilityModifier(
-							DefaultAbilityContainer.CONSTITUTION, -2) }));
+							DefaultAbilityContainer.CONSTITUTION, -2) }), 0);
 
 	public static final Race DWARF = new DefaultRace(DefaultRacialSize.MEDIUM,
 			new DefaultMovement(20), Arrays.asList(new AbilityModifier[] {
 					new DefaultAbilityModifier(
 							DefaultAbilityContainer.CONSTITUTION, 2),
 					new DefaultAbilityModifier(
-							DefaultAbilityContainer.CHARISMA, -2) }));
+							DefaultAbilityContainer.CHARISMA, -2) }), 0);
 
 	public static final Race GNOME = new DefaultRace(DefaultRacialSize.SMALL,
 			new DefaultMovement(20), Arrays.asList(new AbilityModifier[] {
 					new DefaultAbilityModifier(
 							DefaultAbilityContainer.CONSTITUTION, 2),
 					new DefaultAbilityModifier(
-							DefaultAbilityContainer.STRENGTH, -2) }));
+							DefaultAbilityContainer.STRENGTH, -2) }), 0);
 
 	public static final Race HALFLING = new DefaultRace(
 			DefaultRacialSize.SMALL, new DefaultMovement(20), Arrays
@@ -72,17 +72,18 @@ public class DefaultRace implements Race {
 							new DefaultAbilityModifier(
 									DefaultAbilityContainer.DEXTERITY, 2),
 							new DefaultAbilityModifier(
-									DefaultAbilityContainer.STRENGTH, -2) }));
+									DefaultAbilityContainer.STRENGTH, -2) }), 0);
 
 	private RacialSize size;
 	private Movement movement;
 	private Collection abilityModifiers;
+	private int levelAdjustment;
 
-	public DefaultRace(RacialSize size, Movement movement,
-			Collection abilityModifiers) {
+	public DefaultRace(RacialSize size, Movement movement, Collection abilityModifiers, int levelAdjustment) {
 		this.size = size;
 		this.movement = movement;
 		this.abilityModifiers = abilityModifiers;
+		this.levelAdjustment = levelAdjustment;
 	}
 
 	public RacialSize getSize() {
@@ -95,5 +96,9 @@ public class DefaultRace implements Race {
 
 	public Collection getAbilityModifiers() {
 		return abilityModifiers;
+	}
+	
+	public int getLevelAdjustment() {
+		return levelAdjustment;
 	}
 }

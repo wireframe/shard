@@ -21,6 +21,19 @@ public interface PlayerCharacter extends AbilityContainer {
 	int getChallengeRating();
 	
 	/**
+	 * gets the effective character level of a character.
+	 * A character’s ECL affects the experience the character earns, 
+	 * the amount of experience the character must have before gaining a new level, 
+	 * and the character’s starting equipment.
+	 * this number is the sum of:
+	 * * the creature’s total Hit Dice
+	 * * class levels
+	 * * racial level adjustment
+	 * @return
+	 */
+	int getEffectiveCharacterLevel();
+	
+	/**
 	 * gets the base attack bonus for this character.
 	 * value should be the sum of the bonuses for all character classes.
 	 * @return

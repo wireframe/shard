@@ -49,6 +49,9 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
         return challengeRating;
     }
 
+    public int getEffectiveCharacterLevel() {
+    	return 0;
+    }
 
 	public Ability getAbility(String name) {
 		return abilities.getAbility(name);

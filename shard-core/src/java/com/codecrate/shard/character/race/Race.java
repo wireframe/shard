@@ -44,6 +44,14 @@ public interface Race {
      */
     Movement getMovement();
     
+    /**
+     * used for calculating the effective character level.
+     * ex: Minotaur has level adjustment of 2, so a new player character
+     * starts out effectively as level 2.
+     * @return
+     */
+    int getLevelAdjustment();
+    
     //boolean isImmuneToCriticalHits();
     //getFavoredClass();
     //skill modifiers
