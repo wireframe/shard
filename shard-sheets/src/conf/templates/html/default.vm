@@ -24,7 +24,7 @@
 	 <tr>
 	  <td>$character.characterProgression</td>
 	  <td>$character.experience</td>
-	  <td>$character.race</td>
+	  <td>$character.race.name</td>
 	  <td>$character.race.size.name / $character.race.size.reach</td>
 	  <td>|HEIGHT|</td>
 	  <td>|WEIGHT|</td>
@@ -206,7 +206,7 @@
 	   <table width="100%" summary="Base Attack Table">
 	    <tr>
 	     <td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>BASE ATTACK</b></font><font style="font-size:5pt" color="white"><br />Bonus</font></td>
-	     <td align="center" width="94" class="border"><font style="font-size: 10pt"><b>|ATTACK.MELEE|<br /></b></font></td>
+	     <td align="center" width="94" class="border"><font style="font-size: 10pt"><b>$character.baseAttackBonus<br /></b></font></td>
 	     <td align="center" width="50%"><br /></td>
 	    </tr>
 	   </table>
@@ -221,7 +221,7 @@
 	     <td colspan="4" height="30" bgcolor="black" align="center"></td>
 	     <td height="30" bgcolor="black" align="right" ></td>
 	     <td height="30" bgcolor="black" align="center"><font style="font-size: 7pt" color="white" >MAX<br />RANKS</font></td>
-	     <td colspan="2" height="30"  bgcolor="white" align="center" class="skl"><b>|MAXSKILLLEVEL|/|MAXCCSKILLLEVEL|</b></td>
+	     <td colspan="2" height="30"  bgcolor="white" align="center" class="skl"><b>$character.skills.maxSkillLevel/$character.skills.maxCrossClassSkillLevel</b></td>
 	    </tr>
 	    <tr>
 	     <td colspan="2" align="center" width="40%" class="border4">SKILL NAME</td>
@@ -231,22 +231,26 @@
 	     <td align="center" width="13%" colspan="2" class="border4">RANKS</td>
 	     <td align="center" width="13%" colspan="2" class="border4">MISC<br />MODIFIER</td>
 	    </tr>
-	|FOR,%skill,0,COUNT[SKILLS]-1,1,0|
-	|OIF(EVEN:%skill,<tr bgcolor="#DDDDDD">,<tr bgcolor="white">)|
-	     <td align="center" ><font face="Wingdings" style="font-size: 7pt">|OIF(SKILL%skill.UNTRAINED,u,)|</font></td>
-	     <td align="left" class="font8">&nbsp;&nbsp;|SKILL.%skill|</td>
-	     <td align="center" class="font8">|SKILL.%skill.ABILITY|</td>
-	     <td align="center" class="borderbottom8" valign="bottom"><b>|SKILL.%skill.TOTAL|</b></td>
+	    #for ($skillEntry in $character.skills.skillEntries)
+	    <tr>
+	     <td align="center">
+	       #if ($skillEntry.skill.usableUntrained)
+  	         *
+	       #endif
+	     </td>
+	     <td align="left" class="font8">&nbsp;&nbsp;$skillEntry.skill.name</td>
+	     <td align="center" class="font8">$skillEntry.skill.ability.abbreviation</td>
+	     <td align="center" class="borderbottom8" valign="bottom"><b>$skillEntry.value</b></td>
 	     <td align="center" valign="bottom" class="font8"><b>=</b></td>
 	     <td align="center" class="borderbottom8" valign="bottom">|SKILL.%skill.ABMOD|<br /></td>
 	     <td align="center" valign="bottom" class="font8"><b>+</b></td>
-	     <td align="center" class="borderbottom8" valign="bottom">|SKILL.%skill.RANK|<br /></td>
+	     <td align="center" class="borderbottom8" valign="bottom">$skillEntry.rank<br /></td>
 	     <td align="center" valign="bottom" class="font8"><b>+</b></td>
 	     <td align="center" class="borderbottom8" valign="bottom">|SKILL.%skill.MISC|<br /></td>
 	    </tr>
-	|ENDFOR|
+	    #end
 	   </table>
-	   <font face="Wingdings" style="font-size: 6pt">u</font><font face="Arial" style="font-size: 8pt">= Useable Untrained</font>
+	   * = Useable Untrained
 	<!-- STOP Skills Table -->
 	  </td>
 	 </tr>

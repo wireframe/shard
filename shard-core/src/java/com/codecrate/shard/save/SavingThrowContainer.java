@@ -17,11 +17,7 @@ package com.codecrate.shard.save;
 
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class SavingThrowContainer {
-	private static final Log LOG = LogFactory.getLog(SavingThrowContainer.class);
 	private Map savingThrows;
 
 	public SavingThrowContainer(Map savingThrows) {
@@ -41,10 +37,6 @@ public class SavingThrowContainer {
 	}
 	
 	public SavingThrowEntry getSavingThrowEntry(SavingThrow save) {
-		SavingThrowEntry savingThrow = (SavingThrowEntry) savingThrows.get(save);
-		if (null == savingThrow) {
-			LOG.debug("No saving throw found with name: " + save);
-		}
-		return savingThrow;
+		return (SavingThrowEntry) savingThrows.get(save);
 	}
 }

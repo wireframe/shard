@@ -26,6 +26,12 @@ import com.codecrate.shard.movement.Movement;
  */
 public interface Race {
 	/**
+	 * gets the name of the race.
+	 * @return
+	 */
+	String getName();
+	
+	/**
 	 * gets the default racial size.
 	 * @return
 	 */

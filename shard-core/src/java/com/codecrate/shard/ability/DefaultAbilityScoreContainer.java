@@ -38,7 +38,7 @@ public class DefaultAbilityScoreContainer implements AbilityScoreContainer {
 	public AbilityScore getAbilityScore(Ability ability) {
 	    AbilityScore score = (AbilityScore) scores.get(ability);
 	    if (null == score) {
-	        LOG.info("No ability found with name: " + ability);
+	        LOG.info("No ability score found for ability: " + ability);
 	    }
 		return score;
 	}

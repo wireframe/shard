@@ -18,4 +18,8 @@ public class MoneyTest extends TestCase {
             fail();
         } catch (IllegalArgumentException expected) {}
     }
+    
+    public void testValueOf() throws Exception {
+    	Money.valueOf("1 CP ");
+    }
 }

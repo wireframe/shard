@@ -24,6 +24,7 @@ import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.save.SavingThrowContainer;
+import com.codecrate.shard.skill.SkillEntryContainer;
 
 /**
  * Default character.
@@ -31,31 +32,31 @@ import com.codecrate.shard.save.SavingThrowContainer;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultPlayerCharacter implements PlayerCharacter {
-//    private List skills;
-//    private List feats;
-    
     private final int experience;
-    private Age age;
-    private int challengeRating;
-    private Race race;
-    private Gender gender;
+    private final Age age;
+    private final int challengeRating;
+    private final Race race;
+    private final Gender gender;
     private final Alignment alignment;
-    private AbilityScoreContainer abilities;
-    private HitPoints hitPoints;
-    private Encumberance encumberance;
+    private final AbilityScoreContainer abilities;
+    private final HitPoints hitPoints;
+    private final Encumberance encumberance;
     private final ArmorClass armorClass;
-    private CharacterProgression characterProgression;
+    private final CharacterProgression characterProgression;
     private final SavingThrowContainer savingThrows;
     private final String name;
     private final ItemContainer items;
+    private final SkillEntryContainer skills;
     
     /**
      * default constructor.
+     * @param skills skills for the character.
+     * @param challengeRating challengeRating for the character.
      */
     public DefaultPlayerCharacter(String name, Race race, Gender gender, Alignment alignment, 
     		AbilityScoreContainer abilities, HitPoints hitPoints, ArmorClass armorClass, Encumberance encumberance, 
     		Age age, CharacterProgression characterProgression, SavingThrowContainer savingThrows, 
-    		ItemContainer items, int experience) {
+    		ItemContainer items, int experience, SkillEntryContainer skills, int challengeRating) {
     	this.name = name;
         this.race = race;
     	this.gender = gender;
@@ -69,6 +70,8 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
         this.savingThrows = savingThrows;
         this.items = items;
         this.experience = experience;
+        this.skills = skills;
+        this.challengeRating = challengeRating;
     }
     
     public int getChallengeRating() {
@@ -134,6 +137,10 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     
     public ItemContainer getItems() {
         return items;
+    }
+    
+    public SkillEntryContainer getSkills() {
+    	return skills;
     }
     
     public int getExperience() {

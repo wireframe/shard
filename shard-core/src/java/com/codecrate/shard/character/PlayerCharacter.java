@@ -21,6 +21,7 @@ import com.codecrate.shard.equipment.ItemContainer;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.save.SavingThrowContainer;
+import com.codecrate.shard.skill.SkillEntryContainer;
 
 /**
  * 
@@ -46,6 +47,12 @@ public interface PlayerCharacter {
 	 * @return
 	 */
 	SavingThrowContainer getSavingThrows();
+	
+	/**
+	 * gets the skills for the character.
+	 * @return
+	 */
+	SkillEntryContainer getSkills();
 	
 	/**
 	 * gets the effective character level of a character.
