@@ -19,29 +19,39 @@ import com.codecrate.shard.armorclass.ArmorClassModifier;
 import com.codecrate.shard.armorclass.DefaultArmorClass;
 
 /**
- * 
+ * Note: Large or larger creatures using reach weapons can strike up to double their natural reach 
+ * but can’t strike at their natural reach or less.
+ *  
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultRacialSize implements RacialSize {
-    public static final RacialSize FINE = new DefaultRacialSize("Fine", 0, 8);
-    public static final RacialSize DIMINUTIVE = new DefaultRacialSize("Diminutive", 0, 4);
-    public static final RacialSize TINY = new DefaultRacialSize("Tiny", 0, 2);
-    public static final RacialSize SMALL = new DefaultRacialSize("Small", 1, 1);
-    public static final RacialSize MEDIUM = new DefaultRacialSize("Medium", 0, 0);
-    public static final RacialSize LARGE = new DefaultRacialSize("Large", 0, -1);
-    public static final RacialSize HUGE = new DefaultRacialSize("Huge", 0, -2);
-    public static final RacialSize GARGANTUAN = new DefaultRacialSize("Gargantuan", 0, -4);
-    public static final RacialSize COLOSSAL = new DefaultRacialSize("Colossal", 0, -8);
+    public static final RacialSize FINE = new DefaultRacialSize("Fine", 0, 8, .5f, 0);
+    public static final RacialSize DIMINUTIVE = new DefaultRacialSize("Diminutive", 0, 4, 1, 0);
+    public static final RacialSize TINY = new DefaultRacialSize("Tiny", 0, 2, 2.5f, 0);
+    public static final RacialSize SMALL = new DefaultRacialSize("Small", 1, 1, 5, 5);
+    public static final RacialSize MEDIUM = new DefaultRacialSize("Medium", 0, 0, 5, 5);
+    public static final RacialSize LARGE_TALL = new DefaultRacialSize("Large (Tall)", 0, -1, 10, 10);
+    public static final RacialSize LARGE_LONG = new DefaultRacialSize("Large (Long)", 0, -1, 10, 5);
+    public static final RacialSize HUGE_TALL = new DefaultRacialSize("Huge (Tall)", 0, -2, 15, 15);
+    public static final RacialSize HUGE_LONG = new DefaultRacialSize("Huge (Long)", 0, -2, 15, 10);
+    public static final RacialSize GARGANTUAN_TALL = new DefaultRacialSize("Gargantuan (Tall)", 0, -4, 20, 20);
+    public static final RacialSize GARGANTUAN_LONG = new DefaultRacialSize("Gargantuan (Long)", 0, -4, 20, 15);
+    public static final RacialSize COLOSSAL_TALL = new DefaultRacialSize("Colossal (Tall)", 0, -8, 30, 30);
+    public static final RacialSize COLOSSAL_LONG = new DefaultRacialSize("Colossal (Long)", 0, -8, 30, 20);
 
     
     private String name;
     private ArmorClassModifier armorClassModifier;
     private int baseAttackBonusModifier;
+    private float space;
+    private int reach;
 
-    public DefaultRacialSize(String name, int armorClassModifier, int baseAttackBonusModifier) {
+    public DefaultRacialSize(String name, int armorClassModifier, int baseAttackBonusModifier, float space, int reach) {
     	this.name = name;
         this.armorClassModifier = new RacialSizeArmorClassModifier(armorClassModifier);
         this.baseAttackBonusModifier = baseAttackBonusModifier;
+        this.space = space;
+        this.reach = reach;
     }
     
     public String toString() {
