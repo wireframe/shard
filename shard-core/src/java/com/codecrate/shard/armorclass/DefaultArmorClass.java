@@ -15,18 +15,15 @@
  */
 package com.codecrate.shard.armorclass;
 
-import java.util.Collection;
-
 import com.codecrate.shard.DefaultModifierType;
 import com.codecrate.shard.ModifiableObject;
-import com.codecrate.shard.Modifier;
 import com.codecrate.shard.ModifierType;
 
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DefaultArmorClass implements ArmorClass {
+public class DefaultArmorClass extends ModifiableObject implements ArmorClass {
 	public static final ModifierType DEXTERITY = new DefaultModifierType("dexterity", false);
 	public static final ModifierType ARMOR = new DefaultModifierType("armor", false);
 	public static final ModifierType SHIELD = new DefaultModifierType("shield", false);
@@ -35,30 +32,10 @@ public class DefaultArmorClass implements ArmorClass {
 	public static final ModifierType ENHANCEMENT = new DefaultModifierType("enhancement", false);
 	public static final ModifierType DEFLECTION = new DefaultModifierType("deflection", false);
 	public static final ModifierType DODGE = new DefaultModifierType("dodge", true);
-    
-	private ModifiableObject delegate;
+
+	private static final int BASE_ARMOR_CLASS = 10;
 	
 	public DefaultArmorClass() {
-		this(10);
+	    super(BASE_ARMOR_CLASS);
 	}
-	
-	public DefaultArmorClass(int baseValue) {
-	    delegate = new ModifiableObject(baseValue);
-	}
-	
-    public void addModifier(Modifier modifier) {
-        delegate.addModifier(modifier);
-    }
-    public int getModifiedValue() {
-        return delegate.getModifiedValue();
-    }
-    public Collection getModifiers() {
-        return delegate.getModifiers();
-    }
-    public int getValue() {
-        return delegate.getValue();
-    }
-    public void removeModifier(Modifier modifier) {
-        delegate.removeModifier(modifier);
-    }
 }

@@ -21,25 +21,21 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.codecrate.shard.ModifiableObject;
-import com.codecrate.shard.Modifier;
 
 
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DefaultAbilityScore implements AbilityScore {
+public class DefaultAbilityScore extends ModifiableObject implements AbilityScore {
 	private static final Log LOGGER = LogFactory.getLog(DefaultAbilityScore.class);
 	
 	private Ability ability;
-    private int baseScore;
-    private ModifiableObject delegate;
     private CompositeAbilityScoreListener listeners = new CompositeAbilityScoreListener();
     
     public DefaultAbilityScore(Ability ability, int baseScore) {
+        super(baseScore);
     	this.ability = ability;
-    	this.baseScore = baseScore;
-    	delegate = new ModifiableObject(baseScore);
     }
     
     public String toString() {
@@ -48,14 +44,6 @@ public class DefaultAbilityScore implements AbilityScore {
     
     public Ability getAbility() {
     	return ability;
-    }
-    
-    public int getValue() {
-        return baseScore;
-    }
-    
-    public int getModifiedValue() {
-        return delegate.getModifiedValue();
     }
     
     public int getBonus() {
@@ -143,16 +131,6 @@ public class DefaultAbilityScore implements AbilityScore {
     	return points;
     }
 
-	public void addModifier(Modifier modifier) {
-		delegate.addModifier(modifier);
-		listeners.onModify();
-	}
-	
-	public void removeModifier(Modifier modifier) {
-		delegate.removeModifier(modifier);
-		listeners.onModify();
-	}
-
 	public void addListener(AbilityScoreListener listener) {
 		listeners.addListener(listener);
 	}
@@ -164,8 +142,4 @@ public class DefaultAbilityScore implements AbilityScore {
 	public Collection getListeners() {
 	    return listeners.getListeners();
 	}
-
-    public Collection getModifiers() {
-        return delegate.getModifiers();
-    }
 }

@@ -15,43 +15,20 @@
  */
 package com.codecrate.shard.save;
 
-import java.util.Collection;
-
 import com.codecrate.shard.Modifiable;
 import com.codecrate.shard.ModifiableObject;
-import com.codecrate.shard.Modifier;
 
 
-public class SavingThrowEntry implements Modifiable {
+public class SavingThrowEntry extends ModifiableObject implements Modifiable {
 
 	private final SavingThrow save;
-	private final ModifiableObject delegate = new ModifiableObject();
 	
 	public SavingThrowEntry(SavingThrow save) {
+	    super();
 		this.save = save;
 	}
 	
 	public SavingThrow getSave() {
 	    return save;
 	}
-
-    public int getValue() {
-        return delegate.getValue();
-    }
-
-    public int getModifiedValue() {
-        return delegate.getModifiedValue();
-    }
-
-    public void addModifier(Modifier modifier) {
-        delegate.addModifier(modifier);
-    }
-
-    public void removeModifier(Modifier modifier) {
-        delegate.removeModifier(modifier);
-    }
-
-    public Collection getModifiers() {
-        return delegate.getModifiers();
-    }
 }

@@ -15,8 +15,6 @@
  */
 package com.codecrate.shard.character;
 
-import java.util.Collection;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -36,51 +34,23 @@ import com.codecrate.shard.ability.DefaultAbility;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class Initiative implements Modifiable, AbilityScoreListener {
+public class Initiative extends ModifiableObject implements Modifiable, AbilityScoreListener {
     private static final Log LOG = LogFactory.getLog(Initiative.class);
     
     private static final ModifierType DEXTERITY = new DefaultModifierType("dexterity", false);
 
-    private ModifiableObject delegate = new ModifiableObject();
     private AbilityScore abilityScore;
     private Modifier modifier;
 
     public Initiative(AbilityScoreContainer abilities) {
+        super();
         if (abilities.hasAbilityScore(DefaultAbility.DEXTERITY)) {
             abilityScore = abilities.getAbilityScore(DefaultAbility.DEXTERITY);
             abilityScore.addListener(this);
         }
         onModify();
     }
-    public int getValue() {
-        return delegate.getValue();
-    }
 
-    /**
-     * @param modifier
-     */
-    public void addModifier(Modifier modifier) {
-        delegate.addModifier(modifier);
-    }
-    /**
-     * @return
-     */
-    public int getModifiedValue() {
-        return delegate.getModifiedValue();
-    }
-    /**
-     * @return
-     */
-    public Collection getModifiers() {
-        return delegate.getModifiers();
-    }
-    /**
-     * @param modifier
-     */
-    public void removeModifier(Modifier modifier) {
-        delegate.removeModifier(modifier);
-    }
-    
     public void onModify() {
         if (null != abilityScore) {
             LOG.debug("Updating dexterity initiative modifier.");
