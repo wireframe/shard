@@ -17,6 +17,9 @@ package com.codecrate.shard.ability;
 
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -29,6 +32,8 @@ public class DefaultAbilityContainer implements AbilityContainer {
 	public static final String INTELLIGENCE = "intelligence";
 	public static final String CHARISMA = "charisma";
 	
+	private static final Log LOG = LogFactory.getLog(DefaultAbilityContainer.class);
+	
 	private Map scores;
 
 	public DefaultAbilityContainer(Map scores) {
@@ -36,7 +41,11 @@ public class DefaultAbilityContainer implements AbilityContainer {
 	}
 	
 	public Ability getAbility(String name) {
-		return (Ability) scores.get(name);
+	    Ability ability = (Ability) scores.get(name);
+	    if (null == ability) {
+	        LOG.info("No ability found with name: " + name);
+	    }
+		return ability;
 	}
 
     public Ability getStrength() {
