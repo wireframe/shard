@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.armorclass;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -27,15 +29,6 @@ import org.apache.commons.logging.LogFactory;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultArmorClass implements ArmorClass {
-	public static final String TYPE_DEXTERITY = "dexterity";
-	public static final String TYPE_ARMOR = "armor";
-	public static final String TYPE_SHIELD = "shield";
-	public static final String TYPE_NATURAL = "natural";
-	public static final String TYPE_SIZE = "size";
-	public static final String TYPE_ENHANCEMENT = "enhancement";
-	public static final String TYPE_DEFLECTION = "deflection";
-	public static final String TYPE_DODGE = "dodge";
-	
 	private static final Log LOG = LogFactory.getLog(DefaultArmorClass.class);
 	
 	private int baseValue;
@@ -54,18 +47,47 @@ public class DefaultArmorClass implements ArmorClass {
 		
 		Iterator it = modifiers.keySet().iterator();
 		while (it.hasNext()) {
-			String type = (String) it.next();
-			ArmorClassModifier modifier = (ArmorClassModifier) modifiers.get(type);
-			value += modifier.getModifier();
+			ArmorClassModifierType type = (ArmorClassModifierType) it.next();
+			int typeTotal = 0;
+			Iterator mods = ((Collection)modifiers.get(type)).iterator();
+			while (mods.hasNext()) {
+				ArmorClassModifier modifier = (ArmorClassModifier) mods.next();
+				int modifierValue = modifier.getModifier();
+				if (type.isStackable()) {
+					typeTotal += modifierValue;
+				} else if (typeTotal < modifierValue) {
+					typeTotal = modifierValue;
+				}
+			}
+			value += typeTotal;
 		}
 		return value;
 	}
 	
 	public void addArmorClassModifier(ArmorClassModifier modifier) {
-		modifiers.put(modifier.getModifierType(), modifier);
+		ArmorClassModifierType type = modifier.getModifierType();
+		Collection mods = getModifiers(type);
+		mods.add(modifier);
+		updateModifiers(type, mods);
 	}
 	
 	public void removeArmorClassModifier(ArmorClassModifier modifier) {
-		modifiers.remove(modifier.getModifierType());
+		ArmorClassModifierType type = modifier.getModifierType();
+		Collection mods = getModifiers(type);
+		mods.remove(modifier);
+		updateModifiers(type, mods);
+	}
+	
+	private Collection getModifiers(ArmorClassModifierType type) {
+		Collection mods = (Collection) modifiers.get(type);
+		if (null == mods) {
+			LOG.debug("No modifiers found for type: " + type);
+			mods = new ArrayList();
+		}
+		return mods;
+	}
+	
+	private void updateModifiers(ArmorClassModifierType type, Collection mods) {
+		modifiers.put(type, mods);
 	}
 }

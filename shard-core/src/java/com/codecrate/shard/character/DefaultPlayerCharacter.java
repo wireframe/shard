@@ -27,28 +27,27 @@ import com.codecrate.shard.race.Race;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultPlayerCharacter implements PlayerCharacter {
-    private int currentHitPoints;
-    private int maxHitPoints;
     private int experience;
     private List skills;
     private List feats;
     private List equipment;
     
-    private AbilityContainer abilities = new DefaultAbilityContainer();
-    
     private int challengeRating;
     private Race race;
     private Gender gender;
     private Alignment alignment;
-
+    private AbilityContainer abilities;
+    private HitPoints hitPoints;
+    
     /**
      * default constructor.
      */
-    public DefaultPlayerCharacter(Race race, Gender gender, Alignment alignment, AbilityContainer abilities) {
+    public DefaultPlayerCharacter(Race race, Gender gender, Alignment alignment, AbilityContainer abilities, HitPoints hitPoints) {
     	this.race = race;
     	this.gender = gender;
     	this.alignment = alignment;
     	this.abilities = abilities;
+    	this.hitPoints = hitPoints;
     }
     
     public int getChallengeRating() {
@@ -64,7 +63,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 	}
 
 	public int getBaseAttackBonus() {
-		return baseAttackBonus;
+		return 0;
 	}
 	
 	public Gender getGender() {
@@ -73,5 +72,9 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 	
 	public Alignment getAlignment() {
 		return alignment;
+	}
+	
+	public HitPoints getHitPoints() {
+		return hitPoints;
 	}
 }

@@ -21,8 +21,10 @@ import com.codecrate.shard.armorclass.ArmorClassModifier;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface RacialSize extends ArmorClassModifier {
+public interface RacialSize  {
     int getBaseAttackBonusModifier();
+    
+    ArmorClassModifier getArmorClassModifier();
 
 	/**
 	 * gets the name of the racial size.

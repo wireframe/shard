@@ -16,12 +16,13 @@
 package com.codecrate.shard.armorclass;
 
 /**
+ * Defines an armor class modifier.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface ArmorClassModifier {
 
-	String getModifierType();
+	ArmorClassModifierType getModifierType();
 	
 	int getModifier();
 }

@@ -15,19 +15,21 @@
  */
 package com.codecrate.shard.armorclass;
 
-/**
- * Defines an armor class.
- * armor class value is changed using <code>ArmorClassModifier</code>s.  
- * this allows for decoupling between the different factors that change 
- * the armor class value (ex: magic, equipment, dexterity, etc).
- * 
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
- */
-public interface ArmorClass {
+public class DefaultArmorClassModifier implements ArmorClassModifier {
 
-	int getValue();
+	private final ArmorClassModifierType modifierType;
+	private final int modifier;
+
+	public DefaultArmorClassModifier(ArmorClassModifierType type, int modifier) {
+		this.modifierType = type;
+		this.modifier= modifier;
+	}
+
+	public int getModifier() {
+		return modifier;
+	}
 	
-	void addArmorClassModifier(ArmorClassModifier modifier);
-	
-	void removeArmorClassModifier(ArmorClassModifier modifier);
+	public ArmorClassModifierType getModifierType() {
+		return modifierType;
+	}
 }

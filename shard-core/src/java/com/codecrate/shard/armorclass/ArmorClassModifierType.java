@@ -16,18 +16,18 @@
 package com.codecrate.shard.armorclass;
 
 /**
- * Defines an armor class.
- * armor class value is changed using <code>ArmorClassModifier</code>s.  
- * this allows for decoupling between the different factors that change 
- * the armor class value (ex: magic, equipment, dexterity, etc).
+ * Defines an armor class modifier type.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface ArmorClass {
+public interface ArmorClassModifierType {
 
-	int getValue();
+	String getName();
 	
-	void addArmorClassModifier(ArmorClassModifier modifier);
-	
-	void removeArmorClassModifier(ArmorClassModifier modifier);
+	/**
+	 * flag for if this modifier type is stackable.
+	 * ex: Dodge bonus is stackable.
+	 * @return
+	 */
+	boolean isStackable();
 }

@@ -53,4 +53,10 @@ public interface PlayerCharacter {
 	Gender getGender();
 	
 	Alignment getAlignment();
+
+	/**
+	 * gets the hit points for the character.
+	 * @return
+	 */
+	HitPoints getHitPoints();
 }
