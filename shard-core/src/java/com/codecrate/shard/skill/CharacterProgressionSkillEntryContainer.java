@@ -22,6 +22,7 @@ import java.util.Map;
 
 import com.codecrate.shard.character.CharacterLevel;
 import com.codecrate.shard.character.CharacterProgression;
+import com.codecrate.shard.kit.CharacterClass;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -31,35 +32,36 @@ public class CharacterProgressionSkillEntryContainer implements SkillEntryContai
     private final SkillEntryContainer delegate;
 
     public CharacterProgressionSkillEntryContainer(CharacterProgression progression) {
-        Map allSkills = new HashMap();
+        Map classesUsed = new HashMap();
+        Map entries = new HashMap();
         Iterator levels = progression.getCharacterLevels().iterator();
         while (levels.hasNext()) {
             CharacterLevel level = (CharacterLevel) levels.next();
-            Iterator grantedSkills = level.getClassLevel().getCharacterClass().getSkills().iterator();
-            while (grantedSkills.hasNext()) {
-                SkillModifier rank = (SkillModifier) grantedSkills.next();
-                Skill skill = rank.getSkill();
-                if (!allSkills.containsKey(skill)) {
-                    SkillEntry entry = new SkillEntry(skill);
-                    allSkills.put(skill, entry);
-                }
-                SkillEntry skillEntry = (SkillEntry) allSkills.get(skill);
-                skillEntry.addModifier(rank);
+            CharacterClass kit = level.getClassLevel().getCharacterClass();
+            if (null == classesUsed.get(kit)) {
+                Collection grantedSkills = kit.getSkills();
+                populateEntries(entries, grantedSkills);
+                classesUsed.put(kit, Boolean.TRUE);
             }
             
-            Iterator skills = level.getSkillRanks().iterator();
-            while (skills.hasNext()) {
-                SkillModifier rank = (SkillModifier) skills.next();
-                Skill skill = rank.getSkill();
-                if (!allSkills.containsKey(skill)) {
-                    SkillEntry entry = new SkillEntry(skill);
-                    allSkills.put(skill, entry);
-                } 
-                SkillEntry skillEntry = (SkillEntry) allSkills.get(skill);
-                skillEntry.addModifier(rank);
-            }
+            Collection ranks = level.getSkillRanks();
+            populateEntries(entries, ranks);
         }
-        delegate = new DefaultSkillEntryContainer(allSkills, progression.getCharacterLevel());
+        delegate = new DefaultSkillEntryContainer(entries, progression.getCharacterLevel());
+    }
+    
+    private void populateEntries(Map entries, Collection modifiers) {
+        Iterator skills = modifiers.iterator();
+        while (skills.hasNext()) {
+            SkillModifier rank = (SkillModifier) skills.next();
+            Skill skill = rank.getSkill();
+            if (!entries.containsKey(skill)) {
+                SkillEntry entry = new SkillEntry(skill);
+                entries.put(skill, entry);
+            } 
+            SkillEntry skillEntry = (SkillEntry) entries.get(skill);
+            skillEntry.addModifier(rank);
+        }
     }
     
     public int getMaxClassSkillLevel() {

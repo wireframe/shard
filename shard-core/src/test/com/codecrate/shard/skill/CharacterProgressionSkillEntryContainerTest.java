@@ -102,4 +102,34 @@ public class CharacterProgressionSkillEntryContainerTest extends TestCase {
         assertTrue(container.hasSkill(DefaultSkill.LITERACY));
         assertEquals(1, container.getSkillEntry(DefaultSkill.LITERACY).getValue());
     }
+    
+    public void testSkillEntryModifiedByClassSkillsOnlyOnce() {
+        MockControl mockLevel1 = MockControl.createControl(CharacterLevel.class);
+        CharacterLevel level1 = (CharacterLevel) mockLevel1.getMock();
+        level1.getClassLevel();
+        mockLevel1.setReturnValue(new DefaultClassLevel(1, DefaultCharacterClass.FIGHTER, 1, 1, 1, 1));
+        level1.getSkillRanks();
+        mockLevel1.setReturnValue(new ArrayList());
+        mockLevel1.replay();
+
+        MockControl mockLevel2 = MockControl.createControl(CharacterLevel.class);
+        CharacterLevel level2 = (CharacterLevel) mockLevel2.getMock();
+        level2.getClassLevel();
+        mockLevel2.setReturnValue(new DefaultClassLevel(1, DefaultCharacterClass.FIGHTER, 1, 1, 1, 1));
+        level2.getSkillRanks();
+        mockLevel2.setReturnValue(new ArrayList());
+        mockLevel2.replay();
+
+        MockControl mockProgression = MockControl.createControl(CharacterProgression.class);
+        CharacterProgression progression = (CharacterProgression) mockProgression.getMock();
+        progression.getCharacterLevel();
+        mockProgression.setReturnValue(1);
+        progression.getCharacterLevels();
+        mockProgression.setReturnValue(Arrays.asList(new CharacterLevel[] {level1, level2}));
+        mockProgression.replay();
+        
+        CharacterProgressionSkillEntryContainer container = new CharacterProgressionSkillEntryContainer(progression);
+        assertTrue(container.hasSkill(DefaultSkill.LITERACY));
+        assertEquals(1, container.getSkillEntry(DefaultSkill.LITERACY).getValue());
+    }
 }
