@@ -23,6 +23,7 @@
     <menu name="Documentation">
       <item name="License" href="license.html" />
       <item name="Wiki" href="http://www.codecrate.com" />
+      <item name="Forums" href="http://forum.codecrate.com" />
       <item name="Issues/Roadmap" href="http://jira.codecrate.com" />
     </menu>
     
