@@ -21,9 +21,9 @@
   <url>http://shard.codecrate.com</url>
   <issueTrackingUrl>http://jira.codecrate.com/secure/BrowseProject.jspa?id=10002</issueTrackingUrl>
   <siteAddress>www.codecrate.com</siteAddress>
-  <siteDirectory>/tomcat/webapps/shard</siteDirectory>
+  <siteDirectory>/www/shard</siteDirectory>
   <distributionSite>www.codecrate.com</distributionSite>
-  <distributionDirectory>/tomcat/webapps/maven</distributionDirectory>
+  <distributionDirectory>/www/repository</distributionDirectory>
   
   <repository>
     <connection>scm:cvs:pserver:guest@cvs.dev.java.net:/cvs:shard/${pom.artifactId}</connection>
