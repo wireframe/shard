@@ -1,0 +1,23 @@
+<!--
+<!DOCTYPE dataset SYSTEM "dataset.dtd">
+use <null/> to specify a null value for an entry
+-->
+
+<dataset>
+    <table name="SHA_RACE">
+        <column>NAME</column>
+        <column>LEVEL_ADJUSTMENT</column>
+        <row>
+            <value>Human</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Elf</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Dwarf</value>
+            <value>0</value>
+        </row>
+    </table>
+</dataset>

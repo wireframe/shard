@@ -35,6 +35,9 @@ import com.codecrate.shard.skill.DefaultSkill;
 
 /**
  * <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ * 
+ * @hibernate.class 
+ *  table="SHA_RACE"
  */
 public class DefaultRace implements Race {
     private static final ModifierType RACE = new DefaultModifierType("race", false);
@@ -122,18 +125,24 @@ public class DefaultRace implements Race {
 											Language.GNOME, Language.GOBLIN, Language.ORC}),
 											DefaultVision.NORMAL, DefaultCharacterClass.ROUGE, new MultipleDice(DefaultDice.d20, 5));
 	
-	private final String name;
-	private final RacialSize size;
-	private final Movement movement;
-	private final Collection abilityModifiers;
-	private final int levelAdjustment;
-	private final Collection bonusLanguages;
-	private final Collection automaticLanguages;
-	private final Vision vision;
-	private final Collection skillModifiers;
-	private final CharacterClass favoredClass;
-    private final Dice maxAgeDice;
+	private String name;
+	private RacialSize size;
+	private Movement movement;
+	private Collection abilityModifiers;
+	private int levelAdjustment;
+	private Collection bonusLanguages;
+	private Collection automaticLanguages;
+	private Vision vision;
+	private Collection skillModifiers;
+	private CharacterClass favoredClass;
+    private Dice maxAgeDice;
 	
+    /**
+     * constructor for hibernate.
+     */
+    public DefaultRace() {
+    }
+    
 	public DefaultRace(String name, RacialSize size, Movement movement, 
 			Collection abilityModifiers, Collection skillModifiers, 
 			int levelAdjustment, 
@@ -168,8 +177,19 @@ public class DefaultRace implements Race {
 		return abilityModifiers;
 	}
 	
+	/**
+	 * 
+     * @hibernate.property
+     *  column="LEVEL_ADJUSTMENT"
+     *  length="2"
+     *  not-null="true"
+	 */
 	public int getLevelAdjustment() {
 		return levelAdjustment;
+	}
+	
+	public void setLevelAdjustment(int levelAdjustment) {
+	    this.levelAdjustment = levelAdjustment;
 	}
 	
 	public Collection getAutomaticLanguages() {
@@ -184,8 +204,18 @@ public class DefaultRace implements Race {
 		return vision;
 	}
 	
+	/**
+	 * 
+     * @hibernate.id
+     *  column="NAME"
+     *  generator-class="uuid.hex"
+	 */
 	public String getName() {
 		return name;
+	}
+	
+	public void setName(String name) {
+	    this.name = name;
 	}
 	
 	public Collection getSkillModifiers() {
