@@ -15,18 +15,17 @@
  */
 package com.codecrate.shard.save;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
+import com.codecrate.shard.Modifiable;
+import com.codecrate.shard.ModifiableObject;
 import com.codecrate.shard.Modifier;
-import com.codecrate.shard.ModifierContainer;
 
 
-public class SavingThrowEntry implements ModifierContainer {
+public class SavingThrowEntry implements Modifiable {
 
 	private final SavingThrow save;
-	private Collection modifiers = new ArrayList();
+	private final ModifiableObject delegate = new ModifiableObject();
 	
 	public SavingThrowEntry(SavingThrow save) {
 		this.save = save;
@@ -35,26 +34,24 @@ public class SavingThrowEntry implements ModifierContainer {
 	public SavingThrow getSave() {
 	    return save;
 	}
-	
-	public int getModifier() {
-		int value = 0;
-		Iterator it = modifiers.iterator();
-		while (it.hasNext()) {
-			Modifier modifier = (Modifier) it.next();
-			value += modifier.getModifier();
-		}
-		return value;
-	}
 
-	public void addModifier(Modifier modifier) {
-		modifiers.add(modifier);
-	}
+    public int getValue() {
+        return delegate.getValue();
+    }
 
-	public void removeModifier(Modifier modifier) {
-		modifiers.remove(modifier);
-	}
-	
-	public Collection getModifiers() {
-	    return modifiers;
-	}
+    public int getModifiedValue() {
+        return delegate.getModifiedValue();
+    }
+
+    public void addModifier(Modifier modifier) {
+        delegate.addModifier(modifier);
+    }
+
+    public void removeModifier(Modifier modifier) {
+        delegate.removeModifier(modifier);
+    }
+
+    public Collection getModifiers() {
+        return delegate.getModifiers();
+    }
 }

@@ -16,75 +16,49 @@
 package com.codecrate.shard.armorclass;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import com.codecrate.shard.DefaultModifierType;
+import com.codecrate.shard.ModifiableObject;
 import com.codecrate.shard.Modifier;
 import com.codecrate.shard.ModifierType;
-import com.codecrate.shard.TypeGroupedModifier;
 
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultArmorClass implements ArmorClass {
-	private static final Log LOG = LogFactory.getLog(DefaultArmorClass.class);
-	
-	private int baseValue;
-	private Map modifiers = new HashMap();
+	public static final ModifierType DEXTERITY = new DefaultModifierType("dexterity", false);
+	public static final ModifierType ARMOR = new DefaultModifierType("armor", false);
+	public static final ModifierType SHIELD = new DefaultModifierType("shield", false);
+	public static final ModifierType NATURAL = new DefaultModifierType("natural", false);
+	public static final ModifierType SIZE= new DefaultModifierType("size", false);
+	public static final ModifierType ENHANCEMENT = new DefaultModifierType("enhancement", false);
+	public static final ModifierType DEFLECTION = new DefaultModifierType("deflection", false);
+	public static final ModifierType DODGE = new DefaultModifierType("dodge", true);
+    
+	private ModifiableObject delegate;
 	
 	public DefaultArmorClass() {
 		this(10);
 	}
 	
 	public DefaultArmorClass(int baseValue) {
-		this.baseValue = baseValue;
+	    delegate = new ModifiableObject(baseValue);
 	}
 	
-	public int getValue() {
-		int value = baseValue;
-		
-		Iterator it = modifiers.keySet().iterator();
-		while (it.hasNext()) {
-			ModifierType type = (ModifierType) it.next();
-			TypeGroupedModifier modifier = (TypeGroupedModifier) modifiers.get(type);
-            value += modifier.getModifier();
-		}
-		return value;
-	}
-	
-	public void addModifier(Modifier modifier) {
-		ModifierType type = modifier.getModifierType();
-		TypeGroupedModifier modifiers = getModifier(type);
-		modifiers.addModifier(modifier);
-		updateModifier(type, modifiers);
-	}
-	
-	public void removeModifier(Modifier modifier) {
-		ModifierType type = modifier.getModifierType();
-		TypeGroupedModifier modifiers = getModifier(type);
-		modifiers.removeModifier(modifier);
-		updateModifier(type, modifiers);
-	}
-	
-	private TypeGroupedModifier getModifier(ModifierType type) {
-	    TypeGroupedModifier modifier = (TypeGroupedModifier) modifiers.get(type);
-		if (null == modifier) {
-			LOG.debug("No modifiers found for type: " + type);
-			modifier = new TypeGroupedModifier(type);
-		}
-		return modifier;
-	}
-	
-	private void updateModifier(ModifierType type, TypeGroupedModifier modifier) {
-		modifiers.put(type, modifier);
-	}
-
-	public Collection getModifiers() {
-		return modifiers.values();
-	}
+    public void addModifier(Modifier modifier) {
+        delegate.addModifier(modifier);
+    }
+    public int getModifiedValue() {
+        return delegate.getModifiedValue();
+    }
+    public Collection getModifiers() {
+        return delegate.getModifiers();
+    }
+    public int getValue() {
+        return delegate.getValue();
+    }
+    public void removeModifier(Modifier modifier) {
+        delegate.removeModifier(modifier);
+    }
 }

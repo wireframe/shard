@@ -13,17 +13,25 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.armorclass;
+package com.codecrate.shard;
 
-import com.codecrate.shard.Modifiable;
+
 
 /**
- * Defines an armor class.
- * armor class value is changed using <code>ArmorClassModifier</code>s.  
- * this allows for decoupling between the different factors that change 
- * the armor class value (ex: magic, equipment, dexterity, etc).
+ * modifiable object holds modifiers and has calculated values.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface ArmorClass extends Modifiable {
+public interface Modifiable extends ModifierContainer {
+    /**
+     * gets the unmodified value.
+     * @return
+     */
+    int getValue();
+    
+    /**
+     * gets the modified value.
+     * @return
+     */
+    int getModifiedValue();
 }
