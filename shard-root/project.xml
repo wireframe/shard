@@ -5,7 +5,7 @@
   <groupId>shard</groupId>
   <id>shard-root</id>
   <name>shard root module</name>
-  <currentVersion>shard-0.2.0-SNAPSHOT</currentVersion>
+  <currentVersion>shard-0.2.0</currentVersion>
   <organization>
     <name>codecrate consulting</name>
     <url>http://www.codecrate.com</url>
@@ -33,6 +33,11 @@
       <id>0.1.0</id>
       <name>shard-0.1.0</name>
       <tag>SHARD_0_1_0</tag>
+    </version>
+    <version>
+      <id>0.2.0</id>
+      <name>shard-0.2.0</name>
+      <tag>SHARD_0_2_0</tag>
     </version>
   </versions>
   
