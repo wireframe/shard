@@ -26,12 +26,18 @@ public class ClassLevel {
     private int fortituteSaveBonus;
     private int reflexSaveBonus;
     private int willpowerSaveBonus;
+    private CharacterClass characterClass;
 
-    public ClassLevel(int baseAttackBonus, int fortitueSaveBonus, int reflexSaveBonus, int willpowerSaveBonus) {
+    public ClassLevel(CharacterClass characterClass, int baseAttackBonus, int fortitueSaveBonus, int reflexSaveBonus, int willpowerSaveBonus) {
+    	this.characterClass = characterClass;
         this.baseAttackBonus = baseAttackBonus;
         this.fortituteSaveBonus = fortitueSaveBonus;
         this.reflexSaveBonus = reflexSaveBonus;
         this.willpowerSaveBonus = willpowerSaveBonus;
+    }
+    
+    public CharacterClass getCharacterClass() {
+    	return characterClass;
     }
     
     public int getBaseAttackBonus() {

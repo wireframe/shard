@@ -42,13 +42,14 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     private HitPoints hitPoints;
     private Encumberance encumberance;
     private final ArmorClass armorClass;
+    private CharacterProgression characterProgression;
     
     /**
      * default constructor.
      */
     public DefaultPlayerCharacter(Race race, Gender gender, Alignment alignment, 
     		AbilityContainer abilities, HitPoints hitPoints, ArmorClass armorClass, Encumberance encumberance, 
-    		Age age) {
+    		Age age, CharacterProgression characterProgression) {
     	this.race = race;
     	this.gender = gender;
     	this.alignment = alignment;
@@ -57,6 +58,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
         this.armorClass = armorClass;
     	this.encumberance = encumberance;
     	this.age = age;
+    	this.characterProgression = characterProgression;
     }
     
     public int getChallengeRating() {
@@ -64,7 +66,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     }
 
     public int getEffectiveCharacterLevel() {
-    	return 0;
+    	return characterProgression.getLevel() + race.getLevelAdjustment();
     }
 
 	public AbilityContainer getAbilities() {
@@ -101,5 +103,9 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 	
     public ArmorClass getArmorClass() {
         return armorClass;
+    }
+    
+    public CharacterProgression getCharacterProgression() {
+    	return characterProgression;
     }
 }

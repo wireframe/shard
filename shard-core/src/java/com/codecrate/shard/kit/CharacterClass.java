@@ -54,4 +54,10 @@ public interface CharacterClass {
      * @return
      */
     String getName();
+    
+    /**
+     * gets the progression of levels for this class.
+     * @return
+     */
+    ClassProgression getClassProgression();
 }

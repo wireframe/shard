@@ -91,4 +91,10 @@ public interface PlayerCharacter {
 	 * @return
 	 */
 	Age getAge();
+	
+	/**
+	 * gets the level progression of the character.
+	 * @return
+	 */
+	CharacterProgression getCharacterProgression();
 }

@@ -13,29 +13,19 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character;
+package com.codecrate.shard.kit;
 
-import com.codecrate.shard.kit.ClassLevel;
+import java.util.Collection;
 
-/**
- * 
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
- */
-public class CharacterLevel {
-
-    private int hitpoints;
-    private ClassLevel classLevel;
-    
-    public CharacterLevel(int hitpoints, ClassLevel classLevel) {
-    	this.hitpoints = hitpoints;
-    	this.classLevel = classLevel;
-    }
-    
-	public ClassLevel getClassLevel() {
-		return classLevel;
+public class ClassProgression {
+	
+	private Collection levels;
+	
+	public ClassProgression(Collection levels) {
+		this.levels = levels;
 	}
 	
-	public int getHitpoints() {
-		return hitpoints;
+	public Collection getClassLevels() {
+		return levels;
 	}
 }
