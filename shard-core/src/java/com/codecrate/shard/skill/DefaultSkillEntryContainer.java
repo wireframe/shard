@@ -21,7 +21,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.codecrate.shard.KeyedModifier;
+import com.codecrate.shard.modifier.KeyedModifier;
 
 public class DefaultSkillEntryContainer implements SkillEntryContainer {
 	private static final Log LOG = LogFactory.getLog(DefaultSkillEntryContainer.class);

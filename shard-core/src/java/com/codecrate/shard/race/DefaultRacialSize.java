@@ -20,11 +20,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.codecrate.shard.DefaultKeyedModifier;
-import com.codecrate.shard.DefaultModifier;
-import com.codecrate.shard.KeyedModifier;
-import com.codecrate.shard.Modifier;
 import com.codecrate.shard.armorclass.DefaultArmorClass;
+import com.codecrate.shard.modifier.DefaultKeyedModifier;
+import com.codecrate.shard.modifier.DefaultModifier;
+import com.codecrate.shard.modifier.KeyedModifier;
+import com.codecrate.shard.modifier.Modifier;
 import com.codecrate.shard.skill.DefaultSkill;
 
 /**

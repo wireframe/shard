@@ -18,13 +18,13 @@ package com.codecrate.shard.armorclass;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.codecrate.shard.DefaultModifier;
-import com.codecrate.shard.ModifiableObject;
-import com.codecrate.shard.Modifier;
-import com.codecrate.shard.ModifierListener;
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbility;
+import com.codecrate.shard.modifier.DefaultModifier;
+import com.codecrate.shard.modifier.ModifiableObject;
+import com.codecrate.shard.modifier.Modifier;
+import com.codecrate.shard.modifier.ModifierListener;
 import com.codecrate.shard.movement.Encumberance;
 
 /**

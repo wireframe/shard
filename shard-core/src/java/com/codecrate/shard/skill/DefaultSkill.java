@@ -17,10 +17,10 @@ package com.codecrate.shard.skill;
 
 import java.util.Collection;
 
-import com.codecrate.shard.DefaultModifierType;
-import com.codecrate.shard.ModifierType;
 import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.ability.DefaultAbility;
+import com.codecrate.shard.modifier.DefaultModifierType;
+import com.codecrate.shard.modifier.ModifierType;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek </a>

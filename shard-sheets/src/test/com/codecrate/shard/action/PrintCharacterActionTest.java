@@ -30,8 +30,6 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.tools.generic.log.CommonsLogLogSystem;
 import org.easymock.MockControl;
 
-import com.codecrate.shard.DefaultKeyedModifier;
-import com.codecrate.shard.KeyedModifier;
 import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
@@ -54,6 +52,8 @@ import com.codecrate.shard.equipment.DefaultItemEntryContainer;
 import com.codecrate.shard.equipment.ItemEntry;
 import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.kit.DefaultCharacterClass;
+import com.codecrate.shard.modifier.DefaultKeyedModifier;
+import com.codecrate.shard.modifier.KeyedModifier;
 import com.codecrate.shard.movement.DefaultEncumberance;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.movement.EncumberanceDao;

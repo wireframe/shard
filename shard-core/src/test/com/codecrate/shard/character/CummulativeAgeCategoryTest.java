@@ -23,11 +23,11 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.DefaultKeyedModifier;
-import com.codecrate.shard.DefaultModifierType;
-import com.codecrate.shard.KeyedModifier;
-import com.codecrate.shard.ModifierType;
 import com.codecrate.shard.ability.DefaultAbility;
+import com.codecrate.shard.modifier.DefaultKeyedModifier;
+import com.codecrate.shard.modifier.DefaultModifierType;
+import com.codecrate.shard.modifier.KeyedModifier;
+import com.codecrate.shard.modifier.ModifierType;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek </a>

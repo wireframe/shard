@@ -17,7 +17,7 @@ package com.codecrate.shard.skill;
 
 import java.util.Collection;
 
-import com.codecrate.shard.KeyedModifierContainer;
+import com.codecrate.shard.modifier.KeyedModifierContainer;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>

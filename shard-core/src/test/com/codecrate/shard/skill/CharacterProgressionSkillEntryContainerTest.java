@@ -22,12 +22,12 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.DefaultKeyedModifier;
-import com.codecrate.shard.KeyedModifier;
 import com.codecrate.shard.character.CharacterLevel;
 import com.codecrate.shard.character.CharacterProgression;
 import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.kit.DefaultClassLevel;
+import com.codecrate.shard.modifier.DefaultKeyedModifier;
+import com.codecrate.shard.modifier.KeyedModifier;
 
 public class CharacterProgressionSkillEntryContainerTest extends TestCase {
     

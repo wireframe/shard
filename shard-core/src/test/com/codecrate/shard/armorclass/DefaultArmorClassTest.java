@@ -19,7 +19,7 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.Modifier;
+import com.codecrate.shard.modifier.Modifier;
 
 public class DefaultArmorClassTest extends TestCase {
 

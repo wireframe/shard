@@ -19,8 +19,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.codecrate.shard.DefaultKeyedModifier;
-import com.codecrate.shard.KeyedModifier;
 import com.codecrate.shard.character.Alignment;
 import com.codecrate.shard.character.DefaultAlignment;
 import com.codecrate.shard.character.prereq.AlignmentPrerequisite;
@@ -28,6 +26,8 @@ import com.codecrate.shard.character.prereq.CharacterPrerequisite;
 import com.codecrate.shard.character.prereq.NullPrerequisite;
 import com.codecrate.shard.dice.DefaultDice;
 import com.codecrate.shard.dice.Dice;
+import com.codecrate.shard.modifier.DefaultKeyedModifier;
+import com.codecrate.shard.modifier.KeyedModifier;
 import com.codecrate.shard.race.Language;
 import com.codecrate.shard.skill.DefaultSkill;
 import com.codecrate.shard.skill.Feat;

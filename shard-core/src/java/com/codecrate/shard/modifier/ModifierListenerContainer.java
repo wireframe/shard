@@ -13,31 +13,26 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard;
+package com.codecrate.shard.modifier;
+
+import java.util.Collection;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DefaultModifierType implements ModifierType {
+public interface ModifierListenerContainer {
+    /**
+     * @param listener
+     */
+    void addListener(ModifierListener listener);
 
-    private final String name;
-    private final boolean isStackable;
+    /**
+     * @param listener
+     */
+    void removeListener(ModifierListener listener);
 
-    public DefaultModifierType(String name, boolean isStackable) {
-        this.name = name;
-        this.isStackable = isStackable;
-    }
-
-    public String toString() {
-        return name;
-    }
-    
-    public String getName() {
-        return name;
-    }
-
-    public boolean isStackable() {
-        return isStackable;
-    }
-
+    /**
+     * @return
+     */
+    Collection getListeners();
 }

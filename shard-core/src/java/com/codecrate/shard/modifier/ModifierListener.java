@@ -13,26 +13,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard;
+package com.codecrate.shard.modifier;
 
 /**
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ * listener for when ability scores change.
  */
-public class DefaultKeyedModifier extends DefaultModifier implements KeyedModifier {
+public interface ModifierListener {
 
-    private final Object key;
-
-    /**
-     * @param type
-     * @param value
-     */
-    public DefaultKeyedModifier(Object key, ModifierType type, int value) {
-        super(type, value);
-        this.key = key;
-    }
-
-    public Object getKey() {
-        return key;
-    }
-
+	void onModify();
 }

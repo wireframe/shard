@@ -15,7 +15,7 @@
  */
 package com.codecrate.shard.armorclass;
 
-import com.codecrate.shard.Modifiable;
+import com.codecrate.shard.modifier.Modifiable;
 
 /**
  * Defines an armor class.

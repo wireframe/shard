@@ -13,21 +13,26 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard;
+package com.codecrate.shard.modifier;
 
 /**
- * Defines a modifier type.
- * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface ModifierType {
+public class DefaultKeyedModifier extends DefaultModifier implements KeyedModifier {
 
-	String getName();
-	
-	/**
-	 * flag for if this modifier type is stackable.
-	 * ex: Dodge bonus is stackable.
-	 * @return
-	 */
-	boolean isStackable();
+    private final Object key;
+
+    /**
+     * @param type
+     * @param value
+     */
+    public DefaultKeyedModifier(Object key, ModifierType type, int value) {
+        super(type, value);
+        this.key = key;
+    }
+
+    public Object getKey() {
+        return key;
+    }
+
 }

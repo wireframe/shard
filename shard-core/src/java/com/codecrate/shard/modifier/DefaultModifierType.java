@@ -13,20 +13,31 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard;
-
-import java.util.Collection;
-
+package com.codecrate.shard.modifier;
 
 /**
- * Modifier container.
- * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface ModifierContainer {
-    void addModifier(Modifier modifier);
+public class DefaultModifierType implements ModifierType {
 
-    void removeModifier(Modifier modifier);
+    private final String name;
+    private final boolean isStackable;
+
+    public DefaultModifierType(String name, boolean isStackable) {
+        this.name = name;
+        this.isStackable = isStackable;
+    }
+
+    public String toString() {
+        return name;
+    }
     
-    Collection getModifiers();
+    public String getName() {
+        return name;
+    }
+
+    public boolean isStackable() {
+        return isStackable;
+    }
+
 }

@@ -22,10 +22,10 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.DefaultKeyedModifier;
-import com.codecrate.shard.DefaultModifierType;
-import com.codecrate.shard.KeyedModifier;
-import com.codecrate.shard.ModifierType;
+import com.codecrate.shard.modifier.DefaultKeyedModifier;
+import com.codecrate.shard.modifier.DefaultModifierType;
+import com.codecrate.shard.modifier.KeyedModifier;
+import com.codecrate.shard.modifier.ModifierType;
 
 public class DefaultAbilityScoreContainerTest extends TestCase {
 

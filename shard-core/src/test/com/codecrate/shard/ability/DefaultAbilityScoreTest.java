@@ -19,11 +19,11 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.DefaultModifier;
-import com.codecrate.shard.DefaultModifierType;
-import com.codecrate.shard.Modifier;
-import com.codecrate.shard.ModifierListener;
-import com.codecrate.shard.ModifierType;
+import com.codecrate.shard.modifier.DefaultModifier;
+import com.codecrate.shard.modifier.DefaultModifierType;
+import com.codecrate.shard.modifier.Modifier;
+import com.codecrate.shard.modifier.ModifierListener;
+import com.codecrate.shard.modifier.ModifierType;
 
 public class DefaultAbilityScoreTest extends TestCase {
 	public void testBonusCanGoNegative() {

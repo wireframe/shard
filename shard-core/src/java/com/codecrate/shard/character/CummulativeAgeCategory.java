@@ -19,11 +19,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.codecrate.shard.DefaultKeyedModifier;
-import com.codecrate.shard.DefaultModifierType;
-import com.codecrate.shard.KeyedModifier;
-import com.codecrate.shard.ModifierType;
 import com.codecrate.shard.ability.DefaultAbility;
+import com.codecrate.shard.modifier.DefaultKeyedModifier;
+import com.codecrate.shard.modifier.DefaultModifierType;
+import com.codecrate.shard.modifier.KeyedModifier;
+import com.codecrate.shard.modifier.ModifierType;
 
 /**
  * Age category to encasulate cumulative modifier logic.

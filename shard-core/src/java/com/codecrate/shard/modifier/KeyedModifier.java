@@ -1,3 +1,4 @@
+package com.codecrate.shard.modifier;
 /*
  * Copyright 2004 codecrate consulting
  *
@@ -13,41 +14,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DefaultModifier implements Modifier {
+public interface KeyedModifier extends Modifier {
 
-    private final ModifierType type;
-    private final int value;
-
-    public DefaultModifier(ModifierType type, int value) {
-        this.type = type;
-        this.value = value;
-    }
-    
-    public String toString() {
-        return type + ": " + value;
-    }
-    
-    public ModifierType getModifierType() {
-        return type;
-    }
-
-    public int getModifier() {
-        return value;
-    }
-
-    public boolean isBonus() {
-        if (0 <= getModifier()) {
-            return true;
-        }
-        return false;
-    }
-    
-    public boolean isPenalty() {
-        return !isBonus();
-    }
+    /**
+     * gets the key for this modifier.
+     * ex: ability score modifier uses Ability.
+     * @return
+     */
+    Object getKey();
 }

@@ -15,8 +15,8 @@
  */
 package com.codecrate.shard.ability;
 
-import com.codecrate.shard.Modifiable;
-import com.codecrate.shard.Modifier;
+import com.codecrate.shard.modifier.Modifiable;
+import com.codecrate.shard.modifier.Modifier;
 
 /**
  * Ability score represents a characters individual statistic.

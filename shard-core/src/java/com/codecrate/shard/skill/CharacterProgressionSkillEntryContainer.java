@@ -20,10 +20,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.codecrate.shard.KeyedModifier;
 import com.codecrate.shard.character.CharacterLevel;
 import com.codecrate.shard.character.CharacterProgression;
 import com.codecrate.shard.kit.CharacterClass;
+import com.codecrate.shard.modifier.KeyedModifier;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>

@@ -18,7 +18,7 @@ package com.codecrate.shard.race;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-import com.codecrate.shard.Modifier;
+import com.codecrate.shard.modifier.Modifier;
 
 /**
  * 

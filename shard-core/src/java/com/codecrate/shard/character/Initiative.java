@@ -18,13 +18,13 @@ package com.codecrate.shard.character;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.codecrate.shard.Modifiable;
-import com.codecrate.shard.ModifiableObject;
-import com.codecrate.shard.Modifier;
-import com.codecrate.shard.ModifierListener;
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbility;
+import com.codecrate.shard.modifier.Modifiable;
+import com.codecrate.shard.modifier.ModifiableObject;
+import com.codecrate.shard.modifier.Modifier;
+import com.codecrate.shard.modifier.ModifierListener;
 
 /**
  * Initiative is used for determining when the character enters battle.

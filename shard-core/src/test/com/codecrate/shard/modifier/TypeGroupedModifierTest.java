@@ -13,13 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard;
+package com.codecrate.shard.modifier;
 
 import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.Modifier;
+import com.codecrate.shard.modifier.DefaultModifierType;
+import com.codecrate.shard.modifier.Modifier;
+import com.codecrate.shard.modifier.ModifierType;
+import com.codecrate.shard.modifier.TypeGroupedModifier;
 
 public class TypeGroupedModifierTest extends TestCase {
 

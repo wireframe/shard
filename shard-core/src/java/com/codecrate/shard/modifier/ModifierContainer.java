@@ -13,26 +13,20 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard;
+package com.codecrate.shard.modifier;
 
 import java.util.Collection;
 
+
 /**
+ * Modifier container.
+ * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface ModifierListenerContainer {
-    /**
-     * @param listener
-     */
-    void addListener(ModifierListener listener);
+public interface ModifierContainer {
+    void addModifier(Modifier modifier);
 
-    /**
-     * @param listener
-     */
-    void removeListener(ModifierListener listener);
-
-    /**
-     * @return
-     */
-    Collection getListeners();
+    void removeModifier(Modifier modifier);
+    
+    Collection getModifiers();
 }

@@ -21,8 +21,8 @@ import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.codecrate.shard.KeyedModifier;
-import com.codecrate.shard.KeyedModifierContainer;
+import com.codecrate.shard.modifier.KeyedModifier;
+import com.codecrate.shard.modifier.KeyedModifierContainer;
 
 public class SavingThrowEntryContainer implements KeyedModifierContainer {
 	private static final Log LOG = LogFactory.getLog(SavingThrowEntryContainer.class);

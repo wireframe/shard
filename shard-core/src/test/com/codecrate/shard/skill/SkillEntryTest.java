@@ -17,7 +17,7 @@ package com.codecrate.shard.skill;
 
 import junit.framework.TestCase;
 
-import com.codecrate.shard.DefaultModifier;
+import com.codecrate.shard.modifier.DefaultModifier;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>

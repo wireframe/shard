@@ -15,8 +15,8 @@
  */
 package com.codecrate.shard.skill;
 
-import com.codecrate.shard.Modifiable;
-import com.codecrate.shard.ModifiableObject;
+import com.codecrate.shard.modifier.Modifiable;
+import com.codecrate.shard.modifier.ModifiableObject;
 
 public class SkillEntry extends ModifiableObject implements Modifiable {
 

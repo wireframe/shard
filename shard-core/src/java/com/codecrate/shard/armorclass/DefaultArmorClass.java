@@ -15,9 +15,9 @@
  */
 package com.codecrate.shard.armorclass;
 
-import com.codecrate.shard.DefaultModifierType;
-import com.codecrate.shard.ModifiableObject;
-import com.codecrate.shard.ModifierType;
+import com.codecrate.shard.modifier.DefaultModifierType;
+import com.codecrate.shard.modifier.ModifiableObject;
+import com.codecrate.shard.modifier.ModifierType;
 
 /**
  * 

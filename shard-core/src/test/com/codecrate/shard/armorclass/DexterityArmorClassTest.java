@@ -19,13 +19,13 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.DefaultModifier;
-import com.codecrate.shard.DefaultModifierType;
-import com.codecrate.shard.Modifier;
-import com.codecrate.shard.ModifierType;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
+import com.codecrate.shard.modifier.DefaultModifier;
+import com.codecrate.shard.modifier.DefaultModifierType;
+import com.codecrate.shard.modifier.Modifier;
+import com.codecrate.shard.modifier.ModifierType;
 import com.codecrate.shard.movement.DefaultEncumberance;
 
 public class DexterityArmorClassTest extends TestCase {

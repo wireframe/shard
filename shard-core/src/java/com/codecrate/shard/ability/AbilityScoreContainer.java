@@ -17,7 +17,7 @@ package com.codecrate.shard.ability;
 
 import java.util.Collection;
 
-import com.codecrate.shard.KeyedModifierContainer;
+import com.codecrate.shard.modifier.KeyedModifierContainer;
 
 /**
  * Defines an interface for objects that contain Abilities.
