@@ -20,9 +20,11 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
+ * ArmorClass for a specific modifier type.
+ * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class ArmorClassComponent {
+public class ArmorClassComponent implements ArmorClass {
     
     private ArmorClassModifierType type;
     private Collection modifiers = new ArrayList();
@@ -46,11 +48,11 @@ public class ArmorClassComponent {
 		return value;
     }
     
-    public void addModifier(ArmorClassModifier modifier) {
+    public void addArmorClassModifier(ArmorClassModifier modifier) {
         modifiers.add(modifier);
     }
     
-    public void removeModifier(ArmorClassModifier modifier) {
+    public void removeArmorClassModifier(ArmorClassModifier modifier) {
         modifiers.remove(modifier);
     }
 }

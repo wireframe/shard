@@ -55,14 +55,14 @@ public class DefaultArmorClass implements ArmorClass {
 	public void addArmorClassModifier(ArmorClassModifier modifier) {
 		ArmorClassModifierType type = modifier.getModifierType();
 		ArmorClassComponent component = getModifier(type);
-		component.addModifier(modifier);
+		component.addArmorClassModifier(modifier);
 		updateModifier(type, component);
 	}
 	
 	public void removeArmorClassModifier(ArmorClassModifier modifier) {
 		ArmorClassModifierType type = modifier.getModifierType();
 		ArmorClassComponent component = getModifier(type);
-		component.removeModifier(modifier);
+		component.removeArmorClassModifier(modifier);
 		updateModifier(type, component);
 	}
 	
