@@ -6,7 +6,7 @@
 
   <body>
     <links>
-      <item name="Manual" href="${pom.name}.pdf" />
+      <item name="Manual" href="${pom.artifactId}.pdf" />
     </links>
     
   <!-- see multiproject-plugin/plugin-resources/navigation-aggrigate.xml -->
