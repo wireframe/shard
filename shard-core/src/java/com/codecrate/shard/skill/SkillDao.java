@@ -88,7 +88,39 @@ public class SkillDao {
     
     public Collection getSkills() {
         Collection skills = new ArrayList();
-
+        skills.add(DefaultSkill.APPRAISE);
+        skills.add(DefaultSkill.BALANCE);
+        skills.add(DefaultSkill.BLUFF);
+        skills.add(DefaultSkill.CLIMB);
+        skills.add(DefaultSkill.CONCENTRATION);
+        skills.add(DefaultSkill.DECIPHER_SCRIPT);
+        skills.add(DefaultSkill.DIPLOMACY);
+        skills.add(DefaultSkill.DISABLE_DEVICE);
+        skills.add(DefaultSkill.DISGUISE);
+        skills.add(DefaultSkill.ESCAPE_ARTIST);
+        skills.add(DefaultSkill.FORGERY);
+        skills.add(DefaultSkill.GATHER_INFORMATION);
+        skills.add(DefaultSkill.HANDLE_ANIMAL);
+        skills.add(DefaultSkill.HEAL);
+        skills.add(DefaultSkill.HIDE);
+        skills.add(DefaultSkill.INTIMIDATE);
+        skills.add(DefaultSkill.JUMP);
+        skills.add(DefaultSkill.LISTEN);
+        skills.add(DefaultSkill.LITERACY);
+        skills.add(DefaultSkill.MOVE_SILENTLY);
+        skills.add(DefaultSkill.OPEN_LOCK);
+        skills.add(DefaultSkill.RIDE);
+        skills.add(DefaultSkill.SEARCH);
+        skills.add(DefaultSkill.SENSE_MOTIVE);
+        skills.add(DefaultSkill.SLEIGHT_OF_HAND);
+        skills.add(DefaultSkill.SPELLCRAFT);
+        skills.add(DefaultSkill.SPOT);
+        skills.add(DefaultSkill.SURVIVAL);
+        skills.add(DefaultSkill.SWIM);
+        skills.add(DefaultSkill.TUMBLE);
+        skills.add(DefaultSkill.USE_MAGIC_DEVICE);
+        skills.add(DefaultSkill.USE_ROPE);
+        
         skills.addAll(getLanguageSkills());
         return skills;
     }

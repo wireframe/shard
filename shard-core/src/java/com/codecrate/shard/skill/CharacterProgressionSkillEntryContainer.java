@@ -35,6 +35,18 @@ public class CharacterProgressionSkillEntryContainer implements SkillEntryContai
         Iterator levels = progression.getCharacterLevels().iterator();
         while (levels.hasNext()) {
             CharacterLevel level = (CharacterLevel) levels.next();
+            Iterator grantedSkills = level.getClassLevel().getCharacterClass().getSkills().iterator();
+            while (grantedSkills.hasNext()) {
+                SkillModifier rank = (SkillModifier) grantedSkills.next();
+                Skill skill = rank.getSkill();
+                if (!allSkills.containsKey(skill)) {
+                    SkillEntry entry = new SkillEntry(skill);
+                    allSkills.put(skill, entry);
+                }
+                SkillEntry skillEntry = (SkillEntry) allSkills.get(skill);
+                skillEntry.addModifier(rank);
+            }
+            
             Iterator skills = level.getSkillRanks().iterator();
             while (skills.hasNext()) {
                 SkillModifier rank = (SkillModifier) skills.next();

@@ -13,35 +13,19 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.output;
+package com.codecrate.shard.skill;
+
+import junit.framework.TestCase;
 
 /**
- * Helper tool for rendering velocity templates.
- * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class RenderTool {
-    
-    public boolean isEven(int value) {
-        return value % 2 == 0;
-    }
+public class SkillEntryTest extends TestCase {
 
-    public boolean isOdd(int value) {
-        return !isEven(value);
-    }
-    
-    /**
-     * gets the css class name for a table row.
-     * this is heavily tied to what css is used for the output sheet.
-     * @param value
-     * @return
-     * 
-     * @TODO update to look at a property instead of being hardcoded.
-     */
-    public String getRowCssClassName(int value) {
-    	if (isEven(value)) {
-    		return "rowEven";
-    	}
-    	return "rowOdd";
+    public void testMultipleModifiersUsedForValue() {
+        SkillEntry entry = new SkillEntry(DefaultSkill.SWIM);
+        entry.addModifier(new DefaultSkillModifier("rank", 1, DefaultSkill.SWIM));
+        entry.addModifier(new DefaultSkillModifier("rank", 1, DefaultSkill.SWIM));
+        assertEquals(2, entry.getValue());
     }
 }

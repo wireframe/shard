@@ -80,7 +80,8 @@ public class PrintCharacterActionTest extends TestCase {
 		levels.add(new DefaultCharacterLevel(1, 1,
                 DefaultCharacterClass.BARBARIAN.getClassProgression().getClassLevel(1), 
                 Arrays.asList(new SkillModifier[] { 
-                                new DefaultSkillModifier("rank", 1, DefaultSkill.SWIM) })));
+                                new DefaultSkillModifier("rank", 1, DefaultSkill.SWIM), 
+                                new DefaultSkillModifier("rank", 1, DefaultSkill.INTIMIDATE)})));
 		levels.add(new DefaultCharacterLevel(2, 1, 
 		        DefaultCharacterClass.FIGHTER.getClassProgression().getClassLevel(1), 
                 Arrays.asList(new SkillModifier[] { 
