@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="wireframe@dev.java.net">Ryan Sonnek</author>
+    <title></title>
+  </properties>
+
+  <meta name="keyword" content="java"/>
+<body>
+
+<section name="Description">
+<p>
+The shard project is intended to be an implementation of the d20 game engine. 
+The d20 game engine is the ruleset that powers games such as Dungeons and 
+Dragons, and Neverwinter Nights. 
+</p>
+<p>
+The goal of this project is to create a lightweight embeddable game engine 
+that will handle many of the aspects of the d20 engine and allow for 
+other applications to build upon them. The d20 engine's standard reference 
+document that will provide the model to complete this project. 
+</p>
+</section>
+
+<section name="Features">
+<ul>
+  <li>reusable engine for either webapplication or client side tools/games.</li>
+  <li>lightweight embeddable d20 engine</li>
+  <li>flexible API developed using well known design patterns</li>
+  <li>easily extendable for custom additions</li>
+  <li>basic SRD 3.5 dataset available for "out of the box" functionality</li>
+</ul>
+</section>
+
+</body>
+</document>
