@@ -16,6 +16,9 @@
 package com.codecrate.shard.dice;
 
 /**
+ * creates a dice with range from 1 to maxValue.
+ * randomly generates values between 1 and maxvalue.
+ * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultDice implements Dice {
