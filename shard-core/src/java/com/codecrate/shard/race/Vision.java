@@ -22,6 +22,12 @@ package com.codecrate.shard.race;
 public interface Vision {
 
 	/**
+	 * gets the name of the vision.
+	 * @return
+	 */
+	String getName();
+	
+	/**
 	 * @return
 	 */
 	int getDistance();

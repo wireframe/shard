@@ -31,11 +31,13 @@ import com.codecrate.shard.movement.Movement;
 public class DefaultRace implements Race {
 	public static final Race HUMAN = new DefaultRace(DefaultRacialSize.MEDIUM,
 			new DefaultMovement(30), new ArrayList(), 0, 
-			Arrays.asList(new Language[] {Language.COMMON}), new ArrayList());
+			Arrays.asList(new Language[] {Language.COMMON}), new ArrayList(),
+			DefaultVision.NORMAL);
 
 	public static final Race HALF_ELF = new DefaultRace(
 			DefaultRacialSize.MEDIUM, new DefaultMovement(30), new ArrayList(), 0, 
-			Arrays.asList(new Language[] {Language.COMMON, Language.ELVEN}), new ArrayList());
+			Arrays.asList(new Language[] {Language.COMMON, Language.ELVEN}), new ArrayList(),
+			DefaultVision.LOW_LIGHT_VISION);
 
 	public static final Race HALF_ORC = new DefaultRace(
 			DefaultRacialSize.MEDIUM, new DefaultMovement(30), Arrays
@@ -48,7 +50,8 @@ public class DefaultRace implements Race {
 									DefaultAbility.CHARISMA, -2) }), 0, 
 			Arrays.asList(new Language[] {Language.COMMON, Language.ORC}), 
 			Arrays.asList(new Language[] {Language.DRACONIC, Language.GIANT, Language.GNOLL, 
-					Language.GOBLIN, Language.ABYSSAL}));
+					Language.GOBLIN, Language.ABYSSAL}),
+					DefaultVision.DARKVISION);
 
 	public static final Race ELF = new DefaultRace(DefaultRacialSize.MEDIUM,
 			new DefaultMovement(30), Arrays.asList(new AbilityScoreModifier[] {
@@ -58,7 +61,8 @@ public class DefaultRace implements Race {
 							DefaultAbility.CONSTITUTION, -2) }), 0, 
 							Arrays.asList(new Language[] {Language.COMMON, Language.ELVEN}), 
 							Arrays.asList(new Language[] {Language.DRACONIC, Language.GNOLL, 
-									Language.GNOME, Language.GOBLIN, Language.ORC, Language.SYLVAN}));
+									Language.GNOME, Language.GOBLIN, Language.ORC, Language.SYLVAN}),
+									DefaultVision.LOW_LIGHT_VISION);
 
 	public static final Race DWARF = new DefaultRace(DefaultRacialSize.MEDIUM,
 			new DefaultMovement(20), Arrays.asList(new AbilityScoreModifier[] {
@@ -68,7 +72,8 @@ public class DefaultRace implements Race {
 							DefaultAbility.CHARISMA, -2) }), 0, 
 							Arrays.asList(new Language[] {Language.COMMON, Language.DWARVEN}), 
 							Arrays.asList(new Language[] {Language.GIANT, Language.GNOME, 
-									Language.GOBLIN, Language.ORC, Language.TERRAN, Language.UNDERCOMMON}));
+									Language.GOBLIN, Language.ORC, Language.TERRAN, Language.UNDERCOMMON}),
+									DefaultVision.DARKVISION);
 
 	public static final Race GNOME = new DefaultRace(DefaultRacialSize.SMALL,
 			new DefaultMovement(20), Arrays.asList(new AbilityScoreModifier[] {
@@ -78,7 +83,8 @@ public class DefaultRace implements Race {
 							DefaultAbility.STRENGTH, -2) }), 0, 
 							Arrays.asList(new Language[] {Language.COMMON, Language.GNOME}), 
 							Arrays.asList(new Language[] {Language.DRACONIC, Language.DWARVEN, 
-									Language.ELVEN, Language.GIANT, Language.GOBLIN, Language.ORC}));
+									Language.ELVEN, Language.GIANT, Language.GOBLIN, Language.ORC}),
+									DefaultVision.LOW_LIGHT_VISION);
 	
 	public static final Race HALFLING = new DefaultRace(
 			DefaultRacialSize.SMALL, new DefaultMovement(20), Arrays
@@ -89,7 +95,8 @@ public class DefaultRace implements Race {
 									DefaultAbility.STRENGTH, -2) }), 0, 
 									Arrays.asList(new Language[] {Language.COMMON, Language.HALFLING}), 
 									Arrays.asList(new Language[] {Language.DWARVEN, Language.ELVEN, 
-											Language.GNOME, Language.GOBLIN, Language.ORC}));
+											Language.GNOME, Language.GOBLIN, Language.ORC}),
+											DefaultVision.NORMAL);
 	
 	private RacialSize size;
 	private Movement movement;
@@ -97,16 +104,19 @@ public class DefaultRace implements Race {
 	private int levelAdjustment;
 	private final Collection bonusLanguages;
 	private final Collection automaticLanguages;
-
+	private final Vision vision;
+	
 	public DefaultRace(RacialSize size, Movement movement, 
 			Collection abilityModifiers, int levelAdjustment, 
-			Collection grantedLanguages, Collection availableLanguages) {
+			Collection grantedLanguages, Collection availableLanguages,
+			Vision vision) {
 		this.size = size;
 		this.movement = movement;
 		this.abilityModifiers = abilityModifiers;
 		this.levelAdjustment = levelAdjustment;
 		this.automaticLanguages = grantedLanguages;
 		this.bonusLanguages = availableLanguages;
+		this.vision = vision;
 	}
 
 	public boolean isSame(Race race) {
@@ -135,5 +145,9 @@ public class DefaultRace implements Race {
 	
 	public Collection getBonusLanguages() {
 		return bonusLanguages;
+	}
+	
+	public Vision getVision() {
+		return vision;
 	}
 }

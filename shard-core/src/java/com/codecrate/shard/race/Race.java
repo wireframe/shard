@@ -71,6 +71,12 @@ public interface Race {
      * @return
      */
     boolean isSame(Race race);
+
+	/**
+	 * gets the vision for the race.
+	 * @return
+	 */
+	Vision getVision();
     
     //boolean isImmuneToCriticalHits();
     //getFavoredClass();

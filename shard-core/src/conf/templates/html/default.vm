@@ -27,7 +27,7 @@
 	  <td>|SIZELONG| / $character.race.size.reach</td>
 	  <td>|HEIGHT|</td>
 	  <td>|WEIGHT|</td>
-	  <td colspan="1">$character.race.vision</td>
+	  <td colspan="1">$character.race.vision.name</td>
 	 </tr>
 	 <tr>
 	  <td colspan="1">CLASS</td>
