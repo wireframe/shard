@@ -4,10 +4,10 @@
   <extend>${basedir}/../shard-root/project.xml</extend>
   <pomVersion>3</pomVersion>
   <groupId>shard</groupId>
-  <id>shard-core</id>
-  <name>shard core module</name>
-  <description>shard core module</description>
-  <shortDescription>shard core module</shortDescription>
+  <id>shard-hibernate</id>
+  <name>shard hibernate module</name>
+  <description>shard hibernate module</description>
+  <shortDescription>shard hibernate module</shortDescription>
   
   <dependencies>
     <dependency>
