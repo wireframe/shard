@@ -19,12 +19,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Modifier for a specific modifier type.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class TypeGroupedModifier implements Modifier, ModifierContainer {
+    private static final Log LOG = LogFactory.getLog(TypeGroupedModifier.class);
     
     private ModifierType type;
     private Collection modifiers = new ArrayList();
@@ -65,6 +69,10 @@ public class TypeGroupedModifier implements Modifier, ModifierContainer {
     }
     
     public void addModifier(Modifier modifier) {
+        if (!type.equals(modifier.getModifierType())) {
+            LOG.info("Modifier type does not match required type: " + type);
+            return;
+        }
         modifiers.add(modifier);
     }
     
