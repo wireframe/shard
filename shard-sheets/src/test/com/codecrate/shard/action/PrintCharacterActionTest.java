@@ -19,14 +19,15 @@ import com.codecrate.shard.armorclass.ArmorClass;
 import com.codecrate.shard.armorclass.DefaultArmorClass;
 import com.codecrate.shard.armorclass.DexterityArmorClass;
 import com.codecrate.shard.character.Age;
+import com.codecrate.shard.character.AgeCategoryDao;
 import com.codecrate.shard.character.CharacterProgression;
-import com.codecrate.shard.character.CumulativeAgeCategory;
 import com.codecrate.shard.character.DefaultAlignment;
 import com.codecrate.shard.character.DefaultCharacterLevel;
 import com.codecrate.shard.character.DefaultCharacterProgression;
 import com.codecrate.shard.character.DefaultGender;
 import com.codecrate.shard.character.DefaultPlayerCharacter;
 import com.codecrate.shard.character.HitPoints;
+import com.codecrate.shard.character.RacialCategorizedAge;
 import com.codecrate.shard.equipment.Coin;
 import com.codecrate.shard.equipment.ItemContainer;
 import com.codecrate.shard.equipment.ItemEntry;
@@ -59,7 +60,7 @@ public class PrintCharacterActionTest extends TestCase {
 		levels.add(new DefaultCharacterLevel(2, 1, DefaultCharacterClass.FIGHTER.getClassProgression().getClassLevel(1), new ArrayList()));
 		CharacterProgression progression = new DefaultCharacterProgression(levels);
 		
-		Age age = new Age(20, 100, CumulativeAgeCategory.ADULT);
+		Age age = new RacialCategorizedAge(20, DefaultRace.HUMAN, new AgeCategoryDao(), 100);
 		
 		HitPoints hitPoints = new HitPoints();
 		

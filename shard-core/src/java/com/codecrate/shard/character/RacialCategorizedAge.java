@@ -15,13 +15,32 @@
  */
 package com.codecrate.shard.character;
 
+import com.codecrate.shard.race.Race;
+
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface Age {
-    AgeCategory getCategory();
+public class RacialCategorizedAge implements Age {
 
-    int getCurrentAge();
+    private AgeCategory ageCategory;
+    private final int maxAge;
+    private final int age;
 
-    int getMaxAge();
+    public RacialCategorizedAge(int age, Race race, AgeCategoryDao dao, int maxAge) {
+        this.age = age;
+        this.maxAge = maxAge;
+        ageCategory = dao.getAgeCategory(age, race);
+    }
+    
+    public AgeCategory getCategory() {
+        return ageCategory;
+    }
+
+    public int getCurrentAge() {
+        return age;
+    }
+
+    public int getMaxAge() {
+        return maxAge;
+    }
 }

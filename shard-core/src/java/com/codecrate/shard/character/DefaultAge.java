@@ -15,13 +15,31 @@
  */
 package com.codecrate.shard.character;
 
-/**
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
- */
-public interface Age {
-    AgeCategory getCategory();
+public class DefaultAge implements Age {
 
-    int getCurrentAge();
-
-    int getMaxAge();
+    private int currentAge;
+    private int maxAge;
+    private AgeCategory category;
+    
+    public DefaultAge(int currentAge, int maxAge, AgeCategory category) {
+        this.currentAge = currentAge;
+        this.maxAge = maxAge;
+        this.category = category;
+    }
+    
+    public String toString() {
+        return Integer.toString(currentAge) + " (" + category + ")";
+    }
+    
+    public AgeCategory getCategory() {
+        return category;
+    }
+    
+    public int getCurrentAge() {
+        return currentAge;
+    }
+    
+    public int getMaxAge() {
+        return maxAge;
+    }
 }

@@ -30,7 +30,7 @@ import com.codecrate.shard.ability.DefaultAbilityScoreModifier;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek </a>
  */
-public class CumulativeAgeCategoryTest extends TestCase {
+public class CummulativeAgeCategoryTest extends TestCase {
 
 	public void testPreviousCategoryAbilityModifiersAdded() {
 		List modifiers = Arrays
@@ -42,13 +42,13 @@ public class CumulativeAgeCategoryTest extends TestCase {
 		mockAgeCategory.setReturnValue(modifiers);
 		mockAgeCategory.replay();
 
-		CumulativeAgeCategory ageCategory = new CumulativeAgeCategory(
+		CummulativeAgeCategory ageCategory = new CummulativeAgeCategory(
 				previousAgeCategory, "name", new ArrayList());
 		assertEquals(1, ageCategory.getAbilityModifiers().size());
 	}
 	
 	public void testPreviousCategoryCanBeNull() {
-		CumulativeAgeCategory ageCategory = new CumulativeAgeCategory(
+		CummulativeAgeCategory ageCategory = new CummulativeAgeCategory(
 				null, "name", new ArrayList());
 		assertEquals(0, ageCategory.getAbilityModifiers().size());
 	}

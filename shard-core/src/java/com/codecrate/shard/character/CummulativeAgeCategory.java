@@ -29,11 +29,11 @@ import com.codecrate.shard.ability.DefaultAbilityScoreModifier;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class CumulativeAgeCategory implements AgeCategory {
-	public static final AgeCategory ADULT = new CumulativeAgeCategory(null, 
+public class CummulativeAgeCategory implements AgeCategory {
+	public static final AgeCategory ADULT = new CummulativeAgeCategory(null, 
 			"Adult", new ArrayList());
 	
-	public static final AgeCategory MIDDLE_AGE = new CumulativeAgeCategory(ADULT,
+	public static final AgeCategory MIDDLE_AGE = new CummulativeAgeCategory(ADULT,
 			"Middle Age", Arrays.asList(new AbilityScoreModifier[] {
 			new DefaultAbilityScoreModifier(DefaultAbility.STRENGTH, -1)
 			, new DefaultAbilityScoreModifier(DefaultAbility.DEXTERITY, -1)
@@ -43,7 +43,7 @@ public class CumulativeAgeCategory implements AgeCategory {
 			, new DefaultAbilityScoreModifier(DefaultAbility.CHARISMA, 1)
 		}));
 
-	public static final AgeCategory OLD = new CumulativeAgeCategory(MIDDLE_AGE,
+	public static final AgeCategory OLD = new CummulativeAgeCategory(MIDDLE_AGE,
 			"Old", Arrays.asList(new AbilityScoreModifier[] {
 			new DefaultAbilityScoreModifier(DefaultAbility.STRENGTH, -2)
 			, new DefaultAbilityScoreModifier(DefaultAbility.DEXTERITY, -2)
@@ -53,7 +53,7 @@ public class CumulativeAgeCategory implements AgeCategory {
 			, new DefaultAbilityScoreModifier(DefaultAbility.CHARISMA, 1)
 		}));
 	
-	public static final AgeCategory VENERABLE = new CumulativeAgeCategory(OLD,
+	public static final AgeCategory VENERABLE = new CummulativeAgeCategory(OLD,
 			"Venerable", Arrays.asList(new AbilityScoreModifier[] {
 			new DefaultAbilityScoreModifier(DefaultAbility.STRENGTH, -3)
 			, new DefaultAbilityScoreModifier(DefaultAbility.DEXTERITY, -3)
@@ -67,7 +67,7 @@ public class CumulativeAgeCategory implements AgeCategory {
 	private final String name;
 	private Collection abilityModifiers;
 
-	public CumulativeAgeCategory(AgeCategory previousCategory, String name, Collection abilityModifiers) {
+	public CummulativeAgeCategory(AgeCategory previousCategory, String name, Collection abilityModifiers) {
 		this.name = name;
 		this.abilityModifiers = new ArrayList(abilityModifiers);
 		if (null != previousCategory) {
