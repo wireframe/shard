@@ -7,6 +7,9 @@ public class ItemEntry implements Item {
     private final int quantity;
 
     public ItemEntry(Item item, int quantity) {
+        if (0 >= quantity) {
+            throw new IllegalArgumentException("Cannot have a quantity less than one.");
+        }
         this.item = item;
         this.quantity = quantity;
     }

@@ -149,6 +149,10 @@ public class DefaultSkill implements Skill {
 		this.skillDao = skillDao;
     }
 
+    public String toString() {
+        return name;
+    }
+    
     public String getName() {
         return name;
     }
