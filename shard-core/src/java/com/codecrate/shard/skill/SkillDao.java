@@ -49,4 +49,10 @@ public interface SkillDao {
      * @return
      */
     Skill createSkill(String name, boolean usableUntrained, Ability ability, boolean armorPenalty);
+
+    /**
+     * deletes a skill.
+     * @param skill
+     */
+    void deleteSkill(Skill skill);
 }

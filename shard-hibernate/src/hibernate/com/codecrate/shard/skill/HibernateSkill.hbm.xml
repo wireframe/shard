@@ -23,7 +23,7 @@
         <many-to-one name="ability" 
          class="com.codecrate.shard.ability.HibernateAbility" 
          column="ABILITY" 
-         cascade="all"/>
+         cascade="none"/>
          
         <set name="childSkillSynergies"
          lazy="false"

@@ -56,4 +56,8 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao {
         String id = (String) getHibernateTemplate().save(skill);
         return (Skill) getHibernateTemplate().load(HibernateSkill.class, id);
     }
+    
+    public void deleteSkill(Skill skill) {
+        getHibernateTemplate().delete(skill);
+    }
 }
