@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="$pom.name">
+
+  <title>$pom.name</title>
+
+  <body>
+    <links>
+      <item name="Manual" href="shard.pdf" />
+    </links>
+    
+  <!-- createOverviewPage  -->
+    <menu name="Projects">
+    #if ($overviewPageCreate == "true" )
+      <item name="${overviewPageLinkTitle}" href="${overviewPageLink}.html"/>
+    #end
+
+    #foreach ($reactorProject in $reactorProjects)
+      <item name="$reactorProject.name" href="/${aggregateDir}${reactorProject.artifactId}/index.html"/>
+    #end
+    </menu>
+  </body>
+</project>

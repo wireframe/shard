@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faqs title="Frequently Asked Questions">
+
+  <part id="development">
+    <title>Development</title>
+    
+    <faq id="dev-clover">
+      <question>
+        How do I use the Clover jar file licensed for shard?
+      </question>
+      <answer>
+        <p>
+        The only way I've got this to work is to take the
+        signed clover.jar, and overwrite the clover jar in the
+        local repository (clover-1.2.jar I believe).
+        </p>
+      </answer>
+    </faq>
+  </part>  
+</faqs>

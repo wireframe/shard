@@ -1,0 +1,15 @@
+<document>
+  <properties>
+    <title>shard changes</title>
+    <author email="wireframe@dev.java.net">Ryan Sonnek</author>
+  </properties>
+  <body>
+
+    <release version="0.1.0" date="IN CVS">
+      <action dev="wireframe" type="add">
+        Initial import of sources.
+      </action> 
+    </release>
+    
+  </body>
+</document>

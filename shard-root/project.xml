@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project>
+  <pomVersion>3</pomVersion>
+  <groupId>shard</groupId>
+  <id>shard-root</id>
+  <name>shard root module</name>
+  <currentVersion>0.1.0-dev</currentVersion>
+
+  <organization>
+    <name>codecrate consulting</name>
+    <url>http://www.codecrate.com</url>
+    <logo>http://www.codecrate.com/images/logo.gif</logo>
+  </organization>
+
+  <inceptionYear>2003</inceptionYear>
+  <package>com.codecrate.shard</package>
+  <logo>http://shard.dev.java.net/images/logo.gif</logo>
+  <description>d20 gaming engine</description>
+  <shortDescription>d20 gaming engine</shortDescription>
+  <url>https://shard.dev.java.net</url>
+  <issueTrackingUrl>https://shard.dev.java.net/servlets/ProjectIssues</issueTrackingUrl>
+  <siteAddress>www.codecrate.com</siteAddress>
+  <siteDirectory>/tomcat/webapps/shard</siteDirectory>
+  <distributionSite>www.codecrate.com</distributionSite>
+  <distributionDirectory>/tomcat/webapps/maven</distributionDirectory>
+  
+  <repository>
+    <connection>scm:cvs:pserver:guest@cvs.dev.java.net:/cvs:shard/${pom.artifactId}</connection>
+    <developerConnection>scm:cvs:pserver:${maven.username}@cvs.dev.java.net:/cvs:shard/${pom.artifactId}</developerConnection>
+    <url>https://shard.dev.java.net/source/browse/shard/${pom.artifactId}</url>
+  </repository>
+
+  <mailingLists>
+    <mailingList>
+      <name>users</name>
+      <subscribe>https://shard.dev.java.net/servlets/ProjectMailingListList</subscribe>
+      <unsubscribe>https://shard.dev.java.net/servlets/ProjectMailingListList</unsubscribe>
+      <archive>https://shard.dev.java.net/servlets/SummarizeList?listName=users</archive>
+    </mailingList>
+    <mailingList>
+      <name>issues</name>
+      <subscribe>https://shard.dev.java.net/servlets/ProjectMailingListList</subscribe>
+      <unsubscribe>https://shard.dev.java.net/servlets/ProjectMailingListList</unsubscribe>
+      <archive>https://shard.dev.java.net/servlets/SummarizeList?listName=issues</archive>
+    </mailingList>
+    <mailingList>
+      <name>announce</name>
+      <subscribe>https://shard.dev.java.net/servlets/ProjectMailingListList</subscribe>
+      <unsubscribe>https://shard.dev.java.net/servlets/ProjectMailingListList</unsubscribe>
+      <archive>https://shard.dev.java.net/servlets/SummarizeList?listName=announce</archive>
+    </mailingList>
+    <mailingList>
+      <name>cvs</name>
+      <subscribe>https://shard.dev.java.net/servlets/ProjectMailingListList</subscribe>
+      <unsubscribe>https://shard.dev.java.net/servlets/ProjectMailingListList</unsubscribe>
+      <archive>https://shard.dev.java.net/servlets/SummarizeList?listName=cvs</archive>
+    </mailingList>
+    <mailingList>
+      <name>dev</name>
+      <subscribe>https://shard.dev.java.net/servlets/ProjectMailingListList</subscribe>
+      <unsubscribe>https://shard.dev.java.net/servlets/ProjectMailingListList</unsubscribe>
+      <archive>https://shard.dev.java.net/servlets/SummarizeList?listName=dev</archive>
+    </mailingList>
+  </mailingLists>
+  
+  <developers>
+    <developer>
+      <name>Ryan Sonnek</name>
+      <organization>codecrate consulting</organization>
+      <id>wireframe</id>
+      <email>wireframe@dev.java.net</email>
+      <url>http://www.jroller.com/page/wireframe</url>
+    </developer>
+  </developers>
+
+  <licenses>
+    <name>The Apache Software License, Version 2.0</name>
+    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    <distribution>manual</distribution>
+    <comments></comments>
+  </licenses>
+
+  <dependencies>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.4</version>
+      <url>http://jakarta.apache.org/commons</url>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>2.1</version>
+      <url>http://jakarta.apache.org/commons</url>
+    </dependency>
+
+    <!-- EasyMock dependencies -->
+    <dependency>
+      <groupId>easymock</groupId>
+      <artifactId>easymock</artifactId>
+      <version>1.1</version>
+      <url>http://www.easymock.org</url>
+    </dependency>
+    
+    <!-- 
+    StatCVS plugin dependencies 
+    must have external CVS executable on path 
+    and configured correctly (cvs login) to generate reports.
+    -->
+    <dependency>
+      <groupId>statcvs</groupId>
+      <artifactId>maven-statcvs-plugin</artifactId>
+      <type>plugin</type>
+      <version>2.4</version>
+      <url>http://statcvs-xml.berlios.de/maven-plugin/</url>
+    </dependency>
+    
+    <dependency>
+      <groupId>maven</groupId>
+      <artifactId>maven-findbugs-plugin</artifactId>
+      <type>plugin</type>
+      <version>0.7.2</version>
+      <url>http://maven-plugins.sourceforge.net/maven-findbugs-plugin/index.html</url>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <nagEmailAddress>wireframe@dev.java.net</nagEmailAddress>
+
+    <sourceDirectory>src/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+    </unitTest>
+
+    <resources>
+      <directory>${basedir}/src/test</directory>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+    </resources>
+  </build>
+
+  <reports>
+    <report>maven-license-plugin</report>
+	<report>maven-faq-plugin</report>
+    <report>maven-changes-plugin</report>
+    <report>maven-tasklist-plugin</report>
+    <report>maven-dashboard-plugin</report>
+	<report>maven-multichanges-plugin</report>
+
+    <report>maven-javadoc-plugin</report>
+    <report>maven-jxr-plugin</report>
+
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-pmd-plugin</report>
+    <report>maven-findbugs-plugin</report>
+    
+    <report>maven-jdepend-plugin</report>
+
+    <report>maven-junit-report-plugin</report>
+    <report>maven-clover-plugin</report>
+    <report>maven-jcoverage-plugin</report>
+
+    <report>maven-developer-activity-plugin</report>
+    <report>maven-file-activity-plugin</report>
+    <report>maven-changelog-plugin</report>
+    <report>maven-statcvs-plugin</report>
+<!--    
+    <report>maven-linkcheck-plugin</report>
+-->    
+  </reports>
+</project>
