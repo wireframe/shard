@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard.dice;
 
-import java.util.StringTokenizer;
 
 /**
  * parses a dice expression into a set of dice.
@@ -113,19 +112,5 @@ public class CustomDice implements Dice {
             multiplier = Integer.parseInt(diceExpression.substring(indexOfMultiplier + 1, diceExpression.length()));
         }
         return multiplier;
-    }
-    
-    private static String getNextElement(String diceExpression) {
-        String DELIMITERS = DICE_CHARACTER + MULTIPLIER + MODIFIER_NEGATIVE + MODIFIER_POSITIVE;
-        
-    	StringTokenizer tokenizer = new StringTokenizer(diceExpression, DELIMITERS, true);
-    	while (tokenizer.hasMoreTokens()) {
-    		String token = tokenizer.nextToken();
-    		if (-1 != DELIMITERS.indexOf(token)) {
-    			String value = tokenizer.nextToken();
-    			
-    		}
-    	}
-    	return null;
     }
 }
