@@ -30,12 +30,4 @@ public interface Identifiable {
      * @return
      */
     String getId();
-    
-    /**
-     * sets the id of the object.
-     * might be saved with null id and need to be set afterwards if using 
-     * a sequence.
-     * @return
-     */
-    void setId(String id);
 }

@@ -17,7 +17,17 @@ package com.codecrate.shard.ability;
 
 public interface Ability {
 
+    /**
+     * gets the name of the ability.
+     * ex: Strength
+     * @return
+     */
     String getName();
     
+    /**
+     * gets the abbreviation for the ability.
+     * ex: STR
+     * @return
+     */
     String getAbbreviation();
 }

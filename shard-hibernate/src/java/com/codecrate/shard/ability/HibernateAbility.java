@@ -23,7 +23,7 @@ public class HibernateAbility implements Ability, Identifiable {
     /**
      * hibernate constructor.
      */
-    public HibernateAbility() {
+    protected HibernateAbility() {
     }
 
     public HibernateAbility(String name) {
@@ -38,7 +38,7 @@ public class HibernateAbility implements Ability, Identifiable {
         return name;
     }
     
-    public void setId(String id) {
+    protected void setId(String id) {
         this.name = id;
     }
     

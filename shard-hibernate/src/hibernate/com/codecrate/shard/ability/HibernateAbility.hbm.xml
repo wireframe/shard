@@ -5,7 +5,7 @@
 
 <hibernate-mapping package="com.codecrate.shard.ability">
 
-    <class name="HibernateAbility" table="SHA_ABILITY">
+    <class name="HibernateAbility" table="SHA_ABILITY" proxy="Ability">
 
         <id name="id" type="string" unsaved-value="null" >
             <column name="ID" sql-type="char(32)" not-null="true"/>
