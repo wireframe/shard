@@ -18,18 +18,20 @@ package com.codecrate.shard.equipment;
 import java.math.BigDecimal;
 
 public class Coin implements Item {
-    public static final Coin COPPER_PIECE = new Coin("Copper Coin", new BigDecimal(".1"), 1, DefaultCurrency.COPPER);
-    public static final Coin SILVER_PIECE = new Coin("Silver Coin", new BigDecimal(".1"), 1, DefaultCurrency.SILVER);
-    public static final Coin GOLD_PIECE = new Coin("Gold Coin", new BigDecimal(".1"), 1, DefaultCurrency.GOLD);
+    public static final Coin COPPER_PIECE = new Coin("Copper Coin", new BigDecimal(".1"), DefaultCurrency.COPPER);
+    public static final Coin SILVER_PIECE = new Coin("Silver Coin", new BigDecimal(".1"), DefaultCurrency.SILVER);
+    public static final Coin GOLD_PIECE = new Coin("Gold Coin", new BigDecimal(".1"), DefaultCurrency.GOLD);
+    
+    private static final int SINGLE_COIN = 1;
     
     private final BigDecimal weight;
     private final Money money;
 	private final String name;
 
-    public Coin(String name, BigDecimal weight, int cost, Currency currency) {
+    public Coin(String name, BigDecimal weight, Currency currency) {
         this.name = name;
 		this.weight = weight;
-        this.money = new Money(cost, currency);
+        this.money = new Money(SINGLE_COIN, currency);
     }
     
     public String getName() {
