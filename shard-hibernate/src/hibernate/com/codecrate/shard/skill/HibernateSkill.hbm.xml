@@ -28,10 +28,10 @@
         <set name="childSkillSynergies"
          lazy="false"
          table="SHA_SKILL_SYNERGY">
-          <key column="ID"/>
-          <many-to-many class="com.codecrate.shard.skill.HibernateSkill"
-           column="CHILD_SKILL_ID"/>
-    </set>        
+            <key column="ID"/>
+            <many-to-many class="com.codecrate.shard.skill.HibernateSkill"
+             column="CHILD_SKILL_ID"/>
+        </set>        
     </class>
 
 </hibernate-mapping>
