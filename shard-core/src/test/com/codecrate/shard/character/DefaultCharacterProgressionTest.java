@@ -68,7 +68,7 @@ public class DefaultCharacterProgressionTest extends TestCase {
     	levels.add(characterLevel2);
     	
     	DefaultCharacterProgression progression = new DefaultCharacterProgression(levels);
-    	assertSame(rangerLevel2, progression.getMaxClassLevel(ranger));
+    	assertSame(rangerLevel2, progression.getClassLevel(ranger));
     }
     
     public void testGetMaxLevelReturnsNullForUnusedClass() {
@@ -87,6 +87,6 @@ public class DefaultCharacterProgressionTest extends TestCase {
     	levels.add(characterLevel1);
     	
     	DefaultCharacterProgression progression = new DefaultCharacterProgression(levels);
-    	assertNull(progression.getMaxClassLevel(fighter));
+    	assertNull(progression.getClassLevel(fighter));
     }
 }

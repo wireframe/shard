@@ -43,11 +43,11 @@ public class DefaultCharacterProgression implements CharacterProgression {
 		return classes;
 	}
 	
-	public int getMaxCharacterLevel() {
+	public int getCharacterLevel() {
 		return levels.size();
 	}
 	
-	public ClassLevel getMaxClassLevel(CharacterClass kit) {
+	public ClassLevel getClassLevel(CharacterClass kit) {
 		ClassLevel level = null;
 		Iterator it = levels.iterator();
 		while (it.hasNext()) {
@@ -71,7 +71,7 @@ public class DefaultCharacterProgression implements CharacterProgression {
 		Iterator classes = getClasses().iterator();
 		while (classes.hasNext()) {
 			CharacterClass kit = (CharacterClass) classes.next();
-			ClassLevel maxLevel = getMaxClassLevel(kit);
+			ClassLevel maxLevel = getClassLevel(kit);
 			result.append(maxLevel);
 			
 			if (x != levels.size()) {

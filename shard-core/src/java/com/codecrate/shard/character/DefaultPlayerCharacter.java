@@ -79,7 +79,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     }
 
     public int getEffectiveCharacterLevel() {
-    	return characterProgression.getMaxCharacterLevel() + race.getLevelAdjustment();
+    	return characterProgression.getCharacterLevel() + race.getLevelAdjustment();
     }
 
 	public AbilityScoreContainer getAbilities() {
@@ -91,7 +91,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 		Iterator it = characterProgression.getClasses().iterator();
 		while (it.hasNext()) {
 			CharacterClass kit = (CharacterClass) it.next();
-			value += characterProgression.getMaxClassLevel(kit).getBaseAttackBonus();
+			value += characterProgression.getClassLevel(kit).getBaseAttackBonus();
 		}
 		value += race.getSize().getBaseAttackBonusModifier();
 		return value;

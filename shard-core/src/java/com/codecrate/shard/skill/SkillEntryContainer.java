@@ -23,6 +23,8 @@ import org.apache.commons.logging.LogFactory;
 public class SkillEntryContainer {
 	private static final Log LOG = LogFactory.getLog(SkillEntryContainer.class);
 
+	private int characterLevel;
+	
 	public Collection getSkills() {
 		return null;
 	}
@@ -44,10 +46,10 @@ public class SkillEntryContainer {
 	}
 	
 	public int getMaxClassSkillLevel() {
-		return 0;
+		return 3 + characterLevel;
 	}
 	
 	public int getMaxCrossClassSkillLevel() {
-		return 0;
+		return getMaxClassSkillLevel() / 2;
 	}
 }

@@ -38,7 +38,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
 
 		MockControl mockProgression = MockControl.createControl(CharacterProgression.class);
 		CharacterProgression progression = (CharacterProgression) mockProgression.getMock();
-		progression.getMaxCharacterLevel();
+		progression.getCharacterLevel();
 		mockProgression.setReturnValue(1);
 		mockProgression.replay();
 	    
@@ -59,9 +59,9 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		CharacterProgression progression = (CharacterProgression) mockProgression.getMock();
 		progression.getClasses();
 		mockProgression.setReturnValue(Arrays.asList(new CharacterClass[] {DefaultCharacterClass.BARBARIAN, DefaultCharacterClass.BARD}));
-		progression.getMaxClassLevel(DefaultCharacterClass.BARBARIAN);
+		progression.getClassLevel(DefaultCharacterClass.BARBARIAN);
 		mockProgression.setReturnValue(classLevel);
-		progression.getMaxClassLevel(DefaultCharacterClass.BARD);
+		progression.getClassLevel(DefaultCharacterClass.BARD);
 		mockProgression.setReturnValue(classLevel);
 		mockProgression.replay();
 	    

@@ -32,7 +32,7 @@ public interface CharacterProgression {
 	 * gets the number of levels the character has.
 	 * @return
 	 */
-	int getMaxCharacterLevel();
+	int getCharacterLevel();
 	
     /**
      * gets a specific character level.
@@ -52,5 +52,5 @@ public interface CharacterProgression {
 	 * @param kit
 	 * @return
 	 */
-	ClassLevel getMaxClassLevel(CharacterClass kit);
+	ClassLevel getClassLevel(CharacterClass kit);
 }
