@@ -44,7 +44,7 @@ public class DefaultArmorClassTest extends TestCase {
 		armorClass.addModifier(secondModifier);
 		armorClass.addModifier(firstModifier);
 		
-		assertEquals(20, armorClass.getValue());
+		assertEquals(20, armorClass.getModifiedValue());
 	}
 	
 	public void testMultipleStackingModifiersUsesBothModifiers() {
@@ -68,7 +68,7 @@ public class DefaultArmorClassTest extends TestCase {
 		armorClass.addModifier(secondModifier);
 		armorClass.addModifier(firstModifier);
 		
-		assertEquals(25, armorClass.getValue());
+		assertEquals(25, armorClass.getModifiedValue());
 	}
 	
 	public void testRemovingHighestModifierStillUsesLowerModifier() {
@@ -95,6 +95,6 @@ public class DefaultArmorClassTest extends TestCase {
 		armorClass.addModifier(lowerModifier);
 		armorClass.removeModifier(higherModifier);
 		
-		assertEquals(15, armorClass.getValue());
+		assertEquals(15, armorClass.getModifiedValue());
 	}
 }

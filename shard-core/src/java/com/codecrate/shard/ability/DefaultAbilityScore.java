@@ -43,7 +43,7 @@ public class DefaultAbilityScore implements AbilityScore {
     }
     
     public String toString() {
-        return ability + ": " + getValue() + " (" + getBonus() +")";
+        return ability + ": " + getModifiedValue() + " (" + getBonus() +")";
     }
     
     public Ability getAbility() {
@@ -59,12 +59,12 @@ public class DefaultAbilityScore implements AbilityScore {
     }
     
     public int getBonus() {
-        return (int) Math.floor((getValue() - 10) / 2);
+        return (int) Math.floor((getModifiedValue() - 10) / 2);
     }
     
     public int getPointCost() {
     	int points = 0;
-    	int score = getValue();
+    	int score = getModifiedValue();
     	
     	switch (score) {
     	case 0:

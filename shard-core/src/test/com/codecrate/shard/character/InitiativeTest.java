@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.armorclass;
+package com.codecrate.shard.character;
 
 import junit.framework.TestCase;
 
@@ -25,9 +25,8 @@ import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
 import com.codecrate.shard.ability.DefaultAbilityScoreModifier;
-import com.codecrate.shard.movement.DefaultEncumberance;
 
-public class DexterityArmorClassTest extends TestCase {
+public class InitiativeTest extends TestCase {
 
     public void testListenerRegisteredOnDexterity() {
         DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 1);
@@ -40,12 +39,12 @@ public class DexterityArmorClassTest extends TestCase {
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         
-        new DexterityArmorClass(abilities, DefaultEncumberance.LIGHT, new DefaultArmorClass());
+        new Initiative(abilities);
         assertEquals(1, abilityScore.getListeners().size());
     }
     
-    public void testDexModifierAttachedToArmorClass() {
-        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 1);
+    public void testDexModifierAttachedToInitiative() {
+        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 18);
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
@@ -55,30 +54,11 @@ public class DexterityArmorClassTest extends TestCase {
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         
-        DefaultArmorClass defaultArmorClass = new DefaultArmorClass();
-        new DexterityArmorClass(abilities, DefaultEncumberance.LIGHT, defaultArmorClass);
-        assertEquals(6, defaultArmorClass.getModifiedValue());
+        Initiative initiative = new Initiative(abilities);
+        assertEquals(4, initiative.getModifiedValue());
     }
     
-    public void testArmorClassUpdatedWhenAbilityChanged() {
-        ModifierType type = new DefaultModifierType("type", true);
-        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 1);
-        
-        MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
-        AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
-        abilities.hasAbilityScore(DefaultAbility.DEXTERITY);
-        mockAbilities.setReturnValue(true);
-        abilities.getAbilityScore(DefaultAbility.DEXTERITY);
-        mockAbilities.setReturnValue(abilityScore);
-        mockAbilities.replay();
-        
-        DefaultArmorClass defaultArmorClass = new DefaultArmorClass();
-        new DexterityArmorClass(abilities, DefaultEncumberance.LIGHT, defaultArmorClass);
-        abilityScore.addModifier(new DefaultAbilityScoreModifier(type, DefaultAbility.DEXTERITY, 9));
-        assertEquals(10, defaultArmorClass.getModifiedValue());
-    }
-    
-    public void testModifierLimitedToEncumberanceMaxValue() {
+    public void testInitiativeUpdatedWhenAbilityChanged() {
         ModifierType type = new DefaultModifierType("type", true);
         DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10);
         
@@ -90,9 +70,8 @@ public class DexterityArmorClassTest extends TestCase {
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         
-        DefaultArmorClass defaultArmorClass = new DefaultArmorClass();
-        new DexterityArmorClass(abilities, DefaultEncumberance.HEAVY, defaultArmorClass);
+        Initiative initiative = new Initiative(abilities);
         abilityScore.addModifier(new DefaultAbilityScoreModifier(type, DefaultAbility.DEXTERITY, 8));
-        assertEquals(11, defaultArmorClass.getModifiedValue());
+        assertEquals(4, initiative.getModifiedValue());
     }
 }

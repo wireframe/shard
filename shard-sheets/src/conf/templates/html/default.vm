@@ -188,9 +188,9 @@
 	            <font style="font-size:9pt" color="white"><b>AC</b></font><br />
 	            <font style="font-size:5pt" color="white">Armor Class</font>
 	          </td>
-	          <td align="center" class="border9"><b>$character.armorClass.value</b></td>
+	          <td align="center" class="border9"><b>$character.armorClass.modifiedValue</b></td>
 #foreach ($acModifier in $acModifiers)
-	          <td align="center" class="border9"><b>$acModifier.modifier </b></td>
+	          <td align="center" class="border9"><b>$acModifier.modifier</b></td>
 #end
 	        </tr>
 	        <tr>

@@ -17,26 +17,7 @@ package com.codecrate.shard.ability;
 
 import junit.framework.TestCase;
 
-import org.easymock.MockControl;
-
-import com.codecrate.shard.ability.AbilityScoreModifier;
-import com.codecrate.shard.ability.DefaultAbilityScore;
-
 public class DefaultAbilityScoreTest extends TestCase {
-
-	public void testModifierNotAddedIfDifferentName() {
-		MockControl abilityModifierControl = MockControl.createControl(AbilityScoreModifier.class);
-		AbilityScoreModifier modifier = (AbilityScoreModifier) abilityModifierControl.getMock();
-		modifier.getAbility();
-		abilityModifierControl.setReturnValue(DefaultAbility.DEXTERITY);
-		abilityModifierControl.replay();
-		
-		DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10);
-		ability.addModifier(modifier);
-		
-		assertEquals(10, ability.getModifiedValue());
-	}
-	
 	public void testBonusCanGoNegative() {
 		DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 1);
 		assertEquals(-4, ability.getBonus());

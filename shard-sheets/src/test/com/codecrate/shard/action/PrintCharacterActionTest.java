@@ -105,7 +105,7 @@ public class PrintCharacterActionTest extends TestCase {
 		
 		Encumberance encumberance = new InventoryWeightEncumberance(abilities, itemContainer, DefaultRace.HUMAN.getSize(), new EncumberanceDao());
 		
-		Initiative initiative = new Initiative();
+		Initiative initiative = new Initiative(abilities);
 		DefaultPlayerCharacter character = new DefaultPlayerCharacter("Gunthor the Terrible",
 				DefaultRace.HUMAN, DefaultGender.MALE,
 				DefaultAlignment.LAWFUL_GOOD, abilities, hitPoints, armorClass,
