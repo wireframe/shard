@@ -65,6 +65,10 @@ public class DefaultAgeCategory implements AgeCategory {
 		this.abilityModifiers = abilityModifiers;
 	}
 	
+	public String toString() {
+	    return name;
+	}
+	
 	public String getName() {
 		return name;
 	}
