@@ -21,14 +21,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import junit.framework.TestCase;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.tools.generic.log.CommonsLogLogSystem;
 import org.easymock.MockControl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbility;
@@ -37,8 +37,8 @@ import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
 import com.codecrate.shard.armorclass.DexterityArmorClass;
 import com.codecrate.shard.character.Age;
-import com.codecrate.shard.character.DefaultAgeCategoryDao;
 import com.codecrate.shard.character.CharacterProgression;
+import com.codecrate.shard.character.DefaultAgeCategoryDao;
 import com.codecrate.shard.character.DefaultAlignment;
 import com.codecrate.shard.character.DefaultCharacterLevel;
 import com.codecrate.shard.character.DefaultCharacterProgression;
@@ -68,11 +68,9 @@ import com.codecrate.shard.skill.SkillEntryContainer;
 public class PrintCharacterActionTest extends TestCase {
 
 	public void testMerge() throws Exception {
-		VelocityEngine engine = new VelocityEngine();
-		Properties p = new Properties();
-	    p.setProperty("file.resource.loader.path", "/home/rsonnek/Projects/shard/shard-sheets/src/conf/templates/html");
-	    p.setProperty("runtime.log.logsystem.class", CommonsLogLogSystem.class.getName());
-	    engine.init(p);
+        String[] paths = {"/shard-sheets-context.xml"}; 
+        ApplicationContext context = new ClassPathXmlApplicationContext(paths);
+        VelocityEngine engine = (VelocityEngine) context.getBean("velocityEngine");
 		Template template = engine.getTemplate("default.vm");
 
 		MockControl mockDao = MockControl.createControl(AbilityScoreDao.class);
