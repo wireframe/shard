@@ -90,13 +90,5 @@ public interface PlayerCharacter {
 	 * gets the age of the character.
 	 * @return
 	 */
-	int getAge();
-	
-	/**
-	 * gets the maximum age for this character.
-	 * determined at creation time using the character's race to determine 
-	 * the max age.
-	 * @return
-	 */
-	int getMaxAge();
+	Age getAge();
 }
