@@ -45,7 +45,11 @@ public class TypeGroupedModifier implements Modifier, ModifierContainer {
     }
 
     private int calculateNonStackableModifiers() {
-		int value = -100;
+        if (0 == modifiers.size()) {
+            return 0;
+        }
+        
+		int value = Integer.MIN_VALUE;
 		Iterator mods = modifiers.iterator();
 		while (mods.hasNext()) {
 			Modifier modifier = (Modifier) mods.next();

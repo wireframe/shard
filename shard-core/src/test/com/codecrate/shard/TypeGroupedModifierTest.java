@@ -40,4 +40,11 @@ public class TypeGroupedModifierTest extends TestCase {
 		modifier.addModifier(firstModifier);
 		assertEquals(0, modifier.getModifiers().size());
 	}
+	
+	public void testModifierIsZeroForNonStackableModifiers() {
+	    ModifierType modifierType = new DefaultModifierType("test", false);
+		TypeGroupedModifier modifier = new TypeGroupedModifier(modifierType);
+		
+		assertEquals(0, modifier.getModifier());
+	}
 }
