@@ -20,7 +20,7 @@ import java.util.Iterator;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
-import com.codecrate.shard.equipment.ItemContainer;
+import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
@@ -46,7 +46,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     private final CharacterProgression characterProgression;
     private final SavingThrowContainer savingThrows;
     private final String name;
-    private final ItemContainer items;
+    private final ItemEntryContainer items;
     private final SkillEntryContainer skills;
     private final Initiative initiative;
     
@@ -58,7 +58,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     public DefaultPlayerCharacter(String name, Race race, Gender gender, Alignment alignment, 
     		AbilityScoreContainer abilities, HitPoints hitPoints, ArmorClass armorClass, Encumberance encumberance, 
     		Age age, CharacterProgression characterProgression, SavingThrowContainer savingThrows, 
-    		ItemContainer items, int experience, SkillEntryContainer skills, BigDecimal challengeRating, 
+    		ItemEntryContainer items, int experience, SkillEntryContainer skills, BigDecimal challengeRating, 
     		Initiative initiative) {
     	this.name = name;
         this.race = race;
@@ -139,7 +139,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
         return savingThrows;
     }
     
-    public ItemContainer getInventory() {
+    public ItemEntryContainer getInventory() {
         return items;
     }
     

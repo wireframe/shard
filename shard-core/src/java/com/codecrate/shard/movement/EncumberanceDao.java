@@ -16,7 +16,7 @@
 package com.codecrate.shard.movement;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.equipment.ItemContainer;
+import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.race.RacialSize;
 
 /**
@@ -31,5 +31,5 @@ public interface EncumberanceDao {
      * @return
      */
     Encumberance getEncumberance(AbilityScoreContainer abilities,
-            ItemContainer inventory, RacialSize size);
+            ItemEntryContainer inventory, RacialSize size);
 }

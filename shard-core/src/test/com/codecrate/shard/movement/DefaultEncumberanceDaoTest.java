@@ -23,9 +23,10 @@ import org.easymock.MockControl;
 
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
+import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
-import com.codecrate.shard.equipment.ItemContainer;
+import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.race.RacialSize;
 
 public class DefaultEncumberanceDaoTest extends TestCase {
@@ -35,7 +36,7 @@ public class DefaultEncumberanceDaoTest extends TestCase {
      * strength of 10: light=33, medium=66, heavy=100
      */
     public void testEffectiveWeightCalculatedUsingRacialSize() {
-        AbilityScore score = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10);
+        AbilityScore score = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, new AbilityScoreDao());
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
@@ -45,8 +46,8 @@ public class DefaultEncumberanceDaoTest extends TestCase {
         mockAbilities.setReturnValue(score);
         mockAbilities.replay();
         
-        MockControl mockInventory = MockControl.createControl(ItemContainer.class);
-        ItemContainer inventory = (ItemContainer) mockInventory.getMock();
+        MockControl mockInventory = MockControl.createControl(ItemEntryContainer.class);
+        ItemEntryContainer inventory = (ItemEntryContainer) mockInventory.getMock();
         inventory.getTotalWeight();
         mockInventory.setReturnValue(new BigDecimal(66));
         mockInventory.replay();

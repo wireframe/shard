@@ -21,13 +21,13 @@ import org.apache.commons.logging.LogFactory;
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbility;
-import com.codecrate.shard.equipment.ItemContainer;
+import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.race.RacialSize;
 
 public class DefaultEncumberanceDao implements EncumberanceDao {
     private static final Log LOG = LogFactory.getLog(DefaultEncumberanceDao.class);
     
-    public Encumberance getEncumberance(AbilityScoreContainer abilities, ItemContainer inventory, RacialSize size) {
+    public Encumberance getEncumberance(AbilityScoreContainer abilities, ItemEntryContainer inventory, RacialSize size) {
         if (!abilities.hasAbilityScore(DefaultAbility.STRENGTH)) {
             LOG.warn("No Strength ability score found.  Encumberance can't be calculated.");
             return null;

@@ -28,6 +28,7 @@ import junit.framework.TestCase;
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 
+import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
@@ -46,9 +47,9 @@ import com.codecrate.shard.character.HitPoints;
 import com.codecrate.shard.character.Initiative;
 import com.codecrate.shard.character.RacialCategorizedAge;
 import com.codecrate.shard.equipment.Coin;
-import com.codecrate.shard.equipment.ItemContainer;
+import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.equipment.ItemEntry;
-import com.codecrate.shard.equipment.MaxWeightItemContainer;
+import com.codecrate.shard.equipment.DefaultItemEntryContainer;
 import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.movement.DefaultEncumberanceDao;
 import com.codecrate.shard.movement.Encumberance;
@@ -73,8 +74,8 @@ public class PrintCharacterActionTest extends TestCase {
 		Template template = engine.getTemplate("default.vm");
 
 		Map scores = new HashMap();
-		scores.put(DefaultAbility.STRENGTH, new DefaultAbilityScore(DefaultAbility.STRENGTH, 10));
-		scores.put(DefaultAbility.DEXTERITY, new DefaultAbilityScore(DefaultAbility.DEXTERITY, 18));
+		scores.put(DefaultAbility.STRENGTH, new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, new AbilityScoreDao()));
+		scores.put(DefaultAbility.DEXTERITY, new DefaultAbilityScore(DefaultAbility.DEXTERITY, 18, new AbilityScoreDao()));
 		DefaultAbilityScoreContainer abilities = new DefaultAbilityScoreContainer(scores);
 		
 		Collection levels = new ArrayList();
@@ -95,8 +96,7 @@ public class PrintCharacterActionTest extends TestCase {
 		
 		SavingThrowContainer savingThrows = new SavingThrowContainer();
 
-		ItemContainer itemContainer = new MaxWeightItemContainer(9999);
-		itemContainer.add(new ItemEntry(Coin.GOLD_PIECE, 100));
+		ItemEntryContainer itemContainer = new DefaultItemEntryContainer(Arrays.asList(new ItemEntry[] {new ItemEntry(Coin.GOLD_PIECE, 100)}));
 		
 		SkillEntryContainer skills = new CharacterProgressionSkillEntryContainer(progression);
 		

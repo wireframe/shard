@@ -113,7 +113,7 @@ public class DefaultRacialSize implements RacialSize {
 
     
     private final String name;
-    private final Modifier modifier;
+    private final Modifier armorClassModifier;
     private final int baseAttackBonusModifier;
     private final BigDecimal space;
     private final int reach;
@@ -121,11 +121,11 @@ public class DefaultRacialSize implements RacialSize {
     private final BigDecimal encumberanceMultiplier;
 
     public DefaultRacialSize(String name, int baseAttackBonusModifier, 
-    		Modifier modifier, BigDecimal space, int reach,
+    		Modifier armorClassModifier, BigDecimal space, int reach,
 			Collection skillModifiers, BigDecimal encumberanceMultiplier) {
     	this.name = name;
         this.baseAttackBonusModifier = baseAttackBonusModifier;
-        this.modifier = modifier;
+        this.armorClassModifier = armorClassModifier;
         this.space = space;
         this.reach = reach;
 		this.skillModifiers = skillModifiers;
@@ -145,7 +145,7 @@ public class DefaultRacialSize implements RacialSize {
     }
 
     public Modifier getArmorClassModifier() {
-		return modifier;
+		return armorClassModifier;
 	}
 	
 	public BigDecimal getSpace() {

@@ -16,7 +16,6 @@
 package com.codecrate.shard.equipment;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -24,46 +23,21 @@ import java.util.Iterator;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class MaxWeightItemContainer implements ItemContainer {
+public class DefaultItemEntryContainer implements ItemEntryContainer {
 
-	private int maxWeight;
-	private Collection items = new ArrayList();
-	
-	public MaxWeightItemContainer(int maxWeight) {
-		this.maxWeight = maxWeight;
+	private final Collection entries;
+
+    public DefaultItemEntryContainer(Collection entries) {
+		this.entries = entries;
 	}
 
-	public boolean canAdd(Item equipment) {
-		BigDecimal weight = new BigDecimal(0);
-		Iterator it = items.iterator();
-		while (it.hasNext()) {
-			Item item = (Item) it.next();
-			weight = weight.add(item.getWeight());
-		}
-		
-		if (weight.add(equipment.getWeight()).intValue() <= maxWeight) {
-			return true;
-		}
-		return false;
-	}
-
-	public void add(Item equipment) {
-		if (canAdd(equipment)) {
-			items.add(equipment);
-		}
-	}
-
-	public void remove(Item equipment) {
-		items.remove(equipment);
-	}
-	
 	public Collection getItems() {
-		return items;
+		return entries;
 	}
 	
 	public BigDecimal getTotalWeight() {
 	    BigDecimal total = new BigDecimal(0);
-	    Iterator it = items.iterator();
+	    Iterator it = entries.iterator();
 	    while (it.hasNext()) {
 	        Item item = (Item) it.next();
 	        total = total.add(item.getWeight());
@@ -73,7 +47,7 @@ public class MaxWeightItemContainer implements ItemContainer {
 	
 	public Money getTotalCost() {
 	    Money total = new Money(0, DefaultCurrency.GOLD);
-	    Iterator it = items.iterator();
+	    Iterator it = entries.iterator();
 	    while (it.hasNext()) {
 	        Item item = (Item) it.next();
 	        total = total.add(item.getCost());

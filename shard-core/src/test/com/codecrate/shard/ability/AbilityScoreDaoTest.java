@@ -13,19 +13,18 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character.prereq;
+package com.codecrate.shard.ability;
 
-import com.codecrate.shard.character.PlayerCharacter;
-import com.codecrate.shard.skill.Feat;
+import junit.framework.TestCase;
 
-public class FeatPrerequisite implements CharacterPrerequisite {
-    private final Feat feat;
-
-    public FeatPrerequisite(Feat feat) {
-        this.feat = feat;
+/**
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
+public class AbilityScoreDaoTest extends TestCase {
+    
+    public void testZeroReturnedForUnknownPointCost() {
+        AbilityScoreDao dao = new AbilityScoreDao();
+        int pointCost = dao.getPointCost(1000);
+        assertEquals(0, pointCost);
     }
-
-    public boolean hasMetPrerequisite(PlayerCharacter character) {
-	    return false;
-	}
 }

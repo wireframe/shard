@@ -16,26 +16,29 @@
 package com.codecrate.shard.equipment;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 
-import junit.framework.TestCase;
+/**
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
+public interface ItemEntryContainer {
 
-import org.easymock.MockControl;
+	/**
+	 * gets the items the container holds.
+	 * @return
+	 */
+	Collection getItems();
 
-public class MaxWeightItemContainerTest extends TestCase {
-
-	public void testCanNotAddItemIfOverWeight() {
-		MockControl mockItem = MockControl.createControl(Item.class);
-		Item item = (Item) mockItem.getMock();
-		item.getWeight();
-		mockItem.setReturnValue(new BigDecimal(2));
-		item.getWeight();
-		mockItem.setReturnValue(new BigDecimal(2));
-		mockItem.replay();
-		
-		MaxWeightItemContainer container = new MaxWeightItemContainer(1);
-		assertFalse(container.canAdd(item));
-		
-		container.add(item);
-		assertEquals(0, container.getItems().size());
-	}
+    /**
+     * gets the total wieght for all items in the container.
+     * @return
+     */
+    BigDecimal getTotalWeight();
+    
+    /**
+     * gets total cost for all items in the container.
+     * @return
+     */
+    Money getTotalCost();
 }

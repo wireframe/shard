@@ -22,6 +22,7 @@ import org.easymock.MockControl;
 import com.codecrate.shard.DefaultModifierType;
 import com.codecrate.shard.ModifierType;
 import com.codecrate.shard.ability.AbilityScoreContainer;
+import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
 import com.codecrate.shard.ability.DefaultAbilityScoreModifier;
@@ -29,7 +30,7 @@ import com.codecrate.shard.ability.DefaultAbilityScoreModifier;
 public class InitiativeTest extends TestCase {
 
     public void testListenerRegisteredOnDexterity() {
-        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 1);
+        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 1, new AbilityScoreDao());
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
@@ -44,7 +45,7 @@ public class InitiativeTest extends TestCase {
     }
     
     public void testDexModifierAttachedToInitiative() {
-        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 18);
+        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 18, new AbilityScoreDao());
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
@@ -60,7 +61,7 @@ public class InitiativeTest extends TestCase {
     
     public void testInitiativeUpdatedWhenAbilityChanged() {
         ModifierType type = new DefaultModifierType("type", true);
-        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10);
+        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10, new AbilityScoreDao());
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();

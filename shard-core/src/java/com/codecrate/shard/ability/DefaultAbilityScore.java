@@ -17,9 +17,6 @@ package com.codecrate.shard.ability;
 
 import java.util.Collection;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.codecrate.shard.ModifiableObject;
 import com.codecrate.shard.Modifier;
 
@@ -29,14 +26,14 @@ import com.codecrate.shard.Modifier;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultAbilityScore extends ModifiableObject implements AbilityScore {
-	private static final Log LOGGER = LogFactory.getLog(DefaultAbilityScore.class);
-	
-	private Ability ability;
+	private final Ability ability;
     private CompositeAbilityScoreListener listeners = new CompositeAbilityScoreListener();
+    private AbilityScoreDao dao;
     
-    public DefaultAbilityScore(Ability ability, int baseScore) {
+    public DefaultAbilityScore(Ability ability, int baseScore, AbilityScoreDao dao) {
         super(baseScore);
     	this.ability = ability;
+    	this.dao = dao;
     }
     
     public String toString() {
@@ -52,84 +49,7 @@ public class DefaultAbilityScore extends ModifiableObject implements AbilityScor
     }
     
     public int getPointCost() {
-    	int points = 0;
-    	int score = getModifiedValue();
-    	
-    	switch (score) {
-    	case 0:
-    		points = -8;
-    		break;
-    	case 1:
-    		points = -7;
-    		break;
-    	case 2:
-    		points = -6;
-    		break;
-    	case 3:
-    		points = -5;
-    		break;
-    	case 4:
-    		points = -4;
-    		break;
-    	case 5:
-    		points = -3;
-    		break;
-    	case 6:
-    		points = -2;
-    		break;
-    	case 7:
-    		points = -1;
-    		break;
-    	case 8:
-    		points = 0;
-    		break;
-    	case 9:
-    		points = 1;
-    		break;
-    	case 10:
-    		points = 2;
-    		break;
-    	case 11:
-    		points = 3;
-    		break;
-    	case 12:
-    		points = 4;
-    		break;
-    	case 13:
-    		points = 5;
-    		break;
-    	case 14:
-    		points = 6;
-    		break;
-    	case 15:
-    		points = 8;
-    		break;
-    	case 16:
-    		points = 10;
-    		break;
-    	case 17:
-    		points = 13;
-    		break;
-    	case 18:
-    		points = 16;
-    		break;
-    	case 19:
-    		points = 19;
-    		break;
-    	case 20:
-    		points = 22;
-    		break;
-    	case 21:
-    		points = 25;
-    		break;
-    	case 22:
-    		points = 28;
-    		break;
-    	default:
-    		LOGGER.info("Unknown point cost for score: " + score);
-    	}
-    	
-    	return points;
+    	return dao.getPointCost(getModifiedValue());
     }
 
 	public void addListener(AbilityScoreListener listener) {

@@ -24,7 +24,7 @@ import com.codecrate.shard.ModifierType;
 
 public class DefaultAbilityScoreTest extends TestCase {
 	public void testBonusCanGoNegative() {
-		DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 1);
+		DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 1, new AbilityScoreDao());
 		assertEquals(-4, ability.getBonus());
 	}
 	
@@ -37,7 +37,7 @@ public class DefaultAbilityScoreTest extends TestCase {
 	    
 	    ModifierType type = new DefaultModifierType("type", false);
 	    AbilityScoreModifier modifier = new DefaultAbilityScoreModifier(type, DefaultAbility.CHARISMA, 2);
-	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10);
+	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, new AbilityScoreDao());
 	    ability.addListener(listener);
 	    ability.addModifier(modifier);
 	    
@@ -53,7 +53,7 @@ public class DefaultAbilityScoreTest extends TestCase {
 	    
 	    ModifierType type = new DefaultModifierType("type", false);
 	    AbilityScoreModifier modifier = new DefaultAbilityScoreModifier(type, DefaultAbility.CHARISMA, 2);
-	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10);
+	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, new AbilityScoreDao());
 	    ability.addListener(listener);
 	    ability.removeModifier(modifier);
 	    

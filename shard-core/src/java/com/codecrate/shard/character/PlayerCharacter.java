@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
-import com.codecrate.shard.equipment.ItemContainer;
+import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.save.SavingThrowContainer;
@@ -141,7 +141,7 @@ public interface PlayerCharacter {
      * gets the items on the character.
      * @return
      */
-    ItemContainer getInventory();
+    ItemEntryContainer getInventory();
     
     /**
      * gets the current amount of experience the character has.
