@@ -100,17 +100,15 @@
   </dependencies>
   
   <build>
-    <resources>
-      <resource>
-        <directory>${basedir}/src/hibernate</directory>
-        <includes>
-          <include>**/*.xml</include>
-          <include>**/*.properties</include>
-        </includes>
-      </resource>
-    </resources>
     <unitTest>
       <resources>
+        <resource>
+          <directory>${basedir}/src/hibernate</directory>
+          <includes>
+            <include>**/*.xml</include>
+            <include>**/*.properties</include>
+          </includes>
+        </resource>
         <resource>
           <directory>${basedir}/src/data</directory>
           <includes>
