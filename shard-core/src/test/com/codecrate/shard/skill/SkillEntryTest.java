@@ -26,6 +26,6 @@ public class SkillEntryTest extends TestCase {
         SkillEntry entry = new SkillEntry(DefaultSkill.SWIM);
         entry.addModifier(new DefaultSkillEntryModifier(DefaultSkill.TYPE_RANK, 1, DefaultSkill.SWIM));
         entry.addModifier(new DefaultSkillEntryModifier(DefaultSkill.TYPE_RANK, 1, DefaultSkill.SWIM));
-        assertEquals(2, entry.getValue());
+        assertEquals(2, entry.getModifiedValue());
     }
 }

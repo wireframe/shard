@@ -23,6 +23,7 @@ public class SkillEntry extends ModifiableObject implements Modifiable {
 	private final Skill skill;
 
 	public SkillEntry(Skill skill) {
+	    super();
 		this.skill = skill;
 	}
 	

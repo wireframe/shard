@@ -48,7 +48,7 @@ public class CharacterProgressionSkillEntryContainerTest extends TestCase {
         
         CharacterProgressionSkillEntryContainer container = new CharacterProgressionSkillEntryContainer(progression);
         assertTrue(container.hasSkill(DefaultSkill.SWIM));
-        assertEquals(1, container.getSkillEntry(DefaultSkill.SWIM).getValue());
+        assertEquals(1, container.getSkillEntry(DefaultSkill.SWIM).getModifiedValue());
     }
     
     public void testSkillEntryModifiedBySkillRanks() {
@@ -78,7 +78,7 @@ public class CharacterProgressionSkillEntryContainerTest extends TestCase {
         
         CharacterProgressionSkillEntryContainer container = new CharacterProgressionSkillEntryContainer(progression);
         assertTrue(container.hasSkill(DefaultSkill.SWIM));
-        assertEquals(2, container.getSkillEntry(DefaultSkill.SWIM).getValue());
+        assertEquals(2, container.getSkillEntry(DefaultSkill.SWIM).getModifiedValue());
     }
     
     public void testSkillEntryModifiedByClassSkills() {
@@ -100,7 +100,7 @@ public class CharacterProgressionSkillEntryContainerTest extends TestCase {
         
         CharacterProgressionSkillEntryContainer container = new CharacterProgressionSkillEntryContainer(progression);
         assertTrue(container.hasSkill(DefaultSkill.LITERACY));
-        assertEquals(1, container.getSkillEntry(DefaultSkill.LITERACY).getValue());
+        assertEquals(1, container.getSkillEntry(DefaultSkill.LITERACY).getModifiedValue());
     }
     
     public void testSkillEntryModifiedByClassSkillsOnlyOnce() {
@@ -130,6 +130,6 @@ public class CharacterProgressionSkillEntryContainerTest extends TestCase {
         
         CharacterProgressionSkillEntryContainer container = new CharacterProgressionSkillEntryContainer(progression);
         assertTrue(container.hasSkill(DefaultSkill.LITERACY));
-        assertEquals(1, container.getSkillEntry(DefaultSkill.LITERACY).getValue());
+        assertEquals(1, container.getSkillEntry(DefaultSkill.LITERACY).getModifiedValue());
     }
 }
