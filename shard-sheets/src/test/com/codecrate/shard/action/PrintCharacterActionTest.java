@@ -127,7 +127,7 @@ public class PrintCharacterActionTest extends TestCase {
 				DefaultRace.HUMAN, DefaultGender.MALE,
 				DefaultAlignment.LAWFUL_GOOD, abilities, hitPoints, armorClass,
 				encumberance, age, progression, savingThrows, itemContainer, 0, skills, new BigDecimal(20),
-				initiative, feats);
+				initiative, feats, null);
 		
 		PrintCharacterAction output = new PrintCharacterAction(character, template);
 		System.out.println(output.render());

@@ -155,4 +155,11 @@ public interface PlayerCharacter {
      * @return
      */
     int getExperience();
+
+    /**
+     * gets the deity for the character.
+     * may be null of a character does not have a deity.
+     * @return
+     */
+    Deity getDeity();
 }

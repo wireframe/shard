@@ -51,6 +51,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     private final SkillEntryContainer skills;
     private final Initiative initiative;
     private final FeatContainer feats;
+    private final Deity deity;
     
     /**
      * default constructor.
@@ -61,7 +62,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     		AbilityScoreContainer abilities, HitPoints hitPoints, ArmorClass armorClass, Encumberance encumberance, 
     		Age age, CharacterProgression characterProgression, SavingThrowEntryContainer savingThrows, 
     		ItemEntryContainer items, int experience, SkillEntryContainer skills, BigDecimal challengeRating, 
-    		Initiative initiative, FeatContainer feats) {
+    		Initiative initiative, FeatContainer feats, Deity deity) {
     	this.name = name;
         this.race = race;
     	this.gender = gender;
@@ -79,6 +80,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
         this.challengeRating = challengeRating;
         this.initiative = initiative;
         this.feats = feats;
+        this.deity = deity;
     }
     
     public BigDecimal getChallengeRating() {
@@ -159,5 +161,8 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     }
     public FeatContainer getFeats() {
         return feats;
+    }
+    public Deity getDeity() {
+        return deity;
     }
 }

@@ -23,6 +23,7 @@ import com.codecrate.shard.character.Alignment;
 import com.codecrate.shard.character.DefaultAlignment;
 import com.codecrate.shard.character.prereq.AlignmentPrerequisite;
 import com.codecrate.shard.character.prereq.CharacterPrerequisite;
+import com.codecrate.shard.character.prereq.DeityAlignmentPrerequisite;
 import com.codecrate.shard.character.prereq.NullPrerequisite;
 import com.codecrate.shard.dice.DefaultDice;
 import com.codecrate.shard.dice.Dice;
@@ -69,7 +70,7 @@ public class DefaultCharacterClass implements CharacterClass {
 
     public static final CharacterClass CLERIC = new DefaultCharacterClass(
             "Cleric", DefaultDice.d8, new SkillDao(), 2, 
-            new DefaultClassProgressionDao(), new NullPrerequisite(), 
+            new DefaultClassProgressionDao(), new DeityAlignmentPrerequisite(), 
             Arrays.asList(new Language[]{Language.ABYSSAL, Language.CELESTIAL, Language.INFERNAL}),
             Arrays.asList(new Feat[]{Feat.ARMOR_PROFICIENCY_LIGHT, Feat.ARMOR_PROFICIENCY_MEDIUM,
                     Feat.ARMOR_PROFICIENCY_HEAVY,
