@@ -15,13 +15,11 @@
  */
 package com.codecrate.shard;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 
 import net.sf.hibernate.Session;
 import net.sf.hibernate.SessionFactory;
-import net.sf.hibernate.cfg.Configuration;
 
 import org.dbunit.DatabaseTestCase;
 import org.dbunit.database.DatabaseConfig;
@@ -29,6 +27,8 @@ import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.codecrate.dbunit.HsqldbDataTypeFactory;
 
@@ -39,11 +39,13 @@ public abstract class ShardHibernateDbUnitTestCaseSupport extends DatabaseTestCa
     private SessionFactory sessionFactory;
     private Session session;
     private Connection connection;
+    private ClassPathXmlApplicationContext context;
     
     public ShardHibernateDbUnitTestCaseSupport(String name) throws Exception {
         super(name);
-        File file = new File("src/hibernate/hibernate.cfg.xml");
-        sessionFactory = new Configuration().configure(file).buildSessionFactory();
+        String[] paths = {"/shard-hibernate-context.xml"}; 
+        context = new ClassPathXmlApplicationContext(paths);
+        sessionFactory = (SessionFactory) context.getBean("sessionFactory");
         session = sessionFactory.openSession();
         connection = session.connection();
         connection.setAutoCommit(true);
@@ -53,6 +55,10 @@ public abstract class ShardHibernateDbUnitTestCaseSupport extends DatabaseTestCa
         DatabaseConnection conn = new DatabaseConnection(connection);
         conn.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new HsqldbDataTypeFactory());
         return conn;
+    }
+    
+    protected ApplicationContext getContext() {
+        return context;
     }
 
     protected IDataSet getDataSet() throws Exception {

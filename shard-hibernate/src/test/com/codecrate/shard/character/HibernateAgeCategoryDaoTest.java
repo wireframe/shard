@@ -15,8 +15,6 @@
  */
 package com.codecrate.shard.character;
 
-import net.sf.hibernate.Session;
-
 import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
 import com.codecrate.shard.race.HibernateRace;
 
@@ -34,8 +32,7 @@ public class HibernateAgeCategoryDaoTest extends ShardHibernateDbUnitTestCaseSup
     }
     
     public void testLookupOfAgeCategory() throws Exception {
-        Session session = getSessionFactory().openSession();
-        HibernateAgeCategoryDao dao = new HibernateAgeCategoryDao(session);
+        AgeCategoryDao dao = (AgeCategoryDao) getContext().getBean("ageCategoryDao");
         AgeCategory ageCategory = dao.getAgeCategory(15, HibernateRace.HUMAN);
         assertEquals(CummulativeAgeCategory.ADULT, ageCategory);
     }

@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.ability;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import net.sf.hibernate.HibernateException;
@@ -23,30 +24,29 @@ import net.sf.hibernate.Session;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.orm.hibernate.HibernateCallback;
+import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateAbilityScoreDao implements AbilityScoreDao {
+public class HibernateAbilityScoreDao extends HibernateDaoSupport implements AbilityScoreDao {
     private static final Log LOG = LogFactory.getLog(HibernateAbilityScoreDao.class);
     
-    private final Session session;
-    
-    public HibernateAbilityScoreDao(Session session) {
-        this.session = session;
-    }
-    
-    public int getPointCost(int score) {
-        try {
-            Query query = session.createQuery("from PointCostValue value where value.id = :abilityScore");
-            query.setInteger("abilityScore", score);
-            List values = query.list();
-            if (1 == values.size()) {
-                PointCostValue value = (PointCostValue) values.iterator().next();
-                return value.getPointCost();
+    public int getPointCost(final int score) {
+        List values= (List) getHibernateTemplate().execute(new HibernateCallback() {
+
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                Query query = session.createQuery("from PointCostValue value where value.id = :abilityScore");
+                query.setInteger("abilityScore", score);
+                return query.list();
             }
-        } catch (HibernateException e) {
-            LOG.error("Unable to lookup point cost value.", e);
+            
+        });
+
+        if (1 == values.size()) {
+            PointCostValue value = (PointCostValue) values.iterator().next();
+            return value.getPointCost();
         }
         LOG.info("Unable to find point cost for score " + score);
         return 0;

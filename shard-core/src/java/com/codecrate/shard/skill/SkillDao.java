@@ -17,17 +17,24 @@ package com.codecrate.shard.skill;
 
 import java.util.Collection;
 
-import com.codecrate.shard.kit.CharacterClass;
-
 /**
+ * Data access object to retrieve skills.
+ * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface SkillDao {
-    public abstract Collection getClassSkills(CharacterClass kit);
-
-    public abstract Collection getSynergeticSkills(Skill skill);
-
+    
+    /**
+     * gets untrained skills.
+     * convenience method.  can use get all skills and iterate through and 
+     * manually check the isUsableUntrained flag.
+     * @return
+     */
     public abstract Collection getUntrainedSkills();
 
+    /**
+     * gets all skills
+     * @return
+     */
     public abstract Collection getSkills();
 }

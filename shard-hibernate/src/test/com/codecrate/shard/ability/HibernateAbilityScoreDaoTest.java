@@ -15,8 +15,6 @@
  */
 package com.codecrate.shard.ability;
 
-import net.sf.hibernate.Session;
-
 import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
 
 /**
@@ -32,16 +30,14 @@ public class HibernateAbilityScoreDaoTest extends ShardHibernateDbUnitTestCaseSu
     }
     
     public void testLookupOfValidScore() throws Exception {
-        Session session = getSessionFactory().openSession();
-        HibernateAbilityScoreDao dao = new HibernateAbilityScoreDao(session);
-        int pointCost = dao.getPointCost(10);
+        AbilityScoreDao abilityScoreDao = (AbilityScoreDao) getContext().getBean("abilityScoreDao");
+        int pointCost = abilityScoreDao.getPointCost(10);
         assertEquals(2, pointCost);
     }
     
     public void testZeroReturnedWhenScoreNotFound() throws Exception {
-        Session session = getSessionFactory().openSession();
-        HibernateAbilityScoreDao dao = new HibernateAbilityScoreDao(session);
-        int pointCost = dao.getPointCost(100);
+        AbilityScoreDao abilityScoreDao = (AbilityScoreDao) getContext().getBean("abilityScoreDao");
+        int pointCost = abilityScoreDao.getPointCost(100);
         assertEquals(0, pointCost);
     }
 }

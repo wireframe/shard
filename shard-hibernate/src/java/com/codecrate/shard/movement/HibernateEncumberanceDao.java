@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.movement;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import net.sf.hibernate.HibernateException;
@@ -23,6 +24,8 @@ import net.sf.hibernate.Session;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.orm.hibernate.HibernateCallback;
+import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
@@ -33,14 +36,8 @@ import com.codecrate.shard.race.RacialSize;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateEncumberanceDao implements EncumberanceDao {
+public class HibernateEncumberanceDao extends HibernateDaoSupport implements EncumberanceDao {
     private static final Log LOG = LogFactory.getLog(HibernateEncumberanceDao.class);
-    
-    private final Session session;
-    
-    public HibernateEncumberanceDao(Session session) {
-        this.session = session;
-    }
     
     public Encumberance getEncumberance(AbilityScoreContainer abilities, ItemEntryContainer inventory, RacialSize size) {
         if (!abilities.hasAbilityScore(DefaultAbility.STRENGTH)) {
@@ -48,27 +45,30 @@ public class HibernateEncumberanceDao implements EncumberanceDao {
             return null;
         }
         AbilityScore strength = abilities.getAbilityScore(DefaultAbility.STRENGTH);
-        int score = strength.getModifiedValue();
+        final int score = strength.getModifiedValue();
         int effectiveWeight = inventory.getTotalWeight().divide(size.getEncumberanceMultiplier(), 0).intValue();
-        try {
-            Query query = session.createQuery("from EncumberanceEntry value where value.id = :abilityScore");
-            query.setInteger("abilityScore", score);
-            List values = query.list();
-            if (1 == values.size()) {
-                EncumberanceEntry value = (EncumberanceEntry) values.iterator().next();
-                
-                if (effectiveWeight <= value.getWeightLight()) {
-                    return DefaultEncumberance.LIGHT;
-                }
-                if (effectiveWeight <= value.getWeightMedium()) {
-                    return DefaultEncumberance.MEDIUM;
-                }
-                if (effectiveWeight <= value.getWeightHeavy()) {
-                    return DefaultEncumberance.HEAVY;
-                }
+
+        List values = (List) getHibernateTemplate().execute(new HibernateCallback() {
+
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                Query query = session.createQuery("from EncumberanceEntry value where value.id = :abilityScore");
+                query.setInteger("abilityScore", score);
+                return query.list();
             }
-        } catch (HibernateException e) {
-            LOG.error("Unable to lookup encumberance entry.", e);
+            
+        });
+        if (1 == values.size()) {
+            EncumberanceEntry value = (EncumberanceEntry) values.iterator().next();
+            
+            if (effectiveWeight <= value.getWeightLight()) {
+                return DefaultEncumberance.LIGHT;
+            }
+            if (effectiveWeight <= value.getWeightMedium()) {
+                return DefaultEncumberance.MEDIUM;
+            }
+            if (effectiveWeight <= value.getWeightHeavy()) {
+                return DefaultEncumberance.HEAVY;
+            }
         }
         LOG.info("Unable to find encumberance entry for abilities " + abilities);
         return null;

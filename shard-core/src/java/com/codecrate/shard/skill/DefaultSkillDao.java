@@ -145,7 +145,7 @@ public class DefaultSkillDao implements SkillDao {
     private Skill getLanguageSkill(DefaultLanguage language) {
         Skill languageSkill = new DefaultSkill("Speak Language ("
                 + language.getName() + ")", false,
-                DefaultAbility.INTELLIGENCE, false, this);
+                DefaultAbility.INTELLIGENCE, false);
         return languageSkill;
     }
 }

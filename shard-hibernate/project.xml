@@ -97,12 +97,74 @@
       <artifactId>geronimo-spec-jta</artifactId>
       <version>1.0-M1</version>
     </dependency>
+    
+    <!-- commons-dbcp dependencies -->
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>1.2.1</version>
+      <url>http://jakarta.apache.org/commons/dbcp/</url>
+    </dependency>
+
+    <!-- commons-pool dependencies -->
+    <dependency>
+      <groupId>commons-pool</groupId>
+      <artifactId>commons-pool</artifactId>
+      <version>1.2</version>
+      <url>http://jakarta.apache.org/commons/pool/</url>
+    </dependency>
+    
+    <!-- springframework dependencies -->
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>1.1.5</version>
+      <url>http://springframework.org</url>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>1.1.5</version>
+      <url>http://springframework.org</url>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>1.1.5</version>
+      <url>http://springframework.org</url>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>1.1.5</version>
+      <url>http://springframework.org</url>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-dao</artifactId>
+      <version>1.1.5</version>
+      <url>http://springframework.org</url>
+    </dependency>
+    <dependency>
+      <groupId>aopalliance</groupId>
+      <artifactId>aopalliance</artifactId>
+      <version>1.0</version>
+    </dependency>
+    
+    
   </dependencies>
   
   <build>
     <resources>
       <resource>
         <directory>${basedir}/src/hibernate</directory>
+        <includes>
+          <include>**/*.xml</include>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${basedir}/src/spring</directory>
         <includes>
           <include>**/*.xml</include>
           <include>**/*.properties</include>

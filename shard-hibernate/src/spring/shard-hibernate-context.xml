@@ -53,7 +53,9 @@
     example from http://blog.exis.com/colin/archives/2004/07/31/concise-transaction-definitions-spring-11/
     -->	
 	<bean id="transactionTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-	  <property name="transactionManager"><ref local="transactionManager"/></ref></property>
+	  <property name="transactionManager">
+	    <ref local="transactionManager"/>
+	  </property>
 	  <property name="transactionAttributes">
 	    <props>
 	      <prop key="*">PROPAGATION_REQUIRED</prop>
@@ -61,9 +63,70 @@
 	  </property>
 	</bean>
 
+    <!-- Dao declarations -->
 	<bean id="skillDao" parent="transactionTemplate">
 	  <property name="target">
 	    <bean class="com.codecrate.shard.skill.HibernateSkillDao">
+  	      <property name="sessionFactory">
+	        <ref bean="sessionFactory"/>
+	      </property>
+	    </bean>
+	  </property>
+	</bean>
+
+	<bean id="abilityScoreDao" parent="transactionTemplate">
+	  <property name="target">
+	    <bean class="com.codecrate.shard.ability.HibernateAbilityScoreDao">
+  	      <property name="sessionFactory">
+	        <ref bean="sessionFactory"/>
+	      </property>
+	    </bean>
+	  </property>
+	</bean>
+
+	<bean id="ageCategoryDao" parent="transactionTemplate">
+	  <property name="target">
+	    <bean class="com.codecrate.shard.character.HibernateAgeCategoryDao">
+  	      <property name="sessionFactory">
+	        <ref bean="sessionFactory"/>
+	      </property>
+	    </bean>
+	  </property>
+	</bean>
+
+	<bean id="characterClassDao" parent="transactionTemplate">
+	  <property name="target">
+	    <bean class="com.codecrate.shard.kit.HibernateCharacterClassDao">
+  	      <property name="sessionFactory">
+	        <ref bean="sessionFactory"/>
+	      </property>
+	    </bean>
+	  </property>
+	</bean>
+
+	<bean id="encumberanceDao" parent="transactionTemplate">
+	  <property name="target">
+	    <bean class="com.codecrate.shard.movement.HibernateEncumberanceDao">
+  	      <property name="sessionFactory">
+	        <ref bean="sessionFactory"/>
+	      </property>
+	    </bean>
+	  </property>
+	</bean>
+
+	<bean id="languageDao" parent="transactionTemplate">
+	  <property name="target">
+	    <bean class="com.codecrate.shard.race.HibernateLanguageDao">
+  	      <property name="sessionFactory">
+	        <ref bean="sessionFactory"/>
+	      </property>
+	    </bean>
+	  </property>
+	</bean>
+
+	<bean id="raceDao" parent="transactionTemplate">
+	  <property name="target">
+	    <bean class="com.codecrate.shard.race.HibernateRaceDao">
   	      <property name="sessionFactory">
 	        <ref bean="sessionFactory"/>
 	      </property>

@@ -17,8 +17,6 @@ package com.codecrate.shard.race;
 
 import java.util.Collection;
 
-import net.sf.hibernate.Session;
-
 import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
 
 /**
@@ -34,8 +32,7 @@ public class HibernateRaceDaoTest extends ShardHibernateDbUnitTestCaseSupport {
     }
 
     public void testLoadsRaces() throws Exception {
-        Session session = getSessionFactory().openSession();
-        HibernateRaceDao dao = new HibernateRaceDao(session);
+        RaceDao dao = (RaceDao) getContext().getBean("raceDao");
         Collection races = dao.getRaces();
         assertFalse(races.isEmpty());
     }

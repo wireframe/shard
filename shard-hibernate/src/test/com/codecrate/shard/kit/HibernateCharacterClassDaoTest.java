@@ -17,8 +17,6 @@ package com.codecrate.shard.kit;
 
 import java.util.Collection;
 
-import net.sf.hibernate.Session;
-
 import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
 
 /**
@@ -34,8 +32,7 @@ public class HibernateCharacterClassDaoTest extends ShardHibernateDbUnitTestCase
     }
 
     public void testLoadsClasses() throws Exception {
-        Session session = getSessionFactory().openSession();
-        HibernateCharacterClassDao dao = new HibernateCharacterClassDao(session);
+        CharacterClassDao dao = (CharacterClassDao) getContext().getBean("characterClassDao");
         Collection classes = dao.getClasses();
         assertFalse(classes.isEmpty());
     }

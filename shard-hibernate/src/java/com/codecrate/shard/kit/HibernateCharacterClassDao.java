@@ -15,34 +15,29 @@
  */
 package com.codecrate.shard.kit;
 
+import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.springframework.orm.hibernate.HibernateCallback;
+import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateCharacterClassDao implements CharacterClassDao {
-    private static final Log LOG = LogFactory.getLog(HibernateCharacterClassDao.class);
-    
-    private final Session session;
-    
-    public HibernateCharacterClassDao(Session session) {
-        this.session = session;
-    }
-    
+public class HibernateCharacterClassDao extends HibernateDaoSupport implements CharacterClassDao {
     public Collection getClasses() {
-        try {
-            Query query = session.createQuery("from HibernateCharacterClass");
-            return query.list();
-        } catch (HibernateException e) {
-            LOG.error("Unable to lookup races.", e);
-        }
-        return null;
+        return (List) getHibernateTemplate().execute(new HibernateCallback(){
+
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                Query query = session.createQuery("from HibernateCharacterClass");
+                return query.list();
+            }
+            
+        });
     }
 }

@@ -32,8 +32,6 @@ import com.codecrate.shard.modifier.KeyedModifier;
 import com.codecrate.shard.race.DefaultLanguage;
 import com.codecrate.shard.skill.DefaultSkill;
 import com.codecrate.shard.skill.Feat;
-import com.codecrate.shard.skill.DefaultSkillDao;
-import com.codecrate.shard.skill.SkillDao;
 
 /**
  * 
@@ -41,7 +39,7 @@ import com.codecrate.shard.skill.SkillDao;
  */
 public class DefaultCharacterClass implements CharacterClass {
     public static final CharacterClass BARBARIAN = new DefaultCharacterClass(
-            "Barbarian", DefaultDice.d12, new DefaultSkillDao(), 4, 
+            "Barbarian", DefaultDice.d12,  4, 
             new DefaultClassProgressionDao(), new AlignmentPrerequisite(
                     new Alignment[] {
                             DefaultAlignment.NEUTRAL_GOOD, 
@@ -54,7 +52,7 @@ public class DefaultCharacterClass implements CharacterClass {
     		new ArrayList(), new ArrayList(), new ArrayList());
     
     public static final CharacterClass BARD = new DefaultCharacterClass(
-            "Bard", DefaultDice.d6, new DefaultSkillDao(), 6, 
+            "Bard", DefaultDice.d6,  6, 
             new DefaultClassProgressionDao(), new AlignmentPrerequisite(
                     new Alignment[] {
                             DefaultAlignment.NEUTRAL_GOOD, 
@@ -70,7 +68,7 @@ public class DefaultCharacterClass implements CharacterClass {
                             DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
 
     public static final CharacterClass CLERIC = new DefaultCharacterClass(
-            "Cleric", DefaultDice.d8, new DefaultSkillDao(), 2, 
+            "Cleric", DefaultDice.d8,  2, 
             new DefaultClassProgressionDao(), new DeityAlignmentPrerequisite(), 
             Arrays.asList(new DefaultLanguage[]{DefaultLanguage.ABYSSAL, DefaultLanguage.CELESTIAL, DefaultLanguage.INFERNAL}),
             Arrays.asList(new Feat[]{Feat.ARMOR_PROFICIENCY_LIGHT, Feat.ARMOR_PROFICIENCY_MEDIUM,
@@ -80,7 +78,7 @@ public class DefaultCharacterClass implements CharacterClass {
                                     DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
     
     public static final CharacterClass DRUID = new DefaultCharacterClass(
-            "Druid", DefaultDice.d8, new DefaultSkillDao(), 4, 
+            "Druid", DefaultDice.d8,  4, 
             new DefaultClassProgressionDao(), new AlignmentPrerequisite(
                     new Alignment[] {
                             DefaultAlignment.LAWFUL_NEUTRAL,
@@ -95,14 +93,14 @@ public class DefaultCharacterClass implements CharacterClass {
                                     DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
     
     public static final CharacterClass FIGHTER = new DefaultCharacterClass(
-            "Fighter", DefaultDice.d10, new DefaultSkillDao(), 2, 
+            "Fighter", DefaultDice.d10,  2, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), new ArrayList(), 
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
     
     public static final CharacterClass MONK = new DefaultCharacterClass(
-            "Monk", DefaultDice.d8, new DefaultSkillDao(), 4, 
+            "Monk", DefaultDice.d8,  4, 
             new DefaultClassProgressionDao(), new AlignmentPrerequisite(
                     new Alignment[] {
                             DefaultAlignment.LAWFUL_GOOD, 
@@ -114,7 +112,7 @@ public class DefaultCharacterClass implements CharacterClass {
                     DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
 
     public static final CharacterClass PALADIN = new DefaultCharacterClass(
-            "Paladin", DefaultDice.d10, new DefaultSkillDao(), 2, 
+            "Paladin", DefaultDice.d10,  2, 
             new DefaultClassProgressionDao(), new AlignmentPrerequisite(
                     new Alignment[] {
                             DefaultAlignment.LAWFUL_GOOD 
@@ -124,28 +122,28 @@ public class DefaultCharacterClass implements CharacterClass {
                     DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
     
     public static final CharacterClass RANGER = new DefaultCharacterClass(
-            "Ranger", DefaultDice.d8, new DefaultSkillDao(), 6, 
+            "Ranger", DefaultDice.d8,  6, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), new ArrayList(), 
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
     
     public static final CharacterClass ROUGE = new DefaultCharacterClass(
-            "Rouge", DefaultDice.d6, new DefaultSkillDao(), 8, 
+            "Rouge", DefaultDice.d6,  8, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), new ArrayList(), 
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
     
     public static final CharacterClass SORCERER = new DefaultCharacterClass(
-            "Sorcerer", DefaultDice.d4, new DefaultSkillDao(), 2, 
+            "Sorcerer", DefaultDice.d4,  2, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), new ArrayList(), 
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
     
     public static final CharacterClass WIZARD = new DefaultCharacterClass(
-            "Wizard", DefaultDice.d4, new DefaultSkillDao(), 2, 
+            "Wizard", DefaultDice.d4,  2, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), 
             Arrays
                     .asList(new DefaultLanguage[] { DefaultLanguage.DRACONIC }),
@@ -154,14 +152,14 @@ public class DefaultCharacterClass implements CharacterClass {
                     DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
 
     public static final CharacterClass WARRIOR = new DefaultCharacterClass(
-            "Warrior", DefaultDice.d8, new DefaultSkillDao(), 2, 
+            "Warrior", DefaultDice.d8,  2, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), 
             new ArrayList(), 
             Arrays.asList(new Feat[]{Feat.ARMOR_PROFICIENCY_LIGHT, Feat.ARMOR_PROFICIENCY_MEDIUM,
                     Feat.ARMOR_PROFICIENCY_HEAVY, Feat.SHIELD_PROFICIENCY}), new ArrayList());
 
     
-    private Collection classSkills;
+    private Collection classSkills = new ArrayList();
     private Collection bonusLanguages;
     private Collection feats;
     private Dice hitDicePerLevel;
@@ -171,15 +169,12 @@ public class DefaultCharacterClass implements CharacterClass {
     private CharacterPrerequisite prereq;
     private Collection skillModifiers;
 
-	private SkillDao skillDao;
-    
     public DefaultCharacterClass(String name, Dice hitDicePerLevel,
-            SkillDao skillDao, int baseSkillPointsPerLevel, 
+            int baseSkillPointsPerLevel, 
 			ClassProgressionDao progressionDao, CharacterPrerequisite prereq, 
 			Collection bonusLanguages, Collection feats, Collection skillModifiers) {
         this.name = name;
         this.hitDicePerLevel = hitDicePerLevel;
-		this.skillDao = skillDao;
         this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
         this.prereq = prereq;
         this.bonusLanguages = bonusLanguages;
@@ -198,9 +193,6 @@ public class DefaultCharacterClass implements CharacterClass {
     }
 
     public Collection getClassSkills() {
-    	if (null == classSkills) {
-            this.classSkills = skillDao.getClassSkills(this);
-    	}
         return classSkills;
     }
 

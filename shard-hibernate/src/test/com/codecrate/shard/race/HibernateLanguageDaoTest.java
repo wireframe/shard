@@ -17,8 +17,6 @@ package com.codecrate.shard.race;
 
 import java.util.Collection;
 
-import net.sf.hibernate.Session;
-
 import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
 
 /**
@@ -34,8 +32,7 @@ public class HibernateLanguageDaoTest extends ShardHibernateDbUnitTestCaseSuppor
     }
 
     public void testLoadsLanguages() throws Exception {
-        Session session = getSessionFactory().openSession();
-        HibernateLanguageDao dao = new HibernateLanguageDao(session);
+        LanguageDao dao = (LanguageDao) getContext().getBean("languageDao");
         Collection languages = dao.getLanguages();
         assertFalse(languages.isEmpty());
     }

@@ -17,8 +17,6 @@ package com.codecrate.shard.movement;
 
 import java.math.BigDecimal;
 
-import net.sf.hibernate.Session;
-
 import org.easymock.MockControl;
 
 import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
@@ -64,9 +62,7 @@ public class HibernateEncumberanceDaoTest extends ShardHibernateDbUnitTestCaseSu
         mockSize.setReturnValue(new BigDecimal("2"));
         mockSize.replay();
         
-        
-        Session session = getSessionFactory().openSession();
-        HibernateEncumberanceDao dao = new HibernateEncumberanceDao(session);
+        EncumberanceDao dao = (EncumberanceDao) getContext().getBean("encumberanceDao");
         Encumberance entry = dao.getEncumberance(abilities, inventory, size);
         assertEquals(DefaultEncumberance.LIGHT.getName(), entry.getName());
     }
@@ -86,8 +82,7 @@ public class HibernateEncumberanceDaoTest extends ShardHibernateDbUnitTestCaseSu
         RacialSize size = (RacialSize) mockSize.getMock();
         mockSize.replay();
         
-        Session session = getSessionFactory().openSession();
-        HibernateEncumberanceDao dao = new HibernateEncumberanceDao(session);
+        EncumberanceDao dao = (EncumberanceDao) getContext().getBean("encumberanceDao");
         Encumberance entry = dao.getEncumberance(abilities, inventory, size);
         assertNull(entry);
     }

@@ -17,8 +17,6 @@ package com.codecrate.shard.skill;
 
 import java.util.Collection;
 
-import net.sf.hibernate.Session;
-
 import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
 
 /**
@@ -34,9 +32,14 @@ public class HibernateSkillDaoTest extends ShardHibernateDbUnitTestCaseSupport {
     }
 
     public void testLoadsSkills() throws Exception {
-        Session session = getSessionFactory().openSession();
-        HibernateSkillDao dao = new HibernateSkillDao(session);
-        Collection races = dao.getSkills();
-        assertFalse(races.isEmpty());
+        SkillDao skillDao = (SkillDao) getContext().getBean("skillDao");
+        Collection skills = skillDao.getSkills();
+        assertFalse(skills.isEmpty());
+    }
+    
+    public void testLoadsUntrainedSkills() throws Exception {
+        SkillDao skillDao = (SkillDao) getContext().getBean("skillDao");
+        Collection skills = skillDao.getUntrainedSkills();
+        assertFalse(skills.isEmpty());
     }
 }
