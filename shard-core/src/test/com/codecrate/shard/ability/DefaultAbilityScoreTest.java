@@ -17,9 +17,46 @@ package com.codecrate.shard.ability;
 
 import junit.framework.TestCase;
 
+import org.easymock.MockControl;
+
+import com.codecrate.shard.DefaultModifierType;
+import com.codecrate.shard.ModifierType;
+
 public class DefaultAbilityScoreTest extends TestCase {
 	public void testBonusCanGoNegative() {
 		DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 1);
 		assertEquals(-4, ability.getBonus());
+	}
+	
+	public void testListenersFiredWhenModifierAdded() {
+	    MockControl mockListener = MockControl.createControl(AbilityScoreListener.class);
+	    AbilityScoreListener listener = (AbilityScoreListener) mockListener.getMock();
+	    listener.onModify();
+	    mockListener.setVoidCallable();
+	    mockListener.replay();
+	    
+	    ModifierType type = new DefaultModifierType("type", false);
+	    AbilityScoreModifier modifier = new DefaultAbilityScoreModifier(type, DefaultAbility.CHARISMA, 2);
+	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10);
+	    ability.addListener(listener);
+	    ability.addModifier(modifier);
+	    
+	    mockListener.verify();
+	}
+	
+	public void testListenersFiredWhenModifierRemoved() {
+	    MockControl mockListener = MockControl.createControl(AbilityScoreListener.class);
+	    AbilityScoreListener listener = (AbilityScoreListener) mockListener.getMock();
+	    listener.onModify();
+	    mockListener.setVoidCallable();
+	    mockListener.replay();
+	    
+	    ModifierType type = new DefaultModifierType("type", false);
+	    AbilityScoreModifier modifier = new DefaultAbilityScoreModifier(type, DefaultAbility.CHARISMA, 2);
+	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10);
+	    ability.addListener(listener);
+	    ability.removeModifier(modifier);
+	    
+	    mockListener.verify();
 	}
 }

@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.codecrate.shard.ModifiableObject;
+import com.codecrate.shard.Modifier;
 
 
 /**
@@ -141,5 +142,15 @@ public class DefaultAbilityScore extends ModifiableObject implements AbilityScor
 	
 	public Collection getListeners() {
 	    return listeners.getListeners();
+	}
+	
+	public void addModifier(Modifier modifier) {
+	    super.addModifier(modifier);
+	    listeners.onModify();
+	}
+	
+	public void removeModifier(Modifier modifier) {
+	    super.removeModifier(modifier);
+	    listeners.onModify();
 	}
 }

@@ -61,9 +61,11 @@ public class DexterityArmorClassTest extends TestCase {
     }
     
     public void testArmorClassUpdatedWhenAbilityChanged() {
+        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10);
+
         ModifierType type = new DefaultModifierType("type", true);
-        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 1);
-        
+        DefaultAbilityScoreModifier modifier = new DefaultAbilityScoreModifier(type, DefaultAbility.DEXTERITY, 18);
+
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
         abilities.hasAbilityScore(DefaultAbility.DEXTERITY);
@@ -72,16 +74,17 @@ public class DexterityArmorClassTest extends TestCase {
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         
-        DefaultArmorClass defaultArmorClass = new DefaultArmorClass();
-        new DexterityArmorClass(abilities, DefaultEncumberance.LIGHT, defaultArmorClass);
-        abilityScore.addModifier(new DefaultAbilityScoreModifier(type, DefaultAbility.DEXTERITY, 9));
-        assertEquals(10, defaultArmorClass.getModifiedValue());
+        DexterityArmorClass armorClass = new DexterityArmorClass(abilities, DefaultEncumberance.LIGHT, new DefaultArmorClass());
+        abilityScore.addModifier(modifier);
+        assertEquals(14, armorClass.getModifiedValue());
     }
     
     public void testModifierLimitedToEncumberanceMaxValue() {
-        ModifierType type = new DefaultModifierType("type", true);
         DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10);
         
+        ModifierType type = new DefaultModifierType("type", true);
+        DefaultAbilityScoreModifier modifier = new DefaultAbilityScoreModifier(type, DefaultAbility.DEXTERITY, 18);
+
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
         abilities.hasAbilityScore(DefaultAbility.DEXTERITY);
@@ -92,7 +95,7 @@ public class DexterityArmorClassTest extends TestCase {
         
         DefaultArmorClass defaultArmorClass = new DefaultArmorClass();
         new DexterityArmorClass(abilities, DefaultEncumberance.HEAVY, defaultArmorClass);
-        abilityScore.addModifier(new DefaultAbilityScoreModifier(type, DefaultAbility.DEXTERITY, 8));
+        abilityScore.addModifier(modifier);
         assertEquals(11, defaultArmorClass.getModifiedValue());
     }
 }
