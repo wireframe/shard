@@ -46,11 +46,15 @@ public class DefaultItemEntryContainer implements ItemEntryContainer {
 	}
 	
 	public Money getTotalCost() {
-	    Money total = new Money(0, DefaultCurrency.GOLD);
+	    Money total = null;
 	    Iterator it = entries.iterator();
 	    while (it.hasNext()) {
 	        Item item = (Item) it.next();
-	        total = total.add(item.getCost());
+	        if (null == total) {
+	            total = item.getCost();
+	        } else {
+		        total = total.add(item.getCost());
+	        }
 	    }
 	    return total;
 	}
