@@ -26,4 +26,14 @@ public class MinValueDiceTest extends TestCase {
     	MinValueDice dice = new MinValueDice(DefaultDice.d6);
     	assertEquals(1, dice.roll());
     }
+	
+	public void testMinValueDelegatesToDefaultDice() {
+    	MinValueDice dice = new MinValueDice(DefaultDice.d6);
+    	assertEquals(1, dice.getMinValue());
+	}
+	
+	public void testMaxValueDelegatesToDefaultDice() {
+    	MinValueDice dice = new MinValueDice(DefaultDice.d6);
+    	assertEquals(6, dice.getMinValue());
+	}
 }

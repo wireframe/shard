@@ -40,4 +40,14 @@ public class FixedValueDiceTest extends TestCase {
 			fail();
 		} catch (IllegalArgumentException expected) {}
     }
+	
+	public void testMinValueDelegatesToDefaultDice() {
+    	FixedValueDice dice = new FixedValueDice(DefaultDice.d6, 2);
+    	assertEquals(1, dice.getMinValue());
+	}
+	
+	public void testMaxValueDelegatesToDefaultDice() {
+    	FixedValueDice dice = new FixedValueDice(DefaultDice.d6, 2);
+    	assertEquals(6, dice.getMinValue());
+	}
 }
