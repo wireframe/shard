@@ -21,6 +21,7 @@ import java.util.Iterator;
 
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.ClassLevel;
+import com.codecrate.shard.kit.DefaultClassLevel;
 
 public class DefaultCharacterProgression implements CharacterProgression {
 

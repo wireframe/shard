@@ -24,6 +24,7 @@ import org.easymock.MockControl;
 
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.ClassLevel;
+import com.codecrate.shard.kit.DefaultClassLevel;
 
 public class DefaultCharacterProgressionTest extends TestCase {
 
@@ -36,8 +37,8 @@ public class DefaultCharacterProgressionTest extends TestCase {
 		CharacterClass ranger = (CharacterClass) mockClass.getMock();
 		mockClass.replay();
 
-    	ClassLevel rangerLevel1 = new ClassLevel(1, ranger, 1, 1, 1, 1);
-    	ClassLevel fighterLevel1 = new ClassLevel(1, fighter, 1, 1, 1, 1);
+    	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
+    	ClassLevel fighterLevel1 = new DefaultClassLevel(1, fighter, 1, 1, 1, 1);
     	
     	CharacterLevel characterLevel1 = new CharacterLevel(1, 3, rangerLevel1);
     	CharacterLevel characterLevel2 = new CharacterLevel(2, 4, fighterLevel1);
@@ -56,8 +57,8 @@ public class DefaultCharacterProgressionTest extends TestCase {
 		CharacterClass ranger = (CharacterClass) mockClass.getMock();
 		mockClass.replay();
 
-    	ClassLevel rangerLevel1 = new ClassLevel(1, ranger, 1, 1, 1, 1);
-    	ClassLevel rangerLevel2 = new ClassLevel(2, ranger, 1, 1, 1, 1);
+    	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
+    	ClassLevel rangerLevel2 = new DefaultClassLevel(2, ranger, 1, 1, 1, 1);
     	
     	CharacterLevel characterLevel1 = new CharacterLevel(1, 2, rangerLevel1);
     	CharacterLevel characterLevel2 = new CharacterLevel(1, 1, rangerLevel2);
@@ -79,7 +80,7 @@ public class DefaultCharacterProgressionTest extends TestCase {
 		CharacterClass fighter = (CharacterClass) mockClass2.getMock();
 		mockClass2.replay();
 		
-    	ClassLevel rangerLevel1 = new ClassLevel(1, ranger, 1, 1, 1, 1);
+    	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
     	CharacterLevel characterLevel1 = new CharacterLevel(1, 5, rangerLevel1);
     	
     	Collection levels = new ArrayList();

@@ -16,6 +16,7 @@
 package com.codecrate.shard.character;
 
 import com.codecrate.shard.kit.ClassLevel;
+import com.codecrate.shard.kit.DefaultClassLevel;
 
 /**
  * 

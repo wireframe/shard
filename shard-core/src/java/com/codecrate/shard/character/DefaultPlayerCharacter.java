@@ -15,10 +15,12 @@
  */
 package com.codecrate.shard.character;
 
+import java.util.Iterator;
 import java.util.List;
 
 import com.codecrate.shard.ability.AbilityContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
+import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
 
@@ -74,7 +76,13 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 	}
 
 	public int getBaseAttackBonus() {
-		return 0;
+		int value = 0;
+		Iterator it = characterProgression.getClasses().iterator();
+		while (it.hasNext()) {
+			CharacterClass kit = (CharacterClass) it.next();
+			value += characterProgression.getMaxClassLevel(kit).getBaseAttackBonus();
+		}
+		return value;
 	}
 	
 	public Gender getGender() {

@@ -15,51 +15,16 @@
  */
 package com.codecrate.shard.kit;
 
-/**
- * Definition of a class level.
- * ex: Ranger level 1 grants +1 to hit ....
- * 
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
- */
-public class ClassLevel {
-	private int level;
-    private int baseAttackBonus;
-    private int fortituteSaveBonus;
-    private int reflexSaveBonus;
-    private int willpowerSaveBonus;
-    private CharacterClass characterClass;
+public interface ClassLevel {
+	CharacterClass getCharacterClass();
 
-    public ClassLevel(int level, CharacterClass characterClass, int baseAttackBonus, int fortitueSaveBonus, int reflexSaveBonus, int willpowerSaveBonus) {
-    	this.level = level;
-    	this.characterClass = characterClass;
-        this.baseAttackBonus = baseAttackBonus;
-        this.fortituteSaveBonus = fortitueSaveBonus;
-        this.reflexSaveBonus = reflexSaveBonus;
-        this.willpowerSaveBonus = willpowerSaveBonus;
-    }
-    
-    public String toString() {
-    	return characterClass + " (" + level + ")";
-    }
-    
-    public CharacterClass getCharacterClass() {
-    	return characterClass;
-    }
-    
-    public int getLevel() {
-    	return level;
-    }
-    
-    public int getBaseAttackBonus() {
-        return baseAttackBonus;
-    }
-    public int getFortituteSaveBonus() {
-        return fortituteSaveBonus;
-    }
-    public int getReflexSaveBonus() {
-        return reflexSaveBonus;
-    }
-    public int getWillpowerSaveBonus() {
-        return willpowerSaveBonus;
-    }
+	int getLevel();
+
+	int getBaseAttackBonus();
+
+	int getFortituteSaveBonus();
+
+	int getReflexSaveBonus();
+
+	int getWillpowerSaveBonus();
 }

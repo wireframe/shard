@@ -15,10 +15,15 @@
  */
 package com.codecrate.shard.character;
 
+import java.util.Arrays;
+
 import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
+import com.codecrate.shard.kit.CharacterClass;
+import com.codecrate.shard.kit.ClassLevel;
+import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.race.Race;
 
 public class DefaultPlayerCharacterTest extends TestCase {
@@ -31,12 +36,35 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		mockRace.replay();
 
 		MockControl mockProgression = MockControl.createControl(CharacterProgression.class);
-		CharacterProgression levels = (CharacterProgression) mockProgression.getMock();
-		levels.getMaxCharacterLevel();
+		CharacterProgression progression = (CharacterProgression) mockProgression.getMock();
+		progression.getMaxCharacterLevel();
 		mockProgression.setReturnValue(1);
 		mockProgression.replay();
 	    
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter(race, null, null, null, null, null, null, null, levels);
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter(race, null, null, null, null, null, null, null, progression);
 		assertEquals(2, character.getEffectiveCharacterLevel());
+	}
+	
+	public void testBaseAttackBonusCalculation() {
+		MockControl mockClassLevel = MockControl.createControl(ClassLevel.class);
+		ClassLevel classLevel = (ClassLevel) mockClassLevel.getMock();
+		classLevel.getBaseAttackBonus();
+		mockClassLevel.setReturnValue(1);
+		classLevel.getBaseAttackBonus();
+		mockClassLevel.setReturnValue(1);
+		mockClassLevel.replay();
+		
+		MockControl mockProgression = MockControl.createControl(CharacterProgression.class);
+		CharacterProgression progression = (CharacterProgression) mockProgression.getMock();
+		progression.getClasses();
+		mockProgression.setReturnValue(Arrays.asList(new CharacterClass[] {DefaultCharacterClass.BARBARIAN, DefaultCharacterClass.BARD}));
+		progression.getMaxClassLevel(DefaultCharacterClass.BARBARIAN);
+		mockProgression.setReturnValue(classLevel);
+		progression.getMaxClassLevel(DefaultCharacterClass.BARD);
+		mockProgression.setReturnValue(classLevel);
+		mockProgression.replay();
+	    
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter(null, null, null, null, null, null, null, null, progression);
+		assertEquals(2, character.getBaseAttackBonus());
 	}
 }
