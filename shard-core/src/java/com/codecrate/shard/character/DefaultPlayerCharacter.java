@@ -39,7 +39,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     private int challengeRating;
     private Race race;
     private Gender gender;
-    private Alignment alignment;
+    private final Alignment alignment;
     private AbilityContainer abilities;
     private HitPoints hitPoints;
     private Encumberance encumberance;

@@ -20,36 +20,42 @@ import junit.framework.TestCase;
 import org.easymock.MockControl;
 
 import com.codecrate.shard.character.PlayerCharacter;
+import com.codecrate.shard.race.Race;
 
-public class CompositePrerequisiteTest extends TestCase {
+public class RacePrerequisiteTest extends TestCase {
 
-	public void testPrereqMetWhenAllPrereqsPass() {
+	public void testPrereqMetWhenRaceMatches() {
+		MockControl mockRace = MockControl.createControl(Race.class);
+		Race Race = (Race) mockRace.getMock();
+		Race.isSame(Race);
+		mockRace.setReturnValue(true);
+		mockRace.replay();
+		
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
 		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
+		character.getRace();
+		mockCharacter.setReturnValue(Race);
 		mockCharacter.replay();
-
-		MockControl mockPrerequisite = MockControl.createControl(CharacterPrerequisite.class);
-		CharacterPrerequisite pre = (CharacterPrerequisite) mockPrerequisite.getMock();
-		pre.hasMetPrerequisite(character);
-		mockPrerequisite.setReturnValue(true);
-		mockPrerequisite.replay();
-
-		CompositePrerequisite prereq = new CompositePrerequisite(new CharacterPrerequisite[] {pre});
+		
+		RacePrerequisite prereq = new RacePrerequisite(Race);
 		assertTrue(prereq.hasMetPrerequisite(character));
 	}
 	
-	public void testPrereqNotMetWhenPrereqFails() {
+
+	public void testPrereqNotMetWhenRaceDifferent() {
+		MockControl mockRace = MockControl.createControl(Race.class);
+		Race Race = (Race) mockRace.getMock();
+		Race.isSame(Race);
+		mockRace.setReturnValue(false);
+		mockRace.replay();
+		
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
 		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
+		character.getRace();
+		mockCharacter.setReturnValue(Race);
 		mockCharacter.replay();
-
-		MockControl mockPrerequisite = MockControl.createControl(CharacterPrerequisite.class);
-		CharacterPrerequisite pre = (CharacterPrerequisite) mockPrerequisite.getMock();
-		pre.hasMetPrerequisite(character);
-		mockPrerequisite.setReturnValue(false);
-		mockPrerequisite.replay();
-
-		CompositePrerequisite prereq = new CompositePrerequisite(new CharacterPrerequisite[] {pre});
+		
+		RacePrerequisite prereq = new RacePrerequisite(Race);
 		assertFalse(prereq.hasMetPrerequisite(character));
 	}
 }

@@ -15,8 +15,16 @@
  */
 package com.codecrate.shard.character.prereq;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.codecrate.shard.character.PlayerCharacter;
 
-public interface CharacterPrerequisite {
-	boolean hasMetPrerequisite(PlayerCharacter character);
+public class NullPrerequisite implements CharacterPrerequisite {
+    private static final Log LOG = LogFactory.getLog(NullPrerequisite.class);
+    
+	public boolean hasMetPrerequisite(PlayerCharacter character) {
+	    LOG.debug("Prerequisite is always met.");
+		return true;
+	}
 }

@@ -15,8 +15,25 @@
  */
 package com.codecrate.shard.character.prereq;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.codecrate.shard.character.PlayerCharacter;
 
-public interface CharacterPrerequisite {
-	boolean hasMetPrerequisite(PlayerCharacter character);
+public class BaseAttackBonusPrerequisite implements CharacterPrerequisite {
+    private static final Log LOG = LogFactory.getLog(BaseAttackBonusPrerequisite.class);
+    
+    private final int bonus;
+
+    public BaseAttackBonusPrerequisite(int bonus) {
+        this.bonus = bonus;  
+    }
+    
+	public boolean hasMetPrerequisite(PlayerCharacter character) {
+	    if (bonus > character.getBaseAttackBonus()) {
+			LOG.warn("Character " + character + " does not meet prereq for base attack bonus " + bonus);
+			return false;
+	    }
+		return true;
+	}
 }

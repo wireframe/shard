@@ -21,35 +21,38 @@ import org.easymock.MockControl;
 
 import com.codecrate.shard.character.PlayerCharacter;
 
-public class CompositePrerequisiteTest extends TestCase {
+public class BaseAttackBonusPrerequisiteTest extends TestCase {
 
-	public void testPrereqMetWhenAllPrereqsPass() {
+	public void testPrereqMetWhenBonusEquals() {
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
 		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
+		character.getBaseAttackBonus();
+		mockCharacter.setReturnValue(2);
 		mockCharacter.replay();
-
-		MockControl mockPrerequisite = MockControl.createControl(CharacterPrerequisite.class);
-		CharacterPrerequisite pre = (CharacterPrerequisite) mockPrerequisite.getMock();
-		pre.hasMetPrerequisite(character);
-		mockPrerequisite.setReturnValue(true);
-		mockPrerequisite.replay();
-
-		CompositePrerequisite prereq = new CompositePrerequisite(new CharacterPrerequisite[] {pre});
+		
+		BaseAttackBonusPrerequisite prereq = new BaseAttackBonusPrerequisite(2);
 		assertTrue(prereq.hasMetPrerequisite(character));
 	}
 	
-	public void testPrereqNotMetWhenPrereqFails() {
+	public void testPrereqMetWhenBonusGreater() {
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
 		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
+		character.getBaseAttackBonus();
+		mockCharacter.setReturnValue(3);
 		mockCharacter.replay();
+		
+		BaseAttackBonusPrerequisite prereq = new BaseAttackBonusPrerequisite(2);
+		assertTrue(prereq.hasMetPrerequisite(character));
+	}
 
-		MockControl mockPrerequisite = MockControl.createControl(CharacterPrerequisite.class);
-		CharacterPrerequisite pre = (CharacterPrerequisite) mockPrerequisite.getMock();
-		pre.hasMetPrerequisite(character);
-		mockPrerequisite.setReturnValue(false);
-		mockPrerequisite.replay();
-
-		CompositePrerequisite prereq = new CompositePrerequisite(new CharacterPrerequisite[] {pre});
+	public void testPrereqNotMetWhenBaseAttackBonusLess() {
+		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
+		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
+		character.getBaseAttackBonus();
+		mockCharacter.setReturnValue(1);
+		mockCharacter.replay();
+		
+		BaseAttackBonusPrerequisite prereq = new BaseAttackBonusPrerequisite(2);
 		assertFalse(prereq.hasMetPrerequisite(character));
 	}
 }

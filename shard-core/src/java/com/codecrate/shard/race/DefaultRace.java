@@ -109,6 +109,10 @@ public class DefaultRace implements Race {
 		this.bonusLanguages = availableLanguages;
 	}
 
+	public boolean isSame(Race race) {
+	    return equals(race);
+	}
+	
 	public RacialSize getSize() {
 		return size;
 	}

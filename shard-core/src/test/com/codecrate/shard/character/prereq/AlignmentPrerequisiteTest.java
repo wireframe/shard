@@ -38,7 +38,7 @@ public class AlignmentPrerequisiteTest extends TestCase {
 		mockCharacter.replay();
 		
 		AlignmentPrerequisite prereq = new AlignmentPrerequisite(alignment);
-		assertTrue(prereq.isSatisfiedBy(character));
+		assertTrue(prereq.hasMetPrerequisite(character));
 	}
 	
 
@@ -56,6 +56,6 @@ public class AlignmentPrerequisiteTest extends TestCase {
 		mockCharacter.replay();
 		
 		AlignmentPrerequisite prereq = new AlignmentPrerequisite(alignment);
-		assertFalse(prereq.isSatisfiedBy(character));
+		assertFalse(prereq.hasMetPrerequisite(character));
 	}
 }

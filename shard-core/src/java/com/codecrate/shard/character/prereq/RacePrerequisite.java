@@ -18,31 +18,31 @@ package com.codecrate.shard.character.prereq;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.codecrate.shard.character.Alignment;
 import com.codecrate.shard.character.PlayerCharacter;
+import com.codecrate.shard.race.Race;
 
-public class AlignmentPrerequisite implements CharacterPrerequisite {
-	private static final Log LOG = LogFactory.getLog(AlignmentPrerequisite.class);
+public class RacePrerequisite implements CharacterPrerequisite {
+	private static final Log LOG = LogFactory.getLog(RacePrerequisite.class);
 	
-	private final Alignment[] alignments;
+	private final Race[] races;
 
-	public AlignmentPrerequisite(Alignment alignment) {
-	    this(new Alignment[]{alignment});
+	public RacePrerequisite(Race race) {
+	    this(new Race[]{race});
 	}
 	
-	public AlignmentPrerequisite(Alignment[] alignments) {
-	    this.alignments = alignments;
+	public RacePrerequisite(Race[] races) {
+	    this.races = races;
 	}
 	
 	public boolean hasMetPrerequisite(PlayerCharacter character) {
-	    for (int x = 0; x < alignments.length; x++) {
-	        Alignment alignment = alignments[x];
-	        if (alignment.isSame(character.getAlignment())) {
+	    for (int x = 0; x < races.length; x++) {
+	        Race race = races[x];
+	        if (race.isSame(character.getRace())) {
 	            return true;
 	        }
 	    }
 	    
-		LOG.warn("Character " + character + " does not meet prereq for acceptable alignments " + alignments);
+		LOG.warn("Character " + character + " does not meet prereq for acceptable races " + races);
 		return false;
 	}
 }

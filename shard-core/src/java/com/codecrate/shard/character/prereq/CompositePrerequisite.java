@@ -25,10 +25,10 @@ public class CompositePrerequisite implements CharacterPrerequisite {
 		this.prereqs = prereqs;
 	}
 	
-	public boolean isSatisfiedBy(PlayerCharacter character) {
+	public boolean hasMetPrerequisite(PlayerCharacter character) {
 		for (int x = 0; x < prereqs.length; x++) {
 			CharacterPrerequisite prereq = prereqs[x];
-			if (!prereq.isSatisfiedBy(character)) {
+			if (!prereq.hasMetPrerequisite(character)) {
 				return false;
 			}
 		}

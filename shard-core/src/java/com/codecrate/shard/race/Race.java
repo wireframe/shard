@@ -65,6 +65,12 @@ public interface Race {
      * @return
      */
     Collection getBonusLanguages();
+
+    /**
+     * @param race
+     * @return
+     */
+    boolean isSame(Race race);
     
     //boolean isImmuneToCriticalHits();
     //getFavoredClass();

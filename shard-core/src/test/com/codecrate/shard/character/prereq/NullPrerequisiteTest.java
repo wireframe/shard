@@ -15,8 +15,20 @@
  */
 package com.codecrate.shard.character.prereq;
 
+import junit.framework.TestCase;
+
+import org.easymock.MockControl;
+
 import com.codecrate.shard.character.PlayerCharacter;
 
-public interface CharacterPrerequisite {
-	boolean hasMetPrerequisite(PlayerCharacter character);
+public class NullPrerequisiteTest extends TestCase {
+
+	public void testPrereqAlwaysMet() {
+		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
+		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
+		mockCharacter.replay();
+		
+		NullPrerequisite prereq = new NullPrerequisite();
+		assertTrue(prereq.hasMetPrerequisite(character));
+	}
 }

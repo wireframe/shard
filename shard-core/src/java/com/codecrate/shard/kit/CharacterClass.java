@@ -17,6 +17,7 @@ package com.codecrate.shard.kit;
 
 import java.util.Collection;
 
+import com.codecrate.shard.character.prereq.CharacterPrerequisite;
 import com.codecrate.shard.dice.Dice;
 
 /**
@@ -60,4 +61,12 @@ public interface CharacterClass {
      * @return
      */
     ClassProgression getClassProgression();
+    
+    /**
+     * gets the prereqs for this class.
+     * this is used mainly for presige classes, but some core classes need 
+     * this as well (ex: Barbarian cannot be lawful)
+     * @return
+     */
+    CharacterPrerequisite getPrerequisite();
 }
