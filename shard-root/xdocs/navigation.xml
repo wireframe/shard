@@ -6,18 +6,19 @@
 
   <body>
     <links>
-      <item name="Manual" href="shard.pdf" />
+      <item name="Manual" href="${pom.name}.pdf" />
     </links>
     
+  <!-- see multiproject-plugin/plugin-resources/navigation-aggrigate.xml -->
   <!-- createOverviewPage  -->
     <menu name="Projects">
     #if ($overviewPageCreate == "true" )
       <item name="${overviewPageLinkTitle}" href="${overviewPageLink}.html"/>
     #end
-
-    #foreach ($reactorProject in $reactorProjects)
+    #foreach ($reactorProject in $multiprojects)
       <item name="$reactorProject.name" href="/${aggregateDir}${reactorProject.artifactId}/index.html"/>
     #end
     </menu>
+    
   </body>
 </project>
