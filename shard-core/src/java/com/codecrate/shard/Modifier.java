@@ -22,7 +22,30 @@ package com.codecrate.shard;
  */
 public interface Modifier {
 
+    /**
+     * gets the type of modifier.
+     * the modifier type determines whether or not multiple modifiers can 
+     * stack.
+     * @return
+     */
 	ModifierType getModifierType();
 	
+	/**
+	 * gets the value of the modifier.
+	 * ex: +4 or -2
+	 * @return
+	 */
 	int getModifier();
+	
+	/**
+	 * flag for if the modifier is a bonus.
+	 * @return
+	 */
+	boolean isBonus();
+	
+	/**
+	 * flag for if the modifier is a penalty.
+	 * @return
+	 */
+	boolean isPenalty();
 }
