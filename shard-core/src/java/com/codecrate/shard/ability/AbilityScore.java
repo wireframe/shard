@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.ability;
 
+import java.util.Collection;
+
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -69,4 +71,10 @@ public interface AbilityScore {
 	 * @param listener
 	 */
 	void removeListener(AbilityScoreListener listener);
+
+    /**
+     * gets the listeners attached to this ability score.
+     * @return
+     */
+    Collection getListeners();
 }

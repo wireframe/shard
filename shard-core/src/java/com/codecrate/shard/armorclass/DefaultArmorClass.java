@@ -46,36 +46,36 @@ public class DefaultArmorClass implements ArmorClass {
 		Iterator it = modifiers.keySet().iterator();
 		while (it.hasNext()) {
 			ArmorClassModifierType type = (ArmorClassModifierType) it.next();
-			ArmorClassComponent component = (ArmorClassComponent) modifiers.get(type);
-			value += component.getValue();
+			CompositeArmorClassModifier modifier = (CompositeArmorClassModifier) modifiers.get(type);
+            value += modifier.getModifier();
 		}
 		return value;
 	}
 	
 	public void addArmorClassModifier(ArmorClassModifier modifier) {
 		ArmorClassModifierType type = modifier.getModifierType();
-		ArmorClassComponent component = getModifier(type);
-		component.addArmorClassModifier(modifier);
-		updateModifier(type, component);
+		CompositeArmorClassModifier modifiers = getModifier(type);
+		modifiers.addArmorClassModifier(modifier);
+		updateModifier(type, modifiers);
 	}
 	
 	public void removeArmorClassModifier(ArmorClassModifier modifier) {
 		ArmorClassModifierType type = modifier.getModifierType();
-		ArmorClassComponent component = getModifier(type);
-		component.removeArmorClassModifier(modifier);
-		updateModifier(type, component);
+		CompositeArmorClassModifier modifiers = getModifier(type);
+		modifiers.removeArmorClassModifier(modifier);
+		updateModifier(type, modifiers);
 	}
 	
-	private ArmorClassComponent getModifier(ArmorClassModifierType type) {
-		ArmorClassComponent component = (ArmorClassComponent) modifiers.get(type);
-		if (null == component) {
+	private CompositeArmorClassModifier getModifier(ArmorClassModifierType type) {
+		CompositeArmorClassModifier modifier = (CompositeArmorClassModifier) modifiers.get(type);
+		if (null == modifier) {
 			LOG.debug("No modifiers found for type: " + type);
-			component = new ArmorClassComponent(type);
+			modifier = new CompositeArmorClassModifier(type);
 		}
-		return component;
+		return modifier;
 	}
 	
-	private void updateModifier(ArmorClassModifierType type, ArmorClassComponent component) {
-		modifiers.put(type, component);
+	private void updateModifier(ArmorClassModifierType type, CompositeArmorClassModifier modifier) {
+		modifiers.put(type, modifier);
 	}
 }

@@ -29,6 +29,10 @@ public class DefaultAbility implements Ability {
         this.name = name;
     }
     
+    public String toString() {
+        return name;
+    }
+    
     public String getName() {
         return name;
     }

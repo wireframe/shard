@@ -20,30 +20,46 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * ArmorClass for a specific modifier type.
+ * ArmorClass Modifier for a specific modifier type.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class ArmorClassComponent implements ArmorClass {
+public class CompositeArmorClassModifier implements ArmorClassModifier {
     
     private ArmorClassModifierType type;
     private Collection modifiers = new ArrayList();
 
-    public ArmorClassComponent(ArmorClassModifierType type) {
+    public CompositeArmorClassModifier(ArmorClassModifierType type) {
         this.type = type;
     }
     
-    public int getValue() {
+    public int getModifier() {
+        if (!type.isStackable()) {
+            return calculateNonStackableModifiers();
+        }
+        return calculateStackableModifiers();
+    }
+
+    private int calculateNonStackableModifiers() {
+		int value = -100;
+		Iterator mods = modifiers.iterator();
+		while (mods.hasNext()) {
+			ArmorClassModifier modifier = (ArmorClassModifier) mods.next();
+			int modifierValue = modifier.getModifier();
+			if (value < modifierValue) {
+				value = modifierValue;
+			}
+		}
+		return value;
+    }
+
+    private int calculateStackableModifiers() {
 		int value = 0;
 		Iterator mods = modifiers.iterator();
 		while (mods.hasNext()) {
 			ArmorClassModifier modifier = (ArmorClassModifier) mods.next();
 			int modifierValue = modifier.getModifier();
-			if (type.isStackable()) {
-				value += modifierValue;
-			} else if (value < modifierValue) {
-				value = modifierValue;
-			}
+			value += modifierValue;
 		}
 		return value;
     }
@@ -54,5 +70,9 @@ public class ArmorClassComponent implements ArmorClass {
     
     public void removeArmorClassModifier(ArmorClassModifier modifier) {
         modifiers.remove(modifier);
+    }
+
+    public ArmorClassModifierType getModifierType() {
+        return type;
     }
 }

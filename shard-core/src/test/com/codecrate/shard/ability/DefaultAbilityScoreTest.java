@@ -36,4 +36,9 @@ public class DefaultAbilityScoreTest extends TestCase {
 		
 		assertEquals(10, ability.getScore());
 	}
+	
+	public void testBonusCanGoNegative() {
+		DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 1);
+		assertEquals(-4, ability.getModifier());
+	}
 }

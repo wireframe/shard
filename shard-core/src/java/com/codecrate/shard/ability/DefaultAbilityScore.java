@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.ability;
 
+import java.util.Collection;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,7 +31,7 @@ public class DefaultAbilityScore implements AbilityScore {
 	private Ability ability;
     private int baseScore;
     private CompositeAbilityScoreModifier modifiers;
-    private CompositeAbilityScoreListener listeners;
+    private CompositeAbilityScoreListener listeners = new CompositeAbilityScoreListener();
     
     public DefaultAbilityScore(Ability ability, int baseScore) {
     	this.ability = ability;
@@ -150,5 +152,9 @@ public class DefaultAbilityScore implements AbilityScore {
 
 	public void removeListener(AbilityScoreListener listener) {
 		listeners.removeListener(listener);
+	}
+	
+	public Collection getListeners() {
+	    return listeners.getListeners();
 	}
 }

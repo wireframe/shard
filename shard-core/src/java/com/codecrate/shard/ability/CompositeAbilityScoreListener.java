@@ -29,4 +29,11 @@ public class CompositeAbilityScoreListener implements AbilityScoreListener {
 	public void removeListener(AbilityScoreListener listener) {
 		delegates.remove(listener);
 	}
+
+    /**
+     * @return
+     */
+    public Collection getListeners() {
+        return delegates;
+    }
 }
