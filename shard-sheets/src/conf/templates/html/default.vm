@@ -144,8 +144,7 @@
 #foreach($abilityScore in $abilities)
 	        <tr>
 	          <td class="ab">
-	            <b>$abilityScore.ability.abbreviation</b><br />
-	            $abilityScore.ability.abbreviation
+	            <b>$abilityScore.ability.abbreviation</b>
 	          </td>
 	          <td class="abb">$abilityScore.modifiedValue</td>
 	          <td class="abb">$abilityScore.bonus</td>

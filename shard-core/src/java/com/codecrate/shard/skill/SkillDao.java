@@ -57,6 +57,12 @@ public class SkillDao {
             skills.add(DefaultSkill.SWIM);
             skills.add(DefaultSkill.TUMBLE);
             skills.add(DefaultSkill.USE_MAGIC_DEVICE);
+            skills.add(getLanguageSkills());
+        } else if (DefaultCharacterClass.CLERIC.equals(kit)) {
+            skills.add(DefaultSkill.CONCENTRATION);
+            skills.add(DefaultSkill.DIPLOMACY);
+            skills.add(DefaultSkill.HEAL);
+            skills.add(DefaultSkill.SPELLCRAFT);
         }
         return skills;
     }
@@ -131,11 +137,15 @@ public class SkillDao {
         Iterator languages = languageDao.getLanguages().iterator();
         while (languages.hasNext()) {
             Language language = (Language) languages.next();
-            Skill languageSkill = new DefaultSkill("Speak Language ("
-                    + language.getName() + ")", false,
-                    DefaultAbility.INTELLIGENCE, false, this);
-            skills.add(languageSkill);
+            skills.add(getLanguageSkill(language));
         }
         return skills;
+    }
+    
+    private Skill getLanguageSkill(Language language) {
+        Skill languageSkill = new DefaultSkill("Speak Language ("
+                + language.getName() + ")", false,
+                DefaultAbility.INTELLIGENCE, false, this);
+        return languageSkill;
     }
 }
