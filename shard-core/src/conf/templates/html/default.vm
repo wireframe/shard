@@ -9,35 +9,35 @@
 	 <tr>
 	  <td colspan="2">$character.name</td>
 	  <td colspan="2">|PLAYERNAME|</td>
-	  <td colspan="1">$character.alignment</td>
-	  <td colspan="1">|DEITY|</td>
+	  <td>$character.alignment</td>
+	  <td>|DEITY|</td>
 	  <td>$character.abilities.totalPointCost</td>
 	  <td rowspan="6"><IMG SRC="|PORTRAIT|" height="100"></td>
 	 </tr>
 	 <tr>
 	  <td colspan="2">CHARACTER NAME</td>
 	  <td colspan="2">PLAYER</td>
-	  <td colspan="1">ALIGNMENT</td>
-	  <td colspan="1">DEITY</td>
+	  <td>ALIGNMENT</td>
+	  <td>DEITY</td>
 	  <td>POINTS</td>
 	 </tr>
 	 <tr>
-	  <td colspan="1">$character.characterProgression</td>
-	  <td colspan="1">$character.experience</td>
-	  <td colspan="1">$character.race</td>
-	  <td>|SIZELONG| / $character.race.size.reach</td>
+	  <td>$character.characterProgression</td>
+	  <td>$character.experience</td>
+	  <td>$character.race</td>
+	  <td>$character.race.size.name / $character.race.size.reach</td>
 	  <td>|HEIGHT|</td>
 	  <td>|WEIGHT|</td>
-	  <td colspan="1">$character.race.vision.name</td>
+	  <td>$character.race.vision.name</td>
 	 </tr>
 	 <tr>
-	  <td colspan="1">CLASS</td>
-	  <td colspan="1">EXPERIENCE</td>
-	  <td colspan="1">RACE</td>
-	  <td>SIZE / FACE</td>
+	  <td>CLASS</td>
+	  <td>EXPERIENCE</td>
+	  <td>RACE</td>
+	  <td>SIZE / REACH</td>
 	  <td>HEIGHT</td>
 	  <td>WEIGHT</td>
-	  <td colspan="1">VISION</td>
+	  <td>VISION</td>
 	 </tr>
 	 <tr>
 	  <td>$character.characterProgression.maxLevel</td>
@@ -58,5 +58,134 @@
 	</table>
 	<!-- END General Character Data -->
   
+	<!-- START Page Master Table -->
+	<table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Page Master Table">
+	  <tr>
+	    <td rowspan="2" valign="top">
+	      <table summary="Stat Block"> <!-- START Abilities Table -->
+	        <tr>
+	          <td align="center" width="20%" class="font4">ABILITY<br />NAME</td>
+	          <td align="center" width="20%" class="font4">ABILITY<br />SCORE</td>
+	          <td align="center" width="20%" class="font4">ABILITY<br />MODIFIER</td>
+	          <td align="center" width="20%" class="font4">TEMPORARY<br />SCORE</td>
+	          <td align="center" width="20%" class="font4">TEMPORARY<br />MODIFIER</td>
+	        </tr>
+	        #foreach(abilityScore in $character.abilites.scores)
+	        <tr>
+	          <td><b>$abilityScore.ability.abbreviation</b><br />$abilityScore.ability.name</td>
+	          <td>$abilityScore.value</td>
+	          <td>$abilityScore.modifier</td>
+	        </tr>
+	        #end
+	      </table> <!-- STOP Abilities Table -->
+	    </td>
+	    <td colspan="2" valign="top">
+	      <table summary="Hit Point Table"> <!-- START -->
+	        <tr>
+	          <td align="center" width="50"></td>
+	          <td align="center" width="25" valign="bottom"></td>
+	          <td align="center"></td>
+	          <td align="center" width="119" class="font5"><br />WOUNDS/CURRENT HP</td>
+	          <td align="center"></td>
+	          <td align="center" width="119" class="font5"><br />SUBDUAL DAMAGE</td>
+	          <td align="center"></td>
+	          <td align="center" width="60" class="font5"><br />DAMAGE<br />REDUCTION</td>
+	          <td align="center"></td>
+	          <td align="center" width="60" class="font5"><br />SPEED</td>
+	          </tr>
+	        <tr>
+	          <td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>HP</b></font>
+	            <font style="font-size:5pt" color="white"><br />Hit Points</font></td>
+	          <td align="center" class="border9"><b>|HP|</b></td>
+	          <td align="center"><br /></td>
+	          <td align="center" class="border9"><br /></td>
+	          <td align="center"><br /></td>
+	          <td align="center" class="border9"><br /></td>
+	          <td align="center"><br /></td>
+	          <td align="center" class="border9"><b>&nbsp;|DR|&nbsp;</b></td>
+	          <td align="center"><br /></td>
+	          <td align="center" class="border9"><b>|MOVEMENT|<br /></b></td>
+	          </tr>
+	        </table> <!-- STOP Hit Point Table -->
+	
+	      <table summary="AC Table"> <!-- Armour Class Table -->
+	        <tr>
+	          <td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>AC</b></font>
+	            <font style="font-size:5pt" color="white"><br />Armour Class</font></td>
+	          <td align="center" class="border9"><b>|AC.Total|</b></td>
+	          <td align="center" class="font7"><b>:</b></td>
+	          <td align="center" class="border9"><b>|AC.Flatfooted|</b></td>
+	          <td align="center" class="font7"><b>:</b></td>
+	          <td align="center" class="border9"><b>|AC.Touch|</b></td>
+	          <td align="center" class="font7"><b>=</b></td>
+	          <td align="center" class="border9"><b>|AC.Base|</b></td>
+	          <td align="center" class="font7"><b>+</b></td>
+	          <td align="center" class="border9"><b>|AC.Armor|</b></td>
+	
+	          <td align="center" class="font7"><b>+</b></td>
+	          <td align="center" class="border9"><b>|AC.Shield|</b></td>
+	
+	          <td align="center" class="font7"><b>+</b></td>
+	          <td align="center" class="border9"><b>|AC.Ability|</b></td>
+	          <td align="center" class="font7"><b>+</b></td>
+	          <td align="center" class="border9"><b>|AC.Size|</b></td>
+	          <td align="center" class="font7"><b>+</b></td>
+	          <td align="center" class="border9"><b>|AC.NaturalArmor|</b></td>
+	          <td align="center" class="font7"><b>+</b></td>
+	          <td align="center" class="border9"><b>|AC.Misc|</b></td>
+	          <td align="center" width="5"></td>
+	          <td align="center" class="border9"><br /></td>
+	          <td align="center"></td>
+	          <td align="center" class="border9"><b>|SPELLFAILURE|</b></td>
+	          <td align="center"></td>
+	          <td align="center" class="border9"><b>|ACCHECK|</b></td>
+	          <td align="center"></td>
+	          <td align="center" class="border9"><b>|MAXDEX|</b></td>
+	          <td align="center"></td>
+	          <td align="center" class="border9"><b>|SR|</b></td>
+	          <td align="center"></td>
+	          <td align="center" class="border9"><b>&nbsp;</b></td>
+	          </tr>
+	        <tr>
+	          <td align="center" width="50"></td>
+	          <td align="center" width="25" valign="top"><font style="font-size: 6pt"><b>TOTAL</b></font></td>
+	          <td align="center"></td>
+	          <td align="center" width="25" valign="top"><font style="font-size: 6pt"><b>FLAT</b></font></td>
+	          <td align="center"></td>
+	          <td align="center" width="25" valign="top"><font style="font-size: 6pt"><b>TOUCH</b></font></td>
+	          <td align="center"></td>
+	          <td align="center" width="25" class="font4">BASE</td>
+	          <td align="center"></td>
+	          <td align="center" width="25" class="font4">ARMOR<br />BONUS</td>
+	          <td align="center"></td>
+	          <td align="center" width="25" class="font4">SHIELD<br />BONUS</td>
+	          <td align="center"></td>
+	          <td align="center" width="25" class="font4">STAT<br />BONUS</td>
+	          <td align="center"></td>
+	          <td align="center" width="25" class="font4">SIZE<br />BONUS</td>
+	          <td align="center"></td>
+	          <td align="center" width="25" class="font4">NATURAL<br />ARMOR</td>
+	          <td align="center"></td>
+	          <td align="center" width="25" class="font4">MISC<br />BONUS</td>
+	          <td align="center"></td>
+	          <td align="center" width="25" class="font4">MISS<br />CHANCE</td>
+	          <td align="center"></td>
+	          <td align="center" width="25" class="font4">ARCANE<br />FAILURE</td>
+	          <td align="center"></td>
+	          <td align="center" width="25" class="font4">ARMOR<br />CHECK</td>
+	          <td align="center"></td>
+	          <td align="center" width="25" class="font4">MAX<br />DEX</td>
+	          <td align="center"></td>
+	          <td align="center" width="25" class="font4">SPELL<br />RESIST.</td>
+	          <td align="center"></td>
+	          <td align="center" width="25" class="font4">TEMP</td>
+	          </tr>
+	        </table> <!-- STOP AC Table -->
+	      </td>
+	    </tr>
+	  <tr>
+	</table>  
+	<!-- END Page Master Table -->
+	
   </body>
 </html>

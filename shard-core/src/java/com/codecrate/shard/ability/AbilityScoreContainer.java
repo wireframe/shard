@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.ability;
 
+import java.util.Collection;
+
 /**
  * Defines an interface for objects that contain Abilities.
  * the caller must be aware that not all ability containers 
@@ -42,6 +44,12 @@ public interface AbilityScoreContainer {
 	 * @return the ability or null if not found.
 	 */
 	AbilityScore getAbilityScore(Ability ability);
+	
+	/**
+	 * gets all ability scores the character has.
+	 * @return
+	 */
+	Collection getAbilityScores();
 	
 	/**
 	 * allows checking if container has an ability.
