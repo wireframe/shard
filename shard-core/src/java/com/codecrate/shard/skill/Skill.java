@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.skill;
 
+import java.util.Collection;
+
 /**
  * Definition of a Skill.
  * A skill is something that every character class has access to.  For each class 
@@ -30,4 +32,11 @@ public interface Skill {
 	String getName();
 	
 	boolean isUsableUntrained();
+	
+	/**
+	 * gets the skills that this skill has synergy with.
+	 * ex: +2 bonus for Jump if 5+ ranks in Tumble.
+	 * @return
+	 */
+	Collection getSkillSynergies();
 }

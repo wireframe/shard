@@ -52,6 +52,20 @@ public interface Race {
      */
     int getLevelAdjustment();
     
+    /**
+     * gets the languages automatically granted to each race.
+     * @return
+     */
+    Collection getAutomaticLanguages();
+    
+    /**
+     * gets the additional languages available to the race.
+     * character's intelligence modifier can be used to buy 
+     * each language.
+     * @return
+     */
+    Collection getBonusLanguages();
+    
     //boolean isImmuneToCriticalHits();
     //getFavoredClass();
     //skill modifiers

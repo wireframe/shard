@@ -15,17 +15,20 @@
  */
 package com.codecrate.shard.skill;
 
+import java.util.Collection;
+
 /**
  * Definition of a Varient Skill.
  * Varient skills can be used to create skill "subtypes".  ex: Craft (Bow), 
- * Craft (Longsword). Craft, Knowledge, Profession, Perform and Read/Write 
+ * Craft (Longsword). Craft, Knowledge, Profession, Perform, Speak Language, and Read/Write 
  * are all possible varient skills. 
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class VarientSkill extends DefaultSkill {
 
-	public VarientSkill(String name, String varientName, boolean usableUntrained, String abilityName) {
-		super(name + " (" + varientName + ")", usableUntrained, abilityName);
+	public VarientSkill(String name, String varientName, boolean usableUntrained, 
+			String abilityName, Collection skillSynergies) {
+		super(name + " (" + varientName + ")", usableUntrained, abilityName, skillSynergies);
 	}
 }

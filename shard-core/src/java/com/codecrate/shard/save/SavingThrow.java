@@ -13,40 +13,41 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.skill;
+package com.codecrate.shard.save;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
-/**
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
- */
-public class DefaultSkill implements Skill {
-	private final String abilityName;
+
+public class SavingThrow {
+
 	private final String name;
-	private final boolean usableUntrained;
-	private final Collection skillSynergies;
+	private Collection modifiers = new ArrayList();
 	
-	public DefaultSkill(String name, boolean usableUntrained, String abilityName, 
-			Collection skillSynergies) {
+	public SavingThrow(String name) {
 		this.name = name;
-		this.usableUntrained = usableUntrained;
-		this.abilityName = abilityName;
-		this.skillSynergies = skillSynergies;
-	}
-	
-	public String getAbilityName() {
-		return abilityName;
 	}
 	
 	public String getName() {
 		return name;
 	}
-	
-	public boolean isUsableUntrained() {
-		return usableUntrained;
+
+	public int getModifier() {
+		int value = 0;
+		Iterator it = modifiers.iterator();
+		while (it.hasNext()) {
+			SavingThrowModifier modifier = (SavingThrowModifier) it.next();
+			value += modifier.getModifier();
+		}
+		return value;
 	}
-	
-	public Collection getSkillSynergies() {
-		return skillSynergies;
+
+	public void addSavingThrowModifier(SavingThrowModifier modifier) {
+		modifiers.add(modifier);
+	}
+
+	public void removeSavingThrowModifier(SavingThrowModifier modifier) {
+		modifiers.remove(modifier);
 	}
 }
