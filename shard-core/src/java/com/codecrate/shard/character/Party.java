@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Party {
     private List characters = new ArrayList();
-    private int encounterLevel;
+//    private int encounterLevel;
     
     /**
      * average challange rating for the party.

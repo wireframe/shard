@@ -44,6 +44,16 @@ public class HitPoints {
         }
     }
     
+    public int getCurrentHitPoints() {
+        return currentHitPoints;
+    }
+    public int getMaxHitPoints() {
+        return maxHitPoints;
+    }
+    public int getSubdualDamage() {
+        return subdualDamage;
+    }
+    
     private boolean isAboveHalf() {
         return ((currentHitPoints / 2) >= maxHitPoints);
     }

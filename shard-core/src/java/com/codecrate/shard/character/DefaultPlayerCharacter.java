@@ -16,13 +16,14 @@
 package com.codecrate.shard.character;
 
 import java.util.Iterator;
-import java.util.List;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
+import com.codecrate.shard.equipment.ItemContainer;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
+import com.codecrate.shard.save.SavingThrowContainer;
 
 /**
  * Default character.
@@ -30,10 +31,9 @@ import com.codecrate.shard.race.Race;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultPlayerCharacter implements PlayerCharacter {
-    private int experience;
-    private List skills;
-    private List feats;
-    private List equipment;
+//    private int experience;
+//    private List skills;
+//    private List feats;
     
     private Age age;
     private int challengeRating;
@@ -45,14 +45,19 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     private Encumberance encumberance;
     private final ArmorClass armorClass;
     private CharacterProgression characterProgression;
+    private final SavingThrowContainer savingThrows;
+    private final String name;
+    private final ItemContainer items;
     
     /**
      * default constructor.
      */
-    public DefaultPlayerCharacter(Race race, Gender gender, Alignment alignment, 
+    public DefaultPlayerCharacter(String name, Race race, Gender gender, Alignment alignment, 
     		AbilityScoreContainer abilities, HitPoints hitPoints, ArmorClass armorClass, Encumberance encumberance, 
-    		Age age, CharacterProgression characterProgression) {
-    	this.race = race;
+    		Age age, CharacterProgression characterProgression, SavingThrowContainer savingThrows, 
+    		ItemContainer items) {
+    	this.name = name;
+        this.race = race;
     	this.gender = gender;
     	this.alignment = alignment;
     	this.abilities = abilities;
@@ -61,6 +66,8 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     	this.encumberance = encumberance;
     	this.age = age;
     	this.characterProgression = characterProgression;
+        this.savingThrows = savingThrows;
+        this.items = items;
     }
     
     public int getChallengeRating() {
@@ -115,5 +122,15 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     
     public CharacterProgression getCharacterProgression() {
     	return characterProgression;
+    }
+    public String getName() {
+        return name;
+    }
+    public SavingThrowContainer getSavingThrows() {
+        return savingThrows;
+    }
+    
+    public ItemContainer getItems() {
+        return items;
     }
 }

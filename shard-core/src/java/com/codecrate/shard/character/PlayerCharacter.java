@@ -17,8 +17,10 @@ package com.codecrate.shard.character;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
+import com.codecrate.shard.equipment.ItemContainer;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
+import com.codecrate.shard.save.SavingThrowContainer;
 
 /**
  * 
@@ -27,7 +29,23 @@ import com.codecrate.shard.race.Race;
 public interface PlayerCharacter {
 	int getChallengeRating();
 	
+	/**
+	 * gets the name of the character.
+	 * @return
+	 */
+	String getName();
+	
+	/**
+	 * gets the ability scores for the character.
+	 * @return
+	 */
 	AbilityScoreContainer getAbilities();
+	
+	/**
+	 * gets the saving throws for this character.
+	 * @return
+	 */
+	SavingThrowContainer getSavingThrows();
 	
 	/**
 	 * gets the effective character level of a character.
@@ -97,4 +115,10 @@ public interface PlayerCharacter {
 	 * @return
 	 */
 	CharacterProgression getCharacterProgression();
+
+    /**
+     * gets the items on the character.
+     * @return
+     */
+    ItemContainer getItems();
 }
