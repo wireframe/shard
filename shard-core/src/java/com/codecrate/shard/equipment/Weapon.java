@@ -23,6 +23,18 @@ import com.codecrate.shard.dice.Dice;
  */
 public interface Weapon extends Item {
 
+	/**
+	 * gets the category of this weapon (simple, martial, exotic).
+	 * @return
+	 */
+	String getCategory();
+	
+	/**
+	 * gets the type of this weapon (slashing, piercing, bludgening).
+	 * @return
+	 */
+	String getType();
+	
     Dice getDamageSmall();
     
     Dice getDamageMedium();
