@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.save;
 
+import java.util.Collection;
 import java.util.Map;
 
 public class SavingThrowContainer {
@@ -38,5 +39,9 @@ public class SavingThrowContainer {
 	
 	public SavingThrowEntry getSavingThrowEntry(SavingThrow save) {
 		return (SavingThrowEntry) savingThrows.get(save);
+	}
+
+	public Collection getEntries() {
+		return savingThrows.values();
 	}
 }

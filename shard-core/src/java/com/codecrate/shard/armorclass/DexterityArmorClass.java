@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.armorclass;
 
+import java.util.Collection;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -57,6 +59,9 @@ public class DexterityArmorClass implements ArmorClass, AbilityScoreListener {
     }
     public void removeArmorClassModifier(ArmorClassModifier modifier) {
         delegate.removeArmorClassModifier(modifier);
+    }
+    public Collection getModifiers() {
+    	return delegate.getModifiers();
     }
 
     public void onModify() {

@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.armorclass;
 
+import java.util.Collection;
+
 /**
  * Defines an armor class.
  * armor class value is changed using <code>ArmorClassModifier</code>s.  
@@ -30,4 +32,10 @@ public interface ArmorClass {
 	void addArmorClassModifier(ArmorClassModifier modifier);
 	
 	void removeArmorClassModifier(ArmorClassModifier modifier);
+
+	/**
+	 * gets the modifiers for the armor class.
+	 * @return
+	 */
+	Collection getModifiers();
 }

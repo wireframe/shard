@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.armorclass;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -77,5 +78,9 @@ public class DefaultArmorClass implements ArmorClass {
 	
 	private void updateModifier(ArmorClassModifierType type, CompositeArmorClassModifier modifier) {
 		modifiers.put(type, modifier);
+	}
+
+	public Collection getModifiers() {
+		return modifiers.values();
 	}
 }

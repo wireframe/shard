@@ -1,6 +1,73 @@
 <html>
   <head>
     <title>$character.name</title>
+<style TYPE="text/css">
+	.font4 {  font-family: Arial; font-size:4pt; }
+	.font5 {  font-family: Arial; font-size:5pt; }
+	.font6 {  font-family: Arial; font-size:6pt; }
+	.font7 {  font-family: Arial; font-size:7pt; }
+	.font8 {  font-family: Arial; font-size:8pt; }
+	.font9 {  font-family: Arial; font-size:9pt; }
+	.h { font-family: Arial; font-size:8pt; vertical-align: bottom; }
+	.ab { font-family: Arial; font-size:10pt; text-align:center; color:white; background:black; }
+	.abb { font-family: Arial; font-size:10pt; text-align:center; font-weight:bold; border: 1px solid black;}
+	.abt { font-family: Arial; font-size:10pt; text-align:center; font-weight:bold; border: 5px solid lightgray;}
+	.sptab { font-family: Arial; vertical-align:top; text-align:center;font-size:8pt;}
+	.sptab1 { font-family: Arial; vertical-align:top; text-align:left;font-size:8pt;}
+	.sptab2 { font-family: Arial; vertical-align:top; text-align:right;font-size:8pt;}
+	.notetab { font-family: Arial; vertical-align:top;border: 1px solid black; text-align:left;font-size:8pt;}
+	.skl { font-family: Arial; font-size: 9pt; font-weight:bold; text-align:center; vertical-align:middle; border: 4px solid black;}
+	.spname { font-family: Arial; vertical-align:top; text-align:left;font-size:8pt;}
+	.sptop { font-family: Arial; vertical-align:top;border: 1px solid black; text-align:center;font-size:8pt; color:white;}
+	.splevel {  font-family: Arial; background:black; text-align:center;font-size:9pt; color:white;}
+	.sphead {  font-family: Arial; background:black; text-align:center;font-size:12pt; color:white;}
+	.notehead {  font-family: Arial; background:black; text-align:center;font-size:12pt; color:white;}
+	.biodata { font-family: Arial; vertical-align:bottom; text-align:left;font-size:9pt;}
+		.topline {
+		border-top-width:1px;
+		border-top: 1pt solid black;
+		font-family: Arial;
+		font-size:6pt;
+	}
+	.border {
+		border: 1px solid black;
+	}
+	.border4 {
+		border: 1px solid black;
+		font-size:4pt;
+	}
+	.border7 {
+		border: 1px solid black;
+		font-size:7pt;
+	}
+	.border8 {
+		border: 1px solid black;
+		font-size:8pt;
+	}
+	.border9 {
+		border: 1px solid black;
+		font-size:9pt;
+	}
+	.border10 {
+		border: 1px solid black;
+		font-size:10pt;
+	}
+
+	.tempborder {
+		border: 5px solid lightgray;
+	}
+	.borderbottom {
+		border-bottom-width:1px;
+		border-bottom: 1pt solid black;
+	}
+	.borderbottom8 {
+		border-bottom-width:1px;
+		border-bottom: 1pt solid black;
+		font-size:8pt;
+	}
+
+</style>
+    
   </head>
   <body>
     printed using Shard version $runtime.projectVersion at $date
@@ -70,7 +137,10 @@
 	        </tr>
 #foreach($abilityScore in $abilities)
 	        <tr>
-	          <td><b>$abilityScore.ability.abbreviation</b><br />$abilityScore.ability.name</td>
+	          <td>
+	            <b>$abilityScore.ability.abbreviation</b><br />
+	            $abilityScore.ability.abbreviation
+	          </td>
 	          <td>$abilityScore.score</td>
 	          <td>$abilityScore.modifier</td>
 	        </tr>
@@ -94,7 +164,7 @@
 	        <tr>
 	          <td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>HP</b></font>
 	            <font style="font-size:5pt" color="white"><br />Hit Points</font></td>
-	          <td align="center" class="border9"><b>$character.hitpoints.max</b></td>
+	          <td align="center" class="border9"><b>$character.hitPoints.maxHitPoints</b></td>
 	          <td align="center"><br /></td>
 	          <td align="center" class="border9"><br /></td>
 	          <td align="center"><br /></td>
@@ -108,98 +178,46 @@
 	
 	      <table summary="AC Table"> <!-- Armor Class Table -->
 	        <tr>
-	          <td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>AC</b></font>
-	            <font style="font-size:5pt" color="white"><br />Armor Class</font></td>
+	          <td align="center" bgcolor="black">
+	            <font style="font-size:9pt" color="white"><b>AC</b></font><br />
+	            <font style="font-size:5pt" color="white">Armor Class</font>
+	          </td>
 	          <td align="center" class="border9"><b>$character.armorClass.value</b></td>
-	          <td align="center" class="font7"><b>:</b></td>
-	          <td align="center" class="border9"><b>|AC.Flatfooted|</b></td>
-	          <td align="center" class="font7"><b>:</b></td>
-	          <td align="center" class="border9"><b>|AC.Touch|</b></td>
-	          <td align="center" class="font7"><b>=</b></td>
-	          <td align="center" class="border9"><b>|AC.Base|</b></td>
-	          <td align="center" class="font7"><b>+</b></td>
-	          <td align="center" class="border9"><b>|AC.Armor|</b></td>
-	          <td align="center" class="font7"><b>+</b></td>
-	          <td align="center" class="border9"><b>|AC.Shield|</b></td>
-	          <td align="center" class="font7"><b>+</b></td>
-	          <td align="center" class="border9"><b>|AC.Ability|</b></td>
-	          <td align="center" class="font7"><b>+</b></td>
-	          <td align="center" class="border9"><b>|AC.Size|</b></td>
-	          <td align="center" class="font7"><b>+</b></td>
-	          <td align="center" class="border9"><b>|AC.NaturalArmor|</b></td>
-	          <td align="center" class="font7"><b>+</b></td>
-	          <td align="center" class="border9"><b>|AC.Misc|</b></td>
-	          <td align="center" width="5"></td>
-	          <td align="center" class="border9"><br /></td>
-	          <td align="center"></td>
-	          <td align="center" class="border9"><b>|SPELLFAILURE|</b></td>
-	          <td align="center"></td>
-	          <td align="center" class="border9"><b>|ACCHECK|</b></td>
-	          <td align="center"></td>
-	          <td align="center" class="border9"><b>|MAXDEX|</b></td>
-	          <td align="center"></td>
-	          <td align="center" class="border9"><b>|SR|</b></td>
-	          <td align="center"></td>
-	          <td align="center" class="border9"><b>&nbsp;</b></td>
-	          </tr>
+#foreach ($acModifier in $acModifiers)
+	          <td align="center" class="border9"><b>$acModifier.modifier </b></td>
+#end
+	        </tr>
 	        <tr>
 	          <td align="center" width="50"></td>
 	          <td align="center" width="25" valign="top"><font style="font-size: 6pt"><b>TOTAL</b></font></td>
-	          <td align="center"></td>
-	          <td align="center" width="25" valign="top"><font style="font-size: 6pt"><b>FLAT</b></font></td>
-	          <td align="center"></td>
-	          <td align="center" width="25" valign="top"><font style="font-size: 6pt"><b>TOUCH</b></font></td>
-	          <td align="center"></td>
-	          <td align="center" width="25" class="font4">BASE</td>
-	          <td align="center"></td>
-	          <td align="center" width="25" class="font4">ARMOR<br />BONUS</td>
-	          <td align="center"></td>
-	          <td align="center" width="25" class="font4">SHIELD<br />BONUS</td>
-	          <td align="center"></td>
-	          <td align="center" width="25" class="font4">STAT<br />BONUS</td>
-	          <td align="center"></td>
-	          <td align="center" width="25" class="font4">SIZE<br />BONUS</td>
-	          <td align="center"></td>
-	          <td align="center" width="25" class="font4">NATURAL<br />ARMOR</td>
-	          <td align="center"></td>
-	          <td align="center" width="25" class="font4">MISC<br />BONUS</td>
-	          <td align="center"></td>
-	          <td align="center" width="25" class="font4">MISS<br />CHANCE</td>
-	          <td align="center"></td>
-	          <td align="center" width="25" class="font4">ARCANE<br />FAILURE</td>
-	          <td align="center"></td>
-	          <td align="center" width="25" class="font4">ARMOR<br />CHECK</td>
-	          <td align="center"></td>
-	          <td align="center" width="25" class="font4">MAX<br />DEX</td>
-	          <td align="center"></td>
-	          <td align="center" width="25" class="font4">SPELL<br />RESIST.</td>
-	          <td align="center"></td>
-	          <td align="center" width="25" class="font4">TEMP</td>
-	          </tr>
-	        </table> <!-- STOP AC Table -->
-	      </td>
-	    </tr>
+#foreach ($acModifier in $acModifiers)
+	          <td align="center" class="border9"><b>$acModifier.modifierType.name <br/>Bonus</b></td>
+#end
+            </tr>
+	      </table> <!-- STOP AC Table -->
+	    </td>
+	  </tr>
 	  <tr>
-	  <td valign="top">
+	    <td valign="top">
 	<!-- START Initiative Table -->
-	   <table width="100%" summary="Initiative Table">
-	    <tr>
-	     <td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>INITIATIVE</b></font><font style="font-size:5pt" color="white"><br />Modifier</font></td>
-	     <td align="center" class="border10"><b>|INITIATIVEMOD|</b></td>
-	     <td align="center" class="font7"><b>=</b></td>
-	     <td align="center" class="border10"><b>|STAT.1.MOD|</b></td>
-	     <td align="center" class="font7"><b>+</b></td>
-	     <td align="center" class="border10"><b>|INITIATIVEBONUS|</b></td>
-	     <td width="50%" rowspan="2" align="center"><br /></td>
-	    </tr>
-	    <tr>
-	     <td align="center" width="50" class="font7"></td>
-	     <td align="center" width="25" valign="top" class="font7">TOTAL</td>
-	     <td align="center"></td>
-	     <td align="center" width="25" class="font5">DEX</td>
-	     <td align="center"></td>
-	     <td align="center" width="25" class="font5">MISC</td>
-	    </tr>
+	    <table width="100%" summary="Initiative Table">
+	      <tr>
+	        <td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>INITIATIVE</b></font><font style="font-size:5pt" color="white"><br />Modifier</font></td>
+	        <td align="center" class="border10"><b>|INITIATIVEMOD|</b></td>
+	        <td align="center" class="font7"><b>=</b></td>
+	        <td align="center" class="border10"><b>|STAT.1.MOD|</b></td>
+	        <td align="center" class="font7"><b>+</b></td>
+	        <td align="center" class="border10"><b>|INITIATIVEBONUS|</b></td>
+	        <td width="50%" rowspan="2" align="center"><br /></td>
+	     </tr>
+	     <tr>
+	       <td align="center" width="50" class="font7"></td>
+	       <td align="center" width="25" valign="top" class="font7">TOTAL</td>
+	       <td align="center"></td>
+	       <td align="center" width="25" class="font5">DEX</td>
+	       <td align="center"></td>
+	       <td align="center" width="25" class="font5">MISC</td>
+	     </tr>
 	   </table>
 	<!-- STOP Initiative Table -->
 	<!-- START Base Attack Table -->
@@ -253,6 +271,22 @@
 	   * = Useable Untrained
 	<!-- STOP Skills Table -->
 	  </td>
+	 </tr>
+	 <tr>
+	<!-- START Saving Throws Table -->
+	   <table width="100%" summary="Saving Throws">
+	    <tr>
+	     <td align="center" class="font4">SAVING THROWS</td>
+	     <td align="center" width="25" class="font4">TOTAL</td>
+	    </tr>
+#foreach ($save in $saves)
+	    <tr>
+	     <td align="center" bgcolor="black"><font style="font-size:10pt" color="white"><b>$save.save.name</b></font><font style="font-size:5pt" color="white"><br />$save.save.ability.abbreviation</font></td>
+	     <td align="center" class="border10"><b>$save.modifier</b></td>
+        </tr>
+#end	    
+   </table>
+<!-- STOP Saving Throws Table -->
 	 </tr>
 	</table>  
 
