@@ -23,25 +23,11 @@ public class HitPoints {
     private int currentHitPoints;
     private int maxHitPoints;
     private int subdualDamage;
-    
-    public void heal(int amount) {
-        currentHitPoints += amount;
-        
-        if (currentHitPoints > maxHitPoints) {
-            currentHitPoints = maxHitPoints;
-        }
-    }
-    
-    public void damage(int amount) {
-        boolean beforeDamageAboveHalf = isAboveHalf();
-        currentHitPoints -= amount;
-        boolean afterDamageAboveHalf = isAboveHalf();
-        
-        if (currentHitPoints <= 0) {
-            //trigger dying
-        } else if (beforeDamageAboveHalf && !afterDamageAboveHalf) {
-            //trigger flee
-        }
+
+    public HitPoints(int currentHitPoints, int maxHitPoints, int subdualDamage) {
+        this.currentHitPoints = currentHitPoints;
+        this.maxHitPoints = maxHitPoints;
+        this.subdualDamage = subdualDamage;
     }
     
     public int getCurrentHitPoints() {
@@ -52,9 +38,5 @@ public class HitPoints {
     }
     public int getSubdualDamage() {
         return subdualDamage;
-    }
-    
-    private boolean isAboveHalf() {
-        return ((currentHitPoints / 2) >= maxHitPoints);
     }
 }

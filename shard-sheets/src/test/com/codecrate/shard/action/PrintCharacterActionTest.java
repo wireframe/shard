@@ -91,7 +91,7 @@ public class PrintCharacterActionTest extends TestCase {
 		
 		Age age = new RacialCategorizedAge(20, DefaultRace.HUMAN, new AgeCategoryDao(), 100);
 		
-		HitPoints hitPoints = new HitPoints();
+		HitPoints hitPoints = new HitPoints(12, 20, 5);
 		
 		SavingThrowEntryContainer savingThrows = new SavingThrowEntryContainer();
 
