@@ -33,7 +33,7 @@ public class EncumberanceDao {
             return null;
         }
         AbilityScore strength = abilities.getAbilityScore(DefaultAbility.STRENGTH);
-        int score = strength.getScore();
+        int score = strength.getModifiedValue();
         int effectiveWeight = inventory.getTotalWeight().divide(size.getEncumberanceMultiplier(), 0).intValue();
         
         if (1 == score) {

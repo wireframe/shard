@@ -30,6 +30,13 @@ import com.codecrate.shard.skill.SkillEntryContainer;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface PlayerCharacter {
+    
+    /**
+     * gets the initiative for the character.
+     * @return
+     */
+    Initiative getInitiative();
+    
     /**
      * gets the challenge rating for the character.
      * can range from 0.1 to any number.

@@ -43,6 +43,7 @@ import com.codecrate.shard.character.DefaultCharacterProgression;
 import com.codecrate.shard.character.DefaultGender;
 import com.codecrate.shard.character.DefaultPlayerCharacter;
 import com.codecrate.shard.character.HitPoints;
+import com.codecrate.shard.character.Initiative;
 import com.codecrate.shard.character.RacialCategorizedAge;
 import com.codecrate.shard.equipment.Coin;
 import com.codecrate.shard.equipment.ItemContainer;
@@ -104,10 +105,12 @@ public class PrintCharacterActionTest extends TestCase {
 		
 		Encumberance encumberance = new InventoryWeightEncumberance(abilities, itemContainer, DefaultRace.HUMAN.getSize(), new EncumberanceDao());
 		
+		Initiative initiative = new Initiative();
 		DefaultPlayerCharacter character = new DefaultPlayerCharacter("Gunthor the Terrible",
 				DefaultRace.HUMAN, DefaultGender.MALE,
 				DefaultAlignment.LAWFUL_GOOD, abilities, hitPoints, armorClass,
-				encumberance, age, progression, savingThrows, itemContainer, 0, skills, new BigDecimal(20));
+				encumberance, age, progression, savingThrows, itemContainer, 0, skills, new BigDecimal(20),
+				initiative);
 		
 		PrintCharacterAction output = new PrintCharacterAction(character, template);
 		System.out.println(output.render());

@@ -17,26 +17,19 @@ package com.codecrate.shard.ability;
 
 import java.util.Collection;
 
-import com.codecrate.shard.ModifierContainer;
+import com.codecrate.shard.Modifiable;
 
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface AbilityScore extends ModifierContainer {
+public interface AbilityScore extends Modifiable {
 	/**
 	 * gets the name of the ability. 
 	 * @return
 	 */
 	Ability getAbility();
 	
-	/**
-	 * gets the current value of the ability.
-	 * includes modifiers.
-	 * @return value.
-	 */
-	int getScore();
-
 	/**
 	 * gets the point cost associated with the score.
 	 * @return
@@ -48,7 +41,7 @@ public interface AbilityScore extends ModifierContainer {
 	 * ex: value of 10 = bonus of 0
 	 * @return bonus.
 	 */
-	int getModifier();
+	int getBonus();
 
 	/**
 	 * adds a listener.

@@ -32,7 +32,7 @@ public class AbilityScorePrerequisite implements CharacterPrerequisite {
 	    if (!character.getAbilities().hasAbilityScore(abilityScore.getAbility())) {
 	        return false;
 	    }
-	    if (abilityScore.getScore() > character.getAbilities().getAbilityScore(abilityScore.getAbility()).getScore()) {
+	    if (abilityScore.getModifiedValue() > character.getAbilities().getAbilityScore(abilityScore.getAbility()).getModifiedValue()) {
 	        return false;
 	    }
 		return true;

@@ -20,6 +20,7 @@ import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.codecrate.shard.ModifiableObject;
 import com.codecrate.shard.Modifier;
 
 
@@ -32,34 +33,38 @@ public class DefaultAbilityScore implements AbilityScore {
 	
 	private Ability ability;
     private int baseScore;
-    private CompositeAbilityScoreModifier modifiers;
+    private ModifiableObject delegate;
     private CompositeAbilityScoreListener listeners = new CompositeAbilityScoreListener();
     
     public DefaultAbilityScore(Ability ability, int baseScore) {
     	this.ability = ability;
     	this.baseScore = baseScore;
-    	modifiers = new CompositeAbilityScoreModifier(ability);
+    	delegate = new ModifiableObject(baseScore);
     }
     
     public String toString() {
-        return ability + ": " + getScore() + " (" + getModifier() +")";
+        return ability + ": " + getValue() + " (" + getBonus() +")";
     }
     
     public Ability getAbility() {
     	return ability;
     }
     
-    public int getScore() {
-    	return baseScore + modifiers.getModifier();
+    public int getValue() {
+        return baseScore;
     }
     
-    public int getModifier() {
-        return (int) Math.floor((getScore() - 10) / 2);
+    public int getModifiedValue() {
+        return delegate.getModifiedValue();
+    }
+    
+    public int getBonus() {
+        return (int) Math.floor((getValue() - 10) / 2);
     }
     
     public int getPointCost() {
     	int points = 0;
-    	int score = getScore();
+    	int score = getValue();
     	
     	switch (score) {
     	case 0:
@@ -139,12 +144,12 @@ public class DefaultAbilityScore implements AbilityScore {
     }
 
 	public void addModifier(Modifier modifier) {
-		modifiers.addAbilityModifier((AbilityScoreModifier) modifier);
+		delegate.addModifier(modifier);
 		listeners.onModify();
 	}
 	
 	public void removeModifier(Modifier modifier) {
-		modifiers.removeAbilityModifier((AbilityScoreModifier) modifier);
+		delegate.removeModifier(modifier);
 		listeners.onModify();
 	}
 
@@ -161,6 +166,6 @@ public class DefaultAbilityScore implements AbilityScore {
 	}
 
     public Collection getModifiers() {
-        return modifiers.getModifiers();
+        return delegate.getModifiers();
     }
 }

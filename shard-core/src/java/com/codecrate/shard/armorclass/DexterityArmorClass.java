@@ -75,7 +75,7 @@ public class DexterityArmorClass implements ArmorClass, AbilityScoreListener {
             if (null != modifier) {
                 removeModifier(modifier);
             }
-            int value = abilityScore.getModifier();
+            int value = abilityScore.getBonus();
             int maxValue = encumberance.getMaxDexterityModifier();
             if (value > maxValue) {
                 LOG.info("Encumberance limits dexterity modifier to " + maxValue);
