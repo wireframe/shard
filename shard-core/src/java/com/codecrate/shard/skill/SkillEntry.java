@@ -15,17 +15,12 @@
  */
 package com.codecrate.shard.skill;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import com.codecrate.shard.Modifiable;
+import com.codecrate.shard.ModifiableObject;
 
-import com.codecrate.shard.Modifier;
-import com.codecrate.shard.ModifierContainer;
-
-public class SkillEntry implements ModifierContainer {
+public class SkillEntry extends ModifiableObject implements Modifiable {
 
 	private final Skill skill;
-	private Collection modifiers = new ArrayList();
 
 	public SkillEntry(Skill skill) {
 		this.skill = skill;
@@ -35,25 +30,7 @@ public class SkillEntry implements ModifierContainer {
 		return skill;
 	}
 	
-	public int getValue() {
-		int value = 0;
-		Iterator it = modifiers.iterator();
-		while (it.hasNext()) {
-			SkillModifier modifier = (SkillModifier) it.next();
-			value += modifier.getModifier();
-		}
-		return value;
-	}
-	
-	public void addModifier(Modifier modifier) {
-		modifiers.add(modifier);
-	}
-	
-	public void removeModifier(Modifier modifier) {
-		modifiers.remove(modifier);
-	}
-	
-	public Collection getModifiers() {
-		return modifiers;
+	public String toString() {
+	    return skill + "(" + getModifiedValue() + ")";
 	}
 }
