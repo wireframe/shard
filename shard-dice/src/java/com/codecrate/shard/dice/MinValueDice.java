@@ -40,4 +40,8 @@ public class MinValueDice implements Dice {
     public int roll() {
         return dice.getMinValue();
     }
+
+    public String toString() {
+    	return "min(" + dice.toString() + ")";
+    }
 }

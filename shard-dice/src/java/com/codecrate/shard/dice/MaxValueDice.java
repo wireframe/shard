@@ -40,4 +40,8 @@ public class MaxValueDice implements Dice {
     public int roll() {
         return dice.getMaxValue();
     }
+    
+    public String toString() {
+    	return "max(" + dice.toString() + ")";
+    }
 }
