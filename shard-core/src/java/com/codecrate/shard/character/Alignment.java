@@ -47,4 +47,6 @@ public interface Alignment {
     
     boolean isGood();
     boolean isEvil();
+    
+    boolean isSame(Alignment alignment);
 }

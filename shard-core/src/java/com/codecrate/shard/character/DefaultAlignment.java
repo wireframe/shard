@@ -53,16 +53,11 @@ public class DefaultAlignment implements Alignment {
         this.abbreviation = abbreviation;
     }
 
-    public int hashCode() {
-    	return abbreviation.hashCode();
-    }
-    
     public String toString() {
     	return name;
     }
     
-    public boolean equals(Object target) {
-        Alignment alignment = (Alignment) target;
+    public boolean isSame(Alignment alignment) {
         if (isLawful() && !alignment.isLawful()) {
             return false;
         }
