@@ -16,10 +16,10 @@
 package com.codecrate.shard;
 
 
-public class ShardRuntime {
+public class ShardProjectInfo {
 
     public String getProjectVersion() {
-        Package pkg = ShardRuntime.class.getPackage();
+        Package pkg = ShardProjectInfo.class.getPackage();
         //String specVersion = pkg.getSpecificationVersion();
         String implVersion = pkg.getImplementationVersion();
         if (null == implVersion) {

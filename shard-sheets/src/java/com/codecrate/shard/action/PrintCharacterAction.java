@@ -24,7 +24,7 @@ import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 
-import com.codecrate.shard.ShardRuntime;
+import com.codecrate.shard.ShardProjectInfo;
 import com.codecrate.shard.character.PlayerCharacter;
 import com.codecrate.shard.output.RenderTool;
 
@@ -43,7 +43,7 @@ public class PrintCharacterAction {
 		context.put("acModifiers", character.getArmorClass().getModifiers());
 		context.put("items", character.getInventory().getItems());
 		context.put("skills", character.getSkills().getSkills());
-		context.put("runtime", new ShardRuntime());
+		context.put("runtime", new ShardProjectInfo());
 		context.put("date", new Date());
 		context.put("renderTool", new RenderTool());
 		this.template = template;
