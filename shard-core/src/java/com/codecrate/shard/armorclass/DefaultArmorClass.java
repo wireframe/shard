@@ -24,7 +24,6 @@ import com.codecrate.shard.modifier.ModifierType;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultArmorClass extends ModifiableObject implements ArmorClass {
-	public static final ModifierType DEXTERITY = new DefaultModifierType("dexterity", false);
 	public static final ModifierType ARMOR = new DefaultModifierType("armor", false);
 	public static final ModifierType SHIELD = new DefaultModifierType("shield", false);
 	public static final ModifierType NATURAL = new DefaultModifierType("natural", false);

@@ -22,9 +22,11 @@ import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.modifier.DefaultModifier;
+import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.ModifiableObject;
 import com.codecrate.shard.modifier.Modifier;
 import com.codecrate.shard.modifier.ModifierListener;
+import com.codecrate.shard.modifier.ModifierType;
 import com.codecrate.shard.movement.Encumberance;
 
 /**
@@ -35,6 +37,7 @@ import com.codecrate.shard.movement.Encumberance;
  */
 public class DexterityArmorClass extends ModifiableObject implements ArmorClass, ModifierListener {
     private static final Log LOG = LogFactory.getLog(DexterityArmorClass.class);
+    private static final ModifierType ENCUMBERANCE = new DefaultModifierType("encumberance", false);
     
     private final Encumberance encumberance;
     private AbilityScore abilityScore;
@@ -47,6 +50,7 @@ public class DexterityArmorClass extends ModifiableObject implements ArmorClass,
         if (abilities.hasAbilityScore(DefaultAbility.DEXTERITY)) {
             abilityScore = abilities.getAbilityScore(DefaultAbility.DEXTERITY);
             abilityScore.addListener(this);
+            addModifier(abilityScore);
         }
         onModify();
     }
@@ -61,10 +65,9 @@ public class DexterityArmorClass extends ModifiableObject implements ArmorClass,
             int maxValue = encumberance.getMaxDexterityModifier();
             if (value > maxValue) {
                 LOG.info("Encumberance limits dexterity modifier to " + maxValue);
-                value = maxValue;
+                modifier = new DefaultModifier(ENCUMBERANCE, maxValue - value);
+                addModifier(modifier);
             }
-            modifier = new DefaultModifier(DefaultArmorClass.DEXTERITY, value);
-            addModifier(modifier);
         }
     }
 }
