@@ -40,8 +40,9 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     
     private int baseAttackBonus;
 
-    public DefaultPlayerCharacter(Race race) {
+    public DefaultPlayerCharacter(Race race, Gender gender) {
     	this.race = race;
+    	this.gender = gender;
     }
     
     public int getChallengeRating() {
@@ -59,5 +60,9 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 
 	public int getBaseAttackBonus() {
 		return baseAttackBonus;
+	}
+	
+	public Gender getGender() {
+		return gender;
 	}
 }

@@ -15,21 +15,18 @@
  */
 package com.codecrate.shard.character;
 
-import com.codecrate.shard.character.ability.AbilityContainer;
-
-public interface PlayerCharacter extends AbilityContainer {
-	int getChallengeRating();
+public class DefaultGender implements Gender {
+	public static final Gender MALE = new DefaultGender("Male");
+	public static final Gender FEMALE = new DefaultGender("Female");
 	
-	/**
-	 * gets the base attack bonus for this character.
-	 * value should be the sum of the bonuses for all character classes.
-	 * @return
-	 */
-	int getBaseAttackBonus();
 	
-	/**
-	 * gets the gender for the character;
-	 * @return
-	 */
-	Gender getGender();
+	private String name;
+	
+	public DefaultGender(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
 }

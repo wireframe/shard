@@ -16,12 +16,11 @@
 package com.codecrate.shard.character;
 
 public interface Gender {
-    static final Gender MALE = new Male();
-    static final Gender FEMALE = new Female();
-    
-    
-    static class Male implements Gender {}
-    
-    
-    static class Female implements Gender {}
+	
+	/**
+	 * gets the name of the gender.
+	 * ex: Male or Female
+	 * @return
+	 */
+	String getName();
 }
