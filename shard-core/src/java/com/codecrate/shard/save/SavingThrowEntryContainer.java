@@ -21,14 +21,14 @@ import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class SavingThrowContainer {
-	private static final Log LOG = LogFactory.getLog(SavingThrowContainer.class);
+public class SavingThrowEntryContainer {
+	private static final Log LOG = LogFactory.getLog(SavingThrowEntryContainer.class);
 	
 	private SavingThrowEntry reflexSave;
 	private SavingThrowEntry fortitudeSave;
 	private SavingThrowEntry willSave;
 	
-	public SavingThrowContainer() {
+	public SavingThrowEntryContainer() {
 		reflexSave = new SavingThrowEntry(DefaultSavingThrow.REFLEX);
 		fortitudeSave = new SavingThrowEntry(DefaultSavingThrow.FORTITUDE);
 		willSave = new SavingThrowEntry(DefaultSavingThrow.WILLPOWER);

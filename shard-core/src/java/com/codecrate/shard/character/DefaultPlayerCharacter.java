@@ -24,7 +24,7 @@ import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
-import com.codecrate.shard.save.SavingThrowContainer;
+import com.codecrate.shard.save.SavingThrowEntryContainer;
 import com.codecrate.shard.skill.SkillEntryContainer;
 
 /**
@@ -44,7 +44,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     private final Encumberance encumberance;
     private final ArmorClass armorClass;
     private final CharacterProgression characterProgression;
-    private final SavingThrowContainer savingThrows;
+    private final SavingThrowEntryContainer savingThrows;
     private final String name;
     private final ItemEntryContainer items;
     private final SkillEntryContainer skills;
@@ -57,7 +57,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
      */
     public DefaultPlayerCharacter(String name, Race race, Gender gender, Alignment alignment, 
     		AbilityScoreContainer abilities, HitPoints hitPoints, ArmorClass armorClass, Encumberance encumberance, 
-    		Age age, CharacterProgression characterProgression, SavingThrowContainer savingThrows, 
+    		Age age, CharacterProgression characterProgression, SavingThrowEntryContainer savingThrows, 
     		ItemEntryContainer items, int experience, SkillEntryContainer skills, BigDecimal challengeRating, 
     		Initiative initiative) {
     	this.name = name;
@@ -135,7 +135,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     public String getName() {
         return name;
     }
-    public SavingThrowContainer getSavingThrows() {
+    public SavingThrowEntryContainer getSavingThrows() {
         return savingThrows;
     }
     

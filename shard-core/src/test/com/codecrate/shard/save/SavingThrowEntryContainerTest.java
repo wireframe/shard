@@ -17,10 +17,10 @@ package com.codecrate.shard.save;
 
 import junit.framework.TestCase;
 
-public class DefaultSavingThrowContainerTest extends TestCase {
+public class SavingThrowEntryContainerTest extends TestCase {
 
 	public void testGetSavingThrowReturnsObject() {
-		SavingThrowContainer container = new SavingThrowContainer();
+		SavingThrowEntryContainer container = new SavingThrowEntryContainer();
 		assertNotNull(container.getFortitudeSavingThrow());
 	}
 }

@@ -55,7 +55,7 @@ import com.codecrate.shard.movement.DefaultEncumberanceDao;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.movement.InventoryWeightEncumberance;
 import com.codecrate.shard.race.DefaultRace;
-import com.codecrate.shard.save.SavingThrowContainer;
+import com.codecrate.shard.save.SavingThrowEntryContainer;
 import com.codecrate.shard.skill.CharacterProgressionSkillEntryContainer;
 import com.codecrate.shard.skill.DefaultSkill;
 import com.codecrate.shard.skill.DefaultSkillEntryModifier;
@@ -93,7 +93,7 @@ public class PrintCharacterActionTest extends TestCase {
 		
 		HitPoints hitPoints = new HitPoints();
 		
-		SavingThrowContainer savingThrows = new SavingThrowContainer();
+		SavingThrowEntryContainer savingThrows = new SavingThrowEntryContainer();
 
 		ItemEntryContainer itemContainer = new DefaultItemEntryContainer(Arrays.asList(new ItemEntry[] {new ItemEntry(Coin.GOLD_PIECE, 100)}));
 		
