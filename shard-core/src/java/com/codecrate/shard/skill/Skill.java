@@ -13,10 +13,28 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.equipment;
+package com.codecrate.shard.skill;
 
-public class Money {
-
-	private int copperValue;
+public class Skill {
+	private final String abilityName;
+	private final String name;
+	private final boolean usableUntrained;
 	
+	public Skill(String name, boolean usableUntrained, String abilityName) {
+		this.name = name;
+		this.usableUntrained = usableUntrained;
+		this.abilityName = abilityName;
+	}
+	
+	public String getAbilityName() {
+		return abilityName;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public boolean isUsableUntrained() {
+		return usableUntrained;
+	}
 }

@@ -19,26 +19,28 @@ import java.util.Collection;
 
 import com.codecrate.shard.dice.Dice;
 
-public interface CharacterClass {
+public class DefaultCharacterClass implements CharacterClass {
 
-	/**
-	 * gets the dice used for each level to generate hit points (before constitution modifier)
-	 * ex: d8
-	 * @return
-	 */
-	Dice getHitDicePerLevel();
+	private Collection classSkills;
+	private Dice hitDicePerLevel;
+	private final int baseSkillPointsPerLevel;
+
+	public DefaultCharacterClass(Dice hitDicePerLevel, Collection classSkills, int baseSkillPointsPerLevel) {
+		this.hitDicePerLevel = hitDicePerLevel;
+		this.classSkills = classSkills;
+		this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
+	}
 	
-	/**
-	 * gets the skills that are considered class skills.
-	 * all other skills are considered cross class.
-	 * @return
-	 */
-	Collection getClassSkills();
+	public Dice getHitDicePerLevel() {
+		return hitDicePerLevel;
+	}
+
+	public Collection getClassSkills() {
+		return classSkills;
+	}
 	
-	/**
-	 * gets the number of base skill points per level.
-	 * this is before the intelligence modifier is added on.
-	 * @return number of skill points per level (before intelligence modifier).
-	 */
-	int getBaseSkillPointsPerLevel();
+	public int getBaseSkillPointsPerLevel() {
+		return baseSkillPointsPerLevel;
+	}
+
 }
