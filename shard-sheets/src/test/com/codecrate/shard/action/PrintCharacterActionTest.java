@@ -50,9 +50,8 @@ import com.codecrate.shard.equipment.ItemContainer;
 import com.codecrate.shard.equipment.ItemEntry;
 import com.codecrate.shard.equipment.MaxWeightItemContainer;
 import com.codecrate.shard.kit.DefaultCharacterClass;
-import com.codecrate.shard.movement.DefaultEncumberance;
+import com.codecrate.shard.movement.DefaultEncumberanceDao;
 import com.codecrate.shard.movement.Encumberance;
-import com.codecrate.shard.movement.EncumberanceDao;
 import com.codecrate.shard.movement.InventoryWeightEncumberance;
 import com.codecrate.shard.race.DefaultRace;
 import com.codecrate.shard.save.SavingThrowContainer;
@@ -94,8 +93,6 @@ public class PrintCharacterActionTest extends TestCase {
 		
 		HitPoints hitPoints = new HitPoints();
 		
-		ArmorClass armorClass = new DexterityArmorClass(abilities, DefaultEncumberance.LIGHT, new DefaultArmorClass());
-		
 		SavingThrowContainer savingThrows = new SavingThrowContainer();
 
 		ItemContainer itemContainer = new MaxWeightItemContainer(9999);
@@ -103,7 +100,9 @@ public class PrintCharacterActionTest extends TestCase {
 		
 		SkillEntryContainer skills = new CharacterProgressionSkillEntryContainer(progression);
 		
-		Encumberance encumberance = new InventoryWeightEncumberance(abilities, itemContainer, DefaultRace.HUMAN.getSize(), new EncumberanceDao());
+		Encumberance encumberance = new InventoryWeightEncumberance(abilities, itemContainer, DefaultRace.HUMAN.getSize(), new DefaultEncumberanceDao());
+		
+		ArmorClass armorClass = new DexterityArmorClass(abilities, encumberance, new DefaultArmorClass());
 		
 		Initiative initiative = new Initiative(abilities);
 		DefaultPlayerCharacter character = new DefaultPlayerCharacter("Gunthor the Terrible",
