@@ -23,6 +23,13 @@ import com.codecrate.shard.kit.ClassLevel;
 
 public interface CharacterProgression {
 
+	/**
+	 * gets the formatted text for this character's progression.
+	 * ex: Fighter 7 / Wizard 5
+	 * @return
+	 */
+	String getName();
+	
     /**
      * gets all character levels.
      * @return

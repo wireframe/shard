@@ -15,11 +15,15 @@
  */
 package com.codecrate.shard.kit;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
+
+import com.codecrate.shard.level.ConstantRateLevelCalculator;
+import com.codecrate.shard.level.LevelCalculator;
 
 public class DefaultClassProgressionDao implements ClassProgressionDao{
 
     public ClassProgression getClassProgress(CharacterClass kit) {
-        return new DefaultClassProgression(new ArrayList());
+		LevelCalculator calculator = new ConstantRateLevelCalculator(1, new BigDecimal(1));
+    	return new CalculatedClassProgression(20, kit, calculator, calculator, calculator, calculator);
     }
 }

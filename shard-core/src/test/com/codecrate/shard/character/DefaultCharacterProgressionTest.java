@@ -52,6 +52,33 @@ public class DefaultCharacterProgressionTest extends TestCase {
     	assertSame(ranger, progression.getClasses().iterator().next());
     }
 
+    public void testNameFormattedCorrectly() {
+		MockControl mockClass2 = MockControl.createControl(CharacterClass.class);
+		CharacterClass fighter = (CharacterClass) mockClass2.getMock();
+		fighter.getName();
+		mockClass2.setReturnValue("Fighter");
+		mockClass2.replay();
+		
+		MockControl mockClass = MockControl.createControl(CharacterClass.class);
+		CharacterClass ranger = (CharacterClass) mockClass.getMock();
+		ranger.getName();
+		mockClass.setDefaultReturnValue("Ranger");
+		mockClass.replay();
+
+    	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
+    	ClassLevel fighterLevel1 = new DefaultClassLevel(1, fighter, 1, 1, 1, 1);
+    	
+    	CharacterLevel characterLevel1 = new DefaultCharacterLevel(1, 3, rangerLevel1, new ArrayList());
+    	CharacterLevel characterLevel2 = new DefaultCharacterLevel(2, 4, fighterLevel1, new ArrayList());
+    	
+    	Collection levels = new ArrayList();
+    	levels.add(characterLevel1);
+    	levels.add(characterLevel2);
+    	
+    	DefaultCharacterProgression progression = new DefaultCharacterProgression(levels);
+    	assertEquals("Ranger 1 / Fighter 1", progression.getName());
+    }
+
     public void testGetMaxLevelReturnsHighestLevel() {
 		MockControl mockClass = MockControl.createControl(CharacterClass.class);
 		CharacterClass ranger = (CharacterClass) mockClass.getMock();

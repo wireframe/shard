@@ -62,25 +62,23 @@ public class DefaultCharacterProgression implements CharacterProgression {
 		return level;
 	}
 	
-	/**
-	 * returns result formatted like this:
-	 * Wizard (5) / Fighter (10)
-	 */
-	public String toString() {
+	public String getName() {
 		StringBuffer result = new StringBuffer();
-		int x = 0;
 		Iterator classes = getClasses().iterator();
 		while (classes.hasNext()) {
 			CharacterClass kit = (CharacterClass) classes.next();
 			ClassLevel maxLevel = getClassLevel(kit);
-			result.append(maxLevel);
+			result.append(kit.getName() + " " + maxLevel.getLevel());
 			
-			if (x != levels.size()) {
+			if (classes.hasNext()) {
 				result.append(" / ");
 			}
-			x++;
 		}
 		return result.toString();
+	}
+	
+	public String toString() {
+		return getName();
 	}
 
     public Collection getCharacterLevels() {

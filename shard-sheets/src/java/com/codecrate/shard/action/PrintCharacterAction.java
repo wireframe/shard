@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.output;
+package com.codecrate.shard.action;
 
 import java.io.StringWriter;
 import java.util.Date;
@@ -26,16 +26,17 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 
 import com.codecrate.shard.ShardRuntime;
 import com.codecrate.shard.character.PlayerCharacter;
+import com.codecrate.shard.output.RenderTool;
 
 /**
  * 
  * @see http://jakarta.apache.org/velocity/developer-guide.html
  */
-public class CharacterOutput {
+public class PrintCharacterAction {
 	private VelocityContext context = new VelocityContext();
 	private Template template;
 	
-	public CharacterOutput(PlayerCharacter character, Template template) {
+	public PrintCharacterAction(PlayerCharacter character, Template template) {
 		context.put("character", character);
 		context.put("runtime", new ShardRuntime());
 		context.put("date", new Date());

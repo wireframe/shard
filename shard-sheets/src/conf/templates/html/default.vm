@@ -22,7 +22,7 @@
 	  <td>POINTS</td>
 	 </tr>
 	 <tr>
-	  <td>$character.characterProgression</td>
+	  <td>$character.characterProgression.name</td>
 	  <td>$character.experience</td>
 	  <td>$character.race.name</td>
 	  <td>$character.race.size.name / $character.race.size.reach</td>
@@ -40,7 +40,7 @@
 	  <td>VISION</td>
 	 </tr>
 	 <tr>
-	  <td>$character.characterProgression.maxLevel</td>
+	  <td>$character.characterProgression.characterLevel</td>
 	  <td>|EXP.NEXT|</td>
 	  <td>$character.age.currentAge</td>
 	  <td>$character.gender.name</td>
