@@ -28,7 +28,7 @@ public interface CharacterProgression {
 	 * ex: Fighter 7 / Wizard 5
 	 * @return
 	 */
-	String getName();
+	String getDescription();
 	
     /**
      * gets all character levels.

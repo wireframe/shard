@@ -41,6 +41,8 @@ public class PrintCharacterAction {
 		context.put("abilities", character.getAbilities().getAbilityScores());
 		context.put("saves", character.getSavingThrows().getEntries());
 		context.put("acModifiers", character.getArmorClass().getModifiers());
+		context.put("items", character.getInventory().getItems());
+		context.put("skills", character.getSkills().getSkills());
 		context.put("runtime", new ShardRuntime());
 		context.put("date", new Date());
 		context.put("renderTool", new RenderTool());

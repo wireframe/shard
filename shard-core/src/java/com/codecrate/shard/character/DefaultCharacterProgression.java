@@ -62,7 +62,7 @@ public class DefaultCharacterProgression implements CharacterProgression {
 		return level;
 	}
 	
-	public String getName() {
+	public String getDescription() {
 		StringBuffer result = new StringBuffer();
 		Iterator classes = getClasses().iterator();
 		while (classes.hasNext()) {
@@ -78,7 +78,7 @@ public class DefaultCharacterProgression implements CharacterProgression {
 	}
 	
 	public String toString() {
-		return getName();
+		return getDescription();
 	}
 
     public Collection getCharacterLevels() {

@@ -1,5 +1,6 @@
 package com.codecrate.shard.action;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,12 +27,17 @@ import com.codecrate.shard.character.DefaultCharacterProgression;
 import com.codecrate.shard.character.DefaultGender;
 import com.codecrate.shard.character.DefaultPlayerCharacter;
 import com.codecrate.shard.character.HitPoints;
+import com.codecrate.shard.equipment.Coin;
+import com.codecrate.shard.equipment.ItemContainer;
+import com.codecrate.shard.equipment.ItemEntry;
+import com.codecrate.shard.equipment.MaxWeightItemContainer;
 import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.movement.DefaultEncumberance;
 import com.codecrate.shard.race.DefaultRace;
-import com.codecrate.shard.save.DefaultSavingThrow;
 import com.codecrate.shard.save.SavingThrowContainer;
-import com.codecrate.shard.save.SavingThrowEntry;
+import com.codecrate.shard.skill.DefaultSkill;
+import com.codecrate.shard.skill.SkillEntry;
+import com.codecrate.shard.skill.SkillEntryContainer;
 
 public class PrintCharacterActionTest extends TestCase {
 
@@ -59,14 +65,19 @@ public class PrintCharacterActionTest extends TestCase {
 		
 		ArmorClass armorClass = new DexterityArmorClass(abilities, DefaultEncumberance.LIGHT, new DefaultArmorClass());
 		
-		Map entries = new HashMap();
-		entries.put(DefaultSavingThrow.REFLEX, new SavingThrowEntry(DefaultSavingThrow.REFLEX));
 		SavingThrowContainer savingThrows = new SavingThrowContainer();
+
+		ItemContainer itemContainer = new MaxWeightItemContainer(9999);
+		itemContainer.add(new ItemEntry(Coin.GOLD_PIECE, 100));
 		
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter("test",
+		Map skillMap = new HashMap();
+		skillMap.put(DefaultSkill.SWIM, new SkillEntry(DefaultSkill.SWIM));
+		SkillEntryContainer skills = new SkillEntryContainer(skillMap, 3);
+		
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter("Gunthor the Terrible",
 				DefaultRace.HUMAN, DefaultGender.MALE,
 				DefaultAlignment.LAWFUL_GOOD, abilities, hitPoints, armorClass,
-				null, age, progression, savingThrows, null, 0, null, null);
+				DefaultEncumberance.LIGHT, age, progression, savingThrows, itemContainer, 0, skills, new BigDecimal(20));
 		
 		PrintCharacterAction output = new PrintCharacterAction(character, template);
 		System.out.println(output.render());

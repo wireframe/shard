@@ -17,6 +17,7 @@ package com.codecrate.shard.skill;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class SkillEntry {
 
@@ -25,6 +26,20 @@ public class SkillEntry {
 
 	public SkillEntry(Skill skill) {
 		this.skill = skill;
+	}
+	
+	public Skill getSkill() {
+		return skill;
+	}
+	
+	public int getValue() {
+		int value = 0;
+		Iterator it = modifiers.iterator();
+		while (it.hasNext()) {
+			SkillModifier modifier = (SkillModifier) it.next();
+			value += modifier.getValue();
+		}
+		return value;
 	}
 	
 	public void addModifier(SkillModifier modifier) {

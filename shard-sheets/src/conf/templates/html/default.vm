@@ -70,57 +70,57 @@
     
   </head>
   <body>
-    printed using Shard version $runtime.projectVersion at $date
+    <center><font size="-1">printed using Shard version $runtime.projectVersion at $date</font></center><br/>
 	<!-- START General Character Data -->
 	<table>
 	 <tr>
-	  <td colspan="2">$character.name</td>
-	  <td colspan="2">|PLAYERNAME|</td>
-	  <td>$character.alignment.name</td>
-	  <td>|DEITY|</td>
-	  <td>$character.abilities.totalPointScore</td>
-	  <td rowspan="6"><IMG SRC="|PORTRAIT|" height="100"></td>
+	  <td colspan="2" class="h">$character.name</td>
+	  <td colspan="2" class="h">|PLAYERNAME|</td>
+	  <td colspan="1" class="h">$character.alignment.name</td>
+	  <td colspan="1" class="h">|DEITY|</td>
+	  <td class="h">$character.abilities.totalPointScore</td>
+	  <td rowspan="6" align="center" width="1%" class="border"><font style="font-size:10pt"><A HREF="#Bio"><IMG SRC="|PORTRAIT|" height="100" ALT="Click for Bio" BORDER="0"></A><br /></font></td>
 	 </tr>
 	 <tr>
-	  <td colspan="2">CHARACTER NAME</td>
-	  <td colspan="2">PLAYER</td>
-	  <td>ALIGNMENT</td>
-	  <td>DEITY</td>
-	  <td>POINTS</td>
+	  <td colspan="2" class="topline">CHARACTER NAME</td>
+	  <td colspan="2" class="topline">PLAYER</td>
+	  <td colspan="1" class="topline">ALIGNMENT</td>
+	  <td colspan="1" class="topline">DEITY</td>
+	  <td class="topline">POINTS</td>
 	 </tr>
 	 <tr>
-	  <td>$character.characterProgression.name</td>
-	  <td>$character.experience</td>
-	  <td>$character.race.name</td>
-	  <td>$character.race.size.name / $character.race.size.reach</td>
-	  <td>|HEIGHT|</td>
-	  <td>|WEIGHT|</td>
-	  <td>$character.race.vision.name</td>
+	  <td colspan="1" class="h">$character.characterProgression.description</td>
+	  <td colspan="1" class="h">$character.experience</td>
+	  <td colspan="1" class="h">$character.race.name</td>
+	  <td class="h">$character.race.size.name / $character.race.size.reach</td>
+	  <td class="h">|HEIGHT|</td>
+	  <td class="h">|WEIGHT|</td>
+	  <td colspan="1" class="h">$character.race.vision.name</td>
 	 </tr>
 	 <tr>
-	  <td>CLASS</td>
-	  <td>EXPERIENCE</td>
-	  <td>RACE</td>
-	  <td>SIZE / REACH</td>
-	  <td>HEIGHT</td>
-	  <td>WEIGHT</td>
-	  <td>VISION</td>
+	  <td colspan="1" class="topline">CLASS</td>
+	  <td colspan="1" class="topline">EXPERIENCE</td>
+	  <td colspan="1" class="topline">RACE</td>
+	  <td class="topline">SIZE / FACE</td>
+	  <td class="topline">HEIGHT</td>
+	  <td class="topline">WEIGHT</td>
+	  <td colspan="1" class="topline">VISION</td>
 	 </tr>
 	 <tr>
-	  <td>$character.characterProgression.characterLevel</td>
-	  <td>|EXP.NEXT|</td>
-	  <td>$character.age.currentAge</td>
-	  <td>$character.gender.name</td>
-	  <td>|COLOR.EYE|</td>
-	  <td colspan="2">|COLOR.HAIR|, |LENGTH.HAIR|</td>
+	  <td class="h">$character.characterProgression.characterLevel</td>
+	  <td class="h">|EXP.NEXT|</td>
+	  <td class="h">$character.age.currentAge</td>
+	  <td class="h">$character.gender.name</td>
+	  <td class="h">|COLOR.EYE|</td>
+	  <td colspan="2" class="h">|COLOR.HAIR|, |LENGTH.HAIR|</td>
 	 </tr>
 	 <tr>
-	  <td>LEVEL</td>
-	  <td>NEXT LEVEL</td>
-	  <td>AGE</td>
-	  <td>GENDER</td>
-	  <td>EYES</td>
-	  <td colspan="2">HAIR</td>
+	  <td class="topline">LEVEL</td>
+	  <td class="topline">NEXT LEVEL</td>
+	  <td class="topline">AGE</td>
+	  <td class="topline">GENDER</td>
+	  <td class="topline">EYES</td>
+	  <td colspan="2" class="topline">HAIR</td>
 	 </tr>
 	</table>
 	<!-- END General Character Data -->
@@ -137,12 +137,12 @@
 	        </tr>
 #foreach($abilityScore in $abilities)
 	        <tr>
-	          <td>
+	          <td class="ab">
 	            <b>$abilityScore.ability.abbreviation</b><br />
 	            $abilityScore.ability.abbreviation
 	          </td>
-	          <td>$abilityScore.score</td>
-	          <td>$abilityScore.modifier</td>
+	          <td class="abb">$abilityScore.score</td>
+	          <td class="abb">$abilityScore.modifier</td>
 	        </tr>
 #end
 	      </table> <!-- STOP Abilities Table -->
@@ -239,17 +239,16 @@
 	     <td colspan="4" height="30" bgcolor="black" align="center"></td>
 	     <td height="30" bgcolor="black" align="right" ></td>
 	     <td height="30" bgcolor="black" align="center"><font style="font-size: 7pt" color="white" >MAX<br />RANKS</font></td>
-	     <td colspan="2" height="30"  bgcolor="white" align="center" class="skl"><b>$character.skills.maxSkillLevel/$character.skills.maxCrossClassSkillLevel</b></td>
+	     <td colspan="2" height="30"  bgcolor="white" align="center" class="skl">
+	       <b>$character.skills.maxClassSkillLevel/$character.skills.maxCrossClassSkillLevel</b>
+	     </td>
 	    </tr>
 	    <tr>
 	     <td colspan="2" align="center" width="40%" class="border4">SKILL NAME</td>
 	     <td align="center" width="5%" class="border4">ABILITY</td>
 	     <td align="center" width="13%" colspan="1" class="border4">SKILL<br />MODIFIER</td>
-	     <td align="center" width="13%" colspan="2" class="border4">ABILITY<br />MODIFIER</td>
-	     <td align="center" width="13%" colspan="2" class="border4">RANKS</td>
-	     <td align="center" width="13%" colspan="2" class="border4">MISC<br />MODIFIER</td>
 	    </tr>
-	    #foreach ($skillEntry in $character.skills.skillEntries)
+	    #foreach ($skillEntry in $skills)
 	    <tr>
 	     <td align="center">
 	       #if ($skillEntry.skill.usableUntrained)
@@ -259,12 +258,6 @@
 	     <td align="left" class="font8">&nbsp;&nbsp;$skillEntry.skill.name</td>
 	     <td align="center" class="font8">$skillEntry.skill.ability.abbreviation</td>
 	     <td align="center" class="borderbottom8" valign="bottom"><b>$skillEntry.value</b></td>
-	     <td align="center" valign="bottom" class="font8"><b>=</b></td>
-	     <td align="center" class="borderbottom8" valign="bottom">|SKILL.%skill.ABMOD|<br /></td>
-	     <td align="center" valign="bottom" class="font8"><b>+</b></td>
-	     <td align="center" class="borderbottom8" valign="bottom">$skillEntry.rank<br /></td>
-	     <td align="center" valign="bottom" class="font8"><b>+</b></td>
-	     <td align="center" class="borderbottom8" valign="bottom">|SKILL.%skill.MISC|<br /></td>
 	    </tr>
 	    #end
 	   </table>
@@ -309,11 +302,11 @@
 	        <td valign="top" width="6%" class="border8" align="center"><b>WT.</b></td>
 	        <td valign="top" width="6%" class="border8" align="center"><b>COST</b></td>
 	       </tr>
-	       #foreach ($item in $character.inventory.items)
+	       #foreach ($item in $items)
 	       <tr #if($renderTool.isEven($velocityCount)) bgcolor="#DDDDDD" #end>
 	        <td valign="top" class="border8">$item.name</td>
 	        <td valign="top" class="border8" align="center">|EQ.Not.Coin.NOT.Gem.%equip1.LOCATION|</td>
-	        <td valign="top" class="border8" align="center">|EQ.Not.Coin.NOT.Gem.%equip1.QTY|</td>
+	        <td valign="top" class="border8" align="center">$item.quantity</td>
 	        <td valign="top" class="border8" align="center">$item.weight</td>
 	        <td valign="top" class="border8" align="center">$item.cost</td>
 	       </tr>
@@ -354,9 +347,10 @@
 	     </tr>
 	     <tr>
 	      <td valign="top" width="70%" class="border"><font style="font-size: 8pt">
-	|FOR.0,COUNT[EQTYPE.Coin],1,\EQTYPE.Coin.%.NAME\: \EQTYPE.Coin.%.QTY\, ,<br/>,1|
-	|FOR.0,COUNT[EQTYPE.Gem],1,\EQTYPE.Gem.%.QTY\x\EQTYPE.Gem.%.NAME\ (\EQTYPE.Gem.%.COST\) , ,<br/>,1|
-	|MISC.FUNDS,<br />|</font></td>
+#foreach ($coin in $coins)
+			  $coin.name: $coin.quantity <br/> 
+#end
+		  </font></td>
 	     </tr>
 	    </table>
 	<!-- STOP Money Table -->

@@ -19,6 +19,10 @@ public class ItemEntry implements Item {
         return quantity;
     }
 
+    public String getName() {
+    	return item.getName();
+    }
+    
     public BigDecimal getWeight() {
         return item.getWeight().multiply(new BigDecimal(quantity));
     }

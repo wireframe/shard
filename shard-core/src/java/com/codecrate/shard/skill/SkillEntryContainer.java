@@ -16,6 +16,7 @@
 package com.codecrate.shard.skill;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,10 +24,16 @@ import org.apache.commons.logging.LogFactory;
 public class SkillEntryContainer {
 	private static final Log LOG = LogFactory.getLog(SkillEntryContainer.class);
 
-	private int characterLevel;
+	private final int characterLevel;
+	private final Map skills;
+	
+	public SkillEntryContainer(Map skills, int characterLevel) {
+		this.skills = skills;
+		this.characterLevel = characterLevel;
+	}
 	
 	public Collection getSkills() {
-		return null;
+		return skills.values();
 	}
 	
 	public boolean hasSkill(Skill skill) {
@@ -38,7 +45,7 @@ public class SkillEntryContainer {
 	}
 	
 	public SkillEntry getSkillEntry(Skill skill) {
-		SkillEntry entry = null;
+		SkillEntry entry = (SkillEntry) skills.get(skill);
 		if (null == entry) {
 			LOG.debug("No skill entry found for skill: " + skill);
 		}

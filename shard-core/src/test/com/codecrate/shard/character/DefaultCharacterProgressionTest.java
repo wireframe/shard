@@ -76,7 +76,7 @@ public class DefaultCharacterProgressionTest extends TestCase {
     	levels.add(characterLevel2);
     	
     	DefaultCharacterProgression progression = new DefaultCharacterProgression(levels);
-    	assertEquals("Ranger 1 / Fighter 1", progression.getName());
+    	assertEquals("Ranger 1 / Fighter 1", progression.getDescription());
     }
 
     public void testGetMaxLevelReturnsHighestLevel() {
