@@ -31,10 +31,10 @@ import com.codecrate.shard.save.SavingThrowContainer;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultPlayerCharacter implements PlayerCharacter {
-//    private int experience;
 //    private List skills;
 //    private List feats;
     
+    private final int experience;
     private Age age;
     private int challengeRating;
     private Race race;
@@ -55,7 +55,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     public DefaultPlayerCharacter(String name, Race race, Gender gender, Alignment alignment, 
     		AbilityScoreContainer abilities, HitPoints hitPoints, ArmorClass armorClass, Encumberance encumberance, 
     		Age age, CharacterProgression characterProgression, SavingThrowContainer savingThrows, 
-    		ItemContainer items) {
+    		ItemContainer items, int experience) {
     	this.name = name;
         this.race = race;
     	this.gender = gender;
@@ -68,6 +68,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     	this.characterProgression = characterProgression;
         this.savingThrows = savingThrows;
         this.items = items;
+        this.experience = experience;
     }
     
     public int getChallengeRating() {
@@ -132,5 +133,9 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     
     public ItemContainer getItems() {
         return items;
+    }
+    
+    public int getExperience() {
+        return experience;
     }
 }

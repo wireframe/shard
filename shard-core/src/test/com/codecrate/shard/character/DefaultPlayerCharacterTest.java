@@ -41,7 +41,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		mockProgression.setReturnValue(1);
 		mockProgression.replay();
 	    
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter("name", race, null, null, null, null, null, null, null, progression, null, null);
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter("name", race, null, null, null, null, null, null, null, progression, null, null, 0);
 		assertEquals(2, character.getEffectiveCharacterLevel());
 	}
 	
@@ -64,7 +64,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		mockProgression.setReturnValue(classLevel);
 		mockProgression.replay();
 	    
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter("name", null, null, null, null, null, null, null, null, progression, null, null);
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter("name", null, null, null, null, null, null, null, null, progression, null, null, 0);
 		assertEquals(2, character.getBaseAttackBonus());
 	}
 }

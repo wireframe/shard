@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title>$character.name</title>
+  </head>
+  <body>
+	<!-- START General Character Data -->
+	<table>
+	 <tr>
+	  <td colspan="2">$character.name</td>
+	  <td colspan="2">|PLAYERNAME|</td>
+	  <td colspan="1">$character.alignment</td>
+	  <td colspan="1">|DEITY|</td>
+	  <td>|POOL.COST|</td>
+	  <td rowspan="6"><IMG SRC="|PORTRAIT|" height="100"></td>
+	 </tr>
+	 <tr>
+	  <td colspan="2">CHARACTER NAME</td>
+	  <td colspan="2">PLAYER</td>
+	  <td colspan="1">ALIGNMENT</td>
+	  <td colspan="1">DEITY</td>
+	  <td>POINTS</td>
+	 </tr>
+	 <tr>
+	  <td colspan="1">$character.characterProgression</td>
+	  <td colspan="1">$character.experience</td>
+	  <td colspan="1">$character.race</td>
+	  <td>|SIZELONG| / $character.race.size.reach</td>
+	  <td>|HEIGHT|</td>
+	  <td>|WEIGHT|</td>
+	  <td colspan="1">|VISION|</td>
+	 </tr>
+	 <tr>
+	  <td colspan="1">CLASS</td>
+	  <td colspan="1">EXPERIENCE</td>
+	  <td colspan="1">RACE</td>
+	  <td>SIZE / FACE</td>
+	  <td>HEIGHT</td>
+	  <td>WEIGHT</td>
+	  <td colspan="1">VISION</td>
+	 </tr>
+	 <tr>
+	  <td>$character.characterProgression.maxLevel</td>
+	  <td>|EXP.NEXT|</td>
+	  <td>$character.age.currentAge</td>
+	  <td>$character.gender</td>
+	  <td>|COLOR.EYE|</td>
+	  <td colspan="2">|COLOR.HAIR|, |LENGTH.HAIR|</td>
+	 </tr>
+	 <tr>
+	  <td>LEVEL</td>
+	  <td>NEXT LEVEL</td>
+	  <td>AGE</td>
+	  <td>GENDER</td>
+	  <td>EYES</td>
+	  <td colspan="2">HAIR</td>
+	 </tr>
+	</table>
+	<!-- END General Character Data -->
+  
+  </body>
+</html>

@@ -121,4 +121,10 @@ public interface PlayerCharacter {
      * @return
      */
     ItemContainer getItems();
+    
+    /**
+     * gets the current amount of experience the character has.
+     * @return
+     */
+    int getExperience();
 }
