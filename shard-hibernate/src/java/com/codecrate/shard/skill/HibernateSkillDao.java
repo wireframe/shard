@@ -60,4 +60,8 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao {
     public void deleteSkill(Skill skill) {
         getHibernateTemplate().delete(skill);
     }
+    
+    public void updateSkill(Skill skill) {
+        getHibernateTemplate().saveOrUpdate(skill);
+    }
 }

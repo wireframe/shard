@@ -55,4 +55,10 @@ public interface SkillDao {
      * @param skill
      */
     void deleteSkill(Skill skill);
+
+    /**
+     * commit changes to a skill.
+     * @param skill
+     */
+    void updateSkill(Skill skill);
 }
