@@ -31,6 +31,10 @@ public class DefaultAbilityScore implements AbilityScore {
     	modifiers = new CompositeAbilityScoreModifier(ability);
     }
     
+    public String toString() {
+        return ability + ": " + getScore() + " (" + getModifier() +")";
+    }
+    
     public Ability getAbility() {
     	return ability;
     }

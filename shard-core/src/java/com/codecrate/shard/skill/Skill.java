@@ -17,6 +17,8 @@ package com.codecrate.shard.skill;
 
 import java.util.Collection;
 
+import com.codecrate.shard.ability.Ability;
+
 /**
  * Definition of a Skill.
  * A skill is something that every character class has access to.  For each class 
@@ -27,7 +29,11 @@ import java.util.Collection;
  */
 public interface Skill {
 	
-	String getAbilityName();
+    /**
+     * gets the ability used for ability bonus for skill checks.
+     * @return
+     */
+	Ability getAbility();
 	
 	String getName();
 	
