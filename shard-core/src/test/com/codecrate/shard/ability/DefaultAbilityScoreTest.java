@@ -19,19 +19,19 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.ability.AbilityModifier;
-import com.codecrate.shard.ability.DefaultAbility;
+import com.codecrate.shard.ability.AbilityScoreModifier;
+import com.codecrate.shard.ability.DefaultAbilityScore;
 
-public class DefaultAbilityTest extends TestCase {
+public class DefaultAbilityScoreTest extends TestCase {
 
 	public void testModifierNotAddedIfDifferentName() {
-		MockControl abilityModifierControl = MockControl.createControl(AbilityModifier.class);
-		AbilityModifier modifier = (AbilityModifier) abilityModifierControl.getMock();
-		modifier.getAbilityName();
-		abilityModifierControl.setReturnValue("noMatch");
+		MockControl abilityModifierControl = MockControl.createControl(AbilityScoreModifier.class);
+		AbilityScoreModifier modifier = (AbilityScoreModifier) abilityModifierControl.getMock();
+		modifier.getAbility();
+		abilityModifierControl.setReturnValue(DefaultAbility.DEXTERITY);
 		abilityModifierControl.replay();
 		
-		DefaultAbility ability = new DefaultAbility("match", 10);
+		DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10);
 		ability.addAbilityModifier(modifier);
 		
 		assertEquals(10, ability.getScore());

@@ -15,7 +15,7 @@
  */
 package com.codecrate.shard.character;
 
-import com.codecrate.shard.ability.AbilityContainer;
+import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
@@ -27,7 +27,7 @@ import com.codecrate.shard.race.Race;
 public interface PlayerCharacter {
 	int getChallengeRating();
 	
-	AbilityContainer getAbilities();
+	AbilityScoreContainer getAbilities();
 	
 	/**
 	 * gets the effective character level of a character.

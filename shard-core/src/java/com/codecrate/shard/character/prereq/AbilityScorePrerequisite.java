@@ -15,22 +15,21 @@
  */
 package com.codecrate.shard.character.prereq;
 
+import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.character.PlayerCharacter;
 
-public class AbilityPrerequisite implements CharacterPrerequisite {
-    private final String abilityName;
-    private final int score;
+public class AbilityScorePrerequisite implements CharacterPrerequisite {
+    private final AbilityScore abilityScore;
 	
-	public AbilityPrerequisite(String abilityName, int score) {
-        this.abilityName = abilityName;
-        this.score = score;
+	public AbilityScorePrerequisite(AbilityScore abilityScore) {
+        this.abilityScore = abilityScore;
 	}
 	
 	public boolean hasMetPrerequisite(PlayerCharacter character) {
-	    if (!character.getAbilities().hasAbility(abilityName)) {
+	    if (!character.getAbilities().hasAbilityScore(abilityScore.getAbility())) {
 	        return false;
 	    }
-	    if (score > character.getAbilities().getAbility(abilityName).getScore()) {
+	    if (abilityScore.getScore() > character.getAbilities().getAbilityScore(abilityScore.getAbility()).getScore()) {
 	        return false;
 	    }
 		return true;

@@ -16,37 +16,24 @@
 package com.codecrate.shard.ability;
 
 /**
- * Defines an interface for objects that contain Abilities.
- * the caller must be aware that not all ability containers 
- * will have all abilities.  ex: some creatures do not have a
- * strength ability, like wraithes.
+ * Define AbilityModifier interface.
+ * Ability modifiers can come from a variety of sources, but their purpose 
+ * is to just modify an ability score.  Ex: Elf characters have bonus to DEX.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface AbilityContainer {
-	Ability getStrength();
-	
-	Ability getDexterity();
-	
-	Ability getWisdom();
-	
-	Ability getIntelligence();
-	
-	Ability getConstitution();
-
-	Ability getCharisma();
+public interface AbilityScoreModifier {
 
 	/**
-	 * gets an ability with the specified name.
-	 * @param name
-	 * @return the ability or null if not found.
+	 * gets the identifier of what ability to modify.
+	 * @return ability name that modifier applies to.
 	 */
-	Ability getAbility(String name);
+	Ability getAbility();
 	
 	/**
-	 * allows checking if container has an ability.
-	 * @param name
-	 * @return true if ability exists, else false.
+	 * gets the modifier for the ability.
+	 * usually ranges from -5 to 5.
+	 * @return int modifier value.
 	 */
-	boolean hasAbility(String name);
+	int getModifier();
 }

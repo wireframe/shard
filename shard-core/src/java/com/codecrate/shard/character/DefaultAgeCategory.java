@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.codecrate.shard.ability.AbilityModifier;
-import com.codecrate.shard.ability.DefaultAbilityContainer;
-import com.codecrate.shard.ability.DefaultAbilityModifier;
+import com.codecrate.shard.ability.AbilityScoreModifier;
+import com.codecrate.shard.ability.DefaultAbility;
+import com.codecrate.shard.ability.DefaultAbilityScoreModifier;
 
 /**
  * Default age category definition.
@@ -31,29 +31,29 @@ import com.codecrate.shard.ability.DefaultAbilityModifier;
  */
 public class DefaultAgeCategory implements AgeCategory {
 	public static final AgeCategory ADULT = new DefaultAgeCategory("Adult", new ArrayList());
-	public static final AgeCategory MIDDLE_AGE = new DefaultAgeCategory("Middle Age", Arrays.asList(new AbilityModifier[] {
-			new DefaultAbilityModifier(DefaultAbilityContainer.STRENGTH, -1)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.DEXTERITY, -1)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.CONSTITUTION, -1)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.INTELLIGENCE, 1)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.WISDOM, 1)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.CHARISMA, 1)
+	public static final AgeCategory MIDDLE_AGE = new DefaultAgeCategory("Middle Age", Arrays.asList(new AbilityScoreModifier[] {
+			new DefaultAbilityScoreModifier(DefaultAbility.STRENGTH, -1)
+			, new DefaultAbilityScoreModifier(DefaultAbility.DEXTERITY, -1)
+			, new DefaultAbilityScoreModifier(DefaultAbility.CONSTITUTION, -1)
+			, new DefaultAbilityScoreModifier(DefaultAbility.INTELLIGENCE, 1)
+			, new DefaultAbilityScoreModifier(DefaultAbility.WISDOM, 1)
+			, new DefaultAbilityScoreModifier(DefaultAbility.CHARISMA, 1)
 		}));
-	public static final AgeCategory OLD = new DefaultAgeCategory("Old", Arrays.asList(new AbilityModifier[] {
-			new DefaultAbilityModifier(DefaultAbilityContainer.STRENGTH, -2)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.DEXTERITY, -2)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.CONSTITUTION, -2)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.INTELLIGENCE, 1)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.WISDOM, 1)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.CHARISMA, 1)
+	public static final AgeCategory OLD = new DefaultAgeCategory("Old", Arrays.asList(new AbilityScoreModifier[] {
+			new DefaultAbilityScoreModifier(DefaultAbility.STRENGTH, -2)
+			, new DefaultAbilityScoreModifier(DefaultAbility.DEXTERITY, -2)
+			, new DefaultAbilityScoreModifier(DefaultAbility.CONSTITUTION, -2)
+			, new DefaultAbilityScoreModifier(DefaultAbility.INTELLIGENCE, 1)
+			, new DefaultAbilityScoreModifier(DefaultAbility.WISDOM, 1)
+			, new DefaultAbilityScoreModifier(DefaultAbility.CHARISMA, 1)
 		}));
-	public static final AgeCategory VENERABLE = new DefaultAgeCategory("Venerable", Arrays.asList(new AbilityModifier[] {
-			new DefaultAbilityModifier(DefaultAbilityContainer.STRENGTH, -3)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.DEXTERITY, -3)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.CONSTITUTION, -3)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.INTELLIGENCE, 1)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.WISDOM, 1)
-			, new DefaultAbilityModifier(DefaultAbilityContainer.CHARISMA, 1)
+	public static final AgeCategory VENERABLE = new DefaultAgeCategory("Venerable", Arrays.asList(new AbilityScoreModifier[] {
+			new DefaultAbilityScoreModifier(DefaultAbility.STRENGTH, -3)
+			, new DefaultAbilityScoreModifier(DefaultAbility.DEXTERITY, -3)
+			, new DefaultAbilityScoreModifier(DefaultAbility.CONSTITUTION, -3)
+			, new DefaultAbilityScoreModifier(DefaultAbility.INTELLIGENCE, 1)
+			, new DefaultAbilityScoreModifier(DefaultAbility.WISDOM, 1)
+			, new DefaultAbilityScoreModifier(DefaultAbility.CHARISMA, 1)
 		}));
 	
 	

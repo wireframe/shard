@@ -19,19 +19,20 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.ability.AbilityContainer;
+import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbility;
+import com.codecrate.shard.ability.DefaultAbilityScore;
 import com.codecrate.shard.character.PlayerCharacter;
 
-public class AbilityPrerequisiteTest extends TestCase {
+public class AbilityScorePrerequisiteTest extends TestCase {
 
 	public void testPrereqMetWithHigherScore() {
-		MockControl mockAbilities = MockControl.createControl(AbilityContainer.class);
-		AbilityContainer abilities = (AbilityContainer) mockAbilities.getMock();
-		abilities.hasAbility("strength");
+		MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
+		AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
+		abilities.hasAbilityScore(DefaultAbility.STRENGTH);
 		mockAbilities.setReturnValue(true);
-		abilities.getAbility("strength");
-		mockAbilities.setReturnValue(new DefaultAbility("strength", 5));
+		abilities.getAbilityScore(DefaultAbility.STRENGTH);
+		mockAbilities.setReturnValue(new DefaultAbilityScore(DefaultAbility.STRENGTH, 5));
 		mockAbilities.replay();
 		
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
@@ -42,17 +43,17 @@ public class AbilityPrerequisiteTest extends TestCase {
 		mockCharacter.setReturnValue(abilities);
 		mockCharacter.replay();
 		
-		AbilityPrerequisite prereq = new AbilityPrerequisite("strength", 1);
+		AbilityScorePrerequisite prereq = new AbilityScorePrerequisite(new DefaultAbilityScore(DefaultAbility.STRENGTH, 1));
 		assertTrue(prereq.hasMetPrerequisite(character));
 	}
 	
 	public void testPrereqNotMetWithLowerScore() {
-		MockControl mockAbilities = MockControl.createControl(AbilityContainer.class);
-		AbilityContainer abilities = (AbilityContainer) mockAbilities.getMock();
-		abilities.hasAbility("strength");
+		MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
+		AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
+		abilities.hasAbilityScore(DefaultAbility.STRENGTH);
 		mockAbilities.setReturnValue(true);
-		abilities.getAbility("strength");
-		mockAbilities.setReturnValue(new DefaultAbility("strength", 0));
+		abilities.getAbilityScore(DefaultAbility.STRENGTH);
+		mockAbilities.setReturnValue(new DefaultAbilityScore(DefaultAbility.STRENGTH, 0));
 		mockAbilities.replay();
 		
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
@@ -63,15 +64,17 @@ public class AbilityPrerequisiteTest extends TestCase {
 		mockCharacter.setReturnValue(abilities);
 		mockCharacter.replay();
 		
-		AbilityPrerequisite prereq = new AbilityPrerequisite("strength", 1);
+		AbilityScorePrerequisite prereq = new AbilityScorePrerequisite(new DefaultAbilityScore(DefaultAbility.STRENGTH, 1));
 		assertFalse(prereq.hasMetPrerequisite(character));
 	}
 	
 	public void testPrereqNotMetWithoutScore() {
-		MockControl mockAbilities = MockControl.createControl(AbilityContainer.class);
-		AbilityContainer abilities = (AbilityContainer) mockAbilities.getMock();
-		abilities.hasAbility("strength");
-		mockAbilities.setReturnValue(false);
+		MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
+		AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
+		abilities.hasAbilityScore(DefaultAbility.STRENGTH);
+		mockAbilities.setReturnValue(true);
+		abilities.getAbilityScore(DefaultAbility.STRENGTH);
+		mockAbilities.setReturnValue(new DefaultAbilityScore(DefaultAbility.STRENGTH, 0));
 		mockAbilities.replay();
 		
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
@@ -80,7 +83,7 @@ public class AbilityPrerequisiteTest extends TestCase {
 		mockCharacter.setReturnValue(abilities);
 		mockCharacter.replay();
 		
-		AbilityPrerequisite prereq = new AbilityPrerequisite("strength", 1);
+		AbilityScorePrerequisite prereq = new AbilityScorePrerequisite(new DefaultAbilityScore(DefaultAbility.STRENGTH, 1));
 		assertFalse(prereq.hasMetPrerequisite(character));
 	}
 }

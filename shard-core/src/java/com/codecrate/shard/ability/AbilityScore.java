@@ -16,27 +16,39 @@
 package com.codecrate.shard.ability;
 
 /**
- * Helper class to easily work with ability modifiers.
- * provides basic defaults for how ability modifiers should work.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DefaultAbilityModifier implements AbilityModifier {
+public interface AbilityScore {
+	/**
+	 * gets the name of the ability. 
+	 * @return
+	 */
+	Ability getAbility();
+	
+	/**
+	 * gets the current value of the ability.
+	 * includes modifiers.
+	 * @return value.
+	 */
+	int getScore();
 
-	private final String abilityName;
-	private final int modifier;
+	/**
+	 * gets the bonus from the ability value.
+	 * ex: value of 10 = bonus of 0
+	 * @return bonus.
+	 */
+	int getModifier();
 
-	public DefaultAbilityModifier(String abilityName, int modifier) {
-		this.abilityName = abilityName;
-		this.modifier = modifier;
-	}
+	/**
+	 * adds a modifier to the ability.
+	 * @param modifier
+	 */
+	void addAbilityModifier(AbilityScoreModifier modifier);
 
-	public String getAbilityName() {
-		return abilityName;
-	}
-
-	public int getModifier() {
-		return modifier;
-	}
-
+	/**
+	 * removes a modifier from the ability.
+	 * @param modifier
+	 */
+	void removeAbilityModifier(AbilityScoreModifier modifier);
 }

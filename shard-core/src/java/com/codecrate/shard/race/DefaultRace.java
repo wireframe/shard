@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.codecrate.shard.ability.AbilityModifier;
-import com.codecrate.shard.ability.DefaultAbilityContainer;
-import com.codecrate.shard.ability.DefaultAbilityModifier;
+import com.codecrate.shard.ability.AbilityScoreModifier;
+import com.codecrate.shard.ability.DefaultAbility;
+import com.codecrate.shard.ability.DefaultAbilityScoreModifier;
 import com.codecrate.shard.movement.DefaultMovement;
 import com.codecrate.shard.movement.Movement;
 
@@ -39,54 +39,54 @@ public class DefaultRace implements Race {
 
 	public static final Race HALF_ORC = new DefaultRace(
 			DefaultRacialSize.MEDIUM, new DefaultMovement(30), Arrays
-					.asList(new AbilityModifier[] {
-							new DefaultAbilityModifier(
-									DefaultAbilityContainer.STRENGTH, 2),
-							new DefaultAbilityModifier(
-									DefaultAbilityContainer.INTELLIGENCE, -2),
-							new DefaultAbilityModifier(
-									DefaultAbilityContainer.CHARISMA, -2) }), 0, 
+					.asList(new AbilityScoreModifier[] {
+							new DefaultAbilityScoreModifier(
+									DefaultAbility.STRENGTH, 2),
+							new DefaultAbilityScoreModifier(
+									DefaultAbility.INTELLIGENCE, -2),
+							new DefaultAbilityScoreModifier(
+									DefaultAbility.CHARISMA, -2) }), 0, 
 			Arrays.asList(new Language[] {Language.COMMON, Language.ORC}), 
 			Arrays.asList(new Language[] {Language.DRACONIC, Language.GIANT, Language.GNOLL, 
 					Language.GOBLIN, Language.ABYSSAL}));
 
 	public static final Race ELF = new DefaultRace(DefaultRacialSize.MEDIUM,
-			new DefaultMovement(30), Arrays.asList(new AbilityModifier[] {
-					new DefaultAbilityModifier(
-							DefaultAbilityContainer.DEXTERITY, 2),
-					new DefaultAbilityModifier(
-							DefaultAbilityContainer.CONSTITUTION, -2) }), 0, 
+			new DefaultMovement(30), Arrays.asList(new AbilityScoreModifier[] {
+					new DefaultAbilityScoreModifier(
+							DefaultAbility.DEXTERITY, 2),
+					new DefaultAbilityScoreModifier(
+							DefaultAbility.CONSTITUTION, -2) }), 0, 
 							Arrays.asList(new Language[] {Language.COMMON, Language.ELVEN}), 
 							Arrays.asList(new Language[] {Language.DRACONIC, Language.GNOLL, 
 									Language.GNOME, Language.GOBLIN, Language.ORC, Language.SYLVAN}));
 
 	public static final Race DWARF = new DefaultRace(DefaultRacialSize.MEDIUM,
-			new DefaultMovement(20), Arrays.asList(new AbilityModifier[] {
-					new DefaultAbilityModifier(
-							DefaultAbilityContainer.CONSTITUTION, 2),
-					new DefaultAbilityModifier(
-							DefaultAbilityContainer.CHARISMA, -2) }), 0, 
+			new DefaultMovement(20), Arrays.asList(new AbilityScoreModifier[] {
+					new DefaultAbilityScoreModifier(
+							DefaultAbility.CONSTITUTION, 2),
+					new DefaultAbilityScoreModifier(
+							DefaultAbility.CHARISMA, -2) }), 0, 
 							Arrays.asList(new Language[] {Language.COMMON, Language.DWARVEN}), 
 							Arrays.asList(new Language[] {Language.GIANT, Language.GNOME, 
 									Language.GOBLIN, Language.ORC, Language.TERRAN, Language.UNDERCOMMON}));
 
 	public static final Race GNOME = new DefaultRace(DefaultRacialSize.SMALL,
-			new DefaultMovement(20), Arrays.asList(new AbilityModifier[] {
-					new DefaultAbilityModifier(
-							DefaultAbilityContainer.CONSTITUTION, 2),
-					new DefaultAbilityModifier(
-							DefaultAbilityContainer.STRENGTH, -2) }), 0, 
+			new DefaultMovement(20), Arrays.asList(new AbilityScoreModifier[] {
+					new DefaultAbilityScoreModifier(
+							DefaultAbility.CONSTITUTION, 2),
+					new DefaultAbilityScoreModifier(
+							DefaultAbility.STRENGTH, -2) }), 0, 
 							Arrays.asList(new Language[] {Language.COMMON, Language.GNOME}), 
 							Arrays.asList(new Language[] {Language.DRACONIC, Language.DWARVEN, 
 									Language.ELVEN, Language.GIANT, Language.GOBLIN, Language.ORC}));
 	
 	public static final Race HALFLING = new DefaultRace(
 			DefaultRacialSize.SMALL, new DefaultMovement(20), Arrays
-					.asList(new AbilityModifier[] {
-							new DefaultAbilityModifier(
-									DefaultAbilityContainer.DEXTERITY, 2),
-							new DefaultAbilityModifier(
-									DefaultAbilityContainer.STRENGTH, -2) }), 0, 
+					.asList(new AbilityScoreModifier[] {
+							new DefaultAbilityScoreModifier(
+									DefaultAbility.DEXTERITY, 2),
+							new DefaultAbilityScoreModifier(
+									DefaultAbility.STRENGTH, -2) }), 0, 
 									Arrays.asList(new Language[] {Language.COMMON, Language.HALFLING}), 
 									Arrays.asList(new Language[] {Language.DWARVEN, Language.ELVEN, 
 											Language.GNOME, Language.GOBLIN, Language.ORC}));

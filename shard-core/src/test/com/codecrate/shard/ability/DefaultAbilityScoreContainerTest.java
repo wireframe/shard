@@ -20,21 +20,21 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-public class DefaultAbilityContainerTest extends TestCase {
+public class DefaultAbilityScoreContainerTest extends TestCase {
 
 	public void testGetAbilityReturnsSameObject() {
-		Ability ability = new DefaultAbility(DefaultAbilityContainer.STRENGTH, 10);
+		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10);
 		Map abilities = new HashMap();
-		abilities.put(DefaultAbilityContainer.STRENGTH, ability);
+		abilities.put(DefaultAbility.STRENGTH, ability);
 		
-		DefaultAbilityContainer container = new DefaultAbilityContainer(abilities);
+		DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 		assertSame(ability, container.getStrength());
-		assertSame(ability, container.getAbility(DefaultAbilityContainer.STRENGTH));
+		assertSame(ability, container.getAbilityScore(DefaultAbility.STRENGTH));
 	}
 	
 	public void testHasAbilityFailsForNoAbility() {
 		Map abilities = new HashMap();
-		DefaultAbilityContainer container = new DefaultAbilityContainer(abilities);
-		assertFalse(container.hasAbility(DefaultAbilityContainer.STRENGTH));
+		DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
+		assertFalse(container.hasAbilityScore(DefaultAbility.STRENGTH));
 	}
 }
