@@ -25,15 +25,15 @@ import com.codecrate.shard.ModifierType;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultAbilityScore extends ModifiableObject implements AbilityScore {
-    private static final ModifierType MODIFIER_TYPE = new DefaultModifierType("ability", false); 
-
     private final Ability ability;
+    private final ModifierType type;
     private AbilityScoreDao dao;
     
     public DefaultAbilityScore(Ability ability, int baseScore, AbilityScoreDao dao) {
         super(baseScore);
     	this.ability = ability;
     	this.dao = dao;
+    	type = new DefaultModifierType(ability.getName(), false);
     }
     
     public String toString() {
@@ -49,7 +49,7 @@ public class DefaultAbilityScore extends ModifiableObject implements AbilityScor
     }
 
     public ModifierType getModifierType() {
-        return MODIFIER_TYPE;
+        return type;
     }
 
     public int getModifier() {
