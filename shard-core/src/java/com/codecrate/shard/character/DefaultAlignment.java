@@ -15,6 +15,11 @@
  */
 package com.codecrate.shard.character;
 
+/**
+ * Default alignment uses AlignmentComponents.
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public class DefaultAlignment implements Alignment {
 
     private AlignmentComponent lawfulAlignment;

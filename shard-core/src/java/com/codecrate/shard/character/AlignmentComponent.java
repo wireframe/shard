@@ -15,6 +15,14 @@
  */
 package com.codecrate.shard.character;
 
+/**
+ * Helper class for defining an alignment.
+ * Alignments can be broken up into two components, (law to chaos) and
+ * (good to evil).  both of these components have a positive, neutral 
+ * and negative element.
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public class AlignmentComponent {
 
     private Boolean alignment;

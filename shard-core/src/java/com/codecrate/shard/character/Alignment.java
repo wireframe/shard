@@ -17,6 +17,8 @@ package com.codecrate.shard.character;
 
 /**
  * defines an alignment.
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface Alignment {
     boolean isLawful();
