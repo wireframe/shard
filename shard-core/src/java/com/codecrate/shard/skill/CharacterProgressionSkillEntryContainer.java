@@ -60,7 +60,7 @@ public class CharacterProgressionSkillEntryContainer implements SkillEntryContai
                 entries.put(skill, entry);
             } 
             SkillEntry skillEntry = (SkillEntry) entries.get(skill);
-            skillEntry.addModifier(rank);
+            skillEntry.addModifier(rank.getModifier());
         }
     }
     

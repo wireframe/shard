@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import com.codecrate.shard.DefaultModifier;
 import com.codecrate.shard.character.Alignment;
 import com.codecrate.shard.character.DefaultAlignment;
 import com.codecrate.shard.character.prereq.AlignmentPrerequisite;
@@ -28,7 +29,6 @@ import com.codecrate.shard.dice.DefaultDice;
 import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.race.Language;
 import com.codecrate.shard.skill.DefaultSkill;
-import com.codecrate.shard.skill.DefaultSkillEntryModifier;
 import com.codecrate.shard.skill.Feat;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillEntryModifier;
@@ -64,8 +64,8 @@ public class DefaultCharacterClass implements CharacterClass {
                             }),
     				new ArrayList(),
             new ArrayList(), Arrays
-                    .asList(new SkillEntryModifier[] { new DefaultSkillEntryModifier(
-                            DefaultSkill.TYPE_CLASS, 1, DefaultSkill.LITERACY) }));
+                    .asList(new SkillEntryModifier[] { new SkillEntryModifier(
+                            DefaultSkill.LITERACY, new DefaultModifier(DefaultSkill.TYPE_CLASS, 1) ) }));
 
     public static final CharacterClass CLERIC = new DefaultCharacterClass(
             "Cleric", DefaultDice.d8, new SkillDao(), 2, 
@@ -74,8 +74,8 @@ public class DefaultCharacterClass implements CharacterClass {
             Arrays.asList(new Feat[]{Feat.ARMOR_PROFICIENCY_LIGHT, Feat.ARMOR_PROFICIENCY_MEDIUM,
                     Feat.ARMOR_PROFICIENCY_HEAVY,
                             Feat.SHIELD_PROFICIENCY }), Arrays
-                    .asList(new SkillEntryModifier[] { new DefaultSkillEntryModifier(
-                            DefaultSkill.TYPE_CLASS, 1, DefaultSkill.LITERACY) }));
+                    .asList(new SkillEntryModifier[] { new SkillEntryModifier(
+                            DefaultSkill.LITERACY, new DefaultModifier(DefaultSkill.TYPE_CLASS, 1) ) }));
     
     public static final CharacterClass DRUID = new DefaultCharacterClass(
             "Druid", DefaultDice.d8, new SkillDao(), 4, 
@@ -89,15 +89,15 @@ public class DefaultCharacterClass implements CharacterClass {
                             }), 
                             Arrays.asList(new Language[]{Language.SYLVAN}),
                             new ArrayList(), Arrays
-                    .asList(new SkillEntryModifier[] { new DefaultSkillEntryModifier(
-                            DefaultSkill.TYPE_CLASS, 1, DefaultSkill.LITERACY) }));
+                    .asList(new SkillEntryModifier[] { new SkillEntryModifier(
+                            DefaultSkill.LITERACY, new DefaultModifier(DefaultSkill.TYPE_CLASS, 1) ) }));
     
     public static final CharacterClass FIGHTER = new DefaultCharacterClass(
             "Fighter", DefaultDice.d10, new SkillDao(), 2, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), new ArrayList(), 
             new ArrayList(), Arrays
-                    .asList(new SkillEntryModifier[] { new DefaultSkillEntryModifier(
-                            DefaultSkill.TYPE_CLASS, 1, DefaultSkill.LITERACY) }));
+                    .asList(new SkillEntryModifier[] { new SkillEntryModifier(
+                            DefaultSkill.LITERACY, new DefaultModifier(DefaultSkill.TYPE_CLASS, 1) ) }));
     
     public static final CharacterClass MONK = new DefaultCharacterClass(
             "Monk", DefaultDice.d8, new SkillDao(), 4, 
@@ -108,8 +108,8 @@ public class DefaultCharacterClass implements CharacterClass {
                             DefaultAlignment.LAWFUL_EVIL 
                             }), new ArrayList(),
             new ArrayList(), Arrays
-                    .asList(new SkillEntryModifier[] { new DefaultSkillEntryModifier(
-                            DefaultSkill.TYPE_CLASS, 1, DefaultSkill.LITERACY) }));
+                    .asList(new SkillEntryModifier[] { new SkillEntryModifier(
+                            DefaultSkill.LITERACY, new DefaultModifier(DefaultSkill.TYPE_CLASS, 1) ) }));
 
     public static final CharacterClass PALADIN = new DefaultCharacterClass(
             "Paladin", DefaultDice.d10, new SkillDao(), 2, 
@@ -118,29 +118,29 @@ public class DefaultCharacterClass implements CharacterClass {
                             DefaultAlignment.LAWFUL_GOOD 
                             }),
             new ArrayList(), new ArrayList(), Arrays
-                    .asList(new SkillEntryModifier[] { new DefaultSkillEntryModifier(
-                            DefaultSkill.TYPE_CLASS, 1, DefaultSkill.LITERACY) }));
+                    .asList(new SkillEntryModifier[] { new SkillEntryModifier(
+                            DefaultSkill.LITERACY, new DefaultModifier(DefaultSkill.TYPE_CLASS, 1) ) }));
     
     public static final CharacterClass RANGER = new DefaultCharacterClass(
             "Ranger", DefaultDice.d8, new SkillDao(), 6, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), new ArrayList(), 
             new ArrayList(), Arrays
-                    .asList(new SkillEntryModifier[] { new DefaultSkillEntryModifier(
-                            DefaultSkill.TYPE_CLASS, 1, DefaultSkill.LITERACY) }));
+                    .asList(new SkillEntryModifier[] { new SkillEntryModifier(
+                            DefaultSkill.LITERACY, new DefaultModifier(DefaultSkill.TYPE_CLASS, 1) ) }));
     
     public static final CharacterClass ROUGE = new DefaultCharacterClass(
             "Rouge", DefaultDice.d6, new SkillDao(), 8, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), new ArrayList(), 
             new ArrayList(), Arrays
-                    .asList(new SkillEntryModifier[] { new DefaultSkillEntryModifier(
-                            DefaultSkill.TYPE_CLASS, 1, DefaultSkill.LITERACY) }));
+                    .asList(new SkillEntryModifier[] { new SkillEntryModifier(
+                            DefaultSkill.LITERACY, new DefaultModifier(DefaultSkill.TYPE_CLASS, 1) ) }));
     
     public static final CharacterClass SORCERER = new DefaultCharacterClass(
             "Sorcerer", DefaultDice.d4, new SkillDao(), 2, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), new ArrayList(), 
             new ArrayList(), Arrays
-                    .asList(new SkillEntryModifier[] { new DefaultSkillEntryModifier(
-                            DefaultSkill.TYPE_CLASS, 1, DefaultSkill.LITERACY) }));
+                    .asList(new SkillEntryModifier[] { new SkillEntryModifier(
+                            DefaultSkill.LITERACY, new DefaultModifier(DefaultSkill.TYPE_CLASS, 1) ) }));
     
     public static final CharacterClass WIZARD = new DefaultCharacterClass(
             "Wizard", DefaultDice.d4, new SkillDao(), 2, 
@@ -148,8 +148,8 @@ public class DefaultCharacterClass implements CharacterClass {
             Arrays
                     .asList(new Language[] { Language.DRACONIC }),
             new ArrayList(), Arrays
-                    .asList(new SkillEntryModifier[] { new DefaultSkillEntryModifier(
-                            DefaultSkill.TYPE_CLASS, 1, DefaultSkill.LITERACY) }));
+                    .asList(new SkillEntryModifier[] { new SkillEntryModifier(
+                            DefaultSkill.LITERACY, new DefaultModifier(DefaultSkill.TYPE_CLASS, 1) ) }));
 
     public static final CharacterClass WARRIOR = new DefaultCharacterClass(
             "Warrior", DefaultDice.d8, new SkillDao(), 2, 

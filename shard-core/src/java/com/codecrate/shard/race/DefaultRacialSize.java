@@ -24,7 +24,6 @@ import com.codecrate.shard.DefaultModifier;
 import com.codecrate.shard.Modifier;
 import com.codecrate.shard.armorclass.DefaultArmorClass;
 import com.codecrate.shard.skill.DefaultSkill;
-import com.codecrate.shard.skill.DefaultSkillEntryModifier;
 import com.codecrate.shard.skill.SkillEntryModifier;
 
 /**
@@ -54,7 +53,7 @@ public class DefaultRacialSize implements RacialSize {
 			"Small", 1,
 			new DefaultModifier(DefaultArmorClass.SIZE, 1),
 			new BigDecimal("5"), 5, Arrays.asList(new SkillEntryModifier[] {
-					new DefaultSkillEntryModifier(DefaultSkill.TYPE_SIZE, 4, DefaultSkill.HIDE)}),
+					new SkillEntryModifier(DefaultSkill.HIDE, new DefaultModifier(DefaultSkill.TYPE_SIZE, 4))}),
 					new BigDecimal(".75"));
 
 	public static final RacialSize MEDIUM = new DefaultRacialSize(

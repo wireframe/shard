@@ -17,11 +17,25 @@ package com.codecrate.shard.skill;
 
 import com.codecrate.shard.Modifier;
 
-public interface SkillEntryModifier extends Modifier {
+public class SkillEntryModifier {
 
+    private final Skill skill;
+    private final Modifier modifier;
+
+    public SkillEntryModifier(Skill skill, Modifier modifier) {
+        this.skill = skill;
+        this.modifier = modifier;
+    }
+    
 	/**
 	 * gets the skill that this modifier applies to.
 	 * @return
 	 */
-	Skill getSkill();
+	public Skill getSkill() {
+	    return skill;
+	}
+	
+	public Modifier getModifier() {
+	    return modifier;
+	}
 }

@@ -31,7 +31,6 @@ import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.movement.DefaultMovement;
 import com.codecrate.shard.movement.Movement;
 import com.codecrate.shard.skill.DefaultSkill;
-import com.codecrate.shard.skill.DefaultSkillEntryModifier;
 import com.codecrate.shard.skill.SkillEntryModifier;
 
 /**
@@ -47,10 +46,10 @@ public class DefaultRace implements Race {
 	public static final Race HALF_ELF = new DefaultRace("Half-Elf",
 			DefaultRacialSize.MEDIUM, new DefaultMovement(30), new ArrayList(), 
 			Arrays.asList(
-					new SkillEntryModifier[] { new DefaultSkillEntryModifier(
-					DefaultSkill.TYPE_RACE, 2, DefaultSkill.LISTEN),
-					new DefaultSkillEntryModifier(DefaultSkill.TYPE_RACE, 1, DefaultSkill.SPOT),
-					new DefaultSkillEntryModifier(DefaultSkill.TYPE_RACE, 1, DefaultSkill.SEARCH)}), 
+					new SkillEntryModifier[] { 
+					        new SkillEntryModifier(DefaultSkill.LISTEN, new DefaultModifier(DefaultSkill.TYPE_RACE, 2)),
+					        new SkillEntryModifier(DefaultSkill.SPOT, new DefaultModifier(DefaultSkill.TYPE_RACE, 1)),
+					        new SkillEntryModifier(DefaultSkill.SEARCH, new DefaultModifier(DefaultSkill.TYPE_RACE, 1))}), 
 					0, 
 			Arrays.asList(new Language[] {Language.COMMON, Language.ELVEN}), new LanguageDao().getLanguages(),
 			DefaultVision.LOW_LIGHT_VISION, null, new MultipleDice(DefaultDice.d20, 3));
@@ -77,10 +76,10 @@ public class DefaultRace implements Race {
 					new AbilityScoreModifier(DefaultAbility.CONSTITUTION, new DefaultModifier(
 					        DefaultAbilityModifierType.RACE, -2)) }), 
 					Arrays.asList(
-							new SkillEntryModifier[] { new DefaultSkillEntryModifier(
-							DefaultSkill.TYPE_RACE, 2, DefaultSkill.LISTEN),
-							new DefaultSkillEntryModifier(DefaultSkill.TYPE_RACE, 2, DefaultSkill.SPOT),
-							new DefaultSkillEntryModifier(DefaultSkill.TYPE_RACE, 2, DefaultSkill.SEARCH)}),
+							new SkillEntryModifier[] { 
+						        new SkillEntryModifier(DefaultSkill.LISTEN, new DefaultModifier(DefaultSkill.TYPE_RACE, 2)),
+								new SkillEntryModifier(DefaultSkill.SPOT, new DefaultModifier(DefaultSkill.TYPE_RACE, 2)),
+								new SkillEntryModifier(DefaultSkill.SEARCH, new DefaultModifier(DefaultSkill.TYPE_RACE, 2))}),
 							0, 
 							Arrays.asList(new Language[] {Language.COMMON, Language.ELVEN}), 
 							Arrays.asList(new Language[] {Language.DRACONIC, Language.GNOLL, 
@@ -106,7 +105,7 @@ public class DefaultRace implements Race {
 					new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(
 					        DefaultAbilityModifierType.RACE,-2)) }), 
 					Arrays.asList(new SkillEntryModifier[] {
-						new DefaultSkillEntryModifier(DefaultSkill.TYPE_RACE, 2, DefaultSkill.LISTEN)	
+						new SkillEntryModifier(DefaultSkill.LISTEN, new DefaultModifier(DefaultSkill.TYPE_RACE, 2))	
 					}),
 							0, 
 							Arrays.asList(new Language[] {Language.COMMON, Language.GNOME}), 
@@ -122,10 +121,10 @@ public class DefaultRace implements Race {
 							new AbilityScoreModifier(DefaultAbility.STRENGTH, new DefaultModifier(
 							        DefaultAbilityModifierType.RACE, -2)) }), 
 									Arrays.asList(new SkillEntryModifier[] {
-										new DefaultSkillEntryModifier(DefaultSkill.TYPE_RACE, 2, DefaultSkill.LISTEN),
-										new DefaultSkillEntryModifier(DefaultSkill.TYPE_RACE, 2, DefaultSkill.CLIMB),
-										new DefaultSkillEntryModifier(DefaultSkill.TYPE_RACE, 2, DefaultSkill.JUMP),
-										new DefaultSkillEntryModifier(DefaultSkill.TYPE_RACE, 2, DefaultSkill.MOVE_SILENTLY)
+										new SkillEntryModifier(DefaultSkill.LISTEN, new DefaultModifier(DefaultSkill.TYPE_RACE, 2)),
+										new SkillEntryModifier(DefaultSkill.CLIMB, new DefaultModifier(DefaultSkill.TYPE_RACE, 2)),
+										new SkillEntryModifier(DefaultSkill.JUMP, new DefaultModifier(DefaultSkill.TYPE_RACE, 2)),
+										new SkillEntryModifier(DefaultSkill.MOVE_SILENTLY, new DefaultModifier(DefaultSkill.TYPE_RACE, 2))
 									}), 0,
 									Arrays.asList(new Language[] {Language.COMMON, Language.HALFLING}), 
 									Arrays.asList(new Language[] {Language.DWARVEN, Language.ELVEN, 

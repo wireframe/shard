@@ -28,6 +28,7 @@ import junit.framework.TestCase;
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 
+import com.codecrate.shard.DefaultModifier;
 import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
@@ -58,7 +59,6 @@ import com.codecrate.shard.race.DefaultRace;
 import com.codecrate.shard.save.SavingThrowEntryContainer;
 import com.codecrate.shard.skill.CharacterProgressionSkillEntryContainer;
 import com.codecrate.shard.skill.DefaultSkill;
-import com.codecrate.shard.skill.DefaultSkillEntryModifier;
 import com.codecrate.shard.skill.FeatContainer;
 import com.codecrate.shard.skill.SkillEntryContainer;
 import com.codecrate.shard.skill.SkillEntryModifier;
@@ -82,12 +82,12 @@ public class PrintCharacterActionTest extends TestCase {
 		levels.add(new DefaultCharacterLevel(1, 1,
                 DefaultCharacterClass.BARBARIAN.getClassProgression().getClassLevel(1), 
                 Arrays.asList(new SkillEntryModifier[] { 
-                                new DefaultSkillEntryModifier(DefaultSkill.TYPE_RANK, 1, DefaultSkill.SWIM), 
-                                new DefaultSkillEntryModifier(DefaultSkill.TYPE_RANK, 1, DefaultSkill.INTIMIDATE)})));
+                                new SkillEntryModifier(DefaultSkill.SWIM, new DefaultModifier(DefaultSkill.TYPE_RANK, 1)), 
+                                new SkillEntryModifier(DefaultSkill.INTIMIDATE, new DefaultModifier(DefaultSkill.TYPE_RANK, 1))})));
 		levels.add(new DefaultCharacterLevel(2, 1, 
 		        DefaultCharacterClass.FIGHTER.getClassProgression().getClassLevel(1), 
                 Arrays.asList(new SkillEntryModifier[] { 
-                        new DefaultSkillEntryModifier(DefaultSkill.TYPE_RANK, 1, DefaultSkill.SWIM) })));
+                        new SkillEntryModifier(DefaultSkill.SWIM, new DefaultModifier(DefaultSkill.TYPE_RANK, 1)) })));
 		CharacterProgression progression = new DefaultCharacterProgression(levels);
 		
 		Age age = new RacialCategorizedAge(20, DefaultRace.HUMAN, new AgeCategoryDao(), 100);

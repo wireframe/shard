@@ -38,7 +38,7 @@ public class AbilityScoreModifier {
 	 * gets the identifier of what ability to modify.
 	 * @return ability name that modifier applies to.
 	 */
-	Ability getAbility() {
+	public Ability getAbility() {
 	    return ability;
 	}
 	
@@ -46,7 +46,7 @@ public class AbilityScoreModifier {
 	 * gets the modifier for the ability.
 	 * @return
 	 */
-	Modifier getModifier() {
+	public Modifier getModifier() {
 	    return modifier;
 	}
 }
