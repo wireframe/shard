@@ -15,6 +15,12 @@
  */
 package com.codecrate.shard.kit;
 
+/**
+ * represents a single level for a character class.
+ * ex: Barabarian lvl 1 has +1 Base attack bonus and +1 to saving throws.
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public interface ClassLevel {
 	CharacterClass getCharacterClass();
 

@@ -17,6 +17,12 @@ package com.codecrate.shard.kit;
 
 import java.util.Collection;
 
+/**
+ * represents the progression of levels for a character class.
+ * this is a simple wrapper around the individual class levels.
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public interface ClassProgression {
     Collection getClassLevels();
 

@@ -15,6 +15,11 @@
  */
 package com.codecrate.shard.kit;
 
+/**
+ * Dao to lookup class progression for a character class.
+ * 
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
 public interface ClassProgressionDao {
 
     ClassProgression getClassProgress(CharacterClass kit);
