@@ -39,6 +39,7 @@ public class CharacterOutput {
 		context.put("character", character);
 		context.put("runtime", new ShardRuntime());
 		context.put("date", new Date());
+		context.put("renderTool", new RenderTool());
 		this.template = template;
 	}
 	

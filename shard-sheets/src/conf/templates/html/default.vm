@@ -255,7 +255,77 @@
 	  </td>
 	 </tr>
 	</table>  
+
 	<!-- END Page Master Table -->
+	<table width="100%" border="0" summary="Page 2 Master Table"> <!-- Master Page Table -->
+	 <tr>
+	  <td colspan="2" width="100%" valign="top">
+	<!-- START Equipment Table -->
+	   <table width="100%" cellspacing="0" cellpadding="0" border="0" summary="Master Equipment Table"> <!-- Master Equipment Table -->
+	    <tr>
+	     <td bgcolor="black" align="center" colspan="10"><font color="white" style="font-size: 9pt"><b>EQUIPMENT</b></font></td>
+	    </tr>
+	    <tr>
+	     <td width="50%" valign="top">
+	      <table width="100%" cellspacing="0" cellpadding="0" border="0" summary="Equipment Table Left Column"> <!-- Equipment Table left pane -->
+	       <tr>
+	        <td valign="top" width="70%" class="border8"><b>ITEM</b></td>
+	        <td valign="top" width="12%" class="border8" align="center"><b>LOCATION</b></td>
+	        <td valign="top" width="6%" class="border8" align="center"><b>QTY</b></td>
+	        <td valign="top" width="6%" class="border8" align="center"><b>WT.</b></td>
+	        <td valign="top" width="6%" class="border8" align="center"><b>COST</b></td>
+	       </tr>
+	       #foreach ($item in $character.inventory.items)
+	       <tr #if($renderTool.isEven($velocityCount)) bgcolor="#DDDDDD" #end>
+	        <td valign="top" class="border8">$item.name</td>
+	        <td valign="top" class="border8" align="center">|EQ.Not.Coin.NOT.Gem.%equip1.LOCATION|</td>
+	        <td valign="top" class="border8" align="center">|EQ.Not.Coin.NOT.Gem.%equip1.QTY|</td>
+	        <td valign="top" class="border8" align="center">$item.weight</td>
+	        <td valign="top" class="border8" align="center">$item.cost</td>
+	       </tr>
+	       #end
+	       <tr>
+	        <td valign="top" width="41%" class="border" align="right" colspan="1"><font style="font-size: 8pt">TOTAL WEIGHT CARRIED/VALUE&nbsp;&nbsp;</font></td>
+	        <td valign="top" width="3%" class="border" align="center" colspan="2" NOWRAP><font style="font-size: 8pt">$character.inventory.totalWeight</font></td>
+	        <td valign="top" width="3%" class="border" align="center" colspan="2" NOWRAP><font style="font-size: 8pt">$character.inventory.totalCost</font></td>
+	       </tr>
+	      </table>
+	     </td>
+	    </tr>
+	   </table>
+	<!-- STOP Equipment Table -->
+	  </tr>
+	  <tr>
+	   <td width="50%" valign="top">
+	<!-- START Weight Table -->
+	    <table width="100%" cellspacing="0" cellpadding="3" summary="Weight Allowance Table">
+	     <tr>
+	      <td bgcolor="black" align="center" colspan="6"><font color="white" style="font-size: 9pt"><b>WEIGHT ALLOWANCE</b></font></td>
+	     </tr>
+	     <tr>
+	      <td valign="top" class="border8" align="right"><B>Light</B></td>
+	      <td valign="top" class="border8">|WEIGHT.LIGHT|</td>
+	      <td valign="top" class="border8" align="right"><B>Medium</B></td>
+	      <td valign="top" class="border8">|WEIGHT.MEDIUM|</td>
+	      <td valign="top" class="border8" align="right"><B>Heavy</B></td>
+	      <td valign="top" class="border8">|WEIGHT.HEAVY|</td>
+	     </tr>
+	    </table>
+	<!-- STOP Weight Table -->
+	    <font style="font-size:2pt"><br /></font>
+	<!-- START Money Table -->
+	    <table width="100%" cellspacing="0" cellpadding="3" summary="Money">
+	     <tr>
+	      <td bgcolor="black" align="center" colspan="1"><font color="white" style="font-size: 9pt"><b>MONEY</b></font></td>
+	     </tr>
+	     <tr>
+	      <td valign="top" width="70%" class="border"><font style="font-size: 8pt">
+	|FOR.0,COUNT[EQTYPE.Coin],1,\EQTYPE.Coin.%.NAME\: \EQTYPE.Coin.%.QTY\, ,<br/>,1|
+	|FOR.0,COUNT[EQTYPE.Gem],1,\EQTYPE.Gem.%.QTY\x\EQTYPE.Gem.%.NAME\ (\EQTYPE.Gem.%.COST\) , ,<br/>,1|
+	|MISC.FUNDS,<br />|</font></td>
+	     </tr>
+	    </table>
+	<!-- STOP Money Table -->
 	
   </body>
 </html>
