@@ -15,21 +15,20 @@
  */
 package com.codecrate.shard.kit;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import com.codecrate.shard.Identifiable;
 import com.codecrate.shard.character.prereq.CharacterPrerequisite;
 import com.codecrate.shard.dice.Dice;
-import com.codecrate.shard.skill.DefaultSkillDao;
-import com.codecrate.shard.skill.SkillDao;
 
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class HibernateCharacterClass implements CharacterClass, Identifiable {
-    private Collection classSkills;
-    private Collection bonusLanguages;
+    private Collection classSkills = new ArrayList();
+    private Collection bonusLanguages = new ArrayList();
     private Collection feats;
     private Dice hitDicePerLevel;
     private int baseSkillPointsPerLevel;
@@ -37,8 +36,6 @@ public class HibernateCharacterClass implements CharacterClass, Identifiable {
     private ClassProgression progression;
     private CharacterPrerequisite prereq;
     private Collection skillModifiers;
-
-	private SkillDao skillDao;
     
 	/**
 	 * hibernate constructor.
@@ -47,18 +44,16 @@ public class HibernateCharacterClass implements CharacterClass, Identifiable {
 	}
 	
     public HibernateCharacterClass(String name, Dice hitDicePerLevel,
-            SkillDao skillDao, int baseSkillPointsPerLevel, 
+            int baseSkillPointsPerLevel, 
 			ClassProgressionDao progressionDao, CharacterPrerequisite prereq, 
-			Collection bonusLanguages, Collection feats, Collection skillModifiers) {
+			Collection feats, Collection skillModifiers) {
         this.name = name;
         this.hitDicePerLevel = hitDicePerLevel;
-		this.skillDao = skillDao;
         this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
         this.prereq = prereq;
-        this.bonusLanguages = bonusLanguages;
         this.feats = feats;
         this.skillModifiers = skillModifiers;
-        this.progression = progressionDao.getClassProgress(this);
+        this.progression = progressionDao.getClassProgression(this);
         
     }
     
@@ -79,10 +74,11 @@ public class HibernateCharacterClass implements CharacterClass, Identifiable {
     }
 
     public Collection getClassSkills() {
-    	if (null == classSkills) {
-            this.classSkills = skillDao.getClassSkills(this);
-    	}
         return classSkills;
+    }
+    
+    public void setClassSkills(Collection classSkills) {
+        this.classSkills = classSkills;
     }
 
     /**
@@ -112,6 +108,10 @@ public class HibernateCharacterClass implements CharacterClass, Identifiable {
 	
 	public Collection getBonusLanguages() {
 	    return bonusLanguages;
+	}
+	
+	public void setBonusLanguages(Collection bonusLanguages) {
+	    this.bonusLanguages = bonusLanguages;
 	}
 	
 	public Collection getFeats() {

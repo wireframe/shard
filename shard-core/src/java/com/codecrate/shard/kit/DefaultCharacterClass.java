@@ -185,7 +185,7 @@ public class DefaultCharacterClass implements CharacterClass {
         this.bonusLanguages = bonusLanguages;
         this.feats = feats;
         this.skillModifiers = skillModifiers;
-        this.progression = progressionDao.getClassProgress(this);
+        this.progression = progressionDao.getClassProgression(this);
         
     }
     

@@ -22,7 +22,7 @@ import com.codecrate.shard.level.LevelCalculator;
 
 public class DefaultClassProgressionDao implements ClassProgressionDao{
 
-    public ClassProgression getClassProgress(CharacterClass kit) {
+    public ClassProgression getClassProgression(CharacterClass kit) {
 		LevelCalculator calculator = new ConstantRateLevelCalculator(1, new BigDecimal(1));
     	return new CalculatedClassProgression(20, kit, calculator, calculator, calculator, calculator);
     }

@@ -22,5 +22,10 @@ package com.codecrate.shard.kit;
  */
 public interface ClassProgressionDao {
 
-    ClassProgression getClassProgress(CharacterClass kit);
+    /**
+     * gets the class progression for a character class.
+     * @param kit
+     * @return
+     */
+    ClassProgression getClassProgression(CharacterClass kit);
 }

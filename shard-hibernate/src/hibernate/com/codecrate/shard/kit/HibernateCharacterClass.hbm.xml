@@ -15,6 +15,23 @@
         <property name="baseSkillPointsPerLevel">
             <column name="BASE_SKILL_POINTS_PER_LEVEL" length="4" not-null="true"/>
         </property>
+        
+        <set name="classSkills"
+         lazy="false"
+         table="SHA_CLASS_SKILL">
+            <key column="ID"/>
+            <many-to-many class="com.codecrate.shard.skill.HibernateSkill"
+             column="SKILL_ID"/>
+        </set>        
+
+        <set name="bonusLanguages"
+         lazy="false"
+         table="SHA_CLASS_LANGUAGE">
+            <key column="ID"/>
+            <many-to-many class="com.codecrate.shard.race.HibernateLanguage"
+             column="LANGUAGE_ID"/>
+        </set>        
+        
     </class>
 
 </hibernate-mapping>
