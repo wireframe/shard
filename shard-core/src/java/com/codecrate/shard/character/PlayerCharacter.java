@@ -127,7 +127,7 @@ public interface PlayerCharacter {
      * gets the items on the character.
      * @return
      */
-    ItemContainer getItems();
+    ItemContainer getInventory();
     
     /**
      * gets the current amount of experience the character has.

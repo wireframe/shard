@@ -122,6 +122,13 @@ public class DefaultCharacterClass implements CharacterClass {
             new DefaultClassProgressionDao(), new NullPrerequisite(), 
             Arrays.asList(new Language[]{Language.DRACONIC}), new ArrayList());
 
+    public static final CharacterClass WARRIOR = new DefaultCharacterClass(
+            "Warrior", DefaultDice.d8, new SkillDao(), 2, 
+            new DefaultClassProgressionDao(), new NullPrerequisite(), 
+            new ArrayList(), 
+            Arrays.asList(new Feat[]{Feat.ARMOR_PROFICIENCY_LIGHT, Feat.ARMOR_PROFICIENCY_MEDIUM,
+                    Feat.ARMOR_PROFICIENCY_HEAVY, Feat.SHIELD_PROFICIENCY}));
+
     
     private final Collection classSkills;
     private final Collection bonusLanguages;

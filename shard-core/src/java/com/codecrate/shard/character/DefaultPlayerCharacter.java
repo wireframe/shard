@@ -135,7 +135,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
         return savingThrows;
     }
     
-    public ItemContainer getItems() {
+    public ItemContainer getInventory() {
         return items;
     }
     

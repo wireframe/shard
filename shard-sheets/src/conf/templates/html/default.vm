@@ -231,12 +231,12 @@
 	     <td align="center" width="13%" colspan="2" class="border4">RANKS</td>
 	     <td align="center" width="13%" colspan="2" class="border4">MISC<br />MODIFIER</td>
 	    </tr>
-	    #for ($skillEntry in $character.skills.skillEntries)
+	    #foreach ($skillEntry in $character.skills.skillEntries)
 	    <tr>
 	     <td align="center">
 	       #if ($skillEntry.skill.usableUntrained)
   	         *
-	       #endif
+	       #end
 	     </td>
 	     <td align="left" class="font8">&nbsp;&nbsp;$skillEntry.skill.name</td>
 	     <td align="center" class="font8">$skillEntry.skill.ability.abbreviation</td>
