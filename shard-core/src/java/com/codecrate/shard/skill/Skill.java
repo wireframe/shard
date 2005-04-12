@@ -35,6 +35,11 @@ public interface Skill {
      */
 	Ability getAbility();
 	
+	/**
+	 * gets the name of the skill.
+	 * ex: "Disguise Self"
+	 * @return
+	 */
 	String getName();
 	
 	boolean isUsableUntrained();
