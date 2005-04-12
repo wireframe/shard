@@ -53,7 +53,7 @@ public class HibernateSkill implements Skill, Identifiable {
         return name;
     }
     
-    public void setId(String id) {
+    protected void setId(String id) {
         this.name = id;
     }
     
@@ -76,7 +76,7 @@ public class HibernateSkill implements Skill, Identifiable {
     /**
      * @param skillSynergies The skillSynergies to set.
      */
-    public void setChildSkillSynergies(Collection childSkillSynergies) {
+    protected void setChildSkillSynergies(Collection childSkillSynergies) {
         this.childSkillSynergies = childSkillSynergies;
     }
     
@@ -84,25 +84,25 @@ public class HibernateSkill implements Skill, Identifiable {
         return armorCheckPenalty;
     }
     
-    public boolean isArmorCheckPenalty() {
+    protected boolean isArmorCheckPenalty() {
         return armorCheckPenalty;
     }
     /**
      * @param usableUntrained The usableUntrained to set.
      */
-    public void setUsableUntrained(boolean usableUntrained) {
+    protected void setUsableUntrained(boolean usableUntrained) {
         this.usableUntrained = usableUntrained;
     }
     /**
      * @param ability The ability to set.
      */
-    public void setAbility(Ability ability) {
+    protected void setAbility(Ability ability) {
         this.ability = ability;
     }
     /**
      * @param armorCheckPenalty The armorCheckPenalty to set.
      */
-    public void setArmorCheckPenalty(boolean armorCheckPenalty) {
+    protected void setArmorCheckPenalty(boolean armorCheckPenalty) {
         this.armorCheckPenalty = armorCheckPenalty;
     }
 }
