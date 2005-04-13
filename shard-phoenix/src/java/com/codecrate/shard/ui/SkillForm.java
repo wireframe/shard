@@ -16,59 +16,26 @@
 package com.codecrate.shard.ui;
 
 import javax.swing.JComponent;
-import javax.swing.JTextField;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.forms.AbstractForm;
 
-import com.codecrate.shard.ability.Ability;
-
 public class SkillForm extends AbstractForm {
     private static final String SKILL_PAGE = "skillPage";
 
-    private JTextField nameField;
-    
     public SkillForm(FormModel formModel) {
         super(formModel, SKILL_PAGE);
     }
 
     protected JComponent createFormControl() {
         TableFormBuilder formBuilder = new TableFormBuilder(getFormModel());
-        this.nameField = (JTextField) formBuilder.add("name")[1];
+        formBuilder.add("name");
         formBuilder.row();
         formBuilder.add("armorCheckPenalty");
         formBuilder.row();
         formBuilder.add("usableUntrained");
         //formBuilder.add("ability");
         return formBuilder.getForm();
-    }
-    
-    public String getName() {
-        return nameField.getText();
-    }
-
-    /**
-     * @return
-     */
-    public boolean isUsableUntrained() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /**
-     * @return
-     */
-    public Ability getAbility() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /**
-     * @return
-     */
-    public boolean isArmorCheckPenalty() {
-        // TODO Auto-generated method stub
-        return false;
     }
 }

@@ -235,17 +235,19 @@ public class SkillManagerView extends AbstractView {
                 }
             };
             dialog.showDialog();
-
         }
     }
+  
     
     private class NewCommandExecutor extends AbstractActionCommandExecutor {
         private NestingFormModel skillFormModel;
         private SkillForm skillForm;
         private FormBackedDialogPage page;
-
+        private Skill skill;
+        
         public void execute() {
-            skillFormModel = SwingFormModel.createCompoundFormModel(null);
+            skill = skillDao.createSkill("test", false, null, false);
+            skillFormModel = SwingFormModel.createCompoundFormModel(skill);
             skillForm = new SkillForm(skillFormModel);
             page = new FormBackedDialogPage(skillForm);
 
@@ -254,15 +256,19 @@ public class SkillManagerView extends AbstractView {
                     setEnabled(page.isPageComplete());
                 }
 
+                protected void onCancel() {
+                    super.onCancel();
+                    skillDao.deleteSkill(skill);
+                }
+                
                 protected boolean onFinish() {
                     skillFormModel.commit();
-                    Skill skill = skillDao.createSkill(skillForm.getName(), skillForm.isUsableUntrained(), skillForm.getAbility(), skillForm.isArmorCheckPenalty());
+                    skillDao.updateSkill(skill);
                     getSkills().add(skill);
                     return true;
                 }
             };
             dialog.showDialog();
-
         }
     }
 }
