@@ -55,4 +55,12 @@ public interface Weapon extends Item {
      * @return
      */
     int getCriticalMultiplier();
+    
+    /**
+     * gets the number of values that count as a threat.
+     * ex: weapons with a threat range of zero only "threat" 
+     * on a roll of twenty.
+     * @return
+     */
+    int getThreatRange();
 }
