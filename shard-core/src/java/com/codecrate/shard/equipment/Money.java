@@ -196,7 +196,7 @@ public class Money implements Comparable {
      * @return Boolean True if money is greater than other
      * @see #compareTo(type.Money)
      */
-    public boolean greaterThan(Money other) {
+    public boolean isGreaterThan(Money other) {
         return (compareTo(other) > 0);
     }
 
@@ -206,7 +206,7 @@ public class Money implements Comparable {
      * @return Boolean True if money is less than other
      * @see #compareTo(Money)
      */
-    public boolean lessThan(Money other) {
+    public boolean isLessThan(Money other) {
         return (compareTo(other) < 0);
     }
 
