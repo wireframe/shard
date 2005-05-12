@@ -23,31 +23,31 @@ import junit.framework.TestCase;
 public class FixedValueDiceTest extends TestCase {
 
 	public void testRollReturnsFixedValue() {
-		FixedValueDice dice = new FixedValueDice(DefaultDice.d6, 5);
+		FixedValueDice dice = new FixedValueDice(RandomDice.d6, 5);
     	assertEquals(5, dice.roll());
     }
 	
 	public void testValueCanNotBeGreaterThanMaxValue() {
 		try {
-			new FixedValueDice(DefaultDice.d6, 7);
+			new FixedValueDice(RandomDice.d6, 7);
 			fail();
 		} catch (IllegalArgumentException expected) {}
     }
 	
 	public void testValueCanNotBeLessThanMinValue() {
 		try {
-			new FixedValueDice(DefaultDice.d6, 0);
+			new FixedValueDice(RandomDice.d6, 0);
 			fail();
 		} catch (IllegalArgumentException expected) {}
     }
 	
 	public void testMinValueDelegatesToDefaultDice() {
-    	FixedValueDice dice = new FixedValueDice(DefaultDice.d6, 2);
+    	FixedValueDice dice = new FixedValueDice(RandomDice.d6, 2);
     	assertEquals(1, dice.getMinValue());
 	}
 	
 	public void testMaxValueDelegatesToDefaultDice() {
-    	FixedValueDice dice = new FixedValueDice(DefaultDice.d6, 2);
+    	FixedValueDice dice = new FixedValueDice(RandomDice.d6, 2);
     	assertEquals(6, dice.getMaxValue());
 	}
 }

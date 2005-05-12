@@ -35,7 +35,7 @@ public class CustomDice implements Dice {
     
     public CustomDice(String diceExpression) {
         diceExpression = diceExpression.replaceAll(" ", "");
-        dice = new DefaultDice(parseDiceSides(diceExpression));
+        dice = new RandomDice(parseDiceSides(diceExpression));
         dice = new MultipleDice(dice, parseNumberOfDice(diceExpression));
 
         int modifier = parseModifier(diceExpression);

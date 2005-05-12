@@ -23,17 +23,17 @@ import junit.framework.TestCase;
 public class ModifiedDiceTest extends TestCase {
     
     public void testMaxValueAtLeastOne() {
-        ModifiedDice dice = new ModifiedDice(DefaultDice.d4, -5);
+        ModifiedDice dice = new ModifiedDice(RandomDice.d4, -5);
         assertEquals(1, dice.getMaxValue());
     }
     
     public void testMinValueAtLeastOne() {
-        ModifiedDice dice = new ModifiedDice(DefaultDice.d4, -5);
+        ModifiedDice dice = new ModifiedDice(RandomDice.d4, -5);
         assertEquals(1, dice.getMinValue());
     }
     
     public void testModifierAppliedToRoll() {
-        ModifiedDice dice = new ModifiedDice(new MaxValueDice(DefaultDice.d6), -5);
+        ModifiedDice dice = new ModifiedDice(new MaxValueDice(RandomDice.d6), -5);
         assertEquals(1, dice.roll());
     }
 }

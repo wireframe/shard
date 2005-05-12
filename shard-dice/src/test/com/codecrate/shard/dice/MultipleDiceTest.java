@@ -22,17 +22,17 @@ import junit.framework.TestCase;
  */
 public class MultipleDiceTest extends TestCase {
     public void testMaxValue() {
-    	MultipleDice dice = new MultipleDice(DefaultDice.d6, 1);
+    	MultipleDice dice = new MultipleDice(RandomDice.d6, 1);
     	assertEquals(6, dice.getMaxValue());
     }
     
     public void testMinValue() {
-    	MultipleDice dice = new MultipleDice(DefaultDice.d6, 1);
+    	MultipleDice dice = new MultipleDice(RandomDice.d6, 1);
     	assertEquals(1, dice.getMinValue());
     }
     
     public void testNumberOfRollsUsed() {
-    	MultipleDice dice = new MultipleDice(new MaxValueDice(DefaultDice.d6), 2);
+    	MultipleDice dice = new MultipleDice(new MaxValueDice(RandomDice.d6), 2);
     	assertEquals(12, dice.roll());
     }
 }

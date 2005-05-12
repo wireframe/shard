@@ -23,28 +23,28 @@ import junit.framework.TestCase;
 public class DropDiceTest extends TestCase {
     
     public void testLowValuesDropped() {
-        DropDice dice = new DropDice(new MultipleDice(new MaxValueDice(DefaultDice.d6), 4), 1, false);
+        DropDice dice = new DropDice(new MultipleDice(new MaxValueDice(RandomDice.d6), 4), 1, false);
         
         assertEquals(18, dice.getMaxValue());
         assertEquals(18, dice.roll());
     }
     
     public void testHighValuesDropped() {
-        DropDice dice = new DropDice(new MultipleDice(new MaxValueDice(DefaultDice.d6), 4), 1, true);
+        DropDice dice = new DropDice(new MultipleDice(new MaxValueDice(RandomDice.d6), 4), 1, true);
         
         assertEquals(18, dice.getMaxValue());
         assertEquals(18, dice.roll());
     }
     
     public void testLowValueComputedCorrectly() {
-        DropDice dice = new DropDice(new MultipleDice(new MaxValueDice(DefaultDice.d6), 4), 1, true);
+        DropDice dice = new DropDice(new MultipleDice(new MaxValueDice(RandomDice.d6), 4), 1, true);
         
         assertEquals(3, dice.getMinValue());
     }
     
     public void testCannotDropMoreDiceThanRolled() {
         try {
-            new DropDice(new MultipleDice(DefaultDice.d6, 4), 4, true);
+            new DropDice(new MultipleDice(RandomDice.d6, 4), 4, true);
             fail();
         } catch (IllegalArgumentException expected) {}
     }

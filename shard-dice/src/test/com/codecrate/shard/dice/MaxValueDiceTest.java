@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 public class MaxValueDiceTest extends TestCase {
 
 	public void testRollReturnsMaxValue() {
-    	MaxValueDice dice = new MaxValueDice(DefaultDice.d6);
+    	MaxValueDice dice = new MaxValueDice(RandomDice.d6);
     	assertEquals(6, dice.roll());
     }
 }
