@@ -43,10 +43,10 @@ public class MoneyTest extends TestCase {
     public void testSameCurrencyComparasion() {
         Money oneGP = new Money(1, DefaultCurrency.GOLD);
         Money tenGP = new Money(10, DefaultCurrency.GOLD);
-        assertTrue(tenGP.greaterThan(oneGP));
-        assertFalse(oneGP.greaterThan(tenGP));
+        assertTrue(tenGP.isGreaterThan(oneGP));
+        assertFalse(oneGP.isGreaterThan(tenGP));
         
-        assertTrue(oneGP.lessThan(tenGP));
-        assertFalse(tenGP.lessThan(oneGP));
+        assertTrue(oneGP.isLessThan(tenGP));
+        assertFalse(tenGP.isLessThan(oneGP));
     }
 }
