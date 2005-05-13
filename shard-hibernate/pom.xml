@@ -156,18 +156,15 @@
         </includes>
       </resource>
     </resources>
-  </build>
-
-
-  <!--
+    
     <testResources>
-      <resource>
+      <testResource>
         <directory>${basedir}/src/data</directory>
         <includes>
           <include>**/*.xml</include>
         </includes>
-      </resource>
-    </testResources>    
-  -->
+      </testResource>
+    </testResources>
+  </build>
 </model>
     
