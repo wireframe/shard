@@ -15,7 +15,6 @@
       <groupId>com.codecrate.shard</groupId>
       <artifactId>shard-core</artifactId>
       <version>0.3.0-SNAPSHOT</version>
-      <scope>runtime</scope>
     </dependency>
 
     <!-- HSQL dependencies -->
@@ -31,7 +30,6 @@
       <groupId>hibernate</groupId>
       <artifactId>hibernate</artifactId>
       <version>2.1.8</version>
-      <scope>runtime</scope>
     </dependency>
 
     <dependency>
@@ -97,37 +95,31 @@
       <groupId>springframework</groupId>
       <artifactId>spring-core</artifactId>
       <version>1.1.5</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>springframework</groupId>
       <artifactId>spring-aop</artifactId>
       <version>1.1.5</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>springframework</groupId>
       <artifactId>spring-context</artifactId>
       <version>1.1.5</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>springframework</groupId>
       <artifactId>spring-orm</artifactId>
       <version>1.1.5</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>springframework</groupId>
       <artifactId>spring-dao</artifactId>
       <version>1.1.5</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>aopalliance</groupId>
       <artifactId>aopalliance</artifactId>
       <version>1.0</version>
-      <scope>runtime</scope>
     </dependency>
     
     <!-- DBUnit dependencies -->

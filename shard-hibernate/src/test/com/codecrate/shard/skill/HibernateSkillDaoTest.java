@@ -30,7 +30,7 @@ public class HibernateSkillDaoTest extends ShardHibernateDbUnitTestCaseSupport {
     }
 
     protected String getDataSetPath() {
-        return "src/data/SHA_SKILL-data.xml";
+        return "SHA_SKILL-data.xml";
     }
 
     public void testLoadsSkills() throws Exception {

@@ -28,7 +28,7 @@ public class HibernateCharacterClassDaoTest extends ShardHibernateDbUnitTestCase
     }
 
     protected String getDataSetPath() {
-        return "src/data/SHA_CLASS-data.xml";
+        return "SHA_CLASS-data.xml";
     }
 
     public void testLoadsClasses() throws Exception {

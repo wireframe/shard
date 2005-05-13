@@ -28,7 +28,7 @@ public class HibernateLanguageDaoTest extends ShardHibernateDbUnitTestCaseSuppor
     }
 
     protected String getDataSetPath() {
-        return "src/data/SHA_LANGUAGE-data.xml";
+        return "SHA_LANGUAGE-data.xml";
     }
 
     public void testLoadsLanguages() throws Exception {

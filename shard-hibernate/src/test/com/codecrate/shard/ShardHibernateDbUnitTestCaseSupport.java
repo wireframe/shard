@@ -62,7 +62,7 @@ public abstract class ShardHibernateDbUnitTestCaseSupport extends DatabaseTestCa
     }
 
     protected IDataSet getDataSet() throws Exception {
-        return new XmlDataSet(new FileInputStream(getDataSetPath()));
+        return new XmlDataSet(Thread.currentThread().getContextClassLoader().getResourceAsStream(getDataSetPath()));
     }
     
     protected SessionFactory getSessionFactory() {

@@ -28,7 +28,7 @@ public class HibernateAbilityDaoTest extends ShardHibernateDbUnitTestCaseSupport
     }
 
     protected String getDataSetPath() {
-        return "src/data/SHA_ABILITY-data.xml";
+        return "SHA_ABILITY-data.xml";
     }
     
     public void testLookupOfAbilities() throws Exception {

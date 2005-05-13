@@ -28,7 +28,7 @@ public class HibernateAgeCategoryDaoTest extends ShardHibernateDbUnitTestCaseSup
     }
 
     protected String getDataSetPath() {
-        return "src/data/SHA_RACE_AGE-data.xml";
+        return "SHA_RACE_AGE-data.xml";
     }
     
     public void testLookupOfAgeCategory() throws Exception {

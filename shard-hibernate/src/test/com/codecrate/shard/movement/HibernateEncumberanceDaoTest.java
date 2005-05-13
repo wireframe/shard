@@ -36,7 +36,7 @@ public class HibernateEncumberanceDaoTest extends ShardHibernateDbUnitTestCaseSu
     }
 
     protected String getDataSetPath() {
-        return "src/data/SHA_ENCUMBERANCE_ENTRY-data.xml";
+        return "SHA_ENCUMBERANCE_ENTRY-data.xml";
     }
     
     public void testLookupOfEncumberanceEntry() throws Exception {

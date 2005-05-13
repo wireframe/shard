@@ -28,7 +28,7 @@ public class HibernateRaceDaoTest extends ShardHibernateDbUnitTestCaseSupport {
     }
 
     protected String getDataSetPath() {
-        return "src/data/SHA_RACE-data.xml";
+        return "SHA_RACE-data.xml";
     }
 
     public void testLoadsRaces() throws Exception {

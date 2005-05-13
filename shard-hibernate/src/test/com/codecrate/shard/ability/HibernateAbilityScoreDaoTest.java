@@ -26,7 +26,7 @@ public class HibernateAbilityScoreDaoTest extends ShardHibernateDbUnitTestCaseSu
     }
 
     protected String getDataSetPath() {
-        return "src/data/SHA_ABILITY_POINT_COST-data.xml";
+        return "SHA_ABILITY_POINT_COST-data.xml";
     }
     
     public void testLookupOfValidScore() throws Exception {
