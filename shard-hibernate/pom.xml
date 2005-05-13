@@ -1,0 +1,114 @@
+<model>
+  <parent>
+    <groupId>com.codecrate.shard</groupId>
+    <artifactId>shard</artifactId>
+    <version>0.3.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.codecrate.shard</groupId>
+  <artifactId>shard-hibernate</artifactId>
+  <packaging>jar</packaging>
+  <version>0.3.0-SNAPSHOT</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.codecrate.shard</groupId>
+      <artifactId>shard-core</artifactId>
+      <version>0.3.0-SNAPSHOT</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- HSQL dependencies -->
+    <dependency>
+      <groupId>hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>1.7.2.2</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- Hibernate dependencies -->
+    <dependency>
+      <groupId>hibernate</groupId>
+      <artifactId>hibernate</artifactId>
+      <version>2.1.8</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- commons-dbcp dependencies -->
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>1.2.1</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- commons-pool dependencies -->
+    <dependency>
+      <groupId>commons-pool</groupId>
+      <artifactId>commons-pool</artifactId>
+      <version>1.2</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>geronimo-spec</groupId>
+      <artifactId>geronimo-spec-jta</artifactId>
+      <version>1.0-M1</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- springframework dependencies -->
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>1.1.5</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>1.1.5</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>1.1.5</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>1.1.5</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-dao</artifactId>
+      <version>1.1.5</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>aopalliance</groupId>
+      <artifactId>aopalliance</artifactId>
+      <version>1.0</version>
+      <scope>runtime</scope>
+    </dependency>
+    
+    <!-- DBUnit dependencies -->
+    <dependency>
+      <groupId>dbunit</groupId>
+      <artifactId>dbunit</artifactId>
+      <version>2.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+</model>
+    
