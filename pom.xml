@@ -9,6 +9,7 @@
     <module>shard-dice</module>
     <module>shard-core</module>
     <module>shard-hibernate</module>
+    <module>shard-sheets</module>
   </modules>
 
   <description>d20 gaming engine</description>
