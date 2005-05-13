@@ -15,114 +15,17 @@
  */
 package com.codecrate.shard.race;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 import com.codecrate.shard.Identifiable;
-import com.codecrate.shard.ability.DefaultAbility;
-import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.dice.Dice;
-import com.codecrate.shard.dice.MultipleDice;
 import com.codecrate.shard.kit.CharacterClass;
-import com.codecrate.shard.kit.DefaultCharacterClass;
-import com.codecrate.shard.modifier.DefaultKeyedModifier;
-import com.codecrate.shard.modifier.DefaultModifierType;
-import com.codecrate.shard.modifier.KeyedModifier;
-import com.codecrate.shard.modifier.ModifierType;
-import com.codecrate.shard.movement.DefaultMovement;
 import com.codecrate.shard.movement.Movement;
-import com.codecrate.shard.skill.DefaultSkill;
 
 /**
  * <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class HibernateRace implements Race, Identifiable {
-    private static final ModifierType RACE = new DefaultModifierType("race", false);
-    
-	public static final Race HUMAN = new HibernateRace("Human", DefaultRacialSize.MEDIUM,
-			new DefaultMovement(30), new ArrayList(), new ArrayList(), 
-			0, 
-			Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON}), new ArrayList(),
-			DefaultVision.NORMAL, null, new MultipleDice(RandomDice.d20, 2), 1);
-
-	public static final Race HALF_ELF = new HibernateRace("Half-Elf",
-			DefaultRacialSize.MEDIUM, new DefaultMovement(30), new ArrayList(), 
-			Arrays.asList(
-					new KeyedModifier[] { 
-					        new DefaultKeyedModifier(DefaultSkill.LISTEN, DefaultSkill.TYPE_RACE, 2),
-					        new DefaultKeyedModifier(DefaultSkill.SPOT, DefaultSkill.TYPE_RACE, 1),
-					        new DefaultKeyedModifier(DefaultSkill.SEARCH, DefaultSkill.TYPE_RACE, 1)}), 
-					0, 
-			Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON, DefaultLanguage.ELVEN}), new ArrayList(),
-			DefaultVision.LOW_LIGHT_VISION, null, new MultipleDice(RandomDice.d20, 3), 0);
-
-	public static final Race HALF_ORC = new HibernateRace("Half-Orc",
-			DefaultRacialSize.MEDIUM, new DefaultMovement(30), Arrays
-					.asList(new KeyedModifier[] {
-							new DefaultKeyedModifier(DefaultAbility.STRENGTH, RACE, 2),
-							new DefaultKeyedModifier(DefaultAbility.INTELLIGENCE, RACE, -2),
-							new DefaultKeyedModifier(DefaultAbility.CHARISMA, RACE, -2) }), 
-									new ArrayList(), 0, 
-			Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON, DefaultLanguage.ORC}), 
-			Arrays.asList(new DefaultLanguage[] {DefaultLanguage.DRACONIC, DefaultLanguage.GIANT, DefaultLanguage.GNOLL, 
-					DefaultLanguage.GOBLIN, DefaultLanguage.ABYSSAL}),
-					DefaultVision.DARKVISION, DefaultCharacterClass.BARBARIAN, new MultipleDice(RandomDice.d10, 2), 0);
-
-	public static final Race ELF = new HibernateRace("Elf", DefaultRacialSize.MEDIUM,
-			new DefaultMovement(30), Arrays.asList(new KeyedModifier[] {
-					new DefaultKeyedModifier(DefaultAbility.DEXTERITY, RACE, 2),
-					new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, RACE, -2) }), 
-					Arrays.asList(
-							new DefaultKeyedModifier[] { 
-						        new DefaultKeyedModifier(DefaultSkill.LISTEN, DefaultSkill.TYPE_RACE, 2),
-								new DefaultKeyedModifier(DefaultSkill.SPOT, DefaultSkill.TYPE_RACE, 2),
-								new DefaultKeyedModifier(DefaultSkill.SEARCH, DefaultSkill.TYPE_RACE, 2)}),
-							0, 
-							Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON, DefaultLanguage.ELVEN}), 
-							Arrays.asList(new DefaultLanguage[] {DefaultLanguage.DRACONIC, DefaultLanguage.GNOLL, 
-									DefaultLanguage.GNOME, DefaultLanguage.GOBLIN, DefaultLanguage.ORC, DefaultLanguage.SYLVAN}),
-									DefaultVision.LOW_LIGHT_VISION, DefaultCharacterClass.WIZARD, new MultipleDice(RandomDice.d100, 4), 0);
-
-	public static final Race DWARF = new HibernateRace("Dwarf", DefaultRacialSize.MEDIUM,
-			new DefaultMovement(20), Arrays.asList(new KeyedModifier[] {
-					new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, RACE, 2),
-					new DefaultKeyedModifier(DefaultAbility.CHARISMA, RACE, -2) }), 
-							new ArrayList(), 0, 
-							Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON, DefaultLanguage.DWARVEN}), 
-							Arrays.asList(new DefaultLanguage[] {DefaultLanguage.GIANT, DefaultLanguage.GNOME, 
-									DefaultLanguage.GOBLIN, DefaultLanguage.ORC, DefaultLanguage.TERRAN, DefaultLanguage.UNDERCOMMON}),
-									DefaultVision.DARKVISION, DefaultCharacterClass.FIGHTER, new MultipleDice(RandomDice.d100, 2), 0);
-
-	public static final Race GNOME = new HibernateRace("Gnome", DefaultRacialSize.SMALL,
-			new DefaultMovement(20), Arrays.asList(new KeyedModifier[] {
-					new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, RACE, 2),
-					new DefaultKeyedModifier(DefaultAbility.STRENGTH, RACE,-2) }), 
-					Arrays.asList(new DefaultKeyedModifier[] {
-						new DefaultKeyedModifier(DefaultSkill.LISTEN, DefaultSkill.TYPE_RACE, 2)	
-					}),
-							0, 
-							Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON, DefaultLanguage.GNOME}), 
-							Arrays.asList(new DefaultLanguage[] {DefaultLanguage.DRACONIC, DefaultLanguage.DWARVEN, 
-									DefaultLanguage.ELVEN, DefaultLanguage.GIANT, DefaultLanguage.GOBLIN, DefaultLanguage.ORC}),
-									DefaultVision.LOW_LIGHT_VISION, DefaultCharacterClass.BARD, new MultipleDice(RandomDice.d100, 3), 0);
-	
-	public static final Race HALFLING = new HibernateRace("Halfling", 
-			DefaultRacialSize.SMALL, new DefaultMovement(20), Arrays
-					.asList(new KeyedModifier[] {
-							new DefaultKeyedModifier(DefaultAbility.DEXTERITY, RACE, 2),
-							new DefaultKeyedModifier(DefaultAbility.STRENGTH, RACE, -2) }), 
-									Arrays.asList(new DefaultKeyedModifier[] {
-										new DefaultKeyedModifier(DefaultSkill.LISTEN, DefaultSkill.TYPE_RACE, 2),
-										new DefaultKeyedModifier(DefaultSkill.CLIMB, DefaultSkill.TYPE_RACE, 2),
-										new DefaultKeyedModifier(DefaultSkill.JUMP, DefaultSkill.TYPE_RACE, 2),
-										new DefaultKeyedModifier(DefaultSkill.MOVE_SILENTLY, DefaultSkill.TYPE_RACE, 2)
-									}), 0,
-									Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON, DefaultLanguage.HALFLING}), 
-									Arrays.asList(new DefaultLanguage[] {DefaultLanguage.DWARVEN, DefaultLanguage.ELVEN, 
-											DefaultLanguage.GNOME, DefaultLanguage.GOBLIN, DefaultLanguage.ORC}),
-											DefaultVision.NORMAL, DefaultCharacterClass.ROUGE, new MultipleDice(RandomDice.d20, 5), 0);
-	
 	private String name;
 	private RacialSize size;
 	private Movement movement;
@@ -139,7 +42,7 @@ public class HibernateRace implements Race, Identifiable {
     /**
      * constructor for hibernate.
      */
-    public HibernateRace() {
+    protected HibernateRace() {
     }
     
 	public HibernateRace(String name, RacialSize size, Movement movement, 
