@@ -110,5 +110,35 @@
     </dependency>
   </dependencies>
 
+  <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/hibernate</directory>
+        <includes>
+          <include>**/*.xml</include>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${basedir}/src/spring</directory>
+        <includes>
+          <include>**/*.xml</include>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
+
+  <!--
+    <testResources>
+      <resource>
+        <directory>${basedir}/src/data</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+      </resource>
+    </testResources>    
+  -->
 </model>
     
