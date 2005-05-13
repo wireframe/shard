@@ -1,13 +1,38 @@
 <model>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.codecrate.shard</groupId>
+  <name>shard</name>
   <version>0.3.0-SNAPSHOT</version>
   <artifactId>shard</artifactId>
   <packaging>pom</packaging>
   <modules>
     <module>shard-dice</module>
     <module>shard-core</module>
+    <module>shard-hibernate</module>
   </modules>
+
+  <description>d20 gaming engine</description>
+  <url>http://shard.codecrate.com</url>
+
+  <developers>
+    <developer>
+      <name>Ryan Sonnek</name>
+      <id>wireframe</id>
+    </developer>
+  </developers>
+
+  <licenses>
+    <name>The Apache Software License, Version 2.0</name>
+    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    <distribution>repo</distribution>
+    <comments/>
+  </licenses>
+
+  <scm>
+    <connection>scm:cvs:pserver:guest@cvs.dev.java.net:/cvs:shard</connection>
+    <developerConnection>scm:cvs:pserver:${maven.username}@cvs.dev.java.net:/cvs:shard</developerConnection>
+    <url>https://shard.dev.java.net/source/browse/shard</url>
+  </scm>    
   
   <dependencies>
     <!-- Junit dependencies -->
