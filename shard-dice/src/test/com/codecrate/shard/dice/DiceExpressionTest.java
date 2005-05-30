@@ -20,48 +20,48 @@ import junit.framework.TestCase;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class CustomDiceTest extends TestCase {
+public class DiceExpressionTest extends TestCase {
 
     public void testDiceParsesSides() {
-        CustomDice dice = new CustomDice("d4");
+        DiceExpression dice = new DiceExpression("d4");
         assertEquals(4, dice.getMaxValue());
     }
     
     public void testDiceParsesMultiples() {
-        CustomDice dice = new CustomDice("2d4");
+        DiceExpression dice = new DiceExpression("2d4");
         assertEquals(8, dice.getMaxValue());
     }
     
     public void testDiceParsesMultiplesWithModifier() {
-        CustomDice dice = new CustomDice("2d4+1");
+        DiceExpression dice = new DiceExpression("2d4+1");
         assertEquals(9, dice.getMaxValue());
         assertEquals(3, dice.getMinValue());
     }
     
     public void testDiceParsesModifier() {
-        CustomDice dice = new CustomDice("d4+1");
+        DiceExpression dice = new DiceExpression("d4+1");
         assertEquals(5, dice.getMaxValue());
     }
     
     public void testDiceParsesNegativeModifier() {
-        CustomDice dice = new CustomDice("d4-1");
+        DiceExpression dice = new DiceExpression("d4-1");
         assertEquals(3, dice.getMaxValue());
     }
     
     public void testDiceParsesMultiplier() {
-        CustomDice dice = new CustomDice("d4x2");
+        DiceExpression dice = new DiceExpression("d4x2");
         assertEquals(8, dice.getMaxValue());
     }
     
     public void testCannotParseMultiplierAndModifier() {
         try {
-             new CustomDice("d4x2+1");
+             new DiceExpression("d4x2+1");
             fail("Exception should be thrown");
         } catch (IllegalArgumentException expected) { }
     }
     
     public void testSpacesAreTrimmed() {
-        CustomDice dice = new CustomDice("d4 +   1");
+        DiceExpression dice = new DiceExpression("d4 +   1");
         assertEquals(5, dice.getMaxValue());
         assertEquals("1d4+1", dice.toString());
     }

@@ -22,7 +22,7 @@ package com.codecrate.shard.dice;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class CustomDice implements Dice {
+public class DiceExpression implements Dice {
 	private static final String DICE_CHARACTER = "d";
     private static final String MULTIPLIER = "x";
     private static final String MODIFIER_NEGATIVE = "-";
@@ -33,7 +33,7 @@ public class CustomDice implements Dice {
     
     private Dice dice;
     
-    public CustomDice(String diceExpression) {
+    public DiceExpression(String diceExpression) {
         diceExpression = diceExpression.replaceAll(" ", "");
         dice = new RandomDice(parseDiceSides(diceExpression));
         dice = new MultipleDice(dice, parseNumberOfDice(diceExpression));
