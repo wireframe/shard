@@ -135,6 +135,8 @@ public class PrintCharacterActionTest extends TestCase {
 				initiative, feats, deity);
 		
 		PrintCharacterAction output = new PrintCharacterAction(character, template);
-		System.out.println(output.render());
+		String text = output.render().toString();
+        int index = text.indexOf("${");
+		assertEquals("Not all velocity macros were expanded:  " + text, -1, index);
 	}
 }
