@@ -16,7 +16,8 @@
 package com.codecrate.shard.character;
 
 import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
-import com.codecrate.shard.race.DefaultRace;
+import com.codecrate.shard.race.Race;
+import com.codecrate.shard.race.RaceDao;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -32,8 +33,11 @@ public class HibernateAgeCategoryDaoTest extends ShardHibernateDbUnitTestCaseSup
     }
     
     public void testLookupOfAgeCategory() throws Exception {
+        RaceDao raceDao= (RaceDao) getContext().getBean("raceDao");
+        Race race = (Race) raceDao.getRaces().iterator().next();
+
         AgeCategoryDao dao = (AgeCategoryDao) getContext().getBean("ageCategoryDao");
-        AgeCategory ageCategory = dao.getAgeCategory(15, DefaultRace.HUMAN);
-        assertEquals(CummulativeAgeCategory.ADULT, ageCategory);
+        AgeCategory ageCategory = dao.getAgeCategory(900, race);
+        assertNotNull(ageCategory);
     }
 }
