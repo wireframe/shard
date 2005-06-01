@@ -26,7 +26,7 @@ import org.apache.commons.collections.comparators.ReverseComparator;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DropDice implements Dice {
+public class DropDice extends DiceSupport implements Dice {
     private MultipleDice dice;
     private int drop;
     private boolean dropHigh;

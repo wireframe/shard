@@ -21,7 +21,7 @@ package com.codecrate.shard.dice;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class RandomDice implements Dice {
+public class RandomDice extends DiceSupport implements Dice {
     public static final int MIN_VALUE = 1;
     
     public static final Dice d100 = new RandomDice(100);

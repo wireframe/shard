@@ -22,7 +22,7 @@ package com.codecrate.shard.dice;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DiceExpression implements Dice {
+public class DiceExpression extends DiceSupport implements Dice {
 	private static final String DICE_CHARACTER = "d";
     private static final String MULTIPLIER = "x";
     private static final String MODIFIER_NEGATIVE = "-";

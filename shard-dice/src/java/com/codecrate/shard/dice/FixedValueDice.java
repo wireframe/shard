@@ -21,7 +21,7 @@ package com.codecrate.shard.dice;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class FixedValueDice implements Dice {
+public class FixedValueDice extends DiceSupport implements Dice {
 
     private Dice dice;
     private int value;

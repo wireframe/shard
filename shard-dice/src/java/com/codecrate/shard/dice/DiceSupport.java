@@ -16,32 +16,34 @@
 package com.codecrate.shard.dice;
 
 /**
- * Dice to always roll max value.
- * useful for testing.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class MaxValueDice extends DiceSupport implements Dice {
+public abstract class DiceSupport implements Dice, Comparable {
 
-    private Dice dice;
-    
-    public MaxValueDice(Dice dice) {
-        this.dice = dice;
-    }
-    
-    public int getMaxValue() {
-        return dice.getMaxValue();
+    public int compareTo(Object object) {
+        Dice dice = (Dice) object;
+        if (getMinValue() < dice.getMinValue()) {
+            return -1;
+        }
+        
+        if (getMaxValue() > dice.getMaxValue()) {
+            return 1;
+        }
+        
+        return 0;
     }
 
-    public int getMinValue() {
-        return dice.getMinValue();
+    public boolean equals(Object object) {
+        Dice dice = (Dice) object;
+        if (dice.getMinValue() == getMinValue() && 
+            dice.getMaxValue() == getMaxValue()) {
+            return true;
+        }
+        return false;
     }
     
-    public int roll() {
-        return dice.getMaxValue();
-    }
-    
-    public String toString() {
-    	return "max(" + dice.toString() + ")";
+    public int hashCode() {
+        return toString().hashCode();
     }
 }

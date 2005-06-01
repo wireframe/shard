@@ -65,4 +65,11 @@ public class DiceExpressionTest extends TestCase {
         assertEquals(5, dice.getMaxValue());
         assertEquals("1d4+1", dice.toString());
     }
+    
+    public void testExpressionEqualsProgrammaticallyConstructedDice() {
+        DiceExpression dice = new DiceExpression("1d4+1");
+        Dice other = new ModifiedDice(new RandomDice(4), 1);
+        
+        assertTrue(dice.equals(other));
+    }
 }

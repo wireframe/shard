@@ -24,7 +24,7 @@ import java.util.List;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class MultipleDice implements Dice {
+public class MultipleDice extends DiceSupport implements Dice {
     private Dice dice;
     private int iterations;
     
