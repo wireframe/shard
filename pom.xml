@@ -3,8 +3,7 @@
   <groupId>com.codecrate.shard</groupId>
   <name>shard</name>
   <version>0.3.0-SNAPSHOT</version>
-  <name>shard</name>
-  <artifactId>shard</artifactId>
+  <artifactId>shard-root</artifactId>
   <packaging>pom</packaging>
   <inceptionYear>2003</inceptionYear>
   <modules>

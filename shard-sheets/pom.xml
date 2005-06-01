@@ -1,12 +1,14 @@
 <model>
   <parent>
     <groupId>com.codecrate.shard</groupId>
-    <artifactId>shard</artifactId>
+    <artifactId>shard-root</artifactId>
     <version>0.3.0-SNAPSHOT</version>
   </parent>
+  
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.codecrate.shard</groupId>
   <artifactId>shard-sheets</artifactId>
+  <name>shard sheets module</name>
   <packaging>jar</packaging>
   <version>0.3.0-SNAPSHOT</version>
 
