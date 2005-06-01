@@ -75,15 +75,5 @@
       </resource>
     </resources>
     
-    <unitTest>
-      <resources>
-        <resource>
-          <directory>${basedir}/src/data</directory>
-          <includes>
-            <include>**/*.xml</include>
-          </includes>
-        </resource>
-      </resources>
-    </unitTest>
   </build>
 </project>
