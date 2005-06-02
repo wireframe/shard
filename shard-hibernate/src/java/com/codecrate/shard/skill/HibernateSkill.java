@@ -87,14 +87,14 @@ public class HibernateSkill implements Skill, Identifiable {
     /**
      * @param armorCheckPenalty The armorCheckPenalty to set.
      */
-    protected void setPenalizedWithArmor(boolean armorCheckPenalty) {
+    public void setPenalizedWithArmor(boolean armorCheckPenalty) {
         this.armorCheckPenalty = armorCheckPenalty;
     }
     
     /**
      * @param usableUntrained The usableUntrained to set.
      */
-    protected void setUsableUntrained(boolean usableUntrained) {
+    public void setUsableUntrained(boolean usableUntrained) {
         this.usableUntrained = usableUntrained;
     }
     /**
