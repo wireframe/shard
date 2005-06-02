@@ -88,6 +88,16 @@ public class HibernateSkill implements Skill, Identifiable {
         return armorCheckPenalty;
     }
     /**
+     * @param armorCheckPenalty The armorCheckPenalty to set.
+     */
+    protected void setArmorCheckPenalty(boolean armorCheckPenalty) {
+        this.armorCheckPenalty = armorCheckPenalty;
+    }
+    
+    protected boolean getArmorCheckPenalty() {
+        return armorCheckPenalty;
+    }
+    /**
      * @param usableUntrained The usableUntrained to set.
      */
     protected void setUsableUntrained(boolean usableUntrained) {
@@ -98,11 +108,5 @@ public class HibernateSkill implements Skill, Identifiable {
      */
     protected void setAbility(Ability ability) {
         this.ability = ability;
-    }
-    /**
-     * @param armorCheckPenalty The armorCheckPenalty to set.
-     */
-    protected void setArmorCheckPenalty(boolean armorCheckPenalty) {
-        this.armorCheckPenalty = armorCheckPenalty;
     }
 }

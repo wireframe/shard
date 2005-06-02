@@ -22,11 +22,11 @@ import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.ItemEntryContainer;
+import com.codecrate.shard.feat.FeatContainer;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.save.SavingThrowEntryContainer;
-import com.codecrate.shard.skill.FeatContainer;
 import com.codecrate.shard.skill.SkillEntryContainer;
 
 /**

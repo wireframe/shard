@@ -22,8 +22,8 @@ import junit.framework.TestCase;
 import org.easymock.MockControl;
 
 import com.codecrate.shard.character.PlayerCharacter;
-import com.codecrate.shard.skill.Feat;
-import com.codecrate.shard.skill.FeatContainer;
+import com.codecrate.shard.feat.Feat;
+import com.codecrate.shard.feat.FeatContainer;
 
 public class FeatPrerequisiteTest extends TestCase {
 

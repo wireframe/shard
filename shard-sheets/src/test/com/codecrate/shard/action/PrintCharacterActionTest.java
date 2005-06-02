@@ -52,6 +52,7 @@ import com.codecrate.shard.equipment.Coin;
 import com.codecrate.shard.equipment.DefaultItemEntryContainer;
 import com.codecrate.shard.equipment.ItemEntry;
 import com.codecrate.shard.equipment.ItemEntryContainer;
+import com.codecrate.shard.feat.FeatContainer;
 import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.modifier.DefaultKeyedModifier;
 import com.codecrate.shard.modifier.KeyedModifier;
@@ -63,7 +64,6 @@ import com.codecrate.shard.race.DefaultRace;
 import com.codecrate.shard.save.SavingThrowEntryContainer;
 import com.codecrate.shard.skill.CharacterProgressionSkillEntryContainer;
 import com.codecrate.shard.skill.DefaultSkill;
-import com.codecrate.shard.skill.FeatContainer;
 import com.codecrate.shard.skill.SkillEntryContainer;
 
 public class PrintCharacterActionTest extends TestCase {

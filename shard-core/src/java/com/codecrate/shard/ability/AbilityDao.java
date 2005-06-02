@@ -18,10 +18,21 @@ package com.codecrate.shard.ability;
 import java.util.Collection;
 
 /**
+ * Data Access Object to retrieve abilities (strength, wisdom, etc).
+ * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface AbilityDao {
+    /**
+     * gets an ability with a specific name.
+     * @param name
+     * @return
+     */
     Ability getAbility(final String name);
 
+    /**
+     * gets all abilities.
+     * @return
+     */
     Collection getAbilities();
 }

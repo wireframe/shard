@@ -44,6 +44,8 @@ import org.springframework.richclient.table.SortableTableModel;
 import org.springframework.richclient.table.TableUtils;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
+import com.codecrate.shard.ability.Ability;
+import com.codecrate.shard.ability.AbilityDao;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 
@@ -51,7 +53,6 @@ public class SkillManagerView extends AbstractView {
     private JScrollPane scrollPane;
     private JTable table;
     private BeanTableModel model;
-    private SkillDao skillDao;
     private JPopupMenu popup;
 
     private PropertiesCommandExecutor propertiesExecutor;
@@ -59,7 +60,23 @@ public class SkillManagerView extends AbstractView {
     private NewCommandExecutor newExecutor;
     
     private List skills;
+    private SkillDao skillDao;
+    private AbilityDao abilityDao;
     
+    /**
+     * @return Returns the abilityDao.
+     */
+    public AbilityDao getAbilityDao() {
+        return abilityDao;
+    }
+    
+    /**
+     * @param abilityDao The abilityDao to set.
+     */
+    public void setAbilityDao(AbilityDao abilityDao) {
+        this.abilityDao = abilityDao;
+    }
+
     public void setSkillDao(SkillDao skillDao) {
         this.skillDao = skillDao;
     }
@@ -93,6 +110,7 @@ public class SkillManagerView extends AbstractView {
     private NewCommandExecutor getNewCommand() {
         if (null == newExecutor) {
             newExecutor = new NewCommandExecutor();
+            newExecutor.setEnabled(true);
         }
         return newExecutor;
     }
@@ -113,7 +131,6 @@ public class SkillManagerView extends AbstractView {
                 public void valueChanged(ListSelectionEvent event) {
                     getDeleteSkillCommand().setEnabled(isDeleteCommandEnabled());
                     getPropertiesCommand().setEnabled(isPropertiesCommandEnabled());
-                    getNewCommand().setEnabled(true);
                 }
 
             });
@@ -246,7 +263,8 @@ public class SkillManagerView extends AbstractView {
         private Skill skill;
         
         public void execute() {
-            skill = skillDao.createSkill("test", false, null, false);
+            Ability ability = (Ability) abilityDao.getAbilities().iterator().next();
+            skill = skillDao.createSkill("test", false, ability, false);
             skillFormModel = SwingFormModel.createCompoundFormModel(skill);
             skillForm = new SkillForm(skillFormModel);
             page = new FormBackedDialogPage(skillForm);

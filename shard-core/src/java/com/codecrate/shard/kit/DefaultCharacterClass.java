@@ -27,11 +27,11 @@ import com.codecrate.shard.character.prereq.DeityAlignmentPrerequisite;
 import com.codecrate.shard.character.prereq.NullPrerequisite;
 import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.dice.Dice;
+import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.modifier.DefaultKeyedModifier;
 import com.codecrate.shard.modifier.KeyedModifier;
 import com.codecrate.shard.race.DefaultLanguage;
 import com.codecrate.shard.skill.DefaultSkill;
-import com.codecrate.shard.skill.Feat;
 
 /**
  * 

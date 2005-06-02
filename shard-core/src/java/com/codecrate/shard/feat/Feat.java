@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.skill;
+package com.codecrate.shard.feat;
 
 import com.codecrate.shard.character.prereq.CharacterPrerequisite;
 import com.codecrate.shard.character.prereq.FeatPrerequisite;

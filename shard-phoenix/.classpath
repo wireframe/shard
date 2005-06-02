@@ -3,9 +3,6 @@
 	<classpathentry kind="src" path="src/java"/>
 	<classpathentry including="**/*.xml|**/*.properties|" kind="src" path="src/spring"/>
 	<classpathentry including="**/*.jpg|" kind="src" path="src/resources"/>
-	<classpathentry output="target/test-classes" kind="src" path="src/test"/>
-	<classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.1.jar"/>
-	<classpathentry including="**/*.xml|" output="target/test-classes" kind="src" path="src/data"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="/shard-dice"/>
 	<classpathentry kind="src" path="/shard-core"/>

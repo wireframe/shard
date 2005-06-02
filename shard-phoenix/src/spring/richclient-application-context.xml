@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.1 2005/04/12 03:12:32 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.2 2005/06/02 02:44:18 wireframe Exp $ -->
 <beans>
 	
 	<bean id="application" 
@@ -121,11 +121,6 @@
 		</property>
 	</bean>
 
-<!--
-	<bean id="rulesSource" 
-		class="org.springframework.richclient.samples.petclinic.domain.PetClinicValidationRulesSource"/>
--->
-        
     <bean id="formPropertyFaceDescriptorSource" 
 		class="org.springframework.binding.form.support.MessageSourceFormPropertyFaceDescriptorSource"/>    
 
@@ -139,51 +134,11 @@
 				<entry key="skillDao">
 					<ref bean="skillDao"/>
 				</entry>
+				<entry key="abilityDao">
+					<ref bean="abilityDao"/>
+				</entry>
 			</map>
 		</property>
 	</bean>
 
-<!--		
-	<bean id="ownerManagerView"
-		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
-		<property name="viewClass">
-			<value>org.springframework.richclient.samples.petclinic.ui.OwnerManagerView</value>
-		</property>
-		<property name="viewProperties">
-			<map>
-				<entry key="clinic">
-					<ref bean="clinic"/>
-				</entry>
-			</map>
-		</property>
-	</bean>
-	
-	<bean id="newOwnerWizard" 
-		class="org.springframework.richclient.samples.petclinic.ui.NewOwnerWizard">
-		<property name="clinic">
-			<ref bean="clinic"/>
-		</property>
-	</bean>
-	
-	<bean id="vetManagerView" 
-		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
-		<property name="viewClass">
-			<value>org.springframework.richclient.samples.petclinic.ui.VetManagerView</value>
-		</property>
-		<property name="viewProperties">
-			<map>
-				<entry key="clinic">
-					<ref bean="clinic"/>
-				</entry>
-			</map>
-		</property>
-	</bean>
-	
-	<bean id="setupWizard" 
-		class="org.springframework.richclient.application.setup.SetupWizard">
-		<property name="licenseTextLocation">
-			<value>/org/springframework/richclient/samples/petclinic/license.html</value>
-		</property>
-	</bean>
--->	
 </beans>

@@ -16,7 +16,7 @@
 package com.codecrate.shard.character.prereq;
 
 import com.codecrate.shard.character.PlayerCharacter;
-import com.codecrate.shard.skill.Feat;
+import com.codecrate.shard.feat.Feat;
 
 public class FeatPrerequisite implements CharacterPrerequisite {
     private final Feat feat;
