@@ -74,12 +74,6 @@ public interface Race {
      */
     Collection getBonusLanguages();
 
-    /**
-     * @param race
-     * @return
-     */
-    boolean isSame(Race race);
-
 	/**
 	 * gets the vision for the race.
 	 * @return

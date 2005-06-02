@@ -37,7 +37,7 @@ public class RacePrerequisite implements CharacterPrerequisite {
 	public boolean hasMetPrerequisite(PlayerCharacter character) {
 	    for (int x = 0; x < races.length; x++) {
 	        Race race = races[x];
-	        if (race.isSame(character.getRace())) {
+	        if (race.equals(character.getRace())) {
 	            return true;
 	        }
 	    }
