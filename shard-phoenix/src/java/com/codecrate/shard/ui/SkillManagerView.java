@@ -217,6 +217,7 @@ public class SkillManagerView extends AbstractView {
                     Skill skill = getSelectedSkill();
                     skillDao.deleteSkill(skill);
                     getSkills().remove(skill);
+                    getModel().fireTableDataChanged();
                 }
             };
             dialog.setTitle("Delete Skill");
@@ -248,6 +249,7 @@ public class SkillManagerView extends AbstractView {
                     skillDao.updateSkill(skill);
                     int index = getSkills().indexOf(skill);
                     getSkills().set(index, skill);
+                    getModel().fireTableDataChanged();
                     return true;
                 }
             };
@@ -283,6 +285,7 @@ public class SkillManagerView extends AbstractView {
                     skillFormModel.commit();
                     skillDao.updateSkill(skill);
                     getSkills().add(skill);
+                    getModel().fireTableDataChanged();
                     return true;
                 }
             };
