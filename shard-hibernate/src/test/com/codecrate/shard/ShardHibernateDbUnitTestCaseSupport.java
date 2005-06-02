@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 
 import net.sf.hibernate.Session;
