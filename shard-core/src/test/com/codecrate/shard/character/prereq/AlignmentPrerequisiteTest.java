@@ -19,43 +19,31 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.character.Alignment;
+import com.codecrate.shard.character.DefaultAlignment;
 import com.codecrate.shard.character.PlayerCharacter;
 
 public class AlignmentPrerequisiteTest extends TestCase {
 
 	public void testPrereqMetWhenAlignmentMatches() {
-		MockControl mockAlignment = MockControl.createControl(Alignment.class);
-		Alignment alignment = (Alignment) mockAlignment.getMock();
-		alignment.isSame(alignment);
-		mockAlignment.setReturnValue(true);
-		mockAlignment.replay();
-		
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
 		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
 		character.getAlignment();
-		mockCharacter.setReturnValue(alignment);
+		mockCharacter.setReturnValue(DefaultAlignment.LAWFUL_GOOD);
 		mockCharacter.replay();
 		
-		AlignmentPrerequisite prereq = new AlignmentPrerequisite(alignment);
+		AlignmentPrerequisite prereq = new AlignmentPrerequisite(DefaultAlignment.LAWFUL_GOOD);
 		assertTrue(prereq.hasMetPrerequisite(character));
 	}
 	
 
 	public void testPrereqNotMetWhenAlignmentDifferent() {
-		MockControl mockAlignment = MockControl.createControl(Alignment.class);
-		Alignment alignment = (Alignment) mockAlignment.getMock();
-		alignment.isSame(alignment);
-		mockAlignment.setReturnValue(false);
-		mockAlignment.replay();
-		
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
 		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
 		character.getAlignment();
-		mockCharacter.setReturnValue(alignment);
+		mockCharacter.setReturnValue(DefaultAlignment.CHAOTIC_EVIL);
 		mockCharacter.replay();
 		
-		AlignmentPrerequisite prereq = new AlignmentPrerequisite(alignment);
+		AlignmentPrerequisite prereq = new AlignmentPrerequisite(DefaultAlignment.LAWFUL_GOOD);
 		assertFalse(prereq.hasMetPrerequisite(character));
 	}
 }

@@ -36,8 +36,22 @@ public interface Alignment {
 	 */
 	String getAbbreviation();
 	
+	/**
+	 * flag for if the alignment is lawful.
+	 * @return
+	 */
     boolean isLawful();
+    
+    /**
+     * flag for if the alignment is between lawful and chaotic.
+     * @return
+     */
     boolean isEthicalNeutral();
+    
+    /**
+     * flag for if the alignment is chaotic.
+     * @return
+     */
     boolean isChaotic();
     
     /**
@@ -46,9 +60,21 @@ public interface Alignment {
      */
     boolean isTrueNeutral();
     
+    /**
+     * flag for if the alignment is good.
+     * @return
+     */
     boolean isGood();
-    boolean isMoralNeutral();
-    boolean isEvil();
     
-    boolean isSame(Alignment alignment);
+    /**
+     * flag for if the alignment is between good and evil.
+     * @return
+     */
+    boolean isMoralNeutral();
+    
+    /**
+     * flag for if the alignment is evil.
+     * @return
+     */
+    boolean isEvil();
 }

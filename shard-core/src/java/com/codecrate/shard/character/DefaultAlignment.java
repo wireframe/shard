@@ -57,7 +57,8 @@ public class DefaultAlignment implements Alignment {
     	return name;
     }
     
-    public boolean isSame(Alignment alignment) {
+    public boolean equals(Object object) {
+        Alignment alignment = (Alignment) object;
     	if (!isSameEthicalAlignment(alignment)) {
     		return false;
     	}

@@ -37,7 +37,7 @@ public class AlignmentPrerequisite implements CharacterPrerequisite {
 	public boolean hasMetPrerequisite(PlayerCharacter character) {
 	    for (int x = 0; x < alignments.length; x++) {
 	        Alignment alignment = alignments[x];
-	        if (alignment.isSame(character.getAlignment())) {
+	        if (alignment.equals(character.getAlignment())) {
 	            return true;
 	        }
 	    }
