@@ -57,5 +57,5 @@ public interface Skill {
      * boolean flag for if the skill has an armor check penalty.
      * @return
      */
-    boolean hasArmorCheckPenalty();
+    boolean isPenalizedWithArmor();
 }

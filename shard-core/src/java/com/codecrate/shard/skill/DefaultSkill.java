@@ -167,7 +167,7 @@ public class DefaultSkill implements Skill {
         return skillSynergies;
     }
 
-    public boolean hasArmorCheckPenalty() {
+    public boolean isPenalizedWithArmor() {
         return armorPenalty;
     }
 }

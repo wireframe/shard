@@ -80,23 +80,17 @@ public class HibernateSkill implements Skill, Identifiable {
         this.childSkillSynergies = childSkillSynergies;
     }
     
-    public boolean hasArmorCheckPenalty() {
+    public boolean isPenalizedWithArmor() {
         return armorCheckPenalty;
     }
     
-    protected boolean isArmorCheckPenalty() {
-        return armorCheckPenalty;
-    }
     /**
      * @param armorCheckPenalty The armorCheckPenalty to set.
      */
-    protected void setArmorCheckPenalty(boolean armorCheckPenalty) {
+    protected void setPenalizedWithArmor(boolean armorCheckPenalty) {
         this.armorCheckPenalty = armorCheckPenalty;
     }
     
-    protected boolean getArmorCheckPenalty() {
-        return armorCheckPenalty;
-    }
     /**
      * @param usableUntrained The usableUntrained to set.
      */

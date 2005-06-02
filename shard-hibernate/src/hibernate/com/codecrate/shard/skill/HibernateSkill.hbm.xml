@@ -16,7 +16,7 @@
             <column name="IS_USABLE_UNTRAINED" not-null="true"/>
         </property>
 
-        <property name="armorCheckPenalty">
+        <property name="penalizedWithArmor">
             <column name="HAS_ARMOR_CHECK_PENALTY" not-null="true"/>
         </property>
 

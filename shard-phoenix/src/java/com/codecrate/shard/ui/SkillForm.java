@@ -31,8 +31,8 @@ public class SkillForm extends AbstractForm {
     protected JComponent createFormControl() {
         TableFormBuilder formBuilder = new TableFormBuilder(getFormModel());
         formBuilder.add("name");
-//        formBuilder.row();
-//        formBuilder.add("armorCheckPenalty");
+        formBuilder.row();
+        formBuilder.add("penalizedWithArmor");
         formBuilder.row();
         formBuilder.add("usableUntrained");
         //formBuilder.add("ability");
