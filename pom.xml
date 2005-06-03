@@ -36,8 +36,8 @@
   </licenses>
 
   <scm>
-    <connection>scm:cvs:pserver:guest@cvs.dev.java.net:/cvs:shard</connection>
-    <developerConnection>scm:cvs:pserver:${maven.username}@cvs.dev.java.net:/cvs:shard</developerConnection>
+    <connection>scm:cvs:pserver:guest@cvs.dev.java.net:/cvs:shard/</connection>
+    <developerConnection>scm:cvs:pserver:${maven.username}@cvs.dev.java.net:/cvs:shard/</developerConnection>
     <url>https://shard.dev.java.net/source/browse/shard</url>
   </scm>    
   
