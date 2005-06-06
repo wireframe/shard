@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <extend>${basedir}/../shard-root/project.xml</extend>
+  <pomVersion>3</pomVersion>
+  <groupId>shard</groupId>
+  <id>shard-phoenix</id>
+  <name>shard phoenix module</name>
+  <description>shard phoenix module</description>
+  <shortDescription>shard phoenix module</shortDescription>
+  
+  <dependencies>
+    <dependency>
+      <groupId>shard</groupId>
+      <artifactId>shard-dice</artifactId>
+      <version>SNAPSHOT</version>
+      <properties>
+        <eclipse.dependency>true</eclipse.dependency>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>shard</groupId>
+      <artifactId>shard-core</artifactId>
+      <version>SNAPSHOT</version>
+      <properties>
+        <eclipse.dependency>true</eclipse.dependency>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>shard</groupId>
+      <artifactId>shard-hibernate</artifactId>
+      <version>SNAPSHOT</version>
+      <properties>
+        <eclipse.dependency>true</eclipse.dependency>
+      </properties>
+    </dependency>
+    
+    <!-- commons-beanutils dependencies -->
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.7.0</version>
+      <url>http://jakarta.apache.org/commons</url>
+    </dependency>
+        
+    <!-- springframework dependencies -->
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>1.1.5</version>
+      <url>http://springframework.org</url>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>1.1.5</version>
+      <url>http://springframework.org</url>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/spring</directory>
+        <includes>
+          <include>**/*.xml</include>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${basedir}/src/resources</directory>
+        <includes>
+          <include>**/*.jpg</include>
+        </includes>
+      </resource>
+    </resources>
+    
+  </build>
+</project>
