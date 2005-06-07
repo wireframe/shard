@@ -30,6 +30,7 @@ import javax.swing.event.ListSelectionListener;
 
 import org.springframework.binding.form.NestingFormModel;
 import org.springframework.context.MessageSource;
+import org.springframework.core.closure.support.Block;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
@@ -37,6 +38,7 @@ import org.springframework.richclient.command.support.AbstractActionCommandExecu
 import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.ConfirmationDialog;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
+import org.springframework.richclient.dialog.InputApplicationDialog;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.forms.SwingFormModel;
 import org.springframework.richclient.table.BeanTableModel;
@@ -265,31 +267,59 @@ public class SkillManagerView extends AbstractView {
         private Skill skill;
         
         public void execute() {
-            Ability ability = (Ability) abilityDao.getAbilities().iterator().next();
-            skill = skillDao.createSkill("test", false, ability, false);
-            skillFormModel = SwingFormModel.createCompoundFormModel(skill);
-            skillForm = new SkillForm(skillFormModel);
-            page = new FormBackedDialogPage(skillForm);
+            final SkillNameBean skillName = new SkillNameBean();
+            InputApplicationDialog skillNameDialog = new InputApplicationDialog(skillName, "name");
+            skillNameDialog.setTitle(getMessage("skillNameDialog.title"));
+            skillNameDialog.setInputLabelMessage("skillNameDialog.label");
+            skillNameDialog.setParent(getWindowControl());
+            skillNameDialog.setFinishAction(new Block() {
 
-            TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
-                protected void onAboutToShow() {
-                    setEnabled(page.isPageComplete());
-                }
+                public void handle(Object o) {
+                    Ability ability = (Ability) abilityDao.getAbilities().iterator().next();
+                    skill = skillDao.createSkill(skillName.getName(), false, ability, false);
+                    skillFormModel = SwingFormModel.createCompoundFormModel(skill);
+                    skillForm = new SkillForm(skillFormModel);
+                    page = new FormBackedDialogPage(skillForm);
 
-                protected void onCancel() {
-                    super.onCancel();
-                    skillDao.deleteSkill(skill);
+                    TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
+                        protected void onAboutToShow() {
+                            setEnabled(page.isPageComplete());
+                        }
+
+                        protected void onCancel() {
+                            super.onCancel();
+                            skillDao.deleteSkill(skill);
+                        }
+                        
+                        protected boolean onFinish() {
+                            skillFormModel.commit();
+                            skillDao.updateSkill(skill);
+                            getSkills().add(skill);
+                            getModel().fireTableDataChanged();
+                            return true;
+                        }
+                    };
+                    dialog.showDialog();
                 }
-                
-                protected boolean onFinish() {
-                    skillFormModel.commit();
-                    skillDao.updateSkill(skill);
-                    getSkills().add(skill);
-                    getModel().fireTableDataChanged();
-                    return true;
-                }
-            };
-            dialog.showDialog();
+            });
+            skillNameDialog.showDialog();
+        }
+    }
+    
+
+    private class SkillNameBean {
+        private String name;
+        /**
+         * @return Returns the name.
+         */
+        public String getName() {
+            return name;
+        }
+        /**
+         * @param name The name to set.
+         */
+        public void setName(String name) {
+            this.name = name;
         }
     }
 }
