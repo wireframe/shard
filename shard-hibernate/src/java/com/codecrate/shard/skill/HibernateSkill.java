@@ -28,13 +28,13 @@ public class HibernateSkill implements Skill, Identifiable {
     private String name;
     private Ability ability;
     private boolean usableUntrained;
-    private boolean armorCheckPenalty;
+    private boolean penalizedWithArmor;
     private Collection childSkillSynergies = new HashSet();
 
     /**
      * hibernate constructor.
      */
-    public HibernateSkill() {
+    protected HibernateSkill() {
     }
     
     public HibernateSkill(String name, boolean usableUntrained, Ability ability, 
@@ -42,7 +42,7 @@ public class HibernateSkill implements Skill, Identifiable {
         this.name = name;
         this.usableUntrained = usableUntrained;
         this.ability = ability;
-        this.armorCheckPenalty = armorPenalty;
+        this.penalizedWithArmor = armorPenalty;
     }
 
     public String toString() {
@@ -73,34 +73,8 @@ public class HibernateSkill implements Skill, Identifiable {
         return childSkillSynergies;
     }
 
-    /**
-     * @param skillSynergies The skillSynergies to set.
-     */
-    protected void setChildSkillSynergies(Collection childSkillSynergies) {
-        this.childSkillSynergies = childSkillSynergies;
-    }
-    
     public boolean isPenalizedWithArmor() {
-        return armorCheckPenalty;
+        return penalizedWithArmor;
     }
     
-    /**
-     * @param armorCheckPenalty The armorCheckPenalty to set.
-     */
-    public void setPenalizedWithArmor(boolean armorCheckPenalty) {
-        this.armorCheckPenalty = armorCheckPenalty;
-    }
-    
-    /**
-     * @param usableUntrained The usableUntrained to set.
-     */
-    public void setUsableUntrained(boolean usableUntrained) {
-        this.usableUntrained = usableUntrained;
-    }
-    /**
-     * @param ability The ability to set.
-     */
-    protected void setAbility(Ability ability) {
-        this.ability = ability;
-    }
 }

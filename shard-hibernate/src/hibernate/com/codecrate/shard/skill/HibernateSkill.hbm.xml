@@ -7,27 +7,29 @@
 
     <class name="HibernateSkill" table="SHA_SKILL">
 
-        <id name="id" type="string" unsaved-value="null" >
+        <id name="id" type="string" unsaved-value="null">
             <column name="ID" sql-type="char(32)" not-null="true"/>
             <generator class="assigned"/>
         </id>
 
-        <property name="usableUntrained">
-            <column name="IS_USABLE_UNTRAINED" not-null="true"/>
+        <property name="usableUntrained" access="field">
+            <column name="IS_USABLE_UNTRAINED" not-null="true" />
         </property>
 
-        <property name="penalizedWithArmor">
+        <property name="penalizedWithArmor" access="field">
             <column name="HAS_ARMOR_CHECK_PENALTY" not-null="true"/>
         </property>
 
         <many-to-one name="ability" 
          class="com.codecrate.shard.ability.HibernateAbility" 
          column="ABILITY" 
-         cascade="none"/>
+         cascade="none"
+         access="field"/>
          
         <set name="childSkillSynergies"
          lazy="false"
-         table="SHA_SKILL_SYNERGY">
+         table="SHA_SKILL_SYNERGY"
+         access="field">
             <key column="ID"/>
             <many-to-many class="com.codecrate.shard.skill.HibernateSkill"
              column="CHILD_SKILL_ID"/>
