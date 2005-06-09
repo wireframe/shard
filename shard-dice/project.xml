@@ -8,25 +8,5 @@
   <name>shard dice module</name>
   <description>shard dice module</description>
   <shortDescription>shard dice module</shortDescription>
-  <build>
-    <resources>
-      <resource>
-        <directory>${basedir}/src/conf</directory>
-        <includes>
-          <include>**/*.xml</include>
-          <include>**/*.properties</include>
-        </includes>
-      </resource>
-    </resources>
-    <unitTest>
-      <resources>
-        <resource>
-          <directory>${basedir}/src/test</directory>
-          <includes>
-            <include>**/*.xml</include>
-          </includes>
-        </resource>
-      </resources>
-    </unitTest>
-  </build>
+  
 </project>
