@@ -61,4 +61,11 @@ public interface SkillDao {
      * @param skill
      */
     void updateSkill(Skill skill);
+
+    /**
+     * Get a skill by name.
+     * @param name
+     * @return
+     */
+    Skill getSkill(String name);
 }

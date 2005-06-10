@@ -5,10 +5,10 @@
 
 <hibernate-mapping package="com.codecrate.shard.skill">
 
-    <class name="HibernateSkill" table="SHA_SKILL">
+    <class name="DefaultSkill" table="SHA_SKILL">
 
-        <id name="id" type="string" unsaved-value="null">
-            <column name="ID" sql-type="char(32)" not-null="true"/>
+        <id name="name" type="string" unsaved-value="null" access="field">
+            <column name="name" sql-type="char(32)" not-null="true"/>
             <generator class="assigned"/>
         </id>
 
@@ -30,9 +30,9 @@
          lazy="false"
          table="SHA_SKILL_SYNERGY"
          access="field">
-            <key column="ID"/>
-            <many-to-many class="com.codecrate.shard.skill.HibernateSkill"
-             column="CHILD_SKILL_ID"/>
+            <key column="NAME"/>
+            <many-to-many class="com.codecrate.shard.skill.DefaultSkill"
+             column="CHILD_SKILL_NAME"/>
         </set>        
     </class>
 

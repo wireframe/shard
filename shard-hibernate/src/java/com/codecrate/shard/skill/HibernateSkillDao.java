@@ -18,9 +18,10 @@ package com.codecrate.shard.skill;
 import java.util.Collection;
 import java.util.List;
 
+import net.sf.hibernate.Criteria;
 import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
+import net.sf.hibernate.expression.Expression;
 
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
@@ -35,7 +36,7 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
                     throws HibernateException {
-                Query query = session.createQuery("from HibernateSkill");
+                Criteria query = session.createCriteria(DefaultSkill.class);
                 return query.list();
             }
         });
@@ -45,16 +46,33 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
                     throws HibernateException {
-                Query query = session.createQuery("from HibernateSkill value where value.usableUntrained = false");
+                Criteria query = session.createCriteria(DefaultSkill.class);
+                query.add(Expression.eq("usableUntrained", Boolean.FALSE));
                 return query.list();
             }
         });
     }
     
     public Skill createSkill(String name, boolean usableUntrained, Ability ability, boolean armorPenalty) {
-        HibernateSkill skill = new HibernateSkill(name, usableUntrained, ability, armorPenalty);
+        Skill skill = new DefaultSkill(name, usableUntrained, ability, armorPenalty);
         String id = (String) getHibernateTemplate().save(skill);
-        return (Skill) getHibernateTemplate().load(HibernateSkill.class, id);
+        return (Skill) getHibernateTemplate().load(DefaultSkill.class, id);
+    }
+    
+    public Skill getSkill(final String name) {
+        List results = (List) getHibernateTemplate().execute(new HibernateCallback() {
+            public Object doInHibernate(Session session)
+                    throws HibernateException {
+                Criteria query = session.createCriteria(DefaultSkill.class);
+                query.add(Expression.eq("name", name));
+                return query.list();
+            }
+        });
+        
+        if (1 != results.size()) {
+            throw new IllegalArgumentException("Unable to find skill " + name);
+        }
+        return (Skill) results.get(0);
     }
     
     public void deleteSkill(Skill skill) {

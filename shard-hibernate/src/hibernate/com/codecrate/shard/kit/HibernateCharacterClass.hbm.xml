@@ -20,8 +20,8 @@
          lazy="false"
          table="SHA_CLASS_SKILL">
             <key column="ID"/>
-            <many-to-many class="com.codecrate.shard.skill.HibernateSkill"
-             column="SKILL_ID"/>
+            <many-to-many class="com.codecrate.shard.skill.DefaultSkill"
+             column="SKILL_NAME"/>
         </set>        
 
         <set name="bonusLanguages"

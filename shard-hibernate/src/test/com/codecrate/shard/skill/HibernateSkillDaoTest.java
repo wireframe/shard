@@ -52,4 +52,13 @@ public class HibernateSkillDaoTest extends ShardHibernateDbUnitTestCaseSupport {
         Skill skill = skillDao.createSkill("test skill", true, strength, false);
         assertNotNull(skill);
     }
+    
+    public void testGetSkillByUnknownNameThrowsException() throws Exception {
+        SkillDao skillDao = (SkillDao) getContext().getBean("skillDao");
+        
+        try {
+            skillDao.getSkill("invalid skill");
+            fail("Exception should be thrown.");
+        } catch (IllegalArgumentException expected) { }
+    }
 }

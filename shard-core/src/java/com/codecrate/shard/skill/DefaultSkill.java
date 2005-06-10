@@ -15,8 +15,8 @@
  */
 package com.codecrate.shard.skill;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.ability.DefaultAbility;
@@ -133,18 +133,24 @@ public class DefaultSkill implements Skill {
             true, DefaultAbility.DEXTERITY, false);
 
 
-    private final String name;
-    private final boolean usableUntrained;
-    private Collection skillSynergies = new ArrayList();
-    private final Ability ability;
-    private final boolean armorPenalty;
+    private String name;
+    private boolean usableUntrained;
+    private Collection childSkillSynergies = new HashSet();
+    private Ability ability;
+    private boolean penalizedWithArmor;
 
+    /**
+     * hibernate constructor.
+     */
+    private DefaultSkill() { 
+    }
+    
     public DefaultSkill(String name, boolean usableUntrained, Ability ability,
             boolean armorPenalty) {
         this.name = name;
         this.usableUntrained = usableUntrained;
         this.ability = ability;
-        this.armorPenalty = armorPenalty;
+        this.penalizedWithArmor = armorPenalty;
     }
 
     public String toString() {
@@ -164,10 +170,10 @@ public class DefaultSkill implements Skill {
     }
 
     public Collection getChildSkillSynergies() {
-        return skillSynergies;
+        return childSkillSynergies;
     }
 
     public boolean isPenalizedWithArmor() {
-        return armorPenalty;
+        return penalizedWithArmor;
     }
 }

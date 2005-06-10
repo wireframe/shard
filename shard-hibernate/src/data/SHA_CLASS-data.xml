@@ -112,7 +112,7 @@ use <null/> to specify a null value for an entry
     </table>
 
     <table name="SHA_SKILL">
-        <column>ID</column>
+        <column>NAME</column>
         <column>ABILITY</column>
         <column>IS_USABLE_UNTRAINED</column>
         <column>HAS_ARMOR_CHECK_PENALTY</column>
@@ -366,7 +366,7 @@ use <null/> to specify a null value for an entry
     
     <table name="SHA_CLASS_SKILL">
         <column>ID</column>
-        <column>SKILL_ID</column>
+        <column>SKILL_NAME</column>
         <row>
             <value>Barbarian</value>
             <value>Climb</value>

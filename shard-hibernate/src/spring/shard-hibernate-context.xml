@@ -38,7 +38,7 @@
 	      <value>com/codecrate/shard/movement/EncumberanceEntry.hbm.xml</value>
 	      <value>com/codecrate/shard/race/HibernateLanguage.hbm.xml</value>
 	      <value>com/codecrate/shard/race/HibernateRace.hbm.xml</value>
-	      <value>com/codecrate/shard/skill/HibernateSkill.hbm.xml</value>
+	      <value>com/codecrate/shard/skill/DefaultSkill.hbm.xml</value>
 	    </list>
 	  </property>
 	</bean>
