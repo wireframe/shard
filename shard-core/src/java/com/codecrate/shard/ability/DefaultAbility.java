@@ -15,14 +15,28 @@
  */
 package com.codecrate.shard.ability;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DefaultAbility implements Ability {
-    public static final Ability STRENGTH = new DefaultAbility("strength");
-	public static final Ability DEXTERITY = new DefaultAbility("dexterity");
-	public static final Ability CONSTITUTION = new DefaultAbility("constitution");
-	public static final Ability WISDOM = new DefaultAbility("wisdom");
-	public static final Ability INTELLIGENCE = new DefaultAbility("intelligence");
-	public static final Ability CHARISMA = new DefaultAbility("charisma");
+    public static final Ability STRENGTH = new DefaultAbility("Strength");
+	public static final Ability DEXTERITY = new DefaultAbility("Dexterity");
+	public static final Ability CONSTITUTION = new DefaultAbility("Constitution");
+	public static final Ability WISDOM = new DefaultAbility("Wisdom");
+	public static final Ability INTELLIGENCE = new DefaultAbility("Intelligence");
+	public static final Ability CHARISMA = new DefaultAbility("Charisma");
     
+	public static final Map INSTANCES = new HashMap();
+	
+	static {
+	    INSTANCES.put(STRENGTH.toString(), STRENGTH);
+	    INSTANCES.put(DEXTERITY.toString(), DEXTERITY);
+	    INSTANCES.put(CONSTITUTION.toString(), CONSTITUTION);
+	    INSTANCES.put(WISDOM.toString(), WISDOM);
+	    INSTANCES.put(INTELLIGENCE.toString(), INTELLIGENCE);
+	    INSTANCES.put(CHARISMA.toString(), CHARISMA);
+	}
+	
     private final String name;
     
     public DefaultAbility(String name) {
@@ -39,5 +53,9 @@ public class DefaultAbility implements Ability {
 
     public String getAbbreviation() {
         return name.toUpperCase().substring(0, 3);
+    }
+    
+    public static Ability getInstance(String name) {
+        return (Ability) INSTANCES.get(name);
     }
 }

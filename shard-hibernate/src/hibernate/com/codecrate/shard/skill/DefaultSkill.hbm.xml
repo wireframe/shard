@@ -20,10 +20,9 @@
             <column name="HAS_ARMOR_CHECK_PENALTY" not-null="true"/>
         </property>
 
-        <many-to-one name="ability" 
-         class="com.codecrate.shard.ability.HibernateAbility" 
+        <property name="ability" 
          column="ABILITY" 
-         cascade="none"
+		 type="com.codecrate.shard.ability.AbilityUserType"
          access="field"/>
          
         <set name="childSkillSynergies"

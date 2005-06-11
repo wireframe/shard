@@ -31,7 +31,6 @@
 	  </property>
 	  <property name="mappingResources">
 	    <list>
-	      <value>com/codecrate/shard/ability/HibernateAbility.hbm.xml</value>
 	      <value>com/codecrate/shard/ability/PointCostValue.hbm.xml</value>
 	      <value>com/codecrate/shard/character/RaceAgeEntry.hbm.xml</value>
 	      <value>com/codecrate/shard/kit/HibernateCharacterClass.hbm.xml</value>

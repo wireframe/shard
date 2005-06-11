@@ -15,15 +15,8 @@
  */
 package com.codecrate.shard.ability;
 
-import java.sql.SQLException;
 import java.util.Collection;
-import java.util.List;
 
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Query;
-import net.sf.hibernate.Session;
-
-import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 /**
@@ -32,29 +25,15 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 public class HibernateAbilityDao extends HibernateDaoSupport implements AbilityDao {
 
     public Ability getAbility(final String name) {
-        List results = (List) getHibernateTemplate().execute(new HibernateCallback() {
-
-            public Object doInHibernate(Session session) throws HibernateException, SQLException {
-                Query query = session.createQuery("from HibernateAbility value where value.id = :name");
-                query.setString("name", name);
-                return query.list();
-            }
-            
-        });
-        if (1 != results.size()) {
+        Ability result = DefaultAbility.getInstance(name);
+        if (null == result) {
             throw new IllegalArgumentException("Unable to find ability " + name);
         }
-        return (Ability) results.get(0);
+        return result;
     }
 
     public Collection getAbilities() {
-        return (List) getHibernateTemplate().execute(new HibernateCallback() {
-
-            public Object doInHibernate(Session session) throws HibernateException, SQLException {
-                Query query = session.createQuery("from HibernateAbility ");
-                return query.list();
-            }
-        });
+        return DefaultAbility.INSTANCES.values();
     }
 
 }
