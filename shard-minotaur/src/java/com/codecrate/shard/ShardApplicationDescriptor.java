@@ -24,7 +24,6 @@ public class ShardApplicationDescriptor extends ApplicationDescriptor {
     
     public ShardApplicationDescriptor() {
         Package pkg = ShardApplicationDescriptor.class.getPackage();
-        //String specVersion = pkg.getSpecificationVersion();
         String version = pkg.getImplementationVersion();
         setVersion(version);
     }
