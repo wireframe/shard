@@ -38,7 +38,7 @@ import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.ConfirmationDialog;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
-import org.springframework.richclient.forms.SwingFormModel;
+import org.springframework.richclient.forms.FormModelHelper;
 import org.springframework.richclient.table.BeanTableModel;
 import org.springframework.richclient.table.SortableTableModel;
 import org.springframework.richclient.table.TableUtils;
@@ -218,7 +218,7 @@ public class FeatManagerView extends AbstractView {
 
         public void execute() {
             feat = getSelectedFeat();
-            featFormModel = SwingFormModel.createCompoundFormModel(feat);
+            featFormModel = FormModelHelper.createCompoundFormModel(feat);
             featForm = new FeatForm(featFormModel);
             page = new FormBackedDialogPage(featForm);
 

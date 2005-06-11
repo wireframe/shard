@@ -40,7 +40,7 @@ import org.springframework.richclient.dialog.ConfirmationDialog;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.InputApplicationDialog;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
-import org.springframework.richclient.forms.SwingFormModel;
+import org.springframework.richclient.forms.FormModelHelper;
 import org.springframework.richclient.table.BeanTableModel;
 import org.springframework.richclient.table.SortableTableModel;
 import org.springframework.richclient.table.TableUtils;
@@ -237,7 +237,7 @@ public class SkillManagerView extends AbstractView {
 
         public void execute() {
             skill = getSelectedSkill();
-            skillFormModel = SwingFormModel.createCompoundFormModel(skill);
+            skillFormModel = FormModelHelper.createCompoundFormModel(skill);
             skillForm = new SkillForm(skillFormModel);
             page = new FormBackedDialogPage(skillForm);
 
@@ -277,7 +277,7 @@ public class SkillManagerView extends AbstractView {
                 public void handle(Object o) {
                     Ability ability = (Ability) abilityDao.getAbilities().iterator().next();
                     skill = skillDao.createSkill(skillName.getName(), false, ability, false);
-                    skillFormModel = SwingFormModel.createCompoundFormModel(skill);
+                    skillFormModel = FormModelHelper.createCompoundFormModel(skill);
                     skillForm = new SkillForm(skillFormModel);
                     page = new FormBackedDialogPage(skillForm);
 

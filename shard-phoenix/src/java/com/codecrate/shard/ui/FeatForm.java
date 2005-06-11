@@ -29,7 +29,7 @@ public class FeatForm extends AbstractForm {
     }
 
     protected JComponent createFormControl() {
-        TableFormBuilder formBuilder = new TableFormBuilder(getFormModel());
+        TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
         formBuilder.add("name");
         formBuilder.row();
         formBuilder.add("type");
