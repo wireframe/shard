@@ -27,7 +27,7 @@ import com.codecrate.shard.character.prereq.DeityAlignmentPrerequisite;
 import com.codecrate.shard.character.prereq.NullPrerequisite;
 import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.dice.Dice;
-import com.codecrate.shard.feat.Feat;
+import com.codecrate.shard.feat.DefaultFeat;
 import com.codecrate.shard.modifier.DefaultKeyedModifier;
 import com.codecrate.shard.modifier.KeyedModifier;
 import com.codecrate.shard.race.DefaultLanguage;
@@ -71,9 +71,9 @@ public class DefaultCharacterClass implements CharacterClass {
             "Cleric", RandomDice.d8,  2, 
             new DefaultClassProgressionDao(), new DeityAlignmentPrerequisite(), 
             Arrays.asList(new DefaultLanguage[]{DefaultLanguage.ABYSSAL, DefaultLanguage.CELESTIAL, DefaultLanguage.INFERNAL}),
-            Arrays.asList(new Feat[]{Feat.ARMOR_PROFICIENCY_LIGHT, Feat.ARMOR_PROFICIENCY_MEDIUM,
-                    Feat.ARMOR_PROFICIENCY_HEAVY,
-                            Feat.SHIELD_PROFICIENCY }), Arrays
+            Arrays.asList(new DefaultFeat[]{DefaultFeat.ARMOR_PROFICIENCY_LIGHT, DefaultFeat.ARMOR_PROFICIENCY_MEDIUM,
+                    DefaultFeat.ARMOR_PROFICIENCY_HEAVY,
+                            DefaultFeat.SHIELD_PROFICIENCY }), Arrays
                             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                                     DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
     
@@ -155,8 +155,8 @@ public class DefaultCharacterClass implements CharacterClass {
             "Warrior", RandomDice.d8,  2, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), 
             new ArrayList(), 
-            Arrays.asList(new Feat[]{Feat.ARMOR_PROFICIENCY_LIGHT, Feat.ARMOR_PROFICIENCY_MEDIUM,
-                    Feat.ARMOR_PROFICIENCY_HEAVY, Feat.SHIELD_PROFICIENCY}), new ArrayList());
+            Arrays.asList(new DefaultFeat[]{DefaultFeat.ARMOR_PROFICIENCY_LIGHT, DefaultFeat.ARMOR_PROFICIENCY_MEDIUM,
+                    DefaultFeat.ARMOR_PROFICIENCY_HEAVY, DefaultFeat.SHIELD_PROFICIENCY}), new ArrayList());
 
     
     private Collection classSkills = new ArrayList();

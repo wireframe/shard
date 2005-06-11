@@ -15,20 +15,23 @@
  */
 package com.codecrate.shard.feat;
 
-import java.util.Arrays;
-
-import com.codecrate.shard.feat.DefaultFeat;
-import com.codecrate.shard.feat.FeatContainer;
-
-import junit.framework.TestCase;
+import java.util.Collection;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class FeatContainerTest extends TestCase {
+public interface FeatDao {
 
-    public void testHasFeatTrueWhenHasFeat() {
-        FeatContainer container = new FeatContainer(Arrays.asList(new DefaultFeat[] {DefaultFeat.ARMOR_PROFICIENCY_HEAVY}));
-        assertTrue(container.hasFeat(DefaultFeat.ARMOR_PROFICIENCY_HEAVY));
-    }
+    /**
+     * get all feats.
+     * @return
+     */
+    Collection getFeats();
+    
+    /**
+     * gets a single feat by name;
+     * @param name
+     * @return
+     */
+    Feat getFeat(String name);
 }

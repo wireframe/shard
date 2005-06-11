@@ -22,13 +22,13 @@ import junit.framework.TestCase;
 import org.easymock.MockControl;
 
 import com.codecrate.shard.character.PlayerCharacter;
-import com.codecrate.shard.feat.Feat;
+import com.codecrate.shard.feat.DefaultFeat;
 import com.codecrate.shard.feat.FeatContainer;
 
 public class FeatPrerequisiteTest extends TestCase {
 
 	public void testPrereqMetWhenHasFeat() {
-	    FeatContainer feats = new FeatContainer(Arrays.asList(new Feat[]{Feat.ARMOR_PROFICIENCY_HEAVY}));
+	    FeatContainer feats = new FeatContainer(Arrays.asList(new DefaultFeat[]{DefaultFeat.ARMOR_PROFICIENCY_HEAVY}));
 	    
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
 		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
@@ -36,7 +36,7 @@ public class FeatPrerequisiteTest extends TestCase {
 		mockCharacter.setReturnValue(feats);
 		mockCharacter.replay();
 		
-		FeatPrerequisite prereq = new FeatPrerequisite(Feat.ARMOR_PROFICIENCY_HEAVY);
+		FeatPrerequisite prereq = new FeatPrerequisite(DefaultFeat.ARMOR_PROFICIENCY_HEAVY);
 		assertTrue(prereq.hasMetPrerequisite(character));
 	}
 }

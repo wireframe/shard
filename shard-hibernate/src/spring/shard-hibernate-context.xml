@@ -33,6 +33,7 @@
 	    <list>
 	      <value>com/codecrate/shard/ability/PointCostValue.hbm.xml</value>
 	      <value>com/codecrate/shard/character/RaceAgeEntry.hbm.xml</value>
+	      <value>com/codecrate/shard/feat/DefaultFeat.hbm.xml</value>
 	      <value>com/codecrate/shard/kit/HibernateCharacterClass.hbm.xml</value>
 	      <value>com/codecrate/shard/movement/EncumberanceEntry.hbm.xml</value>
 	      <value>com/codecrate/shard/race/HibernateLanguage.hbm.xml</value>
@@ -66,6 +67,16 @@
 	<bean id="skillDao" parent="transactionTemplate">
 	  <property name="target">
 	    <bean class="com.codecrate.shard.skill.HibernateSkillDao">
+  	      <property name="sessionFactory">
+	        <ref bean="sessionFactory"/>
+	      </property>
+	    </bean>
+	  </property>
+	</bean>
+
+	<bean id="featDao" parent="transactionTemplate">
+	  <property name="target">
+	    <bean class="com.codecrate.shard.feat.HibernateFeatDao">
   	      <property name="sessionFactory">
 	        <ref bean="sessionFactory"/>
 	      </property>
