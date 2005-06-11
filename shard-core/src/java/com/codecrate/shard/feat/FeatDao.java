@@ -34,4 +34,17 @@ public interface FeatDao {
      * @return
      */
     Feat getFeat(String name);
+
+    /**
+     * update a feat.
+     * saves changes to a feat.
+     * @param feat
+     */
+    void updateFeat(Feat feat);
+
+    /**
+     * delete a feat.
+     * @param feat
+     */
+    void deleteSkill(Feat feat);
 }

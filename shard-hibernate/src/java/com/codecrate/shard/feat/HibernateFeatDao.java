@@ -55,4 +55,12 @@ public class HibernateFeatDao extends HibernateDaoSupport implements FeatDao {
         }
         return (Feat) results.get(0);
     }
+    
+    public void updateFeat(Feat feat) {
+        getHibernateTemplate().saveOrUpdate(feat);
+    }
+
+    public void deleteSkill(Feat feat) {
+        getHibernateTemplate().delete(feat);
+    }
 }

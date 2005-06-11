@@ -30,7 +30,6 @@ import javax.swing.event.ListSelectionListener;
 
 import org.springframework.binding.form.NestingFormModel;
 import org.springframework.context.MessageSource;
-import org.springframework.core.closure.support.Block;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
@@ -38,7 +37,6 @@ import org.springframework.richclient.command.support.AbstractActionCommandExecu
 import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.ConfirmationDialog;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
-import org.springframework.richclient.dialog.InputApplicationDialog;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.forms.SwingFormModel;
 import org.springframework.richclient.table.BeanTableModel;
@@ -46,12 +44,10 @@ import org.springframework.richclient.table.SortableTableModel;
 import org.springframework.richclient.table.TableUtils;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
-import com.codecrate.shard.ability.Ability;
-import com.codecrate.shard.ability.AbilityDao;
-import com.codecrate.shard.skill.Skill;
-import com.codecrate.shard.skill.SkillDao;
+import com.codecrate.shard.feat.Feat;
+import com.codecrate.shard.feat.FeatDao;
 
-public class SkillManagerView extends AbstractView {
+public class FeatManagerView extends AbstractView {
     private JScrollPane scrollPane;
     private JTable table;
     private BeanTableModel model;
@@ -61,28 +57,13 @@ public class SkillManagerView extends AbstractView {
     private DeleteCommandExecutor deleteExecutor;
     private NewCommandExecutor newExecutor;
     
-    private List skills;
-    private SkillDao skillDao;
-    private AbilityDao abilityDao;
+    private List feats;
+    private FeatDao featDao;
     
-    /**
-     * @return Returns the abilityDao.
-     */
-    public AbilityDao getAbilityDao() {
-        return abilityDao;
-    }
-    
-    /**
-     * @param abilityDao The abilityDao to set.
-     */
-    public void setAbilityDao(AbilityDao abilityDao) {
-        this.abilityDao = abilityDao;
+    public void setFeatDao(FeatDao featDao) {
+        this.featDao = featDao;
     }
 
-    public void setSkillDao(SkillDao skillDao) {
-        this.skillDao = skillDao;
-    }
-    
     protected JComponent createControl() {
         JPanel view = new JPanel();
         view.add(getScrollPane(), BorderLayout.WEST);
@@ -141,14 +122,14 @@ public class SkillManagerView extends AbstractView {
     }
 
     private boolean isDeleteCommandEnabled() {
-        if (null == getSelectedSkill()) {
+        if (null == getSelectedFeat()) {
             return false;
         }
         return true;
     }
 
     private boolean isPropertiesCommandEnabled() {
-        if (null == getSelectedSkill()) {
+        if (null == getSelectedFeat()) {
             return false;
         }
         return true;
@@ -157,7 +138,7 @@ public class SkillManagerView extends AbstractView {
 
     private JPopupMenu getPopupContextMenu() {
         if (null == popup) {
-            CommandGroup group = getWindowCommandManager().createCommandGroup("skillsCommandGroup", new Object[] {
+            CommandGroup group = getWindowCommandManager().createCommandGroup("featsCommandGroup", new Object[] {
                     GlobalCommandIds.PROPERTIES, 
                     GlobalCommandIds.DELETE, 
                     ShardCommandIds.NEW});
@@ -170,12 +151,12 @@ public class SkillManagerView extends AbstractView {
         if (null == model) {
             MessageSource messageSource = (MessageSource) getApplicationContext().getBean("messageSource");
 
-            model = new BeanTableModel(Skill.class, getSkills(), messageSource) {
+            model = new BeanTableModel(Feat.class, getFeats(), messageSource) {
 
                 protected String[] createColumnPropertyNames() {
                     return new String[] {
                             "name"
-                            , "ability.name"
+                            , "type"
                     };
                 }
 
@@ -192,22 +173,22 @@ public class SkillManagerView extends AbstractView {
         return model;
     }
     
-    private List getSkills() {
-        if (null == skills) {
-            skills = new ArrayList(skillDao.getSkills());
+    private List getFeats() {
+        if (null == feats) {
+            feats = new ArrayList(featDao.getFeats());
         }
-        return skills;
+        return feats;
     }
     
-    private Skill getSelectedSkill() {
+    private Feat getSelectedFeat() {
         int sortedIndex = getTable().getSelectedRow();
         if (-1 == sortedIndex) {
             return null;
         }
         SortableTableModel sortedModel = (SortableTableModel) getTable().getModel();
         int realIndex = sortedModel.convertSortedIndexToDataIndex(sortedIndex);
-        Skill skill = (Skill) getModel().getRow(realIndex);
-        return skill;
+        Feat feat = (Feat) getModel().getRow(realIndex);
+        return feat;
         
     }
     
@@ -216,30 +197,30 @@ public class SkillManagerView extends AbstractView {
         public void execute() {
             ConfirmationDialog dialog = new ConfirmationDialog() {
                 protected void onConfirm() {
-                    Skill skill = getSelectedSkill();
-                    skillDao.deleteSkill(skill);
-                    getSkills().remove(skill);
+                    Feat feat = getSelectedFeat();
+                    featDao.deleteSkill(feat);
+                    getFeats().remove(feat);
                     getModel().fireTableDataChanged();
                 }
             };
-            dialog.setTitle("Delete Skill");
-            dialog.setConfirmationMessage(getMessage("confirmDeleteSkillDialog.label"));
+            dialog.setTitle("Delete Feat");
+            dialog.setConfirmationMessage(getMessage("confirmDeleteFeatDialog.label"));
             dialog.showDialog();
         }
     }
 
 
     private class PropertiesCommandExecutor extends AbstractActionCommandExecutor {
-        private Skill skill;
-        private NestingFormModel skillFormModel;
-        private SkillForm skillForm;
+        private Feat feat;
+        private NestingFormModel featFormModel;
+        private FeatForm featForm;
         private FormBackedDialogPage page;
 
         public void execute() {
-            skill = getSelectedSkill();
-            skillFormModel = SwingFormModel.createCompoundFormModel(skill);
-            skillForm = new SkillForm(skillFormModel);
-            page = new FormBackedDialogPage(skillForm);
+            feat = getSelectedFeat();
+            featFormModel = SwingFormModel.createCompoundFormModel(feat);
+            featForm = new FeatForm(featFormModel);
+            page = new FormBackedDialogPage(featForm);
 
             TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
                 protected void onAboutToShow() {
@@ -247,10 +228,10 @@ public class SkillManagerView extends AbstractView {
                 }
 
                 protected boolean onFinish() {
-                    skillFormModel.commit();
-                    skillDao.updateSkill(skill);
-                    int index = getSkills().indexOf(skill);
-                    getSkills().set(index, skill);
+                    featFormModel.commit();
+                    featDao.updateFeat(feat);
+                    int index = getFeats().indexOf(feat);
+                    getFeats().set(index, feat);
                     getModel().fireTableDataChanged();
                     return true;
                 }
@@ -261,65 +242,9 @@ public class SkillManagerView extends AbstractView {
   
     
     private class NewCommandExecutor extends AbstractActionCommandExecutor {
-        private NestingFormModel skillFormModel;
-        private SkillForm skillForm;
-        private FormBackedDialogPage page;
-        private Skill skill;
         
         public void execute() {
-            final SkillNameBean skillName = new SkillNameBean();
-            InputApplicationDialog skillNameDialog = new InputApplicationDialog(skillName, "name");
-            skillNameDialog.setTitle(getMessage("skillNameDialog.title"));
-            skillNameDialog.setInputLabelMessage("skillNameDialog.label");
-            skillNameDialog.setParent(getWindowControl());
-            skillNameDialog.setFinishAction(new Block() {
-
-                public void handle(Object o) {
-                    Ability ability = (Ability) abilityDao.getAbilities().iterator().next();
-                    skill = skillDao.createSkill(skillName.getName(), false, ability, false);
-                    skillFormModel = SwingFormModel.createCompoundFormModel(skill);
-                    skillForm = new SkillForm(skillFormModel);
-                    page = new FormBackedDialogPage(skillForm);
-
-                    TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
-                        protected void onAboutToShow() {
-                            setEnabled(page.isPageComplete());
-                        }
-
-                        protected void onCancel() {
-                            super.onCancel();
-                            skillDao.deleteSkill(skill);
-                        }
-                        
-                        protected boolean onFinish() {
-                            skillFormModel.commit();
-                            skillDao.updateSkill(skill);
-                            getSkills().add(skill);
-                            getModel().fireTableDataChanged();
-                            return true;
-                        }
-                    };
-                    dialog.showDialog();
-                }
-            });
-            skillNameDialog.showDialog();
         }
     }
-    
 
-    private class SkillNameBean {
-        private String name;
-        /**
-         * @return Returns the name.
-         */
-        public String getName() {
-            return name;
-        }
-        /**
-         * @param name The name to set.
-         */
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
 }
