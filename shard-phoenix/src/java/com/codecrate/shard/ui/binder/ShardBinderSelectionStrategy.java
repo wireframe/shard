@@ -13,14 +13,23 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard;
+package com.codecrate.shard.ui.binder;
 
-import org.springframework.richclient.application.config.DefaultApplicationLifecycleAdvisor;
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.springframework.richclient.form.binding.support.AbstractBinder;
+import org.springframework.richclient.form.binding.swing.SwingBinderSelectionStrategy;
 
 /**
- * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class ShardLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
+public class ShardBinderSelectionStrategy extends SwingBinderSelectionStrategy {
 
+    public void setBindersForPropertyTypes(Collection binders) {
+        for (Iterator i = binders.iterator(); i.hasNext();) {
+            AbstractBinder binder = (AbstractBinder) i.next();
+            registerBinderForPropertyType(binder.getRequiredSourceClass(), binder);
+        }
+    }
 }

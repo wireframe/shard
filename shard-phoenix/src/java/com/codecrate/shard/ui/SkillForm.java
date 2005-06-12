@@ -32,10 +32,11 @@ public class SkillForm extends AbstractForm {
         TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
         formBuilder.add("name");
         formBuilder.row();
+        formBuilder.add("ability");
+        formBuilder.row();
         formBuilder.add("penalizedWithArmor");
         formBuilder.row();
         formBuilder.add("usableUntrained");
-        //formBuilder.add("ability");
         return formBuilder.getForm();
     }
 }
