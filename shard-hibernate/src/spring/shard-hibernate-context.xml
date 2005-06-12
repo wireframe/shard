@@ -34,7 +34,7 @@
 	      <value>com/codecrate/shard/ability/PointCostValue.hbm.xml</value>
 	      <value>com/codecrate/shard/character/RaceAgeEntry.hbm.xml</value>
 	      <value>com/codecrate/shard/feat/DefaultFeat.hbm.xml</value>
-	      <value>com/codecrate/shard/kit/HibernateCharacterClass.hbm.xml</value>
+	      <value>com/codecrate/shard/kit/DefaultCharacterClass.hbm.xml</value>
 	      <value>com/codecrate/shard/movement/EncumberanceEntry.hbm.xml</value>
 	      <value>com/codecrate/shard/race/HibernateLanguage.hbm.xml</value>
 	      <value>com/codecrate/shard/race/HibernateRace.hbm.xml</value>

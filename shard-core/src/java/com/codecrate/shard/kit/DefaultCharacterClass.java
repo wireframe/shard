@@ -169,6 +169,12 @@ public class DefaultCharacterClass implements CharacterClass {
     private CharacterPrerequisite prereq;
     private Collection skillModifiers;
 
+    /**
+     * hibernate constructor.
+     */
+    public DefaultCharacterClass() {
+    }
+    
     public DefaultCharacterClass(String name, Dice hitDicePerLevel,
             int baseSkillPointsPerLevel, 
 			ClassProgressionDao progressionDao, CharacterPrerequisite prereq, 

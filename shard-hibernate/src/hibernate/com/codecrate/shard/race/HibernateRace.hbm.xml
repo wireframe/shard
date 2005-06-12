@@ -21,7 +21,7 @@
         </property>
         
         <many-to-one name="favoredClass" 
-         class="com.codecrate.shard.kit.HibernateCharacterClass" 
+         class="com.codecrate.shard.kit.DefaultCharacterClass" 
          column="FAVORED_CLASS" 
          cascade="all"/>
     </class>

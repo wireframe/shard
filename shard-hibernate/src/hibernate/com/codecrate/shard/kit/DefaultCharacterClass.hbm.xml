@@ -5,20 +5,20 @@
 
 <hibernate-mapping package="com.codecrate.shard.kit">
 
-    <class name="HibernateCharacterClass" table="SHA_CLASS">
+    <class name="DefaultCharacterClass" table="SHA_CLASS">
 
-        <id name="id" type="string" unsaved-value="null" >
+        <id name="name" type="string" unsaved-value="null" access="field">
             <column name="ID" sql-type="char(32)" not-null="true"/>
             <generator class="assigned"/>
         </id>
 
-        <property name="baseSkillPointsPerLevel">
+        <property name="baseSkillPointsPerLevel" access="field">
             <column name="BASE_SKILL_POINTS_PER_LEVEL" length="4" not-null="true"/>
         </property>
         
         <set name="classSkills"
          lazy="false"
-         table="SHA_CLASS_SKILL">
+         table="SHA_CLASS_SKILL" access="field">
             <key column="ID"/>
             <many-to-many class="com.codecrate.shard.skill.DefaultSkill"
              column="SKILL_NAME"/>
@@ -26,7 +26,7 @@
 
         <set name="bonusLanguages"
          lazy="false"
-         table="SHA_CLASS_LANGUAGE">
+         table="SHA_CLASS_LANGUAGE" access="field">
             <key column="ID"/>
             <many-to-many class="com.codecrate.shard.race.HibernateLanguage"
              column="LANGUAGE_ID"/>
