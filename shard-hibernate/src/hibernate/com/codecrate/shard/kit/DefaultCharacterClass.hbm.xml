@@ -28,7 +28,7 @@
          lazy="false"
          table="SHA_CLASS_LANGUAGE" access="field">
             <key column="ID"/>
-            <many-to-many class="com.codecrate.shard.race.HibernateLanguage"
+            <many-to-many class="com.codecrate.shard.race.DefaultLanguage"
              column="LANGUAGE_ID"/>
         </set>        
         

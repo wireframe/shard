@@ -46,6 +46,12 @@ public class DefaultLanguage implements Language {
 	private String name;
 	private String alphabet;
 
+	/**
+	 * hibernate constructor.
+	 */
+	private DefaultLanguage() {
+	}
+	
 	public DefaultLanguage(String name, String alphabet) {
 		this.name = name;
 		this.alphabet = alphabet;

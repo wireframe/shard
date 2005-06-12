@@ -36,7 +36,7 @@
 	      <value>com/codecrate/shard/feat/DefaultFeat.hbm.xml</value>
 	      <value>com/codecrate/shard/kit/DefaultCharacterClass.hbm.xml</value>
 	      <value>com/codecrate/shard/movement/EncumberanceEntry.hbm.xml</value>
-	      <value>com/codecrate/shard/race/HibernateLanguage.hbm.xml</value>
+	      <value>com/codecrate/shard/race/DefaultLanguage.hbm.xml</value>
 	      <value>com/codecrate/shard/race/HibernateRace.hbm.xml</value>
 	      <value>com/codecrate/shard/skill/DefaultSkill.hbm.xml</value>
 	    </list>

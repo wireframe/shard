@@ -5,14 +5,14 @@
 
 <hibernate-mapping>
 
-    <class name="com.codecrate.shard.race.HibernateLanguage" table="SHA_LANGUAGE">
+    <class name="com.codecrate.shard.race.DefaultLanguage" table="SHA_LANGUAGE">
 
-        <id name="id" type="string" unsaved-value="null" >
+        <id name="name" type="string" unsaved-value="null" access="field">
             <column name="ID" sql-type="char(32)" not-null="true"/>
             <generator class="assigned"/>
         </id>
 
-        <property name="alphabet">
+        <property name="alphabet" access="field">
             <column name="ALPHABET" length="16" not-null="true"/>
         </property>
     </class>
