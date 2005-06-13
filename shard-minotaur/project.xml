@@ -56,6 +56,53 @@
       <version>1.1.5</version>
       <url>http://springframework.org</url>
     </dependency>
+
+    <!-- spring-rcp dependencies -->
+    <dependency>
+      <groupId>spring-rcp</groupId>
+      <artifactId>spring-richclient</artifactId>
+      <version>SNAPSHOT</version>
+      <url>http://springframework.org</url>
+    </dependency>
+    <dependency>
+      <groupId>spring-rcp</groupId>
+      <artifactId>spring-richclient-resources</artifactId>
+      <version>SNAPSHOT</version>
+      <url>http://springframework.org</url>
+    </dependency>
+    <dependency>
+      <groupId>spring-rcp</groupId>
+      <artifactId>spring-sandbox</artifactId>
+      <version>SNAPSHOT</version>
+      <url>http://springframework.org</url>
+    </dependency>
+    
+    <!-- jgoodies dependencies -->
+    <dependency>
+      <groupId>jgoodies</groupId>
+      <artifactId>looks</artifactId>
+      <version>1.2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>jgoodies</groupId>
+      <artifactId>forms</artifactId>
+      <version>1.0.5</version>
+    </dependency>
+    
+    <!-- javahelp dependencies -->
+    <dependency>
+      <groupId>javahelp</groupId>
+      <artifactId>javahelp</artifactId>
+      <version>2.0</version>
+    </dependency>
+
+    <!-- napkinlaf dependencies --> 
+    <dependency>
+      <groupId>napkinlaf</groupId>
+      <artifactId>napkinlaf</artifactId>
+      <version>1.0-beta-5</version>
+    </dependency>
+       
   </dependencies>
 
   <build>
