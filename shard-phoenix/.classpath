@@ -1,20 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <classpath>
-	<classpathentry kind="src" path="src/java"/>
-	<classpathentry including="**/*.xml|**/*.properties|" kind="src" path="src/spring"/>
-	<classpathentry including="**/*.jpg|" kind="src" path="src/resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="/shard-dice"/>
-	<classpathentry kind="src" path="/shard-core"/>
-	<classpathentry kind="src" path="/shard-hibernate"/>
-	<classpathentry kind="var" path="MAVEN_REPO/commons-beanutils/jars/commons-beanutils-1.7.0.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-core-1.1.5.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-context-1.1.5.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-2.1.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/easymock/jars/easymock-1.1.jar"/>
-	<classpathentry kind="src" path="/spring-richclient"/>
-	<classpathentry sourcepath="/spring-richclient/lib/src/spring-sandbox-src.zip" kind="lib" path="/spring-richclient/lib/spring/spring-sandbox.jar"/>
-	<classpathentry sourcepath="/spring-richclient/lib/src/glazedlists-source.zip" kind="lib" path="/spring-richclient/lib/glazedlists/glazedlists.jar"/>
-	<classpathentry kind="output" path="target/classes"/>
+  <classpathentry excluding="" kind="src" path="src/java">
+  </classpathentry>
+  <classpathentry excluding="" including="**/*.xml|**/*.properties|" kind="src" path="src/spring">
+  </classpathentry>
+  <classpathentry excluding="" including="**/*.jpg|" kind="src" path="src/resources">
+  </classpathentry>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+  </classpathentry>
+  <classpathentry kind="src" path="/shard-dice">
+  </classpathentry>
+  <classpathentry kind="src" path="/shard-core">
+  </classpathentry>
+  <classpathentry kind="src" path="/shard-hibernate">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/commons-beanutils/jars/commons-beanutils-1.7.0.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-core-1.1.5.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-context-1.1.5.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/spring-rcp/jars/spring-richclient-SNAPSHOT.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/spring-rcp/jars/spring-richclient-resources-SNAPSHOT.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/spring-rcp/jars/spring-sandbox-SNAPSHOT.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/jgoodies/jars/looks-1.2.2.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/jgoodies/jars/forms-1.0.5.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/javahelp/jars/javahelp-2.0.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-2.1.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/easymock/jars/easymock-1.1.jar">
+  </classpathentry>
+  <classpathentry kind="output" path="target/classes">
+  </classpathentry>
 </classpath>

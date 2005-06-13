@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <projectDescription>
-	<name>shard-phoenix</name>
-	<comment>shard phoenix module</comment>
-	<projects>
-		<project>shard-dice</project>
-		<project>shard-core</project>
-		<project>shard-hibernate</project>
-	</projects>
-	<buildSpec>
-		<buildCommand>
-			<name>org.eclipse.jdt.core.javabuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>org.springframework.ide.eclipse.beans.core.beansvalidator</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-	</buildSpec>
-	<natures>
-		<nature>org.springframework.ide.eclipse.beans.core.beansnature</nature>
-		<nature>org.eclipse.jdt.core.javanature</nature>
-	</natures>
+  <name>shard-phoenix</name>
+  <comment>shard phoenix module</comment>
+  <projects>
+    <project>shard-dice</project>
+    <project>shard-core</project>
+    <project>shard-hibernate</project>
+  </projects>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+      <arguments>
+      </arguments>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
 </projectDescription>
