@@ -6,8 +6,8 @@
   <groupId>shard</groupId>
   <id>shard-phoenix</id>
   <name>shard phoenix module</name>
-  <description>shard phoenix module</description>
-  <shortDescription>shard phoenix module</shortDescription>
+  <description>shard d20 data management application</description>
+  <shortDescription>shard d20 data management application</shortDescription>
   
   <dependencies>
     <dependency>

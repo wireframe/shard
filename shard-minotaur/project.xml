@@ -6,8 +6,8 @@
   <groupId>shard</groupId>
   <id>shard-minotaur</id>
   <name>shard minotaur module</name>
-  <description>shard minotaur module</description>
-  <shortDescription>shard minotaur module</shortDescription>
+  <description>shard d20 character generator application</description>
+  <shortDescription>shard d20 character generator application</shortDescription>
   
   <dependencies>
     <dependency>
