@@ -2,13 +2,11 @@
 
 <project 
  xmlns:maven="jelly:maven"
- xmlns:j="jelly:core">
+ xmlns:j="jelly:core"
+ xmlns:ant="jelly:ant">
 
   <preGoal name="site:site">
     <echo>Before site:site</echo>
     <attainGoal name="jnlp" />
-    
-    <!-- copy files to site distribution -->
-    
   </preGoal>
 </project>
