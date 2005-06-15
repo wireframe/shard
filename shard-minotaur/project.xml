@@ -28,6 +28,14 @@
     </dependency>
     <dependency>
       <groupId>shard</groupId>
+      <artifactId>shard-sheets</artifactId>
+      <version>SNAPSHOT</version>
+      <properties>
+        <eclipse.dependency>true</eclipse.dependency>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>shard</groupId>
       <artifactId>shard-hibernate</artifactId>
       <version>SNAPSHOT</version>
       <properties>

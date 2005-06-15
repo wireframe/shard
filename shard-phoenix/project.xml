@@ -16,6 +16,7 @@
       <version>SNAPSHOT</version>
       <properties>
         <eclipse.dependency>true</eclipse.dependency>
+        <jnlp.jar>true</jnlp.jar>
       </properties>
     </dependency>
     <dependency>
@@ -24,6 +25,7 @@
       <version>SNAPSHOT</version>
       <properties>
         <eclipse.dependency>true</eclipse.dependency>
+        <jnlp.jar>true</jnlp.jar>
       </properties>
     </dependency>
     <dependency>
@@ -32,6 +34,16 @@
       <version>SNAPSHOT</version>
       <properties>
         <eclipse.dependency>true</eclipse.dependency>
+        <jnlp.jar>true</jnlp.jar>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>shard</groupId>
+      <artifactId>shard-sheets</artifactId>
+      <version>SNAPSHOT</version>
+      <properties>
+        <eclipse.dependency>true</eclipse.dependency>
+        <jnlp.jar>true</jnlp.jar>
       </properties>
     </dependency>
     

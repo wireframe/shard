@@ -10,7 +10,7 @@
     <attainGoal name="pdf" />
     
     <!-- copy jnlp files to site distribution -->
-    <ant:copy todir="${basedir}/target/site">
+    <ant:copy todir="${basedir}/target/docs">
       <fileset dir="${basedir}/../shard-phoenix/target/jnlp">
         <include name="*" />
       </fileset>
