@@ -99,21 +99,15 @@
       <artifactId>commons-logging</artifactId>
       <version>1.0.4</version>
       <url>http://jakarta.apache.org/commons</url>
-      <properties>
-        <jnlp.jar>true</jnlp.jar>
-      </properties>
     </dependency>
     <dependency>
       <groupId>commons-collections</groupId>
       <artifactId>commons-collections</artifactId>
       <version>2.1</version>
       <url>http://jakarta.apache.org/commons</url>
-      <properties>
-        <jnlp.jar>true</jnlp.jar>
-      </properties>
     </dependency>
-    <!-- EasyMock dependencies -->
 
+    <!-- EasyMock dependencies -->
     <dependency>
       <groupId>easymock</groupId>
       <artifactId>easymock</artifactId>
