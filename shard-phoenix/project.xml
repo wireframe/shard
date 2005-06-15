@@ -77,6 +77,41 @@
         <jnlp.jar>true</jnlp.jar>
       </properties>
     </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>1.1.5</version>
+      <url>http://springframework.org</url>
+      <properties>
+        <jnlp.jar>true</jnlp.jar>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>1.1.5</version>
+      <url>http://springframework.org</url>
+      <properties>
+        <jnlp.jar>true</jnlp.jar>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-dao</artifactId>
+      <version>1.1.5</version>
+      <url>http://springframework.org</url>
+      <properties>
+        <jnlp.jar>true</jnlp.jar>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>aopalliance</groupId>
+      <artifactId>aopalliance</artifactId>
+      <version>1.0</version>
+      <properties>
+        <jnlp.jar>true</jnlp.jar>
+      </properties>
+    </dependency>
 
     <!-- HSQL dependencies -->
     <dependency>
