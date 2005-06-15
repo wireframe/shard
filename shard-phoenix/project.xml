@@ -269,7 +269,7 @@
     <dependency>
       <groupId>javahelp</groupId>
       <artifactId>javahelp</artifactId>
-      <version>2.0</version>
+      <version>2.0.2</version>
       <properties>
         <jnlp.jar>true</jnlp.jar>
       </properties>
