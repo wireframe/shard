@@ -8,17 +8,5 @@
   <preGoal name="site:deploy">
     <echo>Before site:deploy</echo>
     <attainGoal name="pdf" />
-    
-    <!-- copy jnlp files to site distribution -->
-    <ant:copy todir="${basedir}/target/docs">
-      <fileset dir="${basedir}/../shard-phoenix/target/jnlp">
-        <include name="*" />
-      </fileset>
-    </ant:copy>
-    <ant:copy todir="${basedir}/target/docs">
-      <fileset dir="${basedir}/../shard-minotaur/target/jnlp">
-        <include name="*" />
-      </fileset>
-    </ant:copy>
   </preGoal>
 </project>
