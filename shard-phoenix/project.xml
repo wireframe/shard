@@ -228,7 +228,7 @@
         <jnlp.jar>true</jnlp.jar>
       </properties>
     </dependency>
-    
+
     <!-- spring-rcp dependencies -->
     <dependency>
       <groupId>spring-rcp</groupId>
