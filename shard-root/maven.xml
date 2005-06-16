@@ -15,5 +15,10 @@
         <include name="*" />
       </fileset>
     </ant:copy>
+    <ant:copy todir="${basedir}/target/docs">
+      <fileset dir="${basedir}/../shard-minotaur/target/jnlp">
+        <include name="*" />
+      </fileset>
+    </ant:copy>
   </preGoal>
 </project>
