@@ -8,6 +8,7 @@
   <name>shard phoenix module</name>
   <description>shard d20 data management application</description>
   <shortDescription>shard d20 data management application</shortDescription>
+  <url>http://shard.codecrate.com/multiproject/shard-phoenix</url>
   
   <dependencies>
     <dependency>
