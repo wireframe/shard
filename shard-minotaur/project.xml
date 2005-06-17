@@ -8,7 +8,7 @@
   <name>shard minotaur module</name>
   <description>shard d20 character generator application</description>
   <shortDescription>shard d20 character generator application</shortDescription>
-  <url>http://shard.codecrate.com/multiproject/shard-phoenix</url>
+  <url>http://shard.codecrate.com/multiproject/shard-minotaur</url>
   
   <dependencies>
     <dependency>
