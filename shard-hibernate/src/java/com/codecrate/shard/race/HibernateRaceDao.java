@@ -19,8 +19,8 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
+import net.sf.hibernate.Criteria;
 import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
 import org.springframework.orm.hibernate.HibernateCallback;
@@ -34,7 +34,7 @@ public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
 
             public Object doInHibernate(Session session) throws HibernateException, SQLException {
-                Query query = session.createQuery("from HibernateRace");
+                Criteria query = session.createCriteria(HibernateRace.class);
                 return query.list();
             }
             
