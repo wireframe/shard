@@ -41,19 +41,19 @@ public class HibernateFeatDao extends HibernateDaoSupport implements FeatDao {
     }
 
     public Feat getFeat(final String name) {
-        List results = (List) getHibernateTemplate().execute(new HibernateCallback() {
+        Feat feat = (Feat) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
                     throws HibernateException {
                 Criteria query = session.createCriteria(DefaultFeat.class);
                 query.add(Expression.eq("name", name));
-                return query.list();
+                return query.uniqueResult();
             }
         });
         
-        if (1 != results.size()) {
+        if (null == feat) {
             throw new IllegalArgumentException("Unable to find feat " + name);
         }
-        return (Feat) results.get(0);
+        return feat;
     }
     
     public void updateFeat(Feat feat) {

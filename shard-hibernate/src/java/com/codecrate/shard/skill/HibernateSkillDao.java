@@ -60,19 +60,19 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao {
     }
     
     public Skill getSkill(final String name) {
-        List results = (List) getHibernateTemplate().execute(new HibernateCallback() {
+        Skill skill = (Skill) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
                     throws HibernateException {
                 Criteria query = session.createCriteria(DefaultSkill.class);
                 query.add(Expression.eq("name", name));
-                return query.list();
+                return query.uniqueResult();
             }
         });
         
-        if (1 != results.size()) {
+        if (null == skill) {
             throw new IllegalArgumentException("Unable to find skill " + name);
         }
-        return (Skill) results.get(0);
+        return skill;
     }
     
     public void deleteSkill(Skill skill) {

@@ -37,6 +37,13 @@ public class HibernateFeatDaoTest extends ShardHibernateDbUnitTestCaseSupport {
         assertFalse(feats.isEmpty());
     }
     
+    public void testGetSkillName() throws Exception {
+        FeatDao featDao = (FeatDao) getContext().getBean("featDao");
+        Feat feat = (Feat) featDao.getFeats().iterator().next();
+        Feat feat2 = featDao.getFeat(feat.getName());
+        assertNotNull(feat2);
+    }
+    
     public void testGetSkillByUnknownNameThrowsException() throws Exception {
         FeatDao featDao = (FeatDao) getContext().getBean("featDao");
         
