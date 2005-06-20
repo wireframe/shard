@@ -19,6 +19,19 @@ package com.codecrate.shard.equipment;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class EquipmentContainer {
+    
+    private final ItemEntryContainer items;
+    
+    public EquipmentContainer(ItemEntryContainer items) {
+        this.items = items;
+    }
+    
+    public void equip(Equipment equipment) {
+        if (!items.hasItem(equipment)) {
+            throw new IllegalArgumentException("Equipment not found in inventory.");
+        }
+    }
+    
     public Equipment getEquipment(EquipmentLocation location) {
         return null;
     }

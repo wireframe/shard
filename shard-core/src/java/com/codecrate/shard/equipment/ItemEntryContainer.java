@@ -41,4 +41,11 @@ public interface ItemEntryContainer {
      * @return
      */
     Money getTotalCost();
+
+    /**
+     * get if an item is currently in the container.
+     * @param item
+     * @return
+     */
+    boolean hasItem(Item item);
 }

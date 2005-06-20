@@ -58,4 +58,15 @@ public class DefaultItemEntryContainer implements ItemEntryContainer {
 	    }
 	    return total;
 	}
+	
+	public boolean hasItem(Item target) {
+	    Iterator it = entries.iterator();
+	    while (it.hasNext()) {
+	        Item item = (Item) it.next();
+	        if (item.equals(target)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 }
