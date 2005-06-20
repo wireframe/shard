@@ -34,10 +34,35 @@ public class EquipmentContainerTest extends TestCase {
         itemContainer.hasItem(armor);
         mockItemContainer.setReturnValue(false);
         mockItemContainer.replay();
+
+        MockControl mockLocation = MockControl.createControl(EquipmentLocation.class);
+        EquipmentLocation location = (EquipmentLocation) mockLocation.getMock();
+        mockLocation.replay();
         
         EquipmentContainer equipment = new EquipmentContainer(itemContainer);
         try {
-            equipment.equip(armor);
+			equipment.equip(location, armor);
         } catch (IllegalArgumentException expectec) { }
+    }
+    
+    public void testEquipItemIsPlacesInLocation() {
+        MockControl mockArmor = MockControl.createControl(Equipment.class);
+        Equipment armor = (Equipment) mockArmor.getMock();
+        mockArmor.replay();
+        
+        MockControl mockItemContainer = MockControl.createControl(ItemEntryContainer.class);
+        ItemEntryContainer itemContainer = (ItemEntryContainer) mockItemContainer.getMock();
+        itemContainer.hasItem(armor);
+        mockItemContainer.setReturnValue(true);
+        mockItemContainer.replay();
+
+        MockControl mockLocation = MockControl.createControl(EquipmentLocation.class);
+        EquipmentLocation location = (EquipmentLocation) mockLocation.getMock();
+        mockLocation.replay();
+        
+        EquipmentContainer equipment = new EquipmentContainer(itemContainer);
+        equipment.equip(location, armor);
+        
+        assertEquals(armor, equipment.getEquipment(location));
     }
 }

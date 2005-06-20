@@ -15,24 +15,34 @@
  */
 package com.codecrate.shard.equipment;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class EquipmentContainer {
     
+	private Map locations = new HashMap();
     private final ItemEntryContainer items;
     
     public EquipmentContainer(ItemEntryContainer items) {
         this.items = items;
     }
     
-    public void equip(Equipment equipment) {
+    /**
+     * equip an item to a location.
+     * @param location location to equip the item to.
+     * @param equipment item to equip.
+     */
+    public void equip(EquipmentLocation location, Equipment equipment) {
         if (!items.hasItem(equipment)) {
             throw new IllegalArgumentException("Equipment not found in inventory.");
         }
+        locations.put(location, equipment);
     }
     
     public Equipment getEquipment(EquipmentLocation location) {
-        return null;
+        return (Equipment) locations.get(location);
     }
 }
