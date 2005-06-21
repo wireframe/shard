@@ -5,25 +5,26 @@
 
 <hibernate-mapping>
 
-    <class name="com.codecrate.shard.race.HibernateRace" table="SHA_RACE">
+    <class name="com.codecrate.shard.race.DefaultRace" table="SHA_RACE">
 
-        <id name="id" type="string" unsaved-value="null" >
+        <id name="name" type="string" unsaved-value="null" access="field">
             <column name="ID" sql-type="char(32)" not-null="true"/>
             <generator class="assigned"/>
         </id>
 
-        <property name="levelAdjustment">
+        <property name="levelAdjustment" access="field">
             <column name="LEVEL_ADJUSTMENT" length="2" not-null="true"/>
         </property>
         
-        <property name="baseSkillPointsPerLevel">
+        <property name="baseSkillPointsPerLevel" access="field">
             <column name="BASE_SKILL_POINTS_PER_LEVEL" length="2" not-null="true"/>
         </property>
         
         <many-to-one name="favoredClass" 
          class="com.codecrate.shard.kit.DefaultCharacterClass" 
          column="FAVORED_CLASS" 
-         cascade="all"/>
+         cascade="all"
+         access="field"/>
     </class>
 
 </hibernate-mapping>

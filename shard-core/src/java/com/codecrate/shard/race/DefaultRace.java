@@ -135,6 +135,12 @@ public class DefaultRace implements Race {
     private Dice maxAgeDice;
     private int baseSkillPointsPerLevel;
 	
+    /**
+     * hibernate constructor.
+     */
+    private DefaultRace() {
+    }
+    
 	public DefaultRace(String name, RacialSize size, Movement movement, 
 			Collection abilityModifiers, Collection skillModifiers, 
 			int levelAdjustment, 

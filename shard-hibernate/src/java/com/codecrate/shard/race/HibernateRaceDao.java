@@ -34,7 +34,7 @@ public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
 
             public Object doInHibernate(Session session) throws HibernateException, SQLException {
-                Criteria query = session.createCriteria(HibernateRace.class);
+                Criteria query = session.createCriteria(DefaultRace.class);
                 return query.list();
             }
             
