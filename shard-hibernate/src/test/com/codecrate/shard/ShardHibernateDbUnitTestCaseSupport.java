@@ -26,11 +26,8 @@ import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
 
 import com.codecrate.dbunit.HsqldbDataTypeFactory;
 
@@ -46,7 +43,8 @@ public abstract class ShardHibernateDbUnitTestCaseSupport extends DatabaseTestCa
     public ShardHibernateDbUnitTestCaseSupport(String name) throws Exception {
         super(name);
         
-        String[] paths = {"/shard-hibernate-context.xml"
+        String[] paths = {
+        		"/shard-hibernate-context.xml"
                 ,"/test-datasource.xml"}; 
         context = new ClassPathXmlApplicationContext(paths);
         sessionFactory = (SessionFactory) context.getBean("sessionFactory");
