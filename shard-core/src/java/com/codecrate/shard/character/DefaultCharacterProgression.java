@@ -18,6 +18,7 @@ package com.codecrate.shard.character;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 
 import com.codecrate.shard.kit.CharacterClass;
@@ -27,6 +28,10 @@ public class DefaultCharacterProgression implements CharacterProgression {
 
 	private Collection levels;
 
+	public DefaultCharacterProgression() {
+		this(Collections.EMPTY_LIST);
+	}
+	
 	public DefaultCharacterProgression(Collection levels) {
 		this.levels = levels;
 	}
