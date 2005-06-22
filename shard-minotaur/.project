@@ -2,10 +2,11 @@
 
 <projectDescription>
   <name>shard-minotaur</name>
-  <comment>shard minotaur module</comment>
+  <comment>shard d20 character generator application</comment>
   <projects>
     <project>shard-dice</project>
     <project>shard-core</project>
+    <project>shard-sheets</project>
     <project>shard-hibernate</project>
   </projects>
   <buildSpec>

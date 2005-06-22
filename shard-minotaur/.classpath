@@ -5,7 +5,7 @@
   </classpathentry>
   <classpathentry excluding="" including="**/*.xml|**/*.properties|" kind="src" path="src/spring">
   </classpathentry>
-  <classpathentry excluding="" including="**/*.jpg|" kind="src" path="src/resources">
+  <classpathentry excluding="" including="**/*.jpg|**/*.gif|**/*.png|" kind="src" path="src/resources">
   </classpathentry>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
   </classpathentry>
@@ -13,13 +13,47 @@
   </classpathentry>
   <classpathentry kind="src" path="/shard-core">
   </classpathentry>
+  <classpathentry kind="src" path="/shard-sheets">
+  </classpathentry>
   <classpathentry kind="src" path="/shard-hibernate">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/commons-beanutils/jars/commons-beanutils-1.7.0.jar">
   </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-2.1.jar">
+  </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-core-1.1.5.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-context-1.1.5.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-aop-1.1.5.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-orm-1.1.5.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-dao-1.1.5.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/aopalliance/jars/aopalliance-1.0.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/hsqldb/jars/hsqldb-1.7.2.2.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/hibernate/jars/hibernate-2.1.8.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/dom4j/jars/dom4j-1.5.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/odmg/jars/odmg-3.0.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/ehcache/jars/ehcache-0.9.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/cglib/jars/cglib-2.0.2.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/asm/jars/asm-1.4.3.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/geronimo-spec/jars/geronimo-spec-jta-1.0-M1.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/commons-dbcp/jars/commons-dbcp-1.2.1.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/commons-pool/jars/commons-pool-1.2.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/spring-rcp/jars/spring-richclient-SNAPSHOT.jar">
   </classpathentry>
@@ -31,13 +65,9 @@
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/jgoodies/jars/forms-1.0.5.jar">
   </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/javahelp/jars/javahelp-2.0.jar">
+  <classpathentry kind="var" path="MAVEN_REPO/javahelp/jars/javahelp-2.0.2.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/napkinlaf/jars/napkinlaf-1.0-beta-5.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-2.1.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/easymock/jars/easymock-1.1.jar">
   </classpathentry>

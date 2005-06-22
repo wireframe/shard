@@ -292,6 +292,8 @@
         <directory>${basedir}/src/resources</directory>
         <includes>
           <include>**/*.jpg</include>
+          <include>**/*.gif</include>
+          <include>**/*.png</include>
         </includes>
       </resource>
     </resources>

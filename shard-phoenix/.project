@@ -2,7 +2,7 @@
 
 <projectDescription>
   <name>shard-phoenix</name>
-  <comment>shard phoenix module</comment>
+  <comment>shard d20 data management application</comment>
   <projects>
     <project>shard-dice</project>
     <project>shard-core</project>
