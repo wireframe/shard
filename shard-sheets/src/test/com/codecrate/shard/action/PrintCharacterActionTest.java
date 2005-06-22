@@ -39,7 +39,6 @@ import com.codecrate.shard.character.DefaultAgeCategoryDao;
 import com.codecrate.shard.character.DefaultCharacterLevel;
 import com.codecrate.shard.character.DefaultCharacterProgression;
 import com.codecrate.shard.character.DefaultPlayerCharacter;
-import com.codecrate.shard.character.HitPoints;
 import com.codecrate.shard.character.RacialCategorizedAge;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.Coin;
@@ -90,8 +89,6 @@ public class PrintCharacterActionTest extends TestCase {
 		CharacterProgression progression = new DefaultCharacterProgression(levels);
 		
 		Age age = new RacialCategorizedAge(20, DefaultRace.HUMAN, new DefaultAgeCategoryDao(), 100);
-		
-		HitPoints hitPoints = new HitPoints(12, 20, 5);
 		
 		ItemEntryContainer itemContainer = new DefaultItemEntryContainer(Arrays.asList(new ItemEntry[] {new ItemEntry(Coin.GOLD_PIECE, 100)}));
 		

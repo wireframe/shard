@@ -84,12 +84,12 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
         this.encumberance = encumberance;
         
         this.challengeRating = new BigDecimal(0);
-        this.skills = new CharacterProgressionSkillEntryContainer(characterProgression);
         this.feats = new FeatContainer(new ArrayList());
-        this.armorClass = new DexterityArmorClass(abilities, encumberance);
-        this.hitPoints = new HitPoints(10, 10, 0);
         this.savingThrows = new SavingThrowEntryContainer();
         this.initiative = new Initiative(abilities);
+        this.armorClass = new DexterityArmorClass(abilities, encumberance);
+        this.skills = new CharacterProgressionSkillEntryContainer(characterProgression);
+        this.hitPoints = new CharacterProgressionHitPoints(characterProgression);
     }
     
     public CharacterBio getBio() {
