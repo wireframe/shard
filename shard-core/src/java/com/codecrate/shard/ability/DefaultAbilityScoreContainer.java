@@ -16,6 +16,7 @@
 package com.codecrate.shard.ability;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -35,6 +36,21 @@ public class DefaultAbilityScoreContainer implements AbilityScoreContainer {
 
 	public DefaultAbilityScoreContainer(Map scores) {
 	    this.scores = scores;
+	}
+	
+	/**
+	 * convenience method to get all average abilties.
+	 * @return
+	 */
+	public static AbilityScoreContainer averageScores() {
+		Map scores = new HashMap();
+		scores.put(DefaultAbility.STRENGTH, new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, null));
+		scores.put(DefaultAbility.DEXTERITY, new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10, null));
+		scores.put(DefaultAbility.WISDOM, new DefaultAbilityScore(DefaultAbility.WISDOM, 10, null));
+		scores.put(DefaultAbility.INTELLIGENCE, new DefaultAbilityScore(DefaultAbility.INTELLIGENCE, 10, null));
+		scores.put(DefaultAbility.CONSTITUTION, new DefaultAbilityScore(DefaultAbility.CONSTITUTION, 10, null));
+		scores.put(DefaultAbility.CHARISMA, new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, null));
+		return new DefaultAbilityScoreContainer(scores);
 	}
 	
 	public AbilityScore getAbilityScore(Ability ability) {

@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.character;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import junit.framework.TestCase;
@@ -40,6 +41,8 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		CharacterProgression progression = (CharacterProgression) mockProgression.getMock();
 		progression.getCharacterLevel();
 		mockProgression.setReturnValue(1);
+		progression.getCharacterLevels();
+		mockProgression.setReturnValue(new ArrayList());
 		mockProgression.replay();
 	    
 		DefaultPlayerCharacter character = new DefaultPlayerCharacter(null, race, progression, null, null, null, null, null, null);
