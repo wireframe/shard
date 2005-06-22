@@ -47,12 +47,6 @@ public interface PlayerCharacter {
 	BigDecimal getChallengeRating();
 	
 	/**
-	 * gets the name of the character.
-	 * @return
-	 */
-	String getName();
-	
-	/**
 	 * gets the ability scores for the character.
 	 * @return
 	 */
@@ -89,12 +83,6 @@ public interface PlayerCharacter {
 	 * @return
 	 */
 	int getBaseAttackBonus();
-	
-	/**
-	 * gets the gender for the character.
-	 * @return
-	 */
-	Gender getGender();
 	
 	/**
 	 * gets the race of the character.

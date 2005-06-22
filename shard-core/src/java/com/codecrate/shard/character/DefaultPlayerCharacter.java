@@ -16,23 +16,18 @@
 package com.codecrate.shard.character;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
-import com.codecrate.shard.armorclass.DexterityArmorClass;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.feat.FeatContainer;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Encumberance;
-import com.codecrate.shard.race.DefaultRace;
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.save.SavingThrowEntryContainer;
-import com.codecrate.shard.skill.DefaultSkillEntryContainer;
+import com.codecrate.shard.skill.CharacterProgressionSkillEntryContainer;
 import com.codecrate.shard.skill.SkillEntryContainer;
 
 /**
@@ -41,10 +36,8 @@ import com.codecrate.shard.skill.SkillEntryContainer;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultPlayerCharacter implements PlayerCharacter {
-    private int experience;
-    private Deity deity;
-    private DefaultCharacterBio bio;
-
+    private final Deity deity;
+    private final CharacterBio bio;
     private final Age age;
     private final BigDecimal challengeRating;
     private final Race race;
@@ -52,6 +45,9 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     private final AbilityScoreContainer abilities;
     private final CharacterProgression characterProgression;
     private final ItemEntryContainer inventory;
+
+    private int experience;
+    private CharacterProgressionSkillEntryContainer skills;
 
     /**
      * default constructor.
@@ -62,7 +58,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
             CharacterProgression characterProgression, 
             Deity deity, BigDecimal challengeRating, 
             ItemEntryContainer inventory, Alignment alignment, 
-            DefaultCharacterBio bio) {
+            CharacterBio bio) {
         this.age = age;
         this.race = race;
         this.abilities = abilities;
@@ -72,6 +68,8 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
         this.inventory = inventory;
         this.alignment = alignment;
         this.bio = bio;
+        
+        this.skills = new CharacterProgressionSkillEntryContainer(characterProgression);
     }
     
     public CharacterBio getBio() {
