@@ -18,9 +18,10 @@ package com.codecrate.shard.character;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface PlayerCharacterDao {
+public interface CharacterFactory {
 
     /**
+     * creates a new character
      * @return
      */
     PlayerCharacter createCharacter();

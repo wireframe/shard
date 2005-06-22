@@ -31,20 +31,24 @@ import com.codecrate.shard.race.Race;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernatePlayerCharacterDao extends HibernateTemplate implements PlayerCharacterDao {
+public class HibernateCharacterDao extends HibernateTemplate implements CharacterDao, CharacterFactory {
     
-    public PlayerCharacter createCharacter() {
-//        DefaultCharacterBio bio = new DefaultCharacterBio();
-//        Age age = new DefaultAge(18, 100, CummulativeAgeCategory.ADULT);
-//        Race race = DefaultRace.HUMAN;
-//        AbilityScoreContainer abilities = new DefaultAbilityScoreContainer(Collections.EMPTY_MAP);
-//        Deity deity = null; //DefaultDeity.NO_DEITY;
-//        CharacterProgression characterProgression = new DefaultCharacterProgression(Collections.EMPTY_LIST);
-//        BigDecimal challengeRating = new BigDecimal("0");
-//        ItemEntryContainer inventory = new DefaultItemEntryContainer(Collections.EMPTY_LIST);
-//        Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
-//        
-//        return new DefaultPlayerCharacter(age, race, abilities, characterProgression, deity, challengeRating, inventory, alignment, bio);
+	public PlayerCharacter createCharacter() {
+//      DefaultCharacterBio bio = new DefaultCharacterBio();
+//      Age age = new DefaultAge(18, 100, CummulativeAgeCategory.ADULT);
+//      Race race = DefaultRace.HUMAN;
+//      AbilityScoreContainer abilities = new DefaultAbilityScoreContainer(Collections.EMPTY_MAP);
+//      Deity deity = null; //DefaultDeity.NO_DEITY;
+//      CharacterProgression characterProgression = new DefaultCharacterProgression(Collections.EMPTY_LIST);
+//      BigDecimal challengeRating = new BigDecimal("0");
+//      ItemEntryContainer inventory = new DefaultItemEntryContainer(Collections.EMPTY_LIST);
+//      Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
+//      
+//      return new DefaultPlayerCharacter(age, race, abilities, characterProgression, deity, challengeRating, inventory, alignment, bio);
+		return null;
+	}
+	
+    public PlayerCharacter saveCharacter(PlayerCharacter character) {
         return null;
     }
 }
