@@ -107,4 +107,11 @@ public class ModifiableObject implements Modifiable, ModifierListenerContainer {
     public void removeListener(ModifierListener listener) {
         listeners.removeListener(listener);
     }
+
+    /**
+     * @param i
+     */
+    public void setValue(int newValue) {
+        this.baseValue = newValue;
+    }
 }

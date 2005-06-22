@@ -16,17 +16,23 @@
 package com.codecrate.shard.character;
 
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
+import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
+import com.codecrate.shard.armorclass.DexterityArmorClass;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.feat.FeatContainer;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Encumberance;
+import com.codecrate.shard.race.DefaultRace;
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.save.SavingThrowEntryContainer;
+import com.codecrate.shard.skill.DefaultSkillEntryContainer;
 import com.codecrate.shard.skill.SkillEntryContainer;
 
 /**
@@ -35,53 +41,41 @@ import com.codecrate.shard.skill.SkillEntryContainer;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultPlayerCharacter implements PlayerCharacter {
-    private final int experience;
+    private int experience;
+    private Deity deity;
+    private DefaultCharacterBio bio;
+
     private final Age age;
     private final BigDecimal challengeRating;
     private final Race race;
-    private final Gender gender;
     private final Alignment alignment;
     private final AbilityScoreContainer abilities;
-    private final HitPoints hitPoints;
-    private final Encumberance encumberance;
-    private final ArmorClass armorClass;
     private final CharacterProgression characterProgression;
-    private final SavingThrowEntryContainer savingThrows;
-    private final String name;
     private final ItemEntryContainer inventory;
-    private final SkillEntryContainer skills;
-    private final Initiative initiative;
-    private final FeatContainer feats;
-    private final Deity deity;
-    
+
     /**
      * default constructor.
      * @param skills skills for the character.
      * @param challengeRating challengeRating for the character.
      */
-    public DefaultPlayerCharacter(String name, Race race, Gender gender, Alignment alignment, 
-    		AbilityScoreContainer abilities, HitPoints hitPoints, ArmorClass armorClass, Encumberance encumberance, 
-    		Age age, CharacterProgression characterProgression, SavingThrowEntryContainer savingThrows, 
-    		ItemEntryContainer items, int experience, SkillEntryContainer skills, BigDecimal challengeRating, 
-    		Initiative initiative, FeatContainer feats, Deity deity) {
-    	this.name = name;
+    public DefaultPlayerCharacter(Age age, Race race, AbilityScoreContainer abilities, 
+            CharacterProgression characterProgression, 
+            Deity deity, BigDecimal challengeRating, 
+            ItemEntryContainer inventory, Alignment alignment, 
+            DefaultCharacterBio bio) {
+        this.age = age;
         this.race = race;
-    	this.gender = gender;
-    	this.alignment = alignment;
-    	this.abilities = abilities;
-    	this.hitPoints = hitPoints;
-        this.armorClass = armorClass;
-    	this.encumberance = encumberance;
-    	this.age = age;
-    	this.characterProgression = characterProgression;
-        this.savingThrows = savingThrows;
-        this.inventory = items;
-        this.experience = experience;
-        this.skills = skills;
-        this.challengeRating = challengeRating;
-        this.initiative = initiative;
-        this.feats = feats;
+        this.abilities = abilities;
+        this.characterProgression = characterProgression;
         this.deity = deity;
+        this.challengeRating = challengeRating;
+        this.inventory = inventory;
+        this.alignment = alignment;
+        this.bio = bio;
+    }
+    
+    public CharacterBio getBio() {
+        return bio;
     }
     
     public BigDecimal getChallengeRating() {
@@ -105,10 +99,6 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 		}
 		value += race.getSize().getBaseAttackBonusModifier();
 		return value;
-	}
-	
-	public Gender getGender() {
-		return gender;
 	}
 	
 	public Alignment getAlignment() {
@@ -137,9 +127,6 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     
     public CharacterProgression getCharacterProgression() {
     	return characterProgression;
-    }
-    public String getName() {
-        return name;
     }
     public SavingThrowEntryContainer getSavingThrows() {
         return savingThrows;

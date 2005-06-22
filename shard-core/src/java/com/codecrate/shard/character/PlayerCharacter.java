@@ -163,4 +163,10 @@ public interface PlayerCharacter {
      * @return
      */
     Deity getDeity();
+
+    /**
+     * gets the bio for the character.
+     * @return
+     */
+    CharacterBio getBio();
 }

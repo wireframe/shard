@@ -49,6 +49,8 @@
 				<value>separator</value>
 				<value>newCommand</value>
 				<value>separator</value>
+				<ref bean="newCharacterCommand"/>
+				<value>separator</value>
 				<value>saveAsCommand</value>
 				<value>separator</value>
 				<value>propertiesCommand</value>
@@ -105,6 +107,13 @@
 		class="org.springframework.richclient.command.support.AboutCommand">
 		<property name="aboutTextPath">
 			<value>org/springframework/richclient/samples/petclinic/about.txt</value>
+		</property>
+	</bean>
+	
+	<bean id="newCharacterCommand" 
+		class="org.springframework.richclient.command.TargetableActionCommand">
+		<property name="commandExecutor">
+			<ref bean="newCharacterWizard"/>
 		</property>
 	</bean>
 

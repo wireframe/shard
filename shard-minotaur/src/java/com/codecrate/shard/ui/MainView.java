@@ -15,54 +15,15 @@
  */
 package com.codecrate.shard.ui;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import org.springframework.richclient.application.support.AbstractView;
 
-import com.codecrate.shard.ability.AbilityDao;
-
 public class MainView extends AbstractView {
-    private JButton rollButton;
-
-    private AbilityDao abilityDao;
-    
-    /**
-     * @return Returns the abilityDao.
-     */
-    public AbilityDao getAbilityDao() {
-        return abilityDao;
-    }
-    
-    /**
-     * @param abilityDao The abilityDao to set.
-     */
-    public void setAbilityDao(AbilityDao abilityDao) {
-        this.abilityDao = abilityDao;
-    }
 
     protected JComponent createControl() {
         JPanel view = new JPanel();
-        view.add(getRollButton(), BorderLayout.SOUTH);
         return view;
-    }
-    
-    private JButton getRollButton() {
-        if (null == rollButton) {
-            rollButton = new JButton("Roll");
-            rollButton.addActionListener(new ActionListener() {
-
-                public void actionPerformed(ActionEvent arg0) {
-                    System.out.println("here");
-                }
-                
-            });
-        }
-        return rollButton;
     }
 }

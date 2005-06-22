@@ -118,4 +118,25 @@ public class ModifiableObjectTest extends TestCase {
 		
 		assertEquals(5, object.getModifiedValue());
 	}
+	
+	public void testChangingBaseValueAfterModifiersAddedKeepsCorrectModifiedValue() {
+	    ModifierType modifierType = new DefaultModifierType("test", false);
+	    
+		MockControl firstModifierControl = MockControl.createControl(Modifier.class);
+		Modifier firstModifier = (Modifier) firstModifierControl.getMock();
+		firstModifier.getModifierType();
+		firstModifierControl.setReturnValue(modifierType);
+		firstModifier.getModifierType();
+		firstModifierControl.setReturnValue(modifierType);
+		firstModifier.getModifier();
+		firstModifierControl.setReturnValue(5);
+		firstModifierControl.replay();
+
+		ModifiableObject object = new ModifiableObject();
+		object.addModifier(firstModifier);
+
+		object.setValue(5);
+		assertEquals(5, object.getValue());
+		assertEquals(10, object.getModifiedValue());
+	}
 }
