@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.4 2005/06/22 04:05:30 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.5 2005/06/22 19:50:54 wireframe Exp $ -->
 <beans>
 	
 	<bean id="application" 
@@ -137,6 +137,9 @@
 	
 	<bean id="newCharacterWizard" 
 		class="com.codecrate.shard.ui.NewCharacterWizard">
+		<property name="characterFactory">
+		    <ref bean="characterDao" />
+		</property>
 	</bean>
 
 </beans>

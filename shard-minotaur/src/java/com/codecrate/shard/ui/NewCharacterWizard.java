@@ -21,7 +21,7 @@ import org.springframework.richclient.wizard.AbstractWizard;
 import org.springframework.richclient.wizard.FormBackedWizardPage;
 import org.springframework.richclient.wizard.WizardDialog;
 
-import com.codecrate.shard.domain.PlayerCharacterModel;
+import com.codecrate.shard.character.CharacterFactory;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -29,6 +29,7 @@ import com.codecrate.shard.domain.PlayerCharacterModel;
 public class NewCharacterWizard extends AbstractWizard implements ActionCommandExecutor {
     private WizardDialog wizardDialog;
     private CompoundForm wizardForm;
+	private CharacterFactory characterFactory;
 
     public NewCharacterWizard() {
         super("newCharacterWizard");
@@ -37,6 +38,7 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
     public void addPages() {
         addPage(new FormBackedWizardPage(new AbilityScoreForm(getWizardForm().getFormModel())));
         addPage(new FormBackedWizardPage(new RaceForm(getWizardForm().getFormModel())));
+        addPage(new FormBackedWizardPage(new BioForm(getWizardForm().getFormModel())));
     }
     
     protected boolean onFinish() {
@@ -46,7 +48,7 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
     }
 
     public void execute() {
-        getWizardForm().setFormObject(new PlayerCharacterModel());
+        getWizardForm().setFormObject(characterFactory.createCharacter());
         getWizardDialog().showDialog();
     }
     
@@ -62,5 +64,9 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
             wizardDialog = new WizardDialog(this);
         }
         return wizardDialog;
+    }
+    
+    public void setCharacterFactory(CharacterFactory characterFactory) {
+    	this.characterFactory = characterFactory;
     }
 }

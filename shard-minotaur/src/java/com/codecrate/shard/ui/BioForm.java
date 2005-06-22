@@ -24,18 +24,20 @@ import org.springframework.richclient.forms.AbstractForm;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class RaceForm extends AbstractForm {
+public class BioForm extends AbstractForm {
 
-    public static final String PAGE_NAME = "racePage";
+    public static final String PAGE_NAME = "bioPage";
 
-    public RaceForm(FormModel formModel) {
+    public BioForm(FormModel formModel) {
         super(formModel, PAGE_NAME);
     }
+
     protected JComponent createFormControl() {
         TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
-        formBuilder.add("race");
+        formBuilder.add("bio.name");
+        formBuilder.row();
+        formBuilder.add("bio.weight");
         formBuilder.row();
         return formBuilder.getForm();
     }
-
 }

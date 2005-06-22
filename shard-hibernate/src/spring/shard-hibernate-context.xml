@@ -154,4 +154,14 @@
 	  </property>
 	</bean>
 
+	<bean id="characterDao" parent="transactionTemplate">
+	  <property name="target">
+	    <bean class="com.codecrate.shard.race.HibernateCharacterDao">
+  	      <property name="sessionFactory">
+	        <ref bean="sessionFactory"/>
+	      </property>
+	    </bean>
+	  </property>
+	</bean>
+
 </beans>
