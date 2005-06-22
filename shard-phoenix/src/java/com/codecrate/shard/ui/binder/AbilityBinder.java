@@ -24,7 +24,9 @@ import javax.swing.JComponent;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.binding.value.ValueModel;
+import org.springframework.binding.value.support.TypeConverter;
 import org.springframework.binding.value.support.ValueHolder;
+import org.springframework.core.closure.Closure;
 import org.springframework.richclient.form.binding.Binding;
 import org.springframework.richclient.form.binding.support.AbstractBinder;
 import org.springframework.richclient.form.binding.swing.ComboBoxBinding;
@@ -54,7 +56,7 @@ public class AbilityBinder extends AbstractBinder {
         Assert.isTrue(control instanceof JComboBox, formPropertyPath);
         ComboBoxBinding binding = new ComboBoxBinding((JComboBox)control, formModel, formPropertyPath) {
             protected ValueModel getValueModel() {
-                return null;
+                return new AbilityAdapter(super.getValueModel(), getAbilities());
             }
         };
         binding.setSelectableItemsHolder(new ValueHolder(getAbilities().keySet()));
@@ -71,5 +73,21 @@ public class AbilityBinder extends AbstractBinder {
             }
         }
         return abilities;
+    }
+    
+    // This is a hack to get the combo box working even though
+    // PetType does not implement equals/hashCode.
+    private class AbilityAdapter extends TypeConverter {
+        private AbilityAdapter(ValueModel valueModel, final Map petTypes) {
+            super(valueModel, new Closure() {
+                public Object call(Object ability) {                    
+                    return ability != null ? ((Ability)ability).getName() : "";
+                }
+            }, new Closure() {
+                public Object call(Object petTypeName) {
+                    return petTypes.get(petTypeName);
+                }
+            });            
+        }
     }
 }
