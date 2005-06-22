@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard.action;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -34,25 +33,19 @@ import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
-import com.codecrate.shard.armorclass.ArmorClass;
-import com.codecrate.shard.armorclass.DexterityArmorClass;
 import com.codecrate.shard.character.Age;
 import com.codecrate.shard.character.CharacterProgression;
 import com.codecrate.shard.character.DefaultAgeCategoryDao;
-import com.codecrate.shard.character.DefaultAlignment;
 import com.codecrate.shard.character.DefaultCharacterLevel;
 import com.codecrate.shard.character.DefaultCharacterProgression;
-import com.codecrate.shard.character.DefaultGender;
 import com.codecrate.shard.character.DefaultPlayerCharacter;
 import com.codecrate.shard.character.HitPoints;
-import com.codecrate.shard.character.Initiative;
 import com.codecrate.shard.character.RacialCategorizedAge;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.Coin;
 import com.codecrate.shard.equipment.DefaultItemEntryContainer;
 import com.codecrate.shard.equipment.ItemEntry;
 import com.codecrate.shard.equipment.ItemEntryContainer;
-import com.codecrate.shard.feat.FeatContainer;
 import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.modifier.DefaultKeyedModifier;
 import com.codecrate.shard.modifier.KeyedModifier;
@@ -61,10 +54,7 @@ import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.movement.EncumberanceDao;
 import com.codecrate.shard.movement.InventoryWeightEncumberance;
 import com.codecrate.shard.race.DefaultRace;
-import com.codecrate.shard.save.SavingThrowEntryContainer;
-import com.codecrate.shard.skill.CharacterProgressionSkillEntryContainer;
 import com.codecrate.shard.skill.DefaultSkill;
-import com.codecrate.shard.skill.SkillEntryContainer;
 
 public class PrintCharacterActionTest extends TestCase {
 
@@ -103,11 +93,7 @@ public class PrintCharacterActionTest extends TestCase {
 		
 		HitPoints hitPoints = new HitPoints(12, 20, 5);
 		
-		SavingThrowEntryContainer savingThrows = new SavingThrowEntryContainer();
-
 		ItemEntryContainer itemContainer = new DefaultItemEntryContainer(Arrays.asList(new ItemEntry[] {new ItemEntry(Coin.GOLD_PIECE, 100)}));
-		
-		SkillEntryContainer skills = new CharacterProgressionSkillEntryContainer(progression);
 		
 		MockControl mockEncumberanceDao = MockControl.createControl(EncumberanceDao.class);
 		EncumberanceDao encumberanceDao = (EncumberanceDao) mockEncumberanceDao.getMock();
@@ -117,22 +103,13 @@ public class PrintCharacterActionTest extends TestCase {
 		
 		Encumberance encumberance = new InventoryWeightEncumberance(abilities, itemContainer, DefaultRace.HUMAN.getSize(), encumberanceDao);
 		
-		ArmorClass armorClass = new DexterityArmorClass(abilities, encumberance);
-		
-		Initiative initiative = new Initiative(abilities);
-		
 		MockControl mockDeity = MockControl.createControl(Deity.class);
 		Deity deity = (Deity) mockDeity.getMock();
 		deity.getName();
 		mockDeity.setReturnValue("Bob the Almighty");
 		mockDeity.replay();
 		
-		FeatContainer feats = new FeatContainer(new ArrayList());
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter("Gunthor the Terrible",
-				DefaultRace.HUMAN, DefaultGender.MALE,
-				DefaultAlignment.LAWFUL_GOOD, abilities, hitPoints, armorClass,
-				encumberance, age, progression, savingThrows, itemContainer, 0, skills, new BigDecimal(20),
-				initiative, feats, deity);
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, null, progression, itemContainer, encumberance, null, age, null, deity);
 		
 		PrintCharacterAction output = new PrintCharacterAction(character, template);
 		String text = output.render().toString();

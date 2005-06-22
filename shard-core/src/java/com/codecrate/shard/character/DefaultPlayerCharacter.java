@@ -16,10 +16,12 @@
 package com.codecrate.shard.character;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
+import com.codecrate.shard.armorclass.DexterityArmorClass;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.feat.FeatContainer;
@@ -36,40 +38,58 @@ import com.codecrate.shard.skill.SkillEntryContainer;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultPlayerCharacter implements PlayerCharacter {
-    private final Deity deity;
-    private final CharacterBio bio;
-    private final Age age;
-    private final BigDecimal challengeRating;
-    private final Race race;
-    private final Alignment alignment;
-    private final AbilityScoreContainer abilities;
-    private final CharacterProgression characterProgression;
-    private final ItemEntryContainer inventory;
+    private Deity deity;
+    private CharacterBio bio;
+    private Age age;
+    private BigDecimal challengeRating;
+    private Race race;
+    private Alignment alignment;
+    private AbilityScoreContainer abilities;
+    private CharacterProgression characterProgression;
+    private ItemEntryContainer inventory;
 
     private int experience;
     private CharacterProgressionSkillEntryContainer skills;
+	private FeatContainer feats;
+	private Encumberance encumberance;
+	private DexterityArmorClass armorClass;
+	private HitPoints hitPoints;
+	private SavingThrowEntryContainer savingThrows;
+	private Initiative initiative;
 
+	/**
+	 * hibernate constructor.
+	 */
+	private DefaultPlayerCharacter() {
+	}
+	
     /**
      * default constructor.
+     * @param encumberance TODO
      * @param skills skills for the character.
      * @param challengeRating challengeRating for the character.
      */
-    public DefaultPlayerCharacter(Age age, Race race, AbilityScoreContainer abilities, 
-            CharacterProgression characterProgression, 
-            Deity deity, BigDecimal challengeRating, 
-            ItemEntryContainer inventory, Alignment alignment, 
-            CharacterBio bio) {
+    public DefaultPlayerCharacter(AbilityScoreContainer abilities,
+    		Race race, CharacterProgression characterProgression, 
+    		ItemEntryContainer inventory, Encumberance encumberance,
+    		Alignment alignment, Age age, CharacterBio bio, Deity deity) {
         this.age = age;
         this.race = race;
         this.abilities = abilities;
-        this.characterProgression = characterProgression;
         this.deity = deity;
-        this.challengeRating = challengeRating;
         this.inventory = inventory;
         this.alignment = alignment;
         this.bio = bio;
+        this.characterProgression = characterProgression;
+        this.encumberance = encumberance;
         
+        this.challengeRating = new BigDecimal(0);
         this.skills = new CharacterProgressionSkillEntryContainer(characterProgression);
+        this.feats = new FeatContainer(new ArrayList());
+        this.armorClass = new DexterityArmorClass(abilities, encumberance);
+        this.hitPoints = new HitPoints(10, 10, 0);
+        this.savingThrows = new SavingThrowEntryContainer();
+        this.initiative = new Initiative(abilities);
     }
     
     public CharacterBio getBio() {

@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard.character;
 
-import java.math.BigDecimal;
 import java.util.Collections;
 
 import org.springframework.orm.hibernate.HibernateTemplate;
@@ -25,6 +24,8 @@ import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.DefaultItemEntryContainer;
 import com.codecrate.shard.equipment.ItemEntryContainer;
+import com.codecrate.shard.movement.DefaultEncumberance;
+import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.DefaultRace;
 import com.codecrate.shard.race.Race;
 
@@ -32,23 +33,22 @@ import com.codecrate.shard.race.Race;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class HibernateCharacterDao extends HibernateTemplate implements CharacterDao, CharacterFactory {
-    
+	
 	public PlayerCharacter createCharacter() {
-//      DefaultCharacterBio bio = new DefaultCharacterBio();
-//      Age age = new DefaultAge(18, 100, CummulativeAgeCategory.ADULT);
-//      Race race = DefaultRace.HUMAN;
-//      AbilityScoreContainer abilities = new DefaultAbilityScoreContainer(Collections.EMPTY_MAP);
-//      Deity deity = null; //DefaultDeity.NO_DEITY;
-//      CharacterProgression characterProgression = new DefaultCharacterProgression(Collections.EMPTY_LIST);
-//      BigDecimal challengeRating = new BigDecimal("0");
-//      ItemEntryContainer inventory = new DefaultItemEntryContainer(Collections.EMPTY_LIST);
-//      Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
-//      
-//      return new DefaultPlayerCharacter(age, race, abilities, characterProgression, deity, challengeRating, inventory, alignment, bio);
-		return null;
+		DefaultCharacterBio bio = new DefaultCharacterBio();
+		Age age = new DefaultAge(18, 100, CummulativeAgeCategory.ADULT);
+		Race race = DefaultRace.HUMAN;
+		AbilityScoreContainer abilities = new DefaultAbilityScoreContainer(Collections.EMPTY_MAP);
+		Deity deity = null; 
+		CharacterProgression characterProgression = new DefaultCharacterProgression(Collections.EMPTY_LIST);
+		ItemEntryContainer inventory = new DefaultItemEntryContainer(Collections.EMPTY_LIST);
+		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
+		Encumberance encumberance = DefaultEncumberance.LIGHT;
+		
+		return new DefaultPlayerCharacter(abilities, race, characterProgression, inventory, encumberance, alignment, age, bio, deity);
 	}
 	
-    public PlayerCharacter saveCharacter(PlayerCharacter character) {
-        return null;
-    }
+	public PlayerCharacter saveCharacter(PlayerCharacter character) {
+		return null;
+	}
 }
