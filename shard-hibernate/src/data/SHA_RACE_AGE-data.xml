@@ -4,6 +4,109 @@ use <null/> to specify a null value for an entry
 -->
 
 <dataset>
+    <table name="SHA_CLASS">
+        <column>ID</column>
+        <column>BASE_SKILL_POINTS_PER_LEVEL</column>
+        <row>
+            <value>Barbarian</value>
+            <value>4</value>
+        </row>
+        <row>
+            <value>Bard</value>
+            <value>6</value>
+        </row>
+        <row>
+            <value>Cleric</value>
+            <value>2</value>
+        </row>
+        <row>
+            <value>Druid</value>
+            <value>4</value>
+        </row>
+        <row>
+            <value>Fighter</value>
+            <value>2</value>
+        </row>
+        <row>
+            <value>Monk</value>
+            <value>4</value>
+        </row>
+        <row>
+            <value>Paladin</value>
+            <value>2</value>
+        </row>
+        <row>
+            <value>Ranger</value>
+            <value>6</value>
+        </row>
+        <row>
+            <value>Rouge</value>
+            <value>8</value>
+        </row>
+        <row>
+            <value>Sorcerer</value>
+            <value>2</value>
+        </row>
+        <row>
+            <value>Wizard</value>
+            <value>2</value>
+        </row>
+        <row>
+            <value>Warrior</value>
+            <value>2</value>
+        </row>
+    </table>
+
+
+    <table name="SHA_RACE">
+        <column>ID</column>
+        <column>LEVEL_ADJUSTMENT</column>
+        <column>FAVORED_CLASS</column>
+        <column>BASE_SKILL_POINTS_PER_LEVEL</column>
+        <row>
+            <value>Human</value>
+            <value>0</value>
+            <null/>
+            <value>1</value>
+        </row>
+        <row>
+            <value>Elf</value>
+            <value>0</value>
+            <value>Wizard</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Dwarf</value>
+            <value>0</value>
+            <value>Fighter</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Half-Elf</value>
+            <value>0</value>
+            <null/>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Half-Orc</value>
+            <value>0</value>
+            <value>Barbarian</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Gnome</value>
+            <value>0</value>
+            <value>Bard</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>Halfling</value>
+            <value>0</value>
+            <value>Rouge</value>
+            <value>0</value>
+        </row>
+    </table>
+
     <table name="SHA_RACE_AGE">
         <column>ID</column>
         <column>AGE_ADULT</column>

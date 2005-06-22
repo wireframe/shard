@@ -28,6 +28,7 @@ public class ShardMinotaur {
             new ApplicationLauncher("/richclient-startup-context.xml", new String[] {
                     "/richclient-application-context.xml"
                     , "/shard-hibernate-context.xml"
+                    , "/shard-datasource.xml"
             });
         } catch (Exception e) {
             System.exit(1);
