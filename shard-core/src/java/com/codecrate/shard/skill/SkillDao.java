@@ -17,8 +17,6 @@ package com.codecrate.shard.skill;
 
 import java.util.Collection;
 
-import com.codecrate.shard.ability.Ability;
-
 /**
  * Data access object to retrieve skills.
  * 
@@ -41,14 +39,11 @@ public interface SkillDao {
     Collection getSkills();
 
     /**
-     * creates a new skill.
-     * @param name
-     * @param usableUntrained
-     * @param ability
-     * @param armorPenalty
+     * saves a new skill.
+     * @param skill skill to save
      * @return
      */
-    Skill createSkill(String name, boolean usableUntrained, Ability ability, boolean armorPenalty);
+    Skill saveSkill(Skill skill);
 
     /**
      * deletes a skill.

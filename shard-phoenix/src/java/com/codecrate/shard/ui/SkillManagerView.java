@@ -30,7 +30,6 @@ import javax.swing.event.ListSelectionListener;
 
 import org.springframework.binding.form.NestingFormModel;
 import org.springframework.context.MessageSource;
-import org.springframework.core.closure.support.Block;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
@@ -38,7 +37,6 @@ import org.springframework.richclient.command.support.AbstractActionCommandExecu
 import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.ConfirmationDialog;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
-import org.springframework.richclient.dialog.InputApplicationDialog;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.forms.FormModelHelper;
 import org.springframework.richclient.table.BeanTableModel;
@@ -46,10 +44,9 @@ import org.springframework.richclient.table.SortableTableModel;
 import org.springframework.richclient.table.TableUtils;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
-import com.codecrate.shard.ability.Ability;
-import com.codecrate.shard.ability.AbilityDao;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
+import com.codecrate.shard.skill.SkillFactory;
 
 public class SkillManagerView extends AbstractView {
     private JScrollPane scrollPane;
@@ -63,24 +60,14 @@ public class SkillManagerView extends AbstractView {
     
     private List skills;
     private SkillDao skillDao;
-    private AbilityDao abilityDao;
+    private SkillFactory skillFactory;
     
-    /**
-     * @return Returns the abilityDao.
-     */
-    public AbilityDao getAbilityDao() {
-        return abilityDao;
-    }
-    
-    /**
-     * @param abilityDao The abilityDao to set.
-     */
-    public void setAbilityDao(AbilityDao abilityDao) {
-        this.abilityDao = abilityDao;
-    }
-
     public void setSkillDao(SkillDao skillDao) {
         this.skillDao = skillDao;
+    }
+    
+    public void setSkillFactory(SkillFactory skillFactory) {
+    	this.skillFactory = skillFactory;
     }
     
     protected JComponent createControl() {
@@ -267,59 +254,25 @@ public class SkillManagerView extends AbstractView {
         private Skill skill;
         
         public void execute() {
-            final SkillNameBean skillName = new SkillNameBean();
-            InputApplicationDialog skillNameDialog = new InputApplicationDialog(skillName, "name");
-            skillNameDialog.setTitle(getMessage("skillNameDialog.title"));
-            skillNameDialog.setInputLabelMessage("skillNameDialog.label");
-            skillNameDialog.setParent(getWindowControl());
-            skillNameDialog.setFinishAction(new Block() {
+        	skill = skillFactory.createSkill();
+            skillFormModel = FormModelHelper.createCompoundFormModel(skill);
+            skillForm = new SkillForm(skillFormModel);
+            page = new FormBackedDialogPage(skillForm);
 
-                public void handle(Object o) {
-                    Ability ability = (Ability) abilityDao.getAbilities().iterator().next();
-                    skill = skillDao.createSkill(skillName.getName(), false, ability, false);
-                    skillFormModel = FormModelHelper.createCompoundFormModel(skill);
-                    skillForm = new SkillForm(skillFormModel);
-                    page = new FormBackedDialogPage(skillForm);
-
-                    TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
-                        protected void onAboutToShow() {
-                            setEnabled(page.isPageComplete());
-                        }
-
-                        protected void onCancel() {
-                            super.onCancel();
-                            skillDao.deleteSkill(skill);
-                        }
-                        
-                        protected boolean onFinish() {
-                            skillFormModel.commit();
-                            skillDao.updateSkill(skill);
-                            getSkills().add(skill);
-                            getModel().fireTableDataChanged();
-                            return true;
-                        }
-                    };
-                    dialog.showDialog();
+            TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
+                protected void onAboutToShow() {
+                    setEnabled(page.isPageComplete());
                 }
-            });
-            skillNameDialog.showDialog();
-        }
-    }
-    
 
-    private class SkillNameBean {
-        private String name;
-        /**
-         * @return Returns the name.
-         */
-        public String getName() {
-            return name;
-        }
-        /**
-         * @param name The name to set.
-         */
-        public void setName(String name) {
-            this.name = name;
+                protected boolean onFinish() {
+                    skillFormModel.commit();
+                    skillDao.saveSkill(skill);
+                    getSkills().add(skill);
+                    getModel().fireTableDataChanged();
+                    return true;
+                }
+            };
+            dialog.showDialog();
         }
     }
 }

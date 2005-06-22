@@ -26,12 +26,10 @@ import net.sf.hibernate.expression.Expression;
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
-import com.codecrate.shard.ability.Ability;
-
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao {
+public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao, SkillFactory {
     public Collection getSkills() {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
@@ -52,9 +50,14 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao {
             }
         });
     }
-    
-    public Skill createSkill(String name, boolean usableUntrained, Ability ability, boolean armorPenalty) {
-        Skill skill = new DefaultSkill(name, usableUntrained, ability, armorPenalty);
+
+    public Skill createSkill() {
+        DefaultSkill skill = new DefaultSkill();
+        skill.setName("New Skill");
+        return skill;
+    }
+
+    public Skill saveSkill(Skill skill) {
         String id = (String) getHibernateTemplate().save(skill);
         return (Skill) getHibernateTemplate().load(DefaultSkill.class, id);
     }

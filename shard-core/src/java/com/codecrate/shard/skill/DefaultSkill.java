@@ -142,7 +142,7 @@ public class DefaultSkill implements Skill {
     /**
      * hibernate constructor.
      */
-    private DefaultSkill() { 
+    public DefaultSkill() { 
     }
     
     public DefaultSkill(String name, boolean usableUntrained, Ability ability,
@@ -160,20 +160,34 @@ public class DefaultSkill implements Skill {
     public String getName() {
         return name;
     }
+    
+    public void setName(String name) {
+    	this.name = name;
+    }
 
     public Ability getAbility() {
         return ability;
     }
 
+    public void setAbility(Ability ability) {
+    	this.ability = ability;
+    }
     public boolean isUsableUntrained() {
         return usableUntrained;
     }
 
+    public void setUsableUntrained(boolean value) {
+    	usableUntrained = value;
+    }
     public Collection getChildSkillSynergies() {
         return childSkillSynergies;
     }
 
     public boolean isPenalizedWithArmor() {
         return penalizedWithArmor;
+    }
+    
+    public void setPenalizedWithArmor(boolean value) {
+    	this.penalizedWithArmor = value;
     }
 }

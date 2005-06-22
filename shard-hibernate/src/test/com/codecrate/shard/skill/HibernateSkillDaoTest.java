@@ -49,7 +49,9 @@ public class HibernateSkillDaoTest extends ShardHibernateDbUnitTestCaseSupport {
         AbilityDao abilityDao = (AbilityDao) getContext().getBean("abilityDao");
         Ability strength = abilityDao.getAbility("Strength");
         SkillDao skillDao = (SkillDao) getContext().getBean("skillDao");
-        Skill skill = skillDao.createSkill("test skill", true, strength, false);
+        
+        Skill skill = new DefaultSkill("test skill", true, strength, false);
+        skill = skillDao.saveSkill(skill);
         assertNotNull(skill);
     }
     
