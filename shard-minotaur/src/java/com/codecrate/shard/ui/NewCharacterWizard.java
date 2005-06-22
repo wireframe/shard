@@ -21,7 +21,9 @@ import org.springframework.richclient.wizard.AbstractWizard;
 import org.springframework.richclient.wizard.FormBackedWizardPage;
 import org.springframework.richclient.wizard.WizardDialog;
 
+import com.codecrate.shard.character.CharacterDao;
 import com.codecrate.shard.character.CharacterFactory;
+import com.codecrate.shard.character.PlayerCharacter;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -30,6 +32,7 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
     private WizardDialog wizardDialog;
     private CompoundForm wizardForm;
 	private CharacterFactory characterFactory;
+	private CharacterDao characterDao;
 
     public NewCharacterWizard() {
         super("newCharacterWizard");
@@ -43,7 +46,7 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
     
     protected boolean onFinish() {
         getWizardForm().commit();
-        
+        characterDao.saveCharacter((PlayerCharacter) getWizardForm().getFormObject());
         return true;
     }
 
@@ -68,5 +71,9 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
     
     public void setCharacterFactory(CharacterFactory characterFactory) {
     	this.characterFactory = characterFactory;
+    }
+
+    public void setCharacterDao(CharacterDao characterDao) {
+    	this.characterDao = characterDao;
     }
 }

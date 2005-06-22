@@ -26,15 +26,25 @@ import org.springframework.richclient.forms.AbstractForm;
  */
 public class AbilityScoreForm extends AbstractForm {
 
-    public static final String GENERAL_FORM_PAGE = "abilityScorePage";
+    public static final String PAGE_NAME = "abilityScorePage";
 
     public AbilityScoreForm(FormModel formModel) {
-        super(formModel, GENERAL_FORM_PAGE);
+        super(formModel, PAGE_NAME);
     }
 
     protected JComponent createFormControl() {
         TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
-        formBuilder.add("abilityScores.strength.value");
+        formBuilder.add("abilities.strength.value");
+        formBuilder.row();
+        formBuilder.add("abilities.dexterity.value");
+        formBuilder.row();
+        formBuilder.add("abilities.constitution.value");
+        formBuilder.row();
+        formBuilder.add("abilities.wisdom.value");
+        formBuilder.row();
+        formBuilder.add("abilities.intelligence.value");
+        formBuilder.row();
+        formBuilder.add("abilities.charisma.value");
         formBuilder.row();
         return formBuilder.getForm();
     }

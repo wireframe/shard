@@ -38,12 +38,12 @@ public class HibernateCharacterDao extends HibernateTemplate implements Characte
 		DefaultCharacterBio bio = new DefaultCharacterBio();
 		Age age = new DefaultAge(18, 100, CummulativeAgeCategory.ADULT);
 		Race race = DefaultRace.HUMAN;
-		AbilityScoreContainer abilities = new DefaultAbilityScoreContainer(Collections.EMPTY_MAP);
-		Deity deity = null; 
+		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores();
 		CharacterProgression characterProgression = new DefaultCharacterProgression(Collections.EMPTY_LIST);
 		ItemEntryContainer inventory = new DefaultItemEntryContainer(Collections.EMPTY_LIST);
 		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
+		Deity deity = null; 
 		
 		return new DefaultPlayerCharacter(abilities, race, characterProgression, inventory, encumberance, alignment, age, bio, deity);
 	}

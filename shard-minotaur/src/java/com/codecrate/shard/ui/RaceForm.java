@@ -33,7 +33,6 @@ public class RaceForm extends AbstractForm {
     }
     protected JComponent createFormControl() {
         TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
-        formBuilder.add("race");
         formBuilder.row();
         return formBuilder.getForm();
     }
