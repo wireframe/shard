@@ -18,8 +18,6 @@ package com.codecrate.shard.action;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import junit.framework.TestCase;
 
@@ -29,13 +27,15 @@ import org.easymock.MockControl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.codecrate.shard.ability.AbilityScoreDao;
-import com.codecrate.shard.ability.DefaultAbility;
-import com.codecrate.shard.ability.DefaultAbilityScore;
+import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.character.Age;
+import com.codecrate.shard.character.Alignment;
+import com.codecrate.shard.character.CharacterBio;
 import com.codecrate.shard.character.CharacterProgression;
 import com.codecrate.shard.character.DefaultAgeCategoryDao;
+import com.codecrate.shard.character.DefaultAlignment;
+import com.codecrate.shard.character.DefaultCharacterBio;
 import com.codecrate.shard.character.DefaultCharacterLevel;
 import com.codecrate.shard.character.DefaultCharacterProgression;
 import com.codecrate.shard.character.DefaultPlayerCharacter;
@@ -53,6 +53,7 @@ import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.movement.EncumberanceDao;
 import com.codecrate.shard.movement.InventoryWeightEncumberance;
 import com.codecrate.shard.race.DefaultRace;
+import com.codecrate.shard.race.Race;
 import com.codecrate.shard.skill.DefaultSkill;
 
 public class PrintCharacterActionTest extends TestCase {
@@ -62,19 +63,8 @@ public class PrintCharacterActionTest extends TestCase {
         ApplicationContext context = new ClassPathXmlApplicationContext(paths);
         VelocityEngine engine = (VelocityEngine) context.getBean("velocityEngine");
 		Template template = engine.getTemplate("default.vm");
-
-		MockControl mockDao = MockControl.createControl(AbilityScoreDao.class);
-		AbilityScoreDao dao = (AbilityScoreDao) mockDao.getMock();
-		dao.getPointCost(10);
-		mockDao.setReturnValue(1);
-		dao.getPointCost(18);
-		mockDao.setReturnValue(14);
-		mockDao.replay();
 		
-		Map scores = new HashMap();
-		scores.put(DefaultAbility.STRENGTH, new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, dao));
-		scores.put(DefaultAbility.DEXTERITY, new DefaultAbilityScore(DefaultAbility.DEXTERITY, 18, dao));
-		DefaultAbilityScoreContainer abilities = new DefaultAbilityScoreContainer(scores);
+		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores();
 		
 		Collection levels = new ArrayList();
 		levels.add(new DefaultCharacterLevel(null, 1, 1,
@@ -88,17 +78,18 @@ public class PrintCharacterActionTest extends TestCase {
                         new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultSkill.TYPE_RANK, 1) })));
 		CharacterProgression progression = new DefaultCharacterProgression(levels);
 		
-		Age age = new RacialCategorizedAge(20, DefaultRace.HUMAN, new DefaultAgeCategoryDao(), 100);
+		Race race = DefaultRace.HUMAN;
+		Age age = new RacialCategorizedAge(20, race, new DefaultAgeCategoryDao(), 100);
 		
 		ItemEntryContainer itemContainer = new DefaultItemEntryContainer(Arrays.asList(new ItemEntry[] {new ItemEntry(Coin.GOLD_PIECE, 100)}));
 		
 		MockControl mockEncumberanceDao = MockControl.createControl(EncumberanceDao.class);
 		EncumberanceDao encumberanceDao = (EncumberanceDao) mockEncumberanceDao.getMock();
-		encumberanceDao.getEncumberance(abilities, itemContainer, DefaultRace.HUMAN.getSize());
+		encumberanceDao.getEncumberance(abilities, itemContainer, race.getSize());
 		mockEncumberanceDao.setReturnValue(DefaultEncumberance.LIGHT);
 		mockEncumberanceDao.replay();
 		
-		Encumberance encumberance = new InventoryWeightEncumberance(abilities, itemContainer, DefaultRace.HUMAN.getSize(), encumberanceDao);
+		Encumberance encumberance = new InventoryWeightEncumberance(abilities, itemContainer, race.getSize(), encumberanceDao);
 		
 		MockControl mockDeity = MockControl.createControl(Deity.class);
 		Deity deity = (Deity) mockDeity.getMock();
@@ -106,7 +97,11 @@ public class PrintCharacterActionTest extends TestCase {
 		mockDeity.setReturnValue("Bob the Almighty");
 		mockDeity.replay();
 		
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, null, progression, itemContainer, encumberance, null, age, null, deity);
+		CharacterBio bio = new DefaultCharacterBio();
+		
+		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
+		
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, progression, itemContainer, encumberance, alignment, age, bio, deity);
 		
 		PrintCharacterAction output = new PrintCharacterAction(character, template);
 		String text = output.render().toString();
