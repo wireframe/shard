@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.5 2005/06/22 14:28:21 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.6 2005/06/23 20:06:35 wireframe Exp $ -->
 <beans>
 	
 	<bean id="application" 
@@ -165,6 +165,9 @@
 		<property name="viewProperties">
 			<map>
 				<entry key="featDao">
+					<ref bean="featDao"/>
+				</entry>
+				<entry key="featFactory">
 					<ref bean="featDao"/>
 				</entry>
 			</map>

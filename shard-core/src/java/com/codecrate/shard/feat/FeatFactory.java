@@ -15,42 +15,15 @@
  */
 package com.codecrate.shard.feat;
 
-import java.util.Collection;
-
 /**
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ * factory for instanciating new feats.
  */
-public interface FeatDao {
+public interface FeatFactory {
 
-    /**
-     * get all feats.
-     * @return
-     */
-    Collection getFeats();
-    
-    /**
-     * gets a single feat by name;
-     * @param name
-     * @return
-     */
-    Feat getFeat(String name);
+	/**
+	 * creates a new feat.
+	 * @return
+	 */
+	Feat createFeat();
 
-    /**
-     * update a feat.
-     * saves changes to a feat.
-     * @param feat
-     */
-    void updateFeat(Feat feat);
-
-    /**
-     * delete a feat.
-     * @param feat
-     */
-    void deleteSkill(Feat feat);
-
-    /**
-     * saves a new feat.
-     * @param feat
-     */
-	Feat saveFeat(Feat feat);
 }

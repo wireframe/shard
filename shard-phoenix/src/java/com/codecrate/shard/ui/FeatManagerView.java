@@ -45,6 +45,7 @@ import org.springframework.richclient.util.PopupMenuMouseListener;
 
 import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
+import com.codecrate.shard.feat.FeatFactory;
 import com.codecrate.shard.util.ShardTableUtils;
 
 public class FeatManagerView extends AbstractView {
@@ -59,9 +60,14 @@ public class FeatManagerView extends AbstractView {
     
     private List feats;
     private FeatDao featDao;
+    private FeatFactory featFactory; 
     
     public void setFeatDao(FeatDao featDao) {
         this.featDao = featDao;
+    }
+    
+    public void setFeatFactory(FeatFactory featFactory) {
+    	this.featFactory = featFactory;
     }
 
     protected JComponent createControl() {
@@ -238,9 +244,31 @@ public class FeatManagerView extends AbstractView {
   
     
     private class NewCommandExecutor extends AbstractActionCommandExecutor {
-        
+        private Feat feat;
+        private NestingFormModel featFormModel;
+        private FeatForm featForm;
+        private FormBackedDialogPage page;
+
         public void execute() {
+            feat = featFactory.createFeat();
+            featFormModel = FormModelHelper.createCompoundFormModel(feat);
+            featForm = new FeatForm(featFormModel);
+            page = new FormBackedDialogPage(featForm);
+
+            TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
+                protected void onAboutToShow() {
+                    setEnabled(page.isPageComplete());
+                }
+
+                protected boolean onFinish() {
+                    featFormModel.commit();
+                    featDao.saveFeat(feat);
+                    getFeats().add(feat);
+                    getModel().fireTableDataChanged();
+                    return true;
+                }
+            };
+            dialog.showDialog();
         }
     }
-
 }

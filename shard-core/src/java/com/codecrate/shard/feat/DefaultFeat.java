@@ -38,13 +38,13 @@ public class DefaultFeat implements Feat {
     
     
     private String name;
-    private CharacterPrerequisite prerequisite;
     private String type;
+    private CharacterPrerequisite prerequisite = new NullPrerequisite();
     
     /**
      * hibernate constructor.
      */
-    private DefaultFeat() {
+    public DefaultFeat() {
     }
     
     public DefaultFeat(String name, String type, CharacterPrerequisite prerequisite) {
@@ -64,4 +64,12 @@ public class DefaultFeat implements Feat {
     public CharacterPrerequisite getPrerequisite() {
         return prerequisite;
     }
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }

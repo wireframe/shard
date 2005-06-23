@@ -29,7 +29,7 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateFeatDao extends HibernateDaoSupport implements FeatDao {
+public class HibernateFeatDao extends HibernateDaoSupport implements FeatDao, FeatFactory {
     public Collection getFeats() {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
@@ -60,7 +60,16 @@ public class HibernateFeatDao extends HibernateDaoSupport implements FeatDao {
         getHibernateTemplate().saveOrUpdate(feat);
     }
 
+    public Feat saveFeat(Feat feat) {
+        String id = (String) getHibernateTemplate().save(feat);
+        return (Feat) getHibernateTemplate().load(DefaultFeat.class, id);
+    }
+
     public void deleteSkill(Feat feat) {
         getHibernateTemplate().delete(feat);
+    }
+    
+    public Feat createFeat() {
+    	return new DefaultFeat();
     }
 }
