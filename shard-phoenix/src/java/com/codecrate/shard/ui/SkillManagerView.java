@@ -40,13 +40,13 @@ import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.forms.FormModelHelper;
 import org.springframework.richclient.table.BeanTableModel;
-import org.springframework.richclient.table.SortableTableModel;
 import org.springframework.richclient.table.TableUtils;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
+import com.codecrate.shard.util.ShardTableUtils;
 
 public class SkillManagerView extends AbstractView {
     private JScrollPane scrollPane;
@@ -187,15 +187,9 @@ public class SkillManagerView extends AbstractView {
     }
     
     private Skill getSelectedSkill() {
-        int sortedIndex = getTable().getSelectedRow();
-        if (-1 == sortedIndex) {
-            return null;
-        }
-        SortableTableModel sortedModel = (SortableTableModel) getTable().getModel();
-        int realIndex = sortedModel.convertSortedIndexToDataIndex(sortedIndex);
-        Skill skill = (Skill) getModel().getRow(realIndex);
+        int index = ShardTableUtils.getSelectedIndex(getTable());
+        Skill skill = (Skill) getModel().getRow(index);
         return skill;
-        
     }
     
 

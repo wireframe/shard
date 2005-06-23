@@ -40,12 +40,12 @@ import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.forms.FormModelHelper;
 import org.springframework.richclient.table.BeanTableModel;
-import org.springframework.richclient.table.SortableTableModel;
 import org.springframework.richclient.table.TableUtils;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
 import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
+import com.codecrate.shard.util.ShardTableUtils;
 
 public class FeatManagerView extends AbstractView {
     private JScrollPane scrollPane;
@@ -181,15 +181,9 @@ public class FeatManagerView extends AbstractView {
     }
     
     private Feat getSelectedFeat() {
-        int sortedIndex = getTable().getSelectedRow();
-        if (-1 == sortedIndex) {
-            return null;
-        }
-        SortableTableModel sortedModel = (SortableTableModel) getTable().getModel();
-        int realIndex = sortedModel.convertSortedIndexToDataIndex(sortedIndex);
-        Feat feat = (Feat) getModel().getRow(realIndex);
+    	int index = ShardTableUtils.getSelectedIndex(getTable());
+        Feat feat = (Feat) getModel().getRow(index);
         return feat;
-        
     }
     
 
