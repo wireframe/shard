@@ -182,8 +182,10 @@ public class FeatManagerView extends AbstractView {
     
     private Feat getSelectedFeat() {
     	int index = ShardTableUtils.getSelectedIndex(getTable());
-        Feat feat = (Feat) getModel().getRow(index);
-        return feat;
+        if (-1 == index) {
+        	return null;
+        }
+        return (Feat) getModel().getRow(index);
     }
     
 

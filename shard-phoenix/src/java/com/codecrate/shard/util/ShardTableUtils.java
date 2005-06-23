@@ -16,6 +16,7 @@
 package com.codecrate.shard.util;
 
 import javax.swing.JTable;
+import javax.swing.table.TableModel;
 
 import org.springframework.richclient.table.SortableTableModel;
 
@@ -33,13 +34,17 @@ public class ShardTableUtils {
 	 * @return
 	 */
     public static int getSelectedIndex(JTable table) {
-        int sortedIndex = table.getSelectedRow();
-        
-        if (table.getModel() instanceof SortableTableModel) {
-            SortableTableModel sortedModel = (SortableTableModel) table.getModel();
-            return sortedModel.convertSortedIndexToDataIndex(sortedIndex);
+        int index = table.getSelectedRow();
+		if (-1 == index) {
+        	return -1;
         }
-        return sortedIndex;
+        
+        TableModel model = table.getModel();
+		if (model instanceof SortableTableModel) {
+            return ((SortableTableModel) model).convertSortedIndexToDataIndex(index);
+        }
+		
+        return index;
     }
     
     /**
@@ -49,12 +54,15 @@ public class ShardTableUtils {
      * @return
      */
     public static int[] getSelectedIndexes(JTable table) {
-        int[] sortedIndexes = table.getSelectedRows();
-        
-        if (table.getModel() instanceof SortableTableModel) {
-            SortableTableModel sortedModel = (SortableTableModel) table.getModel();
-            return sortedModel.convertSortedIndexesToDataIndexes(sortedIndexes);
+        int[] indexes = table.getSelectedRows();
+        if (null == indexes) {
+        	return null;
         }
-        return sortedIndexes;
+        
+        TableModel model = table.getModel();
+		if (model instanceof SortableTableModel) {
+            return ((SortableTableModel)model).convertSortedIndexesToDataIndexes(indexes);
+        }
+        return indexes;
     }
 }

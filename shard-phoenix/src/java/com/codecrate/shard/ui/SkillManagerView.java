@@ -188,8 +188,10 @@ public class SkillManagerView extends AbstractView {
     
     private Skill getSelectedSkill() {
         int index = ShardTableUtils.getSelectedIndex(getTable());
-        Skill skill = (Skill) getModel().getRow(index);
-        return skill;
+        if (-1 == index) {
+        	return null;
+        }
+        return (Skill) getModel().getRow(index);
     }
     
 
