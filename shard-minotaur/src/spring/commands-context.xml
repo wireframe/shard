@@ -47,9 +47,8 @@
 		<property name="members">
 			<list>
 				<value>separator</value>
-				<value>newCommand</value>
+				<ref bean="newCommand" />
 				<value>separator</value>
-				<ref bean="newCharacterCommand"/>
 				<value>separator</value>
 				<value>saveAsCommand</value>
 				<value>separator</value>
@@ -110,7 +109,7 @@
 		</property>
 	</bean>
 	
-	<bean id="newCharacterCommand" 
+	<bean id="newCommand" 
 		class="org.springframework.richclient.command.TargetableActionCommand">
 		<property name="commandExecutor">
 			<ref bean="newCharacterWizard"/>
