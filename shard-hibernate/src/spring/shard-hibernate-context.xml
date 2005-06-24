@@ -122,6 +122,9 @@
   	      <property name="sessionFactory">
 	        <ref bean="sessionFactory"/>
 	      </property>
+  	      <property name="abilityScoreDao">
+	        <ref bean="abilityScoreDao"/>
+	      </property>
 	    </bean>
 	  </property>
 	</bean>
