@@ -35,7 +35,7 @@
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/aopalliance/jars/aopalliance-1.0.jar">
   </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/hsqldb/jars/hsqldb-1.7.2.2.jar">
+  <classpathentry kind="var" path="MAVEN_REPO/hsqldb/jars/hsqldb-1.7.3.3.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/hibernate/jars/hibernate-2.1.8.jar">
   </classpathentry>

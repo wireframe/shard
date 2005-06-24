@@ -2,7 +2,9 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<bean id="dataSource" 
+		  class="org.apache.commons.dbcp.BasicDataSource" 
+		  destroy-method="close">
 	  <property name="driverClassName">
 	    <value>org.hsqldb.jdbcDriver</value>
 	  </property>
