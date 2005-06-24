@@ -20,6 +20,7 @@ import java.util.Collections;
 import org.springframework.orm.hibernate.HibernateTemplate;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
+import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.DefaultItemEntryContainer;
@@ -34,11 +35,13 @@ import com.codecrate.shard.race.Race;
  */
 public class HibernateCharacterDao extends HibernateTemplate implements CharacterDao, CharacterFactory {
 	
+	private AbilityScoreDao abilityScoreDao;
+	
 	public PlayerCharacter createCharacter(String name) {
 		DefaultCharacterBio bio = new DefaultCharacterBio(name);
 		Age age = new DefaultAge(18, 100, CummulativeAgeCategory.ADULT);
 		Race race = DefaultRace.HUMAN;
-		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores();
+		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
 		CharacterProgression characterProgression = new DefaultCharacterProgression(Collections.EMPTY_LIST);
 		ItemEntryContainer inventory = new DefaultItemEntryContainer(Collections.EMPTY_LIST);
 		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
@@ -50,5 +53,9 @@ public class HibernateCharacterDao extends HibernateTemplate implements Characte
 	
 	public PlayerCharacter saveCharacter(PlayerCharacter character) {
 		return null;
+	}
+
+	public void setAbilityScoreDao(AbilityScoreDao abilityScoreDao) {
+		this.abilityScoreDao = abilityScoreDao;
 	}
 }

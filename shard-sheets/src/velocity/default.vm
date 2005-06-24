@@ -80,7 +80,7 @@
 	<!-- START General Character Data -->
 	<table>
 	 <tr>
-	  <td colspan="2" class="h">$character.name</td>
+	  <td colspan="2" class="h">$character.bio.name</td>
 	  <td colspan="2" class="h">|PLAYERNAME|</td>
 	  <td colspan="1" class="h">$character.alignment.name</td>
 	  <td colspan="1" class="h">$character.deity.name</td>

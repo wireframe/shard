@@ -40,16 +40,17 @@ public class DefaultAbilityScoreContainer implements AbilityScoreContainer {
 	
 	/**
 	 * convenience method to get all average abilties.
+	 * @param abilityScoreDao used to lookup point cost for the score.
 	 * @return
 	 */
-	public static AbilityScoreContainer averageScores() {
+	public static AbilityScoreContainer averageScores(AbilityScoreDao abilityScoreDao) {
 		Map scores = new HashMap();
-		scores.put(DefaultAbility.STRENGTH, new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, null));
-		scores.put(DefaultAbility.DEXTERITY, new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10, null));
-		scores.put(DefaultAbility.WISDOM, new DefaultAbilityScore(DefaultAbility.WISDOM, 10, null));
-		scores.put(DefaultAbility.INTELLIGENCE, new DefaultAbilityScore(DefaultAbility.INTELLIGENCE, 10, null));
-		scores.put(DefaultAbility.CONSTITUTION, new DefaultAbilityScore(DefaultAbility.CONSTITUTION, 10, null));
-		scores.put(DefaultAbility.CHARISMA, new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, null));
+		scores.put(DefaultAbility.STRENGTH, new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, abilityScoreDao));
+		scores.put(DefaultAbility.DEXTERITY, new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10, abilityScoreDao));
+		scores.put(DefaultAbility.WISDOM, new DefaultAbilityScore(DefaultAbility.WISDOM, 10, abilityScoreDao));
+		scores.put(DefaultAbility.INTELLIGENCE, new DefaultAbilityScore(DefaultAbility.INTELLIGENCE, 10, abilityScoreDao));
+		scores.put(DefaultAbility.CONSTITUTION, new DefaultAbilityScore(DefaultAbility.CONSTITUTION, 10, abilityScoreDao));
+		scores.put(DefaultAbility.CHARISMA, new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, abilityScoreDao));
 		return new DefaultAbilityScoreContainer(scores);
 	}
 	

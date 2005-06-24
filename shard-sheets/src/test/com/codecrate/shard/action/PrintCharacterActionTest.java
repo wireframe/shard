@@ -28,16 +28,17 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
+import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.character.Age;
 import com.codecrate.shard.character.Alignment;
-import com.codecrate.shard.character.CharacterBio;
 import com.codecrate.shard.character.CharacterProgression;
 import com.codecrate.shard.character.DefaultAgeCategoryDao;
 import com.codecrate.shard.character.DefaultAlignment;
 import com.codecrate.shard.character.DefaultCharacterBio;
 import com.codecrate.shard.character.DefaultCharacterLevel;
 import com.codecrate.shard.character.DefaultCharacterProgression;
+import com.codecrate.shard.character.DefaultGender;
 import com.codecrate.shard.character.DefaultPlayerCharacter;
 import com.codecrate.shard.character.RacialCategorizedAge;
 import com.codecrate.shard.divine.Deity;
@@ -64,7 +65,22 @@ public class PrintCharacterActionTest extends TestCase {
         VelocityEngine engine = (VelocityEngine) context.getBean("velocityEngine");
 		Template template = engine.getTemplate("default.vm");
 		
-		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores();
+		MockControl mockAbilityScoreDao = MockControl.createControl(AbilityScoreDao.class);
+		AbilityScoreDao abilityScoreDao = (AbilityScoreDao) mockAbilityScoreDao.getMock();
+		abilityScoreDao.getPointCost(10);
+		mockAbilityScoreDao.setReturnValue(1);
+		abilityScoreDao.getPointCost(10);
+		mockAbilityScoreDao.setReturnValue(1);
+		abilityScoreDao.getPointCost(10);
+		mockAbilityScoreDao.setReturnValue(1);
+		abilityScoreDao.getPointCost(10);
+		mockAbilityScoreDao.setReturnValue(1);
+		abilityScoreDao.getPointCost(10);
+		mockAbilityScoreDao.setReturnValue(1);
+		abilityScoreDao.getPointCost(10);
+		mockAbilityScoreDao.setReturnValue(1);
+		mockAbilityScoreDao.replay();
+		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
 		
 		Collection levels = new ArrayList();
 		levels.add(new DefaultCharacterLevel(null, 1, 1,
@@ -97,7 +113,8 @@ public class PrintCharacterActionTest extends TestCase {
 		mockDeity.setReturnValue("Bob the Almighty");
 		mockDeity.replay();
 		
-		CharacterBio bio = new DefaultCharacterBio("Gunthor the Terrible");
+		DefaultCharacterBio bio = new DefaultCharacterBio("Gunthor the Terrible");
+		bio.setGender(DefaultGender.MALE);
 		
 		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
 		

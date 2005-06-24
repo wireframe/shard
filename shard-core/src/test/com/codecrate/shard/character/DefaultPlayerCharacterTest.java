@@ -53,7 +53,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		mockProgression.setReturnValue(new ArrayList());
 		mockProgression.replay();
 	    
-		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores();
+		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(null);
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
 		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, progression, null, encumberance, null, null, null, null);
 		assertEquals(2, character.getEffectiveCharacterLevel());
@@ -90,7 +90,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		mockRace.setReturnValue(DefaultRacialSize.SMALL);
 		mockRace.replay();
 		
-		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores();
+		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(null);
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
 		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, progression, null, encumberance, null, null, null, null);
 		assertEquals(3, character.getBaseAttackBonus());
