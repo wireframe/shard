@@ -31,6 +31,10 @@ public class DefaultCharacterBio implements CharacterBio {
     private Color hairColor;
     private Color eyeColor;
     
+    public DefaultCharacterBio(String name) {
+    	this.name = name;
+    }
+    
     /**
      * @return Returns the backstory.
      */

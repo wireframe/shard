@@ -97,7 +97,7 @@ public class PrintCharacterActionTest extends TestCase {
 		mockDeity.setReturnValue("Bob the Almighty");
 		mockDeity.replay();
 		
-		CharacterBio bio = new DefaultCharacterBio();
+		CharacterBio bio = new DefaultCharacterBio("Gunthor the Terrible");
 		
 		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
 		

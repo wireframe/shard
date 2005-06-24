@@ -34,8 +34,8 @@ import com.codecrate.shard.race.Race;
  */
 public class HibernateCharacterDao extends HibernateTemplate implements CharacterDao, CharacterFactory {
 	
-	public PlayerCharacter createCharacter() {
-		DefaultCharacterBio bio = new DefaultCharacterBio();
+	public PlayerCharacter createCharacter(String name) {
+		DefaultCharacterBio bio = new DefaultCharacterBio(name);
 		Age age = new DefaultAge(18, 100, CummulativeAgeCategory.ADULT);
 		Race race = DefaultRace.HUMAN;
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores();

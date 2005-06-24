@@ -51,7 +51,7 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
     }
 
     public void execute() {
-        getWizardForm().setFormObject(characterFactory.createCharacter());
+        getWizardForm().setFormObject(characterFactory.createCharacter("New Character"));
         getWizardDialog().showDialog();
     }
     

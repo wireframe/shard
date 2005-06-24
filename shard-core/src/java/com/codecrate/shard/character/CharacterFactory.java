@@ -22,8 +22,9 @@ public interface CharacterFactory {
 
     /**
      * creates a new character
+     * @param name for the new character.
      * @return
      */
-    PlayerCharacter createCharacter();
+    PlayerCharacter createCharacter(String name);
 
 }
