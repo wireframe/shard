@@ -16,7 +16,6 @@
 package com.codecrate.shard.ui;
 
 import java.awt.BorderLayout;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -39,9 +38,12 @@ import org.springframework.richclient.dialog.ConfirmationDialog;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.forms.FormModelHelper;
-import org.springframework.richclient.table.BeanTableModel;
 import org.springframework.richclient.table.TableUtils;
+import org.springframework.richclient.table.support.GlazedTableModel;
 import org.springframework.richclient.util.PopupMenuMouseListener;
+
+import ca.odell.glazedlists.BasicEventList;
+import ca.odell.glazedlists.EventList;
 
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
@@ -51,14 +53,14 @@ import com.codecrate.shard.util.ShardTableUtils;
 public class SkillManagerView extends AbstractView {
     private JScrollPane scrollPane;
     private JTable table;
-    private BeanTableModel model;
+    private GlazedTableModel model;
     private JPopupMenu popup;
 
     private PropertiesCommandExecutor propertiesExecutor;
     private DeleteCommandExecutor deleteExecutor;
     private NewCommandExecutor newExecutor;
     
-    private List skills;
+    private EventList skills;
     private SkillDao skillDao;
     private SkillFactory skillFactory;
     
@@ -153,35 +155,20 @@ public class SkillManagerView extends AbstractView {
         return popup;
     }
     
-    private BeanTableModel getModel() {
+    private GlazedTableModel getModel() {
         if (null == model) {
             MessageSource messageSource = (MessageSource) getApplicationContext().getBean("messageSource");
-
-            model = new BeanTableModel(Skill.class, getSkills(), messageSource) {
-
-                protected String[] createColumnPropertyNames() {
-                    return new String[] {
-                            "name"
-                            , "ability.name"
-                    };
-                }
-
-                protected Class[] createColumnClasses() {
-                    return new Class[] {
-                      String.class
-                      , String.class
-                    };
-                }
-                
-            };
-            model.setRowNumbers(false);
+            String [] columns = new String[] {
+            		"name"
+            		, "ability.name"};
+        	model = new GlazedTableModel(getSkills(), messageSource, columns);
         }
         return model;
     }
     
-    private List getSkills() {
+    private EventList getSkills() {
         if (null == skills) {
-            skills = new ArrayList(skillDao.getSkills());
+            skills = new BasicEventList((List)skillDao.getSkills());
         }
         return skills;
     }
@@ -191,7 +178,7 @@ public class SkillManagerView extends AbstractView {
         if (-1 == index) {
         	return null;
         }
-        return (Skill) getModel().getRow(index);
+        return (Skill) getSkills().get(index);
     }
     
 
@@ -202,7 +189,6 @@ public class SkillManagerView extends AbstractView {
                     Skill skill = getSelectedSkill();
                     skillDao.deleteSkill(skill);
                     getSkills().remove(skill);
-                    getModel().fireTableDataChanged();
                 }
             };
             dialog.setTitle("Delete Skill");
@@ -234,7 +220,6 @@ public class SkillManagerView extends AbstractView {
                     skillDao.updateSkill(skill);
                     int index = getSkills().indexOf(skill);
                     getSkills().set(index, skill);
-                    getModel().fireTableDataChanged();
                     return true;
                 }
             };
@@ -264,7 +249,6 @@ public class SkillManagerView extends AbstractView {
                     skillFormModel.commit();
                     skillDao.saveSkill(skill);
                     getSkills().add(skill);
-                    getModel().fireTableDataChanged();
                     return true;
                 }
             };

@@ -57,13 +57,17 @@
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/spring-rcp/jars/spring-richclient-resources-SNAPSHOT.jar">
   </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/spring-rcp/jars/spring-richclient-sandbox-SNAPSHOT.jar">
+  </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/spring-rcp/jars/spring-sandbox-SNAPSHOT.jar">
   </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/jgoodies/jars/looks-1.2.2.jar">
+  <classpathentry kind="var" path="MAVEN_REPO/jgoodies/jars/looks-1.3.1.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/jgoodies/jars/forms-1.0.5.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/javahelp/jars/javahelp-2.0.2.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/glazedlists/jars/glazedlists-1.1.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/easymock/jars/easymock-1.1.jar">
   </classpathentry>

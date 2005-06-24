@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.6 2005/06/23 20:06:35 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.7 2005/06/24 17:52:12 wireframe Exp $ -->
 <beans>
 	
 	<bean id="application" 
@@ -73,7 +73,7 @@
 	<bean id="lookAndFeelConfigurer" 
 		class="org.springframework.richclient.application.config.JGoodiesLooksConfigurer">
 		<property name="theme">
-			<bean class="com.jgoodies.plaf.plastic.theme.ExperienceBlue"/>
+			<bean class="com.jgoodies.looks.plastic.theme.ExperienceBlue"/>
 		</property>
 	</bean>
 	
