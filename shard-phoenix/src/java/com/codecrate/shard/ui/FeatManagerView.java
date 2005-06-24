@@ -16,7 +16,6 @@
 package com.codecrate.shard.ui;
 
 import java.awt.BorderLayout;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -39,9 +38,12 @@ import org.springframework.richclient.dialog.ConfirmationDialog;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.forms.FormModelHelper;
-import org.springframework.richclient.table.BeanTableModel;
 import org.springframework.richclient.table.TableUtils;
+import org.springframework.richclient.table.support.GlazedTableModel;
 import org.springframework.richclient.util.PopupMenuMouseListener;
+
+import ca.odell.glazedlists.BasicEventList;
+import ca.odell.glazedlists.EventList;
 
 import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
@@ -51,14 +53,14 @@ import com.codecrate.shard.util.ShardTableUtils;
 public class FeatManagerView extends AbstractView {
     private JScrollPane scrollPane;
     private JTable table;
-    private BeanTableModel model;
+    private GlazedTableModel model;
     private JPopupMenu popup;
 
     private PropertiesCommandExecutor propertiesExecutor;
     private DeleteCommandExecutor deleteExecutor;
     private NewCommandExecutor newExecutor;
     
-    private List feats;
+    private EventList feats;
     private FeatDao featDao;
     private FeatFactory featFactory; 
     
@@ -153,35 +155,21 @@ public class FeatManagerView extends AbstractView {
         return popup;
     }
     
-    private BeanTableModel getModel() {
+    private GlazedTableModel getModel() {
         if (null == model) {
             MessageSource messageSource = (MessageSource) getApplicationContext().getBean("messageSource");
-
-            model = new BeanTableModel(Feat.class, getFeats(), messageSource) {
-
-                protected String[] createColumnPropertyNames() {
-                    return new String[] {
-                            "name"
-                            , "type"
-                    };
-                }
-
-                protected Class[] createColumnClasses() {
-                    return new Class[] {
-                      String.class
-                      , String.class
-                    };
-                }
-                
-            };
-            model.setRowNumbers(false);
+            String[] columns = new String[] {
+                    "name"
+                    , "type"
+            }; 
+            model = new GlazedTableModel(getFeats(), messageSource, columns);
         }
         return model;
     }
     
-    private List getFeats() {
+    private EventList getFeats() {
         if (null == feats) {
-            feats = new ArrayList(featDao.getFeats());
+            feats = new BasicEventList((List) featDao.getFeats());
         }
         return feats;
     }
@@ -191,7 +179,7 @@ public class FeatManagerView extends AbstractView {
         if (-1 == index) {
         	return null;
         }
-        return (Feat) getModel().getRow(index);
+        return (Feat) getFeats().get(index);
     }
     
 
@@ -202,7 +190,6 @@ public class FeatManagerView extends AbstractView {
                     Feat feat = getSelectedFeat();
                     featDao.deleteSkill(feat);
                     getFeats().remove(feat);
-                    getModel().fireTableDataChanged();
                 }
             };
             dialog.setTitle("Delete Feat");
@@ -234,7 +221,6 @@ public class FeatManagerView extends AbstractView {
                     featDao.updateFeat(feat);
                     int index = getFeats().indexOf(feat);
                     getFeats().set(index, feat);
-                    getModel().fireTableDataChanged();
                     return true;
                 }
             };
@@ -264,7 +250,6 @@ public class FeatManagerView extends AbstractView {
                     featFormModel.commit();
                     featDao.saveFeat(feat);
                     getFeats().add(feat);
-                    getModel().fireTableDataChanged();
                     return true;
                 }
             };
