@@ -25,7 +25,8 @@ public interface SkillFactory {
     
     /**
      * creates a new skill.
+     * @param name name of the skill.
      * @return
      */
-    Skill createSkill();
+    Skill createSkill(String name);
 }

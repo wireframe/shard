@@ -250,7 +250,7 @@ public class SkillManagerView extends AbstractView {
         private Skill skill;
         
         public void execute() {
-        	skill = skillFactory.createSkill();
+        	skill = skillFactory.createSkill("New Skill");
             skillFormModel = FormModelHelper.createCompoundFormModel(skill);
             skillForm = new SkillForm(skillFormModel);
             page = new FormBackedDialogPage(skillForm);

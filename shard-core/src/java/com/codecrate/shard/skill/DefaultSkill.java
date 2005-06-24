@@ -142,7 +142,11 @@ public class DefaultSkill implements Skill {
     /**
      * hibernate constructor.
      */
-    public DefaultSkill() { 
+    private DefaultSkill() { 
+    }
+    
+    public DefaultSkill(String name) {
+        this(name, false, null, false);
     }
     
     public DefaultSkill(String name, boolean usableUntrained, Ability ability,

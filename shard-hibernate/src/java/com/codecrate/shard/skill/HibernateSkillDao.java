@@ -51,9 +51,8 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao, 
         });
     }
 
-    public Skill createSkill() {
-        DefaultSkill skill = new DefaultSkill();
-        skill.setName("New Skill");
+    public Skill createSkill(String name) {
+        DefaultSkill skill = new DefaultSkill(name);
         return skill;
     }
 
