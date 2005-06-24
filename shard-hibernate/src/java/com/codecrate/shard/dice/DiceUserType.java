@@ -33,7 +33,7 @@ import net.sf.hibernate.UserType;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DiceType implements UserType {
+public class DiceUserType implements UserType {
     private static final int[] TYPES = { Types.VARCHAR };
 
 	public int[] sqlTypes() {

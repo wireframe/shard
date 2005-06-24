@@ -19,11 +19,10 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.UserType;
-
-import org.hsqldb.Types;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
