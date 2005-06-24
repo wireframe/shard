@@ -22,8 +22,9 @@ public interface FeatFactory {
 
 	/**
 	 * creates a new feat.
+	 * @param name of new feat.
 	 * @return
 	 */
-	Feat createFeat();
+	Feat createFeat(String name);
 
 }

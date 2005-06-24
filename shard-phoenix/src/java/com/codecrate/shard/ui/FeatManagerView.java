@@ -236,7 +236,7 @@ public class FeatManagerView extends AbstractView {
         private FormBackedDialogPage page;
 
         public void execute() {
-            feat = featFactory.createFeat();
+            feat = featFactory.createFeat("New Feat");
             featFormModel = FormModelHelper.createCompoundFormModel(feat);
             featForm = new FeatForm(featFormModel);
             page = new FormBackedDialogPage(featForm);

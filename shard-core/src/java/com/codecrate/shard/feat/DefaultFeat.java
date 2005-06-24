@@ -39,14 +39,17 @@ public class DefaultFeat implements Feat {
     
     private String name;
     private String type;
-    private CharacterPrerequisite prerequisite = new NullPrerequisite();
+    private CharacterPrerequisite prerequisite;
     
     /**
      * hibernate constructor.
      */
-    public DefaultFeat() {
+    private DefaultFeat() {
     }
     
+    public DefaultFeat(String name) {
+    	this(name, null, new NullPrerequisite());
+    }
     public DefaultFeat(String name, String type, CharacterPrerequisite prerequisite) {
         this.name = name;
         this.type = type;
