@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.7 2005/06/24 17:52:12 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.8 2005/06/25 20:58:04 wireframe Exp $ -->
 <beans>
 	
 	<bean id="application" 
@@ -54,22 +54,6 @@
 		</property>
 	</bean>
 
-    <bean id="binderSelectionStrategy" 
-        class="com.codecrate.shard.ui.binder.ShardBinderSelectionStrategy">
-        <property name="bindersForPropertyTypes">
-            <list>
-                <ref bean="abilityBinder" />
-            </list>
-        </property>
-    </bean>
-
-    <bean id="abilityBinder" 
-        class="com.codecrate.shard.ui.binder.AbilityBinder">
-		<constructor-arg>
-            <ref bean="abilityDao"/>
-        </constructor-arg>
-    </bean>
-	
 	<bean id="lookAndFeelConfigurer" 
 		class="org.springframework.richclient.application.config.JGoodiesLooksConfigurer">
 		<property name="theme">
@@ -152,6 +136,9 @@
 				</entry>
 				<entry key="skillFactory">
 					<ref bean="skillDao"/>
+				</entry>
+				<entry key="abilityDao">
+					<ref bean="abilityDao"/>
 				</entry>
 			</map>
 		</property>

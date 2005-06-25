@@ -45,6 +45,7 @@ import org.springframework.richclient.util.PopupMenuMouseListener;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 
+import com.codecrate.shard.ability.AbilityDao;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
@@ -63,6 +64,11 @@ public class SkillManagerView extends AbstractView {
     private EventList skills;
     private SkillDao skillDao;
     private SkillFactory skillFactory;
+    private AbilityDao abilityDao;
+    
+    public void setAbilityDao(AbilityDao abilityDao) {
+        this.abilityDao = abilityDao;
+    }
     
     public void setSkillDao(SkillDao skillDao) {
         this.skillDao = skillDao;
@@ -207,7 +213,7 @@ public class SkillManagerView extends AbstractView {
         public void execute() {
             skill = getSelectedSkill();
             skillFormModel = FormModelHelper.createCompoundFormModel(skill);
-            skillForm = new SkillForm(skillFormModel);
+            skillForm = new SkillForm(skillFormModel, abilityDao);
             page = new FormBackedDialogPage(skillForm);
 
             TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
@@ -237,7 +243,7 @@ public class SkillManagerView extends AbstractView {
         public void execute() {
         	skill = skillFactory.createSkill("New Skill");
             skillFormModel = FormModelHelper.createCompoundFormModel(skill);
-            skillForm = new SkillForm(skillFormModel);
+            skillForm = new SkillForm(skillFormModel, abilityDao);
             page = new FormBackedDialogPage(skillForm);
 
             TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
