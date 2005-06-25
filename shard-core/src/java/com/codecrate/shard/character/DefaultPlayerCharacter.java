@@ -48,8 +48,9 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     private CharacterProgression characterProgression;
     private ItemEntryContainer inventory;
 
+    private String id;
     private int experience;
-    private CharacterProgressionSkillEntryContainer skills;
+    private SkillEntryContainer skills;
 	private FeatContainer feats;
 	private Encumberance encumberance;
 	private DexterityArmorClass armorClass;

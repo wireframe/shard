@@ -17,7 +17,7 @@ package com.codecrate.shard.character;
 
 import java.util.Collections;
 
-import org.springframework.orm.hibernate.HibernateTemplate;
+import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.AbilityScoreDao;
@@ -33,7 +33,7 @@ import com.codecrate.shard.race.Race;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateCharacterDao extends HibernateTemplate implements CharacterDao, CharacterFactory {
+public class HibernateCharacterDao extends HibernateDaoSupport implements CharacterDao, CharacterFactory {
 	
 	private AbilityScoreDao abilityScoreDao;
 	
@@ -52,7 +52,8 @@ public class HibernateCharacterDao extends HibernateTemplate implements Characte
 	}
 	
 	public PlayerCharacter saveCharacter(PlayerCharacter character) {
-		return null;
+        String id = (String) getHibernateTemplate().save(character);
+        return (PlayerCharacter) getHibernateTemplate().load(DefaultPlayerCharacter.class, id);
 	}
 
 	public void setAbilityScoreDao(AbilityScoreDao abilityScoreDao) {

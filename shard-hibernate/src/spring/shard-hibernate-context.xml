@@ -3,23 +3,6 @@
 
 <beans>
 
-	<bean id="dataSource" 
-		  class="org.apache.commons.dbcp.BasicDataSource" 
-		  destroy-method="close">
-	  <property name="driverClassName">
-	    <value>org.hsqldb.jdbcDriver</value>
-	  </property>
-	  <property name="url">
-	    <value>jdbc:hsqldb:/home/rsonnek/Projects/shard/shard-hibernate/target/db</value>
-	  </property>
-	  <property name="username">
-	    <value>sa</value>
-	  </property>
-	  <property name="password">
-	    <value></value>
-	  </property>
-	</bean>
-
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate.LocalSessionFactoryBean">
 	  <property name="dataSource">
 	    <ref bean="dataSource"/>
@@ -35,6 +18,7 @@
 	    <list>
 	      <value>com/codecrate/shard/ability/PointCostValue.hbm.xml</value>
 	      <value>com/codecrate/shard/character/RaceAgeEntry.hbm.xml</value>
+	      <value>com/codecrate/shard/character/DefaultPlayerCharacter.hbm.xml</value>
 	      <value>com/codecrate/shard/feat/DefaultFeat.hbm.xml</value>
 	      <value>com/codecrate/shard/kit/DefaultCharacterClass.hbm.xml</value>
 	      <value>com/codecrate/shard/movement/EncumberanceEntry.hbm.xml</value>

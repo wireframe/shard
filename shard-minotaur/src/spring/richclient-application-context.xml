@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.6 2005/06/22 20:35:55 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.7 2005/06/25 20:52:22 wireframe Exp $ -->
 <beans>
 	
 	<bean id="application" 
@@ -142,6 +142,9 @@
 		</property>
 		<property name="characterDao">
 		    <ref bean="characterDao" />
+		</property>
+		<property name="raceDao">
+		    <ref bean="raceDao" />
 		</property>
 	</bean>
 

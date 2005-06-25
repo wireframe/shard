@@ -15,11 +15,16 @@
  */
 package com.codecrate.shard.ui;
 
+import java.util.Collection;
+
 import javax.swing.JComponent;
 
 import org.springframework.binding.form.FormModel;
+import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.forms.AbstractForm;
+
+import com.codecrate.shard.race.RaceDao;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -27,14 +32,22 @@ import org.springframework.richclient.forms.AbstractForm;
 public class RaceForm extends AbstractForm {
 
     public static final String PAGE_NAME = "racePage";
+    private final RaceDao raceDao;
 
-    public RaceForm(FormModel formModel) {
+    public RaceForm(FormModel formModel, RaceDao raceDao) {
         super(formModel, PAGE_NAME);
+        this.raceDao = raceDao;
     }
+    
     protected JComponent createFormControl() {
+        SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
         TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
         formBuilder.row();
+        formBuilder.add(bindingFactory.createBoundComboBox("race", getRaces()));
         return formBuilder.getForm();
     }
 
+    private Collection getRaces() {
+        return raceDao.getRaces();
+    }
 }

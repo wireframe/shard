@@ -16,6 +16,7 @@
 package com.codecrate.shard.ui;
 
 import javax.swing.JComponent;
+import javax.swing.JTextArea;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.form.builder.TableFormBuilder;
@@ -38,6 +39,7 @@ public class BioForm extends AbstractForm {
         formBuilder.row();
         formBuilder.add("bio.weight");
         formBuilder.row();
+        formBuilder.add("bio.backstory", new JTextArea());
         return formBuilder.getForm();
     }
 }
