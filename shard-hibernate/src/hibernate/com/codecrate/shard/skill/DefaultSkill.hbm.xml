@@ -33,9 +33,9 @@
          lazy="false"
          table="SHA_SKILL_SYNERGY"
          access="field">
-            <key column="NAME"/>
+            <key column="PARENT_SKILL"/>
             <many-to-many class="com.codecrate.shard.skill.DefaultSkill"
-             column="CHILD_SKILL_NAME"/>
+             column="CHILD_SKILL"/>
         </set>        
     </class>
 
