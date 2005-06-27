@@ -146,6 +146,12 @@
       <url>http://springframework.org</url>
     </dependency>
     <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-mock</artifactId>
+      <version>1.1.5</version>
+      <url>http://springframework.org</url>
+    </dependency>
+    <dependency>
       <groupId>aopalliance</groupId>
       <artifactId>aopalliance</artifactId>
       <version>1.0</version>

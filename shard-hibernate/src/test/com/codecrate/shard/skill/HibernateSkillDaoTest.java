@@ -17,47 +17,49 @@ package com.codecrate.shard.skill;
 
 import java.util.Collection;
 
-import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
-import com.codecrate.shard.ability.Ability;
-import com.codecrate.shard.ability.AbilityDao;
+import com.codecrate.shard.ShardHibernateTestCaseSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateSkillDaoTest extends ShardHibernateDbUnitTestCaseSupport {
-    public HibernateSkillDaoTest(String name) throws Exception {
-        super(name);
-    }
+public class HibernateSkillDaoTest extends ShardHibernateTestCaseSupport {
 
-    protected String getDataSetPath() {
-        return "SHA_SKILL-data.xml";
-    }
+	private SkillDao skillDao;
+	private SkillFactory skillFactory;
+	
+	public void setSkillDao(SkillDao dao) {
+		this.skillDao = dao;
+	}
+	
+	public void setSkillFactory(SkillFactory factory) {
+		this.skillFactory = factory;
+	}
+
+	protected void onSetUpInTransaction() throws Exception {
+		super.onSetUpInTransaction();
+		skillDao.saveSkill(DefaultSkill.APPRAISE);
+		skillDao.saveSkill(DefaultSkill.BALANCE);
+		skillDao.saveSkill(DefaultSkill.CLIMB);
+	}
+
 
     public void testLoadsSkills() throws Exception {
-        SkillDao skillDao = (SkillDao) getContext().getBean("skillDao");
         Collection skills = skillDao.getSkills();
         assertFalse(skills.isEmpty());
     }
     
     public void testLoadsUntrainedSkills() throws Exception {
-        SkillDao skillDao = (SkillDao) getContext().getBean("skillDao");
         Collection skills = skillDao.getUntrainedSkills();
         assertFalse(skills.isEmpty());
     }
     
     public void testSkillCreation() throws Exception {
-        AbilityDao abilityDao = (AbilityDao) getContext().getBean("abilityDao");
-        Ability strength = abilityDao.getAbility("Strength");
-        SkillDao skillDao = (SkillDao) getContext().getBean("skillDao");
-        
-        Skill skill = new DefaultSkill("test skill", true, strength, false);
+        Skill skill = skillFactory.createSkill("test skill");
         skill = skillDao.saveSkill(skill);
         assertNotNull(skill);
     }
     
     public void testGetSkillByUnknownNameThrowsException() throws Exception {
-        SkillDao skillDao = (SkillDao) getContext().getBean("skillDao");
-        
         try {
             skillDao.getSkill("invalid skill");
             fail("Exception should be thrown.");

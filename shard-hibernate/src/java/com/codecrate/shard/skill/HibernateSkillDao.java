@@ -45,7 +45,7 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao, 
             public Object doInHibernate(Session session)
                     throws HibernateException {
                 Criteria query = session.createCriteria(DefaultSkill.class);
-                query.add(Expression.eq("usableUntrained", Boolean.FALSE));
+                query.add(Expression.eq("usableUntrained", Boolean.TRUE));
                 return query.list();
             }
         });

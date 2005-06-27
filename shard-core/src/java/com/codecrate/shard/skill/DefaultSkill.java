@@ -133,6 +133,7 @@ public class DefaultSkill implements Skill {
             true, DefaultAbility.DEXTERITY, false);
 
 
+    private String id;
     private String name;
     private boolean usableUntrained;
     private Collection childSkillSynergies = new HashSet();
@@ -148,7 +149,7 @@ public class DefaultSkill implements Skill {
     public DefaultSkill(String name) {
         this(name, false, null, false);
     }
-    
+
     public DefaultSkill(String name, boolean usableUntrained, Ability ability,
             boolean armorPenalty) {
         this.name = name;
