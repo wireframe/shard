@@ -15,24 +15,26 @@
  */
 package com.codecrate.shard.character;
 
-import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
+import com.codecrate.shard.ShardHibernateTestCaseSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateCharacterDaoTest extends ShardHibernateDbUnitTestCaseSupport {
+public class HibernateCharacterDaoTest extends ShardHibernateTestCaseSupport {
     
-    public HibernateCharacterDaoTest(String name) throws Exception {
-        super(name);
-    }
+	private CharacterDao characterDao;
+	private CharacterFactory characterFactory;
+	
+	public void setCharacterDao(CharacterDao characterDao) {
+		this.characterDao = characterDao;
+	}
 
-    protected String getDataSetPath() {
-        return "SHA_RACE_AGE-data.xml";
-    }
-    
-    public void testSaveNewCharacter() throws Exception {
-        CharacterDao characterDao = (CharacterDao) getContext().getBean("characterDao");
-        CharacterFactory characterFactory = (CharacterFactory) getContext().getBean("characterDao");
+	public void setCharacterFactory(CharacterFactory factory) {
+		this.characterFactory = factory;
+	}
+	
+	
+	public void testSaveNewCharacter() throws Exception {
         PlayerCharacter character = characterFactory.createCharacter("test");
         character = characterDao.saveCharacter(character);
         assertNotNull(character);

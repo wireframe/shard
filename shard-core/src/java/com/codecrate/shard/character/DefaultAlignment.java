@@ -15,6 +15,9 @@
  */
 package com.codecrate.shard.character;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Default alignment uses AlignmentComponents.
  * 
@@ -40,6 +43,19 @@ public class DefaultAlignment implements Alignment {
     public static final Alignment CHAOTIC_EVIL = new DefaultAlignment(AlignmentComponent.NEGATIVE,
         AlignmentComponent.NEGATIVE, "Chaotic Evil", "CE");
 
+	public static final Map INSTANCES = new HashMap();
+	
+	static {
+	    INSTANCES.put(LAWFUL_GOOD.toString(), LAWFUL_GOOD);
+	    INSTANCES.put(LAWFUL_NEUTRAL.toString(), LAWFUL_NEUTRAL);
+	    INSTANCES.put(LAWFUL_EVIL.toString(), LAWFUL_EVIL);
+	    INSTANCES.put(NEUTRAL_GOOD.toString(), NEUTRAL_GOOD);
+	    INSTANCES.put(NEUTRAL_NEUTRAL.toString(), NEUTRAL_NEUTRAL);
+	    INSTANCES.put(NEUTRAL_EVIL.toString(), NEUTRAL_EVIL);
+	    INSTANCES.put(CHAOTIC_GOOD.toString(), CHAOTIC_GOOD);
+	    INSTANCES.put(CHAOTIC_NEUTRAL.toString(), CHAOTIC_NEUTRAL);
+	    INSTANCES.put(CHAOTIC_EVIL.toString(), CHAOTIC_EVIL);
+	}
 
     private String name;
     private String abbreviation;
@@ -132,5 +148,9 @@ public class DefaultAlignment implements Alignment {
 	
 	public String getAbbreviation() {
 		return abbreviation;
+	}
+
+	public static Alignment getInstance(String name) {
+		return (Alignment) INSTANCES.get(name);
 	}
 }
