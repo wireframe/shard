@@ -17,22 +17,25 @@ package com.codecrate.shard.race;
 
 import java.util.Collection;
 
-import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
+import com.codecrate.shard.ShardHibernateTestCaseSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateLanguageDaoTest extends ShardHibernateDbUnitTestCaseSupport {
-    public HibernateLanguageDaoTest(String name) throws Exception {
-        super(name);
+public class HibernateLanguageDaoTest extends ShardHibernateTestCaseSupport {
+    private LanguageDao dao;
+    
+    public void setLanguageDao(LanguageDao dao) {
+    	this.dao = dao;
     }
 
-    protected String getDataSetPath() {
-        return "SHA_LANGUAGE-data.xml";
-    }
+    protected void onSetUpInTransaction() throws Exception {
+		super.onSetUpInTransaction();
+		
+		dao.saveLanguage(DefaultLanguage.COMMON);
+	}
 
-    public void testLoadsLanguages() throws Exception {
-        LanguageDao dao = (LanguageDao) getContext().getBean("languageDao");
+	public void testLoadsLanguages() throws Exception {
         Collection languages = dao.getLanguages();
         assertFalse(languages.isEmpty());
     }

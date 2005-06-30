@@ -17,35 +17,36 @@ package com.codecrate.shard.feat;
 
 import java.util.Collection;
 
-import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
+import com.codecrate.shard.ShardHibernateTestCaseSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateFeatDaoTest extends ShardHibernateDbUnitTestCaseSupport {
-    public HibernateFeatDaoTest(String name) throws Exception {
-        super(name);
-    }
+public class HibernateFeatDaoTest extends ShardHibernateTestCaseSupport {
+	private FeatDao featDao;
+	
+	public void setFeatDao(FeatDao dao) {
+		this.featDao = dao;
+	}
+	
+	protected void onSetUpInTransaction() throws Exception {
+		super.onSetUpInTransaction();
+		
+		featDao.saveFeat(DefaultFeat.ARMOR_PROFICIENCY_HEAVY);
+	}
 
-    protected String getDataSetPath() {
-        return "SHA_FEAT-data.xml";
-    }
-
-    public void testLoadsFeats() throws Exception {
-        FeatDao featDao = (FeatDao) getContext().getBean("featDao");
+	public void testLoadsFeats() throws Exception {
         Collection feats = featDao.getFeats();
         assertFalse(feats.isEmpty());
     }
     
     public void testGetSkillName() throws Exception {
-        FeatDao featDao = (FeatDao) getContext().getBean("featDao");
         Feat feat = (Feat) featDao.getFeats().iterator().next();
         Feat feat2 = featDao.getFeat(feat.getName());
         assertNotNull(feat2);
     }
     
     public void testGetSkillByUnknownNameThrowsException() throws Exception {
-        FeatDao featDao = (FeatDao) getContext().getBean("featDao");
         
         try {
             featDao.getFeat("invalid feat");

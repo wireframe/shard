@@ -19,4 +19,11 @@ import java.util.Collection;
 
 public interface LanguageDao {
     Collection getLanguages();
+
+    /**
+     * save a new language.
+     * @param language
+     * @return
+     */
+	Language saveLanguage(Language language);
 }

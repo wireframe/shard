@@ -23,4 +23,11 @@ import java.util.Collection;
 public interface RaceDao {
 
     Collection getRaces();
+
+    /**
+     * save a new race.
+     * @param race
+     * @return
+     */
+	Race saveRace(Race race);
 }

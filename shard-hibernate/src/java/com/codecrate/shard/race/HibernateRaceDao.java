@@ -32,12 +32,15 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao {
     public Collection getRaces() {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
-
             public Object doInHibernate(Session session) throws HibernateException, SQLException {
                 Criteria query = session.createCriteria(DefaultRace.class);
                 return query.list();
             }
-            
         });
+    }
+    
+    public Race saveRace(Race race) {
+        String id = (String) getHibernateTemplate().save(race);
+        return (Race) getHibernateTemplate().load(DefaultRace.class, id);
     }
 }

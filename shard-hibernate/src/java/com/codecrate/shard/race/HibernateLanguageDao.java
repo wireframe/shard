@@ -29,11 +29,15 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 public class HibernateLanguageDao extends HibernateDaoSupport implements LanguageDao {
     public Collection getLanguages() {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
-
             public Object doInHibernate(Session session) throws HibernateException, SQLException {
                 Criteria query = session.createCriteria(DefaultLanguage.class);
                 return query.list();
             }
         });
+    }
+    
+    public Language saveLanguage(Language language) {
+        String id = (String) getHibernateTemplate().save(language);
+        return (Language) getHibernateTemplate().load(DefaultLanguage.class, id);
     }
 }

@@ -17,23 +17,27 @@ package com.codecrate.shard.race;
 
 import java.util.Collection;
 
-import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
+import com.codecrate.shard.ShardHibernateTestCaseSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateRaceDaoTest extends ShardHibernateDbUnitTestCaseSupport {
-    public HibernateRaceDaoTest(String name) throws Exception {
-        super(name);
+public class HibernateRaceDaoTest extends ShardHibernateTestCaseSupport {
+    private RaceDao raceDao;
+    
+    public void setRaceDao(RaceDao dao) {
+    	this.raceDao = dao;
     }
+    
+	protected void onSetUpInTransaction() throws Exception {
+		super.onSetUpInTransaction();
+		
+		raceDao.saveRace(DefaultRace.HUMAN);
+	}
 
-    protected String getDataSetPath() {
-        return "SHA_RACE-data.xml";
-    }
 
-    public void testLoadsRaces() throws Exception {
-        RaceDao dao = (RaceDao) getContext().getBean("raceDao");
-        Collection races = dao.getRaces();
+	public void testLoadsRaces() throws Exception {
+        Collection races = raceDao.getRaces();
         assertFalse(races.isEmpty());
     }
 }
