@@ -16,7 +16,6 @@
 package com.codecrate.shard.ui;
 
 import java.awt.BorderLayout;
-import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -169,7 +168,8 @@ public class FeatManagerView extends AbstractView {
     
     private EventList getFeats() {
         if (null == feats) {
-            feats = new BasicEventList((List) featDao.getFeats());
+            feats = new BasicEventList();
+            feats.addAll(featDao.getFeats());
         }
         return feats;
     }

@@ -16,7 +16,6 @@
 package com.codecrate.shard.ui;
 
 import java.awt.BorderLayout;
-import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -174,7 +173,8 @@ public class SkillManagerView extends AbstractView {
     
     private EventList getSkills() {
         if (null == skills) {
-            skills = new BasicEventList((List)skillDao.getSkills());
+            skills = new BasicEventList();
+            skills.addAll(skillDao.getSkills());
         }
         return skills;
     }
