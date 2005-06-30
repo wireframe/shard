@@ -32,12 +32,15 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 public class HibernateCharacterClassDao extends HibernateDaoSupport implements CharacterClassDao {
     public Collection getClasses() {
         return (List) getHibernateTemplate().execute(new HibernateCallback(){
-
             public Object doInHibernate(Session session) throws HibernateException, SQLException {
                 Criteria query = session.createCriteria(DefaultCharacterClass.class);
                 return query.list();
             }
-            
         });
+    }
+    
+    public CharacterClass saveClass(CharacterClass kit) {
+        String id = (String) getHibernateTemplate().save(kit);
+        return (CharacterClass) getHibernateTemplate().load(DefaultCharacterClass.class, id);
     }
 }

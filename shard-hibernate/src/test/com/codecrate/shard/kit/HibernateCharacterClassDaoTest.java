@@ -17,23 +17,25 @@ package com.codecrate.shard.kit;
 
 import java.util.Collection;
 
-import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
+import com.codecrate.shard.ShardHibernateTestCaseSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateCharacterClassDaoTest extends ShardHibernateDbUnitTestCaseSupport {
-    public HibernateCharacterClassDaoTest(String name) throws Exception {
-        super(name);
-    }
-
-    protected String getDataSetPath() {
-        return "SHA_CLASS-data.xml";
-    }
+public class HibernateCharacterClassDaoTest extends ShardHibernateTestCaseSupport {
+	private CharacterClassDao characterClassDao;
+	
+	public void setCharacterClassDao(CharacterClassDao dao) {
+		this.characterClassDao = dao;
+	}
+	
+	protected void onSetUpInTransaction() throws Exception {
+		super.onSetUpInTransaction();
+		characterClassDao.saveClass(DefaultCharacterClass.FIGHTER);
+	}
 
     public void testLoadsClasses() throws Exception {
-        CharacterClassDao dao = (CharacterClassDao) getContext().getBean("characterClassDao");
-        Collection classes = dao.getClasses();
+        Collection classes = characterClassDao.getClasses();
         assertFalse(classes.isEmpty());
     }
 }

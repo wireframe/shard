@@ -23,4 +23,11 @@ import java.util.Collection;
 public interface CharacterClassDao {
 
     Collection getClasses();
+
+    /**
+     * Save a new class.
+     * @param kit
+     * @return
+     */
+	CharacterClass saveClass(CharacterClass kit);
 }
