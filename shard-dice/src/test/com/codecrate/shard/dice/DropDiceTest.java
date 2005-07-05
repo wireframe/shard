@@ -16,6 +16,7 @@
 package com.codecrate.shard.dice;
 
 import junit.framework.TestCase;
+import org.easymock.MockControl;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -23,25 +24,35 @@ import junit.framework.TestCase;
 public class DropDiceTest extends TestCase {
     
     public void testLowValuesDropped() {
-        DropDice dice = new DropDice(new MultipleDice(new MaxValueDice(RandomDice.d6), 4), 1, false);
+        MockControl mockDice = MockControl.createControl(Dice.class);
+        Dice dice = (Dice) mockDice.getMock();
+        dice.roll();
+        mockDice.setReturnValue(6);
+        dice.roll();
+        mockDice.setReturnValue(6);
+        dice.roll();
+        mockDice.setReturnValue(6);
+        dice.roll();
+        mockDice.setReturnValue(5);
+        mockDice.replay();
         
-        assertEquals(18, dice.getMaxValue());
+        DropDice dice = new DropDice(new MultipleDice(dice, 4), 1);
+        
         assertEquals(18, dice.roll());
     }
     
-    public void testHighValuesDropped() {
-        DropDice dice = new DropDice(new MultipleDice(new MaxValueDice(RandomDice.d6), 4), 1, true);
-        
-        assertEquals(18, dice.getMaxValue());
-        assertEquals(18, dice.roll());
-    }
-    
-    public void testLowValueComputedCorrectly() {
+    public void testMinValueComputedCorrectly() {
         DropDice dice = new DropDice(new MultipleDice(new MaxValueDice(RandomDice.d6), 4), 1, true);
         
         assertEquals(3, dice.getMinValue());
     }
-    
+
+    public void testMaxValueComputedCorrectly() {
+        DropDice dice = new DropDice(new MultipleDice(new MaxValueDice(RandomDice.d6), 4), 1, true);
+        
+        assertEquals(18, dice.getMaxValue());
+    }
+
     public void testCannotDropMoreDiceThanRolled() {
         try {
             new DropDice(new MultipleDice(RandomDice.d6, 4), 4, true);

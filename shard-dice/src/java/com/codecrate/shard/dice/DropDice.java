@@ -27,19 +27,16 @@ import org.apache.commons.collections.comparators.ReverseComparator;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DropDice extends DiceSupport implements Dice {
-    private MultipleDice dice;
-    private int drop;
-    private boolean dropHigh;
+    private final MultipleDice dice;
+    private final int drop;
     
-    public DropDice(MultipleDice dice, int drop, boolean dropHigh) {
-        
+    public DropDice(MultipleDice dice, int drop) {
         if (dice.getIterations() <= drop) {
             throw new IllegalArgumentException("Cannot drop more dice than rolled: " + drop);
         }
         
         this.dice = dice;
         this.drop = drop;
-        this.dropHigh = dropHigh;
     }
     
     public int getMaxValue() {
@@ -53,13 +50,8 @@ public class DropDice extends DiceSupport implements Dice {
     public int roll() {
         List values = dice.rollIterations();
         
-        if (!dropHigh) {
-            //sort from low to high
-            Collections.sort(values);
-        } else {
-            //sort from high to low 
-            Collections.sort(values, new ReverseComparator());
-        }
+        //sort from high to low 
+        Collections.sort(values, new ReverseComparator());
         
         int value = 0;
         for (int x = 0; x < dice.getIterations() - drop; x++) {
@@ -69,6 +61,6 @@ public class DropDice extends DiceSupport implements Dice {
     }
     
     public String toString() {
-        return "drop(" + dice.toString() + (dropHigh ?  ", high " : ", low ") + drop + ")";
+        return "drop(" + dice.toString() + ")";
     }
 }
