@@ -16,6 +16,7 @@
 package com.codecrate.shard.dice;
 
 import junit.framework.TestCase;
+
 import org.easymock.MockControl;
 
 /**
@@ -36,26 +37,26 @@ public class DropDiceTest extends TestCase {
         mockDice.setReturnValue(5);
         mockDice.replay();
         
-        DropDice dice = new DropDice(new MultipleDice(dice, 4), 1);
+        DropDice dropDice = new DropDice(new MultipleDice(dice, 4), 1);
         
-        assertEquals(18, dice.roll());
+        assertEquals(18, dropDice.roll());
     }
     
     public void testMinValueComputedCorrectly() {
-        DropDice dice = new DropDice(new MultipleDice(new MaxValueDice(RandomDice.d6), 4), 1, true);
+        DropDice dice = new DropDice(new MultipleDice(new MaxValueDice(RandomDice.d6), 4), 1);
         
         assertEquals(3, dice.getMinValue());
     }
 
     public void testMaxValueComputedCorrectly() {
-        DropDice dice = new DropDice(new MultipleDice(new MaxValueDice(RandomDice.d6), 4), 1, true);
+        DropDice dice = new DropDice(new MultipleDice(new MaxValueDice(RandomDice.d6), 4), 1);
         
         assertEquals(18, dice.getMaxValue());
     }
 
     public void testCannotDropMoreDiceThanRolled() {
         try {
-            new DropDice(new MultipleDice(RandomDice.d6, 4), 4, true);
+            new DropDice(new MultipleDice(RandomDice.d6, 4), 4);
             fail();
         } catch (IllegalArgumentException expected) {}
     }
