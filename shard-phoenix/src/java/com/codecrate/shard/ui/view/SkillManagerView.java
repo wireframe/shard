@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.codecrate.shard.ui;
+package com.codecrate.shard.ui.view;
 
 import java.awt.BorderLayout;
 
@@ -44,12 +44,15 @@ import org.springframework.richclient.util.PopupMenuMouseListener;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 
-import com.codecrate.shard.feat.Feat;
-import com.codecrate.shard.feat.FeatDao;
-import com.codecrate.shard.feat.FeatFactory;
+import com.codecrate.shard.ability.AbilityDao;
+import com.codecrate.shard.skill.Skill;
+import com.codecrate.shard.skill.SkillDao;
+import com.codecrate.shard.skill.SkillFactory;
+import com.codecrate.shard.ui.ShardCommandIds;
+import com.codecrate.shard.ui.form.SkillForm;
 import com.codecrate.shard.util.ShardTableUtils;
 
-public class FeatManagerView extends AbstractView {
+public class SkillManagerView extends AbstractView {
     private JScrollPane scrollPane;
     private JTable table;
     private GlazedTableModel model;
@@ -59,18 +62,23 @@ public class FeatManagerView extends AbstractView {
     private DeleteCommandExecutor deleteExecutor;
     private NewCommandExecutor newExecutor;
     
-    private EventList feats;
-    private FeatDao featDao;
-    private FeatFactory featFactory; 
+    private EventList skills;
+    private SkillDao skillDao;
+    private SkillFactory skillFactory;
+    private AbilityDao abilityDao;
     
-    public void setFeatDao(FeatDao featDao) {
-        this.featDao = featDao;
+    public void setAbilityDao(AbilityDao abilityDao) {
+        this.abilityDao = abilityDao;
     }
     
-    public void setFeatFactory(FeatFactory featFactory) {
-    	this.featFactory = featFactory;
+    public void setSkillDao(SkillDao skillDao) {
+        this.skillDao = skillDao;
     }
-
+    
+    public void setSkillFactory(SkillFactory skillFactory) {
+    	this.skillFactory = skillFactory;
+    }
+    
     protected JComponent createControl() {
         JPanel view = new JPanel();
         view.add(getScrollPane(), BorderLayout.WEST);
@@ -129,14 +137,14 @@ public class FeatManagerView extends AbstractView {
     }
 
     private boolean isDeleteCommandEnabled() {
-        if (null == getSelectedFeat()) {
+        if (null == getSelectedSkill()) {
             return false;
         }
         return true;
     }
 
     private boolean isPropertiesCommandEnabled() {
-        if (null == getSelectedFeat()) {
+        if (null == getSelectedSkill()) {
             return false;
         }
         return true;
@@ -145,7 +153,7 @@ public class FeatManagerView extends AbstractView {
 
     private JPopupMenu getPopupContextMenu() {
         if (null == popup) {
-            CommandGroup group = getWindowCommandManager().createCommandGroup("featsCommandGroup", new Object[] {
+            CommandGroup group = getWindowCommandManager().createCommandGroup("skillsCommandGroup", new Object[] {
                     GlobalCommandIds.PROPERTIES, 
                     GlobalCommandIds.DELETE, 
                     ShardCommandIds.NEW});
@@ -157,29 +165,28 @@ public class FeatManagerView extends AbstractView {
     private GlazedTableModel getModel() {
         if (null == model) {
             MessageSource messageSource = (MessageSource) getApplicationContext().getBean("messageSource");
-            String[] columns = new String[] {
-                    "name"
-                    , "type"
-            }; 
-            model = new GlazedTableModel(getFeats(), messageSource, columns);
+            String [] columns = new String[] {
+            		"name"
+            		, "ability.name"};
+        	model = new GlazedTableModel(getSkills(), messageSource, columns);
         }
         return model;
     }
     
-    private EventList getFeats() {
-        if (null == feats) {
-            feats = new BasicEventList();
-            feats.addAll(featDao.getFeats());
+    private EventList getSkills() {
+        if (null == skills) {
+            skills = new BasicEventList();
+            skills.addAll(skillDao.getSkills());
         }
-        return feats;
+        return skills;
     }
     
-    private Feat getSelectedFeat() {
-    	int index = ShardTableUtils.getSelectedIndex(getTable());
+    private Skill getSelectedSkill() {
+        int index = ShardTableUtils.getSelectedIndex(getTable());
         if (-1 == index) {
         	return null;
         }
-        return (Feat) getFeats().get(index);
+        return (Skill) getSkills().get(index);
     }
     
 
@@ -187,29 +194,29 @@ public class FeatManagerView extends AbstractView {
         public void execute() {
             ConfirmationDialog dialog = new ConfirmationDialog() {
                 protected void onConfirm() {
-                    Feat feat = getSelectedFeat();
-                    featDao.deleteSkill(feat);
-                    getFeats().remove(feat);
+                    Skill skill = getSelectedSkill();
+                    skillDao.deleteSkill(skill);
+                    getSkills().remove(skill);
                 }
             };
-            dialog.setTitle("Delete Feat");
-            dialog.setConfirmationMessage(getMessage("confirmDeleteFeatDialog.label"));
+            dialog.setTitle("Delete Skill");
+            dialog.setConfirmationMessage(getMessage("confirmDeleteSkillDialog.label"));
             dialog.showDialog();
         }
     }
 
 
     private class PropertiesCommandExecutor extends AbstractActionCommandExecutor {
-        private Feat feat;
-        private NestingFormModel featFormModel;
-        private FeatForm featForm;
+        private Skill skill;
+        private NestingFormModel skillFormModel;
+        private SkillForm skillForm;
         private FormBackedDialogPage page;
 
         public void execute() {
-            feat = getSelectedFeat();
-            featFormModel = FormModelHelper.createCompoundFormModel(feat);
-            featForm = new FeatForm(featFormModel);
-            page = new FormBackedDialogPage(featForm);
+            skill = getSelectedSkill();
+            skillFormModel = FormModelHelper.createCompoundFormModel(skill);
+            skillForm = new SkillForm(skillFormModel, abilityDao);
+            page = new FormBackedDialogPage(skillForm);
 
             TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
                 protected void onAboutToShow() {
@@ -217,10 +224,10 @@ public class FeatManagerView extends AbstractView {
                 }
 
                 protected boolean onFinish() {
-                    featFormModel.commit();
-                    featDao.updateFeat(feat);
-                    int index = getFeats().indexOf(feat);
-                    getFeats().set(index, feat);
+                    skillFormModel.commit();
+                    skillDao.updateSkill(skill);
+                    int index = getSkills().indexOf(skill);
+                    getSkills().set(index, skill);
                     return true;
                 }
             };
@@ -230,16 +237,16 @@ public class FeatManagerView extends AbstractView {
   
     
     private class NewCommandExecutor extends AbstractActionCommandExecutor {
-        private Feat feat;
-        private NestingFormModel featFormModel;
-        private FeatForm featForm;
+        private NestingFormModel skillFormModel;
+        private SkillForm skillForm;
         private FormBackedDialogPage page;
-
+        private Skill skill;
+        
         public void execute() {
-            feat = featFactory.createFeat("New Feat");
-            featFormModel = FormModelHelper.createCompoundFormModel(feat);
-            featForm = new FeatForm(featFormModel);
-            page = new FormBackedDialogPage(featForm);
+        	skill = skillFactory.createSkill("New Skill");
+            skillFormModel = FormModelHelper.createCompoundFormModel(skill);
+            skillForm = new SkillForm(skillFormModel, abilityDao);
+            page = new FormBackedDialogPage(skillForm);
 
             TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
                 protected void onAboutToShow() {
@@ -247,9 +254,9 @@ public class FeatManagerView extends AbstractView {
                 }
 
                 protected boolean onFinish() {
-                    featFormModel.commit();
-                    featDao.saveFeat(feat);
-                    getFeats().add(feat);
+                    skillFormModel.commit();
+                    skillDao.saveSkill(skill);
+                    getSkills().add(skill);
                     return true;
                 }
             };

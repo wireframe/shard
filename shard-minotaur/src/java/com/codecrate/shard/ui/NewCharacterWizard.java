@@ -25,6 +25,9 @@ import com.codecrate.shard.character.CharacterDao;
 import com.codecrate.shard.character.CharacterFactory;
 import com.codecrate.shard.character.PlayerCharacter;
 import com.codecrate.shard.race.RaceDao;
+import com.codecrate.shard.ui.form.AbilityScoreForm;
+import com.codecrate.shard.ui.form.BioForm;
+import com.codecrate.shard.ui.form.RaceForm;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>

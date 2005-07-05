@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.8 2005/06/25 20:58:04 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.9 2005/07/05 14:30:40 wireframe Exp $ -->
 <beans>
 	
 	<bean id="application" 
@@ -127,7 +127,7 @@
 	<bean id="skillManagerView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
 		<property name="viewClass">
-			<value>com.codecrate.shard.ui.SkillManagerView</value>
+			<value>com.codecrate.shard.ui.view.SkillManagerView</value>
 		</property>
 		<property name="viewProperties">
 			<map>
@@ -147,7 +147,7 @@
 	<bean id="featManagerView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
 		<property name="viewClass">
-			<value>com.codecrate.shard.ui.FeatManagerView</value>
+			<value>com.codecrate.shard.ui.view.FeatManagerView</value>
 		</property>
 		<property name="viewProperties">
 			<map>

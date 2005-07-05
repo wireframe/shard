@@ -13,26 +13,42 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.codecrate.shard.ui;
+package com.codecrate.shard.ui.form;
+
+import java.util.Collection;
 
 import javax.swing.JComponent;
 
 import org.springframework.binding.form.FormModel;
+import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.forms.AbstractForm;
 
-public class FeatForm extends AbstractForm {
-    private static final String FEAT_PAGE = "featPage";
+import com.codecrate.shard.ability.AbilityDao;
 
-    public FeatForm(FormModel formModel) {
-        super(formModel, FEAT_PAGE);
+public class SkillForm extends AbstractForm {
+    private static final String SKILL_PAGE = "skillPage";
+    private final AbilityDao abilityDao;
+
+    public SkillForm(FormModel formModel, AbilityDao abilityDao) {
+        super(formModel, SKILL_PAGE);
+        this.abilityDao = abilityDao;
     }
 
     protected JComponent createFormControl() {
-        TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
+        SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
+        TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
         formBuilder.add("name");
         formBuilder.row();
-        formBuilder.add("type");
+        formBuilder.add(bindingFactory.createBoundComboBox("ability", getAbilities()));
+        formBuilder.row();
+        formBuilder.add("penalizedWithArmor");
+        formBuilder.row();
+        formBuilder.add("usableUntrained");
         return formBuilder.getForm();
+    }
+    
+    private Collection getAbilities() {
+        return abilityDao.getAbilities();
     }
 }

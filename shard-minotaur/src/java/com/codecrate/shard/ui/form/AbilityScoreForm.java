@@ -13,10 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.ui;
+package com.codecrate.shard.ui.form;
 
 import javax.swing.JComponent;
-import javax.swing.JTextArea;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.form.builder.TableFormBuilder;
@@ -25,21 +24,28 @@ import org.springframework.richclient.forms.AbstractForm;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class BioForm extends AbstractForm {
+public class AbilityScoreForm extends AbstractForm {
 
-    public static final String PAGE_NAME = "bioPage";
+    public static final String PAGE_NAME = "abilityScorePage";
 
-    public BioForm(FormModel formModel) {
+    public AbilityScoreForm(FormModel formModel) {
         super(formModel, PAGE_NAME);
     }
 
     protected JComponent createFormControl() {
         TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
-        formBuilder.add("bio.name");
+        formBuilder.add("abilities.strength.value");
         formBuilder.row();
-        formBuilder.add("bio.weight");
+        formBuilder.add("abilities.dexterity.value");
         formBuilder.row();
-        formBuilder.add("bio.backstory", new JTextArea());
+        formBuilder.add("abilities.constitution.value");
+        formBuilder.row();
+        formBuilder.add("abilities.wisdom.value");
+        formBuilder.row();
+        formBuilder.add("abilities.intelligence.value");
+        formBuilder.row();
+        formBuilder.add("abilities.charisma.value");
+        formBuilder.row();
         return formBuilder.getForm();
     }
 }
