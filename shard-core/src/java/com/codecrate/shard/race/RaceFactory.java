@@ -15,23 +15,16 @@
  */
 package com.codecrate.shard.race;
 
-import java.util.Collection;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface RaceDao {
-
-    Collection getRaces();
+public interface RaceFactory {
 
     /**
-     * save a new race.
-     * @param race
+     * create a new race.
+     * @param name
      * @return
      */
-	Race saveRace(Race race);
-
-	void deleteRace(Race race);
-
-	void updateRace(Race race);
+	Race createRace(String name);
 }

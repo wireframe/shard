@@ -216,4 +216,12 @@ public class DefaultRace implements Race {
 	public int getBaseSkillPointsPerLevel() {
 	    return baseSkillPointsPerLevel;
 	}
+
+	public void setLevelAdjustment(int levelAdjustment) {
+		this.levelAdjustment = levelAdjustment;
+	}
+
+	public void setBaseSkillPointsPerLevel(int baseSkillPointsPerLevel) {
+		this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
+	}
 }

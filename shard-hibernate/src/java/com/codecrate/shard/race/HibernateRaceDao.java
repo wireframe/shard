@@ -29,7 +29,7 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao {
+public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao, RaceFactory {
     public Collection getRaces() {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session) throws HibernateException, SQLException {
@@ -43,4 +43,16 @@ public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao {
         String id = (String) getHibernateTemplate().save(race);
         return (Race) getHibernateTemplate().load(DefaultRace.class, id);
     }
+    
+    public Race createRace(String name) {
+    	return new DefaultRace(name, DefaultRacialSize.MEDIUM, null, null, null, 0, null, null, null, null, null, 0 );
+    }
+
+	public void deleteRace(Race race) {
+		getHibernateTemplate().delete(race);
+	}
+
+	public void updateRace(Race race) {
+		getHibernateTemplate().save(race);
+	}
 }
