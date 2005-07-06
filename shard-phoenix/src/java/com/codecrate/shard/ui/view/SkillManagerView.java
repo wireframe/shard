@@ -167,7 +167,7 @@ public class SkillManagerView extends AbstractView {
             MessageSource messageSource = (MessageSource) getApplicationContext().getBean("messageSource");
             String [] columns = new String[] {
             		"name"
-            		, "ability.name"};
+            		, "ability"};
         	model = new GlazedTableModel(getSkills(), messageSource, columns);
         }
         return model;
