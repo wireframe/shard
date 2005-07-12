@@ -67,7 +67,7 @@
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/javahelp/jars/javahelp-2.0.2.jar">
   </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/glazedlists/jars/glazedlists-1.1.jar">
+  <classpathentry kind="var" path="MAVEN_REPO/glazedlists/jars/glazedlists-0.9.6.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/easymock/jars/easymock-1.1.jar">
   </classpathentry>

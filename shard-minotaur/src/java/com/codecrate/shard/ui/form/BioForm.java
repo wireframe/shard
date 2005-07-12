@@ -16,11 +16,11 @@
 package com.codecrate.shard.ui.form;
 
 import javax.swing.JComponent;
-import javax.swing.JTextArea;
 
 import org.springframework.binding.form.FormModel;
+import org.springframework.richclient.form.AbstractForm;
+import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
-import org.springframework.richclient.forms.AbstractForm;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -34,12 +34,14 @@ public class BioForm extends AbstractForm {
     }
 
     protected JComponent createFormControl() {
+        SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
+
         TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
         formBuilder.add("bio.name");
         formBuilder.row();
         formBuilder.add("bio.weight");
         formBuilder.row();
-        formBuilder.add("bio.backstory", new JTextArea());
+        formBuilder.addInScrollPane(bindingFactory.createBoundTextArea("bio.backstory", 5, 0));
         return formBuilder.getForm();
     }
 }

@@ -20,9 +20,9 @@ import java.util.Collection;
 import javax.swing.JComponent;
 
 import org.springframework.binding.form.FormModel;
+import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
-import org.springframework.richclient.forms.AbstractForm;
 
 import com.codecrate.shard.ability.AbilityDao;
 

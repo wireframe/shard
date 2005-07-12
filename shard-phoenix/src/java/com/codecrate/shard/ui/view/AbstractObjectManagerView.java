@@ -41,7 +41,6 @@ import org.springframework.richclient.table.TableUtils;
 import org.springframework.richclient.table.support.GlazedTableModel;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
-import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 
 import com.codecrate.shard.feat.Feat;
@@ -51,7 +50,7 @@ import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.form.FeatForm;
 import com.codecrate.shard.util.ShardTableUtils;
 
-public class FeatManagerView extends AbstractView {
+public abstract class AbstractObjectManagerView extends AbstractView {
     private JScrollPane scrollPane;
     private JTable table;
     private GlazedTableModel model;
@@ -61,7 +60,6 @@ public class FeatManagerView extends AbstractView {
     private DeleteCommandExecutor deleteExecutor;
     private NewCommandExecutor newExecutor;
     
-    private EventList feats;
     private FeatDao featDao;
     private FeatFactory featFactory; 
     
@@ -163,25 +161,19 @@ public class FeatManagerView extends AbstractView {
                     "name"
                     , "type"
             }; 
-            model = new GlazedTableModel(getFeats(), messageSource, columns);
+            model = new GlazedTableModel(getObjects(), messageSource, columns);
         }
         return model;
     }
     
-    private EventList getFeats() {
-        if (null == feats) {
-            feats = new BasicEventList();
-            feats.addAll(featDao.getFeats());
-        }
-        return feats;
-    }
+    protected abstract EventList getObjects();
     
     private Feat getSelectedFeat() {
     	int index = ShardTableUtils.getSelectedIndex(getTable());
         if (-1 == index) {
         	return null;
         }
-        return (Feat) getFeats().get(index);
+        return (Feat) getObjects().get(index);
     }
     
 
@@ -191,7 +183,7 @@ public class FeatManagerView extends AbstractView {
                 protected void onConfirm() {
                     Feat feat = getSelectedFeat();
                     featDao.deleteSkill(feat);
-                    getFeats().remove(feat);
+                    getObjects().remove(feat);
                 }
             };
             dialog.setTitle("Delete Feat");
@@ -202,6 +194,7 @@ public class FeatManagerView extends AbstractView {
 
 
     private class PropertiesCommandExecutor extends AbstractActionCommandExecutor {
+    	private int index;
         private Feat feat;
         private NestingFormModel featFormModel;
         private FeatForm featForm;
@@ -209,6 +202,7 @@ public class FeatManagerView extends AbstractView {
 
         public void execute() {
             feat = getSelectedFeat();
+            index = getObjects().indexOf(feat);
             featFormModel = FormModelHelper.createCompoundFormModel(feat);
             featForm = new FeatForm(featFormModel);
             page = new FormBackedDialogPage(featForm);
@@ -221,8 +215,7 @@ public class FeatManagerView extends AbstractView {
                 protected boolean onFinish() {
                     featFormModel.commit();
                     featDao.updateFeat(feat);
-                    int index = getFeats().indexOf(feat);
-                    getFeats().set(index, feat);
+                    getObjects().set(index, feat);
                     return true;
                 }
             };
@@ -251,7 +244,7 @@ public class FeatManagerView extends AbstractView {
                 protected boolean onFinish() {
                     featFormModel.commit();
                     featDao.saveFeat(feat);
-                    getFeats().add(feat);
+                    getObjects().add(feat);
                     return true;
                 }
             };

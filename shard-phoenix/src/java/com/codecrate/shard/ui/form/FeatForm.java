@@ -18,8 +18,8 @@ package com.codecrate.shard.ui.form;
 import javax.swing.JComponent;
 
 import org.springframework.binding.form.FormModel;
+import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.builder.TableFormBuilder;
-import org.springframework.richclient.forms.AbstractForm;
 
 public class FeatForm extends AbstractForm {
     private static final String FEAT_PAGE = "featPage";
