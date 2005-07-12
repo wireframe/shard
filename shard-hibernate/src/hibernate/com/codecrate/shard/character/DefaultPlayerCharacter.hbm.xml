@@ -17,6 +17,12 @@
 		 type="com.codecrate.shard.character.AlignmentUserType"
 		 not-null="true"
          access="field"/>
+        
+        <many-to-one name="race" 
+         class="com.codecrate.shard.race.DefaultRace" 
+         column="RACE" 
+         cascade="all"
+         access="field"/>
     </class>
 
 </hibernate-mapping>

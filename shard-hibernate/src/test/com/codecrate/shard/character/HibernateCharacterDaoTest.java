@@ -35,7 +35,7 @@ public class HibernateCharacterDaoTest extends ShardHibernateTestCaseSupport {
 	
 	
 	public void testSaveNewCharacter() throws Exception {
-        PlayerCharacter character = characterFactory.createCharacter("test");
+        PlayerCharacter character = characterFactory.createCharacter("test", null);
         character = characterDao.saveCharacter(character);
         assertNotNull(character);
     }

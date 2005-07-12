@@ -37,10 +37,9 @@ public class HibernateCharacterDao extends HibernateDaoSupport implements Charac
 	
 	private AbilityScoreDao abilityScoreDao;
 	
-	public PlayerCharacter createCharacter(String name) {
+	public PlayerCharacter createCharacter(String name, Race race) {
 		DefaultCharacterBio bio = new DefaultCharacterBio(name);
 		Age age = new DefaultAge(18, 100, CummulativeAgeCategory.ADULT);
-		Race race = DefaultRace.HUMAN;
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
 		CharacterProgression characterProgression = new DefaultCharacterProgression(Collections.EMPTY_LIST);
 		ItemEntryContainer inventory = new DefaultItemEntryContainer(Collections.EMPTY_LIST);
