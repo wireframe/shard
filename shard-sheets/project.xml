@@ -53,6 +53,12 @@
       <version>1.1.5</version>
       <url>http://springframework.org</url>
     </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-mock</artifactId>
+      <version>1.1.5</version>
+      <url>http://springframework.org</url>
+    </dependency>
     
   </dependencies>
   

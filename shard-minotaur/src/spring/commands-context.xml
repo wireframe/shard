@@ -17,6 +17,7 @@
 				<value>selectAllCommand</value>
 				<value>deleteCommand</value>
 				<value>newCommand</value>
+				<value>printCommand</value>
 			</list>
 		</property>
 	</bean>
@@ -53,6 +54,7 @@
 				<value>saveAsCommand</value>
 				<value>separator</value>
 				<value>propertiesCommand</value>
+				<value>printCommand</value>
 				<value>separator</value>
 				<bean class="org.springframework.richclient.command.support.ExitCommand"/>
 			</list>

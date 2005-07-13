@@ -18,12 +18,51 @@ package com.codecrate.shard.ui.view;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import org.apache.velocity.Template;
+import org.apache.velocity.app.VelocityEngine;
+import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
+import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
+
+import com.codecrate.shard.action.PrintCharacterAction;
+import com.codecrate.shard.ui.ShardCommandIds;
 
 public class MainView extends AbstractView {
 
+    private PrintCommandExecutor printExecutor;
+    private VelocityEngine velocityEngine;
+    
     protected JComponent createControl() {
         JPanel view = new JPanel();
         return view;
+    }
+    
+    protected void registerLocalCommandExecutors(PageComponentContext context) {
+        context.register(ShardCommandIds.PRINT, getPrintCommand());
+    }
+    
+    public void setVelocityEngine(VelocityEngine engine) {
+    	this.velocityEngine = engine;
+    }
+    
+    private PrintCommandExecutor getPrintCommand() {
+        if (null == printExecutor) {
+        	printExecutor = new PrintCommandExecutor();
+            printExecutor.setEnabled(true);
+        }
+        return printExecutor;
+    }
+
+    private class PrintCommandExecutor extends AbstractActionCommandExecutor {
+
+        public void execute() {
+			try {
+	        	Template template = velocityEngine.getTemplate("default.vm");
+	        	PrintCharacterAction printAction = new PrintCharacterAction(null, template);
+	        	System.out.println(printAction.render().toString());
+			} catch (Exception e) {
+				throw new IllegalStateException("Error trying to print character", e);
+			}
+       }
     }
 }

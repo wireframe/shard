@@ -19,13 +19,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import junit.framework.TestCase;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.easymock.MockControl;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.AbilityScoreDao;
@@ -57,12 +54,19 @@ import com.codecrate.shard.race.DefaultRace;
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.skill.DefaultSkill;
 
-public class PrintCharacterActionTest extends TestCase {
+public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringContextTests {
 
+	private VelocityEngine engine;
+	
+	protected final String[] getConfigLocations() {
+		return new String[] {"/shard-sheets-context.xml"}; 
+	}
+
+	public void setEngine(VelocityEngine engine) {
+		this.engine = engine;
+	}
+	
 	public void testMerge() throws Exception {
-        String[] paths = {"/shard-sheets-context.xml"}; 
-        ApplicationContext context = new ClassPathXmlApplicationContext(paths);
-        VelocityEngine engine = (VelocityEngine) context.getBean("velocityEngine");
 		Template template = engine.getTemplate("default.vm");
 		
 		MockControl mockAbilityScoreDao = MockControl.createControl(AbilityScoreDao.class);

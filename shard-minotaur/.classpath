@@ -23,6 +23,10 @@
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-2.1.jar">
   </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/velocity/jars/velocity-1.4.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/velocity-tools/jars/velocity-tools-1.1.jar">
+  </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-core-1.1.5.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-context-1.1.5.jar">
