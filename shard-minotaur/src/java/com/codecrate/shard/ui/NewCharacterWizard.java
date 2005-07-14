@@ -43,6 +43,8 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
 
     private RaceDao raceDao;
 
+	private static PlayerCharacter character;
+
     public NewCharacterWizard() {
         super(WIZARD_NAME);
     }
@@ -55,7 +57,8 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
     
     protected boolean onFinish() {
         getWizardForm().commit();
-        characterDao.saveCharacter((PlayerCharacter) getWizardForm().getFormObject());
+        character = (PlayerCharacter) getWizardForm().getFormObject();
+		characterDao.saveCharacter(character);
         return true;
     }
 
@@ -92,5 +95,12 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
     
     public void setRaceDao(RaceDao raceDao) {
         this.raceDao = raceDao;
+    }
+    
+    /**
+     * @deprecated don't use this!
+     */
+    public static PlayerCharacter getCharacter() {
+    	return character;
     }
 }
