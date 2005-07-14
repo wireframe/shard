@@ -18,6 +18,8 @@ package com.codecrate.shard.ui.view;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.richclient.application.PageComponentContext;
@@ -28,7 +30,8 @@ import com.codecrate.shard.action.PrintCharacterAction;
 import com.codecrate.shard.ui.ShardCommandIds;
 
 public class MainView extends AbstractView {
-
+	private static final Log LOGGER = LogFactory.getLog(MainView.class);
+	
     private PrintCommandExecutor printExecutor;
     private VelocityEngine velocityEngine;
     
@@ -61,7 +64,7 @@ public class MainView extends AbstractView {
 	        	PrintCharacterAction printAction = new PrintCharacterAction(null, template);
 	        	System.out.println(printAction.render().toString());
 			} catch (Exception e) {
-				throw new IllegalStateException("Error trying to print character", e);
+				LOGGER.warn("Error trying to print character", e);
 			}
        }
     }
