@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard.character;
 
-import com.codecrate.shard.race.Race;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -25,9 +24,7 @@ public interface CharacterFactory {
     /**
      * creates a new character
      * @param name for the new character.
-     * @param race race of the character.
      * @return
      */
-    PlayerCharacter createCharacter(String name, Race race);
-
+    PlayerCharacter createCharacter(String name);
 }

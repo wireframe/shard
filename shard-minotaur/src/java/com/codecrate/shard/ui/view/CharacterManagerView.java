@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.ui.view;
 
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.print.Book;
 import java.awt.print.PageFormat;
@@ -23,6 +24,7 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.apache.commons.logging.Log;
@@ -32,20 +34,27 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
+import org.springframework.richclient.wizard.Wizard;
+import org.springframework.richclient.wizard.WizardListener;
 
 import com.codecrate.shard.action.PrintCharacterAction;
 import com.codecrate.shard.character.PlayerCharacter;
 import com.codecrate.shard.ui.NewCharacterWizard;
 import com.codecrate.shard.ui.ShardCommandIds;
 
-public class MainView extends AbstractView {
-	private static final Log LOGGER = LogFactory.getLog(MainView.class);
-	
+public class CharacterManagerView extends AbstractView implements WizardListener {
+	private static final Log LOGGER = LogFactory.getLog(CharacterManagerView.class);
+
+	private JLabel label;
+
+    private PlayerCharacter character;
+
     private PrintCommandExecutor printExecutor;
     private VelocityEngine velocityEngine;
-    
+
     protected JComponent createControl() {
         JPanel view = new JPanel();
+        view.add(getLabel(), BorderLayout.CENTER);
         return view;
     }
     
@@ -55,6 +64,10 @@ public class MainView extends AbstractView {
     
     public void setVelocityEngine(VelocityEngine engine) {
     	this.velocityEngine = engine;
+    }
+    
+    public void setNewCharacterWizard(NewCharacterWizard wizard) {
+    	wizard.addWizardListener(this);
     }
     
     private PrintCommandExecutor getPrintCommand() {
@@ -67,10 +80,9 @@ public class MainView extends AbstractView {
 
     private class PrintCommandExecutor extends AbstractActionCommandExecutor {
 
-        public void execute() {
+		public void execute() {
 			try {
 	        	Template template = velocityEngine.getTemplate("default.vm");
-	        	PlayerCharacter character = NewCharacterWizard.getCharacter();
 				PrintCharacterAction printAction = new PrintCharacterAction(character , template);
 				
 				PrinterJob job = PrinterJob.getPrinterJob();
@@ -94,4 +106,25 @@ public class MainView extends AbstractView {
 			}
        }
     }
+
+    private JLabel getLabel() {
+    	if (null == label) {
+    		label = new JLabel();
+    	}
+    	return label;
+    }
+    
+	public void onPerformFinish(Wizard wizard, boolean arg1) {
+		this.character = ((NewCharacterWizard)wizard).getCharacter();
+    	try {
+			Template template = velocityEngine.getTemplate("default.vm");
+			PrintCharacterAction printAction = new PrintCharacterAction(character , template);
+			getLabel().setText(printAction.render().toString());
+		} catch (Exception e) {
+			LOGGER.warn("Error rendering new character.", e);
+		}
+	}
+
+	public void onPerformCancel(Wizard wizard, boolean arg1) {
+	}
 }

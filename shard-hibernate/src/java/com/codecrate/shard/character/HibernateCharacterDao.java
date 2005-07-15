@@ -15,7 +15,7 @@
  */
 package com.codecrate.shard.character;
 
-import java.util.Collections;
+import java.util.ArrayList;
 
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
@@ -37,12 +37,13 @@ public class HibernateCharacterDao extends HibernateDaoSupport implements Charac
 	
 	private AbilityScoreDao abilityScoreDao;
 	
-	public PlayerCharacter createCharacter(String name, Race race) {
+	public PlayerCharacter createCharacter(String name) {
 		DefaultCharacterBio bio = new DefaultCharacterBio(name);
+		Race race = DefaultRace.HUMAN;
 		Age age = new DefaultAge(18, 100, CummulativeAgeCategory.ADULT);
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
-		CharacterProgression characterProgression = new DefaultCharacterProgression(Collections.EMPTY_LIST);
-		ItemEntryContainer inventory = new DefaultItemEntryContainer(Collections.EMPTY_LIST);
+		CharacterProgression characterProgression = new DefaultCharacterProgression(new ArrayList());
+		ItemEntryContainer inventory = new DefaultItemEntryContainer(new ArrayList());
 		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
 		Deity deity = null; 

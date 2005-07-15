@@ -24,7 +24,6 @@ import org.springframework.richclient.wizard.WizardDialog;
 import com.codecrate.shard.character.CharacterDao;
 import com.codecrate.shard.character.CharacterFactory;
 import com.codecrate.shard.character.PlayerCharacter;
-import com.codecrate.shard.race.Race;
 import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.ui.form.AbilityScoreForm;
 import com.codecrate.shard.ui.form.BioForm;
@@ -63,7 +62,7 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
     }
 
     public void execute() {
-        getWizardForm().setFormObject(characterFactory.createCharacter("New Character", getDefaultRace()));
+        getWizardForm().setFormObject(characterFactory.createCharacter("New Character"));
         getWizardDialog().showDialog();
     }
     
@@ -81,10 +80,6 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
         return wizardDialog;
     }
     
-    private Race getDefaultRace() {
-    	return (Race) raceDao.getRaces().iterator().next();
-    }
-    
     public void setCharacterFactory(CharacterFactory characterFactory) {
     	this.characterFactory = characterFactory;
     }
@@ -97,10 +92,7 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
         this.raceDao = raceDao;
     }
     
-    /**
-     * @deprecated don't use this!
-     */
-    public static PlayerCharacter getCharacter() {
+    public PlayerCharacter getCharacter() {
     	return character;
     }
 }
