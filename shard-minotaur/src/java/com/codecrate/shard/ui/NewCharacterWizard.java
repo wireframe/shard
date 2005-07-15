@@ -21,6 +21,7 @@ import org.springframework.richclient.wizard.AbstractWizard;
 import org.springframework.richclient.wizard.FormBackedWizardPage;
 import org.springframework.richclient.wizard.WizardDialog;
 
+import com.codecrate.shard.character.AlignmentDao;
 import com.codecrate.shard.character.CharacterDao;
 import com.codecrate.shard.character.CharacterFactory;
 import com.codecrate.shard.character.PlayerCharacter;
@@ -41,6 +42,7 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
 	private CharacterDao characterDao;
 
     private RaceDao raceDao;
+    private AlignmentDao alignmentDao;
 
 	private static PlayerCharacter character;
 
@@ -50,7 +52,7 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
 
     public void addPages() {
         addPage(new FormBackedWizardPage(new AbilityScoreForm(getWizardForm().getFormModel())));
-        addPage(new FormBackedWizardPage(new RaceForm(getWizardForm().getFormModel(), raceDao)));
+        addPage(new FormBackedWizardPage(new RaceForm(getWizardForm().getFormModel(), raceDao, alignmentDao)));
         addPage(new FormBackedWizardPage(new BioForm(getWizardForm().getFormModel())));
     }
     
@@ -90,6 +92,10 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
     
     public void setRaceDao(RaceDao raceDao) {
         this.raceDao = raceDao;
+    }
+
+    public void setAlignmentDao(AlignmentDao alignmentDao) {
+    	this.alignmentDao = alignmentDao;
     }
     
     public PlayerCharacter getCharacter() {

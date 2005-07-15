@@ -24,6 +24,7 @@ import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 
+import com.codecrate.shard.character.AlignmentDao;
 import com.codecrate.shard.race.RaceDao;
 
 /**
@@ -33,10 +34,12 @@ public class RaceForm extends AbstractForm {
 
     public static final String PAGE_NAME = "racePage";
     private final RaceDao raceDao;
+    private final AlignmentDao alignmentDao;
 
-    public RaceForm(FormModel formModel, RaceDao raceDao) {
+    public RaceForm(FormModel formModel, RaceDao raceDao, AlignmentDao alignmentDao) {
         super(formModel, PAGE_NAME);
         this.raceDao = raceDao;
+        this.alignmentDao = alignmentDao;
     }
     
     protected JComponent createFormControl() {
@@ -44,10 +47,16 @@ public class RaceForm extends AbstractForm {
         
         TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
         formBuilder.add(bindingFactory.createBoundComboBox("race", getRaces()));
+        formBuilder.row();
+        formBuilder.add(bindingFactory.createBoundComboBox("alignment", getAlignments()));
         return formBuilder.getForm();
     }
 
     private Collection getRaces() {
         return raceDao.getRaces();
+    }
+    
+    private Collection getAlignments() {
+    	return alignmentDao.getAlignments();
     }
 }

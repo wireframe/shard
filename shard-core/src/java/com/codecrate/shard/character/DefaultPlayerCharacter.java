@@ -172,4 +172,12 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     public Deity getDeity() {
         return deity;
     }
+    
+    public void setRace(Race race) {
+    	this.race = race;
+    }
+    
+    public void setAlignment(Alignment alignment) {
+    	this.alignment = alignment;
+    }
 }
