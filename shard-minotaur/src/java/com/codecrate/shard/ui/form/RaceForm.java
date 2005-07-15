@@ -41,7 +41,8 @@ public class RaceForm extends AbstractForm {
     
     protected JComponent createFormControl() {
         SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
-        TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
+        
+        TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
         formBuilder.add(bindingFactory.createBoundComboBox("race", getRaces()));
         return formBuilder.getForm();
     }
