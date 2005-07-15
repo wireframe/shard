@@ -17,28 +17,25 @@ package com.codecrate.shard.ability;
 
 import java.util.Collection;
 
-import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
+import com.codecrate.shard.ShardHibernateTestCaseSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateAbilityDaoTest extends ShardHibernateDbUnitTestCaseSupport {
-    public HibernateAbilityDaoTest(String name) throws Exception {
-        super(name);
-    }
+public class HibernateAbilityDaoTest extends ShardHibernateTestCaseSupport {
 
-    protected String getDataSetPath() {
-        return "SHA_FEAT-data.xml";
-    }
-    
-    public void testLookupOfAbilities() throws Exception {
-        AbilityDao abilityDao = (AbilityDao) getContext().getBean("abilityDao");
+	private AbilityDao abilityDao;
+	
+	public void setAbilityDao(AbilityDao abilityDao) {
+		this.abilityDao = abilityDao;
+	}
+	
+	public void testLookupOfAbilities() throws Exception {
         Collection abilities = abilityDao.getAbilities();
         assertFalse(abilities.isEmpty());
     }
     
     public void testLookupOfStrength() throws Exception {
-        AbilityDao abilityDao = (AbilityDao) getContext().getBean("abilityDao");
         Ability ability = abilityDao.getAbility("Strength");
         assertNotNull(ability);
     }
