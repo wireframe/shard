@@ -35,7 +35,11 @@ import com.codecrate.shard.race.Race;
  */
 public class HibernateCharacterDao extends HibernateDaoSupport implements CharacterDao, CharacterFactory {
 	
-	private AbilityScoreDao abilityScoreDao;
+	private final AbilityScoreDao abilityScoreDao;
+	
+	public HibernateCharacterDao(AbilityScoreDao abilityScoreDao) {
+		this.abilityScoreDao = abilityScoreDao;
+	}
 	
 	public PlayerCharacter createCharacter(String name) {
 		DefaultCharacterBio bio = new DefaultCharacterBio(name);
@@ -54,9 +58,5 @@ public class HibernateCharacterDao extends HibernateDaoSupport implements Charac
 	public PlayerCharacter saveCharacter(PlayerCharacter character) {
         String id = (String) getHibernateTemplate().save(character);
         return (PlayerCharacter) getHibernateTemplate().load(DefaultPlayerCharacter.class, id);
-	}
-
-	public void setAbilityScoreDao(AbilityScoreDao abilityScoreDao) {
-		this.abilityScoreDao = abilityScoreDao;
 	}
 }

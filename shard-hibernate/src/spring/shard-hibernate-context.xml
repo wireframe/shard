@@ -153,11 +153,11 @@
 	<bean id="characterDao" parent="transactionTemplate">
 	  <property name="target">
 	    <bean class="com.codecrate.shard.character.HibernateCharacterDao">
+  	      <constructor-arg>
+  	        <ref bean="abilityScoreDao"/>
+	      </constructor-arg>
   	      <property name="sessionFactory">
 	        <ref bean="sessionFactory"/>
-	      </property>
-  	      <property name="abilityScoreDao">
-	        <ref bean="abilityScoreDao"/>
 	      </property>
 	    </bean>
 	  </property>
