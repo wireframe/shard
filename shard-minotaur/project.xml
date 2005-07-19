@@ -84,12 +84,18 @@
       <artifactId>velocity</artifactId>
       <version>1.4</version>
       <url>http://jakarta.apache.org/velocity</url>
+      <properties>
+        <jnlp.jar>true</jnlp.jar>
+      </properties>
     </dependency>
     <dependency>
       <groupId>velocity-tools</groupId>
       <artifactId>velocity-tools</artifactId>
       <version>1.1</version>
       <url>http://jakarta.apache.org/velocity/tools/index.html</url>
+      <properties>
+        <jnlp.jar>true</jnlp.jar>
+      </properties>
     </dependency>
         
     <!-- springframework dependencies -->
