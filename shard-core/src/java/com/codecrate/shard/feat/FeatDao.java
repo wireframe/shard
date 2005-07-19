@@ -46,7 +46,7 @@ public interface FeatDao {
      * delete a feat.
      * @param feat
      */
-    void deleteSkill(Feat feat);
+    void deleteFeat(Feat feat);
 
     /**
      * saves a new feat.

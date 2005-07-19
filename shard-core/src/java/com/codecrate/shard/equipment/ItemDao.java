@@ -15,29 +15,13 @@
  */
 package com.codecrate.shard.equipment;
 
-import java.math.BigDecimal;
+import java.util.Collection;
 
-/**
- * 
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
- */
-public interface Item {
+public interface ItemDao {
+
 	/**
-	 * gets the name of the item.
+	 * gets all items.
 	 * @return
 	 */
-	String getName();
-	
-	/**
-	 * gets the weight.
-	 * TODO a Weight object should be created to encapsulate unit of measure 
-	 * @return
-	 */
-    BigDecimal getWeight();
-
-    /**
-     * gets the cost of the item.
-     * @return
-     */
-    Money getCost();
+	Collection getItems();
 }

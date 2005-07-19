@@ -15,29 +15,7 @@
  */
 package com.codecrate.shard.equipment;
 
-import java.math.BigDecimal;
+public interface ItemFactory {
 
-/**
- * 
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
- */
-public interface Item {
-	/**
-	 * gets the name of the item.
-	 * @return
-	 */
-	String getName();
-	
-	/**
-	 * gets the weight.
-	 * TODO a Weight object should be created to encapsulate unit of measure 
-	 * @return
-	 */
-    BigDecimal getWeight();
-
-    /**
-     * gets the cost of the item.
-     * @return
-     */
-    Money getCost();
+	Item createItem(String name);
 }

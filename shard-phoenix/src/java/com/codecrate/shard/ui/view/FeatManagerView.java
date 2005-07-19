@@ -190,7 +190,7 @@ public class FeatManagerView extends AbstractView {
             ConfirmationDialog dialog = new ConfirmationDialog() {
                 protected void onConfirm() {
                     Feat feat = getSelectedFeat();
-                    featDao.deleteSkill(feat);
+                    featDao.deleteFeat(feat);
                     getFeats().remove(feat);
                 }
             };

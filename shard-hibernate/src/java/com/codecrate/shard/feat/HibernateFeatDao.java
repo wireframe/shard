@@ -65,7 +65,7 @@ public class HibernateFeatDao extends HibernateDaoSupport implements FeatDao, Fe
         return (Feat) getHibernateTemplate().load(DefaultFeat.class, id);
     }
 
-    public void deleteSkill(Feat feat) {
+    public void deleteFeat(Feat feat) {
         getHibernateTemplate().delete(feat);
     }
     

@@ -16,7 +16,10 @@
 package com.codecrate.shard.ui.view;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -26,28 +29,19 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.springframework.binding.form.NestingFormModel;
 import org.springframework.context.MessageSource;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.command.support.GlobalCommandIds;
-import org.springframework.richclient.dialog.ConfirmationDialog;
-import org.springframework.richclient.dialog.FormBackedDialogPage;
-import org.springframework.richclient.dialog.TitledPageApplicationDialog;
-import org.springframework.richclient.form.FormModelHelper;
 import org.springframework.richclient.table.TableUtils;
 import org.springframework.richclient.table.support.GlazedTableModel;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
 import ca.odell.glazedlists.EventList;
 
-import com.codecrate.shard.feat.Feat;
-import com.codecrate.shard.feat.FeatDao;
-import com.codecrate.shard.feat.FeatFactory;
 import com.codecrate.shard.ui.ShardCommandIds;
-import com.codecrate.shard.ui.form.FeatForm;
 import com.codecrate.shard.util.ShardTableUtils;
 
 public abstract class AbstractObjectManagerView extends AbstractView {
@@ -55,25 +49,12 @@ public abstract class AbstractObjectManagerView extends AbstractView {
     private JTable table;
     private GlazedTableModel model;
     private JPopupMenu popup;
-
-    private PropertiesCommandExecutor propertiesExecutor;
-    private DeleteCommandExecutor deleteExecutor;
-    private NewCommandExecutor newExecutor;
-    
-    private FeatDao featDao;
-    private FeatFactory featFactory; 
-    
-    public void setFeatDao(FeatDao featDao) {
-        this.featDao = featDao;
-    }
-    
-    public void setFeatFactory(FeatFactory featFactory) {
-    	this.featFactory = featFactory;
-    }
+	private JButton newButton;
 
     protected JComponent createControl() {
         JPanel view = new JPanel();
         view.add(getScrollPane(), BorderLayout.WEST);
+        view.add(getNewButton(), BorderLayout.EAST);
         return view;
     }
     
@@ -83,27 +64,24 @@ public abstract class AbstractObjectManagerView extends AbstractView {
         context.register(ShardCommandIds.NEW, getNewCommand());
     }
 
-    private PropertiesCommandExecutor getPropertiesCommand() {
-        if (null == propertiesExecutor) {
-            propertiesExecutor = new PropertiesCommandExecutor();
+    protected abstract AbstractActionCommandExecutor getPropertiesCommand();
+    
+    protected abstract AbstractActionCommandExecutor getDeleteCommand();
+
+    protected abstract AbstractActionCommandExecutor getNewCommand();
+
+    protected abstract String[] getColumnNames();
+    
+    protected abstract EventList getObjects();
+    
+    protected Object getSelectedObject() {
+    	int index = ShardTableUtils.getSelectedIndex(getTable());
+        if (-1 == index) {
+        	return null;
         }
-        return propertiesExecutor;
+        return getObjects().get(index);
     }
     
-    private DeleteCommandExecutor getDeleteCommand() {
-        if (null == deleteExecutor) {
-            deleteExecutor = new DeleteCommandExecutor();
-        }
-        return deleteExecutor;
-    }
-
-    private NewCommandExecutor getNewCommand() {
-        if (null == newExecutor) {
-            newExecutor = new NewCommandExecutor();
-            newExecutor.setEnabled(true);
-        }
-        return newExecutor;
-    }
     private JScrollPane getScrollPane() {
         if (null == scrollPane) {
             scrollPane = new JScrollPane(getTable());
@@ -127,16 +105,28 @@ public abstract class AbstractObjectManagerView extends AbstractView {
         }
         return table;
     }
+    
+    private JButton getNewButton() {
+    	if (null == newButton) {
+    		newButton = new JButton("New...");
+    		newButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					getNewCommand().execute();
+				}
+    		});
+    	}
+    	return newButton;
+    }
 
     private boolean isDeleteCommandEnabled() {
-        if (null == getSelectedFeat()) {
+        if (null == getSelectedObject()) {
             return false;
         }
         return true;
     }
 
     private boolean isPropertiesCommandEnabled() {
-        if (null == getSelectedFeat()) {
+        if (null == getSelectedObject()) {
             return false;
         }
         return true;
@@ -157,98 +147,9 @@ public abstract class AbstractObjectManagerView extends AbstractView {
     private GlazedTableModel getModel() {
         if (null == model) {
             MessageSource messageSource = (MessageSource) getApplicationContext().getBean("messageSource");
-            String[] columns = new String[] {
-                    "name"
-                    , "type"
-            }; 
-            model = new GlazedTableModel(getObjects(), messageSource, columns);
+            model = new GlazedTableModel(getObjects(), messageSource, getColumnNames());
         }
         return model;
     }
-    
-    protected abstract EventList getObjects();
-    
-    private Feat getSelectedFeat() {
-    	int index = ShardTableUtils.getSelectedIndex(getTable());
-        if (-1 == index) {
-        	return null;
-        }
-        return (Feat) getObjects().get(index);
-    }
-    
 
-    private class DeleteCommandExecutor extends AbstractActionCommandExecutor {
-        public void execute() {
-            ConfirmationDialog dialog = new ConfirmationDialog() {
-                protected void onConfirm() {
-                    Feat feat = getSelectedFeat();
-                    featDao.deleteSkill(feat);
-                    getObjects().remove(feat);
-                }
-            };
-            dialog.setTitle("Delete Feat");
-            dialog.setConfirmationMessage(getMessage("confirmDeleteFeatDialog.label"));
-            dialog.showDialog();
-        }
-    }
-
-
-    private class PropertiesCommandExecutor extends AbstractActionCommandExecutor {
-    	private int index;
-        private Feat feat;
-        private NestingFormModel featFormModel;
-        private FeatForm featForm;
-        private FormBackedDialogPage page;
-
-        public void execute() {
-            feat = getSelectedFeat();
-            index = getObjects().indexOf(feat);
-            featFormModel = FormModelHelper.createCompoundFormModel(feat);
-            featForm = new FeatForm(featFormModel);
-            page = new FormBackedDialogPage(featForm);
-
-            TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
-                protected void onAboutToShow() {
-                    setEnabled(page.isPageComplete());
-                }
-
-                protected boolean onFinish() {
-                    featFormModel.commit();
-                    featDao.updateFeat(feat);
-                    getObjects().set(index, feat);
-                    return true;
-                }
-            };
-            dialog.showDialog();
-        }
-    }
-  
-    
-    private class NewCommandExecutor extends AbstractActionCommandExecutor {
-        private Feat feat;
-        private NestingFormModel featFormModel;
-        private FeatForm featForm;
-        private FormBackedDialogPage page;
-
-        public void execute() {
-            feat = featFactory.createFeat("New Feat");
-            featFormModel = FormModelHelper.createCompoundFormModel(feat);
-            featForm = new FeatForm(featFormModel);
-            page = new FormBackedDialogPage(featForm);
-
-            TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
-                protected void onAboutToShow() {
-                    setEnabled(page.isPageComplete());
-                }
-
-                protected boolean onFinish() {
-                    featFormModel.commit();
-                    featDao.saveFeat(feat);
-                    getObjects().add(feat);
-                    return true;
-                }
-            };
-            dialog.showDialog();
-        }
-    }
 }
