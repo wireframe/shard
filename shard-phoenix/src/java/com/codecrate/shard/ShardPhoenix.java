@@ -31,6 +31,7 @@ public class ShardPhoenix {
                     , "/shard-datasource.xml"
             });
         } catch (Exception e) {
+        	System.out.println("Error launching application: " + e);
             System.exit(1);
         }
     }

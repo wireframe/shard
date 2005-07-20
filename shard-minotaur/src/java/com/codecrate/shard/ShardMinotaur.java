@@ -32,6 +32,7 @@ public class ShardMinotaur {
                     , "/shard-sheets-context.xml"
             });
         } catch (Exception e) {
+        	System.out.println("Error launching application: " + e);
             System.exit(1);
         }
     }
