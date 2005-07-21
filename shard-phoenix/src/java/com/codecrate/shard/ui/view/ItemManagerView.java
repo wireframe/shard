@@ -93,7 +93,7 @@ public class ItemManagerView extends AbstractObjectManagerView {
         public void execute() {
         	String title = getMessage("confirmDeleteItemDialog.title");
         	String message = getMessage("confirmDeleteItemDialog.label");
-        	ConfirmationDialog dialog = new ConfirmationDialog(title, message) {
+        	ConfirmationDialog dialog = new ConfirmationDialog(title, getWindowControl(), message) {
                 protected void onConfirm() {
                     Item item = getSelectedItem();
                     itemDao.deleteItem(item);
