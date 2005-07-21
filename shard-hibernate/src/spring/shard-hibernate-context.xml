@@ -19,6 +19,7 @@
 	      <value>com/codecrate/shard/ability/PointCostValue.hbm.xml</value>
 	      <value>com/codecrate/shard/character/RaceAgeEntry.hbm.xml</value>
 	      <value>com/codecrate/shard/character/DefaultPlayerCharacter.hbm.xml</value>
+	      <value>com/codecrate/shard/equipment/DefaultItem.hbm.xml</value>
 	      <value>com/codecrate/shard/feat/DefaultFeat.hbm.xml</value>
 	      <value>com/codecrate/shard/kit/DefaultCharacterClass.hbm.xml</value>
 	      <value>com/codecrate/shard/movement/EncumberanceEntry.hbm.xml</value>
@@ -143,6 +144,16 @@
 	<bean id="raceDao" parent="transactionTemplate">
 	  <property name="target">
 	    <bean class="com.codecrate.shard.race.HibernateRaceDao">
+  	      <property name="sessionFactory">
+	        <ref bean="sessionFactory"/>
+	      </property>
+	    </bean>
+	  </property>
+	</bean>
+
+	<bean id="itemDao" parent="transactionTemplate">
+	  <property name="target">
+	    <bean class="com.codecrate.shard.equipment.HibernateItemDao">
   	      <property name="sessionFactory">
 	        <ref bean="sessionFactory"/>
 	      </property>

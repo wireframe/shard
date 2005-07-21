@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.text.ParseException;
 
 /**
  * An Object representing Money.  
@@ -296,7 +297,7 @@ public class Money implements Comparable {
      * @param str Representation of money in the form <code>AMOUNT CODE</code>
      * @return Money
      */
-    public static Money valueOf(String str) throws java.text.ParseException {
+    public static Money valueOf(String str) throws ParseException {
         String[] tokens = str.split(" ");
         Currency currency = new CurrencyDao().getCurrency(tokens[1]);
         //Currency.getInstance(str.substring(str.length() - 3));

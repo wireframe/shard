@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.equipment;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -40,6 +41,21 @@ public class HibernateItemDao extends HibernateDaoSupport implements ItemDao, It
     }
 
     public Item createItem(String name) {
-    	return Coin.COPPER_PIECE;
+    	return new DefaultItem(name, new BigDecimal(0), new Money(1, DefaultCurrency.COPPER));
     }
+    
+    public Item saveItem(Item item) {
+        String id = (String) getHibernateTemplate().save(item);
+        return (Item) getHibernateTemplate().load(DefaultItem.class, id);
+    }
+    
+    public void updateItem(Item item) {
+        getHibernateTemplate().saveOrUpdate(item);
+    }
+
+    public void deleteItem(Item item) {
+        getHibernateTemplate().delete(item);
+    }
+    
+
 }

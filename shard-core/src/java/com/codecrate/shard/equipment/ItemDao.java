@@ -24,4 +24,23 @@ public interface ItemDao {
 	 * @return
 	 */
 	Collection getItems();
+
+	/**
+	 * saves a newly created item.
+	 * @param item
+	 * @return
+	 */
+	Item saveItem(Item item);
+
+	/**
+	 * delete an item.
+	 * @param item
+	 */
+	void deleteItem(Item item);
+
+	/**
+	 * save changes to an updated item.
+	 * @param item
+	 */
+	void updateItem(Item item);
 }

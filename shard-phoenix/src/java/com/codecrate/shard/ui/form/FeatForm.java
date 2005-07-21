@@ -22,10 +22,10 @@ import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 
 public class FeatForm extends AbstractForm {
-    private static final String FEAT_PAGE = "featPage";
+    private static final String PAGE_NAME = "featPage";
 
     public FeatForm(FormModel formModel) {
-        super(formModel, FEAT_PAGE);
+        super(formModel, PAGE_NAME);
     }
 
     protected JComponent createFormControl() {
