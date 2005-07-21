@@ -29,12 +29,17 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.springframework.binding.form.NestingFormModel;
 import org.springframework.context.MessageSource;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.command.support.GlobalCommandIds;
+import org.springframework.richclient.dialog.FormBackedDialogPage;
+import org.springframework.richclient.dialog.TitledPageApplicationDialog;
+import org.springframework.richclient.form.AbstractForm;
+import org.springframework.richclient.form.FormModelHelper;
 import org.springframework.richclient.table.TableUtils;
 import org.springframework.richclient.table.support.GlazedTableModel;
 import org.springframework.richclient.util.PopupMenuMouseListener;
@@ -152,4 +157,38 @@ public abstract class AbstractObjectManagerView extends AbstractView {
         return model;
     }
 
+    
+    protected abstract class AbstractNewCommandExcecutor extends AbstractActionCommandExecutor {
+        private Object object;
+        private NestingFormModel formModel;
+        private AbstractForm form;
+        private FormBackedDialogPage page;
+
+        protected abstract Object createObject();
+        
+        protected abstract AbstractForm createForm(NestingFormModel model);
+
+        protected abstract void saveObject(Object object);
+        
+        public void execute() {
+            object = createObject();
+            formModel = FormModelHelper.createCompoundFormModel(object);
+            form = createForm(formModel);
+            page = new FormBackedDialogPage(form);
+
+            TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
+                protected void onAboutToShow() {
+                    setEnabled(page.isPageComplete());
+                }
+
+                protected boolean onFinish() {
+                    formModel.commit();
+                    saveObject(object);
+                    getObjects().add(object);
+                    return true;
+                }
+            };
+            dialog.showDialog();
+        }
+    }
 }

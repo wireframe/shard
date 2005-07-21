@@ -20,6 +20,7 @@ import org.springframework.richclient.command.support.AbstractActionCommandExecu
 import org.springframework.richclient.dialog.ConfirmationDialog;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
+import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.FormModelHelper;
 
 import ca.odell.glazedlists.BasicEventList;
@@ -37,7 +38,7 @@ public class ItemManagerView extends AbstractObjectManagerView {
 	private EventList items;
 
 	private DeleteCommandExecutor deleteCommand;
-	private NewCommandExecutor newCommand;
+	private AbstractActionCommandExecutor newCommand;
 	private PropertiesCommandExecutor propertiesCommand;
 	
 	public void setItemDao(ItemDao itemDao) {
@@ -64,7 +65,20 @@ public class ItemManagerView extends AbstractObjectManagerView {
 
 	protected AbstractActionCommandExecutor getNewCommand() {
 		if (null == newCommand) {
-			newCommand = new NewCommandExecutor();
+			newCommand = new AbstractNewCommandExcecutor() {
+
+				protected Object createObject() {
+		            return itemFactory.createItem("New Item");
+				}
+
+				protected AbstractForm createForm(NestingFormModel model) {
+					return new ItemForm(model);
+				}
+
+				protected void saveObject(Object object) {
+                    itemDao.saveItem((Item) object);
+				}
+			};
 		}
 		return newCommand;
 	}
@@ -132,34 +146,5 @@ public class ItemManagerView extends AbstractObjectManagerView {
             };
             dialog.showDialog();
         }
-    }
-  
-    
-    private class NewCommandExecutor extends AbstractActionCommandExecutor {
-        private Item item;
-        private NestingFormModel itemFormModel;
-        private ItemForm itemForm;
-        private FormBackedDialogPage page;
-
-        public void execute() {
-            item = itemFactory.createItem("New Item");
-            itemFormModel = FormModelHelper.createCompoundFormModel(item);
-            itemForm = new ItemForm(itemFormModel);
-            page = new FormBackedDialogPage(itemForm);
-
-            TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
-                protected void onAboutToShow() {
-                    setEnabled(page.isPageComplete());
-                }
-
-                protected boolean onFinish() {
-                    itemFormModel.commit();
-                    itemDao.saveItem(item);
-                    getObjects().add(item);
-                    return true;
-                }
-            };
-            dialog.showDialog();
-        }
-    }
+    }  
 }
