@@ -15,16 +15,11 @@
  */
 package com.codecrate.shard.ui.view;
 
+import java.util.Collection;
+
 import org.springframework.binding.form.NestingFormModel;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
-import org.springframework.richclient.dialog.ConfirmationDialog;
-import org.springframework.richclient.dialog.FormBackedDialogPage;
-import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.form.AbstractForm;
-import org.springframework.richclient.form.FormModelHelper;
-
-import ca.odell.glazedlists.BasicEventList;
-import ca.odell.glazedlists.EventList;
 
 import com.codecrate.shard.equipment.Item;
 import com.codecrate.shard.equipment.ItemDao;
@@ -35,12 +30,7 @@ public class ItemManagerView extends AbstractObjectManagerView {
 
 	private ItemDao itemDao;
 	private ItemFactory itemFactory;
-	private EventList items;
 
-	private DeleteCommandExecutor deleteCommand;
-	private AbstractActionCommandExecutor newCommand;
-	private PropertiesCommandExecutor propertiesCommand;
-	
 	public void setItemDao(ItemDao itemDao) {
 		this.itemDao = itemDao;
 	}
@@ -49,38 +39,46 @@ public class ItemManagerView extends AbstractObjectManagerView {
 		this.itemFactory = itemFactory;
 	}
 	
-	protected AbstractActionCommandExecutor getPropertiesCommand() {
-		if (null == propertiesCommand) {
-			propertiesCommand = new PropertiesCommandExecutor();
-		}
-		return propertiesCommand;
+	protected AbstractActionCommandExecutor createPropertiesCommand() {
+		return new AbstractPropertiesCommandExecutor(){
+
+			protected AbstractForm createForm(NestingFormModel formModel) {
+				return new ItemForm(formModel);
+			}
+
+			protected void updateObject(Object object) {
+				itemDao.updateItem((Item) object);
+			}
+			
+		};
 	}
 
-	protected AbstractActionCommandExecutor getDeleteCommand() {
-		if (null == deleteCommand) {
-			deleteCommand = new DeleteCommandExecutor();
-		}
-		return deleteCommand;
+	protected AbstractActionCommandExecutor createDeleteCommand() {
+    	String title = getMessage("confirmDeleteItemDialog.title");
+    	String message = getMessage("confirmDeleteItemDialog.label");
+		return new AbstractDeleteCommandExecutor(title, message) {
+
+			protected void deleteObject(Object object) {
+				itemDao.deleteItem((Item) object);
+			}
+		};
 	}
 
-	protected AbstractActionCommandExecutor getNewCommand() {
-		if (null == newCommand) {
-			newCommand = new AbstractNewCommandExcecutor() {
+	protected AbstractActionCommandExecutor createNewCommand() {
+		return new AbstractNewCommandExcecutor() {
 
-				protected Object createObject() {
-		            return itemFactory.createItem("New Item");
-				}
+			protected Object createObject() {
+	            return itemFactory.createItem("New Item");
+			}
 
-				protected AbstractForm createForm(NestingFormModel model) {
-					return new ItemForm(model);
-				}
+			protected AbstractForm createForm(NestingFormModel model) {
+				return new ItemForm(model);
+			}
 
-				protected void saveObject(Object object) {
-                    itemDao.saveItem((Item) object);
-				}
-			};
-		}
-		return newCommand;
+			protected void saveObject(Object object) {
+                itemDao.saveItem((Item) object);
+			}
+		};
 	}
 
 	protected String[] getColumnNames() {
@@ -91,60 +89,7 @@ public class ItemManagerView extends AbstractObjectManagerView {
 		};
 	}
 
-	protected EventList getObjects() {
-		if (null == items) {
-			items = new BasicEventList();
-			items.addAll(itemDao.getItems());
-		}
-		return items;
+	protected Collection createModelObjects() {
+		return itemDao.getItems();
 	}
-
-	private Item getSelectedItem() {
-		return (Item) getSelectedObject();
-	}
-	
-    private class DeleteCommandExecutor extends AbstractActionCommandExecutor {
-        public void execute() {
-        	String title = getMessage("confirmDeleteItemDialog.title");
-        	String message = getMessage("confirmDeleteItemDialog.label");
-        	ConfirmationDialog dialog = new ConfirmationDialog(title, getWindowControl(), message) {
-                protected void onConfirm() {
-                    Item item = getSelectedItem();
-                    itemDao.deleteItem(item);
-                    getObjects().remove(item);
-                }
-            };
-            dialog.showDialog();
-        }
-    }
-
-
-    private class PropertiesCommandExecutor extends AbstractActionCommandExecutor {
-        private Item item;
-        private NestingFormModel itemFormModel;
-        private ItemForm itemForm;
-        private FormBackedDialogPage page;
-
-        public void execute() {
-            item = getSelectedItem();
-            itemFormModel = FormModelHelper.createCompoundFormModel(item);
-            itemForm = new ItemForm(itemFormModel);
-            page = new FormBackedDialogPage(itemForm);
-
-            TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
-                protected void onAboutToShow() {
-                    setEnabled(page.isPageComplete());
-                }
-
-                protected boolean onFinish() {
-                    itemFormModel.commit();
-                    itemDao.updateItem(item);
-                    int index = getObjects().indexOf(item);
-                    getObjects().set(index, item);
-                    return true;
-                }
-            };
-            dialog.showDialog();
-        }
-    }  
 }

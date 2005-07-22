@@ -18,6 +18,7 @@ package com.codecrate.shard.ui.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -36,6 +37,7 @@ import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.command.support.GlobalCommandIds;
+import org.springframework.richclient.dialog.ConfirmationDialog;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.form.AbstractForm;
@@ -44,6 +46,7 @@ import org.springframework.richclient.table.TableUtils;
 import org.springframework.richclient.table.support.GlazedTableModel;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
+import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 
 import com.codecrate.shard.ui.ShardCommandIds;
@@ -55,6 +58,11 @@ public abstract class AbstractObjectManagerView extends AbstractView {
     private GlazedTableModel model;
     private JPopupMenu popup;
 	private JButton newButton;
+
+	private AbstractActionCommandExecutor deleteCommand;
+	private AbstractActionCommandExecutor newCommand;
+	private AbstractActionCommandExecutor propertiesCommand;
+	private BasicEventList objects;
 
     protected JComponent createControl() {
         JPanel view = new JPanel();
@@ -68,16 +76,45 @@ public abstract class AbstractObjectManagerView extends AbstractView {
         context.register(GlobalCommandIds.DELETE, getDeleteCommand());
         context.register(ShardCommandIds.NEW, getNewCommand());
     }
-
-    protected abstract AbstractActionCommandExecutor getPropertiesCommand();
     
-    protected abstract AbstractActionCommandExecutor getDeleteCommand();
+    private AbstractActionCommandExecutor getPropertiesCommand() {
+    	if (null == propertiesCommand) {
+    		propertiesCommand = createPropertiesCommand();
+    	}
+    	return propertiesCommand;
+    }
+    
+    private AbstractActionCommandExecutor getDeleteCommand() {
+    	if (null == deleteCommand) {
+    		deleteCommand = createDeleteCommand();
+    	}
+    	return deleteCommand;
+    }
 
-    protected abstract AbstractActionCommandExecutor getNewCommand();
+    private AbstractActionCommandExecutor getNewCommand() {
+    	if (null == newCommand) {
+    		newCommand = createNewCommand();
+    	}
+    	return newCommand;
+    }
+
+    protected abstract AbstractActionCommandExecutor createDeleteCommand();
+
+    protected abstract AbstractActionCommandExecutor createPropertiesCommand();
+    
+    protected abstract AbstractActionCommandExecutor createNewCommand();
 
     protected abstract String[] getColumnNames();
     
-    protected abstract EventList getObjects();
+    protected abstract Collection createModelObjects();
+    
+	private EventList getObjects() {
+		if (null == objects) {
+			objects = new BasicEventList();
+			objects.addAll(createModelObjects());
+		}
+		return objects;
+	}
     
     protected Object getSelectedObject() {
     	int index = ShardTableUtils.getSelectedIndex(getTable());
@@ -166,7 +203,7 @@ public abstract class AbstractObjectManagerView extends AbstractView {
 
         protected abstract Object createObject();
         
-        protected abstract AbstractForm createForm(NestingFormModel model);
+        protected abstract AbstractForm createForm(NestingFormModel formModel);
 
         protected abstract void saveObject(Object object);
         
@@ -190,5 +227,64 @@ public abstract class AbstractObjectManagerView extends AbstractView {
             };
             dialog.showDialog();
         }
+    }
+    
+    
+    protected abstract class AbstractDeleteCommandExecutor extends AbstractActionCommandExecutor {
+    	private final String title;
+		private final String message;
+
+		public AbstractDeleteCommandExecutor(String title, String message) {
+			this.title = title;
+			this.message = message;
+    	}
+		
+        public void execute() {
+        	ConfirmationDialog dialog = new ConfirmationDialog(title, getWindowControl(), message) {
+                protected void onConfirm() {
+                    Object object = getSelectedObject();
+                    deleteObject(object);
+                    getObjects().remove(object);
+                }
+            };
+            dialog.showDialog();
+        }
+        
+        protected abstract void deleteObject(Object object);
+    }
+    
+    
+    protected abstract class AbstractPropertiesCommandExecutor extends AbstractActionCommandExecutor {
+        private Object object;
+        private NestingFormModel formModel;
+        private AbstractForm form;
+        private FormBackedDialogPage page;
+        private int index;
+        
+        public void execute() {
+            object = getSelectedObject();
+            index = getObjects().indexOf(object);
+            formModel = FormModelHelper.createCompoundFormModel(object);
+            form = createForm(formModel);
+            page = new FormBackedDialogPage(form);
+
+            TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
+                protected void onAboutToShow() {
+                    setEnabled(page.isPageComplete());
+                }
+
+                protected boolean onFinish() {
+                    formModel.commit();
+                    updateObject(object);
+                    getObjects().set(index, object);
+                    return true;
+                }
+            };
+            dialog.showDialog();
+        }
+        
+        protected abstract AbstractForm createForm(NestingFormModel formModel);
+        
+        protected abstract void updateObject(Object object);
     }
 }
