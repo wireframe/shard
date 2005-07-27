@@ -26,6 +26,8 @@ import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
 import com.codecrate.shard.ui.command.DeleteCommand;
+import com.codecrate.shard.ui.command.PropertiesCommand;
+import com.codecrate.shard.ui.form.AbstractFormFactory;
 import com.codecrate.shard.ui.form.SkillForm;
 
 public class SkillManagerView extends AbstractObjectManagerView {
@@ -56,16 +58,15 @@ public class SkillManagerView extends AbstractObjectManagerView {
 	}
 
 	protected AbstractActionCommandExecutor createPropertiesCommand() {
-		return new AbstractPropertiesCommandExecutor() {
-
-			protected AbstractForm createForm(NestingFormModel formModel) {
+		return new AbstractPropertiesCommandExecutor(new AbstractFormFactory() {
+			public AbstractForm createForm(NestingFormModel formModel) {
 				return new SkillForm(formModel, abilityDao);
 			}
-
-			protected void updateObject(Object object) {
+		}, new PropertiesCommand() {
+			public void updateObject(Object object) {
 				skillDao.updateSkill((Skill) object);
-			}
-		};
+			}			
+		}); 
 	}
 
 	protected AbstractActionCommandExecutor createNewCommand() {

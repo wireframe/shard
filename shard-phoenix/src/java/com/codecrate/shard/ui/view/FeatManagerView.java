@@ -25,6 +25,8 @@ import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
 import com.codecrate.shard.ui.command.DeleteCommand;
+import com.codecrate.shard.ui.command.PropertiesCommand;
+import com.codecrate.shard.ui.form.AbstractFormFactory;
 import com.codecrate.shard.ui.form.FeatForm;
 
 public class FeatManagerView extends AbstractObjectManagerView {
@@ -50,16 +52,15 @@ public class FeatManagerView extends AbstractObjectManagerView {
 	}
 
 	protected AbstractActionCommandExecutor createPropertiesCommand() {
-		return new AbstractPropertiesCommandExecutor() {
-
-			protected AbstractForm createForm(NestingFormModel formModel) {
+		return new AbstractPropertiesCommandExecutor(new AbstractFormFactory() {
+			public AbstractForm createForm(NestingFormModel formModel) {
 				return new FeatForm(formModel);
 			}
-
-			protected void updateObject(Object object) {
+		}, new PropertiesCommand() {
+			public void updateObject(Object object) {
 				featDao.updateFeat((Feat) object);
 			}			
-		};
+		}); 
 	}
 
 	protected AbstractActionCommandExecutor createNewCommand() {

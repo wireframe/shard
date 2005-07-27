@@ -16,6 +16,7 @@
 package com.codecrate.shard.equipment;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 
 /**
  * Default implementation of an item.
@@ -73,5 +74,25 @@ public class DefaultItem implements Item {
 
 	public void setWeight(BigDecimal weight) {
 		this.weight = weight;
+	}
+	
+	/**
+	 * @deprecated remove when spring-rcp binder created
+	 * @param cost
+	 */
+	public void setCostString(String cost) {
+		try {
+			setCost(Money.valueOf(cost));
+		} catch (ParseException e) {
+			throw new IllegalArgumentException("Unable to parse input to Money: " + cost);
+		}
+	}
+	
+	/**
+	 * @deprecated remove when spring-rcp binder created.
+	 * @return
+	 */
+	public String getCostString() {
+		return getCost().toString();
 	}
 }

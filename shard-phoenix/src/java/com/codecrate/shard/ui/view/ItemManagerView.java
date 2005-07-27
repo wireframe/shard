@@ -25,6 +25,8 @@ import com.codecrate.shard.equipment.Item;
 import com.codecrate.shard.equipment.ItemDao;
 import com.codecrate.shard.equipment.ItemFactory;
 import com.codecrate.shard.ui.command.DeleteCommand;
+import com.codecrate.shard.ui.command.PropertiesCommand;
+import com.codecrate.shard.ui.form.AbstractFormFactory;
 import com.codecrate.shard.ui.form.ItemForm;
 
 public class ItemManagerView extends AbstractObjectManagerView {
@@ -41,17 +43,15 @@ public class ItemManagerView extends AbstractObjectManagerView {
 	}
 	
 	protected AbstractActionCommandExecutor createPropertiesCommand() {
-		return new AbstractPropertiesCommandExecutor(){
-
-			protected AbstractForm createForm(NestingFormModel formModel) {
+		return new AbstractPropertiesCommandExecutor(new AbstractFormFactory() {
+			public AbstractForm createForm(NestingFormModel formModel) {
 				return new ItemForm(formModel);
 			}
-
-			protected void updateObject(Object object) {
+		}, new PropertiesCommand() {
+			public void updateObject(Object object) {
 				itemDao.updateItem((Item) object);
-			}
-			
-		};
+			}			
+		}); 
 	}
 
 	protected AbstractActionCommandExecutor createDeleteCommand() {

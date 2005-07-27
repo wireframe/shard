@@ -25,6 +25,8 @@ import com.codecrate.shard.race.Race;
 import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.race.RaceFactory;
 import com.codecrate.shard.ui.command.DeleteCommand;
+import com.codecrate.shard.ui.command.PropertiesCommand;
+import com.codecrate.shard.ui.form.AbstractFormFactory;
 import com.codecrate.shard.ui.form.RaceForm;
 
 public class RaceManagerView extends AbstractObjectManagerView {
@@ -50,16 +52,15 @@ public class RaceManagerView extends AbstractObjectManagerView {
 	}
 
 	protected AbstractActionCommandExecutor createPropertiesCommand() {
-		return new AbstractPropertiesCommandExecutor() {
-
-			protected AbstractForm createForm(NestingFormModel formModel) {
+		return new AbstractPropertiesCommandExecutor(new AbstractFormFactory() {
+			public AbstractForm createForm(NestingFormModel formModel) {
 				return new RaceForm(formModel);
 			}
-
-			protected void updateObject(Object object) {
-				raceDao.updateRace((Race) object);	
-			}
-		};
+		}, new PropertiesCommand() {
+			public void updateObject(Object object) {
+				raceDao.updateRace((Race) object);
+			}			
+		}); 
 	}
 
 	protected AbstractActionCommandExecutor createNewCommand() {

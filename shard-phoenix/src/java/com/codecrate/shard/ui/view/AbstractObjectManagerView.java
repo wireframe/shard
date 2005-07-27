@@ -51,6 +51,8 @@ import ca.odell.glazedlists.EventList;
 
 import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.DeleteCommand;
+import com.codecrate.shard.ui.command.PropertiesCommand;
+import com.codecrate.shard.ui.form.FormFactory;
 import com.codecrate.shard.util.ShardTableUtils;
 
 public abstract class AbstractObjectManagerView extends AbstractView {
@@ -256,18 +258,23 @@ public abstract class AbstractObjectManagerView extends AbstractView {
     }
     
     
-    protected abstract class AbstractPropertiesCommandExecutor extends AbstractActionCommandExecutor {
+    protected class AbstractPropertiesCommandExecutor extends AbstractActionCommandExecutor {
         private Object object;
-        private NestingFormModel formModel;
         private AbstractForm form;
         private FormBackedDialogPage page;
         private int index;
+		private final FormFactory formFactory;
+		private final PropertiesCommand command;
+        
+        public AbstractPropertiesCommandExecutor(FormFactory formFactory, PropertiesCommand command) {
+			this.formFactory = formFactory;
+			this.command = command;	
+        }
         
         public void execute() {
             object = getSelectedObject();
             index = getObjects().indexOf(object);
-            formModel = FormModelHelper.createCompoundFormModel(object);
-            form = createForm(formModel);
+            form = formFactory.createForm(object);
             page = new FormBackedDialogPage(form);
 
             TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
@@ -276,17 +283,13 @@ public abstract class AbstractObjectManagerView extends AbstractView {
                 }
 
                 protected boolean onFinish() {
-                    formModel.commit();
-                    updateObject(object);
+                	form.getFormModel().commit();
+                    command.updateObject(object);
                     getObjects().set(index, object);
                     return true;
                 }
             };
             dialog.showDialog();
         }
-        
-        protected abstract AbstractForm createForm(NestingFormModel formModel);
-        
-        protected abstract void updateObject(Object object);
     }
 }

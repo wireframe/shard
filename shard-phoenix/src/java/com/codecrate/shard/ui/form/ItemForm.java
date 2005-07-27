@@ -33,8 +33,8 @@ public class ItemForm extends AbstractForm {
         formBuilder.add("name");
         formBuilder.row();
         formBuilder.add("weight");
-//        formBuilder.row();
-//        formBuilder.add("cost");
+        formBuilder.row();
+        formBuilder.add("costString");
         return formBuilder.getForm();
     }
 }
