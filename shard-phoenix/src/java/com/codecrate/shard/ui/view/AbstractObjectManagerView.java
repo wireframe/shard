@@ -50,6 +50,7 @@ import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 
 import com.codecrate.shard.ui.ShardCommandIds;
+import com.codecrate.shard.ui.command.DeleteCommand;
 import com.codecrate.shard.util.ShardTableUtils;
 
 public abstract class AbstractObjectManagerView extends AbstractView {
@@ -94,6 +95,7 @@ public abstract class AbstractObjectManagerView extends AbstractView {
     private AbstractActionCommandExecutor getNewCommand() {
     	if (null == newCommand) {
     		newCommand = createNewCommand();
+    		newCommand.setEnabled(true);
     	}
     	return newCommand;
     }
@@ -230,27 +232,27 @@ public abstract class AbstractObjectManagerView extends AbstractView {
     }
     
     
-    protected abstract class AbstractDeleteCommandExecutor extends AbstractActionCommandExecutor {
+    protected class DeleteCommandExecutor extends AbstractActionCommandExecutor {
     	private final String title;
 		private final String message;
+		private final DeleteCommand command;
 
-		public AbstractDeleteCommandExecutor(String title, String message) {
+		public DeleteCommandExecutor(String title, String message, DeleteCommand command) {
 			this.title = title;
 			this.message = message;
+			this.command = command;
     	}
 		
         public void execute() {
         	ConfirmationDialog dialog = new ConfirmationDialog(title, getWindowControl(), message) {
                 protected void onConfirm() {
                     Object object = getSelectedObject();
-                    deleteObject(object);
+                    command.deleteObject(object);
                     getObjects().remove(object);
                 }
             };
             dialog.showDialog();
         }
-        
-        protected abstract void deleteObject(Object object);
     }
     
     

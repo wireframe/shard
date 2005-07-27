@@ -24,6 +24,7 @@ import org.springframework.richclient.form.AbstractForm;
 import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
+import com.codecrate.shard.ui.command.DeleteCommand;
 import com.codecrate.shard.ui.form.FeatForm;
 
 public class FeatManagerView extends AbstractObjectManagerView {
@@ -41,12 +42,11 @@ public class FeatManagerView extends AbstractObjectManagerView {
 	protected AbstractActionCommandExecutor createDeleteCommand() {
     	String title = getMessage("confirmDeleteFeatDialog.title");
     	String message = getMessage("confirmDeleteFeatDialog.label");
-		return new AbstractDeleteCommandExecutor(title, message) {
-
-			protected void deleteObject(Object object) {
+		return new DeleteCommandExecutor(title, message, new DeleteCommand() {
+			public void deleteObject(Object object) {
 				featDao.deleteFeat((Feat) object);
 			}
-		};
+		});
 	}
 
 	protected AbstractActionCommandExecutor createPropertiesCommand() {

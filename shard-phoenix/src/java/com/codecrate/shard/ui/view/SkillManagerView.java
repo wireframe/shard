@@ -25,6 +25,7 @@ import com.codecrate.shard.ability.AbilityDao;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
+import com.codecrate.shard.ui.command.DeleteCommand;
 import com.codecrate.shard.ui.form.SkillForm;
 
 public class SkillManagerView extends AbstractObjectManagerView {
@@ -47,12 +48,11 @@ public class SkillManagerView extends AbstractObjectManagerView {
 	protected AbstractActionCommandExecutor createDeleteCommand() {
     	String title = getMessage("confirmDeleteSkillDialog.title");
     	String message = getMessage("confirmDeleteSkillDialog.label");
-		return new AbstractDeleteCommandExecutor(title, message) {
-
-			protected void deleteObject(Object object) {
+		return new DeleteCommandExecutor(title, message, new DeleteCommand() {
+			public void deleteObject(Object object) {
 				skillDao.deleteSkill((Skill) object);
 			}
-		};
+		});
 	}
 
 	protected AbstractActionCommandExecutor createPropertiesCommand() {

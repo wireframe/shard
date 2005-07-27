@@ -24,6 +24,7 @@ import org.springframework.richclient.form.AbstractForm;
 import com.codecrate.shard.equipment.Item;
 import com.codecrate.shard.equipment.ItemDao;
 import com.codecrate.shard.equipment.ItemFactory;
+import com.codecrate.shard.ui.command.DeleteCommand;
 import com.codecrate.shard.ui.form.ItemForm;
 
 public class ItemManagerView extends AbstractObjectManagerView {
@@ -56,12 +57,11 @@ public class ItemManagerView extends AbstractObjectManagerView {
 	protected AbstractActionCommandExecutor createDeleteCommand() {
     	String title = getMessage("confirmDeleteItemDialog.title");
     	String message = getMessage("confirmDeleteItemDialog.label");
-		return new AbstractDeleteCommandExecutor(title, message) {
-
-			protected void deleteObject(Object object) {
+		return new DeleteCommandExecutor(title, message, new DeleteCommand() {
+			public void deleteObject(Object object) {
 				itemDao.deleteItem((Item) object);
 			}
-		};
+		});
 	}
 
 	protected AbstractActionCommandExecutor createNewCommand() {

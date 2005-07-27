@@ -24,6 +24,7 @@ import org.springframework.richclient.form.AbstractForm;
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.race.RaceFactory;
+import com.codecrate.shard.ui.command.DeleteCommand;
 import com.codecrate.shard.ui.form.RaceForm;
 
 public class RaceManagerView extends AbstractObjectManagerView {
@@ -41,12 +42,11 @@ public class RaceManagerView extends AbstractObjectManagerView {
 	protected AbstractActionCommandExecutor createDeleteCommand() {
     	String title = getMessage("confirmDeleteRaceDialog.title");
     	String message = getMessage("confirmDeleteRaceDialog.label");
-		return new AbstractDeleteCommandExecutor(title, message) {
-
-			protected void deleteObject(Object object) {
+		return new DeleteCommandExecutor(title, message, new DeleteCommand() {
+			public void deleteObject(Object object) {
 				raceDao.deleteRace((Race) object);
 			}
-		};
+		});
 	}
 
 	protected AbstractActionCommandExecutor createPropertiesCommand() {

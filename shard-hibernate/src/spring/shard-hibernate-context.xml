@@ -174,4 +174,7 @@
 	  </property>
 	</bean>
 
+	<bean id="currencyDao" class="com.codecrate.shard.equipment.CurrencyDao">
+	</bean>
+
 </beans>
