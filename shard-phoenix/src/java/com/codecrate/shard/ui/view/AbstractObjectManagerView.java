@@ -42,18 +42,17 @@ import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.FormModelHelper;
-import org.springframework.richclient.table.TableUtils;
 import org.springframework.richclient.table.support.GlazedTableModel;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
+import ca.odell.glazedlists.swing.EventSelectionModel;
 
 import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.DeleteCommand;
 import com.codecrate.shard.ui.command.PropertiesCommand;
 import com.codecrate.shard.ui.form.FormFactory;
-import com.codecrate.shard.util.ShardTableUtils;
 
 public abstract class AbstractObjectManagerView extends AbstractView {
     private JScrollPane scrollPane;
@@ -66,6 +65,7 @@ public abstract class AbstractObjectManagerView extends AbstractView {
 	private AbstractActionCommandExecutor newCommand;
 	private AbstractActionCommandExecutor propertiesCommand;
 	private BasicEventList objects;
+	private EventSelectionModel selectionModel;
 
     protected JComponent createControl() {
         JPanel view = new JPanel();
@@ -121,11 +121,11 @@ public abstract class AbstractObjectManagerView extends AbstractView {
 	}
     
     protected Object getSelectedObject() {
-    	int index = ShardTableUtils.getSelectedIndex(getTable());
-        if (-1 == index) {
-        	return null;
-        }
-        return getObjects().get(index);
+    	EventList selected = getSelectionModel().getSelected();
+    	if (selected.isEmpty()) {
+    		return null;
+    	}
+    	return selected.iterator().next();
     }
     
     private JScrollPane getScrollPane() {
@@ -137,10 +137,19 @@ public abstract class AbstractObjectManagerView extends AbstractView {
     
     private JTable getTable() {
         if (null == table) {
-            table = TableUtils.createStandardSortableTable(getModel());
+        	table = new JTable(getModel());
             table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            table.setSelectionModel(getSelectionModel());
             table.addMouseListener(new PopupMenuMouseListener(getPopupContextMenu()));
-            table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        }
+        return table;
+    }
+    
+    private EventSelectionModel getSelectionModel() {
+    	if (null == selectionModel) {
+    		selectionModel = new EventSelectionModel(getObjects());
+    	    selectionModel.setSelectionMode(EventSelectionModel.MULTIPLE_INTERVAL_SELECTION_DEFENSIVE);
+    	    selectionModel.addListSelectionListener(new ListSelectionListener() {
 
                 public void valueChanged(ListSelectionEvent event) {
                     getDeleteCommand().setEnabled(isDeleteCommandEnabled());
@@ -148,8 +157,8 @@ public abstract class AbstractObjectManagerView extends AbstractView {
                 }
 
             });
-        }
-        return table;
+    	}
+    	return selectionModel;
     }
     
     private JButton getNewButton() {
