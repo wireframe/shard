@@ -25,9 +25,11 @@ import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
 import com.codecrate.shard.ui.command.DeleteCommand;
+import com.codecrate.shard.ui.command.NewCommand;
 import com.codecrate.shard.ui.command.PropertiesCommand;
 import com.codecrate.shard.ui.form.AbstractFormFactory;
 import com.codecrate.shard.ui.form.FeatForm;
+import com.codecrate.shard.ui.form.FormFactory;
 
 public class FeatManagerView extends AbstractObjectManagerView {
     private FeatDao featDao;
@@ -52,32 +54,32 @@ public class FeatManagerView extends AbstractObjectManagerView {
 	}
 
 	protected AbstractActionCommandExecutor createPropertiesCommand() {
-		return new AbstractPropertiesCommandExecutor(new AbstractFormFactory() {
-			public AbstractForm createForm(NestingFormModel formModel) {
-				return new FeatForm(formModel);
-			}
-		}, new PropertiesCommand() {
+		return new PropertiesCommandExecutor(getFormFactory(), new PropertiesCommand() {
 			public void updateObject(Object object) {
 				featDao.updateFeat((Feat) object);
 			}			
 		}); 
 	}
+	
+	private FormFactory getFormFactory() {
+		return new AbstractFormFactory() {
+			public AbstractForm createForm(NestingFormModel formModel) {
+				return new FeatForm(formModel);
+			}
+		};
+	}
 
 	protected AbstractActionCommandExecutor createNewCommand() {
-		return new AbstractNewCommandExcecutor() {
-
-			protected Object createObject() {
+		return new NewCommandExcecutor(new NewCommand() {
+			public Object createObject() {
 				return featFactory.createFeat("New Feat");
 			}
 
-			protected AbstractForm createForm(NestingFormModel model) {
-				return new FeatForm(model);
-			}
-
-			protected void saveObject(Object object) {
+			public void saveObject(Object object) {
 				featDao.saveFeat((Feat) object);
 			}
-		};
+			
+		}, getFormFactory());
 	}
 
 	protected String[] getColumnNames() {

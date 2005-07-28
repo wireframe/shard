@@ -17,68 +17,16 @@ package com.codecrate.shard.ui.view;
 
 import java.util.Collection;
 
-import org.springframework.binding.form.NestingFormModel;
-import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
-import org.springframework.richclient.form.AbstractForm;
-
-import com.codecrate.shard.race.Race;
 import com.codecrate.shard.race.RaceDao;
-import com.codecrate.shard.race.RaceFactory;
-import com.codecrate.shard.ui.command.DeleteCommand;
-import com.codecrate.shard.ui.command.PropertiesCommand;
-import com.codecrate.shard.ui.form.AbstractFormFactory;
-import com.codecrate.shard.ui.form.RaceForm;
+import com.codecrate.shard.ui.command.RaceCommandAdapter;
+import com.codecrate.shard.ui.form.RaceFormFactory;
 
 public class RaceManagerView extends AbstractObjectManagerView {
     private RaceDao raceDao;
-    private RaceFactory raceFactory; 
     
-    public void setRaceDao(RaceDao raceDao) {
-        this.raceDao = raceDao;
+    public RaceManagerView(RaceCommandAdapter commandAdapter, RaceFormFactory formFactory) {
+    	super(commandAdapter, commandAdapter, commandAdapter, formFactory);
     }
-    
-    public void setRaceFactory(RaceFactory raceFactory) {
-    	this.raceFactory = raceFactory;
-    }
-
-	protected AbstractActionCommandExecutor createDeleteCommand() {
-    	String title = getMessage("confirmDeleteRaceDialog.title");
-    	String message = getMessage("confirmDeleteRaceDialog.label");
-		return new DeleteCommandExecutor(title, message, new DeleteCommand() {
-			public void deleteObject(Object object) {
-				raceDao.deleteRace((Race) object);
-			}
-		});
-	}
-
-	protected AbstractActionCommandExecutor createPropertiesCommand() {
-		return new AbstractPropertiesCommandExecutor(new AbstractFormFactory() {
-			public AbstractForm createForm(NestingFormModel formModel) {
-				return new RaceForm(formModel);
-			}
-		}, new PropertiesCommand() {
-			public void updateObject(Object object) {
-				raceDao.updateRace((Race) object);
-			}			
-		}); 
-	}
-
-	protected AbstractActionCommandExecutor createNewCommand() {
-		return new AbstractNewCommandExcecutor() {
-
-			protected Object createObject() {
-				return raceFactory.createRace("New Race");
-			}
-
-			protected AbstractForm createForm(NestingFormModel formModel) {
-				return new RaceForm(formModel);
-			}
-
-			protected void saveObject(Object object) {
-				raceDao.saveRace((Race) object);
-			}
-		};
-	}
 
 	protected String[] getColumnNames() {
 		return new String[] {

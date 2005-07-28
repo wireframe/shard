@@ -51,6 +51,7 @@ import ca.odell.glazedlists.swing.EventSelectionModel;
 
 import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.DeleteCommand;
+import com.codecrate.shard.ui.command.NewCommand;
 import com.codecrate.shard.ui.command.PropertiesCommand;
 import com.codecrate.shard.ui.form.FormFactory;
 
@@ -61,12 +62,18 @@ public abstract class AbstractObjectManagerView extends AbstractView {
     private JPopupMenu popup;
 	private JButton newButton;
 
-	private AbstractActionCommandExecutor deleteCommand;
-	private AbstractActionCommandExecutor newCommand;
-	private AbstractActionCommandExecutor propertiesCommand;
+	private final AbstractActionCommandExecutor newCommand;
+	private final AbstractActionCommandExecutor deleteCommand;
+	private final AbstractActionCommandExecutor propertiesCommand;
 	private BasicEventList objects;
 	private EventSelectionModel selectionModel;
 
+	public AbstractObjectManagerView(NewCommand newCommand, PropertiesCommand propertiesCommand, DeleteCommand deleteCommand, FormFactory formFactory) {
+		this.newCommand = new NewCommandExcecutor(newCommand, formFactory);
+		this.propertiesCommand = new PropertiesCommandExecutor(propertiesCommand, formFactory);
+		this.deleteCommand = new DeleteCommandExecutor(deleteCommand);
+	}
+	
     protected JComponent createControl() {
         JPanel view = new JPanel();
         view.add(getScrollPane(), BorderLayout.WEST);
@@ -81,32 +88,16 @@ public abstract class AbstractObjectManagerView extends AbstractView {
     }
     
     private AbstractActionCommandExecutor getPropertiesCommand() {
-    	if (null == propertiesCommand) {
-    		propertiesCommand = createPropertiesCommand();
-    	}
     	return propertiesCommand;
     }
     
     private AbstractActionCommandExecutor getDeleteCommand() {
-    	if (null == deleteCommand) {
-    		deleteCommand = createDeleteCommand();
-    	}
     	return deleteCommand;
     }
 
     private AbstractActionCommandExecutor getNewCommand() {
-    	if (null == newCommand) {
-    		newCommand = createNewCommand();
-    		newCommand.setEnabled(true);
-    	}
     	return newCommand;
     }
-
-    protected abstract AbstractActionCommandExecutor createDeleteCommand();
-
-    protected abstract AbstractActionCommandExecutor createPropertiesCommand();
-    
-    protected abstract AbstractActionCommandExecutor createNewCommand();
 
     protected abstract String[] getColumnNames();
     
@@ -208,22 +199,26 @@ public abstract class AbstractObjectManagerView extends AbstractView {
     }
 
     
-    protected abstract class AbstractNewCommandExcecutor extends AbstractActionCommandExecutor {
+    private class NewCommandExcecutor extends AbstractActionCommandExecutor {
         private Object object;
         private NestingFormModel formModel;
         private AbstractForm form;
         private FormBackedDialogPage page;
-
-        protected abstract Object createObject();
         
-        protected abstract AbstractForm createForm(NestingFormModel formModel);
+		private final NewCommand newCommand;
+		private final FormFactory formFactory;
 
-        protected abstract void saveObject(Object object);
+        public NewCommandExcecutor(NewCommand newCommand, FormFactory formFactory) {
+			this.newCommand = newCommand;
+			this.formFactory = formFactory;
+
+			this.setEnabled(true);
+        }
         
         public void execute() {
-            object = createObject();
+            object = newCommand.createObject();
             formModel = FormModelHelper.createCompoundFormModel(object);
-            form = createForm(formModel);
+            form = formFactory.createForm(formModel);
             page = new FormBackedDialogPage(form);
 
             TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
@@ -233,7 +228,7 @@ public abstract class AbstractObjectManagerView extends AbstractView {
 
                 protected boolean onFinish() {
                     formModel.commit();
-                    saveObject(object);
+                    newCommand.saveObject(object);
                     getObjects().add(object);
                     return true;
                 }
@@ -243,14 +238,14 @@ public abstract class AbstractObjectManagerView extends AbstractView {
     }
     
     
-    protected class DeleteCommandExecutor extends AbstractActionCommandExecutor {
+    private class DeleteCommandExecutor extends AbstractActionCommandExecutor {
     	private final String title;
 		private final String message;
 		private final DeleteCommand command;
 
-		public DeleteCommandExecutor(String title, String message, DeleteCommand command) {
-			this.title = title;
-			this.message = message;
+		public DeleteCommandExecutor(DeleteCommand command) {
+			this.title = getMessage(command.getDeleteMessagePropertyName()+ ".title");
+			this.message = getMessage(command.getDeleteMessagePropertyName() + ".message");
 			this.command = command;
     	}
 		
@@ -267,7 +262,7 @@ public abstract class AbstractObjectManagerView extends AbstractView {
     }
     
     
-    protected class AbstractPropertiesCommandExecutor extends AbstractActionCommandExecutor {
+    private class PropertiesCommandExecutor extends AbstractActionCommandExecutor {
         private Object object;
         private AbstractForm form;
         private FormBackedDialogPage page;
@@ -275,7 +270,7 @@ public abstract class AbstractObjectManagerView extends AbstractView {
 		private final FormFactory formFactory;
 		private final PropertiesCommand command;
         
-        public AbstractPropertiesCommandExecutor(FormFactory formFactory, PropertiesCommand command) {
+        public PropertiesCommandExecutor(PropertiesCommand command, FormFactory formFactory) {
 			this.formFactory = formFactory;
 			this.command = command;	
         }

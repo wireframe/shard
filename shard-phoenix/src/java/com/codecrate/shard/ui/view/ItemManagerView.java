@@ -25,6 +25,7 @@ import com.codecrate.shard.equipment.Item;
 import com.codecrate.shard.equipment.ItemDao;
 import com.codecrate.shard.equipment.ItemFactory;
 import com.codecrate.shard.ui.command.DeleteCommand;
+import com.codecrate.shard.ui.command.NewCommand;
 import com.codecrate.shard.ui.command.PropertiesCommand;
 import com.codecrate.shard.ui.form.AbstractFormFactory;
 import com.codecrate.shard.ui.form.ItemForm;
@@ -43,15 +44,19 @@ public class ItemManagerView extends AbstractObjectManagerView {
 	}
 	
 	protected AbstractActionCommandExecutor createPropertiesCommand() {
-		return new AbstractPropertiesCommandExecutor(new AbstractFormFactory() {
-			public AbstractForm createForm(NestingFormModel formModel) {
-				return new ItemForm(formModel);
-			}
-		}, new PropertiesCommand() {
+		return new PropertiesCommandExecutor(getFormFactory(), new PropertiesCommand() {
 			public void updateObject(Object object) {
 				itemDao.updateItem((Item) object);
 			}			
 		}); 
+	}
+
+	private AbstractFormFactory getFormFactory() {
+		return new AbstractFormFactory() {
+			public AbstractForm createForm(NestingFormModel formModel) {
+				return new ItemForm(formModel);
+			}
+		};
 	}
 
 	protected AbstractActionCommandExecutor createDeleteCommand() {
@@ -65,20 +70,16 @@ public class ItemManagerView extends AbstractObjectManagerView {
 	}
 
 	protected AbstractActionCommandExecutor createNewCommand() {
-		return new AbstractNewCommandExcecutor() {
-
-			protected Object createObject() {
-	            return itemFactory.createItem("New Item");
+		return new NewCommandExcecutor(new NewCommand() {
+			public Object createObject() {
+				return itemFactory.createItem("New Item");
 			}
 
-			protected AbstractForm createForm(NestingFormModel model) {
-				return new ItemForm(model);
+			public void saveObject(Object object) {
+				itemDao.saveItem((Item) object);
 			}
-
-			protected void saveObject(Object object) {
-                itemDao.saveItem((Item) object);
-			}
-		};
+			
+		}, getFormFactory());
 	}
 
 	protected String[] getColumnNames() {
