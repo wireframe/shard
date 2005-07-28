@@ -13,13 +13,13 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.codecrate.shard.ui.form;
+package com.codecrate.shard.ui.command;
 
-import org.springframework.richclient.form.AbstractForm;
-import org.springframework.richclient.form.FormModelHelper;
+import java.util.Collection;
 
-public abstract class AbstractFormFactory implements FormFactory {
-	public AbstractForm createForm(Object model) {
-		return createForm(FormModelHelper.createCompoundFormModel(model));
-	}
+public interface ViewObjectsCommand {
+
+	Collection getObjects();
+
+	String[] getColumnNames();
 }

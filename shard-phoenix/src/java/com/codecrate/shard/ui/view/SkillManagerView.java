@@ -31,7 +31,7 @@ import com.codecrate.shard.ui.command.PropertiesCommand;
 import com.codecrate.shard.ui.form.AbstractFormFactory;
 import com.codecrate.shard.ui.form.SkillForm;
 
-public class SkillManagerView extends AbstractObjectManagerView {
+public class SkillManagerView extends ObjectManagerView {
     private SkillDao skillDao;
     private SkillFactory skillFactory;
     private AbilityDao abilityDao;

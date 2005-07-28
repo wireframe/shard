@@ -18,7 +18,6 @@ package com.codecrate.shard.ui.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collection;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -53,9 +52,10 @@ import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.DeleteCommand;
 import com.codecrate.shard.ui.command.NewCommand;
 import com.codecrate.shard.ui.command.PropertiesCommand;
+import com.codecrate.shard.ui.command.ViewObjectsCommand;
 import com.codecrate.shard.ui.form.FormFactory;
 
-public abstract class AbstractObjectManagerView extends AbstractView {
+public class ObjectManagerView extends AbstractView {
     private JScrollPane scrollPane;
     private JTable table;
     private GlazedTableModel model;
@@ -65,10 +65,12 @@ public abstract class AbstractObjectManagerView extends AbstractView {
 	private final AbstractActionCommandExecutor newCommand;
 	private final AbstractActionCommandExecutor deleteCommand;
 	private final AbstractActionCommandExecutor propertiesCommand;
+	private final ViewObjectsCommand viewCommand;
 	private BasicEventList objects;
 	private EventSelectionModel selectionModel;
 
-	public AbstractObjectManagerView(NewCommand newCommand, PropertiesCommand propertiesCommand, DeleteCommand deleteCommand, FormFactory formFactory) {
+	public ObjectManagerView(ViewObjectsCommand viewCommand, NewCommand newCommand, PropertiesCommand propertiesCommand, DeleteCommand deleteCommand, FormFactory formFactory) {
+		this.viewCommand = viewCommand;
 		this.newCommand = new NewCommandExcecutor(newCommand, formFactory);
 		this.propertiesCommand = new PropertiesCommandExecutor(propertiesCommand, formFactory);
 		this.deleteCommand = new DeleteCommandExecutor(deleteCommand);
@@ -99,14 +101,10 @@ public abstract class AbstractObjectManagerView extends AbstractView {
     	return newCommand;
     }
 
-    protected abstract String[] getColumnNames();
-    
-    protected abstract Collection createModelObjects();
-    
 	private EventList getObjects() {
 		if (null == objects) {
 			objects = new BasicEventList();
-			objects.addAll(createModelObjects());
+			objects.addAll(viewCommand.getObjects());
 		}
 		return objects;
 	}
@@ -193,7 +191,7 @@ public abstract class AbstractObjectManagerView extends AbstractView {
     private GlazedTableModel getModel() {
         if (null == model) {
             MessageSource messageSource = (MessageSource) getApplicationContext().getBean("messageSource");
-            model = new GlazedTableModel(getObjects(), messageSource, getColumnNames());
+            model = new GlazedTableModel(getObjects(), messageSource, viewCommand.getColumnNames());
         }
         return model;
     }

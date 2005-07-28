@@ -30,7 +30,7 @@ import com.codecrate.shard.ui.command.PropertiesCommand;
 import com.codecrate.shard.ui.form.AbstractFormFactory;
 import com.codecrate.shard.ui.form.ItemForm;
 
-public class ItemManagerView extends AbstractObjectManagerView {
+public class ItemManagerView extends ObjectManagerView {
 
 	private ItemDao itemDao;
 	private ItemFactory itemFactory;

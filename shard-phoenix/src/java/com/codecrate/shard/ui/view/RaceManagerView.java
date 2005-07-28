@@ -21,20 +21,8 @@ import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.ui.command.RaceCommandAdapter;
 import com.codecrate.shard.ui.form.RaceFormFactory;
 
-public class RaceManagerView extends AbstractObjectManagerView {
-    private RaceDao raceDao;
-    
+public class RaceManagerView extends ObjectManagerView {
     public RaceManagerView(RaceCommandAdapter commandAdapter, RaceFormFactory formFactory) {
     	super(commandAdapter, commandAdapter, commandAdapter, formFactory);
     }
-
-	protected String[] getColumnNames() {
-		return new String[] {
-				"name"
-		};                 
-	}
-
-	protected Collection createModelObjects() {
-		return raceDao.getRaces();
-	}
 }

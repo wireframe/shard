@@ -31,7 +31,7 @@ import com.codecrate.shard.ui.form.AbstractFormFactory;
 import com.codecrate.shard.ui.form.FeatForm;
 import com.codecrate.shard.ui.form.FormFactory;
 
-public class FeatManagerView extends AbstractObjectManagerView {
+public class FeatManagerView extends ObjectManagerView {
     private FeatDao featDao;
     private FeatFactory featFactory; 
     
