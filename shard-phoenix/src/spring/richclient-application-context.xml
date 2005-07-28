@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.12 2005/07/27 21:54:47 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.13 2005/07/28 03:53:29 wireframe Exp $ -->
 <beans>
 	
 	<bean id="application" 
@@ -179,15 +179,15 @@
 	</bean>
 
 	<bean id="raceManagerView"
-		class="org.springframework.richclient.application.support.LookupViewDescriptor"
-		singleton="false">
+		class="org.springframework.richclient.application.support.LookupViewDescriptor">
 		<property name="viewPrototypeBeanName">
-			<value>raceManagerView</value>
+			<value>raceManager</value>
 		</property>
 	</bean>
 
 	<bean id="raceManager"
-	    class="com.codecrate.shard.ui.view.RaceManagerView">
+	    class="com.codecrate.shard.ui.view.RaceManagerView"
+	    singleton="false">
 	    <property name="raceDao">
 			<ref bean="raceDao"/>
 		</property>
