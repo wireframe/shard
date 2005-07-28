@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.14 2005/07/28 04:36:09 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.15 2005/07/28 14:31:46 wireframe Exp $ -->
 <beans>
 	
 	<bean id="application" 
@@ -144,22 +144,31 @@
 		</property>
 	</bean>
 
+	<!-- feat manager view -->
 	<bean id="featManagerView"
-		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
-		<property name="viewClass">
-			<value>com.codecrate.shard.ui.view.FeatManagerView</value>
-		</property>
-		<property name="viewProperties">
-			<map>
-				<entry key="featDao">
-					<ref bean="featDao"/>
-				</entry>
-				<entry key="featFactory">
-					<ref bean="featDao"/>
-				</entry>
-			</map>
+		class="org.springframework.richclient.application.support.LookupViewDescriptor">
+		<property name="viewPrototypeBeanName">
+			<value>featManager</value>
 		</property>
 	</bean>
+
+	<bean id="featManager"
+	    class="com.codecrate.shard.ui.view.FeatManagerView"
+	    singleton="false">
+	    <constructor-arg><ref bean="featCommandAdapter" /></constructor-arg>
+	    <constructor-arg><ref bean="featFormFactory" /></constructor-arg>
+	</bean>
+
+    <bean id="featFormFactory"
+        class="com.codecrate.ui.form.FeatFormFactory">
+    </bean>
+    
+    <bean id="featCommandAdapter"
+        class="com.codecrate.shard.ui.command.FeatCommandAdapter">
+        <constructor-arg index="0"><ref bean="featDao" /></constructor-arg>
+        <constructor-arg index="1"><ref bean="featDao" /></constructor-arg>
+        <property name="deleteMessagePropertyName">confirmDeleteFeatDialog</property>
+    </bean>
 
 	<bean id="itemManagerView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
@@ -178,6 +187,7 @@
 		</property>
 	</bean>
 
+    <!-- race manager view -->
 	<bean id="raceManagerView"
 		class="org.springframework.richclient.application.support.LookupViewDescriptor">
 		<property name="viewPrototypeBeanName">

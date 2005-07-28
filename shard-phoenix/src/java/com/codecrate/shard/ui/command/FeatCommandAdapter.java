@@ -17,46 +17,47 @@ package com.codecrate.shard.ui.command;
 
 import java.util.Collection;
 
-import com.codecrate.shard.race.Race;
-import com.codecrate.shard.race.RaceDao;
-import com.codecrate.shard.race.RaceFactory;
+import com.codecrate.shard.feat.Feat;
+import com.codecrate.shard.feat.FeatDao;
+import com.codecrate.shard.feat.FeatFactory;
 
-public class RaceCommandAdapter implements CommandAdapter {
+public class FeatCommandAdapter implements CommandAdapter {
 	
-	private final RaceDao raceDao;
-	private final RaceFactory raceFactory;
+	private final FeatDao featDao;
+	private final FeatFactory featFactory;
 
 	private String deleteMessagePropertyName;
 	
-	public RaceCommandAdapter(RaceDao raceDao, RaceFactory raceFactory) {
-		this.raceDao = raceDao;
-		this.raceFactory = raceFactory;	
+	public FeatCommandAdapter(FeatDao featDao, FeatFactory featFactory) {
+		this.featDao = featDao;
+		this.featFactory = featFactory;	
 	}
 	
 	public String[] getColumnNames() {
 		return new String[] {
 				"name"
-		}; 
+				, "type"
+		};
 	}
 
 	public Collection getObjects() {
-		return raceDao.getRaces();
+		return featDao.getFeats();
 	}
 	
 	public Object createObject() {
-		return raceFactory.createRace("New Race");
+		return featFactory.createFeat("New Feat");
 	}
 	
 	public void saveObject(Object object) {
-		raceDao.saveRace((Race) object);
+		featDao.saveFeat((Feat) object);
 	}
 	
 	public void updateObject(Object object) {
-		raceDao.updateRace((Race) object);
+		featDao.updateFeat((Feat) object);
 	}
 	
 	public void deleteObject(Object object) {
-		raceDao.deleteRace((Race) object);
+		featDao.deleteFeat((Feat) object);
 	}
 
 	public String getDeleteMessagePropertyName() {

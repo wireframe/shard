@@ -203,18 +203,18 @@ public class ObjectManagerView extends AbstractView {
         private AbstractForm form;
         private FormBackedDialogPage page;
         
-		private final NewCommand newCommand;
+		private final NewCommand command;
 		private final FormFactory formFactory;
 
         public NewCommandExcecutor(NewCommand newCommand, FormFactory formFactory) {
-			this.newCommand = newCommand;
+			this.command = newCommand;
 			this.formFactory = formFactory;
 
 			this.setEnabled(true);
         }
         
         public void execute() {
-            object = newCommand.createObject();
+            object = command.createObject();
             formModel = FormModelHelper.createCompoundFormModel(object);
             form = formFactory.createForm(formModel);
             page = new FormBackedDialogPage(form);
@@ -226,7 +226,7 @@ public class ObjectManagerView extends AbstractView {
 
                 protected boolean onFinish() {
                     formModel.commit();
-                    newCommand.saveObject(object);
+                    command.saveObject(object);
                     getObjects().add(object);
                     return true;
                 }
