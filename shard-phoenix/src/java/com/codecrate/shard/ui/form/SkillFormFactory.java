@@ -13,15 +13,22 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.codecrate.shard.ui.view;
+package com.codecrate.shard.ui.form;
 
-import com.codecrate.shard.ui.command.ItemCommandAdapter;
-import com.codecrate.shard.ui.form.FormFactory;
+import org.springframework.binding.form.NestingFormModel;
+import org.springframework.richclient.form.AbstractForm;
 
-public class ItemManagerView extends ObjectManagerView {
+import com.codecrate.shard.ability.AbilityDao;
 
-	public ItemManagerView(ItemCommandAdapter commandAdapter, FormFactory formFactory) {
-		super(commandAdapter, commandAdapter, commandAdapter, commandAdapter, formFactory);
+public class SkillFormFactory extends AbstractFormFactory implements FormFactory {
+
+	private final AbilityDao abilityDao;
+	
+	public SkillFormFactory(AbilityDao abilityDao) {
+		this.abilityDao = abilityDao;
 	}
-
+	
+	public AbstractForm createForm(NestingFormModel formModel) {
+		return new SkillForm(formModel, abilityDao);
+	}
 }

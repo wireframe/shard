@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.15 2005/07/28 14:31:46 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.16 2005/07/28 16:52:20 wireframe Exp $ -->
 <beans>
 	
 	<bean id="application" 
@@ -124,25 +124,34 @@
     <bean id="formPropertyFaceDescriptorSource" 
 		class="org.springframework.binding.form.support.MessageSourceFormPropertyFaceDescriptorSource"/>    
 
+    <!-- skill manager view -->
 	<bean id="skillManagerView"
-		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
-		<property name="viewClass">
-			<value>com.codecrate.shard.ui.view.SkillManagerView</value>
-		</property>
-		<property name="viewProperties">
-			<map>
-				<entry key="skillDao">
-					<ref bean="skillDao"/>
-				</entry>
-				<entry key="skillFactory">
-					<ref bean="skillDao"/>
-				</entry>
-				<entry key="abilityDao">
-					<ref bean="abilityDao"/>
-				</entry>
-			</map>
+		class="org.springframework.richclient.application.support.LookupViewDescriptor">
+		<property name="viewPrototypeBeanName">
+			<value>skillManager</value>
 		</property>
 	</bean>
+
+	<bean id="skillManager"
+	    class="com.codecrate.shard.ui.view.SkillManagerView"
+	    singleton="false">
+	    <constructor-arg><ref bean="skillCommandAdapter" /></constructor-arg>
+	    <constructor-arg><ref bean="skillFormFactory" /></constructor-arg>
+	</bean>
+
+    <bean id="skillFormFactory"
+        class="com.codecrate.shard.ui.form.SkillFormFactory">
+        <constructor-arg><ref bean="abilityDao" /></constructor-arg>
+    </bean>
+    
+    <bean id="skillCommandAdapter"
+        class="com.codecrate.shard.ui.command.SkillCommandAdapter">
+        <constructor-arg index="0"><ref bean="skillDao" /></constructor-arg>
+        <constructor-arg index="1"><ref bean="skillDao" /></constructor-arg>
+        <property name="deleteMessagePropertyName">
+          <value>confirmDeleteSkillDialog</value>
+        </property>
+    </bean>
 
 	<!-- feat manager view -->
 	<bean id="featManagerView"
@@ -160,32 +169,45 @@
 	</bean>
 
     <bean id="featFormFactory"
-        class="com.codecrate.ui.form.FeatFormFactory">
+        class="com.codecrate.shard.ui.form.FeatFormFactory">
     </bean>
     
     <bean id="featCommandAdapter"
         class="com.codecrate.shard.ui.command.FeatCommandAdapter">
         <constructor-arg index="0"><ref bean="featDao" /></constructor-arg>
         <constructor-arg index="1"><ref bean="featDao" /></constructor-arg>
-        <property name="deleteMessagePropertyName">confirmDeleteFeatDialog</property>
+        <property name="deleteMessagePropertyName">
+          <value>confirmDeleteFeatDialog</value>
+        </property>
     </bean>
 
+	<!-- item manager view -->
 	<bean id="itemManagerView"
-		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
-		<property name="viewClass">
-			<value>com.codecrate.shard.ui.view.ItemManagerView</value>
-		</property>
-		<property name="viewProperties">
-			<map>
-				<entry key="itemDao">
-					<ref bean="itemDao"/>
-				</entry>
-				<entry key="itemFactory">
-					<ref bean="itemDao"/>
-				</entry>
-			</map>
+		class="org.springframework.richclient.application.support.LookupViewDescriptor">
+		<property name="viewPrototypeBeanName">
+			<value>itemManager</value>
 		</property>
 	</bean>
+
+	<bean id="itemManager"
+	    class="com.codecrate.shard.ui.view.ItemManagerView"
+	    singleton="false">
+	    <constructor-arg><ref bean="itemCommandAdapter" /></constructor-arg>
+	    <constructor-arg><ref bean="itemFormFactory" /></constructor-arg>
+	</bean>
+
+    <bean id="itemFormFactory"
+        class="com.codecrate.shard.ui.form.ItemFormFactory">
+    </bean>
+    
+    <bean id="itemCommandAdapter"
+        class="com.codecrate.shard.ui.command.ItemCommandAdapter">
+        <constructor-arg index="0"><ref bean="itemDao" /></constructor-arg>
+        <constructor-arg index="1"><ref bean="itemDao" /></constructor-arg>
+        <property name="deleteMessagePropertyName">
+          <value>confirmDeleteItemDialog</value>
+        </property>
+    </bean>
 
     <!-- race manager view -->
 	<bean id="raceManagerView"
@@ -203,13 +225,15 @@
 	</bean>
 
     <bean id="raceFormFactory"
-        class="com.codecrate.ui.form.RaceFormFactory">
+        class="com.codecrate.shard.ui.form.RaceFormFactory">
     </bean>
     
     <bean id="raceCommandAdapter"
         class="com.codecrate.shard.ui.command.RaceCommandAdapter">
         <constructor-arg index="0"><ref bean="raceDao" /></constructor-arg>
         <constructor-arg index="1"><ref bean="raceDao" /></constructor-arg>
-        <property name="deleteMessagePropertyName">confirmDeleteRaceDialog</property>
+        <property name="deleteMessagePropertyName">
+          <value>confirmDeleteRaceDialog</value>
+        </property>
     </bean>
 </beans>

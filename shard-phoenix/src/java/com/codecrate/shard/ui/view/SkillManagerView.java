@@ -15,86 +15,11 @@
  */
 package com.codecrate.shard.ui.view;
 
-import java.util.Collection;
-
-import org.springframework.binding.form.NestingFormModel;
-import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
-import org.springframework.richclient.form.AbstractForm;
-
-import com.codecrate.shard.ability.AbilityDao;
-import com.codecrate.shard.skill.Skill;
-import com.codecrate.shard.skill.SkillDao;
-import com.codecrate.shard.skill.SkillFactory;
-import com.codecrate.shard.ui.command.DeleteCommand;
-import com.codecrate.shard.ui.command.NewCommand;
-import com.codecrate.shard.ui.command.PropertiesCommand;
-import com.codecrate.shard.ui.form.AbstractFormFactory;
-import com.codecrate.shard.ui.form.SkillForm;
+import com.codecrate.shard.ui.command.SkillCommandAdapter;
+import com.codecrate.shard.ui.form.FormFactory;
 
 public class SkillManagerView extends ObjectManagerView {
-    private SkillDao skillDao;
-    private SkillFactory skillFactory;
-    private AbilityDao abilityDao;
-    
-    public void setAbilityDao(AbilityDao abilityDao) {
-        this.abilityDao = abilityDao;
+    public SkillManagerView(SkillCommandAdapter commandAdapter, FormFactory formFactory) {
+    	super(commandAdapter, commandAdapter, commandAdapter, commandAdapter, formFactory);
     }
-    
-    public void setSkillDao(SkillDao skillDao) {
-        this.skillDao = skillDao;
-    }
-    
-    public void setSkillFactory(SkillFactory skillFactory) {
-    	this.skillFactory = skillFactory;
-    }
-
-	protected AbstractActionCommandExecutor createDeleteCommand() {
-    	String title = getMessage("confirmDeleteSkillDialog.title");
-    	String message = getMessage("confirmDeleteSkillDialog.label");
-		return new DeleteCommandExecutor(title, message, new DeleteCommand() {
-			public void deleteObject(Object object) {
-				skillDao.deleteSkill((Skill) object);
-			}
-		});
-	}
-
-	protected AbstractActionCommandExecutor createPropertiesCommand() {
-		return new PropertiesCommandExecutor(getFormFactory(), new PropertiesCommand() {
-			public void updateObject(Object object) {
-				skillDao.updateSkill((Skill) object);
-			}			
-		}); 
-	}
-
-	private AbstractFormFactory getFormFactory() {
-		return new AbstractFormFactory() {
-			public AbstractForm createForm(NestingFormModel formModel) {
-				return new SkillForm(formModel, abilityDao);
-			}
-		};
-	}
-
-	protected AbstractActionCommandExecutor createNewCommand() {
-		return new NewCommandExcecutor(new NewCommand() {
-			public Object createObject() {
-				return skillFactory.createSkill("New Skill");
-			}
-
-			public void saveObject(Object object) {
-				skillDao.saveSkill((Skill) object);
-			}
-		}, getFormFactory());
-	}
-
-	protected String[] getColumnNames() {
-		return new String[] {
-				"name"
-				, "ability"
-		};
-	}
-
-	protected Collection createModelObjects() {
-		return skillDao.getSkills();
-	}
-    
 }

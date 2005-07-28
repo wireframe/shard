@@ -15,14 +15,11 @@
  */
 package com.codecrate.shard.ui.view;
 
-import java.util.Collection;
-
-import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.ui.command.RaceCommandAdapter;
 import com.codecrate.shard.ui.form.RaceFormFactory;
 
 public class RaceManagerView extends ObjectManagerView {
     public RaceManagerView(RaceCommandAdapter commandAdapter, RaceFormFactory formFactory) {
-    	super(commandAdapter, commandAdapter, commandAdapter, formFactory);
+    	super(commandAdapter, commandAdapter, commandAdapter, commandAdapter, formFactory);
     }
 }
