@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard.skill;
 
-import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.Modifiable;
 import com.codecrate.shard.modifier.ModifiableObject;
 import com.codecrate.shard.modifier.Modifier;
