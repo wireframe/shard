@@ -26,7 +26,6 @@ import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.ModifiableObject;
 import com.codecrate.shard.modifier.Modifier;
 import com.codecrate.shard.modifier.ModifierListener;
-import com.codecrate.shard.modifier.ModifierType;
 import com.codecrate.shard.movement.Encumberance;
 
 /**
