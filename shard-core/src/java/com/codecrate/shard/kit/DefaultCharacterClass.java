@@ -31,6 +31,7 @@ import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.feat.DefaultFeat;
 import com.codecrate.shard.modifier.DefaultKeyedModifier;
+import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.KeyedModifier;
 import com.codecrate.shard.skill.DefaultSkill;
 
@@ -66,7 +67,7 @@ public class DefaultCharacterClass implements CharacterClass {
     				new HashSet(),
             new ArrayList(), Arrays
                     .asList(new KeyedModifier[] { new DefaultKeyedModifier(
-                            DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
+                            DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
 
     public static final CharacterClass CLERIC = new DefaultCharacterClass(
             "Cleric", RandomDice.d8,  2, 
@@ -76,7 +77,7 @@ public class DefaultCharacterClass implements CharacterClass {
                     DefaultFeat.ARMOR_PROFICIENCY_HEAVY,
                             DefaultFeat.SHIELD_PROFICIENCY }), Arrays
                             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
-                                    DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
+                                    DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
     
     public static final CharacterClass DRUID = new DefaultCharacterClass(
             "Druid", RandomDice.d8,  4, 
@@ -91,14 +92,14 @@ public class DefaultCharacterClass implements CharacterClass {
                             new HashSet(),
                             new ArrayList(), Arrays
                             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
-                                    DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
+                                    DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
     
     public static final CharacterClass FIGHTER = new DefaultCharacterClass(
             "Fighter", RandomDice.d10,  2, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), new HashSet(), 
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
-                    DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
+                    DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
     
     public static final CharacterClass MONK = new DefaultCharacterClass(
             "Monk", RandomDice.d8,  4, 
@@ -110,7 +111,7 @@ public class DefaultCharacterClass implements CharacterClass {
                             }), new HashSet(),
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
-                    DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
+                    DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
 
     public static final CharacterClass PALADIN = new DefaultCharacterClass(
             "Paladin", RandomDice.d10,  2, 
@@ -120,28 +121,28 @@ public class DefaultCharacterClass implements CharacterClass {
                             }),
             new HashSet(), new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
-                    DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
+                    DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
     
     public static final CharacterClass RANGER = new DefaultCharacterClass(
             "Ranger", RandomDice.d8,  6, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), new HashSet(), 
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
-                    DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
+                    DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
     
     public static final CharacterClass ROUGE = new DefaultCharacterClass(
             "Rouge", RandomDice.d6,  8, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), new HashSet(), 
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
-                    DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
+                    DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
     
     public static final CharacterClass SORCERER = new DefaultCharacterClass(
             "Sorcerer", RandomDice.d4,  2, 
             new DefaultClassProgressionDao(), new NullPrerequisite(), new HashSet(), 
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
-                    DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
+                    DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
     
     public static final CharacterClass WIZARD = new DefaultCharacterClass(
             "Wizard", RandomDice.d4,  2, 
@@ -149,7 +150,7 @@ public class DefaultCharacterClass implements CharacterClass {
             new HashSet(),
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
-                    DefaultSkill.LITERACY, DefaultSkill.TYPE_CLASS, 1) }));
+                    DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
 
     public static final CharacterClass WARRIOR = new DefaultCharacterClass(
             "Warrior", RandomDice.d8,  2, 

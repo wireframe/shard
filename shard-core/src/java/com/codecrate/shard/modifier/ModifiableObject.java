@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.modifier;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -52,37 +53,37 @@ public class ModifiableObject implements Modifiable, ModifierListenerContainer {
 		Iterator it = modifiers.keySet().iterator();
 		while (it.hasNext()) {
 			ModifierType type = (ModifierType) it.next();
-			TypeGroupedModifier modifier = (TypeGroupedModifier) modifiers.get(type);
-            value += modifier.getModifier();
+			Collection typeModifiers = (Collection) modifiers.get(type);
+			value += type.calculateModifier(typeModifiers);
 		}
 		return value;
 	}
 	
 	public void addModifier(Modifier modifier) {
 		ModifierType type = modifier.getModifierType();
-		TypeGroupedModifier modifiers = getModifier(type);
-		modifiers.addModifier(modifier);
-		updateModifier(type, modifiers);
+		Collection typeModifiers = getModifiers(type);
+		typeModifiers.add(modifier);
+		updateModifier(type, typeModifiers);
 	}
 	
 	public void removeModifier(Modifier modifier) {
 		ModifierType type = modifier.getModifierType();
-		TypeGroupedModifier modifiers = getModifier(type);
-		modifiers.removeModifier(modifier);
-		updateModifier(type, modifiers);
+		Collection typeModifiers = getModifiers(type);
+		typeModifiers.remove(modifier);
+		updateModifier(type, typeModifiers);
 	}
 	
-	protected TypeGroupedModifier getModifier(ModifierType type) {
-	    TypeGroupedModifier modifier = (TypeGroupedModifier) modifiers.get(type);
-		if (null == modifier) {
+	protected Collection getModifiers(ModifierType type) {
+		Collection typeModifiers = (Collection) modifiers.get(type);
+		if (null == typeModifiers) {
 			LOG.debug("No modifiers found for type: " + type);
-			modifier = new TypeGroupedModifier(type);
+			typeModifiers = new ArrayList();
 		}
-		return modifier;
+		return typeModifiers;
 	}
 	
-	private void updateModifier(ModifierType type, TypeGroupedModifier modifier) {
-		modifiers.put(type, modifier);
+	private void updateModifier(ModifierType type, Collection typeModifiers) {
+		modifiers.put(type, typeModifiers);
 		listeners.onModify();
 	}
 

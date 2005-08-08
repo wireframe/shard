@@ -37,7 +37,6 @@ import com.codecrate.shard.movement.Encumberance;
  */
 public class DexterityArmorClass extends ModifiableObject implements ArmorClass, ModifierListener {
     private static final Log LOG = LogFactory.getLog(DexterityArmorClass.class);
-    private static final ModifierType ENCUMBERANCE = new DefaultModifierType("encumberance", false);
     
     private final Encumberance encumberance;
     private AbilityScore abilityScore;
@@ -65,7 +64,7 @@ public class DexterityArmorClass extends ModifiableObject implements ArmorClass,
             int maxValue = encumberance.getMaxDexterityModifier();
             if (value > maxValue) {
                 LOG.info("Encumberance limits dexterity modifier to " + maxValue);
-                modifier = new DefaultModifier(ENCUMBERANCE, maxValue - value);
+                modifier = new DefaultModifier(DefaultModifierType.ENCUMBERANCE, maxValue - value);
                 addModifier(modifier);
             }
         }

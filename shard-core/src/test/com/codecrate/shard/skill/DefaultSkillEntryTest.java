@@ -18,6 +18,7 @@ package com.codecrate.shard.skill;
 import junit.framework.TestCase;
 
 import com.codecrate.shard.modifier.DefaultModifier;
+import com.codecrate.shard.modifier.DefaultModifierType;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -26,8 +27,8 @@ public class DefaultSkillEntryTest extends TestCase {
 
     public void testMultipleModifiersUsedForValue() {
         DefaultSkillEntry entry = new DefaultSkillEntry(DefaultSkill.SWIM);
-        entry.addModifier(new DefaultModifier(DefaultSkill.TYPE_RANK, 1));
-        entry.addModifier(new DefaultModifier(DefaultSkill.TYPE_RANK, 1));
+        entry.addModifier(new DefaultModifier(DefaultModifierType.RANK, 1));
+        entry.addModifier(new DefaultModifier(DefaultModifierType.RANK, 1));
         assertEquals(2, entry.getModifiedValue());
     }
 }

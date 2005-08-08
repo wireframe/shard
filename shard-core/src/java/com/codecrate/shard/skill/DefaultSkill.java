@@ -20,19 +20,11 @@ import java.util.HashSet;
 
 import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.ability.DefaultAbility;
-import com.codecrate.shard.modifier.DefaultModifierType;
-import com.codecrate.shard.modifier.ModifierType;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek </a>
  */
 public class DefaultSkill implements Skill {
-	public static final ModifierType TYPE_RACE = new DefaultModifierType("race", false);
-	public static final ModifierType TYPE_RANK = new DefaultModifierType("rank", true);
-	public static final ModifierType TYPE_ABILITY = new DefaultModifierType("ability", false);
-    public static final ModifierType TYPE_CLASS = new DefaultModifierType("class", false);
-    public static final ModifierType TYPE_SIZE = new DefaultModifierType("size", false);
-
     
     public static final Skill APPRAISE = new DefaultSkill("Appraise", true,
             DefaultAbility.INTELLIGENCE, false);

@@ -45,6 +45,7 @@ import com.codecrate.shard.equipment.ItemEntry;
 import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.modifier.DefaultKeyedModifier;
+import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.KeyedModifier;
 import com.codecrate.shard.movement.DefaultEncumberance;
 import com.codecrate.shard.movement.Encumberance;
@@ -90,12 +91,12 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 		levels.add(new DefaultCharacterLevel(null, 1, 1,
                 DefaultCharacterClass.BARBARIAN.getClassProgression().getClassLevel(1), 
                 Arrays.asList(new KeyedModifier[] { 
-                                new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultSkill.TYPE_RANK, 1), 
-                                new DefaultKeyedModifier(DefaultSkill.INTIMIDATE, DefaultSkill.TYPE_RANK, 1)})));
+                                new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultModifierType.RANK, 1), 
+                                new DefaultKeyedModifier(DefaultSkill.INTIMIDATE, DefaultModifierType.RANK, 1)})));
 		levels.add(new DefaultCharacterLevel(null, 2, 1, 
 		        DefaultCharacterClass.FIGHTER.getClassProgression().getClassLevel(1), 
                 Arrays.asList(new KeyedModifier[] { 
-                        new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultSkill.TYPE_RANK, 1) })));
+                        new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultModifierType.RANK, 1) })));
 		CharacterProgression progression = new DefaultCharacterProgression(levels);
 		
 		Race race = DefaultRace.HUMAN;

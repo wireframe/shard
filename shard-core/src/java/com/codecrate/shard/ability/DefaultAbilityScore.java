@@ -16,6 +16,7 @@
 package com.codecrate.shard.ability;
 
 import com.codecrate.shard.modifier.DefaultModifierType;
+import com.codecrate.shard.modifier.HighestModifierCalculator;
 import com.codecrate.shard.modifier.ModifiableObject;
 import com.codecrate.shard.modifier.ModifierType;
 
@@ -33,7 +34,7 @@ public class DefaultAbilityScore extends ModifiableObject implements AbilityScor
         super(baseScore);
     	this.ability = ability;
     	this.dao = dao;
-    	type = new DefaultModifierType(ability.getName(), false);
+    	type = new DefaultModifierType(ability.getName(), new HighestModifierCalculator());
     }
     
     public String toString() {

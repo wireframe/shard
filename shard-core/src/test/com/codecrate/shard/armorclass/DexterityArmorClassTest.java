@@ -63,7 +63,7 @@ public class DexterityArmorClassTest extends TestCase {
     public void testArmorClassUpdatedWhenAbilityChanged() {
         DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10, null);
 
-        ModifierType type = new DefaultModifierType("type", true);
+	    ModifierType type = DefaultModifierType.ARMOR;
         Modifier modifier = new DefaultModifier(type, 8);
 
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
@@ -82,7 +82,7 @@ public class DexterityArmorClassTest extends TestCase {
     public void testModifierLimitedToEncumberanceMaxValue() {
         DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10, null);
         
-        ModifierType type = new DefaultModifierType("type", true);
+	    ModifierType type = DefaultModifierType.ARMOR;
         Modifier modifier = new DefaultModifier(type, 8);
 
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);

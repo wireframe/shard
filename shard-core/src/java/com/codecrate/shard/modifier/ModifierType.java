@@ -20,14 +20,7 @@ package com.codecrate.shard.modifier;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface ModifierType {
+public interface ModifierType extends ModifierCalculator {
 
 	String getName();
-	
-	/**
-	 * flag for if this modifier type is stackable.
-	 * ex: Dodge bonus is stackable.
-	 * @return
-	 */
-	boolean isStackable();
 }

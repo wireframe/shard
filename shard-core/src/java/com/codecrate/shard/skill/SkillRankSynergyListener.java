@@ -21,7 +21,6 @@ import com.codecrate.shard.modifier.DefaultKeyedModifier;
 import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.KeyedModifier;
 import com.codecrate.shard.modifier.ModifierListener;
-import com.codecrate.shard.modifier.ModifierType;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -29,7 +28,6 @@ import com.codecrate.shard.modifier.ModifierType;
 public class SkillRankSynergyListener implements ModifierListener {
     private static final int SYNERGY_THRESHOLD = 5;
     
-    private ModifierType type = new DefaultModifierType("skill synergy", false);
     private int previousRank = 0;
     private final SkillEntry entry;
     private final SkillEntryContainer container;
@@ -48,7 +46,7 @@ public class SkillRankSynergyListener implements ModifierListener {
             Iterator it = entry.getSkill().getChildSkillSynergies().iterator();
             while (it.hasNext()) {
                 Skill skill = (Skill) it.next();
-                KeyedModifier modifier = new DefaultKeyedModifier(skill, type, 2);
+                KeyedModifier modifier = new DefaultKeyedModifier(skill, DefaultModifierType.SYNERGY, 2);
                 container.addModifier(modifier);
             }
         }

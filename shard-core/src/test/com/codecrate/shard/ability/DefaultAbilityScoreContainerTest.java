@@ -81,7 +81,7 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 		Map abilities = new HashMap();
 		abilities.put(DefaultAbility.STRENGTH, ability);
 	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
-	    ModifierType type = new DefaultModifierType("test", false);
+	    ModifierType type = DefaultModifierType.ABILITY;
 	    container.addModifier(new DefaultKeyedModifier(DefaultAbility.STRENGTH, type, 8));
 
 	    assertEquals(18, ability.getModifiedValue());
@@ -90,7 +90,7 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 	public void testModifierNotUsedWithoutAbilityScore() {
 		Map abilities = new HashMap();
 	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
-	    ModifierType type = new DefaultModifierType("test", false);
+	    ModifierType type = DefaultModifierType.ABILITY;
 	    container.addModifier(new DefaultKeyedModifier(DefaultAbility.STRENGTH, type, 8));
 	    assertFalse(container.hasAbilityScore(DefaultAbility.STRENGTH));
 	}
@@ -101,7 +101,7 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 		Map abilities = new HashMap();
 		abilities.put(DefaultAbility.STRENGTH, ability);
 	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
-	    ModifierType type = new DefaultModifierType("test", false);
+	    ModifierType type = DefaultModifierType.ABILITY;
 	    KeyedModifier modifier = new DefaultKeyedModifier(DefaultAbility.STRENGTH, type, 8);
         container.addModifier(modifier);
 	    container.removeModifier(modifier);
@@ -112,7 +112,7 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 	public void testModifierNotRemovedWithoutAbilityScore() {
 		Map abilities = new HashMap();
 	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
-	    ModifierType type = new DefaultModifierType("test", false);
+	    ModifierType type = DefaultModifierType.ABILITY;
 	    container.removeModifier(new DefaultKeyedModifier(DefaultAbility.STRENGTH, type, 8));
 	    assertFalse(container.hasAbilityScore(DefaultAbility.STRENGTH));
 	}

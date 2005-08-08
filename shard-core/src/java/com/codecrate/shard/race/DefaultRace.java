@@ -20,15 +20,14 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import com.codecrate.shard.ability.DefaultAbility;
-import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.dice.MultipleDice;
+import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.modifier.DefaultKeyedModifier;
 import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.KeyedModifier;
-import com.codecrate.shard.modifier.ModifierType;
 import com.codecrate.shard.movement.DefaultMovement;
 import com.codecrate.shard.movement.Movement;
 import com.codecrate.shard.skill.DefaultSkill;
@@ -37,8 +36,6 @@ import com.codecrate.shard.skill.DefaultSkill;
  * <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultRace implements Race {
-    private static final ModifierType RACE = new DefaultModifierType("race", false);
-    
 	public static final Race HUMAN = new DefaultRace("Human", DefaultRacialSize.MEDIUM,
 			new DefaultMovement(30), new ArrayList(), new ArrayList(), 
 			0, 
@@ -49,9 +46,9 @@ public class DefaultRace implements Race {
 			DefaultRacialSize.MEDIUM, new DefaultMovement(30), new ArrayList(), 
 			Arrays.asList(
 					new KeyedModifier[] { 
-					        new DefaultKeyedModifier(DefaultSkill.LISTEN, DefaultSkill.TYPE_RACE, 2),
-					        new DefaultKeyedModifier(DefaultSkill.SPOT, DefaultSkill.TYPE_RACE, 1),
-					        new DefaultKeyedModifier(DefaultSkill.SEARCH, DefaultSkill.TYPE_RACE, 1)}), 
+					        new DefaultKeyedModifier(DefaultSkill.LISTEN, DefaultModifierType.RACE, 2),
+					        new DefaultKeyedModifier(DefaultSkill.SPOT, DefaultModifierType.RACE, 1),
+					        new DefaultKeyedModifier(DefaultSkill.SEARCH, DefaultModifierType.RACE, 1)}), 
 					0, 
 			Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON, DefaultLanguage.ELVEN}), new ArrayList(),
 			DefaultVision.LOW_LIGHT_VISION, null, new MultipleDice(RandomDice.d20, 3), 0);
@@ -59,9 +56,9 @@ public class DefaultRace implements Race {
 	public static final Race HALF_ORC = new DefaultRace("Half-Orc",
 			DefaultRacialSize.MEDIUM, new DefaultMovement(30), Arrays
 					.asList(new KeyedModifier[] {
-							new DefaultKeyedModifier(DefaultAbility.STRENGTH, RACE, 2),
-							new DefaultKeyedModifier(DefaultAbility.INTELLIGENCE, RACE, -2),
-							new DefaultKeyedModifier(DefaultAbility.CHARISMA, RACE, -2) }), 
+							new DefaultKeyedModifier(DefaultAbility.STRENGTH, DefaultModifierType.RACE, 2),
+							new DefaultKeyedModifier(DefaultAbility.INTELLIGENCE, DefaultModifierType.RACE, -2),
+							new DefaultKeyedModifier(DefaultAbility.CHARISMA, DefaultModifierType.RACE, -2) }), 
 									new ArrayList(), 0, 
 			Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON, DefaultLanguage.ORC}), 
 			Arrays.asList(new DefaultLanguage[] {DefaultLanguage.DRACONIC, DefaultLanguage.GIANT, DefaultLanguage.GNOLL, 
@@ -70,13 +67,13 @@ public class DefaultRace implements Race {
 
 	public static final Race ELF = new DefaultRace("Elf", DefaultRacialSize.MEDIUM,
 			new DefaultMovement(30), Arrays.asList(new KeyedModifier[] {
-					new DefaultKeyedModifier(DefaultAbility.DEXTERITY, RACE, 2),
-					new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, RACE, -2) }), 
+					new DefaultKeyedModifier(DefaultAbility.DEXTERITY, DefaultModifierType.RACE, 2),
+					new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, DefaultModifierType.RACE, -2) }), 
 					Arrays.asList(
 							new DefaultKeyedModifier[] { 
-						        new DefaultKeyedModifier(DefaultSkill.LISTEN, DefaultSkill.TYPE_RACE, 2),
-								new DefaultKeyedModifier(DefaultSkill.SPOT, DefaultSkill.TYPE_RACE, 2),
-								new DefaultKeyedModifier(DefaultSkill.SEARCH, DefaultSkill.TYPE_RACE, 2)}),
+						        new DefaultKeyedModifier(DefaultSkill.LISTEN, DefaultModifierType.RACE, 2),
+								new DefaultKeyedModifier(DefaultSkill.SPOT, DefaultModifierType.RACE, 2),
+								new DefaultKeyedModifier(DefaultSkill.SEARCH, DefaultModifierType.RACE, 2)}),
 							0, 
 							Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON, DefaultLanguage.ELVEN}), 
 							Arrays.asList(new DefaultLanguage[] {DefaultLanguage.DRACONIC, DefaultLanguage.GNOLL, 
@@ -85,8 +82,8 @@ public class DefaultRace implements Race {
 
 	public static final Race DWARF = new DefaultRace("Dwarf", DefaultRacialSize.MEDIUM,
 			new DefaultMovement(20), Arrays.asList(new KeyedModifier[] {
-					new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, RACE, 2),
-					new DefaultKeyedModifier(DefaultAbility.CHARISMA, RACE, -2) }), 
+					new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, DefaultModifierType.RACE, 2),
+					new DefaultKeyedModifier(DefaultAbility.CHARISMA, DefaultModifierType.RACE, -2) }), 
 							new ArrayList(), 0, 
 							Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON, DefaultLanguage.DWARVEN}), 
 							Arrays.asList(new DefaultLanguage[] {DefaultLanguage.GIANT, DefaultLanguage.GNOME, 
@@ -95,10 +92,10 @@ public class DefaultRace implements Race {
 
 	public static final Race GNOME = new DefaultRace("Gnome", DefaultRacialSize.SMALL,
 			new DefaultMovement(20), Arrays.asList(new KeyedModifier[] {
-					new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, RACE, 2),
-					new DefaultKeyedModifier(DefaultAbility.STRENGTH, RACE,-2) }), 
+					new DefaultKeyedModifier(DefaultAbility.CONSTITUTION, DefaultModifierType.RACE, 2),
+					new DefaultKeyedModifier(DefaultAbility.STRENGTH, DefaultModifierType.RACE,-2) }), 
 					Arrays.asList(new DefaultKeyedModifier[] {
-						new DefaultKeyedModifier(DefaultSkill.LISTEN, DefaultSkill.TYPE_RACE, 2)	
+						new DefaultKeyedModifier(DefaultSkill.LISTEN, DefaultModifierType.RACE, 2)	
 					}),
 							0, 
 							Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON, DefaultLanguage.GNOME}), 
@@ -109,13 +106,13 @@ public class DefaultRace implements Race {
 	public static final Race HALFLING = new DefaultRace("Halfling", 
 			DefaultRacialSize.SMALL, new DefaultMovement(20), Arrays
 					.asList(new KeyedModifier[] {
-							new DefaultKeyedModifier(DefaultAbility.DEXTERITY, RACE, 2),
-							new DefaultKeyedModifier(DefaultAbility.STRENGTH, RACE, -2) }), 
+							new DefaultKeyedModifier(DefaultAbility.DEXTERITY, DefaultModifierType.RACE, 2),
+							new DefaultKeyedModifier(DefaultAbility.STRENGTH, DefaultModifierType.RACE, -2) }), 
 									Arrays.asList(new DefaultKeyedModifier[] {
-										new DefaultKeyedModifier(DefaultSkill.LISTEN, DefaultSkill.TYPE_RACE, 2),
-										new DefaultKeyedModifier(DefaultSkill.CLIMB, DefaultSkill.TYPE_RACE, 2),
-										new DefaultKeyedModifier(DefaultSkill.JUMP, DefaultSkill.TYPE_RACE, 2),
-										new DefaultKeyedModifier(DefaultSkill.MOVE_SILENTLY, DefaultSkill.TYPE_RACE, 2)
+										new DefaultKeyedModifier(DefaultSkill.LISTEN, DefaultModifierType.RACE, 2),
+										new DefaultKeyedModifier(DefaultSkill.CLIMB, DefaultModifierType.RACE, 2),
+										new DefaultKeyedModifier(DefaultSkill.JUMP, DefaultModifierType.RACE, 2),
+										new DefaultKeyedModifier(DefaultSkill.MOVE_SILENTLY, DefaultModifierType.RACE, 2)
 									}), 0,
 									Arrays.asList(new DefaultLanguage[] {DefaultLanguage.COMMON, DefaultLanguage.HALFLING}), 
 									Arrays.asList(new DefaultLanguage[] {DefaultLanguage.DWARVEN, DefaultLanguage.ELVEN, 

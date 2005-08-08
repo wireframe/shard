@@ -27,14 +27,14 @@ import com.codecrate.shard.modifier.ModifierType;
 public class ModifiableObjectTest extends TestCase {
 
 	public void testMultipleNonStackingModifiersUsesHighestModifier() {
-	    ModifierType modifierType = new DefaultModifierType("test", false);
+	    ModifierType type = DefaultModifierType.ARMOR;
 	    
 		MockControl firstModifierControl = MockControl.createControl(Modifier.class);
 		Modifier firstModifier = (Modifier) firstModifierControl.getMock();
 		firstModifier.getModifierType();
-		firstModifierControl.setReturnValue(modifierType);
+		firstModifierControl.setReturnValue(type);
 		firstModifier.getModifierType();
-		firstModifierControl.setReturnValue(modifierType);
+		firstModifierControl.setReturnValue(type);
 		firstModifier.getModifier();
 		firstModifierControl.setReturnValue(5);
 		firstModifierControl.replay();
@@ -42,9 +42,9 @@ public class ModifiableObjectTest extends TestCase {
 		MockControl secondModifierControl = MockControl.createControl(Modifier.class);
 		Modifier secondModifier = (Modifier) secondModifierControl.getMock();
 		secondModifier.getModifierType();
-		secondModifierControl.setReturnValue(modifierType);
+		secondModifierControl.setReturnValue(type);
 		secondModifier.getModifierType();
-		secondModifierControl.setReturnValue(modifierType);
+		secondModifierControl.setReturnValue(type);
 		secondModifier.getModifier();
 		secondModifierControl.setReturnValue(10);
 		secondModifierControl.replay();
@@ -57,14 +57,14 @@ public class ModifiableObjectTest extends TestCase {
 	}
 	
 	public void testMultipleStackingModifiersUsesBothModifiers() {
-	    ModifierType modifierType = new DefaultModifierType("test", true);
+	    ModifierType type = DefaultModifierType.ARMOR;
 	    
 		MockControl firstModifierControl = MockControl.createControl(Modifier.class);
 		Modifier firstModifier = (Modifier) firstModifierControl.getMock();
 		firstModifier.getModifierType();
-		firstModifierControl.setReturnValue(modifierType);
+		firstModifierControl.setReturnValue(type);
 		firstModifier.getModifierType();
-		firstModifierControl.setReturnValue(modifierType);
+		firstModifierControl.setReturnValue(type);
 		firstModifier.getModifier();
 		firstModifierControl.setReturnValue(5);
 		firstModifierControl.replay();
@@ -72,9 +72,9 @@ public class ModifiableObjectTest extends TestCase {
 		MockControl secondModifierControl = MockControl.createControl(Modifier.class);
 		Modifier secondModifier = (Modifier) secondModifierControl.getMock();
 		secondModifier.getModifierType();
-		secondModifierControl.setReturnValue(modifierType);
+		secondModifierControl.setReturnValue(type);
 		secondModifier.getModifierType();
-		secondModifierControl.setReturnValue(modifierType);
+		secondModifierControl.setReturnValue(type);
 		secondModifier.getModifier();
 		secondModifierControl.setReturnValue(10);
 		secondModifierControl.replay();
@@ -87,14 +87,14 @@ public class ModifiableObjectTest extends TestCase {
 	}
 	
 	public void testRemovingHighestModifierStillUsesLowerModifier() {
-	    ModifierType modifierType = new DefaultModifierType("test", false);
+	    ModifierType type = DefaultModifierType.ARMOR;
 	    
 		MockControl firstModifierControl = MockControl.createControl(Modifier.class);
 		Modifier firstModifier = (Modifier) firstModifierControl.getMock();
 		firstModifier.getModifierType();
-		firstModifierControl.setReturnValue(modifierType);
+		firstModifierControl.setReturnValue(type);
 		firstModifier.getModifierType();
-		firstModifierControl.setReturnValue(modifierType);
+		firstModifierControl.setReturnValue(type);
 		firstModifier.getModifier();
 		firstModifierControl.setReturnValue(5);
 		firstModifierControl.replay();
@@ -102,11 +102,11 @@ public class ModifiableObjectTest extends TestCase {
 		MockControl secondModifierControl = MockControl.createControl(Modifier.class);
 		Modifier secondModifier = (Modifier) secondModifierControl.getMock();
 		secondModifier.getModifierType();
-		secondModifierControl.setReturnValue(modifierType);
+		secondModifierControl.setReturnValue(type);
 		secondModifier.getModifierType();
-		secondModifierControl.setReturnValue(modifierType);
+		secondModifierControl.setReturnValue(type);
 		secondModifier.getModifierType();
-		secondModifierControl.setReturnValue(modifierType);
+		secondModifierControl.setReturnValue(type);
 		secondModifier.getModifier();
 		secondModifierControl.setReturnValue(10);
 		secondModifierControl.replay();
@@ -120,14 +120,14 @@ public class ModifiableObjectTest extends TestCase {
 	}
 	
 	public void testChangingBaseValueAfterModifiersAddedKeepsCorrectModifiedValue() {
-	    ModifierType modifierType = new DefaultModifierType("test", false);
+	    ModifierType type = DefaultModifierType.ARMOR;
 	    
 		MockControl firstModifierControl = MockControl.createControl(Modifier.class);
 		Modifier firstModifier = (Modifier) firstModifierControl.getMock();
 		firstModifier.getModifierType();
-		firstModifierControl.setReturnValue(modifierType);
+		firstModifierControl.setReturnValue(type);
 		firstModifier.getModifierType();
-		firstModifierControl.setReturnValue(modifierType);
+		firstModifierControl.setReturnValue(type);
 		firstModifier.getModifier();
 		firstModifierControl.setReturnValue(5);
 		firstModifierControl.replay();

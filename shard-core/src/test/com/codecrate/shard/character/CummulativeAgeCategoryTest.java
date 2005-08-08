@@ -35,7 +35,7 @@ import com.codecrate.shard.modifier.ModifierType;
 public class CummulativeAgeCategoryTest extends TestCase {
 
 	public void testPreviousCategoryAbilityModifiersAdded() {
-        ModifierType type = new DefaultModifierType("type", true);
+	    ModifierType type = DefaultModifierType.ARMOR;
 
 		List modifiers = Arrays
 		.asList(new KeyedModifier[] { new DefaultKeyedModifier(DefaultAbility.STRENGTH, type, 1) });

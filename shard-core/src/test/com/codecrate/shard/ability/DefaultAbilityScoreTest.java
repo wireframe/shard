@@ -38,7 +38,7 @@ public class DefaultAbilityScoreTest extends TestCase {
 	    mockListener.setVoidCallable();
 	    mockListener.replay();
 	    
-	    ModifierType type = new DefaultModifierType("type", false);
+	    ModifierType type = DefaultModifierType.ARMOR;
 	    Modifier modifier = new DefaultModifier(type, 2);
 	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, null);
 	    ability.addListener(listener);
@@ -54,7 +54,7 @@ public class DefaultAbilityScoreTest extends TestCase {
 	    mockListener.setVoidCallable();
 	    mockListener.replay();
 	    
-	    ModifierType type = new DefaultModifierType("type", false);
+	    ModifierType type = DefaultModifierType.ARMOR;
 	    Modifier modifier = new DefaultModifier(type, 2);
 	    DefaultAbilityScore ability = new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, null);
 	    ability.addListener(listener);

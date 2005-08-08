@@ -15,17 +15,34 @@
  */
 package com.codecrate.shard.modifier;
 
+import java.util.Collection;
+
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultModifierType implements ModifierType {
 
-    private final String name;
-    private final boolean isStackable;
+	public static final ModifierType ARMOR = new DefaultModifierType("armor", new HighestModifierCalculator());
+	public static final ModifierType SHIELD = new DefaultModifierType("shield", new HighestModifierCalculator());
+	public static final ModifierType NATURAL = new DefaultModifierType("natural", new HighestModifierCalculator());
+	public static final ModifierType SIZE= new DefaultModifierType("size", new HighestModifierCalculator());
+	public static final ModifierType ENHANCEMENT = new DefaultModifierType("enhancement", new HighestModifierCalculator());
+	public static final ModifierType DEFLECTION = new DefaultModifierType("deflection", new HighestModifierCalculator());
+	public static final ModifierType DODGE = new DefaultModifierType("dodge", new StackableModifierCalculator());
+	public static final ModifierType AGE = new DefaultModifierType("age", new StackableModifierCalculator());
+    public static final ModifierType RACE = new DefaultModifierType("race", new HighestModifierCalculator());
+	public static final ModifierType RANK = new DefaultModifierType("rank", new StackableModifierCalculator());
+	public static final ModifierType ABILITY = new DefaultModifierType("ability", new HighestModifierCalculator());
+    public static final ModifierType CLASS = new DefaultModifierType("class", new HighestModifierCalculator());
+    public static final ModifierType ENCUMBERANCE = new DefaultModifierType("encumberance", new HighestModifierCalculator());
+    public static final ModifierType SYNERGY = new DefaultModifierType("skill synergy", new HighestModifierCalculator());
 
-    public DefaultModifierType(String name, boolean isStackable) {
+    private final String name;
+    private final ModifierCalculator calculator;
+
+    public DefaultModifierType(String name, ModifierCalculator calculator) {
         this.name = name;
-        this.isStackable = isStackable;
+        this.calculator = calculator;
     }
 
     public String toString() {
@@ -35,9 +52,8 @@ public class DefaultModifierType implements ModifierType {
     public String getName() {
         return name;
     }
-
-    public boolean isStackable() {
-        return isStackable;
+    
+    public int calculateModifier(Collection modifiers) {
+    	return calculator.calculateModifier(modifiers);
     }
-
 }

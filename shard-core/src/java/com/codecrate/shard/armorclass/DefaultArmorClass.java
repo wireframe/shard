@@ -15,23 +15,13 @@
  */
 package com.codecrate.shard.armorclass;
 
-import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.ModifiableObject;
-import com.codecrate.shard.modifier.ModifierType;
 
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultArmorClass extends ModifiableObject implements ArmorClass {
-	public static final ModifierType ARMOR = new DefaultModifierType("armor", false);
-	public static final ModifierType SHIELD = new DefaultModifierType("shield", false);
-	public static final ModifierType NATURAL = new DefaultModifierType("natural", false);
-	public static final ModifierType SIZE= new DefaultModifierType("size", false);
-	public static final ModifierType ENHANCEMENT = new DefaultModifierType("enhancement", false);
-	public static final ModifierType DEFLECTION = new DefaultModifierType("deflection", false);
-	public static final ModifierType DODGE = new DefaultModifierType("dodge", true);
-
 	public static final int BASE_ARMOR_CLASS = 10;
 	
 	public DefaultArmorClass() {

@@ -19,14 +19,11 @@ import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.Modifiable;
 import com.codecrate.shard.modifier.ModifiableObject;
 import com.codecrate.shard.modifier.Modifier;
-import com.codecrate.shard.modifier.ModifierType;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultSkillEntry extends ModifiableObject implements Modifiable, SkillEntry {
-    public static final ModifierType TYPE_RANK = new DefaultModifierType("rank", true);
-    
 	private final Skill skill;
 
 	public DefaultSkillEntry(Skill skill) {
@@ -39,7 +36,7 @@ public class DefaultSkillEntry extends ModifiableObject implements Modifiable, S
 	}
 	
 	public Modifier getRank() {
-	    return getModifier(TYPE_RANK);
+		return null;//DefaultModifierType.RANK.calculateModifier(getModifiers(DefaultModifierType.RANK));
 	}
 	
 	public String toString() {

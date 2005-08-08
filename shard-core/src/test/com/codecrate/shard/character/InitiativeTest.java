@@ -59,7 +59,7 @@ public class InitiativeTest extends TestCase {
     }
     
     public void testInitiativeUpdatedWhenAbilityChanged() {
-        ModifierType type = new DefaultModifierType("type", true);
+	    ModifierType type = DefaultModifierType.ARMOR;
         DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10, null);
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
