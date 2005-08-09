@@ -28,7 +28,7 @@ public class ModifiableObjectTest extends TestCase {
 
 	public void testMultipleNonStackingModifiersUsesHighestModifier() {
 	    ModifierType type = DefaultModifierType.ARMOR;
-	    
+
 		MockControl firstModifierControl = MockControl.createControl(Modifier.class);
 		Modifier firstModifier = (Modifier) firstModifierControl.getMock();
 		firstModifier.getModifierType();
@@ -52,13 +52,13 @@ public class ModifiableObjectTest extends TestCase {
 		ModifiableObject object = new ModifiableObject();
 		object.addModifier(secondModifier);
 		object.addModifier(firstModifier);
-		
+
 		assertEquals(10, object.getModifiedValue());
 	}
-	
+
 	public void testMultipleStackingModifiersUsesBothModifiers() {
-	    ModifierType type = DefaultModifierType.ARMOR;
-	    
+	    ModifierType type = DefaultModifierType.DODGE;
+
 		MockControl firstModifierControl = MockControl.createControl(Modifier.class);
 		Modifier firstModifier = (Modifier) firstModifierControl.getMock();
 		firstModifier.getModifierType();
@@ -82,13 +82,13 @@ public class ModifiableObjectTest extends TestCase {
 		ModifiableObject object = new ModifiableObject();
 		object.addModifier(secondModifier);
 		object.addModifier(firstModifier);
-		
+
 		assertEquals(15, object.getModifiedValue());
 	}
-	
+
 	public void testRemovingHighestModifierStillUsesLowerModifier() {
 	    ModifierType type = DefaultModifierType.ARMOR;
-	    
+
 		MockControl firstModifierControl = MockControl.createControl(Modifier.class);
 		Modifier firstModifier = (Modifier) firstModifierControl.getMock();
 		firstModifier.getModifierType();
@@ -115,13 +115,13 @@ public class ModifiableObjectTest extends TestCase {
 		object.addModifier(secondModifier);
 		object.addModifier(firstModifier);
 		object.removeModifier(secondModifier);
-		
+
 		assertEquals(5, object.getModifiedValue());
 	}
-	
+
 	public void testChangingBaseValueAfterModifiersAddedKeepsCorrectModifiedValue() {
 	    ModifierType type = DefaultModifierType.ARMOR;
-	    
+
 		MockControl firstModifierControl = MockControl.createControl(Modifier.class);
 		Modifier firstModifier = (Modifier) firstModifierControl.getMock();
 		firstModifier.getModifierType();
