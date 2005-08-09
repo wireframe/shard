@@ -18,7 +18,6 @@ package com.codecrate.shard.ui.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.JButton;
@@ -47,10 +46,10 @@ import org.springframework.richclient.form.FormModelHelper;
 import org.springframework.richclient.table.support.GlazedTableModel;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
-import ca.odell.glazedlists.AbstractFilterList;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
-import ca.odell.glazedlists.event.ListEvent;
+import ca.odell.glazedlists.FilterList;
+import ca.odell.glazedlists.Matcher;
 import ca.odell.glazedlists.swing.EventSelectionModel;
 
 import com.codecrate.shard.ui.ShardCommandIds;
@@ -76,9 +75,8 @@ public class ObjectManagerView extends AbstractView {
 	private final AbstractActionCommandExecutor propertiesCommand;
 	private final ViewObjectsCommand viewCommand;
 	private final SearchObjectsCommand searchCommand;
-	private AbstractFilterList objects;
+	private FilterList objects;
 	private EventSelectionModel selectionModel;
-	private Collection searchResults = new ArrayList();
 
 	public ObjectManagerView(ViewObjectsCommand viewCommand, NewCommand newCommand,
 			PropertiesCommand propertiesCommand, DeleteCommand deleteCommand, SearchObjectsCommand searchCommand,
@@ -116,16 +114,16 @@ public class ObjectManagerView extends AbstractView {
     	return newCommand;
     }
 
-	private AbstractFilterList getObjects() {
+	private FilterList getObjects() {
 		if (null == objects) {
 			EventList tempObjects = new BasicEventList();
 			tempObjects.addAll(viewCommand.getObjects());
-			objects = new AbstractFilterList(tempObjects) {
-				public boolean filterMatches(Object object) {
-					return searchResults.contains(object);
-				}
-			};
+			objects = new FilterList(tempObjects, new Matcher() {
 
+				public boolean matches(Object arg0) {
+					return true;
+				}
+			});
 		}
 		return objects;
 	}
@@ -160,8 +158,14 @@ public class ObjectManagerView extends AbstractView {
     		searchButton.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent arg0) {
-					searchResults = searchCommand.searchObjects(getKeywords().getText());
-					getModel().fireTableDataChanged();
+					final Collection searchResults = searchCommand.searchObjects(getKeywords().getText());
+					getObjects().setMatcher(new Matcher() {
+
+						public boolean matches(Object object) {
+							return searchResults.contains(object);
+						}
+
+					});
 				}
     		});
     	}
