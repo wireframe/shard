@@ -36,7 +36,7 @@ public class DefaultFeat implements Feat {
             "General", 
             new FeatPrerequisite(SHIELD_PROFICIENCY));
     
-    
+    private String id;
     private String name;
     private String type;
     private CharacterPrerequisite prerequisite;
