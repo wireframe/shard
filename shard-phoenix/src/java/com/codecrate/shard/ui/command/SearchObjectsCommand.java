@@ -13,16 +13,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.codecrate.shard.ui.view;
+package com.codecrate.shard.ui.command;
 
-import com.codecrate.shard.ui.command.ItemCommandAdapter;
-import com.codecrate.shard.ui.form.FormFactory;
+import java.util.Collection;
 
-public class ItemManagerView extends ObjectManagerView {
+public interface SearchObjectsCommand {
 
-	public ItemManagerView(ItemCommandAdapter commandAdapter, FormFactory formFactory) {
-		super(commandAdapter, commandAdapter, commandAdapter, commandAdapter,
-				commandAdapter, formFactory);
-	}
-
+	Collection searchObjects(String query);
 }

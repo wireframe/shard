@@ -1,12 +1,12 @@
 /*
  * Copyright 2002-2004 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -18,6 +18,8 @@ package com.codecrate.shard.ui.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -25,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -44,14 +47,17 @@ import org.springframework.richclient.form.FormModelHelper;
 import org.springframework.richclient.table.support.GlazedTableModel;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
+import ca.odell.glazedlists.AbstractFilterList;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
+import ca.odell.glazedlists.event.ListEvent;
 import ca.odell.glazedlists.swing.EventSelectionModel;
 
 import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.DeleteCommand;
 import com.codecrate.shard.ui.command.NewCommand;
 import com.codecrate.shard.ui.command.PropertiesCommand;
+import com.codecrate.shard.ui.command.SearchObjectsCommand;
 import com.codecrate.shard.ui.command.ViewObjectsCommand;
 import com.codecrate.shard.ui.form.FormFactory;
 
@@ -61,38 +67,47 @@ public class ObjectManagerView extends AbstractView {
     private GlazedTableModel model;
     private JPopupMenu popup;
 	private JButton newButton;
+	private JPanel searchPanel;
+	private JTextArea keywords;
+	private JButton searchButton;
 
 	private final AbstractActionCommandExecutor newCommand;
 	private final AbstractActionCommandExecutor deleteCommand;
 	private final AbstractActionCommandExecutor propertiesCommand;
 	private final ViewObjectsCommand viewCommand;
-	private BasicEventList objects;
+	private final SearchObjectsCommand searchCommand;
+	private AbstractFilterList objects;
 	private EventSelectionModel selectionModel;
+	private Collection searchResults = new ArrayList();
 
-	public ObjectManagerView(ViewObjectsCommand viewCommand, NewCommand newCommand, PropertiesCommand propertiesCommand, DeleteCommand deleteCommand, FormFactory formFactory) {
+	public ObjectManagerView(ViewObjectsCommand viewCommand, NewCommand newCommand,
+			PropertiesCommand propertiesCommand, DeleteCommand deleteCommand, SearchObjectsCommand searchCommand,
+			FormFactory formFactory) {
 		this.viewCommand = viewCommand;
+		this.searchCommand = searchCommand;
 		this.newCommand = new NewCommandExcecutor(newCommand, formFactory);
 		this.propertiesCommand = new PropertiesCommandExecutor(propertiesCommand, formFactory);
 		this.deleteCommand = new DeleteCommandExecutor(deleteCommand);
 	}
-	
+
     protected JComponent createControl() {
         JPanel view = new JPanel();
         view.add(getScrollPane(), BorderLayout.WEST);
         view.add(getNewButton(), BorderLayout.EAST);
+        view.add(getSearchPanel(), BorderLayout.NORTH);
         return view;
     }
-    
+
     protected void registerLocalCommandExecutors(PageComponentContext context) {
         context.register(GlobalCommandIds.PROPERTIES, getPropertiesCommand());
         context.register(GlobalCommandIds.DELETE, getDeleteCommand());
         context.register(ShardCommandIds.NEW, getNewCommand());
     }
-    
+
     private AbstractActionCommandExecutor getPropertiesCommand() {
     	return propertiesCommand;
     }
-    
+
     private AbstractActionCommandExecutor getDeleteCommand() {
     	return deleteCommand;
     }
@@ -101,29 +116,65 @@ public class ObjectManagerView extends AbstractView {
     	return newCommand;
     }
 
-	private EventList getObjects() {
+	private AbstractFilterList getObjects() {
 		if (null == objects) {
-			objects = new BasicEventList();
-			objects.addAll(viewCommand.getObjects());
+			EventList tempObjects = new BasicEventList();
+			tempObjects.addAll(viewCommand.getObjects());
+			objects = new AbstractFilterList(tempObjects) {
+				public boolean filterMatches(Object object) {
+					return searchResults.contains(object);
+				}
+			};
+
 		}
 		return objects;
 	}
-    
-    protected Object getSelectedObject() {
+
+    private Object getSelectedObject() {
     	EventList selected = getSelectionModel().getSelected();
     	if (selected.isEmpty()) {
     		return null;
     	}
     	return selected.iterator().next();
     }
-    
+
+    private JPanel getSearchPanel() {
+    	if (null == searchPanel) {
+    		searchPanel = new JPanel();
+    		searchPanel.add(getKeywords(), BorderLayout.CENTER);
+    		searchPanel.add(getSearchButton(), BorderLayout.EAST);
+    	}
+    	return searchPanel;
+    }
+
+    private JTextArea getKeywords() {
+    	if (null == keywords) {
+    		keywords = new JTextArea();
+    	}
+    	return keywords;
+    }
+
+    private JButton getSearchButton() {
+    	if (null == searchButton) {
+    		searchButton = new JButton("Search");
+    		searchButton.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent arg0) {
+					searchResults = searchCommand.searchObjects(getKeywords().getText());
+					getModel().fireTableDataChanged();
+				}
+    		});
+    	}
+    	return searchButton;
+    }
+
     private JScrollPane getScrollPane() {
         if (null == scrollPane) {
             scrollPane = new JScrollPane(getTable());
         }
         return scrollPane;
     }
-    
+
     private JTable getTable() {
         if (null == table) {
         	table = new JTable(getModel());
@@ -133,7 +184,7 @@ public class ObjectManagerView extends AbstractView {
         }
         return table;
     }
-    
+
     private EventSelectionModel getSelectionModel() {
     	if (null == selectionModel) {
     		selectionModel = new EventSelectionModel(getObjects());
@@ -149,7 +200,7 @@ public class ObjectManagerView extends AbstractView {
     	}
     	return selectionModel;
     }
-    
+
     private JButton getNewButton() {
     	if (null == newButton) {
     		newButton = new JButton("New...");
@@ -180,14 +231,14 @@ public class ObjectManagerView extends AbstractView {
     private JPopupMenu getPopupContextMenu() {
         if (null == popup) {
             CommandGroup group = getWindowCommandManager().createCommandGroup("featsCommandGroup", new Object[] {
-                    GlobalCommandIds.PROPERTIES, 
-                    GlobalCommandIds.DELETE, 
+                    GlobalCommandIds.PROPERTIES,
+                    GlobalCommandIds.DELETE,
                     ShardCommandIds.NEW});
             popup = group.createPopupMenu();
         }
         return popup;
     }
-    
+
     private GlazedTableModel getModel() {
         if (null == model) {
             MessageSource messageSource = (MessageSource) getApplicationContext().getBean("messageSource");
@@ -196,13 +247,13 @@ public class ObjectManagerView extends AbstractView {
         return model;
     }
 
-    
+
     private class NewCommandExcecutor extends AbstractActionCommandExecutor {
         private Object object;
         private NestingFormModel formModel;
         private AbstractForm form;
         private FormBackedDialogPage page;
-        
+
 		private final NewCommand command;
 		private final FormFactory formFactory;
 
@@ -212,7 +263,7 @@ public class ObjectManagerView extends AbstractView {
 
 			this.setEnabled(true);
         }
-        
+
         public void execute() {
             object = command.createObject();
             formModel = FormModelHelper.createCompoundFormModel(object);
@@ -234,8 +285,8 @@ public class ObjectManagerView extends AbstractView {
             dialog.showDialog();
         }
     }
-    
-    
+
+
     private class DeleteCommandExecutor extends AbstractActionCommandExecutor {
     	private final String title;
 		private final String message;
@@ -246,7 +297,7 @@ public class ObjectManagerView extends AbstractView {
 			this.message = getMessage(command.getDeleteMessagePropertyName() + ".message");
 			this.command = command;
     	}
-		
+
         public void execute() {
         	ConfirmationDialog dialog = new ConfirmationDialog(title, getWindowControl(), message) {
                 protected void onConfirm() {
@@ -258,8 +309,8 @@ public class ObjectManagerView extends AbstractView {
             dialog.showDialog();
         }
     }
-    
-    
+
+
     private class PropertiesCommandExecutor extends AbstractActionCommandExecutor {
         private Object object;
         private AbstractForm form;
@@ -267,12 +318,12 @@ public class ObjectManagerView extends AbstractView {
         private int index;
 		private final FormFactory formFactory;
 		private final PropertiesCommand command;
-        
+
         public PropertiesCommandExecutor(PropertiesCommand command, FormFactory formFactory) {
 			this.formFactory = formFactory;
-			this.command = command;	
+			this.command = command;
         }
-        
+
         public void execute() {
             object = getSelectedObject();
             index = getObjects().indexOf(object);
