@@ -21,9 +21,6 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.modifier.DefaultModifier;
-import com.codecrate.shard.modifier.Modifier;
-
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
