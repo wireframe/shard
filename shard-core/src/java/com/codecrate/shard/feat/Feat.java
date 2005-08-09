@@ -24,8 +24,20 @@ public interface Feat {
 
     String getName();
     
+    /**
+     * get the type of feat.
+     * ex: General, Item Creation, Meta Magic
+     * @return
+     */
     String getType();
 
+    /**
+     * get a brief summary of the feat.
+     * ex: Add +2 bonus to Spot and Listen checks. 
+     * @return
+     */
+    String getSummary();
+    
     /**
      * get any prerequisites for this feat.
      * @return

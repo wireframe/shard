@@ -33,6 +33,8 @@ public class FeatForm extends AbstractForm {
         formBuilder.add("name");
         formBuilder.row();
         formBuilder.add("type");
+        formBuilder.row();
+        formBuilder.add("summary");
         return formBuilder.getForm();
     }
 }

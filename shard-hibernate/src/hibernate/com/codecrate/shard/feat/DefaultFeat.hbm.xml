@@ -19,6 +19,10 @@
         <property name="type" access="field">
             <column name="type" not-null="true" />
         </property>
+
+        <property name="summary" access="field">
+            <column name="summary" not-null="true" />
+        </property>
     </class>
 
 </hibernate-mapping>
