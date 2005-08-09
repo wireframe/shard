@@ -39,32 +39,30 @@ public class SkillRankSynergyListenerTest extends TestCase {
         skill.getChildSkillSynergies();
         mockSkill.setReturnValue(Arrays.asList(new Skill[] {childSkill}));
         mockSkill.replay();
-        
-        Modifier beginingRank = new DefaultModifier(null, 2);
-        Modifier endingRank = new DefaultModifier(null, 5);
+
         MockControl mockEntry = MockControl.createControl(SkillEntry.class);
         SkillEntry entry = (SkillEntry) mockEntry.getMock();
         entry.addListener(null);
         mockEntry.setMatcher(MockControl.ALWAYS_MATCHER);
         mockEntry.setVoidCallable();
         entry.getRank();
-        mockEntry.setReturnValue(beginingRank);
+        mockEntry.setReturnValue(2);
         entry.getRank();
-        mockEntry.setReturnValue(endingRank);
+        mockEntry.setReturnValue(5);
         entry.getSkill();
         mockEntry.setReturnValue(skill);
         mockEntry.replay();
-        
+
         MockControl mockContainer = MockControl.createControl(SkillEntryContainer.class);
         SkillEntryContainer container = (SkillEntryContainer) mockContainer.getMock();
         container.addModifier(null);
         mockContainer.setMatcher(MockControl.ALWAYS_MATCHER);
         mockContainer.setVoidCallable();
         mockContainer.replay();
-        
+
         SkillRankSynergyListener listener = new SkillRankSynergyListener(entry, container);
         listener.onModify();
-        
+
         mockContainer.verify();
     }
 }
