@@ -15,9 +15,9 @@
  */
 package com.codecrate.shard.skill;
 
+import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.Modifiable;
 import com.codecrate.shard.modifier.ModifiableObject;
-import com.codecrate.shard.modifier.Modifier;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -34,8 +34,8 @@ public class DefaultSkillEntry extends ModifiableObject implements Modifiable, S
 		return skill;
 	}
 	
-	public Modifier getRank() {
-		return null;//DefaultModifierType.RANK.calculateModifier(getModifiers(DefaultModifierType.RANK));
+	public int getRank() {
+		return DefaultModifierType.RANK.calculateModifier(getModifiers(DefaultModifierType.RANK));
 	}
 	
 	public String toString() {

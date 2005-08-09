@@ -37,11 +37,11 @@ public class SkillRankSynergyListener implements ModifierListener {
         this.container = container;
         
         entry.addListener(this);
-        previousRank = entry.getRank().getModifier();
+        previousRank = entry.getRank();
     }
     
     public void onModify() {
-        int rank = entry.getRank().getModifier();
+        int rank = entry.getRank();
         if (previousRank < SYNERGY_THRESHOLD && rank >= SYNERGY_THRESHOLD) {
             Iterator it = entry.getSkill().getChildSkillSynergies().iterator();
             while (it.hasNext()) {

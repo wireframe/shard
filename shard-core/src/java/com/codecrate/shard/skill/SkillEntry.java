@@ -16,7 +16,6 @@
 package com.codecrate.shard.skill;
 
 import com.codecrate.shard.modifier.Modifiable;
-import com.codecrate.shard.modifier.Modifier;
 
 /**
  * Represents a skill entry for a particular character.
@@ -34,5 +33,5 @@ public interface SkillEntry extends Modifiable {
      * gets the rank currently held for this skill.
      * @return
      */
-    Modifier getRank();
+    int getRank();
 }
