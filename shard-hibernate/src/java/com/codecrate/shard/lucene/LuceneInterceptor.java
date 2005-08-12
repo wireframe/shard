@@ -14,10 +14,16 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.store.RAMDirectory;
+import org.apache.lucene.store.Directory;
 
 public class LuceneInterceptor implements Interceptor {
 	private static final Log LOG = LogFactory.getLog(LuceneInterceptor.class);
+
+	private DirectoryManager directoryManager;
+
+	public LuceneInterceptor(DirectoryManager directoryManager) {
+		this.directoryManager = directoryManager;
+	}
 
     public boolean onLoad(Object entity,
             Serializable id,
@@ -39,7 +45,7 @@ public class LuceneInterceptor implements Interceptor {
 	public boolean onSave(Object entity,
 			Serializable id, Object[] currentState,
 			String[] propertyNames, Type[] types) throws CallbackException {
-		RAMDirectory directory = new RAMDirectory();
+		Directory directory = directoryManager.getDirectory();
 		Analyzer analyzer = new StandardAnalyzer();
 		boolean forceCreate = true;
         try {
@@ -53,7 +59,6 @@ public class LuceneInterceptor implements Interceptor {
 			LOG.error("Error updating index for object " + entity, e);
 		}
 
-		directory.close();
 		return false;
 	}
 

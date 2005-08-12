@@ -35,9 +35,17 @@
 	    <ref bean="sessionFactory"/>
 	  </property>
 	  <property name="entityInterceptor">
-	    <bean class="com.codecrate.shard.lucene.LuceneInterceptor" />
+	    <bean class="com.codecrate.shard.lucene.LuceneInterceptor">
+	      <constructor-arg><ref bean="directoryManager" /></constructor-arg>
+	    </bean>
 	  </property>
 	</bean>
+
+    <bean id="directoryManager" class="com.codecrate.shard.lucene.FSDirectoryManager" destroy-method="close">
+      <constructor-arg>
+        <value>/home/rsonnek/Projects/shard/shard-hibernate/target/index</value>
+      </constructor-arg>
+    </bean>
 
     <!--
     example from http://blog.exis.com/colin/archives/2004/07/31/concise-transaction-definitions-spring-11/
