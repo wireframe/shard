@@ -5,7 +5,7 @@ import org.apache.lucene.store.RAMDirectory;
 
 public class RAMDirectoryManager implements DirectoryManager {
 
-	private Directory directory;
+	private final Directory directory;
 
 	public RAMDirectoryManager() {
 		this.directory = new RAMDirectory();

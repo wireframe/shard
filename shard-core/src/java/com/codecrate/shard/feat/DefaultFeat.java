@@ -56,6 +56,10 @@ public class DefaultFeat implements Feat {
         this.prerequisite = prerequisite;
     }
 
+    public String toString() {
+    	return name;
+    }
+
     public String getName() {
         return name;
     }

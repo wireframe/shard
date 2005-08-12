@@ -16,4 +16,8 @@
 	    <value></value>
 	  </property>
 	</bean>
+
+    <bean id="directoryManager" class="com.codecrate.shard.lucene.RAMDirectoryManager" destroy-method="close">
+    </bean>
+
 </beans>
