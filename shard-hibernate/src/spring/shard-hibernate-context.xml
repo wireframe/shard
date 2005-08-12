@@ -34,11 +34,14 @@
 	  <property name="sessionFactory">
 	    <ref bean="sessionFactory"/>
 	  </property>
+	  <property name="entityInterceptor">
+	    <bean class="com.codecrate.shard.lucene.LuceneInterceptor" />
+	  </property>
 	</bean>
 
     <!--
     example from http://blog.exis.com/colin/archives/2004/07/31/concise-transaction-definitions-spring-11/
-    -->	
+    -->
 	<bean id="transactionTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 	  <property name="transactionManager">
 	    <ref local="transactionManager"/>

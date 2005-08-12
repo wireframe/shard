@@ -26,6 +26,8 @@ import net.sf.hibernate.expression.Expression;
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
+import com.codecrate.shard.character.prereq.NullPrerequisite;
+
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
@@ -49,13 +51,13 @@ public class HibernateFeatDao extends HibernateDaoSupport implements FeatDao, Fe
                 return query.uniqueResult();
             }
         });
-        
+
         if (null == feat) {
             throw new IllegalArgumentException("Unable to find feat " + name);
         }
         return feat;
     }
-    
+
     public void updateFeat(Feat feat) {
         getHibernateTemplate().saveOrUpdate(feat);
     }
@@ -68,8 +70,8 @@ public class HibernateFeatDao extends HibernateDaoSupport implements FeatDao, Fe
     public void deleteFeat(Feat feat) {
         getHibernateTemplate().delete(feat);
     }
-    
+
     public Feat createFeat(String name) {
-    	return new DefaultFeat(name);
+    	return new DefaultFeat(name, "General", "", new NullPrerequisite());
     }
 }

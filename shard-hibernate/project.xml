@@ -8,7 +8,7 @@
   <name>shard hibernate module</name>
   <description>shard hibernate module</description>
   <shortDescription>shard hibernate module</shortDescription>
-  
+
   <dependencies>
     <dependency>
       <groupId>shard</groupId>
@@ -26,7 +26,7 @@
         <eclipse.dependency>true</eclipse.dependency>
       </properties>
     </dependency>
-    
+
     <!-- HSQL dependencies -->
     <dependency>
       <groupId>hsqldb</groupId>
@@ -34,7 +34,7 @@
       <version>1.7.3.3</version>
       <url>http://hsqldb.sf.net</url>
     </dependency>
-          
+
     <!-- DBUnit dependencies -->
     <dependency>
       <groupId>dbunit</groupId>
@@ -49,7 +49,7 @@
       <version>1.5</version>
       <url>http://maven-plugins.sourceforge.net/maven-dbunit-plugin/</url>
     </dependency>
-    
+
     <!-- Hibernate dependencies -->
     <dependency>
       <groupId>maven</groupId>
@@ -97,7 +97,7 @@
       <artifactId>geronimo-spec-jta</artifactId>
       <version>1.0-M1</version>
     </dependency>
-    
+
     <!-- commons-dbcp dependencies -->
     <dependency>
       <groupId>commons-dbcp</groupId>
@@ -113,7 +113,7 @@
       <version>1.2</version>
       <url>http://jakarta.apache.org/commons/pool/</url>
     </dependency>
-    
+
     <!-- springframework dependencies -->
     <dependency>
       <groupId>springframework</groupId>
@@ -156,9 +156,16 @@
       <artifactId>aopalliance</artifactId>
       <version>1.0</version>
     </dependency>
-    
+
+    <!-- lucene dependencies -->
+    <dependency>
+      <groupId>lucene</groupId>
+      <artifactId>lucene</artifactId>
+      <version>1.4.3</version>
+      <url>http://lucene.apache.org</url>
+    </dependency>
   </dependencies>
-  
+
   <build>
     <resources>
       <resource>
@@ -176,7 +183,7 @@
         </includes>
       </resource>
     </resources>
-    
+
     <unitTest>
       <resources>
         <resource>

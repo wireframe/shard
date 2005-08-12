@@ -21,56 +21,53 @@ import com.codecrate.shard.character.prereq.NullPrerequisite;
 
 public class DefaultFeat implements Feat {
     public static final DefaultFeat ARMOR_PROFICIENCY_LIGHT= new DefaultFeat("Armor Proficiency (Light)",
-            "General", null, 
+            "General", "",
             new NullPrerequisite());
-    public static final DefaultFeat ARMOR_PROFICIENCY_MEDIUM = new DefaultFeat("Armor Proficiency (Medium)", 
-            "General", null, 
+    public static final DefaultFeat ARMOR_PROFICIENCY_MEDIUM = new DefaultFeat("Armor Proficiency (Medium)",
+            "General", "",
             new FeatPrerequisite(ARMOR_PROFICIENCY_LIGHT));
-    public static final DefaultFeat ARMOR_PROFICIENCY_HEAVY = new DefaultFeat("Armor Proficiency (Heavy)", 
-            "General", null, 
+    public static final DefaultFeat ARMOR_PROFICIENCY_HEAVY = new DefaultFeat("Armor Proficiency (Heavy)",
+            "General", "",
             new FeatPrerequisite(ARMOR_PROFICIENCY_MEDIUM));
-    public static final DefaultFeat SHIELD_PROFICIENCY = new DefaultFeat("Shield Proficiency", 
-            "General", null, 
+    public static final DefaultFeat SHIELD_PROFICIENCY = new DefaultFeat("Shield Proficiency",
+            "General", "",
             new NullPrerequisite());
-    public static final DefaultFeat TOWER_SHIELD_PROFICIENCY = new DefaultFeat("Tower Shield Proficiency", 
-            "General", null, 
+    public static final DefaultFeat TOWER_SHIELD_PROFICIENCY = new DefaultFeat("Tower Shield Proficiency",
+            "General", "",
             new FeatPrerequisite(SHIELD_PROFICIENCY));
-    
+
     private String id;
     private String name;
     private String type;
     private String summary;
     private CharacterPrerequisite prerequisite;
-    
+
     /**
      * hibernate constructor.
      */
     private DefaultFeat() {
     }
-    
-    public DefaultFeat(String name) {
-    	this(name, null, null, new NullPrerequisite());
-    }
-    public DefaultFeat(String name, String type, 
+
+    public DefaultFeat(String name, String type,
     		String summary, CharacterPrerequisite prerequisite) {
         this.name = name;
         this.type = type;
         this.summary = summary;
         this.prerequisite = prerequisite;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public String getType() {
         return type;
     }
-    
+
     public String getSummary() {
     	return summary;
     }
-    
+
     public CharacterPrerequisite getPrerequisite() {
         return prerequisite;
     }
@@ -82,7 +79,7 @@ public class DefaultFeat implements Feat {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
