@@ -63,6 +63,7 @@ import com.codecrate.shard.ui.form.FormFactory;
 public class ObjectManagerView extends AbstractView implements SearchComponent.SearchAction {
 	private static final Matcher ALWAYS_MATCH_MATCHER = new AlwaysMatchMatcher();
 	
+	private JPanel centerPanel;
     private JScrollPane scrollPane;
     private JTable table;
     private GlazedTableModel model;
@@ -93,10 +94,18 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 
     protected JComponent createControl() {
         JPanel view = new JPanel(new BorderLayout());
-        view.add(getScrollPane(), BorderLayout.WEST);
-        view.add(getNewButton(), BorderLayout.EAST);
+        view.add(getCenterPanel(), BorderLayout.CENTER);
         view.add(searchComponent.getPanel(), BorderLayout.NORTH);
         return view;
+    }
+    
+    private JPanel getCenterPanel() {
+    	if (null == centerPanel) {
+    		centerPanel = new JPanel();
+    		centerPanel.add(getScrollPane(), null);
+            centerPanel.add(getNewButton(), null);
+    	}
+    	return centerPanel;
     }
 
     protected void registerLocalCommandExecutors(PageComponentContext context) {
