@@ -26,7 +26,6 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -58,41 +57,45 @@ import com.codecrate.shard.ui.command.NewCommand;
 import com.codecrate.shard.ui.command.PropertiesCommand;
 import com.codecrate.shard.ui.command.SearchObjectsCommand;
 import com.codecrate.shard.ui.command.ViewObjectsCommand;
+import com.codecrate.shard.ui.component.SearchComponent;
 import com.codecrate.shard.ui.form.FormFactory;
 
-public class ObjectManagerView extends AbstractView {
+public class ObjectManagerView extends AbstractView implements SearchComponent.SearchAction {
+	private static final Matcher ALWAYS_MATCH_MATCHER = new AlwaysMatchMatcher();
+	
     private JScrollPane scrollPane;
     private JTable table;
     private GlazedTableModel model;
     private JPopupMenu popup;
 	private JButton newButton;
-	private JPanel searchPanel;
-	private JTextArea keywords;
-	private JButton searchButton;
 
 	private final AbstractActionCommandExecutor newCommand;
 	private final AbstractActionCommandExecutor deleteCommand;
 	private final AbstractActionCommandExecutor propertiesCommand;
 	private final ViewObjectsCommand viewCommand;
 	private final SearchObjectsCommand searchCommand;
+	private final SearchComponent searchComponent;
 	private FilterList objects;
 	private EventSelectionModel selectionModel;
 
 	public ObjectManagerView(ViewObjectsCommand viewCommand, NewCommand newCommand,
 			PropertiesCommand propertiesCommand, DeleteCommand deleteCommand, SearchObjectsCommand searchCommand,
-			FormFactory formFactory) {
+			FormFactory formFactory, SearchComponent searchComponent) {
 		this.viewCommand = viewCommand;
 		this.searchCommand = searchCommand;
+		this.searchComponent = searchComponent;
 		this.newCommand = new NewCommandExcecutor(newCommand, formFactory);
 		this.propertiesCommand = new PropertiesCommandExecutor(propertiesCommand, formFactory);
 		this.deleteCommand = new DeleteCommandExecutor(deleteCommand);
+		
+		searchComponent.addSearchListener(this);
 	}
 
     protected JComponent createControl() {
-        JPanel view = new JPanel();
+        JPanel view = new JPanel(new BorderLayout());
         view.add(getScrollPane(), BorderLayout.WEST);
         view.add(getNewButton(), BorderLayout.EAST);
-        view.add(getSearchPanel(), BorderLayout.NORTH);
+        view.add(searchComponent.getPanel(), BorderLayout.NORTH);
         return view;
     }
 
@@ -118,12 +121,7 @@ public class ObjectManagerView extends AbstractView {
 		if (null == objects) {
 			EventList tempObjects = new BasicEventList();
 			tempObjects.addAll(viewCommand.getObjects());
-			objects = new FilterList(tempObjects, new Matcher() {
-
-				public boolean matches(Object arg0) {
-					return true;
-				}
-			});
+			objects = new FilterList(tempObjects, ALWAYS_MATCH_MATCHER);
 		}
 		return objects;
 	}
@@ -134,42 +132,6 @@ public class ObjectManagerView extends AbstractView {
     		return null;
     	}
     	return selected.iterator().next();
-    }
-
-    private JPanel getSearchPanel() {
-    	if (null == searchPanel) {
-    		searchPanel = new JPanel();
-    		searchPanel.add(getKeywords(), BorderLayout.CENTER);
-    		searchPanel.add(getSearchButton(), BorderLayout.EAST);
-    	}
-    	return searchPanel;
-    }
-
-    private JTextArea getKeywords() {
-    	if (null == keywords) {
-    		keywords = new JTextArea();
-    	}
-    	return keywords;
-    }
-
-    private JButton getSearchButton() {
-    	if (null == searchButton) {
-    		searchButton = new JButton("Search");
-    		searchButton.addActionListener(new ActionListener() {
-
-				public void actionPerformed(ActionEvent arg0) {
-					final Collection searchResults = searchCommand.searchObjects(getKeywords().getText());
-					getObjects().setMatcher(new Matcher() {
-
-						public boolean matches(Object object) {
-							return searchResults.contains(object);
-						}
-
-					});
-				}
-    		});
-    	}
-    	return searchButton;
     }
 
     private JScrollPane getScrollPane() {
@@ -250,6 +212,21 @@ public class ObjectManagerView extends AbstractView {
         }
         return model;
     }
+
+	public void search(String query) {
+		final Collection searchResults = searchCommand.searchObjects(query);
+		getObjects().setMatcher(new Matcher() {
+
+			public boolean matches(Object object) {
+				return searchResults.contains(object);
+			}
+
+		});
+	}
+
+	public void clear() {
+		getObjects().setMatcher(ALWAYS_MATCH_MATCHER);
+	}
 
 
     private class NewCommandExcecutor extends AbstractActionCommandExecutor {
@@ -348,5 +325,13 @@ public class ObjectManagerView extends AbstractView {
             };
             dialog.showDialog();
         }
+    }
+    
+    private static class AlwaysMatchMatcher implements Matcher {
+
+		public boolean matches(Object arg0) {
+			return true;
+		}
+    	
     }
 }

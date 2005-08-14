@@ -27,11 +27,19 @@ import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 import com.codecrate.shard.character.prereq.NullPrerequisite;
+import com.codecrate.shard.lucene.LuceneSearcher;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class HibernateFeatDao extends HibernateDaoSupport implements FeatDao, FeatFactory {
+	
+	private final LuceneSearcher searcher;
+
+	public HibernateFeatDao(LuceneSearcher searcher) {
+		this.searcher = searcher;
+	}
+	
     public Collection getFeats() {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
@@ -73,5 +81,9 @@ public class HibernateFeatDao extends HibernateDaoSupport implements FeatDao, Fe
 
     public Feat createFeat(String name) {
     	return new DefaultFeat(name, "General", "", new NullPrerequisite());
+    }
+    
+    public Collection searchFeats(String query) {
+    	return searcher.search(DefaultFeat.class, query);
     }
 }

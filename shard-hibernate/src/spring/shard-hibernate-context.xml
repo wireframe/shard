@@ -55,6 +55,13 @@
 	  </property>
 	</bean>
 
+	<bean id="luceneSearcher" class="com.codecrate.shard.lucene.LuceneSearcher">
+	  <constructor-arg><ref bean="directoryManager" /></constructor-arg>
+      <property name="sessionFactory">
+        <ref bean="sessionFactory"/>
+	  </property>
+	</bean>
+
     <!-- Dao declarations -->
 	<bean id="skillDao" parent="transactionTemplate">
 	  <property name="target">
@@ -69,6 +76,7 @@
 	<bean id="featDao" parent="transactionTemplate">
 	  <property name="target">
 	    <bean class="com.codecrate.shard.feat.HibernateFeatDao">
+	      <constructor-arg><ref bean="luceneSearcher" /></constructor-arg>
   	      <property name="sessionFactory">
 	        <ref bean="sessionFactory"/>
 	      </property>

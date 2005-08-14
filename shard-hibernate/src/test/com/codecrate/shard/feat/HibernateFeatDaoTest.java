@@ -53,4 +53,14 @@ public class HibernateFeatDaoTest extends ShardHibernateTestCaseSupport {
             fail("Exception should be thrown.");
         } catch (IllegalArgumentException expected) { }
     }
+    
+    public void testSearchForFeats() throws Exception {
+    	Collection results = featDao.searchFeats("armor");
+    	assertFalse(results.isEmpty());
+    }
+    
+    public void testSearchAddsWildcard() throws Exception {
+    	Collection results = featDao.searchFeats("arm");
+    	assertFalse(results.isEmpty());
+    }
 }

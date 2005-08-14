@@ -16,11 +16,12 @@
 package com.codecrate.shard.ui.view;
 
 import com.codecrate.shard.ui.command.RaceCommandAdapter;
+import com.codecrate.shard.ui.component.SearchComponent;
 import com.codecrate.shard.ui.form.RaceFormFactory;
 
 public class RaceManagerView extends ObjectManagerView {
-    public RaceManagerView(RaceCommandAdapter commandAdapter, RaceFormFactory formFactory) {
+    public RaceManagerView(RaceCommandAdapter commandAdapter, RaceFormFactory formFactory, SearchComponent searchComponent) {
 		super(commandAdapter, commandAdapter, commandAdapter, commandAdapter,
-				commandAdapter, formFactory);
+				commandAdapter, formFactory, searchComponent);
     }
 }

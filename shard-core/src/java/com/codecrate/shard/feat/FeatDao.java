@@ -53,4 +53,11 @@ public interface FeatDao {
      * @param feat
      */
 	Feat saveFeat(Feat feat);
+
+	/**
+	 * get feats with the given search query
+	 * @param query
+	 * @return
+	 */
+	Collection searchFeats(String query);
 }

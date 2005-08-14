@@ -1,6 +1,11 @@
 package com.codecrate.shard.ui.component;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -10,32 +15,53 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
-public class SearchComponent extends JPanel {
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
+public class SearchComponent {
+	private static final Log LOG = LogFactory.getLog(SearchComponent.class);
+	
+	private JPanel mainPanel = null;
 	private JTextField queryText = null;
 	private JButton searchButton = null;
 	private JButton clearButton = null;
+	private Collection searchListeners = new ArrayList();
 
-	/**
-	 * This is the default constructor
-	 */
-	public SearchComponent() {
-		super();
-		initialize();
+	public JPanel getPanel() {
+		if (null == mainPanel) {
+			mainPanel = new JPanel();
+			mainPanel.setSize(new Dimension(300, 40));
+			mainPanel.add(getQueryText(), null);
+			mainPanel.add(getSearchButton(), null);
+			mainPanel.add(getClearButton(), null);
+		}
+		return mainPanel;
 	}
 
-	/**
-	 * This method initializes this
-	 *
-	 * @return void
-	 */
-	private void initialize() {
-		this.setSize(new Dimension(300, 40));
-		this.add(getQueryText(), null);
-		this.add(getSearchButton(), null);
-		this.add(getClearButton(), null);
+	public void addSearchListener(SearchAction action) {
+		searchListeners.add(action);
 	}
-
+	
+	public void removeSearchListener(SearchAction action) {
+		searchListeners.remove(action);
+	}
+	
+	private void fireSearch() {
+		Iterator it = searchListeners.iterator();
+		while (it.hasNext()) {
+			SearchAction action = (SearchAction) it.next();
+			action.search(getQueryText().getText());
+		}
+	}
+	
+	private void fireClear() {
+		Iterator it = searchListeners.iterator();
+		while (it.hasNext()) {
+			SearchAction action = (SearchAction) it.next();
+			action.clear();
+		}
+	}
+	
 	/**
 	 * This method initializes queryText
 	 *
@@ -62,14 +88,16 @@ public class SearchComponent extends JPanel {
 				private void processEvent(DocumentEvent event) {
 					Document document = event.getDocument();
 					try {
-						String value = document.getText(0, document.getLength());
-						System.out.println(value);
+						String value = document.getText(0, document.getLength()).trim();
+						if (0 < value.length()) {
+							fireSearch();
+						} else {
+							fireClear();
+						}
 					} catch (BadLocationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						LOG.warn("Error getting search query", e);
 					}
 				}
-
 			});
 		}
 		return queryText;
@@ -84,6 +112,13 @@ public class SearchComponent extends JPanel {
 		if (searchButton == null) {
 			searchButton = new JButton();
 			searchButton.setText("Search");
+			searchButton.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent arg0) {
+					fireSearch();
+				}
+				
+			});
 		}
 		return searchButton;
 	}
@@ -97,9 +132,21 @@ public class SearchComponent extends JPanel {
 		if (clearButton == null) {
 			clearButton = new JButton();
 			clearButton.setText("Clear");
+			clearButton.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent arg0) {
+					getQueryText().setText("");
+				}
+				
+			});
 		}
 		return clearButton;
 	}
 
 
+	public interface SearchAction {
+		void search(String query);
+		
+		void clear();
+	}
 }

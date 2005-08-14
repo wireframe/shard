@@ -59,6 +59,23 @@ public class DefaultFeat implements Feat {
     public String toString() {
     	return name;
     }
+    
+    public boolean equals(Object object) {
+    	if (this == object) {
+    		return true;
+    	}
+    	if (object instanceof Feat) {
+        	Feat target = (Feat) object;
+    		if (this.name.equals(target.getName())) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    public int hashCode() {
+    	return name.hashCode();
+    }
 
     public String getName() {
         return name;

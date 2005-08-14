@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard.ui.command;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import com.codecrate.shard.feat.Feat;
@@ -70,6 +69,6 @@ public class FeatCommandAdapter implements CommandAdapter {
 	}
 
 	public Collection searchObjects(String query) {
-		return new ArrayList();
+		return featDao.searchFeats(query);
 	}
 }

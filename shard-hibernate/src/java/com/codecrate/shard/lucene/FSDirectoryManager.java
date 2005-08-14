@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
@@ -40,6 +42,8 @@ public class FSDirectoryManager implements DirectoryManager {
 	private void initializeIndex(String path) throws IOException {
         File rootPath = new File(path);
         rootPath.mkdirs();
-        FSDirectory.getDirectory(path, true);
+        directory = FSDirectory.getDirectory(path, true);
+		IndexWriter writer = new IndexWriter(directory, new StandardAnalyzer(), true);
+		writer.close();
 	}
 }

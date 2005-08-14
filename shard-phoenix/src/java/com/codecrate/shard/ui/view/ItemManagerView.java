@@ -16,13 +16,14 @@
 package com.codecrate.shard.ui.view;
 
 import com.codecrate.shard.ui.command.ItemCommandAdapter;
+import com.codecrate.shard.ui.component.SearchComponent;
 import com.codecrate.shard.ui.form.FormFactory;
 
 public class ItemManagerView extends ObjectManagerView {
 
-	public ItemManagerView(ItemCommandAdapter commandAdapter, FormFactory formFactory) {
+	public ItemManagerView(ItemCommandAdapter commandAdapter, FormFactory formFactory, SearchComponent searchComponent) {
 		super(commandAdapter, commandAdapter, commandAdapter, commandAdapter,
-				commandAdapter, formFactory);
+				commandAdapter, formFactory, searchComponent);
 	}
 
 }

@@ -57,9 +57,9 @@ public class LuceneInterceptor implements Interceptor {
         try {
 			writer = new IndexWriter(directory, analyzer, DO_NOT_CREATE_INDEX);
             Document document = new Document();
-            document.add(Field.Keyword("class", entity.getClass().getName()));
-            document.add(Field.Keyword("id", id.toString()));
-            document.add(Field.Text("text", entity.toString()));
+            document.add(Field.Keyword(LuceneSearcher.FIELD_CLASS, entity.getClass().getName()));
+            document.add(Field.Keyword(LuceneSearcher.FIELD_ID, id.toString()));
+            document.add(Field.Text(LuceneSearcher.FIELD_TEXT, entity.toString()));
 
         	LOG.info("saving " + document);
             writer.addDocument(document);

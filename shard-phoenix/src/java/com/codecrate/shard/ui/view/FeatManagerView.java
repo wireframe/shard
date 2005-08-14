@@ -16,12 +16,13 @@
 package com.codecrate.shard.ui.view;
 
 import com.codecrate.shard.ui.command.FeatCommandAdapter;
+import com.codecrate.shard.ui.component.SearchComponent;
 import com.codecrate.shard.ui.form.FormFactory;
 
 public class FeatManagerView extends ObjectManagerView {
 
-    public FeatManagerView(FeatCommandAdapter commandAdapter, FormFactory formFactory) {
+    public FeatManagerView(FeatCommandAdapter commandAdapter, FormFactory formFactory, SearchComponent searchComponent) {
 		super(commandAdapter, commandAdapter, commandAdapter, commandAdapter,
-				commandAdapter, formFactory);
+				commandAdapter, formFactory, searchComponent);
 	}
 }

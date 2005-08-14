@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.17 2005/08/08 16:46:42 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.18 2005/08/14 20:39:26 wireframe Exp $ -->
 <beans>
 	
 	<bean id="application" 
@@ -124,6 +124,9 @@
     <bean id="formPropertyFaceDescriptorSource" 
 		class="org.springframework.binding.form.support.MessageSourceFormPropertyFaceDescriptorSource"/>    
 
+
+	<bean id="searchComponent" class="com.codecrate.shard.ui.component.SearchComponent" />
+	
     <!-- skill manager view -->
 	<bean id="skillManagerView"
 		class="org.springframework.richclient.application.support.LookupViewDescriptor">
@@ -151,6 +154,7 @@
 		        <constructor-arg><ref bean="abilityDao" /></constructor-arg>
 		    </bean>
 	    </constructor-arg>
+	    <constructor-arg><ref bean="searchComponent" /></constructor-arg>
 	</bean>
 
 	<!-- feat manager view -->
@@ -179,6 +183,7 @@
 		        class="com.codecrate.shard.ui.form.FeatFormFactory">
 		    </bean>
 	    </constructor-arg>
+	    <constructor-arg><ref bean="searchComponent" /></constructor-arg>
 	</bean>
 
 	<!-- item manager view -->
@@ -207,6 +212,7 @@
 		        class="com.codecrate.shard.ui.form.ItemFormFactory">
 		    </bean>
 	    </constructor-arg>
+	    <constructor-arg><ref bean="searchComponent" /></constructor-arg>
 	</bean>
 
     <!-- race manager view -->
@@ -235,5 +241,6 @@
 		        class="com.codecrate.shard.ui.form.RaceFormFactory">
 		    </bean>
 	    </constructor-arg>
+	    <constructor-arg><ref bean="searchComponent" /></constructor-arg>
 	</bean>
 </beans>
