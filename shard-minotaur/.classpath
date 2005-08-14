@@ -73,6 +73,10 @@
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/napkinlaf/jars/napkinlaf-1.0-beta-5.jar">
   </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/commons-lang/jars/commons-lang-2.1.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/lucene/jars/lucene-1.4.3.jar">
+  </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/easymock/jars/easymock-1.1.jar">
   </classpathentry>
   <classpathentry kind="output" path="target/classes">

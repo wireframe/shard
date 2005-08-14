@@ -52,4 +52,9 @@ public class HibernateItemDaoTest extends ShardHibernateTestCaseSupport {
 		Item item2 = itemDao.saveItem(item);
 		assertSame(item, item2);
 	}
+	
+	public void testSearchItems() throws Exception {
+		Collection results = itemDao.searchItems("test");
+		assertFalse(results.isEmpty());
+	}
 }

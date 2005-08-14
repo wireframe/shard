@@ -26,10 +26,18 @@ import net.sf.hibernate.Session;
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
+import com.codecrate.shard.lucene.LuceneSearcher;
+
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao, RaceFactory {
+	private final LuceneSearcher searcher;
+	
+	public HibernateRaceDao(LuceneSearcher searcher) {
+		this.searcher = searcher;
+	}
+	
     public Collection getRaces() {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session) throws HibernateException, SQLException {
@@ -54,5 +62,9 @@ public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao, Ra
 
 	public void updateRace(Race race) {
 		getHibernateTemplate().save(race);
+	}
+	
+	public Collection searchRaces(String query) {
+		return searcher.search(DefaultRace.class, query);
 	}
 }

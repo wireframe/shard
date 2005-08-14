@@ -65,4 +65,9 @@ public class HibernateSkillDaoTest extends ShardHibernateTestCaseSupport {
             fail("Exception should be thrown.");
         } catch (IllegalArgumentException expected) { }
     }
+    
+    public void testSearchForSkills() throws Exception {
+    	Collection results = skillDao.searchSkills("balance");
+    	assertFalse(results.isEmpty());
+    }
 }

@@ -43,4 +43,6 @@ public interface ItemDao {
 	 * @param item
 	 */
 	void updateItem(Item item);
+
+	Collection searchItems(String query);
 }

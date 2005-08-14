@@ -315,6 +315,26 @@
       </properties>
     </dependency>
        
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.1</version>
+      <url>http://jakarta.apache.org/commons</url>
+      <properties>
+        <jnlp.jar>true</jnlp.jar>
+      </properties>
+    </dependency>
+
+    <!-- lucene dependencies -->
+    <dependency>
+      <groupId>lucene</groupId>
+      <artifactId>lucene</artifactId>
+      <version>1.4.3</version>
+      <url>http://lucene.apache.org</url>
+      <properties>
+        <jnlp.jar>true</jnlp.jar>
+      </properties>
+    </dependency>
   </dependencies>
 
   <build>

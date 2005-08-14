@@ -26,11 +26,20 @@ import net.sf.hibernate.Session;
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
+import com.codecrate.shard.lucene.LuceneSearcher;
+
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class HibernateItemDao extends HibernateDaoSupport implements ItemDao, ItemFactory {
-    public Collection getItems() {
+
+	private final LuceneSearcher searcher;
+
+	public HibernateItemDao(LuceneSearcher searcher) {
+		this.searcher = searcher;
+	}
+	
+	public Collection getItems() {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
                     throws HibernateException {
@@ -57,5 +66,7 @@ public class HibernateItemDao extends HibernateDaoSupport implements ItemDao, It
         getHibernateTemplate().delete(item);
     }
     
-
+    public Collection searchItems(String query) {
+    	return searcher.search(DefaultItem.class, query);
+    }
 }

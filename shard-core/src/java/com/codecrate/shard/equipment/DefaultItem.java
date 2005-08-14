@@ -18,6 +18,9 @@ package com.codecrate.shard.equipment;
 import java.math.BigDecimal;
 import java.text.ParseException;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 /**
  * Default implementation of an item.
  * adds id field to be persistable.
@@ -51,7 +54,27 @@ public class DefaultItem implements Item {
     public String toString() {
     	return name;
     }
+
+    public int hashCode() {
+    	return new HashCodeBuilder(3, 7)
+    	.append(name)
+    	.toHashCode();
+    }
     
+    public boolean equals(Object object) {
+    	if (this == object) {
+    		return true;
+    	}
+    	
+    	if (!(object instanceof DefaultItem)) {
+    		return false;
+    	}
+    	DefaultItem target = (DefaultItem) object;
+    	return new EqualsBuilder()
+	    	.append(name, target.name)
+	    	.isEquals();    	
+    }
+
     public String getName() {
     	return name;
     }

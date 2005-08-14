@@ -18,6 +18,9 @@ package com.codecrate.shard.skill;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.ability.DefaultAbility;
 
@@ -138,10 +141,6 @@ public class DefaultSkill implements Skill {
     private DefaultSkill() { 
     }
     
-    public DefaultSkill(String name) {
-        this(name, false, null, false);
-    }
-
     public DefaultSkill(String name, boolean usableUntrained, Ability ability,
             boolean armorPenalty) {
         this.name = name;
@@ -152,6 +151,24 @@ public class DefaultSkill implements Skill {
 
     public String toString() {
         return name;
+    }
+    
+    public int hashCode() {
+    	return new HashCodeBuilder(3, 7).append(name).toHashCode();
+    }
+    
+    public boolean equals(Object object) {
+    	if (this == object) {
+    		return true;
+    	}
+    	
+    	if (!(object instanceof DefaultSkill)) {
+    		return false;
+    	}
+    	DefaultSkill target = (DefaultSkill) object;
+    	return new EqualsBuilder()
+	    	.append(name, target.name)
+	    	.isEquals();    	
     }
     
     public String getName() {

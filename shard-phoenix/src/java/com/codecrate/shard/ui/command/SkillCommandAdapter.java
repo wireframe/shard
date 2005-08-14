@@ -70,6 +70,6 @@ public class SkillCommandAdapter implements CommandAdapter {
 	}
 	
 	public Collection searchObjects(String query) {
-		return new ArrayList();
+		return skillDao.searchSkills(query);
 	}
 }

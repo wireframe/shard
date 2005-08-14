@@ -15,6 +15,9 @@
  */
 package com.codecrate.shard.feat;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import com.codecrate.shard.character.prereq.CharacterPrerequisite;
 import com.codecrate.shard.character.prereq.FeatPrerequisite;
 import com.codecrate.shard.character.prereq.NullPrerequisite;
@@ -60,23 +63,26 @@ public class DefaultFeat implements Feat {
     	return name;
     }
     
+    public int hashCode() {
+    	return new HashCodeBuilder(3, 7)
+    	.append(name)
+    	.toHashCode();
+    }
+    
     public boolean equals(Object object) {
     	if (this == object) {
     		return true;
     	}
-    	if (object instanceof Feat) {
-        	Feat target = (Feat) object;
-    		if (this.name.equals(target.getName())) {
-    			return true;
-    		}
+    	
+    	if (!(object instanceof DefaultFeat)) {
+    		return false;
     	}
-    	return false;
+    	DefaultFeat target = (DefaultFeat) object;
+    	return new EqualsBuilder()
+	    	.append(name, target.name)
+	    	.isEquals();    	
     }
     
-    public int hashCode() {
-    	return name.hashCode();
-    }
-
     public String getName() {
         return name;
     }

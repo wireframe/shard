@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.dice.MultipleDice;
@@ -161,6 +164,26 @@ public class DefaultRace implements Race {
 	public String toString() {
 	    return name;
 	}
+	
+    public int hashCode() {
+    	return new HashCodeBuilder(3, 7)
+    	.append(name)
+    	.toHashCode();
+    }
+    
+    public boolean equals(Object object) {
+    	if (this == object) {
+    		return true;
+    	}
+    	
+    	if (!(object instanceof DefaultRace)) {
+    		return false;
+    	}
+    	DefaultRace target = (DefaultRace) object;
+    	return new EqualsBuilder()
+	    	.append(name, target.name)
+	    	.isEquals();    	
+    }
 	
 	public RacialSize getSize() {
 		return size;

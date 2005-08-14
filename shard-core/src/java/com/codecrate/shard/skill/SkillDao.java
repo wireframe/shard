@@ -63,4 +63,6 @@ public interface SkillDao {
      * @return
      */
     Skill getSkill(String name);
+
+	Collection searchSkills(String query);
 }

@@ -26,10 +26,19 @@ import net.sf.hibernate.expression.Expression;
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
+import com.codecrate.shard.lucene.LuceneSearcher;
+
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao, SkillFactory {
+	
+	private final LuceneSearcher searcher;
+
+	public HibernateSkillDao(LuceneSearcher searcher) {
+		this.searcher = searcher;
+	}
+	
     public Collection getSkills() {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
@@ -52,7 +61,7 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao, 
     }
 
     public Skill createSkill(String name) {
-        DefaultSkill skill = new DefaultSkill(name);
+        DefaultSkill skill = new DefaultSkill(name, true, null, false);
         return skill;
     }
 
@@ -83,5 +92,9 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao, 
     
     public void updateSkill(Skill skill) {
         getHibernateTemplate().saveOrUpdate(skill);
+    }
+    
+    public Collection searchSkills(String query) {
+    	return searcher.search(DefaultSkill.class, query);
     }
 }

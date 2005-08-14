@@ -66,6 +66,7 @@
 	<bean id="skillDao" parent="transactionTemplate">
 	  <property name="target">
 	    <bean class="com.codecrate.shard.skill.HibernateSkillDao">
+	      <constructor-arg><ref bean="luceneSearcher" /></constructor-arg>
   	      <property name="sessionFactory">
 	        <ref bean="sessionFactory"/>
 	      </property>
@@ -157,6 +158,7 @@
 	<bean id="raceDao" parent="transactionTemplate">
 	  <property name="target">
 	    <bean class="com.codecrate.shard.race.HibernateRaceDao">
+	      <constructor-arg><ref bean="luceneSearcher" /></constructor-arg>
   	      <property name="sessionFactory">
 	        <ref bean="sessionFactory"/>
 	      </property>
@@ -167,6 +169,7 @@
 	<bean id="itemDao" parent="transactionTemplate">
 	  <property name="target">
 	    <bean class="com.codecrate.shard.equipment.HibernateItemDao">
+	      <constructor-arg><ref bean="luceneSearcher" /></constructor-arg>
   	      <property name="sessionFactory">
 	        <ref bean="sessionFactory"/>
 	      </property>

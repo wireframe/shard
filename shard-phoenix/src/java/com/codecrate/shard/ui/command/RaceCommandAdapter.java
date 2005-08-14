@@ -69,6 +69,6 @@ public class RaceCommandAdapter implements CommandAdapter {
 	}
 	
 	public Collection searchObjects(String query) {
-		return new ArrayList();
+		return raceDao.searchRaces(query);
 	}
 }

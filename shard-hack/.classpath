@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <classpath>
-  <classpathentry excluding="" kind="src" path="src/java">
-  </classpathentry>
-  <classpathentry output="target/test-classes" kind="src" path="src/test">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.1.jar">
-  </classpathentry>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
   </classpathentry>
   <classpathentry kind="src" path="/shard-dice">
   </classpathentry>
   <classpathentry kind="src" path="/shard-core">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/jme/jars/jme-SNAPSHOT.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/lwjgl/jars/lwjgl-0.96.jar">
   </classpathentry>
@@ -26,6 +22,8 @@
   <classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-2.1.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/commons-lang/jars/commons-lang-2.1.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/easymock/jars/easymock-1.1.jar">
   </classpathentry>

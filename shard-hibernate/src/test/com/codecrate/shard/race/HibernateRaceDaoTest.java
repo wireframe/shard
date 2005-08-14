@@ -35,9 +35,13 @@ public class HibernateRaceDaoTest extends ShardHibernateTestCaseSupport {
 		raceDao.saveRace(DefaultRace.HUMAN);
 	}
 
-
 	public void testLoadsRaces() throws Exception {
         Collection races = raceDao.getRaces();
         assertFalse(races.isEmpty());
     }
+	
+	public void testSearchRaces() throws Exception {
+		Collection results = raceDao.searchRaces("human");
+		assertFalse(results.isEmpty());
+	}
 }

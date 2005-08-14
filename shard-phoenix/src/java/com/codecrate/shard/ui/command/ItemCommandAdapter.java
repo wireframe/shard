@@ -70,6 +70,6 @@ public class ItemCommandAdapter implements CommandAdapter {
 		this.deleteMessagePropertyName = deleteMessagePropertyName;
 	}
 	public Collection searchObjects(String query) {
-		return new ArrayList();
+		return itemDao.searchItems(query);
 	}
 }

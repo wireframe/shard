@@ -34,4 +34,6 @@ public interface RaceDao {
 	void deleteRace(Race race);
 
 	void updateRace(Race race);
+
+	Collection searchRaces(String query);
 }
