@@ -62,27 +62,27 @@ public class DefaultFeat implements Feat {
     public String toString() {
     	return name;
     }
-    
+
     public int hashCode() {
     	return new HashCodeBuilder(3, 7)
     	.append(name)
     	.toHashCode();
     }
-    
+
     public boolean equals(Object object) {
     	if (this == object) {
     		return true;
     	}
-    	
+
     	if (!(object instanceof DefaultFeat)) {
     		return false;
     	}
     	DefaultFeat target = (DefaultFeat) object;
     	return new EqualsBuilder()
 	    	.append(name, target.name)
-	    	.isEquals();    	
+	    	.isEquals();
     }
-    
+
     public String getName() {
         return name;
     }
