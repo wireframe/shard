@@ -17,7 +17,7 @@
 	  </property>
 	</bean>
 
-    <bean id="directoryManager" class="com.codecrate.shard.lucene.RAMDirectoryManager" destroy-method="close">
+    <bean id="directoryManager" class="com.codecrate.shard.search.RAMDirectoryManager" destroy-method="close">
     </bean>
 
 </beans>

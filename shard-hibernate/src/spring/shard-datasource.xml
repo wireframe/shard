@@ -19,7 +19,7 @@
 	  </property>
 	</bean>
 	
-    <bean id="directoryManager" class="com.codecrate.shard.lucene.FSDirectoryManager" destroy-method="close">
+    <bean id="directoryManager" class="com.codecrate.shard.search.FSDirectoryManager" destroy-method="close">
       <constructor-arg>
         <value>/home/rsonnek/Projects/shard/shard-hibernate/target/index</value>
       </constructor-arg>

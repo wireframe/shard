@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.lucene;
+package com.codecrate.shard.search;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,19 +34,19 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.store.Directory;
 import org.springframework.orm.hibernate.HibernateTemplate;
 
-public class LuceneSearcher extends HibernateTemplate {
+public class HibernateSearcher extends HibernateTemplate {
     public static final String FIELD_CLASS = "class";
     public static final String FIELD_TEXT = "text";
     public static final String FIELD_ID = "id";
 
-    private static final Log LOG = LogFactory.getLog(LuceneSearcher.class);
+    private static final Log LOG = LogFactory.getLog(HibernateSearcher.class);
     private static final boolean REQUIRED = true;
     private static final boolean NOT_PROHIBITED = false;
 
     private final Directory directory;
     private final Analyzer analyzer;
 
-    public LuceneSearcher(DirectoryManager directoryManager) {
+    public HibernateSearcher(DirectoryManager directoryManager) {
         this.directory = directoryManager.getDirectory();
         this.analyzer = new StandardAnalyzer();
     }
