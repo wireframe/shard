@@ -17,7 +17,6 @@
 	  <property name="mappingResources">
 	    <list>
 	      <value>com/codecrate/shard/ability/PointCostValue.hbm.xml</value>
-	      <value>com/codecrate/shard/character/RaceAgeEntry.hbm.xml</value>
 	      <value>com/codecrate/shard/character/DefaultPlayerCharacter.hbm.xml</value>
 	      <value>com/codecrate/shard/equipment/DefaultItem.hbm.xml</value>
 	      <value>com/codecrate/shard/feat/DefaultFeat.hbm.xml</value>
@@ -108,16 +107,6 @@
 	<bean id="abilityScoreDao" parent="transactionTemplate">
 	  <property name="target">
 	    <bean class="com.codecrate.shard.ability.HibernateAbilityScoreDao">
-  	      <property name="sessionFactory">
-	        <ref bean="sessionFactory"/>
-	      </property>
-	    </bean>
-	  </property>
-	</bean>
-
-	<bean id="ageCategoryDao" parent="transactionTemplate">
-	  <property name="target">
-	    <bean class="com.codecrate.shard.character.HibernateAgeCategoryDao">
   	      <property name="sessionFactory">
 	        <ref bean="sessionFactory"/>
 	      </property>

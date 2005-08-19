@@ -17,13 +17,12 @@ package com.codecrate.shard.race;
 
 import java.util.Collection;
 
-import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Movement;
 
 /**
  * Defines a Race (ex: Human, Elf).
- * 
+ *
  * <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface Race {
@@ -32,13 +31,13 @@ public interface Race {
 	 * @return
 	 */
 	String getName();
-	
+
 	/**
 	 * gets the default racial size.
 	 * @return
 	 */
     RacialSize getSize();
-    
+
     /**
      * gets the ability modifiers for this race.
      * ex: elf has +2 Dex, -2 Con.
@@ -51,7 +50,7 @@ public interface Race {
      * @return
      */
     Movement getMovement();
-    
+
     /**
      * used for calculating the effective character level.
      * ex: Minotaur has level adjustment of 2, so a new player character
@@ -59,16 +58,16 @@ public interface Race {
      * @return
      */
     int getLevelAdjustment();
-    
+
     /**
      * gets the languages automatically granted to each race.
      * @return
      */
     Collection getAutomaticLanguages();
-    
+
     /**
      * gets the additional languages available to the race.
-     * character's intelligence modifier can be used to buy 
+     * character's intelligence modifier can be used to buy
      * each language.
      * @return
      */
@@ -89,19 +88,17 @@ public interface Race {
 
 	/**
 	 * gets the favored class for this race.
-	 * the favored class is used to determine whether or not an EXP penaly 
+	 * the favored class is used to determine whether or not an EXP penaly
 	 * applies to multiclassed characters.
 	 * @return the favored class or null if no favored class.
 	 */
 	CharacterClass getFavoredClass();
-    
-	/**
-	 * gets the dice to roll for determining max age.
-	 * max age is determined for each character with the formula:
-	 * character_max_age = racial.venerable_age + random(racial.max_age_dice)
-	 * @return
-	 */
-	Dice getMaxAgeDice();
+
+    /**
+     * get information relating to how this race ages.
+     * @return
+     */
+    AgeCategorization getAgeCategorization();
 
     /**
      * gets the number of extra skill points grated per level.

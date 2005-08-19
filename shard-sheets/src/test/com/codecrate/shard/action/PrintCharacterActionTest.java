@@ -28,16 +28,16 @@ import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.character.Age;
+import com.codecrate.shard.character.AgeCategory;
 import com.codecrate.shard.character.Alignment;
 import com.codecrate.shard.character.CharacterProgression;
-import com.codecrate.shard.character.DefaultAgeCategoryDao;
+import com.codecrate.shard.character.CummulativeAgeCategory;
 import com.codecrate.shard.character.DefaultAlignment;
 import com.codecrate.shard.character.DefaultCharacterBio;
 import com.codecrate.shard.character.DefaultCharacterLevel;
 import com.codecrate.shard.character.DefaultCharacterProgression;
 import com.codecrate.shard.character.DefaultGender;
 import com.codecrate.shard.character.DefaultPlayerCharacter;
-import com.codecrate.shard.character.RacialCategorizedAge;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.Coin;
 import com.codecrate.shard.equipment.DefaultItemEntryContainer;
@@ -58,18 +58,18 @@ import com.codecrate.shard.skill.DefaultSkill;
 public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringContextTests {
 
 	private VelocityEngine engine;
-	
+
 	protected final String[] getConfigLocations() {
-		return new String[] {"/shard-sheets-context.xml"}; 
+		return new String[] {"/shard-sheets-context.xml"};
 	}
 
 	public void setEngine(VelocityEngine engine) {
 		this.engine = engine;
 	}
-	
+
 	public void testMerge() throws Exception {
 		Template template = engine.getTemplate("default.vm");
-		
+
 		MockControl mockAbilityScoreDao = MockControl.createControl(AbilityScoreDao.class);
 		AbilityScoreDao abilityScoreDao = (AbilityScoreDao) mockAbilityScoreDao.getMock();
 		abilityScoreDao.getPointCost(10);
@@ -86,45 +86,58 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 		mockAbilityScoreDao.setReturnValue(1);
 		mockAbilityScoreDao.replay();
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
-		
+
 		Collection levels = new ArrayList();
 		levels.add(new DefaultCharacterLevel(null, 1, 1,
-                DefaultCharacterClass.BARBARIAN.getClassProgression().getClassLevel(1), 
-                Arrays.asList(new KeyedModifier[] { 
-                                new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultModifierType.RANK, 1), 
+                DefaultCharacterClass.BARBARIAN.getClassProgression().getClassLevel(1),
+                Arrays.asList(new KeyedModifier[] {
+                                new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultModifierType.RANK, 1),
                                 new DefaultKeyedModifier(DefaultSkill.INTIMIDATE, DefaultModifierType.RANK, 1)})));
-		levels.add(new DefaultCharacterLevel(null, 2, 1, 
-		        DefaultCharacterClass.FIGHTER.getClassProgression().getClassLevel(1), 
-                Arrays.asList(new KeyedModifier[] { 
+		levels.add(new DefaultCharacterLevel(null, 2, 1,
+		        DefaultCharacterClass.FIGHTER.getClassProgression().getClassLevel(1),
+                Arrays.asList(new KeyedModifier[] {
                         new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultModifierType.RANK, 1) })));
 		CharacterProgression progression = new DefaultCharacterProgression(levels);
-		
+
 		Race race = DefaultRace.HUMAN;
-		Age age = new RacialCategorizedAge(20, race, new DefaultAgeCategoryDao(), 100);
-		
+		Age age = new Age() {
+
+            public AgeCategory getCategory() {
+                return CummulativeAgeCategory.ADULT;
+            }
+
+            public int getCurrentAge() {
+                return 21;
+            }
+
+            public int getMaxAge() {
+                return 100;
+            }
+        };
+
 		ItemEntryContainer itemContainer = new DefaultItemEntryContainer(Arrays.asList(new ItemEntry[] {new ItemEntry(Coin.GOLD_PIECE, 100)}));
-		
+
 		MockControl mockEncumberanceDao = MockControl.createControl(EncumberanceDao.class);
 		EncumberanceDao encumberanceDao = (EncumberanceDao) mockEncumberanceDao.getMock();
 		encumberanceDao.getEncumberance(abilities, itemContainer, race.getSize());
 		mockEncumberanceDao.setReturnValue(DefaultEncumberance.LIGHT);
 		mockEncumberanceDao.replay();
-		
+
 		Encumberance encumberance = new InventoryWeightEncumberance(abilities, itemContainer, race.getSize(), encumberanceDao);
-		
+
 		MockControl mockDeity = MockControl.createControl(Deity.class);
 		Deity deity = (Deity) mockDeity.getMock();
 		deity.getName();
 		mockDeity.setReturnValue("Bob the Almighty");
 		mockDeity.replay();
-		
+
 		DefaultCharacterBio bio = new DefaultCharacterBio("Gunthor the Terrible");
 		bio.setGender(DefaultGender.MALE);
-		
+
 		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
-		
+
 		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, progression, itemContainer, encumberance, alignment, age, bio, deity);
-		
+
 		PrintCharacterAction output = new PrintCharacterAction(character, template);
 		String text = output.render().toString();
         int index = text.indexOf("${");
