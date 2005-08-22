@@ -17,6 +17,7 @@
 	  <property name="mappingResources">
 	    <list>
 	      <value>com/codecrate/shard/ability/PointCostValue.hbm.xml</value>
+	      <value>com/codecrate/shard/character/RaceAgeEntry.hbm.xml</value>
 	      <value>com/codecrate/shard/character/DefaultPlayerCharacter.hbm.xml</value>
 	      <value>com/codecrate/shard/equipment/DefaultItem.hbm.xml</value>
 	      <value>com/codecrate/shard/feat/DefaultFeat.hbm.xml</value>
