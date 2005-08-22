@@ -26,7 +26,6 @@ import net.sf.hibernate.type.Type;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexReader;
@@ -43,9 +42,9 @@ public class SearchIndexInterceptor implements Interceptor {
 
     private final Analyzer analyzer;
 
-    public SearchIndexInterceptor(DirectoryManager directoryManager) {
+    public SearchIndexInterceptor(DirectoryManager directoryManager, Analyzer analyzer) {
         this.directory = directoryManager.getDirectory();
-        this.analyzer = new StandardAnalyzer();
+        this.analyzer = analyzer;
     }
 
     public boolean onSave(Object entity, Serializable id,

@@ -22,7 +22,6 @@ import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.QueryParser;
@@ -46,9 +45,9 @@ public class HibernateSearcher extends HibernateTemplate {
     private final Directory directory;
     private final Analyzer analyzer;
 
-    public HibernateSearcher(DirectoryManager directoryManager) {
+    public HibernateSearcher(DirectoryManager directoryManager, Analyzer analyzer) {
         this.directory = directoryManager.getDirectory();
-        this.analyzer = new StandardAnalyzer();
+        this.analyzer = analyzer;
     }
 
     public Collection search(Class target, String query) {
