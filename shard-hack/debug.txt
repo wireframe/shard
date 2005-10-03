@@ -1,0 +1,24 @@
+Oct 2, 2005 11:42:54 PM com.jme.app.BaseGame start
+INFO: Application started.
+Oct 2, 2005 11:42:54 PM com.jme.system.PropertiesIO <init>
+INFO: PropertiesIO created
+Oct 2, 2005 11:42:54 PM com.jme.system.PropertiesIO load
+INFO: Read properties
+Oct 2, 2005 11:42:54 PM com.jme.system.lwjgl.LWJGLDisplaySystem <init>
+INFO: LWJGL Display System created.
+Oct 2, 2005 11:42:55 PM com.jme.renderer.lwjgl.LWJGLRenderer <init>
+INFO: LWJGLRenderer created. W:  640H: 480
+Oct 2, 2005 11:42:55 PM com.jme.renderer.AbstractCamera <init>
+INFO: Camera created.
+Oct 2, 2005 11:42:55 PM com.jme.util.lwjgl.LWJGLTimer <init>
+INFO: Timer resolution: 1000 ticks per second
+Oct 2, 2005 11:42:55 PM com.jme.scene.Node <init>
+INFO: Node created.
+Oct 2, 2005 11:42:56 PM com.jme.scene.Node <init>
+INFO: Node created.
+Oct 2, 2005 11:42:56 PM com.jme.scene.Node attachChild
+INFO: Child (FPS label) attached to this node (FPS node)
+Oct 2, 2005 11:42:56 PM com.jme.app.SimpleGame cleanup
+INFO: Cleaning up resources.
+Oct 2, 2005 11:42:56 PM com.jme.app.BaseGame start
+INFO: Application ending.

@@ -8,7 +8,7 @@
   <name>shard hack module</name>
   <description>shard hack module</description>
   <shortDescription>shard hack module</shortDescription>
-  
+
   <dependencies>
     <dependency>
       <groupId>shard</groupId>
@@ -29,7 +29,7 @@
       </properties>
     </dependency>
 
-	<!-- jmonkeyengine dependencies -->    
+	<!-- jmonkeyengine dependencies -->
     <dependency>
       <groupId>jme</groupId>
       <artifactId>jme</artifactId>
@@ -51,6 +51,16 @@
     <dependency>
       <groupId>lwjgl</groupId>
       <artifactId>lwjgl-windows</artifactId>
+      <version>0.96</version>
+      <url>http://www.lwjgl.org/</url>
+      <properties>
+        <jnlp.jar>true</jnlp.jar>
+        <jnlp.native.jar>true</jnlp.native.jar>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>lwjgl</groupId>
+      <artifactId>lwjgl-linux</artifactId>
       <version>0.96</version>
       <url>http://www.lwjgl.org/</url>
       <properties>
@@ -85,5 +95,15 @@
       </properties>
     </dependency>
   </dependencies>
-  
+
+  <build>
+      <resources>
+      <resource>
+        <directory>${basedir}/src/resources</directory>
+        <includes>
+          <include>**/*.jpg</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </project>
