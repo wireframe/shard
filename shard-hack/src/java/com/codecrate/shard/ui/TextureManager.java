@@ -14,6 +14,6 @@ public class TextureManager {
         return com.jme.util.TextureManager.loadTexture(
                 classLoader.getResource(name),
                 Texture.MM_LINEAR,
-                Texture.FM_LINEAR, 0f, true);
+                Texture.FM_LINEAR);
     }
 }
