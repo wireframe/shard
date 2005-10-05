@@ -2,7 +2,7 @@ package com.codecrate.shard;
 
 import com.codecrate.shard.ui.TextureManager;
 import com.jme.app.SimpleGame;
-import com.jme.bounding.BoundingBox;
+import com.jme.bounding.BoundingSphere;
 import com.jme.image.Texture;
 import com.jme.math.Vector3f;
 import com.jme.scene.shape.Sphere;
@@ -14,9 +14,10 @@ public class ShardHack extends SimpleGame {
 
     public ShardHack() {
         super();
-        setDialogBehaviour(NEVER_SHOW_PROPS_DIALOG);
         this.textureManager = new TextureManager();
-    }
+
+        setDialogBehaviour(NEVER_SHOW_PROPS_DIALOG);
+}
 
     public static void main(String[] args) {
         new ShardHack().start();
@@ -25,18 +26,18 @@ public class ShardHack extends SimpleGame {
     protected void simpleInitGame() {
         display.setTitle("Shard Hack");
 
-        Texture texture = textureManager.loadTexture("MetallicTile.jpg");
+        Texture texture = textureManager.loadTexture("Monkey.jpg");
 
-        TextureState ts = display.getRenderer().createTextureState();
-        ts.setEnabled(true);
-        ts.setTexture(texture);
+        TextureState textureState = display.getRenderer().createTextureState();
+        textureState.setEnabled(true);
+        textureState.setTexture(texture);
 
-        Sphere s = new Sphere("Sphere", 30, 30, 25);
-        s.setLocalTranslation(new Vector3f(0, 0, -40));
-        s.setModelBound(new BoundingBox());
-        s.updateModelBound();
-        s.setRenderState(ts);
+        Sphere sphere = new Sphere("Sphere", 30, 30, 25);
+        sphere.setLocalTranslation(new Vector3f(0, 0, -40));
+        sphere.setModelBound(new BoundingSphere());
+        sphere.updateModelBound();
+        sphere.setRenderState(textureState);
 
-        rootNode.attachChild(s);
+        rootNode.attachChild(sphere);
     }
 }
