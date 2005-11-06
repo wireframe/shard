@@ -1,0 +1,43 @@
+<model>
+  <parent>
+    <groupId>com.codecrate.shard</groupId>
+    <artifactId>shard-root</artifactId>
+    <version>0.3.0-SNAPSHOT</version>
+    <relativePath>../shard-root/pom.xml</relativePath>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.codecrate.shard</groupId>
+  <artifactId>shard-transfer</artifactId>
+  <name>shard transfer module</name>
+  <packaging>jar</packaging>
+  <version>0.3.0-SNAPSHOT</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.codecrate.shard</groupId>
+      <artifactId>shard-core</artifactId>
+      <version>0.3.0-SNAPSHOT</version>
+    </dependency>
+
+    <!-- POI dependencies -->
+    <dependency>
+      <groupId>poi</groupId>
+      <artifactId>poi-2.5.1-final</artifactId>
+      <version>20040804</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <testResources>
+      <testResource>
+        <directory>${basedir}/src/test/resources</directory>
+        <includes>
+          <include>**/*.xls</include>
+          <include>**/*.xml</include>
+        </includes>
+      </testResource>
+    </testResources>
+  </build>
+
+</model>

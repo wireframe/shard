@@ -11,6 +11,8 @@
     <module>../shard-core</module>
     <module>../shard-hibernate</module>
     <module>../shard-sheets</module>
+    <module>../shard-transfer</module>
+    <module>../shard-phoenix</module>
   </modules>
 
   <description>d20 gaming engine</description>
@@ -84,9 +86,13 @@
     </dependency>
   </dependencies>
 
-  <build>
-    <sourceDirectory>src/java</sourceDirectory>
-    <testSourceDirectory>src/test</testSourceDirectory>
-  </build>
+  <repositories>
+    <repository>
+      <id>codecrate-maven-repo</id>
+      <name>Codecrate Maven Repository</name>
+      <url>http://maven.codecrate.com</url>
+      <layout>legacy</layout>
+    </repository>
+  </repositories>
 
 </model>
