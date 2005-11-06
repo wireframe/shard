@@ -1,19 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <projectDescription>
   <name>shard-minotaur</name>
-  <comment>shard d20 character generator application</comment>
-  <projects>
-    <project>shard-dice</project>
-    <project>shard-core</project>
-    <project>shard-sheets</project>
-    <project>shard-hibernate</project>
-  </projects>
+  <comment>d20 gaming engine</comment>
+  <projects/>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>
-      <arguments>
-      </arguments>
+      <arguments/>
     </buildCommand>
   </buildSpec>
   <natures>

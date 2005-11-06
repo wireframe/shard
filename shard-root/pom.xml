@@ -13,6 +13,7 @@
     <module>../shard-sheets</module>
     <module>../shard-transfer</module>
     <module>../shard-phoenix</module>
+    <module>../shard-minotaur</module>
   </modules>
 
   <description>d20 gaming engine</description>

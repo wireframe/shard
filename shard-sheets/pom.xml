@@ -53,14 +53,14 @@
   <build>
     <resources>
       <resource>
-        <directory>${basedir}/src/velocity</directory>
+        <directory>${basedir}/src/main/velocity</directory>
         <includes>
           <include>**/*.properties</include>
           <include>**/*.vm</include>
         </includes>
       </resource>
       <resource>
-        <directory>${basedir}/src/spring</directory>
+        <directory>${basedir}/src/main/spring</directory>
         <includes>
           <include>**/*.xml</include>
         </includes>

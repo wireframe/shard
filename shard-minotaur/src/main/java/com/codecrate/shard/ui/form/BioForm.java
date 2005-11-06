@@ -41,7 +41,7 @@ public class BioForm extends AbstractForm {
         formBuilder.row();
         formBuilder.add("bio.weight");
         formBuilder.row();
-        formBuilder.add(bindingFactory.createBoundTextArea("bio.backstory"));
+        formBuilder.addInScrollPane(bindingFactory.createBoundTextArea("bio.backstory", 5, 0));
         return formBuilder.getForm();
     }
 }

@@ -77,14 +77,14 @@
   <build>
     <resources>
       <resource>
-        <directory>${basedir}/src/resources</directory>
+        <directory>${basedir}/src/main/resources</directory>
         <includes>
           <include>**/*.gif</include>
           <include>**/*.png</include>
         </includes>
       </resource>
       <resource>
-        <directory>${basedir}/src/spring</directory>
+        <directory>${basedir}/src/main/spring</directory>
         <includes>
           <include>**/*.xml</include>
           <include>**/*.properties</include>

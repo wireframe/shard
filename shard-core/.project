@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <projectDescription>
   <name>shard-core</name>
-  <comment>shard core module</comment>
+  <comment>d20 gaming engine</comment>
   <projects>
     <project>shard-dice</project>
   </projects>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>
-      <arguments>
-      </arguments>
+      <arguments/>
     </buildCommand>
   </buildSpec>
   <natures>

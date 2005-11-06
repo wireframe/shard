@@ -1,18 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <projectDescription>
   <name>shard-phoenix</name>
-  <comment>shard d20 data management application</comment>
-  <projects>
-    <project>shard-dice</project>
-    <project>shard-core</project>
-    <project>shard-hibernate</project>
-  </projects>
+  <comment>d20 gaming engine</comment>
+  <projects/>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>
-      <arguments>
-      </arguments>
+      <arguments/>
     </buildCommand>
   </buildSpec>
   <natures>
