@@ -3,8 +3,9 @@
     <groupId>com.codecrate.shard</groupId>
     <artifactId>shard-root</artifactId>
     <version>0.3.0-SNAPSHOT</version>
+    <relativePath>../shard-root/pom.xml</relativePath>
   </parent>
-  
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.codecrate.shard</groupId>
   <artifactId>shard-core</artifactId>
@@ -25,4 +26,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-</model>  
+</model>

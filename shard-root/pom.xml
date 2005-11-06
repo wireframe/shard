@@ -7,10 +7,10 @@
   <packaging>pom</packaging>
   <inceptionYear>2003</inceptionYear>
   <modules>
-    <module>shard-dice</module>
-    <module>shard-core</module>
-    <module>shard-hibernate</module>
-    <module>shard-sheets</module>
+    <module>../shard-dice</module>
+    <module>../shard-core</module>
+    <module>../shard-hibernate</module>
+    <module>../shard-sheets</module>
   </modules>
 
   <description>d20 gaming engine</description>
@@ -39,8 +39,8 @@
     <connection>scm:cvs:pserver:guest@cvs.dev.java.net:/cvs:shard/</connection>
     <developerConnection>scm:cvs:pserver:${maven.username}@cvs.dev.java.net:/cvs:shard/</developerConnection>
     <url>https://shard.dev.java.net/source/browse/shard</url>
-  </scm>    
-  
+  </scm>
+
   <ciManagement>
     <notifiers>
       <notifier>
@@ -56,7 +56,17 @@
       <artifactId>commons-logging</artifactId>
       <version>1.0.4</version>
     </dependency>
-  
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.1</version>
+    </dependency>
+
     <!-- Junit dependencies -->
     <dependency>
       <groupId>junit</groupId>
@@ -73,10 +83,10 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
+
   <build>
     <sourceDirectory>src/java</sourceDirectory>
     <testSourceDirectory>src/test</testSourceDirectory>
   </build>
-  
+
 </model>

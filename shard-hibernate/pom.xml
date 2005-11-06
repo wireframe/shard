@@ -3,8 +3,9 @@
     <groupId>com.codecrate.shard</groupId>
     <artifactId>shard-root</artifactId>
     <version>0.3.0-SNAPSHOT</version>
+    <relativePath>../shard-root/pom.xml</relativePath>
   </parent>
-  
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.codecrate.shard</groupId>
   <artifactId>shard-hibernate</artifactId>
@@ -17,6 +18,13 @@
       <groupId>com.codecrate.shard</groupId>
       <artifactId>shard-core</artifactId>
       <version>0.3.0-SNAPSHOT</version>
+    </dependency>
+
+    <!-- lucene dependencies -->
+    <dependency>
+      <groupId>lucene</groupId>
+      <artifactId>lucene</artifactId>
+      <version>1.4.3</version>
     </dependency>
 
     <!-- HSQL dependencies -->
@@ -61,7 +69,7 @@
       <artifactId>geronimo-spec-jta</artifactId>
       <version>1.0-M1</version>
     </dependency>
-    
+
 
     <dependency>
       <groupId>dom4j</groupId>
@@ -87,6 +95,12 @@
     </dependency>
 
     <!-- springframework dependencies -->
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-mock</artifactId>
+      <version>1.1.5</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>springframework</groupId>
       <artifactId>spring-core</artifactId>
@@ -117,7 +131,7 @@
       <artifactId>aopalliance</artifactId>
       <version>1.0</version>
     </dependency>
-    
+
     <!-- DBUnit dependencies -->
     <dependency>
       <groupId>dbunit</groupId>
@@ -144,7 +158,7 @@
         </includes>
       </resource>
     </resources>
-    
+
     <testResources>
       <testResource>
         <directory>${basedir}/src/data</directory>
@@ -161,4 +175,3 @@
     </testResources>
   </build>
 </model>
-    
