@@ -15,7 +15,7 @@
  */
 package com.codecrate.shard.ui.command;
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.util.Collection;
 
 import com.codecrate.shard.skill.Skill;
@@ -76,12 +76,7 @@ public class SkillCommandAdapter implements CommandAdapter {
 		return skillDao.searchSkills(query);
 	}
 
-    public void importObjects() {
-        try {
-            importer.importSkills(new FileInputStream("blah"));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    public Collection importObjects(File file) {
+        return importer.importSkills(file);
     }
 }

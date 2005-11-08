@@ -15,7 +15,9 @@
  */
 package com.codecrate.shard.ui.command;
 
+import java.io.File;
 import java.util.Collection;
+import java.util.Collections;
 
 import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
@@ -72,8 +74,8 @@ public class FeatCommandAdapter implements CommandAdapter {
 		return featDao.searchFeats(query);
 	}
 
-    public void importObjects() {
+    public Collection importObjects(File file) {
         // TODO Auto-generated method stub
-
+        return Collections.EMPTY_LIST;
     }
 }

@@ -15,6 +15,9 @@
  */
 package com.codecrate.shard.ui.command;
 
+import java.io.File;
+import java.util.Collection;
+
 public interface ImportCommand {
-    void importObjects();
+    Collection importObjects(File file);
 }

@@ -18,10 +18,12 @@ package com.codecrate.shard.ui.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Collection;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -289,13 +291,17 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 
         public ImportCommandExcecutor(ImportCommand importCommand) {
             this.command = importCommand;
-
             this.setEnabled(true);
         }
 
         public void execute() {
-            System.out.println("IMPORT NOW!");
-            command.importObjects();
+            JFileChooser fileChooser = new JFileChooser();
+
+            fileChooser.showOpenDialog(getWindowControl());
+            File selectedFile = fileChooser.getSelectedFile();
+
+            Collection results = command.importObjects(selectedFile);
+            getObjects().addAll(results);
         }
     }
 

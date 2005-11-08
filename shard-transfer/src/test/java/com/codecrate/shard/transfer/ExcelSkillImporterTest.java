@@ -16,7 +16,7 @@
 package com.codecrate.shard.transfer;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.util.Collection;
 
 import junit.framework.TestCase;
 
@@ -45,7 +45,8 @@ public class ExcelSkillImporterTest extends TestCase {
         mockSkillDao.setReturnValue(skill);
         mockSkillDao.replay();
 
-        FileInputStream inputStream = new FileInputStream(new File(Thread.currentThread().getContextClassLoader().getResource("skills.xls").toURI()));
-        new ExcelSkillImporter(skillFactory, skillDao).importSkills(inputStream);
+        File file = new File(Thread.currentThread().getContextClassLoader().getResource("skills.xls").toURI());
+        Collection results = new ExcelSkillImporter(skillFactory, skillDao).importSkills(file);
+        assertFalse(results.isEmpty());
     }
 }

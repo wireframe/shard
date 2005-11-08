@@ -15,7 +15,9 @@
  */
 package com.codecrate.shard.ui.command;
 
+import java.io.File;
 import java.util.Collection;
+import java.util.Collections;
 
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.race.RaceDao;
@@ -71,8 +73,8 @@ public class RaceCommandAdapter implements CommandAdapter {
 		return raceDao.searchRaces(query);
 	}
 
-    public void importObjects() {
+    public Collection importObjects(File file) {
         // TODO Auto-generated method stub
-
+        return Collections.EMPTY_LIST;
     }
 }

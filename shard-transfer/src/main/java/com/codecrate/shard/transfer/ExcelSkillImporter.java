@@ -15,8 +15,13 @@
  */
 package com.codecrate.shard.transfer;
 
-import java.io.InputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -28,6 +33,7 @@ import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
 
 public class ExcelSkillImporter {
+    private static final Log LOG = LogFactory.getLog(ExcelSkillImporter.class);
 
     private final SkillFactory skillFactory;
     private final SkillDao skillDao;
@@ -37,23 +43,31 @@ public class ExcelSkillImporter {
         this.skillDao = dao;
     }
 
-    public void importSkills(InputStream input) throws Exception {
-        POIFSFileSystem poifs = new POIFSFileSystem(input);
+    public Collection importSkills(File file) {
+        Collection results = new ArrayList();
 
-        HSSFWorkbook workbook = new HSSFWorkbook(poifs);
-        HSSFSheet sheet = workbook.getSheetAt(0);
+        try {
+            POIFSFileSystem poifs = new POIFSFileSystem(new FileInputStream(file));
 
-        int startRow = sheet.getFirstRowNum();
-        int lastRow = sheet.getLastRowNum();
+            HSSFWorkbook workbook = new HSSFWorkbook(poifs);
+            HSSFSheet sheet = workbook.getSheetAt(0);
 
-        for (int currentRow = startRow; currentRow <= lastRow; currentRow++) {
-            HSSFRow row = sheet.getRow(currentRow);
+            int startRow = sheet.getFirstRowNum();
+            int lastRow = sheet.getLastRowNum();
 
-            String name = getStringFromRow(row, 1);
-            Skill skill = skillFactory.createSkill(name);
-            skillDao.saveSkill(skill);
+            for (int currentRow = startRow; currentRow <= lastRow; currentRow++) {
+                HSSFRow row = sheet.getRow(currentRow);
 
+                String name = getStringFromRow(row, 1);
+                Skill skill = skillFactory.createSkill(name);
+                skill = skillDao.saveSkill(skill);
+                results.add(skill);
+            }
+        } catch (Exception e) {
+            LOG.error("Error importing file: " + file, e);
         }
+
+        return results;
     }
 
     private String getStringFromRow(HSSFRow row, int column) {
