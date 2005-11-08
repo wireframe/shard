@@ -22,7 +22,7 @@ import com.codecrate.shard.ui.form.FormFactory;
 public class FeatManagerView extends ObjectManagerView {
 
     public FeatManagerView(FeatCommandAdapter commandAdapter, FormFactory formFactory, SearchComponent searchComponent) {
-		super(commandAdapter, commandAdapter, commandAdapter, commandAdapter,
-				commandAdapter, formFactory, searchComponent);
+        super(commandAdapter, commandAdapter, commandAdapter, commandAdapter,
+                commandAdapter, commandAdapter, formFactory, searchComponent);
 	}
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-	
-	<bean id="windowCommandManager" 
+
+	<bean id="windowCommandManager"
 		class="org.springframework.richclient.application.support.ApplicationWindowCommandManager">
 		<property name="sharedCommandIds">
 			<list>
@@ -17,11 +17,12 @@
 				<value>selectAllCommand</value>
 				<value>deleteCommand</value>
 				<value>newCommand</value>
+				<value>importCommand</value>
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="menuBar" 
+
+	<bean id="menuBar"
 		class="org.springframework.richclient.command.CommandGroupFactoryBean">
 		<property name="members">
 			<list>
@@ -32,8 +33,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="toolBar" 
+
+	<bean id="toolBar"
 		class="org.springframework.richclient.command.CommandGroupFactoryBean">
 		<property name="members">
 			<list>
@@ -41,13 +42,14 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="fileMenu" 
+
+	<bean id="fileMenu"
 		class="org.springframework.richclient.command.CommandGroupFactoryBean">
 		<property name="members">
 			<list>
 				<value>separator</value>
 				<value>newCommand</value>
+				<value>importCommand</value>
 				<value>separator</value>
 				<value>saveAsCommand</value>
 				<value>separator</value>
@@ -57,8 +59,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="editMenu" 
+
+	<bean id="editMenu"
 		class="org.springframework.richclient.command.CommandGroupFactoryBean">
 		<property name="members">
 			<list>
@@ -74,8 +76,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="windowMenu" 
+
+	<bean id="windowMenu"
 		class="org.springframework.richclient.command.CommandGroupFactoryBean">
 		<property name="members">
 			<list>
@@ -86,8 +88,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="helpMenu" 
+
+	<bean id="helpMenu"
 		class="org.springframework.richclient.command.CommandGroupFactoryBean">
 		<property name="members">
 			<list>
@@ -97,11 +99,11 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="helpContentsCommand" 
+
+	<bean id="helpContentsCommand"
 		class="org.springframework.richclient.command.support.HelpContentsCommand"/>
-		
-	<bean id="aboutCommand" 
+
+	<bean id="aboutCommand"
 		class="org.springframework.richclient.command.support.AboutCommand">
 		<property name="aboutTextPath">
 			<value>org/springframework/richclient/samples/petclinic/about.txt</value>

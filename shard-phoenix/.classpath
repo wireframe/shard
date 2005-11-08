@@ -2,6 +2,7 @@
   <classpathentry kind="src" path="src/main/java"/>
   <classpathentry kind="src" path="src/main/resources"/>
   <classpathentry kind="src" path="src/main/spring"/>
+  <classpathentry kind="src" path="src/test/java" output="target/test-classes"/>
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="var" rootpath="JRE_SRCROOT" path="JRE_LIB" sourcepath="JRE_SRC"/>
   <classpathentry kind="var" path="M2_REPO/glazedlists/glazedlists/0.9.6/glazedlists-0.9.6.jar"/>
@@ -17,9 +18,9 @@
   <classpathentry kind="var" path="M2_REPO/jgoodies/looks/1.3.1/looks-1.3.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/springframework/spring-dao/1.1.5/spring-dao-1.1.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/codecrate/shard/shard-hibernate/0.3.0-SNAPSHOT/shard-hibernate-0.3.0-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/odmg/odmg/3.0/odmg-3.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/avalon-framework/avalon-framework/4.1.3/avalon-framework-4.1.3.jar"/>
   <classpathentry kind="var" path="M2_REPO/spring-rcp/spring-richclient-resources/SNAPSHOT/spring-richclient-resources-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/avalon-framework/avalon-framework/4.1.3/avalon-framework-4.1.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/odmg/odmg/3.0/odmg-3.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/spring-rcp/spring-richclient-sandbox/SNAPSHOT/spring-richclient-sandbox-SNAPSHOT.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-dbcp/commons-dbcp/1.2.1/commons-dbcp-1.2.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/hsqldb/hsqldb/1.7.3.3/hsqldb-1.7.3.3.jar"/>
@@ -33,8 +34,8 @@
   <classpathentry kind="var" path="M2_REPO/pull-parser/pull-parser/2/pull-parser-2.jar"/>
   <classpathentry kind="var" path="M2_REPO/springframework/spring-context/1.1.5/spring-context-1.1.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/springframework/spring-orm/1.1.5/spring-orm-1.1.5.jar"/>
-  <classpathentry kind="var" path="M2_REPO/hibernate/hibernate/2.1.8/hibernate-2.1.8.jar"/>
   <classpathentry kind="var" path="M2_REPO/xpp3/xpp3/1.1.3.3/xpp3-1.1.3.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/hibernate/hibernate/2.1.8/hibernate-2.1.8.jar"/>
   <classpathentry kind="var" path="M2_REPO/asm/asm/1.4.3/asm-1.4.3.jar"/>
   <classpathentry kind="var" path="M2_REPO/dom4j/dom4j/1.6/dom4j-1.6.jar"/>
   <classpathentry kind="var" path="M2_REPO/ehcache/ehcache/1.1/ehcache-1.1.jar"/>
@@ -43,9 +44,9 @@
   <classpathentry kind="var" path="M2_REPO/javax/sql/jdbc-stdext/2.0/jdbc-stdext-2.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/codecrate/shard/shard-transfer/0.3.0-SNAPSHOT/shard-transfer-0.3.0-SNAPSHOT.jar"/>
   <classpathentry kind="var" path="M2_REPO/msv/xsdlib/20030807/xsdlib-20030807.jar"/>
-  <classpathentry kind="var" path="M2_REPO/poi/poi-2.5.1-final/20040804/poi-2.5.1-final-20040804.jar"/>
   <classpathentry kind="var" path="M2_REPO/easymock/easymock/1.1/easymock-1.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/spring-rcp/spring-sandbox/SNAPSHOT/spring-sandbox-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/poi/poi-2.5.1-final/20040804/poi-2.5.1-final-20040804.jar"/>
   <classpathentry kind="var" path="M2_REPO/springframework/spring-aop/1.1.5/spring-aop-1.1.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/jgoodies/forms/1.0.5/forms-1.0.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/geronimo-spec/geronimo-spec-jta/1.0-M1/geronimo-spec-jta-1.0-M1.jar"/>

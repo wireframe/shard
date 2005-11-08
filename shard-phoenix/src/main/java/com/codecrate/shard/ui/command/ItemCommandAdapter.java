@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard.ui.command;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import com.codecrate.shard.equipment.Item;
@@ -72,4 +71,9 @@ public class ItemCommandAdapter implements CommandAdapter {
 	public Collection searchObjects(String query) {
 		return itemDao.searchItems(query);
 	}
+
+    public void importObjects() {
+        // TODO Auto-generated method stub
+
+    }
 }

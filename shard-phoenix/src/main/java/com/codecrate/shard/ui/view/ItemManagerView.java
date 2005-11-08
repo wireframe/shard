@@ -22,8 +22,8 @@ import com.codecrate.shard.ui.form.FormFactory;
 public class ItemManagerView extends ObjectManagerView {
 
 	public ItemManagerView(ItemCommandAdapter commandAdapter, FormFactory formFactory, SearchComponent searchComponent) {
-		super(commandAdapter, commandAdapter, commandAdapter, commandAdapter,
-				commandAdapter, formFactory, searchComponent);
+        super(commandAdapter, commandAdapter, commandAdapter, commandAdapter,
+                commandAdapter, commandAdapter, formFactory, searchComponent);
 	}
 
 }

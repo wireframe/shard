@@ -21,7 +21,7 @@ import com.codecrate.shard.ui.form.RaceFormFactory;
 
 public class RaceManagerView extends ObjectManagerView {
     public RaceManagerView(RaceCommandAdapter commandAdapter, RaceFormFactory formFactory, SearchComponent searchComponent) {
-		super(commandAdapter, commandAdapter, commandAdapter, commandAdapter,
-				commandAdapter, formFactory, searchComponent);
+        super(commandAdapter, commandAdapter, commandAdapter, commandAdapter,
+                commandAdapter, commandAdapter, formFactory, searchComponent);
     }
 }

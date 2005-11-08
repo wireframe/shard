@@ -53,6 +53,7 @@ import ca.odell.glazedlists.swing.EventSelectionModel;
 
 import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.DeleteCommand;
+import com.codecrate.shard.ui.command.ImportCommand;
 import com.codecrate.shard.ui.command.NewCommand;
 import com.codecrate.shard.ui.command.PropertiesCommand;
 import com.codecrate.shard.ui.command.SearchObjectsCommand;
@@ -62,7 +63,7 @@ import com.codecrate.shard.ui.form.FormFactory;
 
 public class ObjectManagerView extends AbstractView implements SearchComponent.SearchAction {
 	private static final Matcher ALWAYS_MATCH_MATCHER = new AlwaysMatchMatcher();
-	
+
 	private JPanel centerPanel;
     private JScrollPane scrollPane;
     private JTable table;
@@ -73,6 +74,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 	private final AbstractActionCommandExecutor newCommand;
 	private final AbstractActionCommandExecutor deleteCommand;
 	private final AbstractActionCommandExecutor propertiesCommand;
+    private final AbstractActionCommandExecutor importCommand;
 	private final ViewObjectsCommand viewCommand;
 	private final SearchObjectsCommand searchCommand;
 	private final SearchComponent searchComponent;
@@ -81,14 +83,15 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 
 	public ObjectManagerView(ViewObjectsCommand viewCommand, NewCommand newCommand,
 			PropertiesCommand propertiesCommand, DeleteCommand deleteCommand, SearchObjectsCommand searchCommand,
-			FormFactory formFactory, SearchComponent searchComponent) {
+            ImportCommand importCommand, FormFactory formFactory, SearchComponent searchComponent) {
 		this.viewCommand = viewCommand;
 		this.searchCommand = searchCommand;
 		this.searchComponent = searchComponent;
 		this.newCommand = new NewCommandExcecutor(newCommand, formFactory);
+        this.importCommand = new ImportCommandExcecutor(importCommand);
 		this.propertiesCommand = new PropertiesCommandExecutor(propertiesCommand, formFactory);
 		this.deleteCommand = new DeleteCommandExecutor(deleteCommand);
-		
+
 		searchComponent.addSearchListener(this);
 	}
 
@@ -98,7 +101,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
         view.add(searchComponent.getPanel(), BorderLayout.NORTH);
         return view;
     }
-    
+
     private JPanel getCenterPanel() {
     	if (null == centerPanel) {
     		centerPanel = new JPanel();
@@ -112,6 +115,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
         context.register(GlobalCommandIds.PROPERTIES, getPropertiesCommand());
         context.register(GlobalCommandIds.DELETE, getDeleteCommand());
         context.register(ShardCommandIds.NEW, getNewCommand());
+        context.register(ShardCommandIds.IMPORT, getImportCommand());
     }
 
     private AbstractActionCommandExecutor getPropertiesCommand() {
@@ -124,6 +128,10 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 
     private AbstractActionCommandExecutor getNewCommand() {
     	return newCommand;
+    }
+
+    private AbstractActionCommandExecutor getImportCommand() {
+        return importCommand;
     }
 
 	private FilterList getObjects() {
@@ -276,6 +284,20 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
         }
     }
 
+    private class ImportCommandExcecutor extends AbstractActionCommandExecutor {
+        private final ImportCommand command;
+
+        public ImportCommandExcecutor(ImportCommand importCommand) {
+            this.command = importCommand;
+
+            this.setEnabled(true);
+        }
+
+        public void execute() {
+            System.out.println("IMPORT NOW!");
+            command.importObjects();
+        }
+    }
 
     private class DeleteCommandExecutor extends AbstractActionCommandExecutor {
     	private final String title;
@@ -335,12 +357,12 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
             dialog.showDialog();
         }
     }
-    
+
     private static class AlwaysMatchMatcher implements Matcher {
 
 		public boolean matches(Object arg0) {
 			return true;
 		}
-    	
+
     }
 }

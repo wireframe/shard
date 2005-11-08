@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.1 2005/11/06 21:00:12 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.2 2005/11/08 01:32:47 wireframe Exp $ -->
 <beans>
-	
-	<bean id="application" 
+
+	<bean id="application"
 		class="org.springframework.richclient.application.Application">
 		<constructor-arg index="0">
 			<ref bean="applicationDescriptor"/>
@@ -14,7 +14,7 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="lifecycleAdvisor" 
+	<bean id="lifecycleAdvisor"
 		class="org.springframework.richclient.application.config.DefaultApplicationLifecycleAdvisor">
 		<property name="windowCommandBarDefinitions">
 			<value>commands-context.xml</value>
@@ -24,10 +24,10 @@
 		</property>
 	</bean>
 
-	<bean id="applicationDescriptor" 
+	<bean id="applicationDescriptor"
 		class="com.codecrate.shard.ShardApplicationDescriptor">
 	</bean>
-	
+
 	<bean id="applicationObjectConfigurer"
 		class="org.springframework.richclient.application.config.DefaultApplicationObjectConfigurer">
 		<constructor-arg index="0">
@@ -40,11 +40,11 @@
 			<ref bean="iconSource"/>
 		</constructor-arg>
 	</bean>
-		
-	<bean id="applicationEventMulticaster" 
+
+	<bean id="applicationEventMulticaster"
 		class="org.springframework.context.event.SimpleApplicationEventMulticaster"/>
-		
-	<bean id="componentFactory" 
+
+	<bean id="componentFactory"
 		class="org.springframework.richclient.factory.DefaultComponentFactory">
 		<property name="iconSource">
 			<ref bean="iconSource"/>
@@ -54,14 +54,14 @@
 		</property>
 	</bean>
 
-	<bean id="lookAndFeelConfigurer" 
+	<bean id="lookAndFeelConfigurer"
 		class="org.springframework.richclient.application.config.JGoodiesLooksConfigurer">
 		<property name="theme">
 			<bean class="com.jgoodies.looks.plastic.theme.ExperienceBlue"/>
 		</property>
 	</bean>
-	
-	<bean id="messageSource" 
+
+	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
@@ -70,8 +70,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="imageResourcesFactory" 
+
+	<bean id="imageResourcesFactory"
 		class="org.springframework.context.support.ResourceMapFactoryBean">
 		<property name="locations">
 			<list>
@@ -83,8 +83,8 @@
 			<value>images/</value>
 		</property>
 	</bean>
-	
-	<bean id="imageSource" 
+
+	<bean id="imageSource"
 		class="org.springframework.richclient.image.DefaultImageSource">
 		<constructor-arg index="0">
 			<ref bean="imageResourcesFactory"/>
@@ -93,15 +93,15 @@
 			<value>images/alert/error_obj.gif</value>
 		</property>
 	</bean>
-	
-	<bean id="iconSource" 
+
+	<bean id="iconSource"
 		class="org.springframework.richclient.image.DefaultIconSource">
 		<constructor-arg index="0">
 			<ref bean="imageSource"/>
 		</constructor-arg>
 	</bean>
-	
-	<bean id="formComponentInterceptorFactory" 
+
+	<bean id="formComponentInterceptorFactory"
 		class="org.springframework.richclient.form.builder.support.ChainedInterceptorFactory">
 		<property name="interceptorFactories">
 			<list>
@@ -121,12 +121,12 @@
 		</property>
 	</bean>
 
-    <bean id="formPropertyFaceDescriptorSource" 
-		class="org.springframework.binding.form.support.MessageSourceFormPropertyFaceDescriptorSource"/>    
+    <bean id="formPropertyFaceDescriptorSource"
+		class="org.springframework.binding.form.support.MessageSourceFormPropertyFaceDescriptorSource"/>
 
 
 	<bean id="searchComponent" class="com.codecrate.shard.ui.component.SearchComponent" />
-	
+
     <!-- skill manager view -->
 	<bean id="skillManagerView"
 		class="org.springframework.richclient.application.support.LookupViewDescriptor">
@@ -135,21 +135,28 @@
 		</property>
 	</bean>
 
+    <bean id="skillImporter"
+    	class="com.codecrate.shard.transfer.ExcelSkillImporter">
+	    <constructor-arg index="0"><ref bean="skillDao" /></constructor-arg>
+	    <constructor-arg index="1"><ref bean="skillDao" /></constructor-arg>
+    </bean>
+
 	<bean id="skillManager"
 	    class="com.codecrate.shard.ui.view.SkillManagerView"
 	    singleton="false">
 	    <constructor-arg>
-		    <bean 
+		    <bean
 		        class="com.codecrate.shard.ui.command.SkillCommandAdapter">
 		        <constructor-arg index="0"><ref bean="skillDao" /></constructor-arg>
 		        <constructor-arg index="1"><ref bean="skillDao" /></constructor-arg>
+		        <constructor-arg index="2"><ref bean="skillImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteSkillDialog</value>
 		        </property>
 		    </bean>
 	    </constructor-arg>
 	    <constructor-arg>
-		    <bean 
+		    <bean
 		        class="com.codecrate.shard.ui.form.SkillFormFactory">
 		        <constructor-arg><ref bean="abilityDao" /></constructor-arg>
 		    </bean>
@@ -169,7 +176,7 @@
 	    class="com.codecrate.shard.ui.view.FeatManagerView"
 	    singleton="false">
 	    <constructor-arg>
-		    <bean 
+		    <bean
 		        class="com.codecrate.shard.ui.command.FeatCommandAdapter">
 		        <constructor-arg index="0"><ref bean="featDao" /></constructor-arg>
 		        <constructor-arg index="1"><ref bean="featDao" /></constructor-arg>
@@ -179,7 +186,7 @@
 		    </bean>
 	    </constructor-arg>
 	    <constructor-arg>
-		    <bean 
+		    <bean
 		        class="com.codecrate.shard.ui.form.FeatFormFactory">
 		    </bean>
 	    </constructor-arg>
@@ -198,7 +205,7 @@
 	    class="com.codecrate.shard.ui.view.ItemManagerView"
 	    singleton="false">
 	    <constructor-arg>
-		    <bean 
+		    <bean
 		        class="com.codecrate.shard.ui.command.ItemCommandAdapter">
 		        <constructor-arg index="0"><ref bean="itemDao" /></constructor-arg>
 		        <constructor-arg index="1"><ref bean="itemDao" /></constructor-arg>
@@ -208,7 +215,7 @@
 		    </bean>
 	    </constructor-arg>
 	    <constructor-arg>
-		    <bean 
+		    <bean
 		        class="com.codecrate.shard.ui.form.ItemFormFactory">
 		    </bean>
 	    </constructor-arg>
@@ -227,7 +234,7 @@
 	    class="com.codecrate.shard.ui.view.RaceManagerView"
 	    singleton="false">
 	    <constructor-arg>
-		    <bean 
+		    <bean
 		        class="com.codecrate.shard.ui.command.RaceCommandAdapter">
 		        <constructor-arg index="0"><ref bean="raceDao" /></constructor-arg>
 		        <constructor-arg index="1"><ref bean="raceDao" /></constructor-arg>
@@ -237,7 +244,7 @@
 		    </bean>
 	    </constructor-arg>
 	    <constructor-arg>
-		    <bean 
+		    <bean
 		        class="com.codecrate.shard.ui.form.RaceFormFactory">
 		    </bean>
 	    </constructor-arg>

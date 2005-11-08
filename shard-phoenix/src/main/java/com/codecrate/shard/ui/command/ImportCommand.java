@@ -13,15 +13,8 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.codecrate.shard.ui.view;
+package com.codecrate.shard.ui.command;
 
-import com.codecrate.shard.ui.command.SkillCommandAdapter;
-import com.codecrate.shard.ui.component.SearchComponent;
-import com.codecrate.shard.ui.form.FormFactory;
-
-public class SkillManagerView extends ObjectManagerView {
-    public SkillManagerView(SkillCommandAdapter commandAdapter, FormFactory formFactory, SearchComponent searchComponent) {
-		super(commandAdapter, commandAdapter, commandAdapter, commandAdapter,
-				commandAdapter, commandAdapter, formFactory, searchComponent);
-    }
+public interface ImportCommand {
+    void importObjects();
 }
