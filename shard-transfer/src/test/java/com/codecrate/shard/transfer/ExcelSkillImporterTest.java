@@ -15,6 +15,9 @@
  */
 package com.codecrate.shard.transfer;
 
+import java.io.File;
+import java.io.FileInputStream;
+
 import junit.framework.TestCase;
 
 import org.easymock.MockControl;
@@ -42,6 +45,7 @@ public class ExcelSkillImporterTest extends TestCase {
         mockSkillDao.setReturnValue(skill);
         mockSkillDao.replay();
 
-        new ExcelSkillImporter(skillFactory, skillDao).doImport();
+        FileInputStream inputStream = new FileInputStream(new File(Thread.currentThread().getContextClassLoader().getResource("skills.xls").toURI()));
+        new ExcelSkillImporter(skillFactory, skillDao).importSkills(inputStream);
     }
 }

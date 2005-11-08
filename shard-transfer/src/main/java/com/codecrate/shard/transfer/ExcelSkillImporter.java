@@ -15,7 +15,7 @@
  */
 package com.codecrate.shard.transfer;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -37,9 +37,8 @@ public class ExcelSkillImporter {
         this.skillDao = dao;
     }
 
-    public void doImport() throws Exception {
-        FileInputStream fin = new FileInputStream("/home/rsonnek/Projects/shard/shard-transfer/src/test/resources/skills.xls");
-        POIFSFileSystem poifs = new POIFSFileSystem(fin);
+    public void importSkills(InputStream input) throws Exception {
+        POIFSFileSystem poifs = new POIFSFileSystem(input);
 
         HSSFWorkbook workbook = new HSSFWorkbook(poifs);
         HSSFSheet sheet = workbook.getSheetAt(0);
@@ -55,7 +54,6 @@ public class ExcelSkillImporter {
             skillDao.saveSkill(skill);
 
         }
-        fin.close();
     }
 
     private String getStringFromRow(HSSFRow row, int column) {
