@@ -33,6 +33,8 @@ import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
 
 public class ExcelSkillImporter {
+    private static final int NAME_COLUMN = 1;
+
     private static final Log LOG = LogFactory.getLog(ExcelSkillImporter.class);
 
     private final SkillFactory skillFactory;
@@ -52,13 +54,13 @@ public class ExcelSkillImporter {
             HSSFWorkbook workbook = new HSSFWorkbook(poifs);
             HSSFSheet sheet = workbook.getSheetAt(0);
 
-            int startRow = sheet.getFirstRowNum();
+            int firstRow = sheet.getFirstRowNum();
             int lastRow = sheet.getLastRowNum();
 
-            for (int currentRow = startRow; currentRow <= lastRow; currentRow++) {
+            for (int currentRow = firstRow; currentRow <= lastRow; currentRow++) {
                 HSSFRow row = sheet.getRow(currentRow);
 
-                String name = getStringFromRow(row, 1);
+                String name = getStringFromRow(row, NAME_COLUMN);
                 Skill skill = skillFactory.createSkill(name);
                 skill = skillDao.saveSkill(skill);
                 results.add(skill);
