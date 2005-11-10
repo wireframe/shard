@@ -32,7 +32,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.springframework.binding.form.NestingFormModel;
+import org.springframework.binding.form.FormModel;
 import org.springframework.context.MessageSource;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
@@ -250,7 +250,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 
     private class NewCommandExcecutor extends AbstractActionCommandExecutor {
         private Object object;
-        private NestingFormModel formModel;
+        private FormModel formModel;
         private AbstractForm form;
         private FormBackedDialogPage page;
 
@@ -266,7 +266,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 
         public void execute() {
             object = command.createObject();
-            formModel = FormModelHelper.createCompoundFormModel(object);
+            formModel = FormModelHelper.createFormModel(object);
             form = formFactory.createForm(formModel);
             page = new FormBackedDialogPage(form);
 

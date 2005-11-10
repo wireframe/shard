@@ -15,13 +15,13 @@
  */
 package com.codecrate.shard;
 
-import org.springframework.richclient.application.ApplicationDescriptor;
+import org.springframework.richclient.application.support.DefaultApplicationDescriptor;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class ShardApplicationDescriptor extends ApplicationDescriptor {
-    
+public class ShardApplicationDescriptor extends DefaultApplicationDescriptor {
+
     public ShardApplicationDescriptor() {
         Package pkg = ShardApplicationDescriptor.class.getPackage();
         //String specVersion = pkg.getSpecificationVersion();

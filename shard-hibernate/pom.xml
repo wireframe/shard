@@ -35,62 +35,16 @@
       <scope>runtime</scope>
     </dependency>
 
-    <!-- Hibernate dependencies -->
-    <dependency>
-      <groupId>hibernate</groupId>
-      <artifactId>hibernate</artifactId>
-      <version>2.1.8</version>
-    </dependency>
-
-    <dependency>
-      <groupId>odmg</groupId>
-      <artifactId>odmg</artifactId>
-      <version>3.0</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>ehcache</groupId>
-      <artifactId>ehcache</artifactId>
-      <version>1.1</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>cglib</groupId>
-      <artifactId>cglib</artifactId>
-      <version>2.0.2</version>
-    </dependency>
-    <dependency>
-      <groupId>asm</groupId>
-      <artifactId>asm</artifactId>
-      <version>1.4.3</version>
-    </dependency>
     <dependency>
       <groupId>geronimo-spec</groupId>
       <artifactId>geronimo-spec-jta</artifactId>
       <version>1.0-M1</version>
     </dependency>
 
-
     <dependency>
-      <groupId>dom4j</groupId>
-      <artifactId>dom4j</artifactId>
-      <version>1.6</version>
-      <scope>runtime</scope>
-    </dependency>
-
-    <!-- commons-dbcp dependencies -->
-    <dependency>
-      <groupId>commons-dbcp</groupId>
-      <artifactId>commons-dbcp</artifactId>
-      <version>1.2.1</version>
-      <scope>runtime</scope>
-    </dependency>
-
-    <!-- commons-pool dependencies -->
-    <dependency>
-      <groupId>commons-pool</groupId>
-      <artifactId>commons-pool</artifactId>
-      <version>1.2</version>
+      <groupId>ehcache</groupId>
+      <artifactId>ehcache</artifactId>
+      <version>1.1</version>
       <scope>runtime</scope>
     </dependency>
 
@@ -98,38 +52,33 @@
     <dependency>
       <groupId>springframework</groupId>
       <artifactId>spring-mock</artifactId>
-      <version>1.1.5</version>
+      <version>1.2.5</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>1.1.5</version>
-    </dependency>
-    <dependency>
-      <groupId>springframework</groupId>
-      <artifactId>spring-aop</artifactId>
-      <version>1.1.5</version>
-    </dependency>
-    <dependency>
-      <groupId>springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>1.1.5</version>
-    </dependency>
-    <dependency>
-      <groupId>springframework</groupId>
-      <artifactId>spring-orm</artifactId>
-      <version>1.1.5</version>
-    </dependency>
-    <dependency>
-      <groupId>springframework</groupId>
       <artifactId>spring-dao</artifactId>
-      <version>1.1.5</version>
+      <version>1.2.5</version>
     </dependency>
     <dependency>
-      <groupId>aopalliance</groupId>
-      <artifactId>aopalliance</artifactId>
-      <version>1.0</version>
+      <groupId>springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>1.2.5</version>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-hibernate</artifactId>
+      <version>1.2.5</version>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.persistence</groupId>
+          <artifactId>ejb</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>javax.faces</groupId>
+          <artifactId>jsf-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <!-- DBUnit dependencies -->
