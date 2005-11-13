@@ -1,12 +1,12 @@
 /*
  * Copyright 2002-2004 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -19,6 +19,7 @@ import javax.swing.JComponent;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.form.AbstractForm;
+import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 
 public class FeatForm extends AbstractForm {
@@ -29,12 +30,14 @@ public class FeatForm extends AbstractForm {
     }
 
     protected JComponent createFormControl() {
-        TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
+        SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
+
+        TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
         formBuilder.add("name");
         formBuilder.row();
         formBuilder.add("type");
         formBuilder.row();
-        formBuilder.add("summary");
+        formBuilder.addInScrollPane(bindingFactory.createBoundTextArea("summary", 5, 0));
         return formBuilder.getForm();
     }
 }

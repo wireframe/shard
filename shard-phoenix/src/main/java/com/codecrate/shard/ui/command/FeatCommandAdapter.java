@@ -17,22 +17,24 @@ package com.codecrate.shard.ui.command;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.Collections;
 
 import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
+import com.codecrate.shard.transfer.ExcelFeatImporter;
 
 public class FeatCommandAdapter implements CommandAdapter {
 
 	private final FeatDao featDao;
 	private final FeatFactory featFactory;
+    private final ExcelFeatImporter featImporter;
 
 	private String deleteMessagePropertyName;
 
-	public FeatCommandAdapter(FeatDao featDao, FeatFactory featFactory) {
+	public FeatCommandAdapter(FeatDao featDao, FeatFactory featFactory, ExcelFeatImporter featImporter) {
 		this.featDao = featDao;
 		this.featFactory = featFactory;
+        this.featImporter = featImporter;
 	}
 
 	public String[] getColumnNames() {
@@ -47,7 +49,7 @@ public class FeatCommandAdapter implements CommandAdapter {
 	}
 
 	public Object createObject() {
-		return featFactory.createFeat("New Feat");
+		return featFactory.createFeat("New Feat", "Sumamry");
 	}
 
 	public void saveObject(Object object) {
@@ -75,7 +77,6 @@ public class FeatCommandAdapter implements CommandAdapter {
 	}
 
     public Collection importObjects(File file) {
-        // TODO Auto-generated method stub
-        return Collections.EMPTY_LIST;
+        return featImporter.importObjects(file);
     }
 }

@@ -77,6 +77,6 @@ public class SkillCommandAdapter implements CommandAdapter {
 	}
 
     public Collection importObjects(File file) {
-        return importer.importSkills(file);
+        return importer.importObjects(file);
     }
 }

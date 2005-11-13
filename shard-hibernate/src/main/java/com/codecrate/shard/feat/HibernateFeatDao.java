@@ -79,8 +79,8 @@ public class HibernateFeatDao extends HibernateDaoSupport implements FeatDao, Fe
         getHibernateTemplate().delete(feat);
     }
 
-    public Feat createFeat(String name) {
-    	return new DefaultFeat(name, "General", "", new NullPrerequisite());
+    public Feat createFeat(String name, String summary) {
+    	return new DefaultFeat(name, "General", summary, new NullPrerequisite());
     }
     
     public Collection searchFeats(String query) {

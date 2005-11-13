@@ -46,7 +46,7 @@ public class ExcelSkillImporterTest extends TestCase {
         mockSkillDao.replay();
 
         File file = new File(Thread.currentThread().getContextClassLoader().getResource("skills.xls").toURI());
-        Collection results = new ExcelSkillImporter(skillFactory, skillDao).importSkills(file);
+        Collection results = new ExcelSkillImporter(skillFactory, skillDao).importObjects(file);
         assertFalse(results.isEmpty());
     }
 }
