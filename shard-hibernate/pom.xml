@@ -57,16 +57,6 @@
     </dependency>
     <dependency>
       <groupId>springframework</groupId>
-      <artifactId>spring-dao</artifactId>
-      <version>1.2.5</version>
-    </dependency>
-    <dependency>
-      <groupId>springframework</groupId>
-      <artifactId>spring-beans</artifactId>
-      <version>1.2.5</version>
-    </dependency>
-    <dependency>
-      <groupId>springframework</groupId>
       <artifactId>spring-hibernate</artifactId>
       <version>1.2.5</version>
       <exclusions>
@@ -77,6 +67,26 @@
         <exclusion>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>javax.security</groupId>
+          <artifactId>jacc</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>javax.transaction</groupId>
+          <artifactId>jta</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>javax.jdo</groupId>
+          <artifactId>jdo</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.oracle</groupId>
+          <artifactId>toplink-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>java</groupId>
+          <artifactId>tools</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
