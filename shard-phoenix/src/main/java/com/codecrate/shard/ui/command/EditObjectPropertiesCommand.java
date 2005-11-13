@@ -15,7 +15,7 @@
  */
 package com.codecrate.shard.ui.command;
 
-public interface PropertiesCommand {
+public interface EditObjectPropertiesCommand {
 
 	void updateObject(Object object);
 }

@@ -55,10 +55,10 @@ import ca.odell.glazedlists.swing.EventSelectionModel;
 
 import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.CommandAdapter;
-import com.codecrate.shard.ui.command.DeleteCommand;
-import com.codecrate.shard.ui.command.ImportCommand;
-import com.codecrate.shard.ui.command.NewCommand;
-import com.codecrate.shard.ui.command.PropertiesCommand;
+import com.codecrate.shard.ui.command.DeleteObjectCommand;
+import com.codecrate.shard.ui.command.ImportObjectsCommand;
+import com.codecrate.shard.ui.command.NewObjectCommand;
+import com.codecrate.shard.ui.command.EditObjectPropertiesCommand;
 import com.codecrate.shard.ui.command.SearchObjectsCommand;
 import com.codecrate.shard.ui.command.ViewObjectsCommand;
 import com.codecrate.shard.ui.component.SearchComponent;
@@ -253,10 +253,10 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
         private AbstractForm form;
         private FormBackedDialogPage page;
 
-		private final NewCommand command;
+		private final NewObjectCommand command;
 		private final FormFactory formFactory;
 
-        public NewCommandExcecutor(NewCommand newCommand, FormFactory formFactory) {
+        public NewCommandExcecutor(NewObjectCommand newCommand, FormFactory formFactory) {
 			this.command = newCommand;
 			this.formFactory = formFactory;
 
@@ -286,9 +286,9 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
     }
 
     private class ImportCommandExcecutor extends AbstractActionCommandExecutor {
-        private final ImportCommand command;
+        private final ImportObjectsCommand command;
 
-        public ImportCommandExcecutor(ImportCommand importCommand) {
+        public ImportCommandExcecutor(ImportObjectsCommand importCommand) {
             this.command = importCommand;
             this.setEnabled(true);
         }
@@ -307,9 +307,9 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
     private class DeleteCommandExecutor extends AbstractActionCommandExecutor {
     	private final String title;
 		private final String message;
-		private final DeleteCommand command;
+		private final DeleteObjectCommand command;
 
-		public DeleteCommandExecutor(DeleteCommand command) {
+		public DeleteCommandExecutor(DeleteObjectCommand command) {
 			this.title = getMessage(command.getDeleteMessagePropertyName()+ ".title");
 			this.message = getMessage(command.getDeleteMessagePropertyName() + ".message");
 			this.command = command;
@@ -334,9 +334,9 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
         private FormBackedDialogPage page;
         private int index;
 		private final FormFactory formFactory;
-		private final PropertiesCommand command;
+		private final EditObjectPropertiesCommand command;
 
-        public PropertiesCommandExecutor(PropertiesCommand command, FormFactory formFactory) {
+        public PropertiesCommandExecutor(EditObjectPropertiesCommand command, FormFactory formFactory) {
 			this.formFactory = formFactory;
 			this.command = command;
         }

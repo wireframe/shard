@@ -15,8 +15,8 @@
  */
 package com.codecrate.shard.ui.command;
 
-public interface NewCommand {
-	Object createObject();
+public interface DeleteObjectCommand {
+	String getDeleteMessagePropertyName();
 	
-	void saveObject(Object object);
+	void deleteObject(Object o);
 }

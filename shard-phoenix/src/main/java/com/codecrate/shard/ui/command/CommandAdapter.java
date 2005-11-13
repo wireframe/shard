@@ -1,8 +1,8 @@
 package com.codecrate.shard.ui.command;
 
 
-public interface CommandAdapter extends ViewObjectsCommand, NewCommand,
-		PropertiesCommand, DeleteCommand, SearchObjectsCommand, ImportCommand {
+public interface CommandAdapter extends ViewObjectsCommand, NewObjectCommand,
+		EditObjectPropertiesCommand, DeleteObjectCommand, SearchObjectsCommand, ImportObjectsCommand {
 
 	String getDeleteMessagePropertyName();
 
