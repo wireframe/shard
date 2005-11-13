@@ -54,6 +54,7 @@ import ca.odell.glazedlists.Matcher;
 import ca.odell.glazedlists.swing.EventSelectionModel;
 
 import com.codecrate.shard.ui.ShardCommandIds;
+import com.codecrate.shard.ui.command.CommandAdapter;
 import com.codecrate.shard.ui.command.DeleteCommand;
 import com.codecrate.shard.ui.command.ImportCommand;
 import com.codecrate.shard.ui.command.NewCommand;
@@ -83,16 +84,14 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 	private FilterList objects;
 	private EventSelectionModel selectionModel;
 
-	public ObjectManagerView(ViewObjectsCommand viewCommand, NewCommand newCommand,
-			PropertiesCommand propertiesCommand, DeleteCommand deleteCommand, SearchObjectsCommand searchCommand,
-            ImportCommand importCommand, FormFactory formFactory, SearchComponent searchComponent) {
-		this.viewCommand = viewCommand;
-		this.searchCommand = searchCommand;
-		this.searchComponent = searchComponent;
-		this.newCommand = new NewCommandExcecutor(newCommand, formFactory);
-        this.importCommand = new ImportCommandExcecutor(importCommand);
-		this.propertiesCommand = new PropertiesCommandExecutor(propertiesCommand, formFactory);
-		this.deleteCommand = new DeleteCommandExecutor(deleteCommand);
+	public ObjectManagerView(CommandAdapter commandAdapter, FormFactory formFactory, SearchComponent searchComponent) {
+        this.searchComponent = searchComponent;
+		this.viewCommand = commandAdapter;
+		this.searchCommand = commandAdapter;
+		this.newCommand = new NewCommandExcecutor(commandAdapter, formFactory);
+        this.importCommand = new ImportCommandExcecutor(commandAdapter);
+		this.propertiesCommand = new PropertiesCommandExecutor(commandAdapter, formFactory);
+		this.deleteCommand = new DeleteCommandExecutor(commandAdapter);
 
 		searchComponent.addSearchListener(this);
 	}
