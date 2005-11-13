@@ -49,7 +49,7 @@ public class FeatCommandAdapter implements CommandAdapter {
 	}
 
 	public Object createObject() {
-		return featFactory.createFeat("New Feat", "Sumamry");
+		return featFactory.createFeat("New Feat", "Summary");
 	}
 
 	public void saveObject(Object object) {
