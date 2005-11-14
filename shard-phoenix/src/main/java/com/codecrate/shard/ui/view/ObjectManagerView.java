@@ -54,13 +54,7 @@ import ca.odell.glazedlists.Matcher;
 import ca.odell.glazedlists.swing.EventSelectionModel;
 
 import com.codecrate.shard.ui.ShardCommandIds;
-import com.codecrate.shard.ui.command.CommandAdapter;
-import com.codecrate.shard.ui.command.DeleteObjectCommand;
-import com.codecrate.shard.ui.command.ImportObjectsCommand;
-import com.codecrate.shard.ui.command.NewObjectCommand;
-import com.codecrate.shard.ui.command.EditObjectPropertiesCommand;
-import com.codecrate.shard.ui.command.SearchObjectsCommand;
-import com.codecrate.shard.ui.command.ViewObjectsCommand;
+import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
 import com.codecrate.shard.ui.component.SearchComponent;
 import com.codecrate.shard.ui.form.FormFactory;
 
@@ -74,24 +68,22 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
     private JPopupMenu popup;
 	private JButton newButton;
 
-	private final AbstractActionCommandExecutor newCommand;
-	private final AbstractActionCommandExecutor deleteCommand;
-	private final AbstractActionCommandExecutor propertiesCommand;
-    private final AbstractActionCommandExecutor importCommand;
-	private final ViewObjectsCommand viewCommand;
-	private final SearchObjectsCommand searchCommand;
+    private final ObjectManagerCommandAdapter commandAdapter;
+	private final NewCommandExcecutor newCommand;
+	private final DeleteCommandExecutor deleteCommand;
+	private final PropertiesCommandExecutor propertiesCommand;
+    private final ImportCommandExcecutor importCommand;
 	private final SearchComponent searchComponent;
 	private FilterList objects;
 	private EventSelectionModel selectionModel;
 
-	public ObjectManagerView(CommandAdapter commandAdapter, FormFactory formFactory, SearchComponent searchComponent) {
+	public ObjectManagerView(ObjectManagerCommandAdapter commandAdapter, FormFactory formFactory, SearchComponent searchComponent) {
         this.searchComponent = searchComponent;
-		this.viewCommand = commandAdapter;
-		this.searchCommand = commandAdapter;
-		this.newCommand = new NewCommandExcecutor(commandAdapter, formFactory);
-        this.importCommand = new ImportCommandExcecutor(commandAdapter);
-		this.propertiesCommand = new PropertiesCommandExecutor(commandAdapter, formFactory);
-		this.deleteCommand = new DeleteCommandExecutor(commandAdapter);
+		this.commandAdapter = commandAdapter;
+		this.newCommand = new NewCommandExcecutor(formFactory);
+        this.importCommand = new ImportCommandExcecutor();
+		this.propertiesCommand = new PropertiesCommandExecutor(formFactory);
+		this.deleteCommand = new DeleteCommandExecutor();
 
 		searchComponent.addSearchListener(this);
 	}
@@ -138,7 +130,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 	private FilterList getObjects() {
 		if (null == objects) {
 			EventList tempObjects = new BasicEventList();
-			tempObjects.addAll(viewCommand.getObjects());
+			tempObjects.addAll(commandAdapter.getObjects());
 			objects = new FilterList(tempObjects, ALWAYS_MATCH_MATCHER);
 		}
 		return objects;
@@ -226,13 +218,13 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
     private GlazedTableModel getModel() {
         if (null == model) {
             MessageSource messageSource = (MessageSource) getApplicationContext().getBean("messageSource");
-            model = new GlazedTableModel(getObjects(), messageSource, viewCommand.getColumnNames());
+            model = new GlazedTableModel(getObjects(), messageSource, commandAdapter.getColumnNames());
         }
         return model;
     }
 
 	public void search(String query) {
-		final Collection searchResults = searchCommand.searchObjects(query);
+		final Collection searchResults = commandAdapter.searchObjects(query);
 		getObjects().setMatcher(new Matcher() {
 
 			public boolean matches(Object object) {
@@ -253,18 +245,16 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
         private AbstractForm form;
         private FormBackedDialogPage page;
 
-		private final NewObjectCommand command;
 		private final FormFactory formFactory;
 
-        public NewCommandExcecutor(NewObjectCommand newCommand, FormFactory formFactory) {
-			this.command = newCommand;
+        public NewCommandExcecutor(FormFactory formFactory) {
 			this.formFactory = formFactory;
 
 			this.setEnabled(true);
         }
 
         public void execute() {
-            object = command.createObject();
+            object = commandAdapter.createObject();
             formModel = FormModelHelper.createFormModel(object);
             form = formFactory.createForm(formModel);
             page = new FormBackedDialogPage(form);
@@ -276,7 +266,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 
                 protected boolean onFinish() {
                     formModel.commit();
-                    command.saveObject(object);
+                    commandAdapter.saveObject(object);
                     getObjects().add(object);
                     return true;
                 }
@@ -286,10 +276,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
     }
 
     private class ImportCommandExcecutor extends AbstractActionCommandExecutor {
-        private final ImportObjectsCommand command;
-
-        public ImportCommandExcecutor(ImportObjectsCommand importCommand) {
-            this.command = importCommand;
+        public ImportCommandExcecutor() {
             this.setEnabled(true);
         }
 
@@ -299,7 +286,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
             fileChooser.showOpenDialog(getWindowControl());
             File selectedFile = fileChooser.getSelectedFile();
 
-            Collection results = command.importObjects(selectedFile);
+            Collection results = commandAdapter.importObjects(selectedFile);
             getObjects().addAll(results);
         }
     }
@@ -307,19 +294,17 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
     private class DeleteCommandExecutor extends AbstractActionCommandExecutor {
     	private final String title;
 		private final String message;
-		private final DeleteObjectCommand command;
 
-		public DeleteCommandExecutor(DeleteObjectCommand command) {
-			this.title = getMessage(command.getDeleteMessagePropertyName()+ ".title");
-			this.message = getMessage(command.getDeleteMessagePropertyName() + ".message");
-			this.command = command;
+		public DeleteCommandExecutor() {
+			this.title = getMessage(commandAdapter.getDeleteMessagePropertyName()+ ".title");
+			this.message = getMessage(commandAdapter.getDeleteMessagePropertyName() + ".message");
     	}
 
         public void execute() {
         	ConfirmationDialog dialog = new ConfirmationDialog(title, getWindowControl(), message) {
                 protected void onConfirm() {
                     Object object = getSelectedObject();
-                    command.deleteObject(object);
+                    commandAdapter.deleteObject(object);
                     getObjects().remove(object);
                 }
             };
@@ -334,11 +319,9 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
         private FormBackedDialogPage page;
         private int index;
 		private final FormFactory formFactory;
-		private final EditObjectPropertiesCommand command;
 
-        public PropertiesCommandExecutor(EditObjectPropertiesCommand command, FormFactory formFactory) {
+        public PropertiesCommandExecutor(FormFactory formFactory) {
 			this.formFactory = formFactory;
-			this.command = command;
         }
 
         public void execute() {
@@ -354,7 +337,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 
                 protected boolean onFinish() {
                 	form.getFormModel().commit();
-                    command.updateObject(object);
+                    commandAdapter.updateObject(object);
                     getObjects().set(index, object);
                     return true;
                 }

@@ -23,7 +23,7 @@ import com.codecrate.shard.race.Race;
 import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.race.RaceFactory;
 
-public class RaceCommandAdapter implements CommandAdapter {
+public class RaceCommandAdapter implements ObjectManagerCommandAdapter {
 
 	private final RaceDao raceDao;
 	private final RaceFactory raceFactory;

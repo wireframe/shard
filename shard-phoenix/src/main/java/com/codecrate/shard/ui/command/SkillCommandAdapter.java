@@ -23,7 +23,7 @@ import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
 import com.codecrate.shard.transfer.ExcelSkillImporter;
 
-public class SkillCommandAdapter implements CommandAdapter {
+public class SkillCommandAdapter implements ObjectManagerCommandAdapter {
 
 	private final SkillDao skillDao;
 	private final SkillFactory skillFactory;

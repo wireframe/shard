@@ -23,7 +23,7 @@ import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
 import com.codecrate.shard.transfer.ExcelFeatImporter;
 
-public class FeatCommandAdapter implements CommandAdapter {
+public class FeatCommandAdapter implements ObjectManagerCommandAdapter {
 
 	private final FeatDao featDao;
 	private final FeatFactory featFactory;

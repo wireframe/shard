@@ -23,7 +23,7 @@ import com.codecrate.shard.equipment.Item;
 import com.codecrate.shard.equipment.ItemDao;
 import com.codecrate.shard.equipment.ItemFactory;
 
-public class ItemCommandAdapter implements CommandAdapter {
+public class ItemCommandAdapter implements ObjectManagerCommandAdapter {
 
 	private final ItemDao itemDao;
 	private final ItemFactory itemFactory;
