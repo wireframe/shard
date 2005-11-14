@@ -102,7 +102,6 @@
       <id>codecrate-maven-repo</id>
       <name>Codecrate Maven Repository</name>
       <url>http://maven.codecrate.com</url>
-      <layout>legacy</layout>
     </repository>
   </repositories>
 
