@@ -18,7 +18,7 @@ package com.codecrate.shard;
 import org.springframework.richclient.application.ApplicationLauncher;
 
 /**
- * 
+ *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class ShardMinotaur {
@@ -33,6 +33,7 @@ public class ShardMinotaur {
             });
         } catch (Exception e) {
         	System.out.println("Error launching application: " + e);
+            e.printStackTrace();
             System.exit(1);
         }
     }

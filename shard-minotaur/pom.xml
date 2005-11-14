@@ -46,6 +46,11 @@
       <artifactId>spring-sandbox</artifactId>
       <version>SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>spring-rcp</groupId>
+      <artifactId>spring-binding</artifactId>
+      <version>SNAPSHOT</version>
+    </dependency>
 
     <!-- jgoodies dependencies -->
     <dependency>
