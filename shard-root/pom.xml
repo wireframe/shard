@@ -87,8 +87,18 @@
     </dependency>
   </dependencies>
 
+  <distributionManagement>
+    <repository>
+      <id>codecrate-maven-repo</id>
+      <url>scp://maven.codecrate.com/www/maven/</url>
+    </repository>
+  </distributionManagement>
+
   <repositories>
     <repository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
       <id>codecrate-maven-repo</id>
       <name>Codecrate Maven Repository</name>
       <url>http://maven.codecrate.com</url>
