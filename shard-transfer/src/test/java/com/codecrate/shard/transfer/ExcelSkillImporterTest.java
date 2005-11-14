@@ -35,7 +35,7 @@ public class ExcelSkillImporterTest extends TestCase {
 
         MockControl mockSkillFactory = MockControl.createControl(SkillFactory.class);
         SkillFactory skillFactory = (SkillFactory) mockSkillFactory.getMock();
-        skillFactory.createSkill("Ability to climb sheer surfaces");
+        skillFactory.createSkill("Climb");
         mockSkillFactory.setReturnValue(skill);
         mockSkillFactory.replay();
 

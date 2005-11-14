@@ -40,7 +40,7 @@ public abstract class AbstractExcelImporter {
             HSSFWorkbook workbook = new HSSFWorkbook(poifs);
             HSSFSheet sheet = workbook.getSheetAt(0);
 
-            int firstRow = sheet.getFirstRowNum();
+            int firstRow = sheet.getFirstRowNum() + 1;
             int lastRow = sheet.getLastRowNum();
 
             for (int currentRow = firstRow; currentRow <= lastRow; currentRow++) {
@@ -58,6 +58,12 @@ public abstract class AbstractExcelImporter {
 
     protected abstract Object handleRow(HSSFRow row);
 
+    /**
+     *
+     * @param row
+     * @param column zero indexed column number
+     * @return
+     */
     protected String getStringFromRow(HSSFRow row, int column) {
         HSSFCell nameCell = row.getCell((short) column);
         return nameCell.getStringCellValue();

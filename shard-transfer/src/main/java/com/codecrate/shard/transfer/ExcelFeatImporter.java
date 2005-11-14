@@ -22,8 +22,8 @@ import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
 
 public class ExcelFeatImporter extends AbstractExcelImporter {
-    private static final int NAME_COLUMN = 1;
-    private static final int SUMMARY_COLUMN = 2;
+    private static final int NAME_COLUMN = 0;
+    private static final int SUMMARY_COLUMN = 1;
 
     private final FeatFactory featFactory;
     private final FeatDao featDao;

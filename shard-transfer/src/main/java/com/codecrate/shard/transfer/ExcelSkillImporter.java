@@ -22,7 +22,7 @@ import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
 
 public class ExcelSkillImporter extends AbstractExcelImporter {
-    private static final int NAME_COLUMN = 1;
+    private static final int NAME_COLUMN = 0;
 
     private final SkillFactory skillFactory;
     private final SkillDao skillDao;
