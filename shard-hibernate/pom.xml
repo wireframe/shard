@@ -57,6 +57,11 @@
     </dependency>
     <dependency>
       <groupId>springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>1.2.5</version>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
       <artifactId>spring-dao</artifactId>
       <version>1.2.5</version>
       <exclusions>
