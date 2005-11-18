@@ -96,5 +96,31 @@
         </includes>
       </resource>
     </resources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.codecrate.shard.ShardPhoenix</mainClass>
+              <!--
+              <addClasspath>true</addClasspath>
+              -->
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptor>assembly-descriptor-bin-with-dependencies.xml</descriptor>
+          <finalName>shard-phoenix</finalName>
+          <outputDirectory>target/bin</outputDirectory>
+          <workDirectory>target/temp-bin</workDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 </model>
