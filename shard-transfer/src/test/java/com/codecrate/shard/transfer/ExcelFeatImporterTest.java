@@ -45,7 +45,7 @@ public class ExcelFeatImporterTest extends TestCase {
         mockFeatDao.setReturnValue(feat);
         mockFeatDao.replay();
 
-        File file = new File(Thread.currentThread().getContextClassLoader().getResource("feats.xls").toURI());
+        File file = new File(Thread.currentThread().getContextClassLoader().getResource("feats.xls").getFile());
         Collection results = new ExcelFeatImporter(featFactory, featDao).importObjects(file);
         assertFalse(results.isEmpty());
     }
