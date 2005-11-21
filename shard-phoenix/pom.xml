@@ -105,9 +105,7 @@
           <archive>
             <manifest>
               <mainClass>com.codecrate.shard.ShardPhoenix</mainClass>
-              <!--
               <addClasspath>true</addClasspath>
-              -->
             </manifest>
           </archive>
         </configuration>
