@@ -27,12 +27,25 @@
       <version>1.4.3</version>
     </dependency>
 
+    <!-- commons-dbcp dependencies -->
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>1.2.1</version>
+    </dependency>
+
+    <!-- commons-pool dependencies -->
+    <dependency>
+      <groupId>commons-pool</groupId>
+      <artifactId>commons-pool</artifactId>
+      <version>1.2</version>
+    </dependency>
+    
     <!-- HSQL dependencies -->
     <dependency>
       <groupId>hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
       <version>1.7.3.3</version>
-      <scope>runtime</scope>
     </dependency>
 
     <dependency>
@@ -50,11 +63,57 @@
     <dependency>
       <groupId>dom4j</groupId>
       <artifactId>dom4j</artifactId>
-      <version>1.5</version>
+      <version>1.6.1</version>
       <exclusions>
         <exclusion>
           <groupId>javax.xml</groupId>
           <artifactId>jsr173</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>jaxme</groupId>
+          <artifactId>jaxme-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>jaxen</groupId>
+          <artifactId>jaxen</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>msv</groupId>
+          <artifactId>xsdlib</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>msv</groupId>
+          <artifactId>relaxngDatatype</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>pull-parser</groupId>
+          <artifactId>pull-parser</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>xpp3</groupId>
+          <artifactId>xpp3</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>stax</groupId>
+          <artifactId>stax-api</artifactId>
+        </exclusion>
+<!--        
+        <exclusion>
+          <groupId>xml-apis</groupId>
+          <artifactId>xml-apis</artifactId>
+        </exclusion>
+-->
+        <exclusion>
+          <groupId>junitperf</groupId>
+          <artifactId>junitperf</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>stax</groupId>
+          <artifactId>stax-ri</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>xalan</groupId>
+          <artifactId>xalan</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
