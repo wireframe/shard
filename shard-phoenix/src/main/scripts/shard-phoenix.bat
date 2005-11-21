@@ -1,1 +1,1 @@
-jar com.codecrate.shard.ShardPhoenix
+java -classpath "." -jar ./shard-phoenix-0.3.0-SNAPSHOT.jar
