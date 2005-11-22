@@ -105,26 +105,10 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
     }
 
     protected void registerLocalCommandExecutors(PageComponentContext context) {
-        context.register(GlobalCommandIds.PROPERTIES, getPropertiesCommand());
-        context.register(GlobalCommandIds.DELETE, getDeleteCommand());
-        context.register(ShardCommandIds.NEW, getNewCommand());
-        context.register(ShardCommandIds.IMPORT, getImportCommand());
-    }
-
-    private AbstractActionCommandExecutor getPropertiesCommand() {
-    	return propertiesCommand;
-    }
-
-    private AbstractActionCommandExecutor getDeleteCommand() {
-    	return deleteCommand;
-    }
-
-    private AbstractActionCommandExecutor getNewCommand() {
-    	return newCommand;
-    }
-
-    private AbstractActionCommandExecutor getImportCommand() {
-        return importCommand;
+        context.register(GlobalCommandIds.PROPERTIES, propertiesCommand);
+        context.register(GlobalCommandIds.DELETE, deleteCommand);
+        context.register(ShardCommandIds.NEW, newCommand);
+        context.register(ShardCommandIds.IMPORT, importCommand);
     }
 
 	private FilterList getObjects() {
@@ -168,8 +152,8 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
     	    selectionModel.addListSelectionListener(new ListSelectionListener() {
 
                 public void valueChanged(ListSelectionEvent event) {
-                    getDeleteCommand().setEnabled(isDeleteCommandEnabled());
-                    getPropertiesCommand().setEnabled(isPropertiesCommandEnabled());
+                    deleteCommand.setEnabled(isDeleteCommandEnabled());
+                    propertiesCommand.setEnabled(isPropertiesCommandEnabled());
                 }
 
             });
@@ -182,7 +166,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
     		newButton = new JButton("New...");
     		newButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					getNewCommand().execute();
+					newCommand.execute();
 				}
     		});
     	}
