@@ -40,7 +40,7 @@
       <artifactId>commons-pool</artifactId>
       <version>1.2</version>
     </dependency>
-    
+
     <!-- HSQL dependencies -->
     <dependency>
       <groupId>hsqldb</groupId>
@@ -53,7 +53,7 @@
       <artifactId>geronimo-spec-jta</artifactId>
       <version>1.0-M1</version>
     </dependency>
-    
+
     <!-- hibernate dependencies -->
     <dependency>
       <groupId>net.sf.hibernate</groupId>
@@ -97,12 +97,6 @@
           <groupId>stax</groupId>
           <artifactId>stax-api</artifactId>
         </exclusion>
-<!--        
-        <exclusion>
-          <groupId>xml-apis</groupId>
-          <artifactId>xml-apis</artifactId>
-        </exclusion>
--->
         <exclusion>
           <groupId>junitperf</groupId>
           <artifactId>junitperf</artifactId>
@@ -162,6 +156,14 @@
       <version>1.2.5</version>
       <exclusions>
         <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webmvc</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-web</artifactId>
+        </exclusion>
+        <exclusion>
           <groupId>com.oracle</groupId>
           <artifactId>toplink-api</artifactId>
         </exclusion>
@@ -183,6 +185,14 @@
       <artifactId>spring-hibernate</artifactId>
       <version>1.2.5</version>
       <exclusions>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webmvc</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-web</artifactId>
+        </exclusion>
         <exclusion>
           <groupId>javax.transaction</groupId>
           <artifactId>jta</artifactId>
@@ -214,14 +224,6 @@
         <exclusion>
           <groupId>com.ibatis</groupId>
           <artifactId>ibatis-sqlmap</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-webmvc</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-web</artifactId>
         </exclusion>
         <exclusion>
           <groupId>java</groupId>
