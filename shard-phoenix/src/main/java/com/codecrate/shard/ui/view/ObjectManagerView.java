@@ -33,7 +33,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.springframework.binding.form.FormModel;
-import org.springframework.context.MessageSource;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
@@ -201,8 +200,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 
     private GlazedTableModel getModel() {
         if (null == model) {
-            MessageSource messageSource = (MessageSource) getApplicationContext().getBean("messageSource");
-            model = new GlazedTableModel(getObjects(), messageSource, commandAdapter.getColumnNames());
+            model = new GlazedTableModel(getObjects(), getMessageSource(), commandAdapter.getColumnNames());
         }
         return model;
     }
