@@ -41,6 +41,7 @@ import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.ConfirmationDialog;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
+import org.springframework.richclient.filechooser.DefaultFileFilter;
 import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.FormModelHelper;
 import org.springframework.richclient.table.support.GlazedTableModel;
@@ -264,6 +265,10 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 
         public void execute() {
             JFileChooser fileChooser = new JFileChooser();
+            DefaultFileFilter filter = new DefaultFileFilter();
+            filter.addExtension("xls");
+            filter.setDescription("Microsoft Excel Files");
+            fileChooser.setFileFilter(filter);
 
             fileChooser.showOpenDialog(getWindowControl());
             File selectedFile = fileChooser.getSelectedFile();
