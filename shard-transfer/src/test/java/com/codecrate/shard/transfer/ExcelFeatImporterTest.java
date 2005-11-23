@@ -37,10 +37,40 @@ public class ExcelFeatImporterTest extends TestCase {
         FeatFactory featFactory = (FeatFactory) mockFeatFactory.getMock();
         featFactory.createFeat("Quickness", "Ability to run fast.");
         mockFeatFactory.setReturnValue(feat);
+        featFactory.createFeat("NoSummary", null);
+        mockFeatFactory.setReturnValue(feat);
         mockFeatFactory.replay();
 
         MockControl mockFeatDao = MockControl.createControl(FeatDao.class);
         FeatDao featDao = (FeatDao) mockFeatDao.getMock();
+        featDao.saveFeat(feat);
+        mockFeatDao.setReturnValue(feat);
+        featDao.saveFeat(feat);
+        mockFeatDao.setReturnValue(feat);
+        mockFeatDao.replay();
+
+        File file = new File(Thread.currentThread().getContextClassLoader().getResource("feats.xls").getFile());
+        Collection results = new ExcelFeatImporter(featFactory, featDao).importObjects(file);
+        assertFalse(results.isEmpty());
+    }
+
+    public void testErrorImportingRowDoesNotStopImport() throws Exception {
+        MockControl mockFeat = MockControl.createControl(Feat.class);
+        Feat feat = (Feat) mockFeat.getMock();
+        mockFeat.replay();
+
+        MockControl mockFeatFactory = MockControl.createControl(FeatFactory.class);
+        FeatFactory featFactory = (FeatFactory) mockFeatFactory.getMock();
+        featFactory.createFeat("Quickness", "Ability to run fast.");
+        mockFeatFactory.setThrowable(new IllegalArgumentException("Test: Error creating feat"));
+        featFactory.createFeat("NoSummary", null);
+        mockFeatFactory.setReturnValue(feat);
+        mockFeatFactory.replay();
+
+        MockControl mockFeatDao = MockControl.createControl(FeatDao.class);
+        FeatDao featDao = (FeatDao) mockFeatDao.getMock();
+        featDao.saveFeat(feat);
+        mockFeatDao.setReturnValue(feat);
         featDao.saveFeat(feat);
         mockFeatDao.setReturnValue(feat);
         mockFeatDao.replay();

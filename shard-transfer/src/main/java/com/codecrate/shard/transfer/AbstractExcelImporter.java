@@ -46,8 +46,12 @@ public abstract class AbstractExcelImporter {
             for (int currentRow = firstRow; currentRow <= lastRow; currentRow++) {
                 HSSFRow row = sheet.getRow(currentRow);
 
-                Object result = handleRow(row);
-                results.add(result);
+                try {
+                    Object result = handleRow(row);
+                    results.add(result);
+                } catch (Exception e) {
+                    LOG.error("Error importing row: " + currentRow, e);
+                }
             }
         } catch (Exception e) {
             LOG.error("Error importing file: " + file, e);
@@ -66,6 +70,10 @@ public abstract class AbstractExcelImporter {
      */
     protected String getStringFromRow(HSSFRow row, int column) {
         HSSFCell nameCell = row.getCell((short) column);
+        if (null == nameCell) {
+        	LOG.info("No string value found for [row, column]: " + row.getRowNum() + ", " + column);
+        	return null;
+        }
         return nameCell.getStringCellValue();
     }
 }
