@@ -26,16 +26,16 @@ import net.sf.hibernate.expression.Expression;
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
-import com.codecrate.shard.search.HibernateSearcher;
+import com.codecrate.shard.search.HibernateObjectSearcher;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao, SkillFactory {
 	
-	private final HibernateSearcher searcher;
+	private final HibernateObjectSearcher searcher;
 
-	public HibernateSkillDao(HibernateSearcher searcher) {
+	public HibernateSkillDao(HibernateObjectSearcher searcher) {
 		this.searcher = searcher;
 	}
 	

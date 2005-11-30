@@ -27,16 +27,16 @@ import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 import com.codecrate.shard.character.prereq.NullPrerequisite;
-import com.codecrate.shard.search.HibernateSearcher;
+import com.codecrate.shard.search.HibernateObjectSearcher;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class HibernateFeatDao extends HibernateDaoSupport implements FeatDao, FeatFactory {
 	
-	private final HibernateSearcher searcher;
+	private final HibernateObjectSearcher searcher;
 
-	public HibernateFeatDao(HibernateSearcher searcher) {
+	public HibernateFeatDao(HibernateObjectSearcher searcher) {
 		this.searcher = searcher;
 	}
 	

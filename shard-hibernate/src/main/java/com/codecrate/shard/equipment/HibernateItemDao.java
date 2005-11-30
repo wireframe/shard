@@ -26,16 +26,16 @@ import net.sf.hibernate.Session;
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
-import com.codecrate.shard.search.HibernateSearcher;
+import com.codecrate.shard.search.HibernateObjectSearcher;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class HibernateItemDao extends HibernateDaoSupport implements ItemDao, ItemFactory {
 
-	private final HibernateSearcher searcher;
+	private final HibernateObjectSearcher searcher;
 
-	public HibernateItemDao(HibernateSearcher searcher) {
+	public HibernateItemDao(HibernateObjectSearcher searcher) {
 		this.searcher = searcher;
 	}
 	

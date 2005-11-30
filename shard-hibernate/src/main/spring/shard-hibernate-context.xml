@@ -34,9 +34,8 @@
 	    <ref bean="sessionFactory"/>
 	  </property>
 	  <property name="entityInterceptor">
-	    <bean class="com.codecrate.shard.search.SearchIndexInterceptor">
-	      <constructor-arg><ref bean="directoryManager" /></constructor-arg>
-	      <constructor-arg><ref bean="analyzer" /></constructor-arg>
+	    <bean class="com.codecrate.shard.search.ObjectIndexerInterceptor">
+	      <constructor-arg><ref bean="objectIndexer" /></constructor-arg>
 	    </bean>
 	  </property>
 	</bean>
@@ -55,14 +54,19 @@
 	  </property>
 	</bean>
 
-	<bean id="luceneSearcher" class="com.codecrate.shard.search.HibernateSearcher">
+	<bean id="luceneSearcher" class="com.codecrate.shard.search.HibernateObjectSearcher">
 	  <constructor-arg><ref bean="directoryManager" /></constructor-arg>
 	  <constructor-arg><ref bean="analyzer" /></constructor-arg>
       <property name="sessionFactory">
         <ref bean="sessionFactory"/>
 	  </property>
 	</bean>
-	
+
+	<bean id="objectIndexer" class="com.codecrate.shard.search.ObjectIndexer">
+	  <constructor-arg><ref bean="directoryManager" /></constructor-arg>
+	  <constructor-arg><ref bean="analyzer" /></constructor-arg>
+	</bean>
+
 	<bean id="analyzer" class="org.apache.lucene.analysis.standard.StandardAnalyzer">
 	</bean>
 

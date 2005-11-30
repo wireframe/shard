@@ -33,19 +33,19 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.store.Directory;
 import org.springframework.orm.hibernate.HibernateTemplate;
 
-public class HibernateSearcher extends HibernateTemplate {
+public class HibernateObjectSearcher extends HibernateTemplate {
     public static final String FIELD_CLASS = "class";
     public static final String FIELD_TEXT = "text";
     public static final String FIELD_ID = "id";
 
-    private static final Log LOG = LogFactory.getLog(HibernateSearcher.class);
+    private static final Log LOG = LogFactory.getLog(HibernateObjectSearcher.class);
     private static final boolean REQUIRED = true;
     private static final boolean NOT_PROHIBITED = false;
 
     private final Directory directory;
     private final Analyzer analyzer;
 
-    public HibernateSearcher(DirectoryManager directoryManager, Analyzer analyzer) {
+    public HibernateObjectSearcher(DirectoryManager directoryManager, Analyzer analyzer) {
         this.directory = directoryManager.getDirectory();
         this.analyzer = analyzer;
     }
