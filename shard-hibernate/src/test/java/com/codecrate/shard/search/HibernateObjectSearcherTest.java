@@ -6,7 +6,7 @@ import com.codecrate.shard.ShardHibernateTestCaseSupport;
 import com.codecrate.shard.skill.DefaultSkill;
 import com.codecrate.shard.skill.SkillDao;
 
-public class ObjectSearcherTest extends ShardHibernateTestCaseSupport {
+public class HibernateObjectSearcherTest extends ShardHibernateTestCaseSupport {
 
 	private HibernateObjectSearcher searcher;
 	private SkillDao skillDao;
@@ -33,6 +33,8 @@ public class ObjectSearcherTest extends ShardHibernateTestCaseSupport {
 	protected void onTearDownAfterTransaction() throws Exception {
 		super.onTearDownAfterTransaction();
 		
+		//the indexing interceptor is not notified of the transaction rollback.
+		//need to clean the index manually
 		indexer.clean();
 	}
 	
