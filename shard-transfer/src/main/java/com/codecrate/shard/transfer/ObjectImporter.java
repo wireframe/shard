@@ -13,8 +13,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.transfer.progress;
+package com.codecrate.shard.transfer;
 
-public interface ProgressMonitor {
+import java.io.File;
+import java.util.Collection;
 
+public interface ObjectImporter {
+
+	Collection importObjects(File file);
 }
