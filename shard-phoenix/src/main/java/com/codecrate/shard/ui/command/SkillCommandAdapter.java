@@ -21,7 +21,7 @@ import java.util.Collection;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
-import com.codecrate.shard.transfer.ExcelSkillImporter;
+import com.codecrate.shard.transfer.excel.ExcelSkillImporter;
 
 public class SkillCommandAdapter implements ObjectManagerCommandAdapter {
 

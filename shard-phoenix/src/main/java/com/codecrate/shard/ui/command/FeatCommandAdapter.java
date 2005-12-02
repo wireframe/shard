@@ -21,7 +21,7 @@ import java.util.Collection;
 import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
-import com.codecrate.shard.transfer.ExcelFeatImporter;
+import com.codecrate.shard.transfer.excel.ExcelFeatImporter;
 
 public class FeatCommandAdapter implements ObjectManagerCommandAdapter {
 
