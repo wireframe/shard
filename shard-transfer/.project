@@ -1,7 +1,10 @@
 <projectDescription>
   <name>shard-transfer</name>
   <comment>d20 gaming engine</comment>
-  <projects/>
+  <projects>
+    <project>shard-core</project>
+    <project>shard-dice</project>
+  </projects>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>

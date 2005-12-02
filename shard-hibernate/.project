@@ -1,7 +1,10 @@
 <projectDescription>
   <name>shard-hibernate</name>
   <comment>d20 gaming engine</comment>
-  <projects/>
+  <projects>
+    <project>shard-dice</project>
+    <project>shard-core</project>
+  </projects>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>

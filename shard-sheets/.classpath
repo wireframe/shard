@@ -1,22 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="src" path="src/main/spring"/>
-	<classpathentry kind="src" path="src/main/velocity"/>
-	<classpathentry output="target/test-classes" kind="src" path="src/test/java"/>
-	<classpathentry sourcepath="JRE_SRC" kind="var" path="JRE_LIB"/>
-	<classpathentry kind="var" path="M2_REPO/springframework/spring-core/1.1.5/spring-core-1.1.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/velocity/velocity-dep/1.4/velocity-dep-1.4.jar"/>
-	<classpathentry kind="var" path="M2_REPO/springframework/spring-context/1.1.5/spring-context-1.1.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar"/>
-	<classpathentry kind="var" path="M2_REPO/commons-collections/commons-collections/2.1/commons-collections-2.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/codecrate/shard/shard-dice/0.3.0-SNAPSHOT/shard-dice-0.3.0-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.1/commons-lang-2.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/velocity/velocity/1.4/velocity-1.4.jar"/>
-	<classpathentry kind="var" path="M2_REPO/springframework/spring-mock/1.1.5/spring-mock-1.1.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/velocity-tools/velocity-tools/1.1/velocity-tools-1.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/easymock/easymock/1.1/easymock-1.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/codecrate/shard/shard-core/0.3.0-SNAPSHOT/shard-core-0.3.0-SNAPSHOT.jar"/>
-	<classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="src" path="src/main/java"/>
+  <classpathentry kind="src" path="src/main/spring"/>
+  <classpathentry kind="src" path="src/main/velocity"/>
+  <classpathentry kind="src" path="src/test/java" output="target/test-classes"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="var" rootpath="JRE_SRCROOT" path="JRE_LIB" sourcepath="JRE_SRC"/>
+  <classpathentry kind="var" path="M2_REPO/springframework/spring-core/1.1.5/spring-core-1.1.5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/velocity/velocity-dep/1.4/velocity-dep-1.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/springframework/spring-context/1.1.5/spring-context-1.1.5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-collections/commons-collections/2.1/commons-collections-2.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.1/commons-lang-2.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/velocity/velocity/1.4/velocity-1.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/springframework/spring-mock/1.1.5/spring-mock-1.1.5.jar"/>
+  <classpathentry kind="src" path="/shard-core"/>
+  <classpathentry kind="src" path="/shard-dice"/>
+  <classpathentry kind="var" path="M2_REPO/velocity-tools/velocity-tools/1.1/velocity-tools-1.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/easymock/easymock/1.1/easymock-1.1.jar"/>
 </classpath>

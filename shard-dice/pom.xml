@@ -12,6 +12,7 @@
   <name>shard dice module</name>
   <packaging>jar</packaging>
   <version>0.3.0</version>
+
   <dependencies>
     <dependency>
       <groupId>commons-collections</groupId>
