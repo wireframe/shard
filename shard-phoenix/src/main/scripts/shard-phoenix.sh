@@ -1,2 +1,2 @@
 #!/bin/sh
-java -classpath "." -jar ./shard-phoenix-0.3.0-SNAPSHOT.jar
+java -classpath "." -jar ./shard-phoenix-0.3.0.jar
