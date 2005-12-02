@@ -1,4 +1,4 @@
-package com.codecrate.shard.transfer;
+package com.codecrate.shard.transfer.xml;
 
 import com.thoughtworks.xstream.XStream;
 

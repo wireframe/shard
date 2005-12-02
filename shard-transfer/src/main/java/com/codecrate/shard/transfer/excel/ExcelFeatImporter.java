@@ -13,28 +13,30 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.transfer;
+package com.codecrate.shard.transfer.excel;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 
-import com.codecrate.shard.skill.Skill;
-import com.codecrate.shard.skill.SkillDao;
-import com.codecrate.shard.skill.SkillFactory;
+import com.codecrate.shard.feat.Feat;
+import com.codecrate.shard.feat.FeatDao;
+import com.codecrate.shard.feat.FeatFactory;
 
-public class ExcelSkillImporter extends AbstractExcelImporter {
+public class ExcelFeatImporter extends AbstractExcelImporter {
     private static final int NAME_COLUMN = 0;
+    private static final int SUMMARY_COLUMN = 1;
 
-    private final SkillFactory skillFactory;
-    private final SkillDao skillDao;
+    private final FeatFactory featFactory;
+    private final FeatDao featDao;
 
-    public ExcelSkillImporter(SkillFactory factory, SkillDao dao) {
-        this.skillFactory = factory;
-        this.skillDao = dao;
+    public ExcelFeatImporter(FeatFactory factory, FeatDao dao) {
+        this.featFactory = factory;
+        this.featDao = dao;
     }
 
     protected Object handleRow(HSSFRow row) {
         String name = getStringFromRow(row, NAME_COLUMN);
-        Skill skill = skillFactory.createSkill(name);
-        return skillDao.saveSkill(skill);
+        String summary = getStringFromRow(row, SUMMARY_COLUMN);
+        Feat feat = featFactory.createFeat(name, summary);
+        return featDao.saveFeat(feat);
     }
 }

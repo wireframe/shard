@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.transfer;
+package com.codecrate.shard.transfer.excel;
 
 import java.io.File;
 import java.util.Collection;
@@ -25,6 +25,7 @@ import org.easymock.MockControl;
 import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
+import com.codecrate.shard.transfer.excel.ExcelFeatImporter;
 
 public class ExcelFeatImporterTest extends TestCase {
 
