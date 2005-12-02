@@ -16,13 +16,39 @@
 package com.codecrate.shard.transfer.pcgen;
 
 import java.io.File;
+import java.util.Collection;
 
 import junit.framework.TestCase;
+
+import org.easymock.MockControl;
+
+import com.codecrate.shard.skill.Skill;
+import com.codecrate.shard.skill.SkillDao;
+import com.codecrate.shard.skill.SkillFactory;
 
 public class PcgenSkillImporterTest extends TestCase {
 
     public void testBasicImport() throws Exception {
-        File file = new File(Thread.currentThread().getContextClassLoader().getResource("pcgen-5.9.4-alpha-srd_skills.lst").getFile());
-        new PcgenSkillImporter().importSkills(file);
+        MockControl mockSkill = MockControl.createControl(Skill.class);
+        Skill skill = (Skill) mockSkill.getMock();
+        mockSkill.replay();
+
+        MockControl mockSkillFactory = MockControl.createControl(SkillFactory.class);
+        SkillFactory skillFactory = (SkillFactory) mockSkillFactory.getMock();
+        skillFactory.createSkill("Climb");
+        mockSkillFactory.setReturnValue(skill);
+        mockSkillFactory.replay();
+
+        MockControl mockSkillDao = MockControl.createControl(SkillDao.class);
+        SkillDao skillDao = (SkillDao) mockSkillDao.getMock();
+        skillDao.saveSkill(skill);
+        mockSkillDao.setReturnValue(skill);
+        mockSkillDao.replay();
+
+        File file = new File(Thread.currentThread().getContextClassLoader().getResource("skills.lst").getFile());
+        PcgenSkillImporter importer = new PcgenSkillImporter(skillFactory, skillDao);
+		Collection results = importer.importObjects(file);
+		
+		assertFalse(results.isEmpty());
     }
 }

@@ -18,6 +18,7 @@ package com.codecrate.shard.transfer.pcgen;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,7 +29,12 @@ import java.util.StringTokenizer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class PcgenSkillImporter {
+import com.codecrate.shard.skill.Skill;
+import com.codecrate.shard.skill.SkillDao;
+import com.codecrate.shard.skill.SkillFactory;
+import com.codecrate.shard.transfer.ObjectImporter;
+
+public class PcgenSkillImporter implements ObjectImporter {
 	private static final Log LOG = LogFactory.getLog(PcgenSkillImporter.class);
 	
 	private static final String ARMOR_CHECK_PENALTY_TAG_NAME = "ACHECK";
@@ -37,30 +43,51 @@ public class PcgenSkillImporter {
 
 	private static final String TRUE_TAG_VALUE = "YES";
 	
-//    private final SkillFactory skillFactory;
-//    private final SkillDao skillDao;
-//
-//    public PcgenSkillImporter(SkillFactory skillFactory, SkillDao skillDao) {
-//        this.skillFactory = skillFactory;
-//        this.skillDao = skillDao;
-//    }
-//
-    public Collection importSkills(File file) throws Exception {
+    private final SkillFactory skillFactory;
+    private final SkillDao skillDao;
+
+    public PcgenSkillImporter(SkillFactory skillFactory, SkillDao skillDao) {
+        this.skillFactory = skillFactory;
+        this.skillDao = skillDao;
+    }
+
+    public Collection importObjects(File file) {
         Collection results = new ArrayList();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+        BufferedReader reader = null;
 
-        while (reader.ready()) {
-            String line = reader.readLine();
-            if (isUsableRow(line)) {
-                parseLine(line);
-            }
-        }
+        try {
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 
-        reader.close();
+            while (reader.ready()) {
+			    String line = reader.readLine();
+			    if (isUsableRow(line)) {
+			    	try {
+			            results.add(handleLine(line));
+			    	} catch (Exception e) {
+			    		LOG.error("Error processing line: " + line, e);
+			    	}
+			    }
+			}
+		} catch (IOException e) {
+			LOG.error("Error importing file: " + file, e);
+		} finally {
+			closeReader(reader);
+		}
+
         return results;
     }
 
-    private void parseLine(String line) {
+    private void closeReader(BufferedReader reader) {
+    	if (null != reader) {
+    		try {
+    			reader.close();
+    		} catch (IOException e) {
+    			LOG.warn("Error closing input stream: " + reader);
+    		}
+    	}
+    }
+
+	private Object handleLine(String line) {
         StringTokenizer tokens = new StringTokenizer(line, "\t");
 
         String name = tokens.nextToken().trim();
@@ -76,18 +103,27 @@ public class PcgenSkillImporter {
             tags.put(tagName, tagValue);
         }
 
-        handleParsedLine(name, tags);
+        return handleParsedLine(name, tags);
     }
 
-    private void handleParsedLine(String name, Map tags) {
+    private Object handleParsedLine(String name, Map tags) {
     	boolean isUsableUntrained = getBooleanTagValue(USABLE_UNTRAINED_TAG_NAME, tags, true);
     	boolean hasArmorCheckPenalty = getBooleanTagValue(ARMOR_CHECK_PENALTY_TAG_NAME, tags, false);
+    	String abilityName = getStringTagValue(ABILITY_TAG_NAME, tags);
 
-        //Skill skill = skillFactory.createSkill(name);
-        //return skillDao.saveSkill(skill));
+        Skill skill = skillFactory.createSkill(name);
+        return skillDao.saveSkill(skill);
     }
 
-    private boolean getBooleanTagValue(String tagName, Map tags, boolean defaultValue) {
+    private String getStringTagValue(String tagName, Map tags) {
+    	String value = (String) tags.get(tagName);
+    	if (null == value) {
+    		LOG.info("No value found for tag " + tagName);
+    	}
+    	return value;
+	}
+
+	private boolean getBooleanTagValue(String tagName, Map tags, boolean defaultValue) {
     	String value = (String) tags.get(tagName);
     	if (null == value) {
     		LOG.info("No value found for tag " + tagName + " defaulting to " + defaultValue);
