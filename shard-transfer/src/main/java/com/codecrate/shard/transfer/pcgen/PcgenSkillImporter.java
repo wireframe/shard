@@ -6,14 +6,22 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
-import com.codecrate.shard.skill.Skill;
-import com.codecrate.shard.skill.SkillDao;
-import com.codecrate.shard.skill.SkillFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class PcgenSkillImporter {
+	private static final Log LOG = LogFactory.getLog(PcgenSkillImporter.class);
+	
+	private static final String ARMOR_CHECK_PENALTY_TAG_NAME = "ACHECK";
+	private static final String USABLE_UNTRAINED_TAG_NAME = "USEUNTRAINED";
+	private static final String ABILITY_TAG_NAME = "KEYSTAT";
 
+	private static final String TRUE_TAG_VALUE = "YES";
+	
 //    private final SkillFactory skillFactory;
 //    private final SkillDao skillDao;
 //
@@ -29,7 +37,7 @@ public class PcgenSkillImporter {
         while (reader.ready()) {
             String line = reader.readLine();
             if (isUsableRow(line)) {
-                handleLine(line);
+                parseLine(line);
             }
         }
 
@@ -37,73 +45,43 @@ public class PcgenSkillImporter {
         return results;
     }
 
-    private void handleLine(String line) {
+    private void parseLine(String line) {
         StringTokenizer tokens = new StringTokenizer(line, "\t");
 
         String name = tokens.nextToken().trim();
+        Map tags = new HashMap();
 
         while (tokens.hasMoreTokens()) {
             String token = tokens.nextToken().trim();
 
-            String[] tags = token.split(":");
-            String tagName = tags[0].trim();
-            String tagValue = tags[1].trim();
+            String[] splitTags = token.split(":");
+            String tagName = splitTags[0].trim();
+            String tagValue = splitTags[1].trim();
 
-            handleTag(tagName, tagValue);
+            tags.put(tagName, tagValue);
         }
 
+        handleParsedLine(name, tags);
+    }
+
+    private void handleParsedLine(String name, Map tags) {
+    	boolean isUsableUntrained = getBooleanTagValue(USABLE_UNTRAINED_TAG_NAME, tags, true);
+    	boolean hasArmorCheckPenalty = getBooleanTagValue(ARMOR_CHECK_PENALTY_TAG_NAME, tags, false);
+
         //Skill skill = skillFactory.createSkill(name);
-        //results.add(skillDao.saveSkill(skill));
+        //return skillDao.saveSkill(skill));
     }
 
-    private void handleTag(String tagName, String tagValue) {
-        System.out.println(tagName);
-        System.out.println(tagValue);
+    private boolean getBooleanTagValue(String tagName, Map tags, boolean defaultValue) {
+    	String value = (String) tags.get(tagName);
+    	if (null == value) {
+    		LOG.info("No value found for tag " + tagName + " defaulting to " + defaultValue);
+    		return defaultValue;
+    	}
+    	return (TRUE_TAG_VALUE.equals(value));
+	}
 
-//                    if (PObjectLoader.parseTag(obj, token))
-//                    {
-//                        continue;
-//                    }
-//                    else if (token.startsWith("ACHECK:"))
-//                    {
-//                        obj.setACheck(token.substring(7));
-//                    }
-//                    else if (token.startsWith("CLASSES:"))
-//                    {
-//                        obj.addClassList(token.substring(8));
-//                    }
-//
-//                    //else if (colString.startsWith(Constants.s_TAG_TYPE))
-//                    //{
-//                    //  obj.setType(colString.substring(Constants.s_TAG_TYPE.length()));
-//                    //}
-//                    else if (token.startsWith("EXCLUSIVE:"))
-//                    {
-//                        obj.setIsExclusive(token.charAt(10) == 'Y');
-//                    }
-//                    else if (token.startsWith("KEYSTAT:"))
-//                    {
-//                        obj.setKeyStat(token.substring(8));
-//                    }
-//                    else if (token.startsWith("QUALIFY:"))
-//                    {
-//                        obj.setQualifyString(token.substring(8));
-//                    }
-//                    else if ("REQ".equals(token))
-//                    {
-//                        obj.setRequired(true);
-//                    }
-//                    else if (token.startsWith("ROOT:"))
-//                    {
-//                        obj.setRootName(token.substring(5));
-//                    }
-//                    else if (token.startsWith("USEUNTRAINED:"))
-//                    {
-//                        obj.setUntrained(token.substring(13));
-//                    }
-    }
-
-    private boolean isUsableRow(String value) {
+	private boolean isUsableRow(String value) {
         return (!isEmpty(value) && !value.startsWith("SOURCE"));
     }
 

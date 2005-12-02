@@ -112,12 +112,20 @@
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptor>assembly-descriptor-bin-with-dependencies.xml</descriptor>
-          <finalName>shard-phoenix</finalName>
-          <outputDirectory>target/bin</outputDirectory>
-          <workDirectory>target/temp-bin</workDirectory>
-        </configuration>
+        <executions>
+	      <execution>
+	        <phase>deploy</phase>
+	        <goals>
+	          <goal>assembly</goal>
+	        </goals>
+	        <configuration>
+              <descriptor>assembly-descriptor-bin-with-dependencies.xml</descriptor>
+              <finalName>shard-phoenix</finalName>
+              <outputDirectory>target/bin</outputDirectory>
+              <workDirectory>target/temp-bin</workDirectory>
+	        </configuration>
+	      </execution>
+	    </executions>
       </plugin>
     </plugins>
   </build>
