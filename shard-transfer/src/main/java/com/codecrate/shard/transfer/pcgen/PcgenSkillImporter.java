@@ -13,7 +13,7 @@ public class PcgenSkillImporter {
 
         while (reader.ready()) {
             String line = reader.readLine();
-            if (isUsableRow(line)) {
+            if (isSkill(line)) {
                 System.out.println(line);
             }
         }
@@ -22,7 +22,7 @@ public class PcgenSkillImporter {
         return null;
     }
 
-    private boolean isUsableRow(String value) {
+    private boolean isSkill(String value) {
         return (!isEmpty(value) && !value.startsWith("SOURCE"));
     }
 
