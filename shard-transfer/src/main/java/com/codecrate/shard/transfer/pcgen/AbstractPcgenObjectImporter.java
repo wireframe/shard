@@ -45,7 +45,7 @@ public abstract class AbstractPcgenObjectImporter implements ObjectImporter {
 
             while (reader.ready()) {
 			    String line = reader.readLine();
-			    if (isUsableRow(line)) {
+			    if (isUsableLine(line)) {
 			    	try {
 			            results.add(handleLine(line));
 			    	} catch (Exception e) {
@@ -110,7 +110,7 @@ public abstract class AbstractPcgenObjectImporter implements ObjectImporter {
     	return (TRUE_TAG_VALUE.equals(value));
 	}
 
-	private boolean isUsableRow(String value) {
+	private boolean isUsableLine(String value) {
         return (!isEmpty(value) && !value.startsWith("SOURCE"));
     }
 
