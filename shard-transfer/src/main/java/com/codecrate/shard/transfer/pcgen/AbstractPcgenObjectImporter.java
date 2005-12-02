@@ -72,7 +72,7 @@ public abstract class AbstractPcgenObjectImporter implements ObjectImporter {
     	}
     }
 
-	protected Object handleLine(String line) {
+	private Object handleLine(String line) {
         StringTokenizer tokens = new StringTokenizer(line, "\t");
 
         String name = tokens.nextToken().trim();
