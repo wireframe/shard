@@ -33,6 +33,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.springframework.binding.form.FormModel;
+import org.springframework.context.MessageSource;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
@@ -59,7 +60,7 @@ import com.codecrate.shard.ui.component.SearchComponent;
 import com.codecrate.shard.ui.form.FormFactory;
 
 public class ObjectManagerView extends AbstractView implements SearchComponent.SearchAction {
-	private static final Matcher ALWAYS_MATCH_MATCHER = new AlwaysMatchMatcher();
+    private static final Matcher ALWAYS_MATCH_MATCHER = new AlwaysMatchMatcher();
 
 	private JPanel centerPanel;
     private JScrollPane scrollPane;
@@ -201,7 +202,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 
     private GlazedTableModel getModel() {
         if (null == model) {
-            model = new GlazedTableModel(getObjects(), getMessageSource(), commandAdapter.getColumnNames());
+            model = new ObjectManagerTableModel(getObjects(), getMessageSource(), commandAdapter.getColumnNames());
         }
         return model;
     }
@@ -338,6 +339,21 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 		public boolean matches(Object arg0) {
 			return true;
 		}
+
+    }
+
+    /**
+     * unmodifiable table model to force users to use the "properties" dialog.
+     */
+    public class ObjectManagerTableModel extends GlazedTableModel {
+
+        public ObjectManagerTableModel(FilterList objects, MessageSource messageSource, String[] columnNames) {
+            super(objects, messageSource, columnNames);
+        }
+
+        protected boolean isEditable(Object arg0, int arg1) {
+            return false;
+        }
 
     }
 }
