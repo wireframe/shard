@@ -86,6 +86,9 @@
         <includes>
           <include>**/*.gif</include>
           <include>**/*.png</include>
+          <include>**/*.hs</include>
+          <include>**/*.xml</include>
+          <include>**/*.jhm</include>
         </includes>
       </resource>
       <resource>
