@@ -31,4 +31,8 @@ public abstract class AbstractObjectManagerCommandAdapter implements ObjectManag
     public Collection importObjects(File file) {
         return importer.importObjects(file);
     }
+    
+    public Collection getSupportedImportFileExtensions() {
+        return importer.getSupportedFileExtensions();
+    }
 }

@@ -16,31 +16,48 @@
 package com.codecrate.shard.transfer;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 import junit.framework.TestCase;
 
 public class FileExtensionObjectImporterResolverTest extends TestCase {
 
-	public void testNoImporterFoundReturnsEmptyList() {
+	public void testImportWithUnsupportedFileExtensionReturnsEmptyList() {
         File file = new File(Thread.currentThread().getContextClassLoader().getResource("feats.xls").getFile());
-		FileExtensionObjectImporterResolver importer = new FileExtensionObjectImporterResolver(Collections.EMPTY_MAP);
+		FileExtensionObjectImporterResolver importer = new FileExtensionObjectImporterResolver(Collections.EMPTY_LIST);
 		Collection results = importer.importObjects(file);
 
 		assertTrue(results.isEmpty());
 	}
-	
+
 	public void testSupportedExtensionsReturnsConfiguredImporters() {
-		Map importers = new HashMap();
-		importers.put("xls", null);
-		importers.put("xml", null);
+        Collection importers = new ArrayList();
+        importers.add(new DummyObjectImporter("xls"));
+        importers.add(new DummyObjectImporter("xml"));
 		FileExtensionObjectImporterResolver importer = new FileExtensionObjectImporterResolver(importers);
 
-		Collection extensions = importer.getSupportedExtensions();
+		Collection extensions = importer.getSupportedFileExtensions();
 		assertTrue(extensions.contains("xls"));
 		assertTrue(extensions.contains("xml"));
 	}
+
+    private class DummyObjectImporter implements ObjectImporter {
+
+        private final String extension;
+
+        public DummyObjectImporter(String extension) {
+            this.extension = extension;
+        }
+
+        public Collection importObjects(File file) {
+            return Collections.EMPTY_LIST;
+        }
+
+        public Collection getSupportedFileExtensions() {
+            return Collections.singletonList(extension);
+        }
+
+    }
 }

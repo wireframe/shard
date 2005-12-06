@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,11 +31,16 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import com.codecrate.shard.transfer.ObjectImporter;
 
 public class ExcelObjectImporter implements ObjectImporter {
+    private static final String EXCEL_FILE_EXTENSION = "xls";
     private static final Log LOG = LogFactory.getLog(ExcelObjectImporter.class);
     private final ExcelRowHandler rowHandler;
 
     public ExcelObjectImporter(ExcelObjectImporter.ExcelRowHandler rowHandler) {
         this.rowHandler = rowHandler;
+    }
+
+    public Collection getSupportedFileExtensions() {
+        return Collections.singletonList(EXCEL_FILE_EXTENSION);
     }
 
     public Collection importObjects(File file) {

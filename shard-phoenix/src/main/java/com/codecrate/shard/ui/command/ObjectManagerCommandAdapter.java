@@ -42,4 +42,6 @@ public interface ObjectManagerCommandAdapter {
     Collection getObjects();
 
     String[] getColumnNames();
+
+    Collection getSupportedImportFileExtensions();
 }

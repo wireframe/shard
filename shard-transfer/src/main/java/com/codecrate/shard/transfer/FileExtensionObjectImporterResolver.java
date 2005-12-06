@@ -16,9 +16,10 @@
 package com.codecrate.shard.transfer;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
+import java.util.Iterator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,9 +27,9 @@ import org.apache.commons.logging.LogFactory;
 public class FileExtensionObjectImporterResolver implements ObjectImporter {
 	private static final Log LOG = LogFactory.getLog(FileExtensionObjectImporterResolver.class);
 
-	private final Map importers;
+	private final Collection importers;
 
-	public FileExtensionObjectImporterResolver(Map importers) {
+	public FileExtensionObjectImporterResolver(Collection importers) {
 		this.importers = importers;
 	}
 
@@ -36,8 +37,8 @@ public class FileExtensionObjectImporterResolver implements ObjectImporter {
 		String filename = file.getName();
 		int index = filename.lastIndexOf(".");
 		String extension = filename.substring(index + 1);
-		
-		ObjectImporter importer = (ObjectImporter) importers.get(extension);
+
+		ObjectImporter importer = (ObjectImporter) getImporterForExtension(extension);
 		if (null == importer) {
 			LOG.info("No importer found to support file with extension " + extension);
 			return Collections.EMPTY_LIST;
@@ -45,8 +46,25 @@ public class FileExtensionObjectImporterResolver implements ObjectImporter {
 
 		return importer.importObjects(file);
 	}
-	
-	public Collection getSupportedExtensions() {
-		return importers.keySet();
-	}
+
+    private ObjectImporter getImporterForExtension(String extension) {
+        Iterator it = importers.iterator();
+        while (it.hasNext()) {
+            ObjectImporter importer = (ObjectImporter) it.next();
+            if (importer.getSupportedFileExtensions().contains(extension)) {
+                return importer;
+            }
+        }
+        return null;
+    }
+
+	public Collection getSupportedFileExtensions() {
+	    Collection extensions = new ArrayList();
+        Iterator it = importers.iterator();
+        while (it.hasNext()) {
+            ObjectImporter importer = (ObjectImporter) it.next();
+            extensions.addAll(importer.getSupportedFileExtensions());
+        }
+        return extensions;
+    }
 }

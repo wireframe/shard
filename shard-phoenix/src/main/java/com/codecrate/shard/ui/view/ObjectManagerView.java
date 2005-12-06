@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Collection;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -260,22 +261,27 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
     }
 
     private class ImportCommandExcecutor extends AbstractActionCommandExecutor {
+        private JFileChooser fileChooser = new JFileChooser();
+
         public ImportCommandExcecutor() {
-            this.setEnabled(true);
+            this.setEnabled(!commandAdapter.getSupportedImportFileExtensions().isEmpty());
+
+            DefaultFileFilter filter = new DefaultFileFilter();
+            Iterator extensions = commandAdapter.getSupportedImportFileExtensions().iterator();
+            while (extensions.hasNext()) {
+                String extension = (String) extensions.next();
+                filter.addExtension(extension);
+            }
+            fileChooser.setFileFilter(filter);
         }
 
         public void execute() {
-            JFileChooser fileChooser = new JFileChooser();
-            DefaultFileFilter filter = new DefaultFileFilter();
-            filter.addExtension("xls");
-            filter.setDescription("Microsoft Excel Files");
-            fileChooser.setFileFilter(filter);
+            if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(getWindowControl())) {
+                File selectedFile = fileChooser.getSelectedFile();
 
-            fileChooser.showOpenDialog(getWindowControl());
-            File selectedFile = fileChooser.getSelectedFile();
-
-            Collection results = commandAdapter.importObjects(selectedFile);
-            getObjects().addAll(results);
+                Collection results = commandAdapter.importObjects(selectedFile);
+                getObjects().addAll(results);
+            }
         }
     }
 

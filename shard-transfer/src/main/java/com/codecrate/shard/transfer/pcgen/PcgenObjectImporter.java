@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -32,12 +33,19 @@ import org.apache.commons.logging.LogFactory;
 import com.codecrate.shard.transfer.ObjectImporter;
 
 public class PcgenObjectImporter implements ObjectImporter {
-	private static final Log LOG = LogFactory.getLog(PcgenObjectImporter.class);
+	private static final String PCGEN_LST_FILE_EXTENSION = "lst";
+
+    private static final Log LOG = LogFactory.getLog(PcgenObjectImporter.class);
 
     private final PcgenLineHandler lineHandler;
 
     public PcgenObjectImporter(PcgenLineHandler lineHandler) {
         this.lineHandler = lineHandler;
+    }
+
+
+    public Collection getSupportedFileExtensions() {
+        return Collections.singletonList(PCGEN_LST_FILE_EXTENSION);
     }
 
     public Collection importObjects(File file) {

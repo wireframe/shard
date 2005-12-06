@@ -21,4 +21,6 @@ import java.util.Collection;
 public interface ObjectImporter {
 
 	Collection importObjects(File file);
+
+    Collection getSupportedFileExtensions();
 }

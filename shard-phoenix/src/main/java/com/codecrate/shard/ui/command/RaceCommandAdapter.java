@@ -77,4 +77,9 @@ public class RaceCommandAdapter implements ObjectManagerCommandAdapter {
         // TODO Auto-generated method stub
         return Collections.EMPTY_LIST;
     }
+
+    public Collection getSupportedImportFileExtensions() {
+        // TODO Auto-generated method stub
+        return Collections.EMPTY_LIST;
+    }
 }
