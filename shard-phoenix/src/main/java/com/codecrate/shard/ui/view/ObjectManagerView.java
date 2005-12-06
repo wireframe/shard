@@ -264,7 +264,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
         private JFileChooser fileChooser = new JFileChooser();
 
         public ImportCommandExcecutor() {
-            this.setEnabled(!commandAdapter.getSupportedImportFileExtensions().isEmpty());
+            this.setEnabled(isImportEnabled());
 
             DefaultFileFilter filter = new DefaultFileFilter();
             Iterator extensions = commandAdapter.getSupportedImportFileExtensions().iterator();
@@ -273,6 +273,10 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
                 filter.addExtension(extension);
             }
             fileChooser.setFileFilter(filter);
+        }
+
+        private boolean isImportEnabled() {
+            return !commandAdapter.getSupportedImportFileExtensions().isEmpty();
         }
 
         public void execute() {
