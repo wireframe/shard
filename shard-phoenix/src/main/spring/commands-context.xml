@@ -106,7 +106,7 @@
 	<bean id="aboutCommand"
 		class="org.springframework.richclient.command.support.AboutCommand">
 		<property name="aboutTextPath">
-			<value>org/springframework/richclient/samples/petclinic/about.txt</value>
+			<value>about.html</value>
 		</property>
 	</bean>
 
