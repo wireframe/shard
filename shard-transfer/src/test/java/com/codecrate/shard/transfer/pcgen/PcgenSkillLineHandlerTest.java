@@ -26,7 +26,7 @@ import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
 
-public class PcgenSkillImporterTest extends TestCase {
+public class PcgenSkillLineHandlerTest extends TestCase {
 
     public void testBasicImport() throws Exception {
         Map tags = new HashMap();

@@ -25,9 +25,9 @@ import org.easymock.MockControl;
 import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
-import com.codecrate.shard.transfer.excel.ExcelFeatImporter;
+import com.codecrate.shard.transfer.excel.ExcelFeatRowHandler;
 
-public class ExcelFeatImporterTest extends TestCase {
+public class ExcelFeatRowHandlerTest extends TestCase {
 
     public void testBasicImport() throws Exception {
         MockControl mockFeat = MockControl.createControl(Feat.class);
@@ -51,7 +51,7 @@ public class ExcelFeatImporterTest extends TestCase {
         mockFeatDao.replay();
 
         File file = new File(Thread.currentThread().getContextClassLoader().getResource("feats.xls").getFile());
-        Collection results = new ExcelFeatImporter(featFactory, featDao).importObjects(file);
+        Collection results = new ExcelObjectImporter(new ExcelFeatRowHandler(featFactory, featDao)).importObjects(file);
         assertFalse(results.isEmpty());
     }
 
@@ -77,7 +77,7 @@ public class ExcelFeatImporterTest extends TestCase {
         mockFeatDao.replay();
 
         File file = new File(Thread.currentThread().getContextClassLoader().getResource("feats.xls").getFile());
-        Collection results = new ExcelFeatImporter(featFactory, featDao).importObjects(file);
+        Collection results = new ExcelObjectImporter(new ExcelFeatRowHandler(featFactory, featDao)).importObjects(file);
         assertFalse(results.isEmpty());
     }
 }

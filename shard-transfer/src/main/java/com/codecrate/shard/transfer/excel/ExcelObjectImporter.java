@@ -22,14 +22,20 @@ import java.util.Collection;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
-public abstract class AbstractExcelImporter {
-    private static final Log LOG = LogFactory.getLog(AbstractExcelImporter.class);
+import com.codecrate.shard.transfer.ObjectImporter;
+
+public class ExcelObjectImporter implements ObjectImporter {
+    private static final Log LOG = LogFactory.getLog(ExcelObjectImporter.class);
+    private final ExcelRowHandler rowHandler;
+
+    public ExcelObjectImporter(ExcelObjectImporter.ExcelRowHandler rowHandler) {
+        this.rowHandler = rowHandler;
+    }
 
     public Collection importObjects(File file) {
         Collection results = new ArrayList();
@@ -47,7 +53,7 @@ public abstract class AbstractExcelImporter {
                 HSSFRow row = sheet.getRow(currentRow);
 
                 try {
-                    Object result = handleRow(row);
+                    Object result = rowHandler.handleRow(row);
                     results.add(result);
                 } catch (Exception e) {
                     LOG.error("Error importing row: " + currentRow, e);
@@ -60,20 +66,8 @@ public abstract class AbstractExcelImporter {
         return results;
     }
 
-    protected abstract Object handleRow(HSSFRow row);
 
-    /**
-     *
-     * @param row
-     * @param column zero indexed column number
-     * @return
-     */
-    protected String getStringFromRow(HSSFRow row, int column) {
-        HSSFCell nameCell = row.getCell((short) column);
-        if (null == nameCell) {
-        	LOG.info("No string value found for [row, column]: " + row.getRowNum() + ", " + column);
-        	return null;
-        }
-        return nameCell.getStringCellValue();
+    public interface ExcelRowHandler {
+        Object handleRow(HSSFRow row);
     }
 }

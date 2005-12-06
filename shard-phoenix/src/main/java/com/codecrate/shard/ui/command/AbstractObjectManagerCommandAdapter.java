@@ -18,28 +18,17 @@ package com.codecrate.shard.ui.command;
 import java.io.File;
 import java.util.Collection;
 
-/**
- * adapter to convert gui actions to the business layer.
- */
-public interface ObjectManagerCommandAdapter {
+import com.codecrate.shard.transfer.ObjectImporter;
 
-	String getDeleteMessagePropertyName();
+public abstract class AbstractObjectManagerCommandAdapter implements ObjectManagerCommandAdapter {
 
-    void setDeleteMessagePropertyName(String deleteMessagePropertyName);
+    private final ObjectImporter importer;
 
-    void deleteObject(Object o);
+    public AbstractObjectManagerCommandAdapter(ObjectImporter importer) {
+        this.importer = importer;
+    }
 
-    void updateObject(Object object);
-
-    Collection importObjects(File file);
-
-    Object createObject();
-
-    void saveObject(Object object);
-
-    Collection searchObjects(String query);
-
-    Collection getObjects();
-
-    String[] getColumnNames();
+    public Collection importObjects(File file) {
+        return importer.importObjects(file);
+    }
 }

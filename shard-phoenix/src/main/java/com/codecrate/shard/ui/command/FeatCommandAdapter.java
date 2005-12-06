@@ -15,26 +15,25 @@
  */
 package com.codecrate.shard.ui.command;
 
-import java.io.File;
 import java.util.Collection;
 
 import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
-import com.codecrate.shard.transfer.excel.ExcelFeatImporter;
+import com.codecrate.shard.transfer.ObjectImporter;
 
-public class FeatCommandAdapter implements ObjectManagerCommandAdapter {
+public class FeatCommandAdapter extends AbstractObjectManagerCommandAdapter
+implements ObjectManagerCommandAdapter {
 
 	private final FeatDao featDao;
 	private final FeatFactory featFactory;
-    private final ExcelFeatImporter featImporter;
 
 	private String deleteMessagePropertyName;
 
-	public FeatCommandAdapter(FeatDao featDao, FeatFactory featFactory, ExcelFeatImporter featImporter) {
+	public FeatCommandAdapter(FeatDao featDao, FeatFactory featFactory, ObjectImporter importer) {
+        super(importer);
 		this.featDao = featDao;
 		this.featFactory = featFactory;
-        this.featImporter = featImporter;
 	}
 
 	public String[] getColumnNames() {
@@ -75,8 +74,4 @@ public class FeatCommandAdapter implements ObjectManagerCommandAdapter {
 	public Collection searchObjects(String query) {
 		return featDao.searchFeats(query);
 	}
-
-    public Collection importObjects(File file) {
-        return featImporter.importObjects(file);
-    }
 }

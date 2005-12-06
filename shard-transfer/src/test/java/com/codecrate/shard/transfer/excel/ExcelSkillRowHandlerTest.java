@@ -26,7 +26,7 @@ import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
 
-public class ExcelSkillImporterTest extends TestCase {
+public class ExcelSkillRowHandlerTest extends TestCase {
 
     public void testBasicImport() throws Exception {
         MockControl mockSkill = MockControl.createControl(Skill.class);
@@ -46,7 +46,7 @@ public class ExcelSkillImporterTest extends TestCase {
         mockSkillDao.replay();
 
         File file = new File(Thread.currentThread().getContextClassLoader().getResource("skills.xls").getFile());
-        Collection results = new ExcelSkillImporter(skillFactory, skillDao).importObjects(file);
+        Collection results = new ExcelObjectImporter(new ExcelSkillRowHandler(skillFactory, skillDao)).importObjects(file);
         assertFalse(results.isEmpty());
     }
 }

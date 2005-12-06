@@ -15,26 +15,25 @@
  */
 package com.codecrate.shard.ui.command;
 
-import java.io.File;
 import java.util.Collection;
 
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
-import com.codecrate.shard.transfer.excel.ExcelSkillImporter;
+import com.codecrate.shard.transfer.ObjectImporter;
 
-public class SkillCommandAdapter implements ObjectManagerCommandAdapter {
+public class SkillCommandAdapter extends AbstractObjectManagerCommandAdapter
+implements ObjectManagerCommandAdapter {
 
 	private final SkillDao skillDao;
 	private final SkillFactory skillFactory;
 
 	private String deleteMessagePropertyName;
-    private final ExcelSkillImporter importer;
 
-	public SkillCommandAdapter(SkillDao skillDao, SkillFactory skillFactory, ExcelSkillImporter importer) {
-		this.skillDao = skillDao;
+	public SkillCommandAdapter(SkillDao skillDao, SkillFactory skillFactory, ObjectImporter importer) {
+		super(importer);
+        this.skillDao = skillDao;
 		this.skillFactory = skillFactory;
-        this.importer = importer;
 	}
 
 	public String[] getColumnNames() {
@@ -75,8 +74,4 @@ public class SkillCommandAdapter implements ObjectManagerCommandAdapter {
 	public Collection searchObjects(String query) {
 		return skillDao.searchSkills(query);
 	}
-
-    public Collection importObjects(File file) {
-        return importer.importObjects(file);
-    }
 }
