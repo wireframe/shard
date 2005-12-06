@@ -15,8 +15,8 @@
  */
 package com.codecrate.shard.transfer.pcgen;
 
-import java.io.File;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import junit.framework.TestCase;
 
@@ -29,6 +29,8 @@ import com.codecrate.shard.skill.SkillFactory;
 public class PcgenSkillImporterTest extends TestCase {
 
     public void testBasicImport() throws Exception {
+        Map tags = new HashMap();
+
         MockControl mockSkill = MockControl.createControl(Skill.class);
         Skill skill = (Skill) mockSkill.getMock();
         mockSkill.replay();
@@ -45,10 +47,9 @@ public class PcgenSkillImporterTest extends TestCase {
         mockSkillDao.setReturnValue(skill);
         mockSkillDao.replay();
 
-        File file = new File(Thread.currentThread().getContextClassLoader().getResource("skills.lst").getFile());
-        PcgenSkillImporter importer = new PcgenSkillImporter(skillFactory, skillDao);
-		Collection results = importer.importObjects(file);
-		
-		assertFalse(results.isEmpty());
+        PcgenSkillLineHandler importer = new PcgenSkillLineHandler(skillFactory, skillDao);
+		Object result = importer.handleParsedLine("Climb", tags);
+
+		assertNotNull(result);
     }
 }

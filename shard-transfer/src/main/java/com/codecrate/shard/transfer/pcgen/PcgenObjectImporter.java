@@ -31,11 +31,15 @@ import org.apache.commons.logging.LogFactory;
 
 import com.codecrate.shard.transfer.ObjectImporter;
 
-public abstract class AbstractPcgenObjectImporter implements ObjectImporter {
-	private static final Log LOG = LogFactory.getLog(AbstractPcgenObjectImporter.class);
-	
-	private static final String TRUE_TAG_VALUE = "YES";
-	
+public class PcgenObjectImporter implements ObjectImporter {
+	private static final Log LOG = LogFactory.getLog(PcgenObjectImporter.class);
+
+    private final PcgenLineHandler lineHandler;
+
+    public PcgenObjectImporter(PcgenLineHandler lineHandler) {
+        this.lineHandler = lineHandler;
+    }
+
     public Collection importObjects(File file) {
         Collection results = new ArrayList();
         BufferedReader reader = null;
@@ -88,27 +92,8 @@ public abstract class AbstractPcgenObjectImporter implements ObjectImporter {
             tags.put(tagName, tagValue);
         }
 
-        return handleParsedLine(name, tags);
+        return lineHandler.handleParsedLine(name, tags);
     }
-
-    protected abstract Object handleParsedLine(String name, Map tags);
-
-    protected String getStringTagValue(String tagName, Map tags) {
-    	String value = (String) tags.get(tagName);
-    	if (null == value) {
-    		LOG.info("No value found for tag " + tagName);
-    	}
-    	return value;
-	}
-
-    protected boolean getBooleanTagValue(String tagName, Map tags, boolean defaultValue) {
-    	String value = (String) tags.get(tagName);
-    	if (null == value) {
-    		LOG.info("No value found for tag " + tagName + " defaulting to " + defaultValue);
-    		return defaultValue;
-    	}
-    	return (TRUE_TAG_VALUE.equals(value));
-	}
 
 	private boolean isUsableLine(String value) {
         return (!isEmpty(value) && !value.startsWith("SOURCE"));
@@ -116,5 +101,11 @@ public abstract class AbstractPcgenObjectImporter implements ObjectImporter {
 
     private boolean isEmpty(String value) {
         return (null == value || value.trim().length() < 1  || value.startsWith("#"));
+    }
+
+
+    public interface PcgenLineHandler {
+
+        Object handleParsedLine(String name, Map tags);
     }
 }
