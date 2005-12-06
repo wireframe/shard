@@ -54,7 +54,7 @@ public class HibernateSkillDaoTest extends ShardHibernateTestCaseSupport {
     }
     
     public void testSkillCreation() throws Exception {
-        Skill skill = skillFactory.createSkill("test skill");
+        Skill skill = skillFactory.createSkill("test skill", null, true, true);
         skill = skillDao.saveSkill(skill);
         assertNotNull(skill);
     }

@@ -26,6 +26,7 @@ import net.sf.hibernate.expression.Expression;
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
+import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.search.HibernateObjectSearcher;
 
 /**
@@ -60,8 +61,8 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao, 
         });
     }
 
-    public Skill createSkill(String name) {
-        DefaultSkill skill = new DefaultSkill(name, true, null, false);
+    public Skill createSkill(String name, Ability ability, boolean usableUntrained, boolean penalizedWithArmor) {
+        DefaultSkill skill = new DefaultSkill(name, usableUntrained, ability, penalizedWithArmor);
         return skill;
     }
 

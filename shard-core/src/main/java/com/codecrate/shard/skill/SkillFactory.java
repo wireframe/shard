@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.skill;
 
+import com.codecrate.shard.ability.Ability;
+
 
 /**
  * Factory for creating skills.
@@ -26,7 +28,10 @@ public interface SkillFactory {
     /**
      * creates a new skill.
      * @param name name of the skill.
+     * @param ability ability to use for bonus/penalty modifier
+     * @param usableUntrained flag if this skill is usable untrained
+     * @param penalizedWithArmor flag if this skill receives a penalty when used with armor
      * @return
      */
-    Skill createSkill(String name);
+    Skill createSkill(String name, Ability ability, boolean usableUntrained, boolean penalizedWithArmor);
 }

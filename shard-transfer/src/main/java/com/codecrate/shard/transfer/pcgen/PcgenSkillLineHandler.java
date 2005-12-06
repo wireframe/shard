@@ -17,6 +17,8 @@ package com.codecrate.shard.transfer.pcgen;
 
 import java.util.Map;
 
+import com.codecrate.shard.ability.Ability;
+import com.codecrate.shard.ability.AbilityDao;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
@@ -28,10 +30,12 @@ public class PcgenSkillLineHandler extends AbstractPcgenLineHandler {
 
     private final SkillFactory skillFactory;
     private final SkillDao skillDao;
+	private final AbilityDao abilityDao;
 
-    public PcgenSkillLineHandler(SkillFactory skillFactory, SkillDao skillDao) {
+    public PcgenSkillLineHandler(SkillFactory skillFactory, SkillDao skillDao, AbilityDao abilityDao) {
         this.skillFactory = skillFactory;
         this.skillDao = skillDao;
+		this.abilityDao = abilityDao;
     }
 
     public Object handleParsedLine(String name, Map tags) {
@@ -39,7 +43,8 @@ public class PcgenSkillLineHandler extends AbstractPcgenLineHandler {
     	boolean hasArmorCheckPenalty = getBooleanTagValue(ARMOR_CHECK_PENALTY_TAG_NAME, tags, false);
     	String abilityName = getStringTagValue(ABILITY_TAG_NAME, tags);
 
-        Skill skill = skillFactory.createSkill(name);
+    	Ability ability = abilityDao.getAbility(abilityName);
+        Skill skill = skillFactory.createSkill(name, ability, isUsableUntrained, hasArmorCheckPenalty);
         return skillDao.saveSkill(skill);
     }
 }

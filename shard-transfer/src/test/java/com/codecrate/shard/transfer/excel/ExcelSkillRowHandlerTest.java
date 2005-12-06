@@ -35,7 +35,7 @@ public class ExcelSkillRowHandlerTest extends TestCase {
 
         MockControl mockSkillFactory = MockControl.createControl(SkillFactory.class);
         SkillFactory skillFactory = (SkillFactory) mockSkillFactory.getMock();
-        skillFactory.createSkill("Climb");
+        skillFactory.createSkill("Climb", null, true, false);
         mockSkillFactory.setReturnValue(skill);
         mockSkillFactory.replay();
 

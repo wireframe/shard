@@ -22,6 +22,7 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
+import com.codecrate.shard.ability.AbilityDao;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
@@ -30,6 +31,7 @@ public class PcgenSkillLineHandlerTest extends TestCase {
 
     public void testBasicImport() throws Exception {
         Map tags = new HashMap();
+        tags.put("KEYSTAT", "STR");
 
         MockControl mockSkill = MockControl.createControl(Skill.class);
         Skill skill = (Skill) mockSkill.getMock();
@@ -37,7 +39,7 @@ public class PcgenSkillLineHandlerTest extends TestCase {
 
         MockControl mockSkillFactory = MockControl.createControl(SkillFactory.class);
         SkillFactory skillFactory = (SkillFactory) mockSkillFactory.getMock();
-        skillFactory.createSkill("Climb");
+        skillFactory.createSkill("Climb", null, true, false);
         mockSkillFactory.setReturnValue(skill);
         mockSkillFactory.replay();
 
@@ -47,7 +49,13 @@ public class PcgenSkillLineHandlerTest extends TestCase {
         mockSkillDao.setReturnValue(skill);
         mockSkillDao.replay();
 
-        PcgenSkillLineHandler importer = new PcgenSkillLineHandler(skillFactory, skillDao);
+        MockControl mockAbilityDao = MockControl.createControl(AbilityDao.class);
+        AbilityDao abilityDao = (AbilityDao) mockAbilityDao.getMock();
+        abilityDao.getAbility("STR");
+        mockAbilityDao.setReturnValue(null);
+        mockAbilityDao.replay();
+
+        PcgenSkillLineHandler importer = new PcgenSkillLineHandler(skillFactory, skillDao, abilityDao);
 		Object result = importer.handleParsedLine("Climb", tags);
 
 		assertNotNull(result);
