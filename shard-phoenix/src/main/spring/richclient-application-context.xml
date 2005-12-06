@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.6 2005/12/06 04:23:52 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.7 2005/12/06 04:56:23 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -136,13 +136,27 @@
 	</bean>
 
     <bean id="skillImporter"
-    	class="com.codecrate.shard.transfer.excel.ExcelObjectImporter">
+    	class="com.codecrate.shard.transfer.FileExtensionObjectImporterResolver">
     	<constructor-arg>
-    	    <bean class="com.codecrate.shard.transfer.excel.ExcelSkillRowHandler">
-			    <constructor-arg index="0"><ref bean="skillDao" /></constructor-arg>
-			    <constructor-arg index="1"><ref bean="skillDao" /></constructor-arg>
+    	  <list>
+	    	<bean class="com.codecrate.shard.transfer.excel.ExcelObjectImporter">
+	    	  <constructor-arg>
+	    	    <bean class="com.codecrate.shard.transfer.excel.ExcelSkillRowHandler">
+				    <constructor-arg index="0"><ref bean="skillDao" /></constructor-arg>
+				    <constructor-arg index="1"><ref bean="skillDao" /></constructor-arg>
+				</bean>
+			  </constructor-arg>
 			</bean>
-		</constructor-arg>
+	    	<bean class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
+	    	  <constructor-arg>
+	    	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenSkillLineHandler">
+				    <constructor-arg index="0"><ref bean="skillDao" /></constructor-arg>
+				    <constructor-arg index="1"><ref bean="skillDao" /></constructor-arg>
+				</bean>
+			  </constructor-arg>
+			</bean>
+    	  </list>
+    	</constructor-arg>
     </bean>
 
 	<bean id="skillManager"
