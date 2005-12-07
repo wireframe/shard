@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -19,6 +21,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class SearchComponent {
+	private static final int SEARCH_DELAY_MILLIS = 300;
+
 	private static final Log LOG = LogFactory.getLog(SearchComponent.class);
 	
 	private JPanel mainPanel = null;
@@ -26,6 +30,7 @@ public class SearchComponent {
 	private JButton searchButton = null;
 	private JButton clearButton = null;
 	private Collection searchListeners = new ArrayList();
+	private Timer timer = new Timer();
 
 	public JPanel getPanel() {
 		if (null == mainPanel) {
@@ -90,7 +95,8 @@ public class SearchComponent {
 					try {
 						String value = document.getText(0, document.getLength()).trim();
 						if (0 < value.length()) {
-							fireSearch();
+							TimerTask delaySearchTask = new DelaySearchTask(value);
+							timer.schedule(delaySearchTask, SEARCH_DELAY_MILLIS);
 						} else {
 							fireClear();
 						}
@@ -149,4 +155,18 @@ public class SearchComponent {
 		
 		void clear();
 	}
+	
+	private class DelaySearchTask extends TimerTask {
+        private final String currentInput;
+
+		public DelaySearchTask(String currentInput) {
+			this.currentInput = currentInput;
+		}
+
+		public void run() {
+			if (currentInput.equals(getQueryText().getText())) {
+	            fireSearch();
+			}
+        }
+    }
 }
