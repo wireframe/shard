@@ -15,22 +15,24 @@
  */
 package com.codecrate.shard.ui.command;
 
-import java.io.File;
+import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.Collections;
 
+import com.codecrate.shard.equipment.Coin;
 import com.codecrate.shard.equipment.Item;
 import com.codecrate.shard.equipment.ItemDao;
 import com.codecrate.shard.equipment.ItemFactory;
+import com.codecrate.shard.transfer.ObjectImporter;
 
-public class ItemCommandAdapter implements ObjectManagerCommandAdapter {
+public class ItemCommandAdapter extends AbstractObjectManagerCommandAdapter implements ObjectManagerCommandAdapter {
 
 	private final ItemDao itemDao;
 	private final ItemFactory itemFactory;
 
 	private String deleteMessagePropertyName;
 
-	public ItemCommandAdapter(ItemDao itemDao, ItemFactory itemFactory) {
+	public ItemCommandAdapter(ItemDao itemDao, ItemFactory itemFactory, ObjectImporter importer) {
+		super(importer);
 		this.itemDao = itemDao;
 		this.itemFactory = itemFactory;
 	}
@@ -48,7 +50,7 @@ public class ItemCommandAdapter implements ObjectManagerCommandAdapter {
 	}
 
 	public Object createObject() {
-		return itemFactory.createItem("New Item");
+		return itemFactory.createItem("New Item", new BigDecimal(0), Coin.COPPER_PIECE.getCost());
 	}
 
 	public void saveObject(Object object) {
@@ -73,14 +75,4 @@ public class ItemCommandAdapter implements ObjectManagerCommandAdapter {
 	public Collection searchObjects(String query) {
 		return itemDao.searchItems(query);
 	}
-
-    public Collection importObjects(File file) {
-        // TODO Auto-generated method stub
-        return Collections.EMPTY_LIST;
-    }
-
-    public Collection getSupportedImportFileExtensions() {
-        // TODO Auto-generated method stub
-        return Collections.EMPTY_LIST;
-    }
 }

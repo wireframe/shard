@@ -15,7 +15,9 @@
  */
 package com.codecrate.shard.equipment;
 
+import java.math.BigDecimal;
+
 public interface ItemFactory {
 
-	Item createItem(String name);
+    Item createItem(String name, BigDecimal weight, Money cost);
 }

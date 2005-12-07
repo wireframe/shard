@@ -48,7 +48,7 @@ public class HibernateItemDaoTest extends ShardHibernateTestCaseSupport {
     }
 	
 	public void testSaveNewItem() {
-		Item item = itemFactory.createItem("New Item");
+		Item item = itemFactory.createItem("New Item", new BigDecimal(0), Coin.COPPER_PIECE.getCost());
 		Item item2 = itemDao.saveItem(item);
 		assertSame(item, item2);
 	}

@@ -49,8 +49,8 @@ public class HibernateItemDao extends HibernateDaoSupport implements ItemDao, It
         });
     }
 
-    public Item createItem(String name) {
-    	return new DefaultItem(name, new BigDecimal(0), new Money(1, DefaultCurrency.COPPER));
+    public Item createItem(String name, BigDecimal weight, Money cost) {
+    	return new DefaultItem(name, weight, cost);
     }
     
     public Item saveItem(Item item) {
