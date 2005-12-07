@@ -19,7 +19,7 @@ import java.util.Collection;
 
 /**
  * Data Access Object to retrieve abilities (strength, wisdom, etc).
- * 
+ *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface AbilityDao {
@@ -35,4 +35,11 @@ public interface AbilityDao {
      * @return
      */
     Collection getAbilities();
+
+    /**
+     * get an ability by abbreviation.
+     * @param abbreviation
+     * @return
+     */
+    Ability getAbilityByAbbreviation(String abbreviation);
 }

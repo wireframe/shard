@@ -35,6 +35,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.binding.form.FormModel;
 import org.springframework.context.MessageSource;
 import org.springframework.richclient.application.PageComponentContext;
@@ -63,6 +65,7 @@ import com.codecrate.shard.ui.component.SearchComponent;
 import com.codecrate.shard.ui.form.FormFactory;
 
 public class ObjectManagerView extends AbstractView implements SearchComponent.SearchAction {
+    private static final Log LOG = LogFactory.getLog(ObjectManagerView.class);
     private static final Matcher ALWAYS_MATCH_MATCHER = new AlwaysMatchMatcher();
 
 	private JPanel centerPanel;
@@ -129,7 +132,15 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
     	if (selected.isEmpty()) {
     		return null;
     	}
-    	return selected.iterator().next();
+        if (1 != selected.size()) {
+            LOG.info("Multiple objects are selected.");
+            return null;
+        }
+    	return selected.get(0);
+    }
+
+    private Collection getSelectedObjects() {
+        return getSelectionModel().getSelected();
     }
 
     private JScrollPane getScrollPane() {
@@ -185,10 +196,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
     }
 
     private boolean isDeleteCommandEnabled() {
-        if (null == getSelectedObject()) {
-            return false;
-        }
-        return true;
+        return !getSelectedObjects().isEmpty();
     }
 
     private boolean isPropertiesCommandEnabled() {
@@ -310,9 +318,11 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
         public void execute() {
         	ConfirmationDialog dialog = new ConfirmationDialog(title, getWindowControl(), message) {
                 protected void onConfirm() {
-                    Object object = getSelectedObject();
-                    commandAdapter.deleteObject(object);
-                    getObjects().remove(object);
+                    for (Iterator selectedObjects = getSelectedObjects().iterator(); selectedObjects.hasNext();) {
+                        Object object = (Object) selectedObjects.next();
+                        commandAdapter.deleteObject(object);
+                    }
+                    getObjects().removeAll(getSelectedObjects());
                 }
             };
             dialog.showDialog();

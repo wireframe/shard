@@ -43,7 +43,7 @@ public class PcgenSkillLineHandler extends AbstractPcgenLineHandler {
     	boolean hasArmorCheckPenalty = getBooleanTagValue(ARMOR_CHECK_PENALTY_TAG_NAME, tags, false);
     	String abilityName = getStringTagValue(ABILITY_TAG_NAME, tags);
 
-    	Ability ability = abilityDao.getAbility(abilityName);
+    	Ability ability = abilityDao.getAbilityByAbbreviation(abilityName);
         Skill skill = skillFactory.createSkill(name, ability, isUsableUntrained, hasArmorCheckPenalty);
         return skillDao.saveSkill(skill);
     }

@@ -51,7 +51,7 @@ public class PcgenSkillLineHandlerTest extends TestCase {
 
         MockControl mockAbilityDao = MockControl.createControl(AbilityDao.class);
         AbilityDao abilityDao = (AbilityDao) mockAbilityDao.getMock();
-        abilityDao.getAbility("STR");
+        abilityDao.getAbilityByAbbreviation("STR");
         mockAbilityDao.setReturnValue(null);
         mockAbilityDao.replay();
 

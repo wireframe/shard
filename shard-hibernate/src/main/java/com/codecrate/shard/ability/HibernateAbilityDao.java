@@ -16,6 +16,7 @@
 package com.codecrate.shard.ability;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
@@ -30,6 +31,16 @@ public class HibernateAbilityDao extends HibernateDaoSupport implements AbilityD
             throw new IllegalArgumentException("Unable to find ability " + name);
         }
         return result;
+    }
+
+    public Ability getAbilityByAbbreviation(String abbreviation) {
+        for (Iterator abilities = getAbilities().iterator(); abilities.hasNext();) {
+            Ability ability = (Ability) abilities.next();
+            if (abbreviation.equals(ability.getAbbreviation())) {
+                return ability;
+            }
+        }
+        throw new IllegalArgumentException("Unable to find ability with abbreviation: " + abbreviation);
     }
 
     public Collection getAbilities() {
