@@ -76,35 +76,7 @@ public class SearchComponent {
 		if (queryText == null) {
 			queryText = new JTextField();
 			queryText.setColumns(10);
-			queryText.getDocument().addDocumentListener(new DocumentListener() {
-
-				public void changedUpdate(DocumentEvent event) {
-					processEvent(event);
-				}
-
-				public void insertUpdate(DocumentEvent event) {
-					processEvent(event);
-				}
-
-				public void removeUpdate(DocumentEvent event) {
-					processEvent(event);
-				}
-
-				private void processEvent(DocumentEvent event) {
-					Document document = event.getDocument();
-					try {
-						String value = document.getText(0, document.getLength()).trim();
-						if (0 < value.length()) {
-							TimerTask delaySearchTask = new DelaySearchTask(value);
-							timer.schedule(delaySearchTask, SEARCH_DELAY_MILLIS);
-						} else {
-							fireClear();
-						}
-					} catch (BadLocationException e) {
-						LOG.warn("Error getting search query", e);
-					}
-				}
-			});
+			queryText.getDocument().addDocumentListener(new SearchDocumentListener());
 		}
 		return queryText;
 	}
@@ -149,13 +121,36 @@ public class SearchComponent {
 		return clearButton;
 	}
 
+	private class SearchDocumentListener implements DocumentListener {
+		public void changedUpdate(DocumentEvent event) {
+			processEvent(event);
+		}
 
-	public interface SearchAction {
-		void search(String query);
-		
-		void clear();
+		public void insertUpdate(DocumentEvent event) {
+			processEvent(event);
+		}
+
+		public void removeUpdate(DocumentEvent event) {
+			processEvent(event);
+		}
+
+		private void processEvent(DocumentEvent event) {
+			Document document = event.getDocument();
+			try {
+				String value = document.getText(0, document.getLength()).trim();
+				if (0 < value.length()) {
+					TimerTask delaySearchTask = new DelaySearchTask(value);
+					timer.schedule(delaySearchTask, SEARCH_DELAY_MILLIS);
+				} else {
+					fireClear();
+				}
+			} catch (BadLocationException e) {
+				LOG.warn("Error getting search query", e);
+			}
+		}
 	}
-	
+
+
 	private class DelaySearchTask extends TimerTask {
         private final String currentInput;
 
@@ -169,4 +164,11 @@ public class SearchComponent {
 			}
         }
     }
+	
+
+	public interface SearchAction {
+		void search(String query);
+		
+		void clear();
+	}
 }
