@@ -152,10 +152,10 @@ public class SearchComponent {
 
 
 	private class DelaySearchTask extends TimerTask {
-        private final String currentInput;
+        private final String originalInput;
 
-		public DelaySearchTask(String currentInput) {
-			this.currentInput = currentInput;
+		public DelaySearchTask(String originalInput) {
+			this.originalInput = originalInput;
 		}
 		public void run() {
 			if (!hasInputChanged()) {
@@ -163,7 +163,7 @@ public class SearchComponent {
 			}
         }
         private boolean hasInputChanged() {
-            return !currentInput.equals(getQueryText().getText());
+            return !originalInput.equals(getQueryText().getText());
         }
     }
 	
