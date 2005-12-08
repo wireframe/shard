@@ -157,11 +157,13 @@ public class SearchComponent {
 		public DelaySearchTask(String currentInput) {
 			this.currentInput = currentInput;
 		}
-
 		public void run() {
-			if (currentInput.equals(getQueryText().getText())) {
+			if (!hasInputChanged()) {
 	            fireSearch();
 			}
+        }
+        private boolean hasInputChanged() {
+            return !currentInput.equals(getQueryText().getText());
         }
     }
 	
