@@ -18,6 +18,7 @@ package com.codecrate.shard.transfer.pcgen;
 import java.math.BigDecimal;
 import java.util.Map;
 
+import com.codecrate.shard.equipment.Currency;
 import com.codecrate.shard.equipment.DefaultCurrency;
 import com.codecrate.shard.equipment.Item;
 import com.codecrate.shard.equipment.ItemDao;
@@ -40,7 +41,15 @@ public class PcgenItemLineHandler extends AbstractPcgenLineHandler {
     	BigDecimal weight = new BigDecimal(getStringTagValue(WEIGHT_TAG_NAME, tags));
     	BigDecimal amount = new BigDecimal(getStringTagValue(COST_TAG_NAME, tags));
     	amount = amount.movePointRight(2);
-    	Money cost = new Money(amount, DefaultCurrency.COPPER, BigDecimal.ROUND_HALF_UP);
+    	Currency currency = DefaultCurrency.COPPER;
+    	if (amount.compareTo(new BigDecimal(100)) > 0) {
+    		amount = amount.movePointLeft(2);
+    		currency = DefaultCurrency.GOLD;
+    	} else if (amount.compareTo(new BigDecimal(10)) > 0) {
+    		amount = amount.movePointLeft(1);
+    		currency = DefaultCurrency.SILVER;
+    	}
+    	Money cost = new Money(amount, currency, BigDecimal.ROUND_HALF_UP);
 
         Item item = itemFactory.createItem(name, weight, cost);
         return itemDao.saveItem(item);
