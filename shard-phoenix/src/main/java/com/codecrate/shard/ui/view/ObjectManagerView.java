@@ -16,6 +16,7 @@
 package com.codecrate.shard.ui.view;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,7 +59,9 @@ import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.filechooser.DefaultFileFilter;
 import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.FormModelHelper;
+import org.springframework.richclient.progress.ProgressMonitor;
 import org.springframework.richclient.util.PopupMenuMouseListener;
+import org.springframework.richclient.util.SwingWorker;
 
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
@@ -382,10 +385,28 @@ public class ObjectManagerView extends AbstractView {
 
         public void execute() {
             if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(getWindowControl())) {
-                File selectedFile = fileChooser.getSelectedFile();
+            	ProgressMonitor progressMonitor = getStatusBar().getProgressMonitor();
+            	progressMonitor.taskStarted("Importing...", 0);
+            	final SwingWorker worker = new SwingWorker() { 
+            	    public Object construct() {
+            	    	getActiveWindow().getControl().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    	File selectedFile = fileChooser.getSelectedFile();
 
-                Collection results = commandAdapter.importObjects(selectedFile);
-                getFilteredObjects().addAll(results);
+                        return commandAdapter.importObjects(selectedFile);
+            	    }
+
+            	    public void finished() {
+            	    	getActiveWindow().getControl().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            	    }
+            	};
+            	worker.start();
+            	try {
+                	Collection results = (Collection) worker.get();
+                    getFilteredObjects().addAll(results);
+            	} catch (Exception e) {
+            		LOG.error("Error importing objects", e);
+            	}
+                progressMonitor.done();
             }
         }
     }
