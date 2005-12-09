@@ -16,6 +16,7 @@
 package com.codecrate.shard.ui.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -23,6 +24,8 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -31,9 +34,14 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -61,44 +69,46 @@ import ca.odell.glazedlists.swing.EventSelectionModel;
 
 import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
-import com.codecrate.shard.ui.component.SearchComponent;
 import com.codecrate.shard.ui.form.FormFactory;
 
-public class ObjectManagerView extends AbstractView implements SearchComponent.SearchAction {
+public class ObjectManagerView extends AbstractView {
     private static final Log LOG = LogFactory.getLog(ObjectManagerView.class);
     private static final Matcher ALWAYS_MATCH_MATCHER = new AlwaysMatchMatcher();
+    private static final int SEARCH_DELAY_MILLIS = 300;
 
 	private JPanel centerPanel;
+    private JTextField queryText;
+    private JButton searchButton;
+    private JButton clearButton;
+    private JPanel quickSearchPanel;
     private JScrollPane scrollPane;
     private JTable table;
     private GlazedTableModel model;
     private JPopupMenu popup;
 	private JButton newButton;
 
+    private Timer timer = new Timer();
     private final ObjectManagerCommandAdapter commandAdapter;
 	private final NewCommandExcecutor newCommand;
 	private final DeleteCommandExecutor deleteCommand;
 	private final PropertiesCommandExecutor propertiesCommand;
     private final ImportCommandExcecutor importCommand;
-	private final SearchComponent searchComponent;
 	private FilterList objects;
 	private EventSelectionModel selectionModel;
 
-	public ObjectManagerView(ObjectManagerCommandAdapter commandAdapter, FormFactory formFactory, SearchComponent searchComponent) {
-        this.searchComponent = searchComponent;
+
+	public ObjectManagerView(ObjectManagerCommandAdapter commandAdapter, FormFactory formFactory) {
 		this.commandAdapter = commandAdapter;
 		this.newCommand = new NewCommandExcecutor(formFactory);
         this.importCommand = new ImportCommandExcecutor();
 		this.propertiesCommand = new PropertiesCommandExecutor(formFactory);
 		this.deleteCommand = new DeleteCommandExecutor();
-
-		searchComponent.addSearchListener(this);
 	}
 
     protected JComponent createControl() {
         JPanel view = new JPanel(new BorderLayout());
         view.add(getCenterPanel(), BorderLayout.CENTER);
-        view.add(searchComponent.getPanel(), BorderLayout.NORTH);
+        view.add(getQuickSearchPanel(), BorderLayout.NORTH);
         return view;
     }
 
@@ -109,6 +119,56 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
             centerPanel.add(getNewButton(), null);
     	}
     	return centerPanel;
+    }
+
+    private JPanel getQuickSearchPanel() {
+        if (null == quickSearchPanel) {
+            quickSearchPanel = new JPanel();
+            quickSearchPanel.setSize(new Dimension(300, 40));
+            quickSearchPanel.add(getQueryText(), null);
+            quickSearchPanel.add(getSearchButton(), null);
+            quickSearchPanel.add(getClearButton(), null);
+        }
+        return quickSearchPanel;
+    }
+
+    private JTextField getQueryText() {
+        if (queryText == null) {
+            queryText = new JTextField();
+            queryText.setColumns(10);
+            queryText.getDocument().addDocumentListener(new SearchDocumentListener());
+        }
+        return queryText;
+    }
+
+    private JButton getSearchButton() {
+        if (searchButton == null) {
+            searchButton = new JButton();
+            searchButton.setText("Search");
+            searchButton.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent arg0) {
+                    fireSearch();
+                }
+
+            });
+        }
+        return searchButton;
+    }
+
+    private JButton getClearButton() {
+        if (clearButton == null) {
+            clearButton = new JButton();
+            clearButton.setText("Clear");
+            clearButton.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent arg0) {
+                    getQueryText().setText("");
+                }
+
+            });
+        }
+        return clearButton;
     }
 
     protected void registerLocalCommandExecutors(PageComponentContext context) {
@@ -209,13 +269,17 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 
     private JPopupMenu getPopupContextMenu() {
         if (null == popup) {
-            CommandGroup group = getWindowCommandManager().createCommandGroup("featsCommandGroup", new Object[] {
+            CommandGroup group = getWindowCommandManager().createCommandGroup( getCommandGroupName(), new Object[] {
                     GlobalCommandIds.PROPERTIES,
                     GlobalCommandIds.DELETE,
                     ShardCommandIds.NEW});
             popup = group.createPopupMenu();
         }
         return popup;
+    }
+
+    private String getCommandGroupName() {
+        return getDescriptor().getId() + "CommandGroup";
     }
 
     private GlazedTableModel getModel() {
@@ -225,8 +289,8 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
         return model;
     }
 
-	public void search(String query) {
-		final Collection searchResults = commandAdapter.searchObjects(query);
+	private void fireSearch() {
+		final Collection searchResults = commandAdapter.searchObjects(getQueryText().getText());
 		getObjects().setMatcher(new Matcher() {
 
 			public boolean matches(Object object) {
@@ -236,7 +300,7 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 		});
 	}
 
-	public void clear() {
+	private void fireClear() {
 		getObjects().setMatcher(ALWAYS_MATCH_MATCHER);
 	}
 
@@ -371,10 +435,56 @@ public class ObjectManagerView extends AbstractView implements SearchComponent.S
 
     }
 
+    private class SearchDocumentListener implements DocumentListener {
+        public void changedUpdate(DocumentEvent event) {
+            processEvent(event);
+        }
+
+        public void insertUpdate(DocumentEvent event) {
+            processEvent(event);
+        }
+
+        public void removeUpdate(DocumentEvent event) {
+            processEvent(event);
+        }
+
+        private void processEvent(DocumentEvent event) {
+            Document document = event.getDocument();
+            try {
+                String value = document.getText(0, document.getLength()).trim();
+                if (0 < value.length()) {
+                    TimerTask delaySearchTask = new DelaySearchTask(value);
+                    timer.schedule(delaySearchTask, SEARCH_DELAY_MILLIS);
+                } else {
+                    fireClear();
+                }
+            } catch (BadLocationException e) {
+                LOG.warn("Error getting search query", e);
+            }
+        }
+    }
+
+
+    private class DelaySearchTask extends TimerTask {
+        private final String originalInput;
+
+        public DelaySearchTask(String originalInput) {
+            this.originalInput = originalInput;
+        }
+        public void run() {
+            if (!hasInputChanged()) {
+                fireSearch();
+            }
+        }
+        private boolean hasInputChanged() {
+            return !originalInput.equals(getQueryText().getText());
+        }
+    }
+
     /**
      * unmodifiable table model to force users to use the "properties" dialog.
      */
-    public class ObjectManagerTableModel extends GlazedTableModel {
+    private class ObjectManagerTableModel extends GlazedTableModel {
 
         public ObjectManagerTableModel(FilterList objects, MessageSource messageSource, String[] columnNames) {
             super(objects, messageSource, columnNames);
