@@ -23,7 +23,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -41,6 +40,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
@@ -58,7 +58,6 @@ import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.filechooser.DefaultFileFilter;
 import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.FormModelHelper;
-import org.springframework.richclient.table.support.GlazedTableModel;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
 import ca.odell.glazedlists.BasicEventList;
@@ -72,6 +71,8 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
 import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
 import com.codecrate.shard.ui.form.FormFactory;
+import com.codecrate.shard.ui.table.ReadOnlyGlazedTableModel;
+import com.codecrate.shard.util.ComparableObjectComparator;
 
 public class ObjectManagerView extends AbstractView {
     private static final boolean SINGLE_COLUMN_SORT = false;
@@ -79,14 +80,14 @@ public class ObjectManagerView extends AbstractView {
     private static final Matcher ALWAYS_MATCH_MATCHER = new AlwaysMatchMatcher();
     private static final int SEARCH_DELAY_MILLIS = 300;
 
-	private JPanel centerPanel;
-    private JTextField queryText;
+    private JPanel quickSearchPanel;
+    private JTextField quickSearchInput;
     private JButton searchButton;
     private JButton clearButton;
-    private JPanel quickSearchPanel;
+	private JPanel centerPanel;
     private JScrollPane scrollPane;
     private JTable table;
-    private GlazedTableModel model;
+    private TableModel model;
     private JPopupMenu popup;
 	private JButton newButton;
 
@@ -127,7 +128,7 @@ public class ObjectManagerView extends AbstractView {
     }
 
     private void resetQuickSearchInput() {
-        getQueryText().setText("");
+        getQuickSearchInput().setText("");
     }
 
     private JPanel getCenterPanel() {
@@ -143,20 +144,20 @@ public class ObjectManagerView extends AbstractView {
         if (null == quickSearchPanel) {
             quickSearchPanel = new JPanel();
             quickSearchPanel.setSize(new Dimension(300, 40));
-            quickSearchPanel.add(getQueryText(), null);
+            quickSearchPanel.add(getQuickSearchInput(), null);
             quickSearchPanel.add(getSearchButton(), null);
             quickSearchPanel.add(getClearButton(), null);
         }
         return quickSearchPanel;
     }
 
-    private JTextField getQueryText() {
-        if (queryText == null) {
-            queryText = new JTextField();
-            queryText.setColumns(10);
-            queryText.getDocument().addDocumentListener(new SearchDocumentListener());
+    private JTextField getQuickSearchInput() {
+        if (quickSearchInput == null) {
+            quickSearchInput = new JTextField();
+            quickSearchInput.setColumns(10);
+            quickSearchInput.getDocument().addDocumentListener(new SearchDocumentListener());
         }
-        return queryText;
+        return quickSearchInput;
     }
 
     private JButton getSearchButton() {
@@ -181,7 +182,7 @@ public class ObjectManagerView extends AbstractView {
             clearButton.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent arg0) {
-                    getQueryText().setText("");
+                    getQuickSearchInput().setText("");
                 }
 
             });
@@ -242,21 +243,7 @@ public class ObjectManagerView extends AbstractView {
 
     private SortedList getSortedObjects() {
     	if (null == sortedObjects) {
-    		sortedObjects = new SortedList(getFilteredObjects(), new Comparator() {
-
-				public int compare(Object object1, Object object2) {
-					if (!(object1 instanceof Comparable)) {
-						LOG.warn("Table sorting only works with comparable objects");
-						return 0;
-					}
-					Comparable compare1 = (Comparable) object1;
-					Comparable compare2 = (Comparable) object2;
-					
-					return compare1.compareTo(compare2);
-				}
-    			
-    		});
-    	}
+    		sortedObjects = new SortedList(getFilteredObjects(), new ComparableObjectComparator());    	}
     	return sortedObjects;
     }
 
@@ -315,7 +302,7 @@ public class ObjectManagerView extends AbstractView {
         return getDescriptor().getId() + "CommandGroup";
     }
 
-    private GlazedTableModel getModel() {
+    private TableModel getModel() {
         if (null == model) {
             model = new ReadOnlyGlazedTableModel(getSortedObjects(), getMessageSource(), commandAdapter.getColumnNames());
         }
@@ -323,7 +310,7 @@ public class ObjectManagerView extends AbstractView {
     }
 
 	private void fireSearch() {
-		final Collection searchResults = commandAdapter.searchObjects(getQueryText().getText());
+		final Collection searchResults = commandAdapter.searchObjects(getQuickSearchInput().getText());
 		getFilteredObjects().setMatcher(new Matcher() {
 
 			public boolean matches(Object object) {
@@ -510,7 +497,7 @@ public class ObjectManagerView extends AbstractView {
             }
         }
         private boolean hasInputChanged() {
-            return !originalInput.equals(getQueryText().getText());
+            return !originalInput.equals(getQuickSearchInput().getText());
         }
     }
 }
