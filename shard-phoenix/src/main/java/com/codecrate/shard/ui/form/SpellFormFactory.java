@@ -22,22 +22,26 @@ import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 
-public class FeatForm extends AbstractForm {
-    private static final String PAGE_NAME = "featPage";
+public class SpellFormFactory extends AbstractFormFactory implements FormFactory {
 
-    public FeatForm(FormModel formModel) {
-        super(formModel, PAGE_NAME);
-    }
+	public AbstractForm createForm(FormModel formModel) {
+		return new SpellForm(formModel);
+	}
 
-    protected JComponent createFormControl() {
-        SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
+    public class SpellForm extends AbstractForm {
+        private static final String PAGE_NAME = "spellPage";
 
-        TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
-        formBuilder.add("name");
-        formBuilder.row();
-        formBuilder.add("type");
-        formBuilder.row();
-        formBuilder.addInScrollPane(bindingFactory.createBoundTextArea("summary", 5, 0));
-        return formBuilder.getForm();
+        public SpellForm(FormModel formModel) {
+            super(formModel, PAGE_NAME);
+        }
+
+        protected JComponent createFormControl() {
+            SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
+            TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
+            formBuilder.add("name");
+            formBuilder.row();
+            formBuilder.addInScrollPane(bindingFactory.createBoundTextArea("summary", 5, 0));
+            return formBuilder.getForm();
+        }
     }
 }

@@ -15,12 +15,34 @@
  */
 package com.codecrate.shard.ui.form;
 
+import javax.swing.JComponent;
+
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.form.AbstractForm;
+import org.springframework.richclient.form.builder.TableFormBuilder;
 
 public class RaceFormFactory extends AbstractFormFactory implements FormFactory {
 
 	public AbstractForm createForm(FormModel formModel) {
 		return new RaceForm(formModel);
 	}
+
+    public class RaceForm extends AbstractForm {
+        private static final String PAGE_NAME = "racePage";
+
+        public RaceForm(FormModel formModel) {
+            super(formModel, PAGE_NAME);
+        }
+
+        protected JComponent createFormControl() {
+            TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
+            formBuilder.add("name");
+            formBuilder.row();
+            formBuilder.add("levelAdjustment");
+            formBuilder.row();
+            formBuilder.add("baseSkillPointsPerLevel");
+
+            return formBuilder.getForm();
+        }
+    }
 }

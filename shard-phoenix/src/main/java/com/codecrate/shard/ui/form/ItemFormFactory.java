@@ -15,12 +15,33 @@
  */
 package com.codecrate.shard.ui.form;
 
+import javax.swing.JComponent;
+
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.form.AbstractForm;
+import org.springframework.richclient.form.builder.TableFormBuilder;
 
 public class ItemFormFactory extends AbstractFormFactory implements FormFactory {
 
 	public AbstractForm createForm(FormModel formModel) {
 		return new ItemForm(formModel);
 	}
+
+    public class ItemForm extends AbstractForm {
+        private static final String PAGE_NAME = "itemPage";
+
+        public ItemForm(FormModel formModel) {
+            super(formModel, PAGE_NAME);
+        }
+
+        protected JComponent createFormControl() {
+            TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
+            formBuilder.add("name");
+            formBuilder.row();
+            formBuilder.add("weight");
+            formBuilder.row();
+            formBuilder.add("costString");
+            return formBuilder.getForm();
+        }
+    }
 }

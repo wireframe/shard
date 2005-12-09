@@ -15,8 +15,14 @@
  */
 package com.codecrate.shard.ui.form;
 
+import java.util.Collection;
+
+import javax.swing.JComponent;
+
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.form.AbstractForm;
+import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
+import org.springframework.richclient.form.builder.TableFormBuilder;
 
 import com.codecrate.shard.ability.AbilityDao;
 
@@ -31,4 +37,31 @@ public class SkillFormFactory extends AbstractFormFactory implements FormFactory
 	public AbstractForm createForm(FormModel formModel) {
 		return new SkillForm(formModel, abilityDao);
 	}
+
+    public class SkillForm extends AbstractForm {
+        private static final String PAGE_NAME = "skillPage";
+        private final AbilityDao abilityDao;
+
+        public SkillForm(FormModel formModel, AbilityDao abilityDao) {
+            super(formModel, PAGE_NAME);
+            this.abilityDao = abilityDao;
+        }
+
+        protected JComponent createFormControl() {
+            SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
+            TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
+            formBuilder.add("name");
+            formBuilder.row();
+            formBuilder.add(bindingFactory.createBoundComboBox("ability", getAbilities()));
+            formBuilder.row();
+            formBuilder.add("penalizedWithArmor");
+            formBuilder.row();
+            formBuilder.add("usableUntrained");
+            return formBuilder.getForm();
+        }
+
+        private Collection getAbilities() {
+            return abilityDao.getAbilities();
+        }
+    }
 }
