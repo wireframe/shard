@@ -72,7 +72,7 @@ import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
 import com.codecrate.shard.ui.form.FormFactory;
 import com.codecrate.shard.ui.table.ReadOnlyGlazedTableModel;
-import com.codecrate.shard.util.ComparableObjectComparator;
+import com.codecrate.shard.util.ComparableComparator;
 
 public class ObjectManagerView extends AbstractView {
     private static final boolean SINGLE_COLUMN_SORT = false;
@@ -243,7 +243,7 @@ public class ObjectManagerView extends AbstractView {
 
     private SortedList getSortedObjects() {
     	if (null == sortedObjects) {
-    		sortedObjects = new SortedList(getFilteredObjects(), new ComparableObjectComparator());    	}
+    		sortedObjects = new SortedList(getFilteredObjects(), new ComparableComparator());    	}
     	return sortedObjects;
     }
 

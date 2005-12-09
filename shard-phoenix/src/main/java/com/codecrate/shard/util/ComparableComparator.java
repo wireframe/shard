@@ -20,8 +20,8 @@ import java.util.Comparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class ComparableObjectComparator implements Comparator {
-	private static final Log LOG = LogFactory.getLog(ComparableObjectComparator.class);
+public class ComparableComparator implements Comparator {
+	private static final Log LOG = LogFactory.getLog(ComparableComparator.class);
 
 	public int compare(Object object1, Object object2) {
 		if (!(object1 instanceof Comparable)) {
