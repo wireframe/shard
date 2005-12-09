@@ -112,6 +112,21 @@ public class ObjectManagerView extends AbstractView {
         return view;
     }
 
+    protected void registerLocalCommandExecutors(PageComponentContext context) {
+        context.register(GlobalCommandIds.PROPERTIES, propertiesCommand);
+        context.register(GlobalCommandIds.DELETE, deleteCommand);
+        context.register(ShardCommandIds.NEW, newCommand);
+        context.register(ShardCommandIds.IMPORT, importCommand);
+    }
+
+    public void componentFocusLost() {
+        resetQuickSearchInput();
+    }
+
+    private void resetQuickSearchInput() {
+        getQueryText().setText("");
+    }
+
     private JPanel getCenterPanel() {
     	if (null == centerPanel) {
     		centerPanel = new JPanel();
@@ -169,13 +184,6 @@ public class ObjectManagerView extends AbstractView {
             });
         }
         return clearButton;
-    }
-
-    protected void registerLocalCommandExecutors(PageComponentContext context) {
-        context.register(GlobalCommandIds.PROPERTIES, propertiesCommand);
-        context.register(GlobalCommandIds.DELETE, deleteCommand);
-        context.register(ShardCommandIds.NEW, newCommand);
-        context.register(ShardCommandIds.IMPORT, importCommand);
     }
 
 	private FilterList getObjects() {
