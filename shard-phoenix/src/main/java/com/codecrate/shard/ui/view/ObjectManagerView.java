@@ -23,6 +23,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -46,7 +47,6 @@ import javax.swing.text.Document;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.binding.form.FormModel;
-import org.springframework.context.MessageSource;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
@@ -65,14 +65,17 @@ import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.FilterList;
 import ca.odell.glazedlists.Matcher;
+import ca.odell.glazedlists.SortedList;
 import ca.odell.glazedlists.swing.EventSelectionModel;
+import ca.odell.glazedlists.swing.TableComparatorChooser;
 
 import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
 import com.codecrate.shard.ui.form.FormFactory;
 
 public class ObjectManagerView extends AbstractView {
-    private static final Log LOG = LogFactory.getLog(ObjectManagerView.class);
+    private static final boolean SINGLE_COLUMN_SORT = false;
+	private static final Log LOG = LogFactory.getLog(ObjectManagerView.class);
     private static final Matcher ALWAYS_MATCH_MATCHER = new AlwaysMatchMatcher();
     private static final int SEARCH_DELAY_MILLIS = 300;
 
@@ -94,8 +97,8 @@ public class ObjectManagerView extends AbstractView {
 	private final PropertiesCommandExecutor propertiesCommand;
     private final ImportCommandExcecutor importCommand;
 	private FilterList objects;
+	private SortedList sortedObjects;
 	private EventSelectionModel selectionModel;
-
 
 	public ObjectManagerView(ObjectManagerCommandAdapter commandAdapter, FormFactory formFactory) {
 		this.commandAdapter = commandAdapter;
@@ -186,7 +189,7 @@ public class ObjectManagerView extends AbstractView {
         return clearButton;
     }
 
-	private FilterList getObjects() {
+	private FilterList getFilteredObjects() {
 		if (null == objects) {
 			EventList tempObjects = new BasicEventList();
 			tempObjects.addAll(commandAdapter.getObjects());
@@ -231,13 +234,35 @@ public class ObjectManagerView extends AbstractView {
                     }
                 }
             });
+            
+            new TableComparatorChooser(table, getSortedObjects(), SINGLE_COLUMN_SORT);
         }
         return table;
     }
 
+    private SortedList getSortedObjects() {
+    	if (null == sortedObjects) {
+    		sortedObjects = new SortedList(getFilteredObjects(), new Comparator() {
+
+				public int compare(Object object1, Object object2) {
+					if (!(object1 instanceof Comparable)) {
+						LOG.warn("Table sorting only works with comparable objects");
+						return 0;
+					}
+					Comparable compare1 = (Comparable) object1;
+					Comparable compare2 = (Comparable) object2;
+					
+					return compare1.compareTo(compare2);
+				}
+    			
+    		});
+    	}
+    	return sortedObjects;
+    }
+
     private EventSelectionModel getSelectionModel() {
     	if (null == selectionModel) {
-    		selectionModel = new EventSelectionModel(getObjects());
+    		selectionModel = new EventSelectionModel(getFilteredObjects());
     	    selectionModel.setSelectionMode(EventSelectionModel.MULTIPLE_INTERVAL_SELECTION_DEFENSIVE);
     	    selectionModel.addListSelectionListener(new ListSelectionListener() {
 
@@ -292,14 +317,14 @@ public class ObjectManagerView extends AbstractView {
 
     private GlazedTableModel getModel() {
         if (null == model) {
-            model = new ObjectManagerTableModel(getObjects(), getMessageSource(), commandAdapter.getColumnNames());
+            model = new ReadOnlyGlazedTableModel(getSortedObjects(), getMessageSource(), commandAdapter.getColumnNames());
         }
         return model;
     }
 
 	private void fireSearch() {
 		final Collection searchResults = commandAdapter.searchObjects(getQueryText().getText());
-		getObjects().setMatcher(new Matcher() {
+		getFilteredObjects().setMatcher(new Matcher() {
 
 			public boolean matches(Object object) {
 				return searchResults.contains(object);
@@ -309,7 +334,7 @@ public class ObjectManagerView extends AbstractView {
 	}
 
 	private void fireClear() {
-		getObjects().setMatcher(ALWAYS_MATCH_MATCHER);
+		getFilteredObjects().setMatcher(ALWAYS_MATCH_MATCHER);
 	}
 
 
@@ -341,7 +366,7 @@ public class ObjectManagerView extends AbstractView {
                 protected boolean onFinish() {
                     formModel.commit();
                     commandAdapter.saveObject(object);
-                    getObjects().add(object);
+                    getFilteredObjects().add(object);
                     return true;
                 }
             };
@@ -373,7 +398,7 @@ public class ObjectManagerView extends AbstractView {
                 File selectedFile = fileChooser.getSelectedFile();
 
                 Collection results = commandAdapter.importObjects(selectedFile);
-                getObjects().addAll(results);
+                getFilteredObjects().addAll(results);
             }
         }
     }
@@ -394,7 +419,7 @@ public class ObjectManagerView extends AbstractView {
                         Object object = (Object) selectedObjects.next();
                         commandAdapter.deleteObject(object);
                     }
-                    getObjects().removeAll(getSelectedObjects());
+                    getFilteredObjects().removeAll(getSelectedObjects());
                 }
             };
             dialog.showDialog();
@@ -415,7 +440,7 @@ public class ObjectManagerView extends AbstractView {
 
         public void execute() {
             object = getSelectedObject();
-            index = getObjects().indexOf(object);
+            index = getFilteredObjects().indexOf(object);
             form = formFactory.createForm(object);
             page = new FormBackedDialogPage(form);
 
@@ -427,7 +452,7 @@ public class ObjectManagerView extends AbstractView {
                 protected boolean onFinish() {
                 	form.getFormModel().commit();
                     commandAdapter.updateObject(object);
-                    getObjects().set(index, object);
+                    getFilteredObjects().set(index, object);
                     return true;
                 }
             };
@@ -487,20 +512,5 @@ public class ObjectManagerView extends AbstractView {
         private boolean hasInputChanged() {
             return !originalInput.equals(getQueryText().getText());
         }
-    }
-
-    /**
-     * unmodifiable table model to force users to use the "properties" dialog.
-     */
-    private class ObjectManagerTableModel extends GlazedTableModel {
-
-        public ObjectManagerTableModel(FilterList objects, MessageSource messageSource, String[] columnNames) {
-            super(objects, messageSource, columnNames);
-        }
-
-        protected boolean isEditable(Object arg0, int arg1) {
-            return false;
-        }
-
     }
 }
