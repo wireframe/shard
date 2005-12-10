@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Timer;
@@ -60,6 +61,7 @@ import org.springframework.richclient.filechooser.DefaultFileFilter;
 import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.FormModelHelper;
 import org.springframework.richclient.progress.ProgressMonitor;
+import org.springframework.richclient.progress.StatusBar;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 import org.springframework.richclient.util.SwingWorker;
 
@@ -238,7 +240,7 @@ public class ObjectManagerView extends AbstractView {
                     }
                 }
             });
-            
+
             new TableComparatorChooser(table, getSortedObjects(), SINGLE_COLUMN_SORT);
         }
         return table;
@@ -385,28 +387,28 @@ public class ObjectManagerView extends AbstractView {
 
         public void execute() {
             if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(getWindowControl())) {
-            	ProgressMonitor progressMonitor = getStatusBar().getProgressMonitor();
-            	progressMonitor.taskStarted("Importing...", 0);
-            	final SwingWorker worker = new SwingWorker() { 
+            	final ProgressMonitor progressMonitor = getStatusBar().getProgressMonitor();
+            	final SwingWorker worker = new SwingWorker() {
+                    Collection results = new ArrayList();
             	    public Object construct() {
-            	    	getActiveWindow().getControl().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                        setCursor(Cursor.WAIT_CURSOR);
+                        progressMonitor.taskStarted("Importing...", StatusBar.UNKNOWN);
                     	File selectedFile = fileChooser.getSelectedFile();
-
-                        return commandAdapter.importObjects(selectedFile);
+                        results = commandAdapter.importObjects(selectedFile);
+                        return results;
             	    }
 
-            	    public void finished() {
-            	    	getActiveWindow().getControl().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                    public void finished() {
+            	    	setCursor(Cursor.DEFAULT_CURSOR);
+                        getFilteredObjects().addAll(results);
+                        progressMonitor.done();
             	    }
+
+                    private void setCursor(int cursor) {
+                        getActiveWindow().getControl().setCursor(Cursor.getPredefinedCursor(cursor));
+                    }
             	};
             	worker.start();
-            	try {
-                	Collection results = (Collection) worker.get();
-                    getFilteredObjects().addAll(results);
-            	} catch (Exception e) {
-            		LOG.error("Error importing objects", e);
-            	}
-                progressMonitor.done();
             }
         }
     }
