@@ -16,7 +16,6 @@
 package com.codecrate.shard.ui.view;
 
 import java.awt.BorderLayout;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -60,6 +59,7 @@ import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.filechooser.DefaultFileFilter;
 import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.FormModelHelper;
+import org.springframework.richclient.progress.BusyIndicator;
 import org.springframework.richclient.progress.ProgressMonitor;
 import org.springframework.richclient.progress.StatusBar;
 import org.springframework.richclient.util.PopupMenuMouseListener;
@@ -391,7 +391,7 @@ public class ObjectManagerView extends AbstractView {
             	final SwingWorker worker = new SwingWorker() {
                     Collection results = new ArrayList();
             	    public Object construct() {
-                        setCursor(Cursor.WAIT_CURSOR);
+                        BusyIndicator.showAt(getWindowControl());
                         progressMonitor.taskStarted("Importing...", StatusBar.UNKNOWN);
                     	File selectedFile = fileChooser.getSelectedFile();
                         results = commandAdapter.importObjects(selectedFile);
@@ -399,14 +399,10 @@ public class ObjectManagerView extends AbstractView {
             	    }
 
                     public void finished() {
-            	    	setCursor(Cursor.DEFAULT_CURSOR);
+                        BusyIndicator.clearAt(getWindowControl());
                         getFilteredObjects().addAll(results);
                         progressMonitor.done();
             	    }
-
-                    private void setCursor(int cursor) {
-                        getActiveWindow().getControl().setCursor(Cursor.getPredefinedCursor(cursor));
-                    }
             	};
             	worker.start();
             }
