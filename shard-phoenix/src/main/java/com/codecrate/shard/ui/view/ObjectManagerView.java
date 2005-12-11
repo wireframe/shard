@@ -22,7 +22,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Timer;
@@ -63,7 +62,6 @@ import org.springframework.richclient.progress.BusyIndicator;
 import org.springframework.richclient.progress.ProgressMonitor;
 import org.springframework.richclient.progress.StatusBar;
 import org.springframework.richclient.util.PopupMenuMouseListener;
-import org.springframework.richclient.util.SwingWorker;
 
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
@@ -78,6 +76,9 @@ import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
 import com.codecrate.shard.ui.form.FormFactory;
 import com.codecrate.shard.ui.table.ReadOnlyGlazedTableModel;
 import com.codecrate.shard.util.ComparableComparator;
+
+import foxtrot.Task;
+import foxtrot.Worker;
 
 public class ObjectManagerView extends AbstractView {
     private static final boolean SINGLE_COLUMN_SORT = false;
@@ -329,6 +330,28 @@ public class ObjectManagerView extends AbstractView {
 		getFilteredObjects().setMatcher(ALWAYS_MATCH_MATCHER);
 	}
 
+    /**
+     * @param description
+     * @param task
+     * @return null if error
+     */
+    private Object executeBlockingTaskInBackground(String description, Task task) {
+        Object result = null;
+        ProgressMonitor progressMonitor = getStatusBar().getProgressMonitor();
+        BusyIndicator.showAt(getWindowControl());
+        progressMonitor.taskStarted(description, StatusBar.UNKNOWN);
+
+        try {
+            result = Worker.post(task);
+        } catch (Exception e) {
+            LOG.error("Error running background task.", e);
+        }
+
+        BusyIndicator.clearAt(getWindowControl());
+        progressMonitor.done();
+
+        return result;
+    }
 
     private class NewCommandExcecutor extends AbstractActionCommandExecutor {
         private Object object;
@@ -387,24 +410,16 @@ public class ObjectManagerView extends AbstractView {
 
         public void execute() {
             if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(getWindowControl())) {
-            	final ProgressMonitor progressMonitor = getStatusBar().getProgressMonitor();
-            	final SwingWorker worker = new SwingWorker() {
-                    Collection results = new ArrayList();
-            	    public Object construct() {
-                        BusyIndicator.showAt(getWindowControl());
-                        progressMonitor.taskStarted("Importing...", StatusBar.UNKNOWN);
-                    	File selectedFile = fileChooser.getSelectedFile();
-                        results = commandAdapter.importObjects(selectedFile);
-                        return results;
-            	    }
-
-                    public void finished() {
-                        BusyIndicator.clearAt(getWindowControl());
-                        getFilteredObjects().addAll(results);
-                        progressMonitor.done();
-            	    }
-            	};
-            	worker.start();
+                final File selectedFile = fileChooser.getSelectedFile();
+                Task importTask = new Task() {
+                    public Object run() {
+                        return commandAdapter.importObjects(selectedFile);
+                    }
+                };
+                Collection results = (Collection) executeBlockingTaskInBackground("Importing...", importTask);
+                if (null != results) {
+                    getFilteredObjects().addAll(results);
+                }
             }
         }
     }
@@ -421,10 +436,18 @@ public class ObjectManagerView extends AbstractView {
         public void execute() {
         	ConfirmationDialog dialog = new ConfirmationDialog(title, getWindowControl(), message) {
                 protected void onConfirm() {
-                    for (Iterator selectedObjects = getSelectedObjects().iterator(); selectedObjects.hasNext();) {
-                        Object object = (Object) selectedObjects.next();
-                        commandAdapter.deleteObject(object);
-                    }
+                    Task deleteTask = new Task() {
+
+                        public Object run() throws Exception {
+                            for (Iterator selectedObjects = getSelectedObjects().iterator(); selectedObjects.hasNext();) {
+                                Object object = (Object) selectedObjects.next();
+                                commandAdapter.deleteObject(object);
+                            }
+                            return null;
+                        }
+
+                    };
+                    executeBlockingTaskInBackground("Deleting...", deleteTask);
                     getFilteredObjects().removeAll(getSelectedObjects());
                 }
             };
