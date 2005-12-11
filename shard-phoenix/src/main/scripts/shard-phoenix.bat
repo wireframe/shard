@@ -1,1 +1,1 @@
-java -classpath "." -jar ./shard-phoenix-0.3.0.jar
+java -classpath "." -jar ./shard-phoenix-0.4.0-SNAPSHOT.jar
