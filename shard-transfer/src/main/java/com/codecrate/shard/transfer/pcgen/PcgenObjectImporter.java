@@ -34,6 +34,9 @@ import com.codecrate.shard.transfer.ObjectImporter;
 
 public class PcgenObjectImporter implements ObjectImporter {
 	private static final String PCGEN_LST_FILE_EXTENSION = "lst";
+    private static final String SOURCE_NAME_TAG_NAME = "SOURCELONG";
+    private static final String SOURCE_ABBREVIATION_TAG_NAME = "SOURCESHORT";
+    private static final String SOURCE_URL_TAG_NAME = "SOURCEWEB";
 
     private static final Log LOG = LogFactory.getLog(PcgenObjectImporter.class);
 
@@ -57,7 +60,9 @@ public class PcgenObjectImporter implements ObjectImporter {
 
             while (reader.ready()) {
 			    String line = reader.readLine();
-			    if (isUsableLine(line)) {
+                if (isSourceLine(line)) {
+                    handleSourceLine(line);
+                } else if (!isEmptyLine(line)) {
 			    	try {
 			            results.add(handleLine(line));
 			    	} catch (Exception e) {
@@ -72,6 +77,21 @@ public class PcgenObjectImporter implements ObjectImporter {
 		}
 
         return results;
+    }
+
+    private void handleSourceLine(String line) {
+        Map tags = new HashMap();
+        StringTokenizer tokens = new StringTokenizer(line, "|");
+        while (tokens.hasMoreTokens()) {
+            String token = tokens.nextToken();
+            int colonIndex = token.indexOf(":");
+            String tagName = token.substring(0, colonIndex);
+            String tagValue = token.substring(colonIndex + 1, token.length());
+
+            tags.put(tagName, tagValue);
+        }
+
+        String name = (String) tags.get(SOURCE_NAME_TAG_NAME);
     }
 
     private void closeReader(BufferedReader reader) {
@@ -103,11 +123,11 @@ public class PcgenObjectImporter implements ObjectImporter {
         return lineHandler.handleParsedLine(name, tags);
     }
 
-	private boolean isUsableLine(String value) {
-        return (!isEmpty(value) && !value.startsWith("SOURCE"));
+    private boolean isSourceLine(String value) {
+        return value.startsWith("SOURCE");
     }
 
-    private boolean isEmpty(String value) {
+    private boolean isEmptyLine(String value) {
         return (null == value || value.trim().length() < 1  || value.startsWith("#"));
     }
 
