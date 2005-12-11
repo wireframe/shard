@@ -22,7 +22,7 @@ import com.codecrate.shard.character.prereq.CharacterPrerequisite;
 import com.codecrate.shard.character.prereq.FeatPrerequisite;
 import com.codecrate.shard.character.prereq.NullPrerequisite;
 
-public class DefaultFeat implements Feat {
+public class DefaultFeat implements Feat, Comparable {
     public static final DefaultFeat ARMOR_PROFICIENCY_LIGHT= new DefaultFeat("Armor Proficiency (Light)",
             "General", "",
             new NullPrerequisite());
@@ -81,6 +81,11 @@ public class DefaultFeat implements Feat {
     	return new EqualsBuilder()
 	    	.append(name, target.name)
 	    	.isEquals();
+    }
+
+    public int compareTo(Object object) {
+        DefaultFeat feat = (DefaultFeat) object;
+        return name.compareTo(feat.name);
     }
 
     public String getName() {

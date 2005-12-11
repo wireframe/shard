@@ -24,10 +24,10 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 /**
  * Default implementation of an item.
  * adds id field to be persistable.
- * 
+ *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DefaultItem implements Item {
+public class DefaultItem implements Item, Comparable {
 	private String id;
     private BigDecimal weight;
     private Money cost;
@@ -50,7 +50,7 @@ public class DefaultItem implements Item {
 		this.weight = weight;
         this.cost = money;
     }
-    
+
     public String toString() {
     	return name;
     }
@@ -60,25 +60,30 @@ public class DefaultItem implements Item {
     	.append(name)
     	.toHashCode();
     }
-    
+
     public boolean equals(Object object) {
     	if (this == object) {
     		return true;
     	}
-    	
+
     	if (!(object instanceof DefaultItem)) {
     		return false;
     	}
     	DefaultItem target = (DefaultItem) object;
     	return new EqualsBuilder()
 	    	.append(name, target.name)
-	    	.isEquals();    	
+	    	.isEquals();
+    }
+
+    public int compareTo(Object object) {
+        DefaultItem item = (DefaultItem) object;
+        return name.compareTo(item.name);
     }
 
     public String getName() {
     	return name;
     }
-    
+
     public BigDecimal getWeight() {
         return weight;
     }
@@ -98,7 +103,7 @@ public class DefaultItem implements Item {
 	public void setWeight(BigDecimal weight) {
 		this.weight = weight;
 	}
-	
+
 	/**
 	 * @deprecated remove when spring-rcp binder created
 	 * @param cost
@@ -110,7 +115,7 @@ public class DefaultItem implements Item {
 			throw new IllegalArgumentException("Unable to parse input to Money: " + cost);
 		}
 	}
-	
+
 	/**
 	 * @deprecated remove when spring-rcp binder created.
 	 * @return

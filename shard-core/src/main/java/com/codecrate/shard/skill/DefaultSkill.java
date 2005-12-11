@@ -27,8 +27,8 @@ import com.codecrate.shard.ability.DefaultAbility;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek </a>
  */
-public class DefaultSkill implements Skill {
-    
+public class DefaultSkill implements Skill, Comparable {
+
     public static final Skill APPRAISE = new DefaultSkill("Appraise", true,
             DefaultAbility.INTELLIGENCE, false);
 
@@ -138,9 +138,9 @@ public class DefaultSkill implements Skill {
     /**
      * hibernate constructor.
      */
-    private DefaultSkill() { 
+    private DefaultSkill() {
     }
-    
+
     public DefaultSkill(String name, boolean usableUntrained, Ability ability,
             boolean armorPenalty) {
         this.name = name;
@@ -152,29 +152,34 @@ public class DefaultSkill implements Skill {
     public String toString() {
         return name;
     }
-    
+
     public int hashCode() {
     	return new HashCodeBuilder(3, 7).append(name).toHashCode();
     }
-    
+
     public boolean equals(Object object) {
     	if (this == object) {
     		return true;
     	}
-    	
+
     	if (!(object instanceof DefaultSkill)) {
     		return false;
     	}
     	DefaultSkill target = (DefaultSkill) object;
     	return new EqualsBuilder()
 	    	.append(name, target.name)
-	    	.isEquals();    	
+	    	.isEquals();
     }
-    
+
+    public int compareTo(Object object) {
+        DefaultSkill skill = (DefaultSkill) object;
+        return name.compareTo(skill.name);
+    }
+
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
     	this.name = name;
     }
@@ -200,7 +205,7 @@ public class DefaultSkill implements Skill {
     public boolean isPenalizedWithArmor() {
         return penalizedWithArmor;
     }
-    
+
     public void setPenalizedWithArmor(boolean value) {
     	this.penalizedWithArmor = value;
     }

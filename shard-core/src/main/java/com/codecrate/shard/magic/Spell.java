@@ -3,7 +3,7 @@ package com.codecrate.shard.magic;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-public class Spell {
+public class Spell implements Comparable {
     private String id;
     private String name;
     private String summary;
@@ -39,6 +39,11 @@ public class Spell {
         return new EqualsBuilder()
             .append(name, target.name)
             .isEquals();
+    }
+
+    public int compareTo(Object object) {
+        Spell target = (Spell) object;
+        return name.compareTo(target.name);
     }
 
     public String getName() {
