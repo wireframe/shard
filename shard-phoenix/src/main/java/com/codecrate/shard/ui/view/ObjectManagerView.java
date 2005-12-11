@@ -36,6 +36,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
@@ -77,7 +78,7 @@ import com.codecrate.shard.ui.form.FormFactory;
 import com.codecrate.shard.ui.table.ReadOnlyGlazedTableModel;
 import com.codecrate.shard.util.ComparableComparator;
 
-import foxtrot.Task;
+import foxtrot.Job;
 import foxtrot.Worker;
 
 public class ObjectManagerView extends AbstractView {
@@ -119,6 +120,7 @@ public class ObjectManagerView extends AbstractView {
         JPanel view = new JPanel(new BorderLayout());
         view.add(getCenterPanel(), BorderLayout.CENTER);
         view.add(getQuickSearchPanel(), BorderLayout.NORTH);
+
         return view;
     }
 
@@ -198,12 +200,28 @@ public class ObjectManagerView extends AbstractView {
 
 	private FilterList getFilteredObjects() {
 		if (null == objects) {
-			EventList tempObjects = new BasicEventList();
-			tempObjects.addAll(commandAdapter.getObjects());
-			objects = new FilterList(tempObjects, ALWAYS_MATCH_MATCHER);
+			objects = new FilterList(new BasicEventList(), ALWAYS_MATCH_MATCHER);
+            loadObjects();
 		}
 		return objects;
 	}
+
+    private void loadObjects() {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                Job loadTask = new Job() {
+
+                    public Object run() {
+                        getFilteredObjects().addAll(commandAdapter.getObjects());
+                        return null;
+                    }
+
+                };
+                executeBlockingJobInBackground("Loading...", loadTask);
+            }
+
+        });
+    }
 
     private Object getSelectedObject() {
     	EventList selected = getSelectionModel().getSelected();
@@ -211,7 +229,6 @@ public class ObjectManagerView extends AbstractView {
     		return null;
     	}
         if (1 != selected.size()) {
-            LOG.info("Multiple objects are selected.");
             return null;
         }
     	return selected.get(0);
@@ -249,7 +266,8 @@ public class ObjectManagerView extends AbstractView {
 
     private SortedList getSortedObjects() {
     	if (null == sortedObjects) {
-    		sortedObjects = new SortedList(getFilteredObjects(), new ComparableComparator());    	}
+    		sortedObjects = new SortedList(getFilteredObjects(), new ComparableComparator());
+    	}
     	return sortedObjects;
     }
 
@@ -330,22 +348,12 @@ public class ObjectManagerView extends AbstractView {
 		getFilteredObjects().setMatcher(ALWAYS_MATCH_MATCHER);
 	}
 
-    /**
-     * @param description
-     * @param task
-     * @return null if error
-     */
-    private Object executeBlockingTaskInBackground(String description, Task task) {
-        Object result = null;
+    private Object executeBlockingJobInBackground(String description, Job job) {
         ProgressMonitor progressMonitor = getStatusBar().getProgressMonitor();
         BusyIndicator.showAt(getWindowControl());
         progressMonitor.taskStarted(description, StatusBar.UNKNOWN);
 
-        try {
-            result = Worker.post(task);
-        } catch (Exception e) {
-            LOG.error("Error running background task.", e);
-        }
+        Object result = Worker.post(job);
 
         BusyIndicator.clearAt(getWindowControl());
         progressMonitor.done();
@@ -411,15 +419,13 @@ public class ObjectManagerView extends AbstractView {
         public void execute() {
             if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(getWindowControl())) {
                 final File selectedFile = fileChooser.getSelectedFile();
-                Task importTask = new Task() {
+                Job importTask = new Job() {
                     public Object run() {
-                        return commandAdapter.importObjects(selectedFile);
+                        getFilteredObjects().addAll(commandAdapter.importObjects(selectedFile));
+                        return null;
                     }
                 };
-                Collection results = (Collection) executeBlockingTaskInBackground("Importing...", importTask);
-                if (null != results) {
-                    getFilteredObjects().addAll(results);
-                }
+                executeBlockingJobInBackground("Importing...", importTask);
             }
         }
     }
@@ -436,9 +442,9 @@ public class ObjectManagerView extends AbstractView {
         public void execute() {
         	ConfirmationDialog dialog = new ConfirmationDialog(title, getWindowControl(), message) {
                 protected void onConfirm() {
-                    Task deleteTask = new Task() {
+                    Job deleteTask = new Job() {
 
-                        public Object run() throws Exception {
+                        public Object run() {
                             for (Iterator selectedObjects = getSelectedObjects().iterator(); selectedObjects.hasNext();) {
                                 Object object = (Object) selectedObjects.next();
                                 commandAdapter.deleteObject(object);
@@ -447,7 +453,7 @@ public class ObjectManagerView extends AbstractView {
                         }
 
                     };
-                    executeBlockingTaskInBackground("Deleting...", deleteTask);
+                    executeBlockingJobInBackground("Deleting...", deleteTask);
                     getFilteredObjects().removeAll(getSelectedObjects());
                 }
             };
