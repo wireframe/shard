@@ -35,7 +35,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -244,7 +243,6 @@ public class ObjectManagerView extends AbstractView {
     private JTable getTable() {
         if (null == table) {
         	table = new JTable(getModel());
-            table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             table.setSelectionModel(getSelectionModel());
             table.addMouseListener(new PopupMenuMouseListener(getPopupContextMenu()));
             table.addMouseListener(new MouseAdapter() {
@@ -277,7 +275,6 @@ public class ObjectManagerView extends AbstractView {
                     deleteCommand.setEnabled(isDeleteCommandEnabled());
                     propertiesCommand.setEnabled(isPropertiesCommandEnabled());
                 }
-
             });
     	}
     	return selectionModel;
@@ -336,7 +333,6 @@ public class ObjectManagerView extends AbstractView {
 			public boolean matches(Object object) {
 				return searchResults.contains(object);
 			}
-
 		});
 	}
 
@@ -447,7 +443,6 @@ public class ObjectManagerView extends AbstractView {
                             }
                             return null;
                         }
-
                     };
                     executeBlockingJobInBackground("Deleting...", deleteTask);
                     getFilteredObjects().removeAll(getSelectedObjects());
