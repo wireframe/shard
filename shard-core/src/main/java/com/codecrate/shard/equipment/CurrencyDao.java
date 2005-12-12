@@ -29,7 +29,19 @@ public class CurrencyDao {
 		}
         throw new IllegalArgumentException("Unknown currency code: " + currencyCode);
     }
-    
+
+    public Currency getLowestValueCurrency() {
+    	Currency cheapestCurrency = null;
+    	for (Iterator it = getCurrencies().iterator(); it.hasNext();) {
+			Currency currency = (Currency) it.next();
+			if (cheapestCurrency == null) {
+				cheapestCurrency = currency;
+			} else if (cheapestCurrency.getValueInLowestCurrency() > currency.getValueInLowestCurrency()) {
+				cheapestCurrency = currency;
+			}
+		}
+    	return cheapestCurrency;
+    }
     public Collection getCurrencies() {
     	Collection results = new ArrayList();
     	results.add(DefaultCurrency.COPPER);
