@@ -65,7 +65,6 @@ import org.springframework.richclient.progress.StatusBar;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
 import ca.odell.glazedlists.BasicEventList;
-import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.FilterList;
 import ca.odell.glazedlists.Matcher;
 import ca.odell.glazedlists.SortedList;
@@ -224,14 +223,11 @@ public class ObjectManagerView extends AbstractView {
     }
 
     private Object getSelectedObject() {
-    	EventList selected = getSelectionModel().getSelected();
-    	if (selected.isEmpty()) {
+    	Collection selectedObjects = getSelectedObjects();
+		if (selectedObjects.isEmpty() || selectedObjects.size() != 1) {
     		return null;
     	}
-        if (1 != selected.size()) {
-            return null;
-        }
-    	return selected.get(0);
+    	return selectedObjects.iterator().next();
     }
 
     private Collection getSelectedObjects() {
@@ -273,7 +269,7 @@ public class ObjectManagerView extends AbstractView {
 
     private EventSelectionModel getSelectionModel() {
     	if (null == selectionModel) {
-    		selectionModel = new EventSelectionModel(getFilteredObjects());
+    		selectionModel = new EventSelectionModel(getSortedObjects());
     	    selectionModel.setSelectionMode(EventSelectionModel.MULTIPLE_INTERVAL_SELECTION_DEFENSIVE);
     	    selectionModel.addListSelectionListener(new ListSelectionListener() {
 
