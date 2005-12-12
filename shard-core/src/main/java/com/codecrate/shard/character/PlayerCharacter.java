@@ -140,12 +140,6 @@ public interface PlayerCharacter {
     FeatContainer getFeats();
     
     /**
-     * gets the current amount of experience the character has.
-     * @return
-     */
-    int getExperience();
-
-    /**
      * gets the deity for the character.
      * may be null of a character does not have a deity.
      * @return

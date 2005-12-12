@@ -24,14 +24,21 @@ import com.codecrate.shard.ShardHibernateTestCaseSupport;
  */
 public class HibernateCharacterClassDaoTest extends ShardHibernateTestCaseSupport {
 	private CharacterClassDao characterClassDao;
+	private CharacterClassFactory characterClassFactory;
 	
 	public void setCharacterClassDao(CharacterClassDao dao) {
 		this.characterClassDao = dao;
 	}
-	
+
+	public void setCharacterClassFactory(CharacterClassFactory characterClassFactory) {
+		this.characterClassFactory = characterClassFactory;
+	}
+
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
+		CharacterClass kit = characterClassFactory.createClass("Dragonslayer");
 		characterClassDao.saveClass(DefaultCharacterClass.FIGHTER);
+		characterClassDao.saveClass(kit);
 	}
 
     public void testLoadsClasses() throws Exception {

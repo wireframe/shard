@@ -15,25 +15,16 @@
  */
 package com.codecrate.shard.kit;
 
-import java.util.Collection;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface CharacterClassDao {
-
-    Collection getClasses();
+public interface CharacterClassFactory {
 
     /**
-     * Save a new class.
-     * @param kit
+     * create a new character class
+     * @param name 
      * @return
      */
-	CharacterClass saveClass(CharacterClass kit);
-
-	Collection searchClasses(String query);
-
-	void deleteClass(CharacterClass kit);
-
-	void updateClass(CharacterClass kit);
+	CharacterClass createClass(String name);
 }

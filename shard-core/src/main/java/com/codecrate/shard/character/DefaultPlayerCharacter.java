@@ -49,7 +49,6 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     private ItemEntryContainer inventory;
 
     private String id;
-    private int experience;
     private SkillEntryContainer skills;
 	private FeatContainer feats;
 	private Encumberance encumberance;
@@ -157,10 +156,6 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     
     public SkillEntryContainer getSkills() {
     	return skills;
-    }
-    
-    public int getExperience() {
-        return experience;
     }
 
     public Initiative getInitiative() {

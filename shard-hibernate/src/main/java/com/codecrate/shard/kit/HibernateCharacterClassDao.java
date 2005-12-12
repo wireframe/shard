@@ -26,10 +26,19 @@ import net.sf.hibernate.Session;
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
+import com.codecrate.shard.search.HibernateObjectSearcher;
+
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateCharacterClassDao extends HibernateDaoSupport implements CharacterClassDao {
+public class HibernateCharacterClassDao extends HibernateDaoSupport implements CharacterClassDao, CharacterClassFactory {
+
+	private final HibernateObjectSearcher searcher;
+
+	public HibernateCharacterClassDao(HibernateObjectSearcher searcher) {
+		this.searcher = searcher;
+	}
+
     public Collection getClasses() {
         return (List) getHibernateTemplate().execute(new HibernateCallback(){
             public Object doInHibernate(Session session) throws HibernateException, SQLException {
@@ -43,4 +52,20 @@ public class HibernateCharacterClassDao extends HibernateDaoSupport implements C
         String id = (String) getHibernateTemplate().save(kit);
         return (CharacterClass) getHibernateTemplate().load(DefaultCharacterClass.class, id);
     }
+
+    public void updateClass(CharacterClass kit) {
+        getHibernateTemplate().saveOrUpdate(kit);
+    }
+
+    public void deleteClass(CharacterClass kit) {
+        getHibernateTemplate().delete(kit);
+    }
+    
+    public Collection searchClasses(String query) {
+    	return searcher.search(DefaultCharacterClass.class, query);
+    }
+
+	public CharacterClass createClass(String name) {
+		return new DefaultCharacterClass(name, null, 0, null, null, null, null);
+	}
 }

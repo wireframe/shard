@@ -43,7 +43,9 @@ import com.codecrate.shard.equipment.Coin;
 import com.codecrate.shard.equipment.DefaultItemEntryContainer;
 import com.codecrate.shard.equipment.ItemEntry;
 import com.codecrate.shard.equipment.ItemEntryContainer;
+import com.codecrate.shard.kit.ClassLevel;
 import com.codecrate.shard.kit.DefaultCharacterClass;
+import com.codecrate.shard.kit.DefaultClassLevel;
 import com.codecrate.shard.modifier.DefaultKeyedModifier;
 import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.KeyedModifier;
@@ -86,15 +88,18 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 		mockAbilityScoreDao.setReturnValue(1);
 		mockAbilityScoreDao.replay();
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
+		
+		ClassLevel level1 = new DefaultClassLevel(1, DefaultCharacterClass.BARBARIAN, 1, 1, 1, 1);
+		ClassLevel level2 = new DefaultClassLevel(1, DefaultCharacterClass.FIGHTER, 1, 1, 1, 1);
 
 		Collection levels = new ArrayList();
 		levels.add(new DefaultCharacterLevel(null, 1, 1,
-                DefaultCharacterClass.BARBARIAN.getClassProgression().getClassLevel(1),
+                level1,
                 Arrays.asList(new KeyedModifier[] {
                                 new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultModifierType.RANK, 1),
                                 new DefaultKeyedModifier(DefaultSkill.INTIMIDATE, DefaultModifierType.RANK, 1)})));
 		levels.add(new DefaultCharacterLevel(null, 2, 1,
-		        DefaultCharacterClass.FIGHTER.getClassProgression().getClassLevel(1),
+		        level2,
                 Arrays.asList(new KeyedModifier[] {
                         new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultModifierType.RANK, 1) })));
 		CharacterProgression progression = new DefaultCharacterProgression(levels);

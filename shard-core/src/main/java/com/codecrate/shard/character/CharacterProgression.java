@@ -23,6 +23,8 @@ import com.codecrate.shard.kit.ClassLevel;
 
 public interface CharacterProgression {
 
+	int getExperience();
+
 	/**
 	 * gets the formatted text for this character's progression.
 	 * ex: Fighter 7 / Wizard 5
