@@ -41,7 +41,7 @@ public class PcgenItemLineHandlerTest extends TestCase {
 
         MockControl mockItemFactory = MockControl.createControl(ItemFactory.class);
         ItemFactory itemFactory = (ItemFactory) mockItemFactory.getMock();
-        itemFactory.createItem("Brick", new BigDecimal(".99"), Money.valueOf("10 SP"));
+        itemFactory.createItem("Brick", new BigDecimal(".99"), Money.valueOf("9 SP"));
         mockItemFactory.setReturnValue(item);
         mockItemFactory.replay();
 

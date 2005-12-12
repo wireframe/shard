@@ -17,19 +17,21 @@ package com.codecrate.shard.equipment;
 
 public class DefaultCurrency implements Currency {
 
-    public static final Currency COPPER = new DefaultCurrency("CP", "c", 0);
-    public static final Currency SILVER = new DefaultCurrency("SP", "s", 0);
-    public static final Currency GOLD = new DefaultCurrency("GP", "g", 0);
+    public static final Currency COPPER = new DefaultCurrency("CP", "c", 0, 1);
+    public static final Currency SILVER = new DefaultCurrency("SP", "s", 0, 10);
+    public static final Currency GOLD = new DefaultCurrency("GP", "g", 0, 100);
     
     
     private final String currencyCode;
     private final String symbol;
     private final int fractionalDigits;
+    private final int value;
 
-    public DefaultCurrency(String currencyCode, String symbol, int fractionalDigits) {
+    public DefaultCurrency(String currencyCode, String symbol, int fractionalDigits, int value) {
         this.currencyCode = currencyCode;
         this.symbol = symbol;
         this.fractionalDigits = fractionalDigits;
+        this.value = value;
     }
     
     public String toString() {
@@ -45,4 +47,8 @@ public class DefaultCurrency implements Currency {
     public String getSymbol() {
         return symbol;
     }
+
+	public int getValueInLowestCurrency() {
+		return value;
+	}
 }

@@ -18,7 +18,7 @@ package com.codecrate.shard.transfer.pcgen;
 import java.math.BigDecimal;
 import java.util.Map;
 
-import com.codecrate.shard.equipment.Currency;
+import com.codecrate.shard.equipment.CurrencyConverter;
 import com.codecrate.shard.equipment.DefaultCurrency;
 import com.codecrate.shard.equipment.Item;
 import com.codecrate.shard.equipment.ItemDao;
@@ -31,6 +31,7 @@ public class PcgenItemLineHandler extends AbstractPcgenLineHandler {
 
     private final ItemFactory itemFactory;
     private final ItemDao itemDao;
+    private final CurrencyConverter currencyConverter = new CurrencyConverter();
 
     public PcgenItemLineHandler(ItemFactory itemFactory, ItemDao itemDao) {
         this.itemFactory = itemFactory;
@@ -39,17 +40,8 @@ public class PcgenItemLineHandler extends AbstractPcgenLineHandler {
 
     public Object handleParsedLine(String name, Map tags) {
     	BigDecimal weight = new BigDecimal(getStringTagValue(WEIGHT_TAG_NAME, tags));
-    	BigDecimal amount = new BigDecimal(getStringTagValue(COST_TAG_NAME, tags));
-    	amount = amount.movePointRight(2);
-    	Currency currency = DefaultCurrency.COPPER;
-    	if (amount.compareTo(new BigDecimal(100)) > 0) {
-    		amount = amount.movePointLeft(2);
-    		currency = DefaultCurrency.GOLD;
-    	} else if (amount.compareTo(new BigDecimal(10)) > 0) {
-    		amount = amount.movePointLeft(1);
-    		currency = DefaultCurrency.SILVER;
-    	}
-    	Money cost = new Money(amount, currency, BigDecimal.ROUND_HALF_UP);
+    	BigDecimal amount = new BigDecimal(getStringTagValue(COST_TAG_NAME, tags)).movePointRight(2);
+    	Money cost = currencyConverter.convertToHighestValueCurrency(new Money(amount, DefaultCurrency.COPPER, BigDecimal.ROUND_HALF_UP));
 
         Item item = itemFactory.createItem(name, weight, cost);
         return itemDao.saveItem(item);

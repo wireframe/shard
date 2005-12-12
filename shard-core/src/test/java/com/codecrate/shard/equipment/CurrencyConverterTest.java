@@ -42,4 +42,26 @@ public class CurrencyConverterTest extends TestCase {
         
         assertEquals(1, value.getAmount().intValue());
     }
+    
+    public void testConvertionRoundsDown() {
+        Money money = new Money(99, DefaultCurrency.COPPER);
+        Money value = new CurrencyConverter().convert(money, DefaultCurrency.GOLD);
+        
+        assertEquals(0, value.getAmount().intValue());
+    }
+    
+    public void testConvertToHighestCurrencyIncreasesCurrency() throws Exception {
+    	Money money = Money.valueOf("200 CP");
+    	Money value = new CurrencyConverter().convertToHighestValueCurrency(money);
+    	
+    	assertEquals(Money.valueOf("2 GP"), value);
+    }
+
+    public void testConvertToHighestCurrencyKeepsSameCurrencyIfNotEnough() throws Exception {
+    	Money money = Money.valueOf("9 CP");
+    	Money value = new CurrencyConverter().convertToHighestValueCurrency(money);
+    	
+    	assertEquals(Money.valueOf("9 CP"), value);
+    }
+
 }

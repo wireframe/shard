@@ -15,16 +15,27 @@
  */
 package com.codecrate.shard.equipment;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 public class CurrencyDao {
     public Currency getCurrency(String currencyCode) {
-        if (DefaultCurrency.COPPER.getCurrencyCode().equals(currencyCode)) {
-            return DefaultCurrency.COPPER;
-        } else if (DefaultCurrency.SILVER.getCurrencyCode().equals(currencyCode)) {
-            return DefaultCurrency.SILVER;
-        } else if (DefaultCurrency.GOLD.getCurrencyCode().equals(currencyCode)) {
-            return DefaultCurrency.GOLD;
-        }
+    	for (Iterator currencies = getCurrencies().iterator(); currencies.hasNext();) {
+			Currency currency = (Currency) currencies.next();
+			if (currency.getCurrencyCode().equals(currencyCode)) {
+				return currency;
+			}
+		}
         throw new IllegalArgumentException("Unknown currency code: " + currencyCode);
     }
-
+    
+    public Collection getCurrencies() {
+    	Collection results = new ArrayList();
+    	results.add(DefaultCurrency.COPPER);
+    	results.add(DefaultCurrency.SILVER);
+    	results.add(DefaultCurrency.GOLD);
+    	
+    	return results;
+    }
 }

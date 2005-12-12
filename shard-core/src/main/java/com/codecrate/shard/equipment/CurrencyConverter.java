@@ -16,32 +16,43 @@
 package com.codecrate.shard.equipment;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 
 public class CurrencyConverter {
+	private final CurrencyDao currencyDao = new CurrencyDao();
+
     public Money convert(Money money, Currency currency) {
         BigDecimal rate = getConversionRate(money.getCurrency(), currency);
         BigDecimal amount = money.getAmount().multiply(rate);
         
-        return new Money(amount.doubleValue(), currency);
+        return new Money(amount, currency, BigDecimal.ROUND_DOWN);
     }
-    
-    public BigDecimal getConversionRate(Currency from, Currency to) {
-        BigDecimal rate = new BigDecimal(getFactor(from)).setScale(2);
-        BigDecimal rate2 = new BigDecimal(getFactor(to)).setScale(2);
+
+    public Money convertToHighestValueCurrency(Money amount) {
+    	int baseAmount = amount.getAmount().multiply(new BigDecimal(amount.getCurrency().getValueInLowestCurrency())).intValue();
+
+    	Iterator it = currencyDao.getCurrencies().iterator();
+    	Currency highestCurrency = null;
+    	while (it.hasNext()) {
+    		Currency currency = (Currency) it.next();
+    		if (baseAmount >= currency.getValueInLowestCurrency()) {
+    			if (highestCurrency == null) {
+    				highestCurrency = currency;
+    			} else {
+    				if (highestCurrency.getValueInLowestCurrency() < currency.getValueInLowestCurrency()) {
+    					highestCurrency = currency;
+    				}
+    			}
+    		}
+    	}
+    	return convert(amount, highestCurrency);
+    }
+
+    private BigDecimal getConversionRate(Currency from, Currency to) {
+        BigDecimal rate = new BigDecimal(from.getValueInLowestCurrency()).setScale(2);
+        BigDecimal rate2 = new BigDecimal(to.getValueInLowestCurrency()).setScale(2);
         rate = rate.divide(rate2, BigDecimal.ROUND_HALF_UP);
         
         return rate;
     }
-    
-    private int getFactor(Currency currency) {
-        if (DefaultCurrency.COPPER.equals(currency)) {
-            return 1;
-        } else if (DefaultCurrency.SILVER.equals(currency)) {
-            return 10;
-        } else if (DefaultCurrency.GOLD.equals(currency)) {
-            return 100;
-        }
-        throw new IllegalArgumentException("Unknown currency: " + currency);
-    }
-
 }

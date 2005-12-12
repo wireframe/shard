@@ -181,13 +181,11 @@ public class Money implements Comparable {
      * @see java.lang.Comparable#compareTo(Object)
      */
     public int compareTo(Money other) {
-        assertSameCurrencyAs(other);
-        if (amount < other.amount)
-            return -1;
-        else if (amount == other.amount)
-            return 0;
-        else
-            return 1;
+        assertNotNull(other);
+        BigDecimal value = new BigDecimal(amount).multiply(new BigDecimal(currency.getValueInLowestCurrency()));
+        BigDecimal otherValue = new BigDecimal(other.amount).multiply(new BigDecimal(other.currency.getValueInLowestCurrency()));
+
+        return value.compareTo(otherValue);
     }
 
     /**
@@ -332,12 +330,17 @@ public class Money implements Comparable {
      * <code>Assert.equals("money math mismatch", currency, arg.currency );</code> 
      */
     private void assertSameCurrencyAs(Money arg) {
-        if (null == arg) {
-            throw new IllegalArgumentException("Cannot compare money to null.");
-        }
+    	assertNotNull(arg);
         if (!currency.equals(arg.getCurrency())) {
             throw new IllegalArgumentException("Cannot compare different currencies.");
         }
+    }
+    
+    private void assertNotNull(Money arg) {
+        if (null == arg) {
+            throw new IllegalArgumentException("Cannot compare money to null.");
+        }
+
     }
 
     /** 

@@ -29,5 +29,7 @@ public interface Currency {
     
     int getDefaultFractionDigits();
     
+    int getValueInLowestCurrency();
+
     String getSymbol();
 }

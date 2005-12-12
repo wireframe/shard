@@ -49,4 +49,15 @@ public class MoneyTest extends TestCase {
         assertTrue(oneGP.isLessThan(tenGP));
         assertFalse(tenGP.isLessThan(oneGP));
     }
+    
+    public void testCanCompareMoneyWhenDifferentCurrency() {
+        Money oneGP = new Money(1, DefaultCurrency.GOLD);
+        Money tenCP = new Money(10, DefaultCurrency.COPPER);
+
+        assertFalse(tenCP.isGreaterThan(oneGP));
+        assertTrue(oneGP.isGreaterThan(tenCP));
+
+        assertFalse(oneGP.isLessThan(tenCP));
+        assertTrue(tenCP.isLessThan(oneGP));
+    }
 }
