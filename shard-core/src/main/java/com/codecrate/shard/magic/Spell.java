@@ -73,4 +73,8 @@ public class Spell implements Comparable {
     public Source getSource() {
         return source;
     }
+
+    public void setSource(Source source) {
+        this.source = source;
+    }
 }

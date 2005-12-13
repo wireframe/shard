@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.14 2005/12/13 16:19:23 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.15 2005/12/13 18:34:16 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -280,6 +280,7 @@
 	    <constructor-arg>
 		    <bean
 		        class="com.codecrate.shard.ui.form.SpellFormFactory">
+		        <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 		    </bean>
 	    </constructor-arg>
 	</bean>

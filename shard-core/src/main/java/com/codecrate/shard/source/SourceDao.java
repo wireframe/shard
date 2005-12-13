@@ -15,7 +15,11 @@
  */
 package com.codecrate.shard.source;
 
+import java.util.Collection;
+
 public interface SourceDao {
+
+    Collection getSources();
 
     Source getSource(String name);
 

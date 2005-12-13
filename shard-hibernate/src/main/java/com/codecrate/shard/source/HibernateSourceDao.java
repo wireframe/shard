@@ -15,6 +15,9 @@
  */
 package com.codecrate.shard.source;
 
+import java.util.Collection;
+import java.util.List;
+
 import net.sf.hibernate.Criteria;
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
@@ -39,6 +42,16 @@ public class HibernateSourceDao extends HibernateDaoSupport implements SourceDao
         });
 
         return source;
+    }
+
+    public Collection getSources() {
+        return (List) getHibernateTemplate().execute(new HibernateCallback() {
+            public Object doInHibernate(Session session)
+                    throws HibernateException {
+                Criteria query = session.createCriteria(Source.class);
+                return query.list();
+            }
+        });
     }
 
     public Source saveSource(Source source) {

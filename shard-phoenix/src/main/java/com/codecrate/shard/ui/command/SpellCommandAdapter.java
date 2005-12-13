@@ -20,7 +20,6 @@ import java.util.Collection;
 import com.codecrate.shard.magic.Spell;
 import com.codecrate.shard.magic.SpellDao;
 import com.codecrate.shard.magic.SpellFactory;
-import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.ObjectImporter;
 
 public class SpellCommandAdapter extends AbstractObjectManagerCommandAdapter
@@ -50,7 +49,7 @@ implements ObjectManagerCommandAdapter {
 	}
 
 	public Object createObject() {
-		return spellFactory.createSpell("New Spell", "Summary", Source.CUSTOM);
+		return spellFactory.createSpell("New Spell", "Summary", null);
 	}
 
 	public void saveObject(Object object) {
