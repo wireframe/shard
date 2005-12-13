@@ -88,7 +88,7 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 		mockAbilityScoreDao.setReturnValue(1);
 		mockAbilityScoreDao.replay();
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
-		
+
 		ClassLevel level1 = new DefaultClassLevel(1, DefaultCharacterClass.BARBARIAN, 1, 1, 1, 1);
 		ClassLevel level2 = new DefaultClassLevel(1, DefaultCharacterClass.FIGHTER, 1, 1, 1, 1);
 
@@ -145,7 +145,7 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 
 		PrintCharacterAction output = new PrintCharacterAction(character, template);
 		String text = output.render().toString();
-        int index = text.indexOf("${");
+        int index = text.indexOf("$");
 		assertEquals("Not all velocity macros were expanded:  " + text, -1, index);
 	}
 }
