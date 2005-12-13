@@ -73,7 +73,7 @@
 	}
 
 </style>
-    
+
   </head>
   <body>
     <center><font size="-1">printed using Shard version $runtime.projectVersion at $date</font></center><br/>
@@ -96,7 +96,7 @@
 	 </tr>
 	 <tr>
 	  <td colspan="1" class="h">$character.characterProgression.description</td>
-	  <td colspan="1" class="h">$character.experience</td>
+	  <td colspan="1" class="h">$character.characterProgression.experience</td>
 	  <td colspan="1" class="h">$character.race.name</td>
 	  <td class="h">$character.race.size.name / $character.race.size.reach</td>
 	  <td class="h">|HEIGHT|</td>
@@ -115,7 +115,6 @@
 	 <tr>
 	  <td class="h">$character.characterProgression.characterLevel</td>
 	  <td class="h">|EXP.NEXT|</td>
-	  <td class="h">$character.age.currentAge</td>
 	  <td class="h">$character.bio.gender.name</td>
 	  <td class="h">|COLOR.EYE|</td>
 	  <td colspan="2" class="h">|COLOR.HAIR|, |LENGTH.HAIR|</td>
@@ -130,7 +129,7 @@
 	 </tr>
 	</table>
 	<!-- END General Character Data -->
-  
+
 	<!-- START Page Master Table -->
 	<table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Page Master Table">
 	  <tr>
@@ -180,25 +179,18 @@
 	          <td align="center" class="border9"><b>|MOVEMENT|<br /></b></td>
 	          </tr>
 	        </table> <!-- STOP Hit Point Table -->
-	
+
 	      <table summary="AC Table"> <!-- Armor Class Table -->
 	        <tr>
 	          <td align="center" bgcolor="black">
 	            <font style="font-size:9pt" color="white"><b>AC</b></font><br />
 	            <font style="font-size:5pt" color="white">Armor Class</font>
 	          </td>
-	          <td align="center" class="border9"><b>$character.armorClass.modifiedValue</b></td>
-#foreach ($acModifier in $acModifiers)
-	          <td align="center" class="border9"><b>$acModifier.modifier</b></td>
-#end
+	          <td align="center" class="border9">
+	            <b>$character.armorClass.modifiedValue</b>
+	            <div><b>TOTAL</b></div>
+	          </td>
 	        </tr>
-	        <tr>
-	          <td align="center" width="50"></td>
-	          <td align="center" width="25" valign="top"><font style="font-size: 6pt"><b>TOTAL</b></font></td>
-#foreach ($acModifier in $acModifiers)
-	          <td align="center" class="border9"><b>$acModifier.modifierType.name <br/>Bonus</b></td>
-#end
-            </tr>
 	      </table> <!-- STOP AC Table -->
 	    </td>
 	  </tr>
@@ -266,11 +258,11 @@
 	     <td align="center" bgcolor="black"><font style="font-size:10pt" color="white"><b>$save.save.name</b></font><font style="font-size:5pt" color="white"><br />$save.save.ability.abbreviation</font></td>
 	     <td align="center" class="border10"><b>$save.modifiedValue</b></td>
         </tr>
-#end	    
+#end
    </table>
 <!-- STOP Saving Throws Table -->
 	 </tr>
-	</table>  
+	</table>
 
 	<!-- END Page Master Table -->
 	<table width="100%" border="0" summary="Page 2 Master Table"> <!-- Master Page Table -->
@@ -337,12 +329,12 @@
 	     <tr>
 	      <td valign="top" width="70%" class="border"><font style="font-size: 8pt">
 #foreach ($coin in $coins)
-			  $coin.name: $coin.quantity <br/> 
+			  $coin.name: $coin.quantity <br/>
 #end
 		  </font></td>
 	     </tr>
 	    </table>
 	<!-- STOP Money Table -->
-	
+
   </body>
 </html>

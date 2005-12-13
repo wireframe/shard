@@ -29,15 +29,16 @@ import com.codecrate.shard.character.PlayerCharacter;
 import com.codecrate.shard.output.RenderTool;
 
 /**
- * 
+ *
  * @see http://jakarta.apache.org/velocity/developer-guide.html
  */
 public class PrintCharacterAction {
 	private VelocityContext context = new VelocityContext();
 	private Template template;
-	
+
 	public PrintCharacterAction(PlayerCharacter character, Template template) {
 		context.put("character", character);
+        context.put("age", character.getBio().getAge());
 		context.put("abilities", character.getAbilities().getAbilityScores());
 		context.put("saves", character.getSavingThrows().getEntries());
 		context.put("acModifiers", character.getArmorClass().getModifiers());
@@ -48,7 +49,7 @@ public class PrintCharacterAction {
 		context.put("renderTool", new RenderTool());
 		this.template = template;
 	}
-	
+
 	public StringWriter render() throws ResourceNotFoundException, ParseErrorException, MethodInvocationException, Exception {
 		StringWriter writer = new StringWriter();
 		template.merge(context, writer);
