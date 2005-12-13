@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character;
+package com.codecrate.shard.character.bio;
 
 import java.awt.Color;
 import java.awt.Image;
@@ -22,6 +22,11 @@ import java.awt.Image;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface CharacterBio {
+    /**
+     * gets the age of the character.
+     * @return
+     */
+    Age getAge();
     /**
      * @return Returns the backstory.
      */

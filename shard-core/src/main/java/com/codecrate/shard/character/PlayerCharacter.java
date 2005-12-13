@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
+import com.codecrate.shard.character.bio.CharacterBio;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.feat.FeatContainer;
@@ -114,12 +115,6 @@ public interface PlayerCharacter {
 	 * @return
 	 */
 	Encumberance getEncumberance();
-	
-	/**
-	 * gets the age of the character.
-	 * @return
-	 */
-	Age getAge();
 	
 	/**
 	 * gets the level progression of the character.

@@ -22,6 +22,7 @@ import java.util.Iterator;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
 import com.codecrate.shard.armorclass.DexterityArmorClass;
+import com.codecrate.shard.character.bio.CharacterBio;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.feat.FeatContainer;
@@ -40,7 +41,6 @@ import com.codecrate.shard.skill.SkillEntryContainer;
 public class DefaultPlayerCharacter implements PlayerCharacter {
     private Deity deity;
     private CharacterBio bio;
-    private Age age;
     private BigDecimal challengeRating;
     private Race race;
     private Alignment alignment;
@@ -72,8 +72,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     public DefaultPlayerCharacter(AbilityScoreContainer abilities,
     		Race race, CharacterProgression characterProgression, 
     		ItemEntryContainer inventory, Encumberance encumberance,
-    		Alignment alignment, Age age, CharacterBio bio, Deity deity) {
-        this.age = age;
+    		Alignment alignment, CharacterBio bio, Deity deity) {
         this.race = race;
         this.abilities = abilities;
         this.deity = deity;
@@ -130,11 +129,6 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 	public Encumberance getEncumberance() {
 		return encumberance;
 	}
-	
-	public Age getAge() {
-		return age;
-	}
-	
 	public Race getRace() {
 		return race;
 	}

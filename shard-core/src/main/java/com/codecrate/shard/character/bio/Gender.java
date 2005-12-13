@@ -13,16 +13,18 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character;
-
-import java.util.Collection;
+package com.codecrate.shard.character.bio;
 
 /**
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface AgeCategory {
+public interface Gender {
+	
+	/**
+	 * gets the name of the gender.
+	 * ex: Male or Female
+	 * @return
+	 */
 	String getName();
-
-	Collection getAbilityModifiers();
 }

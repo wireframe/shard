@@ -52,13 +52,13 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		progression.getCharacterLevels();
 		mockProgression.setReturnValue(new ArrayList());
 		mockProgression.replay();
-	    
+
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(null);
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, progression, null, encumberance, null, null, null, null);
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, progression, null, encumberance, null, null, null);
 		assertEquals(2, character.getEffectiveCharacterLevel());
 	}
-	
+
 	public void testBaseAttackBonusCalculation() {
 		MockControl mockClassLevel = MockControl.createControl(ClassLevel.class);
 		ClassLevel classLevel = (ClassLevel) mockClassLevel.getMock();
@@ -67,7 +67,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		classLevel.getBaseAttackBonus();
 		mockClassLevel.setReturnValue(1);
 		mockClassLevel.replay();
-		
+
 		MockControl mockProgression = MockControl.createControl(CharacterProgression.class);
 		CharacterProgression progression = (CharacterProgression) mockProgression.getMock();
 		progression.getCharacterLevel();
@@ -83,16 +83,16 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		progression.getClassLevel(DefaultCharacterClass.BARD);
 		mockProgression.setReturnValue(classLevel);
 		mockProgression.replay();
-	    
+
 		MockControl mockRace = MockControl.createControl(Race.class);
 		Race race = (Race) mockRace.getMock();
 		race.getSize();
 		mockRace.setReturnValue(DefaultRacialSize.SMALL);
 		mockRace.replay();
-		
+
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(null);
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, progression, null, encumberance, null, null, null, null);
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, progression, null, encumberance, null, null, null);
 		assertEquals(3, character.getBaseAttackBonus());
 	}
 }

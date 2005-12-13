@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.character;
+package com.codecrate.shard.character.bio;
 
 import java.awt.Color;
 import java.awt.Image;
@@ -22,6 +22,7 @@ import java.awt.Image;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultCharacterBio implements CharacterBio {
+    private Age age;
     private String name;
     private Gender gender;
     private String backstory;
@@ -130,5 +131,9 @@ public class DefaultCharacterBio implements CharacterBio {
      */
     public void setWeight(String weight) {
         this.weight = weight;
+    }
+
+    public Age getAge() {
+        return age;
     }
 }

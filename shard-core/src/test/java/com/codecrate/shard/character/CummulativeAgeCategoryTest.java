@@ -24,6 +24,8 @@ import junit.framework.TestCase;
 import org.easymock.MockControl;
 
 import com.codecrate.shard.ability.DefaultAbility;
+import com.codecrate.shard.character.bio.AgeCategory;
+import com.codecrate.shard.character.bio.CummulativeAgeCategory;
 import com.codecrate.shard.modifier.DefaultKeyedModifier;
 import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.KeyedModifier;

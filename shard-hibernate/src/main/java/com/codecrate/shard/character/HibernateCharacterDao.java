@@ -22,6 +22,10 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
+import com.codecrate.shard.character.bio.Age;
+import com.codecrate.shard.character.bio.CummulativeAgeCategory;
+import com.codecrate.shard.character.bio.DefaultAge;
+import com.codecrate.shard.character.bio.DefaultCharacterBio;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.DefaultItemEntryContainer;
 import com.codecrate.shard.equipment.ItemEntryContainer;
@@ -52,7 +56,7 @@ public class HibernateCharacterDao extends HibernateDaoSupport implements Charac
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
 		Deity deity = null; 
 		
-		return new DefaultPlayerCharacter(abilities, race, characterProgression, inventory, encumberance, alignment, age, bio, deity);
+		return new DefaultPlayerCharacter(abilities, race, characterProgression, inventory, encumberance, alignment, bio, deity);
 	}
 	
 	public PlayerCharacter saveCharacter(PlayerCharacter character) {

@@ -27,17 +27,17 @@ import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
-import com.codecrate.shard.character.Age;
-import com.codecrate.shard.character.AgeCategory;
 import com.codecrate.shard.character.Alignment;
 import com.codecrate.shard.character.CharacterProgression;
-import com.codecrate.shard.character.CummulativeAgeCategory;
 import com.codecrate.shard.character.DefaultAlignment;
-import com.codecrate.shard.character.DefaultCharacterBio;
 import com.codecrate.shard.character.DefaultCharacterLevel;
 import com.codecrate.shard.character.DefaultCharacterProgression;
-import com.codecrate.shard.character.DefaultGender;
 import com.codecrate.shard.character.DefaultPlayerCharacter;
+import com.codecrate.shard.character.bio.Age;
+import com.codecrate.shard.character.bio.AgeCategory;
+import com.codecrate.shard.character.bio.CummulativeAgeCategory;
+import com.codecrate.shard.character.bio.DefaultCharacterBio;
+import com.codecrate.shard.character.bio.DefaultGender;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.Coin;
 import com.codecrate.shard.equipment.DefaultItemEntryContainer;
@@ -141,7 +141,7 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 
 		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
 
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, progression, itemContainer, encumberance, alignment, age, bio, deity);
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, progression, itemContainer, encumberance, alignment, bio, deity);
 
 		PrintCharacterAction output = new PrintCharacterAction(character, template);
 		String text = output.render().toString();

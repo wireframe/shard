@@ -21,8 +21,8 @@ import java.util.TreeMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.codecrate.shard.character.AgeCategory;
-import com.codecrate.shard.character.CummulativeAgeCategory;
+import com.codecrate.shard.character.bio.AgeCategory;
+import com.codecrate.shard.character.bio.CummulativeAgeCategory;
 import com.codecrate.shard.dice.Dice;
 
 /**
