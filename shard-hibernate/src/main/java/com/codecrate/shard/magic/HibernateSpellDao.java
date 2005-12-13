@@ -27,6 +27,7 @@ import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 import com.codecrate.shard.search.HibernateObjectSearcher;
+import com.codecrate.shard.source.Source;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -78,8 +79,8 @@ public class HibernateSpellDao extends HibernateDaoSupport implements SpellDao, 
         getHibernateTemplate().delete(spell);
     }
 
-    public Spell createSpell(String name, String summary) {
-    	return new Spell(name, summary);
+    public Spell createSpell(String name, String summary, Source source) {
+    	return new Spell(name, summary, source);
     }
 
     public Collection searchSpells(String query) {

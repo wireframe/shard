@@ -37,7 +37,7 @@ public class HibernateSpellDaoTest extends ShardHibernateTestCaseSupport {
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
 
-        Spell fireball = spellFactory.createSpell("fireball", "burn baby burn!");
+        Spell fireball = spellFactory.createSpell("fireball", "burn baby burn!", null);
 		spellDao.saveSpell(fireball);
 	}
 

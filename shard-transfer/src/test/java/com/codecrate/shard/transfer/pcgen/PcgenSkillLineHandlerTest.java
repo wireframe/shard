@@ -56,7 +56,7 @@ public class PcgenSkillLineHandlerTest extends TestCase {
         mockAbilityDao.replay();
 
         PcgenSkillLineHandler importer = new PcgenSkillLineHandler(skillFactory, skillDao, abilityDao);
-		Object result = importer.handleParsedLine("Climb", tags);
+		Object result = importer.handleParsedLine("Climb", tags, null);
 
 		assertNotNull(result);
     }

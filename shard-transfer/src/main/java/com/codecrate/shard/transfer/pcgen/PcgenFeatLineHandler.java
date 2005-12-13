@@ -20,6 +20,7 @@ import java.util.Map;
 import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
+import com.codecrate.shard.source.Source;
 
 public class PcgenFeatLineHandler extends AbstractPcgenLineHandler {
 	private static final String DESCRIPTION_TAG_NAME = "DESC";
@@ -32,7 +33,7 @@ public class PcgenFeatLineHandler extends AbstractPcgenLineHandler {
         this.featDao = featDao;
     }
 
-    public Object handleParsedLine(String name, Map tags) {
+    public Object handleParsedLine(String name, Map tags, Source source) {
     	String description = getStringTagValue(DESCRIPTION_TAG_NAME, tags);
 
         Feat feat = featFactory.createFeat(name, description);

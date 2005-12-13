@@ -24,22 +24,42 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
+import com.codecrate.shard.source.Source;
+import com.codecrate.shard.source.SourceDao;
+import com.codecrate.shard.source.SourceFactory;
+
 public class PcgenObjectImporterTest extends TestCase {
 
     public void testBasicImport() throws Exception {
         Map tags = new HashMap();
         tags.put("KEYSTAT", "STR");
 
+        Source source = new Source("name", "nme", "http://blah.com");
+
+        MockControl mockSourceDao = MockControl.createControl(SourceDao.class);
+        SourceDao sourceDao = (SourceDao) mockSourceDao.getMock();
+        sourceDao.getSource("System Reference Document");
+        mockSourceDao.setReturnValue(null);
+        sourceDao.saveSource(source);
+        mockSourceDao.setReturnValue(source);
+        mockSourceDao.replay();
+
+        MockControl mockSourceFactory = MockControl.createControl(SourceFactory.class);
+        SourceFactory sourceFactory = (SourceFactory) mockSourceFactory.getMock();
+        sourceFactory.createSource("System Reference Document", "SRD", "http://groups.yahoo.com/group/pcgen/files/3.0%20SRD/");
+        mockSourceFactory.setReturnValue(source);
+        mockSourceFactory.replay();
+
         MockControl mockLineHanlder = MockControl.createControl(PcgenObjectImporter.PcgenLineHandler.class);
         PcgenObjectImporter.PcgenLineHandler lineHandler = (PcgenObjectImporter.PcgenLineHandler) mockLineHanlder.getMock();
-        lineHandler.handleParsedLine("Climb", tags);
+        lineHandler.handleParsedLine("Climb", tags, source);
         mockLineHanlder.setReturnValue(new Object());
-        lineHandler.handleParsedLine("Jump", tags);
+        lineHandler.handleParsedLine("Jump", tags, source);
         mockLineHanlder.setReturnValue(new Object());
         mockLineHanlder.replay();
 
         File file = new File(Thread.currentThread().getContextClassLoader().getResource("pcgen.lst").getFile());
-        PcgenObjectImporter importer = new PcgenObjectImporter(lineHandler);
+        PcgenObjectImporter importer = new PcgenObjectImporter(lineHandler, sourceDao, sourceFactory);
 		Collection results = importer.importObjects(file);
 
 		assertFalse(results.isEmpty());
@@ -50,16 +70,32 @@ public class PcgenObjectImporterTest extends TestCase {
         Map tags = new HashMap();
         tags.put("KEYSTAT", "STR");
 
+        Source source = new Source("name", "nme", "http://blah.com");
+
+        MockControl mockSourceDao = MockControl.createControl(SourceDao.class);
+        SourceDao sourceDao = (SourceDao) mockSourceDao.getMock();
+        sourceDao.getSource("System Reference Document");
+        mockSourceDao.setReturnValue(null);
+        sourceDao.saveSource(source);
+        mockSourceDao.setReturnValue(source);
+        mockSourceDao.replay();
+
+        MockControl mockSourceFactory = MockControl.createControl(SourceFactory.class);
+        SourceFactory sourceFactory = (SourceFactory) mockSourceFactory.getMock();
+        sourceFactory.createSource("System Reference Document", "SRD", "http://groups.yahoo.com/group/pcgen/files/3.0%20SRD/");
+        mockSourceFactory.setReturnValue(source);
+        mockSourceFactory.replay();
+
         MockControl mockLineHanlder = MockControl.createControl(PcgenObjectImporter.PcgenLineHandler.class);
         PcgenObjectImporter.PcgenLineHandler lineHandler = (PcgenObjectImporter.PcgenLineHandler) mockLineHanlder.getMock();
-        lineHandler.handleParsedLine("Climb", tags);
+        lineHandler.handleParsedLine("Climb", tags, source);
         mockLineHanlder.setThrowable(new IllegalArgumentException("Test error while parsing"));
-        lineHandler.handleParsedLine("Jump", tags);
+        lineHandler.handleParsedLine("Jump", tags, source);
         mockLineHanlder.setReturnValue(new Object());
         mockLineHanlder.replay();
 
         File file = new File(Thread.currentThread().getContextClassLoader().getResource("pcgen.lst").getFile());
-        PcgenObjectImporter importer = new PcgenObjectImporter(lineHandler);
+        PcgenObjectImporter importer = new PcgenObjectImporter(lineHandler, sourceDao, sourceFactory);
         Collection results = importer.importObjects(file);
 
         assertFalse(results.isEmpty());

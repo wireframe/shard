@@ -52,7 +52,7 @@ public class PcgenItemLineHandlerTest extends TestCase {
         mockItemDao.replay();
 
         PcgenItemLineHandler importer = new PcgenItemLineHandler(itemFactory, itemDao);
-		Object result = importer.handleParsedLine("Brick", tags);
+		Object result = importer.handleParsedLine("Brick", tags, null);
 
 		assertNotNull(result);
     }

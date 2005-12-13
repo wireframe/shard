@@ -3,10 +3,13 @@ package com.codecrate.shard.magic;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import com.codecrate.shard.source.Source;
+
 public class Spell implements Comparable {
     private String id;
     private String name;
     private String summary;
+    private Source source;
 
     /**
      * hibernate constructor.
@@ -14,9 +17,10 @@ public class Spell implements Comparable {
     private Spell() {
     }
 
-    public Spell(String name, String summary) {
+    public Spell(String name, String summary, Source source) {
         this.name = name;
         this.summary = summary;
+        this.source = source;
     }
 
     public String toString() {
@@ -60,5 +64,13 @@ public class Spell implements Comparable {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Source getSource() {
+        return source;
     }
 }

@@ -22,6 +22,7 @@ import com.codecrate.shard.ability.AbilityDao;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
+import com.codecrate.shard.source.Source;
 
 public class PcgenSkillLineHandler extends AbstractPcgenLineHandler {
 	private static final String ARMOR_CHECK_PENALTY_TAG_NAME = "ACHECK";
@@ -38,7 +39,7 @@ public class PcgenSkillLineHandler extends AbstractPcgenLineHandler {
 		this.abilityDao = abilityDao;
     }
 
-    public Object handleParsedLine(String name, Map tags) {
+    public Object handleParsedLine(String name, Map tags, Source source) {
     	boolean isUsableUntrained = getBooleanTagValue(USABLE_UNTRAINED_TAG_NAME, tags, true);
     	boolean hasArmorCheckPenalty = getBooleanTagValue(ARMOR_CHECK_PENALTY_TAG_NAME, tags, false);
     	String abilityName = getStringTagValue(ABILITY_TAG_NAME, tags);

@@ -25,6 +25,7 @@ import com.codecrate.shard.equipment.Item;
 import com.codecrate.shard.equipment.ItemDao;
 import com.codecrate.shard.equipment.ItemFactory;
 import com.codecrate.shard.equipment.Money;
+import com.codecrate.shard.source.Source;
 
 public class PcgenItemLineHandler extends AbstractPcgenLineHandler {
 	private static final int COST_TO_LOWEST_CURRENCY_MULTIPLIER = 2;
@@ -41,7 +42,7 @@ public class PcgenItemLineHandler extends AbstractPcgenLineHandler {
         this.itemDao = itemDao;
     }
 
-    public Object handleParsedLine(String name, Map tags) {
+    public Object handleParsedLine(String name, Map tags, Source source) {
     	BigDecimal weight = new BigDecimal(getStringTagValue(WEIGHT_TAG_NAME, tags));
     	BigDecimal amount = new BigDecimal(getStringTagValue(COST_TAG_NAME, tags)).movePointRight(COST_TO_LOWEST_CURRENCY_MULTIPLIER);
     	Currency currency = currencyDao.getLowestValueCurrency();

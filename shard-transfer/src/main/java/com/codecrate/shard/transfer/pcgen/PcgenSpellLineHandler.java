@@ -20,6 +20,7 @@ import java.util.Map;
 import com.codecrate.shard.magic.Spell;
 import com.codecrate.shard.magic.SpellDao;
 import com.codecrate.shard.magic.SpellFactory;
+import com.codecrate.shard.source.Source;
 
 public class PcgenSpellLineHandler extends AbstractPcgenLineHandler {
 	private static final String DESCRIPTION_TAG_NAME = "DESC";
@@ -32,10 +33,10 @@ public class PcgenSpellLineHandler extends AbstractPcgenLineHandler {
         this.spellDao = spellDao;
     }
 
-    public Object handleParsedLine(String name, Map tags) {
+    public Object handleParsedLine(String name, Map tags, Source source) {
     	String description = getStringTagValue(DESCRIPTION_TAG_NAME, tags);
 
-        Spell spell = spellFactory.createSpell(name, description);
+        Spell spell = spellFactory.createSpell(name, description, source);
         return spellDao.saveSpell(spell);
     }
 }

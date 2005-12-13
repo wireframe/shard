@@ -26,6 +26,7 @@
 	      <value>com/codecrate/shard/race/DefaultLanguage.hbm.xml</value>
 	      <value>com/codecrate/shard/race/DefaultRace.hbm.xml</value>
 	      <value>com/codecrate/shard/skill/DefaultSkill.hbm.xml</value>
+	      <value>com/codecrate/shard/source/Source.hbm.xml</value>
 	    </list>
 	  </property>
 	</bean>
@@ -98,6 +99,16 @@
 	  <property name="target">
 	    <bean class="com.codecrate.shard.magic.HibernateSpellDao">
 	      <constructor-arg><ref bean="luceneSearcher" /></constructor-arg>
+  	      <property name="sessionFactory">
+	        <ref bean="sessionFactory"/>
+	      </property>
+	    </bean>
+	  </property>
+	</bean>
+
+	<bean id="sourceDao" parent="transactionTemplate">
+	  <property name="target">
+	    <bean class="com.codecrate.shard.source.HibernateSourceDao">
   	      <property name="sessionFactory">
 	        <ref bean="sessionFactory"/>
 	      </property>

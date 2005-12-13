@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.13 2005/12/12 23:20:28 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.14 2005/12/13 16:19:23 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -153,6 +153,8 @@
 				    <constructor-arg index="2"><ref bean="abilityDao" /></constructor-arg>
 				</bean>
 			  </constructor-arg>
+			  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
+			  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 			</bean>
     	  </list>
     	</constructor-arg>
@@ -207,6 +209,8 @@
 				    <constructor-arg index="1"><ref bean="featDao" /></constructor-arg>
 				</bean>
 			  </constructor-arg>
+			  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
+			  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 			</bean>
     	  </list>
     	</constructor-arg>
@@ -252,6 +256,8 @@
 				    <constructor-arg index="1"><ref bean="spellDao" /></constructor-arg>
 				</bean>
 			  </constructor-arg>
+			  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
+			  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 			</bean>
     	  </list>
     	</constructor-arg>
@@ -297,6 +303,8 @@
 				    <constructor-arg index="1"><ref bean="itemDao" /></constructor-arg>
 				</bean>
 			  </constructor-arg>
+			  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
+			  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 			</bean>
     	  </list>
     	</constructor-arg>
@@ -350,7 +358,7 @@
 		    </bean>
 	    </constructor-arg>
 	</bean>
-	
+
     <!-- character class manager view -->
 	<bean id="characterClassManagerView"
 		class="org.springframework.richclient.application.support.LookupViewDescriptor">
