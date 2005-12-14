@@ -41,11 +41,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
@@ -81,7 +77,6 @@ import foxtrot.Worker;
 
 public class ObjectManagerView extends AbstractView {
     private static final boolean SINGLE_COLUMN_SORT = false;
-	private static final Log LOG = LogFactory.getLog(ObjectManagerView.class);
     private static final Matcher ALWAYS_MATCH_MATCHER = new AlwaysMatchMatcher();
     private static final int SEARCH_DELAY_MILLIS = 300;
 
@@ -353,6 +348,10 @@ public class ObjectManagerView extends AbstractView {
         return result;
     }
 
+    private String getSearchableText() {
+        return getQuickSearchInput().getText().trim();
+    }
+
     private class NewCommandExcecutor extends AbstractActionCommandExecutor {
         private Object object;
         private FormModel formModel;
@@ -508,17 +507,12 @@ public class ObjectManagerView extends AbstractView {
         }
 
         private void processEvent(DocumentEvent event) {
-            Document document = event.getDocument();
-            try {
-                String value = document.getText(0, document.getLength()).trim();
-                if (0 < value.length()) {
-                    TimerTask delaySearchTask = new DelaySearchTask(value);
-                    timer.schedule(delaySearchTask, SEARCH_DELAY_MILLIS);
-                } else {
-                    fireClear();
-                }
-            } catch (BadLocationException e) {
-                LOG.warn("Error getting search query", e);
+            String value = getSearchableText();
+            if (0 < value.length()) {
+                TimerTask delaySearchTask = new DelaySearchTask(value);
+                timer.schedule(delaySearchTask, SEARCH_DELAY_MILLIS);
+            } else {
+                fireClear();
             }
         }
     }
@@ -536,7 +530,7 @@ public class ObjectManagerView extends AbstractView {
             }
         }
         private boolean hasInputChanged() {
-            return !originalInput.equals(getQuickSearchInput().getText());
+            return !originalInput.equals(getSearchableText());
         }
     }
 }
