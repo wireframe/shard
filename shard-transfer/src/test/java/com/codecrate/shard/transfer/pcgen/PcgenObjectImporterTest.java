@@ -27,6 +27,7 @@ import org.easymock.MockControl;
 import com.codecrate.shard.source.Source;
 import com.codecrate.shard.source.SourceDao;
 import com.codecrate.shard.source.SourceFactory;
+import com.codecrate.shard.transfer.FileUtils;
 
 public class PcgenObjectImporterTest extends TestCase {
 
@@ -58,7 +59,7 @@ public class PcgenObjectImporterTest extends TestCase {
         mockLineHanlder.setReturnValue(new Object());
         mockLineHanlder.replay();
 
-        File file = new File(Thread.currentThread().getContextClassLoader().getResource("pcgen.lst").getFile());
+        File file = FileUtils.getFile("pcgen/pcgen.lst");
         PcgenObjectImporter importer = new PcgenObjectImporter(lineHandler, sourceDao, sourceFactory);
 		Collection results = importer.importObjects(file);
 
@@ -94,7 +95,7 @@ public class PcgenObjectImporterTest extends TestCase {
         mockLineHanlder.setReturnValue(new Object());
         mockLineHanlder.replay();
 
-        File file = new File(Thread.currentThread().getContextClassLoader().getResource("pcgen.lst").getFile());
+        File file = FileUtils.getFile("pcgen/pcgen.lst");
         PcgenObjectImporter importer = new PcgenObjectImporter(lineHandler, sourceDao, sourceFactory);
         Collection results = importer.importObjects(file);
 

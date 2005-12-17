@@ -25,7 +25,7 @@ import junit.framework.TestCase;
 public class FileExtensionObjectImporterResolverTest extends TestCase {
 
 	public void testImportWithUnsupportedFileExtensionReturnsEmptyList() {
-        File file = new File(Thread.currentThread().getContextClassLoader().getResource("feats.xls").getFile());
+        File file = FileUtils.getFile("excel/feats.xls");
 		FileExtensionObjectImporterResolver importer = new FileExtensionObjectImporterResolver(Collections.EMPTY_LIST);
 		Collection results = importer.importObjects(file);
 

@@ -25,6 +25,7 @@ import org.easymock.MockControl;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
+import com.codecrate.shard.transfer.FileUtils;
 
 public class ExcelSkillRowHandlerTest extends TestCase {
 
@@ -45,7 +46,7 @@ public class ExcelSkillRowHandlerTest extends TestCase {
         mockSkillDao.setReturnValue(skill);
         mockSkillDao.replay();
 
-        File file = new File(Thread.currentThread().getContextClassLoader().getResource("skills.xls").getFile());
+        File file = FileUtils.getFile("excel/skills.xls");
         Collection results = new ExcelObjectImporter(new ExcelSkillRowHandler(skillFactory, skillDao)).importObjects(file);
         assertFalse(results.isEmpty());
     }

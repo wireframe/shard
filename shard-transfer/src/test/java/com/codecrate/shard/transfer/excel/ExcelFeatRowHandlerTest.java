@@ -25,6 +25,7 @@ import org.easymock.MockControl;
 import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
+import com.codecrate.shard.transfer.FileUtils;
 import com.codecrate.shard.transfer.excel.ExcelFeatRowHandler;
 
 public class ExcelFeatRowHandlerTest extends TestCase {
@@ -50,7 +51,7 @@ public class ExcelFeatRowHandlerTest extends TestCase {
         mockFeatDao.setReturnValue(feat);
         mockFeatDao.replay();
 
-        File file = new File(Thread.currentThread().getContextClassLoader().getResource("feats.xls").getFile());
+        File file = FileUtils.getFile("excel/feats.xls");
         Collection results = new ExcelObjectImporter(new ExcelFeatRowHandler(featFactory, featDao)).importObjects(file);
         assertFalse(results.isEmpty());
     }
@@ -76,7 +77,7 @@ public class ExcelFeatRowHandlerTest extends TestCase {
         mockFeatDao.setReturnValue(feat);
         mockFeatDao.replay();
 
-        File file = new File(Thread.currentThread().getContextClassLoader().getResource("feats.xls").getFile());
+        File file = FileUtils.getFile("excel/feats.xls");
         Collection results = new ExcelObjectImporter(new ExcelFeatRowHandler(featFactory, featDao)).importObjects(file);
         assertFalse(results.isEmpty());
     }
