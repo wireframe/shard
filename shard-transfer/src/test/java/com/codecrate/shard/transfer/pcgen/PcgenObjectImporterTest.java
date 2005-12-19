@@ -17,8 +17,6 @@ package com.codecrate.shard.transfer.pcgen;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import junit.framework.TestCase;
 
@@ -32,9 +30,6 @@ import com.codecrate.shard.transfer.FileUtils;
 public class PcgenObjectImporterTest extends TestCase {
 
     public void testBasicImport() throws Exception {
-        Map tags = new HashMap();
-        tags.put("KEYSTAT", "STR");
-
         Source source = new Source("name", "nme", "http://blah.com");
 
         MockControl mockSourceDao = MockControl.createControl(SourceDao.class);
@@ -53,9 +48,9 @@ public class PcgenObjectImporterTest extends TestCase {
 
         MockControl mockLineHanlder = MockControl.createControl(PcgenObjectImporter.PcgenLineHandler.class);
         PcgenObjectImporter.PcgenLineHandler lineHandler = (PcgenObjectImporter.PcgenLineHandler) mockLineHanlder.getMock();
-        lineHandler.handleParsedLine("Climb", tags, source);
+        lineHandler.handleLine("Climb	KEYSTAT:STR", source);
         mockLineHanlder.setReturnValue(new Object());
-        lineHandler.handleParsedLine("Jump", tags, source);
+        lineHandler.handleLine("Jump	KEYSTAT:STR", source);
         mockLineHanlder.setReturnValue(new Object());
         mockLineHanlder.replay();
 
@@ -68,9 +63,6 @@ public class PcgenObjectImporterTest extends TestCase {
     }
 
     public void testExceptionHandlingRowDoesKeepsGoing() throws Exception {
-        Map tags = new HashMap();
-        tags.put("KEYSTAT", "STR");
-
         Source source = new Source("name", "nme", "http://blah.com");
 
         MockControl mockSourceDao = MockControl.createControl(SourceDao.class);
@@ -89,9 +81,9 @@ public class PcgenObjectImporterTest extends TestCase {
 
         MockControl mockLineHanlder = MockControl.createControl(PcgenObjectImporter.PcgenLineHandler.class);
         PcgenObjectImporter.PcgenLineHandler lineHandler = (PcgenObjectImporter.PcgenLineHandler) mockLineHanlder.getMock();
-        lineHandler.handleParsedLine("Climb", tags, source);
+        lineHandler.handleLine("Climb	KEYSTAT:STR", source);
         mockLineHanlder.setThrowable(new IllegalArgumentException("Test error while parsing"));
-        lineHandler.handleParsedLine("Jump", tags, source);
+        lineHandler.handleLine("Jump	KEYSTAT:STR", source);
         mockLineHanlder.setReturnValue(new Object());
         mockLineHanlder.replay();
 

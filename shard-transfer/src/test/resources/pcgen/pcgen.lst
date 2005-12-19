@@ -2,5 +2,5 @@
 SOURCELONG:System Reference Document|SOURCESHORT:SRD|SOURCEWEB:http://groups.yahoo.com/group/pcgen/files/3.0%20SRD/
 
 # here's some data that should be parsed
-Climb							KEYSTAT:STR
-Jump							KEYSTAT:STR
+Climb	KEYSTAT:STR
+Jump	KEYSTAT:STR

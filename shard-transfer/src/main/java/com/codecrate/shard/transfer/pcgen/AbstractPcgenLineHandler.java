@@ -34,19 +34,23 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
     private static final String TRUE_TAG_VALUE = "YES";
 
 	public Object handleLine(String line, Source source) {
-        StringTokenizer tokens = new StringTokenizer(line, "\t");
-
-        String name = tokens.nextToken().trim();
+        String name = getNameToken(line);
+        String tagsLine = getTagsFromLine(line);
         
-        String tagLine = "";
-        while (tokens.hasMoreTokens()) {
-        	tagLine += tokens.nextToken().trim();
-        	tagLine += "\t";
-        }
-        Map tags = new PcgenDefaultTagParser().parseTags(line);
+        Map tags = new PcgenDefaultTagParser().parseTags(tagsLine);
 
         return handleParsedLine(name, tags, source);
     }
+	
+	private String getNameToken(String line) {
+        StringTokenizer tokens = new StringTokenizer(line, "\t");
+        return tokens.nextToken().trim();
+	}
+	
+	private String getTagsFromLine(String line) {
+		String name = getNameToken(line);
+		return line.substring(name.length() + 1);
+	}
     
     protected String getStringTagValue(String tagName, Map tags) {
         String value = (String) tags.get(tagName);
