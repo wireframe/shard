@@ -44,7 +44,7 @@ import com.codecrate.shard.skill.DefaultSkill;
  */
 public class DefaultCharacterClass implements CharacterClass, Comparable {
     public static final CharacterClass BARBARIAN = new DefaultCharacterClass(
-            "Barbarian", RandomDice.d12,  4, new AlignmentPrerequisite(
+            "Barbarian", "Brb", RandomDice.d12,  4, new AlignmentPrerequisite(
                     new Alignment[] {
                             DefaultAlignment.NEUTRAL_GOOD, 
                             DefaultAlignment.NEUTRAL_NEUTRAL, 
@@ -56,7 +56,7 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
     		new HashSet(), new ArrayList(), new ArrayList());
     
     public static final CharacterClass BARD = new DefaultCharacterClass(
-            "Bard", RandomDice.d6,  6, new AlignmentPrerequisite(
+            "Bard", "Brd", RandomDice.d6,  6, new AlignmentPrerequisite(
                     new Alignment[] {
                             DefaultAlignment.NEUTRAL_GOOD, 
                             DefaultAlignment.NEUTRAL_NEUTRAL, 
@@ -71,7 +71,7 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
                             DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
 
     public static final CharacterClass CLERIC = new DefaultCharacterClass(
-            "Cleric", RandomDice.d8,  2, new DeityAlignmentPrerequisite(), 
+            "Cleric", "Crc", RandomDice.d8,  2, new DeityAlignmentPrerequisite(), 
             new HashSet(),
             Arrays.asList(new DefaultFeat[]{DefaultFeat.ARMOR_PROFICIENCY_LIGHT, DefaultFeat.ARMOR_PROFICIENCY_MEDIUM,
                     DefaultFeat.ARMOR_PROFICIENCY_HEAVY,
@@ -80,7 +80,7 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
                                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
     
     public static final CharacterClass DRUID = new DefaultCharacterClass(
-            "Druid", RandomDice.d8,  4, new AlignmentPrerequisite(
+            "Druid", "Drd", RandomDice.d8,  4, new AlignmentPrerequisite(
                     new Alignment[] {
                             DefaultAlignment.LAWFUL_NEUTRAL,
                             DefaultAlignment.NEUTRAL_GOOD, 
@@ -94,13 +94,13 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
                                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
     
     public static final CharacterClass FIGHTER = new DefaultCharacterClass(
-            "Fighter", RandomDice.d10,  2, new NullPrerequisite(), new HashSet(), 
+            "Fighter", "Ftr", RandomDice.d10,  2, new NullPrerequisite(), new HashSet(), 
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
     
     public static final CharacterClass MONK = new DefaultCharacterClass(
-            "Monk", RandomDice.d8,  4, new AlignmentPrerequisite(
+            "Monk", "Mnk", RandomDice.d8,  4, new AlignmentPrerequisite(
                     new Alignment[] {
                             DefaultAlignment.LAWFUL_GOOD, 
                             DefaultAlignment.LAWFUL_NEUTRAL, 
@@ -111,7 +111,7 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
 
     public static final CharacterClass PALADIN = new DefaultCharacterClass(
-            "Paladin", RandomDice.d10,  2, new AlignmentPrerequisite(
+            "Paladin", "Pdn", RandomDice.d10,  2, new AlignmentPrerequisite(
                     new Alignment[] {
                             DefaultAlignment.LAWFUL_GOOD 
                             }),
@@ -120,43 +120,44 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
     
     public static final CharacterClass RANGER = new DefaultCharacterClass(
-            "Ranger", RandomDice.d8,  6, new NullPrerequisite(), new HashSet(), 
+            "Ranger", "Rgr", RandomDice.d8,  6, new NullPrerequisite(), new HashSet(), 
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
     
     public static final CharacterClass ROUGE = new DefaultCharacterClass(
-            "Rouge", RandomDice.d6,  8, new NullPrerequisite(), new HashSet(), 
+            "Rouge", "Rog", RandomDice.d6,  8, new NullPrerequisite(), new HashSet(), 
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
     
     public static final CharacterClass SORCERER = new DefaultCharacterClass(
-            "Sorcerer", RandomDice.d4,  2, new NullPrerequisite(), new HashSet(), 
+            "Sorcerer", "Scr", RandomDice.d4,  2, new NullPrerequisite(), new HashSet(), 
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
     
     public static final CharacterClass WIZARD = new DefaultCharacterClass(
-            "Wizard", RandomDice.d4,  2, new NullPrerequisite(), 
+            "Wizard", "Wiz", RandomDice.d4,  2, new NullPrerequisite(), 
             new HashSet(),
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
 
     public static final CharacterClass WARRIOR = new DefaultCharacterClass(
-            "Warrior", RandomDice.d8,  2, new NullPrerequisite(), 
+            "Warrior", "War", RandomDice.d8,  2, new NullPrerequisite(), 
             new HashSet(), 
             Arrays.asList(new DefaultFeat[]{DefaultFeat.ARMOR_PROFICIENCY_LIGHT, DefaultFeat.ARMOR_PROFICIENCY_MEDIUM,
                     DefaultFeat.ARMOR_PROFICIENCY_HEAVY, DefaultFeat.SHIELD_PROFICIENCY}), new ArrayList());
 
-    
+    private String id;
     private Set classSkills = new HashSet();
     private Set bonusLanguages;
     private Collection feats;
     private Dice hitDicePerLevel;
     private int baseSkillPointsPerLevel;
     private String name;
+    private String abbreviation;
     private ClassProgression progression;
     private CharacterPrerequisite prereq;
     private Collection skillModifiers;
@@ -167,10 +168,11 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
     private DefaultCharacterClass() {
     }
     
-    public DefaultCharacterClass(String name, Dice hitDicePerLevel,
+    public DefaultCharacterClass(String name, String abbreviation, Dice hitDicePerLevel,
             int baseSkillPointsPerLevel, CharacterPrerequisite prereq, 
 			Set bonusLanguages, Collection feats, Collection skillModifiers) {
         this.name = name;
+        this.abbreviation = abbreviation;
         this.hitDicePerLevel = hitDicePerLevel;
         this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
         this.prereq = prereq;
@@ -228,6 +230,14 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
     public void setName(String name) {
     	this.name = name;
     }
+
+	public String getAbbreviation() {
+		return abbreviation;
+	}
+
+	public void setAbbreviation(String abbreviation) {
+		this.abbreviation = abbreviation;
+	}
 
 	public ClassProgression getClassProgression() {
 		return progression;

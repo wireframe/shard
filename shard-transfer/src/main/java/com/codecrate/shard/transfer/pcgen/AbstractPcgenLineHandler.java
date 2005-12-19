@@ -60,6 +60,15 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
         return value;
     }
 
+    protected int getIntTagValue(String tagName, Map tags) {
+        String value = (String) tags.get(tagName);
+        if (null == value) {
+            LOG.info("No value found for tag " + tagName);
+            return 0;
+        }
+        return Integer.parseInt(value);
+    }
+
     protected boolean getBooleanTagValue(String tagName, Map tags, boolean defaultValue) {
         String value = (String) tags.get(tagName);
         if (null == value) {

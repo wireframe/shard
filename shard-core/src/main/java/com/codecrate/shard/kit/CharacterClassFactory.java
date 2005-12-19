@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.kit;
 
+import com.codecrate.shard.dice.Dice;
+
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -24,7 +26,9 @@ public interface CharacterClassFactory {
     /**
      * create a new character class
      * @param name 
+     * @param abbreviation
+     * @param hitDice 
      * @return
      */
-	CharacterClass createClass(String name);
+	CharacterClass createClass(String name, String abbreviation, Dice hitDice);
 }

@@ -73,7 +73,7 @@ public class DefaultCharacterProgression implements CharacterProgression {
 		while (classes.hasNext()) {
 			CharacterClass kit = (CharacterClass) classes.next();
 			ClassLevel maxLevel = getClassLevel(kit);
-			result.append(kit.getName() + " " + maxLevel.getLevel());
+			result.append(kit.getAbbreviation() + " " + maxLevel.getLevel());
 			
 			if (classes.hasNext()) {
 				result.append(" / ");

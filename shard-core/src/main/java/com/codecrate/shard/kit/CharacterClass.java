@@ -73,7 +73,13 @@ public interface CharacterClass {
      * @return
      */
     String getName();
-    
+
+    /**
+     * get the abbreviation for this class.
+     * @return
+     */
+	String getAbbreviation();
+
     /**
      * gets the progression of levels for this class.
      * @return

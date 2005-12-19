@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.15 2005/12/13 18:34:16 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.16 2005/12/19 23:04:56 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -368,14 +368,33 @@
 		</property>
 	</bean>
 
+    <bean id="characterClassImporter"
+    	class="com.codecrate.shard.transfer.FileExtensionObjectImporterResolver">
+    	<constructor-arg>
+    	  <list>
+	    	<bean class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
+	    	  <constructor-arg>
+	    	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenCharacterClassLineHandler">
+				    <constructor-arg index="0"><ref bean="characterClassDao" /></constructor-arg>
+				    <constructor-arg index="1"><ref bean="characterClassDao" /></constructor-arg>
+				</bean>
+			  </constructor-arg>
+			  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
+			  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
+			</bean>
+    	  </list>
+    	</constructor-arg>
+    </bean>
+
 	<bean id="characterClassManager"
 	    class="com.codecrate.shard.ui.view.ObjectManagerView"
 	    singleton="false">
 	    <constructor-arg>
 		    <bean
 		        class="com.codecrate.shard.ui.command.CharacterClassCommandAdapter">
-		        <constructor-arg index="0"><ref bean="characterClassDao" /></constructor-arg>
-		        <constructor-arg index="1"><ref bean="characterClassDao" /></constructor-arg>
+		        <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
+		        <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
+		        <constructor-arg><ref bean="characterClassImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteCharacterClassDialog</value>
 		        </property>

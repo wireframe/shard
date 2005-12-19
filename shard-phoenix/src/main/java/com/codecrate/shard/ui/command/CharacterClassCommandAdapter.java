@@ -15,22 +15,22 @@
  */
 package com.codecrate.shard.ui.command;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.CharacterClassDao;
 import com.codecrate.shard.kit.CharacterClassFactory;
+import com.codecrate.shard.transfer.ObjectImporter;
 
-public class CharacterClassCommandAdapter implements ObjectManagerCommandAdapter {
+public class CharacterClassCommandAdapter extends AbstractObjectManagerCommandAdapter {
 
 	private final CharacterClassDao characterClassDao;
 	private final CharacterClassFactory characterClassFactory;
 
 	private String deleteMessagePropertyName;
 
-	public CharacterClassCommandAdapter(CharacterClassDao characterClassDao, CharacterClassFactory characterClassFactory) {
+	public CharacterClassCommandAdapter(CharacterClassDao characterClassDao, CharacterClassFactory characterClassFactory, ObjectImporter importer) {
+		super(importer);
 		this.characterClassDao = characterClassDao;
 		this.characterClassFactory = characterClassFactory;
 	}
@@ -38,7 +38,7 @@ public class CharacterClassCommandAdapter implements ObjectManagerCommandAdapter
 	public String[] getColumnNames() {
 		return new String[] {
 				"name"
-				, "type"
+				, "abbreviation"
 		};
 	}
 
@@ -47,7 +47,7 @@ public class CharacterClassCommandAdapter implements ObjectManagerCommandAdapter
 	}
 
 	public Object createObject() {
-		return characterClassFactory.createClass("New Kit");
+		return characterClassFactory.createClass("New Kit", "", null);
 	}
 
 	public void saveObject(Object object) {
@@ -72,13 +72,5 @@ public class CharacterClassCommandAdapter implements ObjectManagerCommandAdapter
 
 	public Collection searchObjects(String query) {
 		return characterClassDao.searchClasses(query);
-	}
-
-	public Collection importObjects(File file) {
-		return new ArrayList();
-	}
-
-	public Collection getSupportedImportFileExtensions() {
-		return new ArrayList();
 	}
 }

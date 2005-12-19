@@ -18,6 +18,7 @@ package com.codecrate.shard.kit;
 import java.util.Collection;
 
 import com.codecrate.shard.ShardHibernateTestCaseSupport;
+import com.codecrate.shard.dice.RandomDice;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -36,7 +37,7 @@ public class HibernateCharacterClassDaoTest extends ShardHibernateTestCaseSuppor
 
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
-		CharacterClass kit = characterClassFactory.createClass("Dragonslayer");
+		CharacterClass kit = characterClassFactory.createClass("Dragonslayer", "Dgs", new RandomDice(8));
 		characterClassDao.saveClass(DefaultCharacterClass.FIGHTER);
 		characterClassDao.saveClass(kit);
 	}
