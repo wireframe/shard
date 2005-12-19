@@ -23,7 +23,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -34,6 +33,8 @@ import com.codecrate.shard.source.Source;
 import com.codecrate.shard.source.SourceDao;
 import com.codecrate.shard.source.SourceFactory;
 import com.codecrate.shard.transfer.ObjectImporter;
+import com.codecrate.shard.transfer.pcgen.tag.PcgenDefaultTagParser;
+import com.codecrate.shard.transfer.pcgen.tag.PcgenSourceTagParser;
 
 public class PcgenObjectImporter implements ObjectImporter {
 	private static final String PCGEN_LST_FILE_EXTENSION = "lst";
@@ -86,16 +87,7 @@ public class PcgenObjectImporter implements ObjectImporter {
     }
 
     private Source handleSourceLine(String line) {
-        Map tags = new HashMap();
-        StringTokenizer tokens = new StringTokenizer(line, "|");
-        while (tokens.hasMoreTokens()) {
-            String token = tokens.nextToken();
-            int colonIndex = token.indexOf(":");
-            String tagName = token.substring(0, colonIndex);
-            String tagValue = token.substring(colonIndex + 1, token.length());
-
-            tags.put(tagName, tagValue);
-        }
+        Map tags = new PcgenSourceTagParser().parseTags(line);
 
         String name = (String) tags.get(SOURCE_NAME_TAG_NAME);
         Source source = sourceDao.getSource(name);
@@ -122,17 +114,13 @@ public class PcgenObjectImporter implements ObjectImporter {
         StringTokenizer tokens = new StringTokenizer(line, "\t");
 
         String name = tokens.nextToken().trim();
-        Map tags = new HashMap();
-
+        
+        String tagLine = "";
         while (tokens.hasMoreTokens()) {
-            String token = tokens.nextToken().trim();
-
-            String[] splitTags = token.split(":");
-            String tagName = splitTags[0].trim();
-            String tagValue = splitTags[1].trim();
-
-            tags.put(tagName, tagValue);
+        	tagLine += tokens.nextToken().trim();
+        	tagLine += "\t";
         }
+        Map tags = new PcgenDefaultTagParser().parseTags(line);
 
         return lineHandler.handleParsedLine(name, tags, source);
     }
