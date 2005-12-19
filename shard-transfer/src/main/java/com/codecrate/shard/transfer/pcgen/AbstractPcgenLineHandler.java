@@ -16,9 +16,13 @@
 package com.codecrate.shard.transfer.pcgen;
 
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.codecrate.shard.source.Source;
+import com.codecrate.shard.transfer.pcgen.tag.PcgenDefaultTagParser;
 
 
 /**
@@ -29,6 +33,21 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
 
     private static final String TRUE_TAG_VALUE = "YES";
 
+	public Object handleLine(String line, Source source) {
+        StringTokenizer tokens = new StringTokenizer(line, "\t");
+
+        String name = tokens.nextToken().trim();
+        
+        String tagLine = "";
+        while (tokens.hasMoreTokens()) {
+        	tagLine += tokens.nextToken().trim();
+        	tagLine += "\t";
+        }
+        Map tags = new PcgenDefaultTagParser().parseTags(line);
+
+        return handleParsedLine(name, tags, source);
+    }
+    
     protected String getStringTagValue(String tagName, Map tags) {
         String value = (String) tags.get(tagName);
         if (null == value) {

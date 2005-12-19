@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,7 +32,6 @@ import com.codecrate.shard.source.Source;
 import com.codecrate.shard.source.SourceDao;
 import com.codecrate.shard.source.SourceFactory;
 import com.codecrate.shard.transfer.ObjectImporter;
-import com.codecrate.shard.transfer.pcgen.tag.PcgenDefaultTagParser;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenSourceTagParser;
 
 public class PcgenObjectImporter implements ObjectImporter {
@@ -71,7 +69,7 @@ public class PcgenObjectImporter implements ObjectImporter {
                     source = handleSourceLine(line);
                 } else if (!isEmptyLine(line)) {
 			    	try {
-			            results.add(handleLine(line, source));
+			            results.add(lineHandler.handleLine(line, source));
 			    	} catch (Exception e) {
 			    		LOG.error("Error processing line: " + line, e);
 			    	}
@@ -110,21 +108,6 @@ public class PcgenObjectImporter implements ObjectImporter {
     	}
     }
 
-	private Object handleLine(String line, Source source) {
-        StringTokenizer tokens = new StringTokenizer(line, "\t");
-
-        String name = tokens.nextToken().trim();
-        
-        String tagLine = "";
-        while (tokens.hasMoreTokens()) {
-        	tagLine += tokens.nextToken().trim();
-        	tagLine += "\t";
-        }
-        Map tags = new PcgenDefaultTagParser().parseTags(line);
-
-        return lineHandler.handleParsedLine(name, tags, source);
-    }
-
     private boolean isSourceLine(String value) {
         return value.startsWith("SOURCE");
     }
@@ -136,6 +119,8 @@ public class PcgenObjectImporter implements ObjectImporter {
 
     public interface PcgenLineHandler {
 
+    	Object handleLine(String line, Source source);
+    	
         Object handleParsedLine(String name, Map tags, Source source);
     }
 }
