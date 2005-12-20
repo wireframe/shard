@@ -126,6 +126,7 @@ public class DefaultRace implements Race, Comparable {
 											DefaultVision.NORMAL, DefaultCharacterClass.ROUGE,
                                             new AgeCategorization(new MultipleDice(RandomDice.d20, 5)), 0);
 
+	private String id;
 	private String name;
 	private RacialSize size;
 	private Movement movement;

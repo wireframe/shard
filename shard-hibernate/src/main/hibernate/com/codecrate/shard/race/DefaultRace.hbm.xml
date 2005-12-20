@@ -7,10 +7,14 @@
 
     <class name="com.codecrate.shard.race.DefaultRace" table="SHA_RACE">
 
-        <id name="name" type="string" unsaved-value="null" access="field">
+        <id name="id" type="string" access="field">
             <column name="ID" sql-type="char(32)" not-null="true"/>
-            <generator class="assigned"/>
+            <generator class="uuid.hex"/>
         </id>
+
+        <property name="name" access="field">
+            <column name="NAME" not-null="true"/>
+        </property>
 
         <property name="levelAdjustment" access="field">
             <column name="LEVEL_ADJUSTMENT" length="2" not-null="true"/>
