@@ -23,7 +23,6 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import com.codecrate.shard.ability.DefaultAbility;
-import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.dice.MultipleDice;
 import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.kit.CharacterClass;
