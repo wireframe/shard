@@ -17,6 +17,7 @@ package com.codecrate.shard.ui.command;
 
 import java.util.Collection;
 
+import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.CharacterClassDao;
 import com.codecrate.shard.kit.CharacterClassFactory;
@@ -47,7 +48,7 @@ public class CharacterClassCommandAdapter extends AbstractObjectManagerCommandAd
 	}
 
 	public Object createObject() {
-		return characterClassFactory.createClass("New Kit", "", null);
+		return characterClassFactory.createClass("New Kit", "", new RandomDice(8));
 	}
 
 	public void saveObject(Object object) {

@@ -40,6 +40,11 @@ public class CharacterClassFormFactory extends AbstractFormFactory implements Fo
 
             TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
             formBuilder.add("name");
+            formBuilder.row();
+            formBuilder.add("abbreviation");
+            formBuilder.row();
+            formBuilder.add("hitDicePerLevelString");
+            
             return formBuilder.getForm();
         }
     }

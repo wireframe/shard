@@ -55,14 +55,14 @@ public class DefaultCharacterProgressionTest extends TestCase {
     public void testNameFormattedCorrectly() {
 		MockControl mockClass2 = MockControl.createControl(CharacterClass.class);
 		CharacterClass fighter = (CharacterClass) mockClass2.getMock();
-		fighter.getName();
-		mockClass2.setReturnValue("Fighter");
+		fighter.getAbbreviation();
+		mockClass2.setReturnValue("Ftr");
 		mockClass2.replay();
 		
 		MockControl mockClass = MockControl.createControl(CharacterClass.class);
 		CharacterClass ranger = (CharacterClass) mockClass.getMock();
-		ranger.getName();
-		mockClass.setDefaultReturnValue("Ranger");
+		ranger.getAbbreviation();
+		mockClass.setDefaultReturnValue("Rgr");
 		mockClass.replay();
 
     	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
@@ -76,7 +76,7 @@ public class DefaultCharacterProgressionTest extends TestCase {
     	levels.add(characterLevel2);
     	
     	DefaultCharacterProgression progression = new DefaultCharacterProgression(levels);
-    	assertEquals("Ranger 1 / Fighter 1", progression.getDescription());
+    	assertEquals("Rgr 1 / Ftr 1", progression.getDescription());
     }
 
     public void testGetMaxLevelReturnsHighestLevel() {

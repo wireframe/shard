@@ -31,6 +31,7 @@ import com.codecrate.shard.character.prereq.CharacterPrerequisite;
 import com.codecrate.shard.character.prereq.DeityAlignmentPrerequisite;
 import com.codecrate.shard.character.prereq.NullPrerequisite;
 import com.codecrate.shard.dice.Dice;
+import com.codecrate.shard.dice.DiceExpression;
 import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.feat.DefaultFeat;
 import com.codecrate.shard.modifier.DefaultKeyedModifier;
@@ -39,31 +40,31 @@ import com.codecrate.shard.modifier.KeyedModifier;
 import com.codecrate.shard.skill.DefaultSkill;
 
 /**
- * 
+ *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultCharacterClass implements CharacterClass, Comparable {
     public static final CharacterClass BARBARIAN = new DefaultCharacterClass(
             "Barbarian", "Brb", RandomDice.d12,  4, new AlignmentPrerequisite(
                     new Alignment[] {
-                            DefaultAlignment.NEUTRAL_GOOD, 
-                            DefaultAlignment.NEUTRAL_NEUTRAL, 
-                            DefaultAlignment.NEUTRAL_EVIL, 
-                            DefaultAlignment.CHAOTIC_GOOD, 
-                            DefaultAlignment.CHAOTIC_NEUTRAL, 
-                            DefaultAlignment.CHAOTIC_EVIL 
+                            DefaultAlignment.NEUTRAL_GOOD,
+                            DefaultAlignment.NEUTRAL_NEUTRAL,
+                            DefaultAlignment.NEUTRAL_EVIL,
+                            DefaultAlignment.CHAOTIC_GOOD,
+                            DefaultAlignment.CHAOTIC_NEUTRAL,
+                            DefaultAlignment.CHAOTIC_EVIL
                             }),
     		new HashSet(), new ArrayList(), new ArrayList());
-    
+
     public static final CharacterClass BARD = new DefaultCharacterClass(
             "Bard", "Brd", RandomDice.d6,  6, new AlignmentPrerequisite(
                     new Alignment[] {
-                            DefaultAlignment.NEUTRAL_GOOD, 
-                            DefaultAlignment.NEUTRAL_NEUTRAL, 
-                            DefaultAlignment.NEUTRAL_EVIL, 
-                            DefaultAlignment.CHAOTIC_GOOD, 
-                            DefaultAlignment.CHAOTIC_NEUTRAL, 
-                            DefaultAlignment.CHAOTIC_EVIL 
+                            DefaultAlignment.NEUTRAL_GOOD,
+                            DefaultAlignment.NEUTRAL_NEUTRAL,
+                            DefaultAlignment.NEUTRAL_EVIL,
+                            DefaultAlignment.CHAOTIC_GOOD,
+                            DefaultAlignment.CHAOTIC_NEUTRAL,
+                            DefaultAlignment.CHAOTIC_EVIL
                             }),
     				new HashSet(),
             new ArrayList(), Arrays
@@ -71,40 +72,40 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
                             DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
 
     public static final CharacterClass CLERIC = new DefaultCharacterClass(
-            "Cleric", "Crc", RandomDice.d8,  2, new DeityAlignmentPrerequisite(), 
+            "Cleric", "Crc", RandomDice.d8,  2, new DeityAlignmentPrerequisite(),
             new HashSet(),
             Arrays.asList(new DefaultFeat[]{DefaultFeat.ARMOR_PROFICIENCY_LIGHT, DefaultFeat.ARMOR_PROFICIENCY_MEDIUM,
                     DefaultFeat.ARMOR_PROFICIENCY_HEAVY,
                             DefaultFeat.SHIELD_PROFICIENCY }), Arrays
                             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
-    
+
     public static final CharacterClass DRUID = new DefaultCharacterClass(
             "Druid", "Drd", RandomDice.d8,  4, new AlignmentPrerequisite(
                     new Alignment[] {
                             DefaultAlignment.LAWFUL_NEUTRAL,
-                            DefaultAlignment.NEUTRAL_GOOD, 
-                            DefaultAlignment.NEUTRAL_NEUTRAL, 
-                            DefaultAlignment.CHAOTIC_NEUTRAL, 
-                            DefaultAlignment.CHAOTIC_EVIL 
-                            }), 
+                            DefaultAlignment.NEUTRAL_GOOD,
+                            DefaultAlignment.NEUTRAL_NEUTRAL,
+                            DefaultAlignment.CHAOTIC_NEUTRAL,
+                            DefaultAlignment.CHAOTIC_EVIL
+                            }),
                             new HashSet(),
                             new ArrayList(), Arrays
                             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
-    
+
     public static final CharacterClass FIGHTER = new DefaultCharacterClass(
-            "Fighter", "Ftr", RandomDice.d10,  2, new NullPrerequisite(), new HashSet(), 
+            "Fighter", "Ftr", RandomDice.d10,  2, new NullPrerequisite(), new HashSet(),
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
-    
+
     public static final CharacterClass MONK = new DefaultCharacterClass(
             "Monk", "Mnk", RandomDice.d8,  4, new AlignmentPrerequisite(
                     new Alignment[] {
-                            DefaultAlignment.LAWFUL_GOOD, 
-                            DefaultAlignment.LAWFUL_NEUTRAL, 
-                            DefaultAlignment.LAWFUL_EVIL 
+                            DefaultAlignment.LAWFUL_GOOD,
+                            DefaultAlignment.LAWFUL_NEUTRAL,
+                            DefaultAlignment.LAWFUL_EVIL
                             }), new HashSet(),
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
@@ -113,40 +114,40 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
     public static final CharacterClass PALADIN = new DefaultCharacterClass(
             "Paladin", "Pdn", RandomDice.d10,  2, new AlignmentPrerequisite(
                     new Alignment[] {
-                            DefaultAlignment.LAWFUL_GOOD 
+                            DefaultAlignment.LAWFUL_GOOD
                             }),
             new HashSet(), new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
-    
+
     public static final CharacterClass RANGER = new DefaultCharacterClass(
-            "Ranger", "Rgr", RandomDice.d8,  6, new NullPrerequisite(), new HashSet(), 
+            "Ranger", "Rgr", RandomDice.d8,  6, new NullPrerequisite(), new HashSet(),
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
-    
+
     public static final CharacterClass ROUGE = new DefaultCharacterClass(
-            "Rouge", "Rog", RandomDice.d6,  8, new NullPrerequisite(), new HashSet(), 
+            "Rouge", "Rog", RandomDice.d6,  8, new NullPrerequisite(), new HashSet(),
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
-    
+
     public static final CharacterClass SORCERER = new DefaultCharacterClass(
-            "Sorcerer", "Scr", RandomDice.d4,  2, new NullPrerequisite(), new HashSet(), 
+            "Sorcerer", "Scr", RandomDice.d4,  2, new NullPrerequisite(), new HashSet(),
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
-    
+
     public static final CharacterClass WIZARD = new DefaultCharacterClass(
-            "Wizard", "Wiz", RandomDice.d4,  2, new NullPrerequisite(), 
+            "Wizard", "Wiz", RandomDice.d4,  2, new NullPrerequisite(),
             new HashSet(),
             new ArrayList(), Arrays
             .asList(new KeyedModifier[] { new DefaultKeyedModifier(
                     DefaultSkill.LITERACY, DefaultModifierType.CLASS, 1) }));
 
     public static final CharacterClass WARRIOR = new DefaultCharacterClass(
-            "Warrior", "War", RandomDice.d8,  2, new NullPrerequisite(), 
-            new HashSet(), 
+            "Warrior", "War", RandomDice.d8,  2, new NullPrerequisite(),
+            new HashSet(),
             Arrays.asList(new DefaultFeat[]{DefaultFeat.ARMOR_PROFICIENCY_LIGHT, DefaultFeat.ARMOR_PROFICIENCY_MEDIUM,
                     DefaultFeat.ARMOR_PROFICIENCY_HEAVY, DefaultFeat.SHIELD_PROFICIENCY}), new ArrayList());
 
@@ -167,9 +168,9 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
      */
     private DefaultCharacterClass() {
     }
-    
+
     public DefaultCharacterClass(String name, String abbreviation, Dice hitDicePerLevel,
-            int baseSkillPointsPerLevel, CharacterPrerequisite prereq, 
+            int baseSkillPointsPerLevel, CharacterPrerequisite prereq,
 			Set bonusLanguages, Collection feats, Collection skillModifiers) {
         this.name = name;
         this.abbreviation = abbreviation;
@@ -181,11 +182,11 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
         this.skillModifiers = skillModifiers;
         this.progression = new DefaultClassProgression(new ArrayList());
     }
-    
+
     public String toString() {
     	return name;
     }
-    
+
     public int hashCode() {
     	return new HashCodeBuilder(3, 7)
     	.append(name)
@@ -205,7 +206,7 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
 	    	.append(name, target.name)
 	    	.isEquals();
     }
-    
+
     public int compareTo(Object object) {
     	DefaultCharacterClass kit = (DefaultCharacterClass) object;
     	return name.compareTo(kit.name);
@@ -215,6 +216,10 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
         return hitDicePerLevel;
     }
 
+    public void setHitDicePerLevel(Dice hitDice) {
+        this.hitDicePerLevel = hitDice;
+    }
+
     public Collection getClassSkills() {
         return classSkills;
     }
@@ -222,7 +227,7 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
     public int getBaseSkillPointsPerLevel() {
         return baseSkillPointsPerLevel;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -242,20 +247,37 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
 	public ClassProgression getClassProgression() {
 		return progression;
 	}
-	
+
 	public CharacterPrerequisite getPrerequisite() {
 	    return prereq;
 	}
-	
+
 	public Collection getBonusLanguages() {
 	    return bonusLanguages;
 	}
-	
+
 	public Collection getFeats() {
 	    return feats;
 	}
-	
+
 	public Collection getSkills() {
 	    return skillModifiers;
 	}
+
+
+    /**
+     * @deprecated remove when spring-rcp binder created
+     * @param cost
+     */
+    public void setHitDicePerLevelString(String hitDice) {
+        setHitDicePerLevel(new DiceExpression(hitDice));
+    }
+
+    /**
+     * @deprecated remove when spring-rcp binder created.
+     * @return
+     */
+    public String getHitDicePerLevelString() {
+        return getHitDicePerLevel().toString();
+    }
 }
