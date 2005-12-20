@@ -23,7 +23,7 @@ import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.CharacterClassDao;
 import com.codecrate.shard.kit.CharacterClassFactory;
 import com.codecrate.shard.source.Source;
-import com.codecrate.shard.transfer.pcgen.tag.PcgenDefaultTagParser;
+import com.codecrate.shard.transfer.pcgen.tag.PcgenTokenTagParser;
 
 public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     private static final String NAME = "CLASS";
@@ -39,7 +39,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     }
 
     public Object handleLine(String line, Source source) {
-    	Map tags = new PcgenDefaultTagParser().parseTags(line);
+    	Map tags = new PcgenTokenTagParser("\t").parseTags(line);
     	String name = getStringTagValue(NAME, tags);
 
     	return handleParsedLine(name, tags, source);

@@ -19,15 +19,27 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class PcgenSourceTagParser implements PcgenTagParser {
+public class PcgenTokenTagParser implements PcgenTagParser {
+	private final String tokenDelimiter;
+	private final String tagSeperator;
+
+	public PcgenTokenTagParser(String tokenDelimiter) {
+		this(tokenDelimiter, ":");
+	}
+
+	public PcgenTokenTagParser(String tokenDelimiter, String tagSeperator) {
+		this.tokenDelimiter = tokenDelimiter;
+		this.tagSeperator = tagSeperator;
+	}
+
 	public Map parseTags(String line) {
 		Map tags = new HashMap();
-		StringTokenizer tokens = new StringTokenizer(line, "|");
+		StringTokenizer tokens = new StringTokenizer(line, tokenDelimiter);
 		while (tokens.hasMoreTokens()) {
 			String token = tokens.nextToken();
-			int colonIndex = token.indexOf(":");
-			String tagName = token.substring(0, colonIndex);
-			String tagValue = token.substring(colonIndex + 1, token.length());
+			int seperatorIndex = token.indexOf(tagSeperator);
+			String tagName = token.substring(0, seperatorIndex);
+			String tagValue = token.substring(seperatorIndex + 1, token.length());
 			
 			tags.put(tagName, tagValue);
 		}

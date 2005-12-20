@@ -19,10 +19,10 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-public class PcgenSourceTagParserTest extends TestCase {
+public class PcgenTokenTagParserTest extends TestCase {
 
 	public void testParseSourceCorrectlyHandlesUrls() {
-		Map tags = new PcgenSourceTagParser().parseTags("URL:http://blah.com");
+		Map tags = new PcgenTokenTagParser("\t").parseTags("URL:http://blah.com");
 		
 		assertEquals("http://blah.com", tags.get("URL"));
 	}

@@ -22,8 +22,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.codecrate.shard.source.Source;
-import com.codecrate.shard.transfer.pcgen.tag.PcgenDefaultTagParser;
-
+import com.codecrate.shard.transfer.pcgen.tag.PcgenTagParser;
+import com.codecrate.shard.transfer.pcgen.tag.PcgenTokenTagParser;
 
 /**
  * helper class for parsing PCGen LST files.
@@ -33,15 +33,27 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
 
     private static final String TRUE_TAG_VALUE = "YES";
 
+	private final PcgenTagParser tagParser;
+
+	public AbstractPcgenLineHandler() {
+		this(new PcgenTokenTagParser("\t"));
+	}
+
+    public AbstractPcgenLineHandler(PcgenTagParser tagParser) {
+		this.tagParser = tagParser;
+    }
+    
 	public Object handleLine(String line, Source source) {
         String name = getNameToken(line);
         String tagsLine = getTagsFromLine(line);
         
-        Map tags = new PcgenDefaultTagParser().parseTags(tagsLine);
+        Map tags = tagParser.parseTags(tagsLine);
 
         return handleParsedLine(name, tags, source);
     }
 	
+	protected abstract Object handleParsedLine(String name, Map tags, Source source);
+
 	private String getNameToken(String line) {
         StringTokenizer tokens = new StringTokenizer(line, "\t");
         return tokens.nextToken().trim();
@@ -67,6 +79,10 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
             return 0;
         }
         return Integer.parseInt(value);
+    }
+
+    protected PcgenTagParser getTagParser() {
+    	return tagParser;
     }
 
     protected boolean getBooleanTagValue(String tagName, Map tags, boolean defaultValue) {

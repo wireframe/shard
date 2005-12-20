@@ -54,8 +54,10 @@ public class PcgenObjectImporterTest extends TestCase {
         mockLineHanlder.setReturnValue(new Object());
         mockLineHanlder.replay();
 
+        PcgenSourceLineHandler sourceLineHandler = new PcgenSourceLineHandler(sourceDao, sourceFactory);
+
         File file = FileUtils.getFile("pcgen/pcgen.lst");
-        PcgenObjectImporter importer = new PcgenObjectImporter(lineHandler, sourceDao, sourceFactory);
+        PcgenObjectImporter importer = new PcgenObjectImporter(lineHandler, sourceLineHandler);
 		Collection results = importer.importObjects(file);
 
 		assertFalse(results.isEmpty());
@@ -87,8 +89,10 @@ public class PcgenObjectImporterTest extends TestCase {
         mockLineHanlder.setReturnValue(new Object());
         mockLineHanlder.replay();
 
+        PcgenSourceLineHandler sourceLineHandler = new PcgenSourceLineHandler(sourceDao, sourceFactory);
+
         File file = FileUtils.getFile("pcgen/pcgen.lst");
-        PcgenObjectImporter importer = new PcgenObjectImporter(lineHandler, sourceDao, sourceFactory);
+        PcgenObjectImporter importer = new PcgenObjectImporter(lineHandler, sourceLineHandler);
         Collection results = importer.importObjects(file);
 
         assertFalse(results.isEmpty());

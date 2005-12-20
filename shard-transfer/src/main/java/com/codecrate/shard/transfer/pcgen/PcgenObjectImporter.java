@@ -23,33 +23,24 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.codecrate.shard.source.Source;
-import com.codecrate.shard.source.SourceDao;
-import com.codecrate.shard.source.SourceFactory;
 import com.codecrate.shard.transfer.ObjectImporter;
-import com.codecrate.shard.transfer.pcgen.tag.PcgenSourceTagParser;
 
 public class PcgenObjectImporter implements ObjectImporter {
 	private static final String PCGEN_LST_FILE_EXTENSION = "lst";
-    private static final String SOURCE_NAME_TAG_NAME = "SOURCELONG";
-    private static final String SOURCE_ABBREVIATION_TAG_NAME = "SOURCESHORT";
-    private static final String SOURCE_URL_TAG_NAME = "SOURCEWEB";
 
     private static final Log LOG = LogFactory.getLog(PcgenObjectImporter.class);
 
     private final PcgenLineHandler lineHandler;
-    private final SourceDao sourceDao;
-    private final SourceFactory sourceFactory;
+    private final PcgenSourceLineHandler sourceLineHandler;
 
-    public PcgenObjectImporter(PcgenLineHandler lineHandler, SourceDao sourceDao, SourceFactory sourceFactory) {
+    public PcgenObjectImporter(PcgenLineHandler lineHandler, PcgenSourceLineHandler sourceLineHandler) {
         this.lineHandler = lineHandler;
-        this.sourceDao = sourceDao;
-        this.sourceFactory = sourceFactory;
+        this.sourceLineHandler = sourceLineHandler;
     }
 
     public Collection getSupportedFileExtensions() {
@@ -65,8 +56,8 @@ public class PcgenObjectImporter implements ObjectImporter {
 
             while (reader.ready()) {
 			    String line = reader.readLine();
-                if (isSourceLine(line)) {
-                    source = handleSourceLine(line);
+                if (sourceLineHandler.isSourceLine(line)) {
+                    source = (Source) sourceLineHandler.handleLine(line, source);
                 } else if (!isEmptyLine(line)) {
 			    	try {
 			            results.add(lineHandler.handleLine(line, source));
@@ -84,20 +75,6 @@ public class PcgenObjectImporter implements ObjectImporter {
         return results;
     }
 
-    private Source handleSourceLine(String line) {
-        Map tags = new PcgenSourceTagParser().parseTags(line);
-
-        String name = (String) tags.get(SOURCE_NAME_TAG_NAME);
-        Source source = sourceDao.getSource(name);
-        if (null == source) {
-            String abbreviation = (String) tags.get(SOURCE_ABBREVIATION_TAG_NAME);
-            String url = (String) tags.get(SOURCE_URL_TAG_NAME);
-            source = sourceFactory.createSource(name, abbreviation, url);
-            source = sourceDao.saveSource(source);
-        }
-        return source;
-    }
-
     private void closeReader(BufferedReader reader) {
     	if (null != reader) {
     		try {
@@ -108,10 +85,6 @@ public class PcgenObjectImporter implements ObjectImporter {
     	}
     }
 
-    private boolean isSourceLine(String value) {
-        return value.startsWith("SOURCE");
-    }
-
     private boolean isEmptyLine(String value) {
         return (null == value || value.trim().length() < 1  || value.startsWith("#"));
     }
@@ -120,7 +93,5 @@ public class PcgenObjectImporter implements ObjectImporter {
     public interface PcgenLineHandler {
 
     	Object handleLine(String line, Source source);
-    	
-        Object handleParsedLine(String name, Map tags, Source source);
     }
 }
