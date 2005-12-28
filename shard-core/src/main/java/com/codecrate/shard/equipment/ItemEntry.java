@@ -2,6 +2,8 @@ package com.codecrate.shard.equipment;
 
 import java.math.BigDecimal;
 
+import com.codecrate.shard.source.Source;
+
 public class ItemEntry implements Item {
     private final Item item;
     private final int quantity;
@@ -32,5 +34,9 @@ public class ItemEntry implements Item {
 
     public Money getCost() {
         return item.getCost().multiply(new BigDecimal(quantity));
+    }
+    
+    public Source getSource() {
+    	return item.getSource();
     }
 }
