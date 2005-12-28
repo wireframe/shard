@@ -18,7 +18,7 @@ package com.codecrate.shard.ability;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DefaultAbility implements Ability {
+public class DefaultAbility implements Ability, Comparable {
     public static final Ability STRENGTH = new DefaultAbility("Strength");
 	public static final Ability DEXTERITY = new DefaultAbility("Dexterity");
 	public static final Ability CONSTITUTION = new DefaultAbility("Constitution");
@@ -45,6 +45,11 @@ public class DefaultAbility implements Ability {
     
     public String toString() {
         return name;
+    }
+    
+    public int compareTo(Object target) {
+        DefaultAbility ability2 = (DefaultAbility) target;
+        return name.compareTo(ability2.name);
     }
     
     public String getName() {

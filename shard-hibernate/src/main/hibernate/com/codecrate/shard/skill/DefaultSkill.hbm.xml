@@ -36,7 +36,9 @@
             <key column="PARENT_SKILL"/>
             <many-to-many class="com.codecrate.shard.skill.DefaultSkill"
              column="CHILD_SKILL"/>
-        </set>        
+        </set>
+
+        <many-to-one name="source" access="field" class="com.codecrate.shard.source.Source" column="source_id"/>
     </class>
 
 </hibernate-mapping>
