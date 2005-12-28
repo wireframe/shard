@@ -23,6 +23,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.ability.DefaultAbility;
+import com.codecrate.shard.source.Source;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek </a>
@@ -30,102 +31,102 @@ import com.codecrate.shard.ability.DefaultAbility;
 public class DefaultSkill implements Skill, Comparable {
 
     public static final Skill APPRAISE = new DefaultSkill("Appraise", true,
-            DefaultAbility.INTELLIGENCE, false);
+            DefaultAbility.INTELLIGENCE, false, null);
 
     public static final Skill BALANCE = new DefaultSkill("Balance", true,
-            DefaultAbility.DEXTERITY, false);
+            DefaultAbility.DEXTERITY, false, null);
 
     public static final Skill BLUFF = new DefaultSkill("Bluff", true,
-            DefaultAbility.CHARISMA, false);
+            DefaultAbility.CHARISMA, false, null);
 
     public static final Skill CLIMB = new DefaultSkill("Climb", true,
-            DefaultAbility.STRENGTH, true);
+            DefaultAbility.STRENGTH, true, null);
 
     public static final Skill CONCENTRATION = new DefaultSkill("Concentration",
-            true, DefaultAbility.CONSTITUTION, false);
+            true, DefaultAbility.CONSTITUTION, false, null);
 
     public static final Skill DECIPHER_SCRIPT = new DefaultSkill(
             "Decipher Script", false, DefaultAbility.INTELLIGENCE,
-            false);
+            false, null);
 
     public static final Skill DIPLOMACY = new DefaultSkill("Diplomacy", true,
-            DefaultAbility.CHARISMA, false);
+            DefaultAbility.CHARISMA, false, null);
 
     public static final Skill DISABLE_DEVICE = new DefaultSkill(
             "Disable Device", false, DefaultAbility.INTELLIGENCE,
-            false);
+            false, null);
 
     public static final Skill DISGUISE = new DefaultSkill("Disguise", true,
-            DefaultAbility.CHARISMA, false);
+            DefaultAbility.CHARISMA, false, null);
 
     public static final Skill ESCAPE_ARTIST = new DefaultSkill("Escape Artist",
-            true, DefaultAbility.DEXTERITY, true);
+            true, DefaultAbility.DEXTERITY, true, null);
 
     public static final Skill FORGERY = new DefaultSkill("Forgery",
-            true, DefaultAbility.INTELLIGENCE, false);
+            true, DefaultAbility.INTELLIGENCE, false, null);
 
     public static final Skill GATHER_INFORMATION = new DefaultSkill("Gather Information",
-            true, DefaultAbility.CHARISMA, false);
+            true, DefaultAbility.CHARISMA, false, null);
 
     public static final Skill HANDLE_ANIMAL = new DefaultSkill("Handle Animal",
-            false, DefaultAbility.CHARISMA, false);
+            false, DefaultAbility.CHARISMA, false, null);
 
     public static final Skill HEAL = new DefaultSkill("Heal",
-            true, DefaultAbility.WISDOM, false);
+            true, DefaultAbility.WISDOM, false, null);
 
     public static final Skill HIDE = new DefaultSkill("Hide",
-            true, DefaultAbility.DEXTERITY, true);
+            true, DefaultAbility.DEXTERITY, true, null);
 
     public static final Skill INTIMIDATE = new DefaultSkill("Intimidate",
-            true, DefaultAbility.CHARISMA, false);
+            true, DefaultAbility.CHARISMA, false, null);
 
     public static final Skill JUMP = new DefaultSkill("Jump",
-            true, DefaultAbility.STRENGTH, true);
+            true, DefaultAbility.STRENGTH, true, null);
 
     public static final Skill LISTEN = new DefaultSkill("Listen",
-            true, DefaultAbility.WISDOM, false);
+            true, DefaultAbility.WISDOM, false, null);
 
     public static final Skill LITERACY = new DefaultSkill("Literacy",
-            false, DefaultAbility.INTELLIGENCE, false);
+            false, DefaultAbility.INTELLIGENCE, false, null);
 
     public static final Skill MOVE_SILENTLY = new DefaultSkill("Move Silently",
-            true, DefaultAbility.DEXTERITY, true);
+            true, DefaultAbility.DEXTERITY, true, null);
 
     public static final Skill OPEN_LOCK = new DefaultSkill("Open Lock",
-            false, DefaultAbility.DEXTERITY, false);
+            false, DefaultAbility.DEXTERITY, false, null);
 
     public static final Skill RIDE = new DefaultSkill("Ride",
-            true, DefaultAbility.DEXTERITY, false);
+            true, DefaultAbility.DEXTERITY, false, null);
 
     public static final Skill SEARCH = new DefaultSkill("Search",
-            true, DefaultAbility.INTELLIGENCE, false);
+            true, DefaultAbility.INTELLIGENCE, false, null);
 
     public static final Skill SENSE_MOTIVE= new DefaultSkill("Sense Motive",
-            true, DefaultAbility.WISDOM, false);
+            true, DefaultAbility.WISDOM, false, null);
 
     public static final Skill SLEIGHT_OF_HAND = new DefaultSkill("Slight of Hand",
-            false, DefaultAbility.DEXTERITY, true);
+            false, DefaultAbility.DEXTERITY, true, null);
 
     public static final Skill SPELLCRAFT = new DefaultSkill("Spellcraft",
-            false, DefaultAbility.INTELLIGENCE, false);
+            false, DefaultAbility.INTELLIGENCE, false, null);
 
     public static final Skill SPOT = new DefaultSkill("Spot",
-            true, DefaultAbility.WISDOM, false);
+            true, DefaultAbility.WISDOM, false, null);
 
     public static final Skill SURVIVAL = new DefaultSkill("Survival",
-            true, DefaultAbility.WISDOM, false);
+            true, DefaultAbility.WISDOM, false, null);
 
     public static final Skill SWIM = new DefaultSkill("Swim",
-            true, DefaultAbility.STRENGTH, true);
+            true, DefaultAbility.STRENGTH, true, null);
 
     public static final Skill TUMBLE = new DefaultSkill("Tumble",
-            false, DefaultAbility.DEXTERITY, true);
+            false, DefaultAbility.DEXTERITY, true, null);
 
     public static final Skill USE_MAGIC_DEVICE= new DefaultSkill("Use Magic Device",
-            false, DefaultAbility.CHARISMA, false);
+            false, DefaultAbility.CHARISMA, false, null);
 
     public static final Skill USE_ROPE = new DefaultSkill("Use Rope",
-            true, DefaultAbility.DEXTERITY, false);
+            true, DefaultAbility.DEXTERITY, false, null);
 
 
     private String id;
@@ -134,6 +135,7 @@ public class DefaultSkill implements Skill, Comparable {
     private Collection childSkillSynergies = new HashSet();
     private Ability ability;
     private boolean penalizedWithArmor;
+    private Source source;
 
     /**
      * hibernate constructor.
@@ -142,11 +144,12 @@ public class DefaultSkill implements Skill, Comparable {
     }
 
     public DefaultSkill(String name, boolean usableUntrained, Ability ability,
-            boolean armorPenalty) {
+            boolean armorPenalty, Source source) {
         this.name = name;
         this.usableUntrained = usableUntrained;
         this.ability = ability;
         this.penalizedWithArmor = armorPenalty;
+        this.source = source;
     }
 
     public String toString() {
@@ -208,5 +211,12 @@ public class DefaultSkill implements Skill, Comparable {
 
     public void setPenalizedWithArmor(boolean value) {
     	this.penalizedWithArmor = value;
+    }
+    
+    public Source getSource() {
+        return source;
+    }
+    public void setSource(Source source) {
+        this.source = source;
     }
 }

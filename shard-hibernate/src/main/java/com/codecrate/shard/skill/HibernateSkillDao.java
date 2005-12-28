@@ -28,18 +28,19 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.search.HibernateObjectSearcher;
+import com.codecrate.shard.source.Source;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao, SkillFactory {
-	
+
 	private final HibernateObjectSearcher searcher;
 
 	public HibernateSkillDao(HibernateObjectSearcher searcher) {
 		this.searcher = searcher;
 	}
-	
+
     public Collection getSkills() {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
@@ -61,8 +62,8 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao, 
         });
     }
 
-    public Skill createSkill(String name, Ability ability, boolean usableUntrained, boolean penalizedWithArmor) {
-        DefaultSkill skill = new DefaultSkill(name, usableUntrained, ability, penalizedWithArmor);
+    public Skill createSkill(String name, Ability ability, boolean usableUntrained, boolean penalizedWithArmor, Source source) {
+        DefaultSkill skill = new DefaultSkill(name, usableUntrained, ability, penalizedWithArmor, source);
         return skill;
     }
 
@@ -70,7 +71,7 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao, 
         String id = (String) getHibernateTemplate().save(skill);
         return (Skill) getHibernateTemplate().load(DefaultSkill.class, id);
     }
-    
+
     public Skill getSkill(final String name) {
         Skill skill = (Skill) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
@@ -80,21 +81,21 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao, 
                 return query.uniqueResult();
             }
         });
-        
+
         if (null == skill) {
             throw new IllegalArgumentException("Unable to find skill " + name);
         }
         return skill;
     }
-    
+
     public void deleteSkill(Skill skill) {
         getHibernateTemplate().delete(skill);
     }
-    
+
     public void updateSkill(Skill skill) {
         getHibernateTemplate().saveOrUpdate(skill);
     }
-    
+
     public Collection searchSkills(String query) {
     	return searcher.search(DefaultSkill.class, query);
     }

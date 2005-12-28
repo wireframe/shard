@@ -26,11 +26,11 @@ public class HibernateSkillDaoTest extends ShardHibernateTestCaseSupport {
 
 	private SkillDao skillDao;
 	private SkillFactory skillFactory;
-	
+
 	public void setSkillDao(SkillDao dao) {
 		this.skillDao = dao;
 	}
-	
+
 	public void setSkillFactory(SkillFactory factory) {
 		this.skillFactory = factory;
 	}
@@ -47,25 +47,25 @@ public class HibernateSkillDaoTest extends ShardHibernateTestCaseSupport {
         Collection skills = skillDao.getSkills();
         assertFalse(skills.isEmpty());
     }
-    
+
     public void testLoadsUntrainedSkills() throws Exception {
         Collection skills = skillDao.getUntrainedSkills();
         assertFalse(skills.isEmpty());
     }
-    
+
     public void testSkillCreation() throws Exception {
-        Skill skill = skillFactory.createSkill("test skill", null, true, true);
+        Skill skill = skillFactory.createSkill("test skill", null, true, true, null);
         skill = skillDao.saveSkill(skill);
         assertNotNull(skill);
     }
-    
+
     public void testGetSkillByUnknownNameThrowsException() throws Exception {
         try {
             skillDao.getSkill("invalid skill");
             fail("Exception should be thrown.");
         } catch (IllegalArgumentException expected) { }
     }
-    
+
     public void testSearchForSkills() throws Exception {
     	Collection results = skillDao.searchSkills("balance");
     	assertFalse(results.isEmpty());

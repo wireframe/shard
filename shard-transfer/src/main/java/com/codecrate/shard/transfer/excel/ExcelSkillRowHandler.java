@@ -34,7 +34,7 @@ public class ExcelSkillRowHandler extends AbstractExcelRowHandler {
 
     public Object handleRow(HSSFRow row) {
         String name = getStringFromRow(row, NAME_COLUMN);
-        Skill skill = skillFactory.createSkill(name, null, true, false);
+        Skill skill = skillFactory.createSkill(name, null, true, false, null);
         return skillDao.saveSkill(skill);
     }
 }

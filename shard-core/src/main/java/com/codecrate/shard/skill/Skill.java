@@ -18,6 +18,7 @@ package com.codecrate.shard.skill;
 import java.util.Collection;
 
 import com.codecrate.shard.ability.Ability;
+import com.codecrate.shard.source.Source;
 
 /**
  * Definition of a Skill.
@@ -58,4 +59,10 @@ public interface Skill {
      * @return
      */
     boolean isPenalizedWithArmor();
+
+    /**
+     * get the source the skill comes from.
+     * @return
+     */
+    Source getSource();
 }

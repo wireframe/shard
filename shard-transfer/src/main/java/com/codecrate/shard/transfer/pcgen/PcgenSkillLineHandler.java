@@ -45,7 +45,7 @@ public class PcgenSkillLineHandler extends AbstractPcgenLineHandler {
     	String abilityName = getStringTagValue(ABILITY_TAG_NAME, tags);
 
     	Ability ability = abilityDao.getAbilityByAbbreviation(abilityName);
-        Skill skill = skillFactory.createSkill(name, ability, isUsableUntrained, hasArmorCheckPenalty);
+        Skill skill = skillFactory.createSkill(name, ability, isUsableUntrained, hasArmorCheckPenalty, source);
         return skillDao.saveSkill(skill);
     }
 }

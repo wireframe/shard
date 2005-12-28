@@ -48,7 +48,7 @@ implements ObjectManagerCommandAdapter {
 	}
 
 	public Object createObject() {
-		return skillFactory.createSkill("New Skill", null, true, false);
+		return skillFactory.createSkill("New Skill", null, true, false, null);
 	}
 
 	public void saveObject(Object object) {
