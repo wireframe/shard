@@ -25,26 +25,27 @@ import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 
 import com.codecrate.shard.ability.AbilityDao;
+import com.codecrate.shard.source.SourceDao;
 
 public class SkillFormFactory extends AbstractFormFactory implements FormFactory {
 
 	private final AbilityDao abilityDao;
+	private final SourceDao sourceDao;
 
-	public SkillFormFactory(AbilityDao abilityDao) {
+	public SkillFormFactory(AbilityDao abilityDao, SourceDao sourceDao) {
 		this.abilityDao = abilityDao;
+		this.sourceDao = sourceDao;
 	}
 
 	public AbstractForm createForm(FormModel formModel) {
-		return new SkillForm(formModel, abilityDao);
+		return new SkillForm(formModel);
 	}
 
     public class SkillForm extends AbstractForm {
         private static final String PAGE_NAME = "skillPage";
-        private final AbilityDao abilityDao;
 
-        public SkillForm(FormModel formModel, AbilityDao abilityDao) {
+        public SkillForm(FormModel formModel) {
             super(formModel, PAGE_NAME);
-            this.abilityDao = abilityDao;
         }
 
         protected JComponent createFormControl() {
@@ -57,11 +58,16 @@ public class SkillFormFactory extends AbstractFormFactory implements FormFactory
             formBuilder.add("penalizedWithArmor");
             formBuilder.row();
             formBuilder.add("usableUntrained");
+            formBuilder.row();
+            formBuilder.add(bindingFactory.createBoundComboBox("source", getSources()));
             return formBuilder.getForm();
         }
 
         private Collection getAbilities() {
             return abilityDao.getAbilities();
+        }
+        private Collection getSources() {
+        	return sourceDao.getSources();
         }
     }
 }

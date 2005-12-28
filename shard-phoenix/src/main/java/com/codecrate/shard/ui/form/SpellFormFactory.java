@@ -35,16 +35,14 @@ public class SpellFormFactory extends AbstractFormFactory implements FormFactory
     }
     
 	public AbstractForm createForm(FormModel formModel) {
-		return new SpellForm(formModel, sourceDao);
+		return new SpellForm(formModel);
 	}
 
     public class SpellForm extends AbstractForm {
         private static final String PAGE_NAME = "spellPage";
-        private final SourceDao sourceDao;
 
-        public SpellForm(FormModel formModel, SourceDao sourceDao) {
+        public SpellForm(FormModel formModel) {
             super(formModel, PAGE_NAME);
-            this.sourceDao = sourceDao;
         }
 
         protected JComponent createFormControl() {

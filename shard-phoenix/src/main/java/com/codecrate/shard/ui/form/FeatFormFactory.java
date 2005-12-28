@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.ui.form;
 
+import java.util.Collection;
+
 import javax.swing.JComponent;
 
 import org.springframework.binding.form.FormModel;
@@ -22,7 +24,15 @@ import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 
+import com.codecrate.shard.source.SourceDao;
+
 public class FeatFormFactory extends AbstractFormFactory implements FormFactory {
+
+	private final SourceDao sourceDao;
+
+	public FeatFormFactory(SourceDao sourceDao) {
+		this.sourceDao = sourceDao;
+	}
 
 	public AbstractForm createForm(FormModel formModel) {
 		return new FeatForm(formModel);
@@ -44,7 +54,13 @@ public class FeatFormFactory extends AbstractFormFactory implements FormFactory 
             formBuilder.add("type");
             formBuilder.row();
             formBuilder.addInScrollPane(bindingFactory.createBoundTextArea("summary", 5, 0));
+            formBuilder.row();
+            formBuilder.add(bindingFactory.createBoundComboBox("source", getSources()));
             return formBuilder.getForm();
+        }
+        
+        private Collection getSources() {
+        	return sourceDao.getSources();
         }
     }
 }

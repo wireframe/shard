@@ -15,13 +15,24 @@
  */
 package com.codecrate.shard.ui.form;
 
+import java.util.Collection;
+
 import javax.swing.JComponent;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.form.AbstractForm;
+import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 
+import com.codecrate.shard.source.SourceDao;
+
 public class ItemFormFactory extends AbstractFormFactory implements FormFactory {
+
+	private final SourceDao sourceDao;
+
+	public ItemFormFactory(SourceDao sourceDao) {
+		this.sourceDao = sourceDao;	
+	}
 
 	public AbstractForm createForm(FormModel formModel) {
 		return new ItemForm(formModel);
@@ -35,13 +46,20 @@ public class ItemFormFactory extends AbstractFormFactory implements FormFactory 
         }
 
         protected JComponent createFormControl() {
-            TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
+            SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
+            
+            TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
             formBuilder.add("name");
             formBuilder.row();
             formBuilder.add("weight");
             formBuilder.row();
             formBuilder.add("costString");
+            formBuilder.row();
+            formBuilder.add(bindingFactory.createBoundComboBox("source", getSources()));
             return formBuilder.getForm();
+        }
+        private Collection getSources() {
+        	return sourceDao.getSources();
         }
     }
 }
