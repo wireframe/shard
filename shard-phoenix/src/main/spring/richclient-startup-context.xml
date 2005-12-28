@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-startup-context.xml,v 1.1 2005/11/06 21:00:11 wireframe Exp $ -->
+<!-- $Id: richclient-startup-context.xml,v 1.2 2005/12/28 03:24:11 wireframe Exp $ -->
 <beans>
-	<bean id="splashScreen" 
-		class="org.springframework.richclient.application.SplashScreen" 
+	<bean id="splashScreen"
+		class="org.springframework.richclient.application.SplashScreen"
 		singleton="false">
 		<property name="imageResourcePath">
-			<value>/images/splash-screen.png</value>
+			<value>/images/splash-screen.jpg</value>
 		</property>
 	</bean>
-	
+
 </beans>
