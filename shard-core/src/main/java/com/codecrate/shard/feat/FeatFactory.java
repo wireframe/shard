@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.feat;
 
+import com.codecrate.shard.source.Source;
+
 /**
  * factory for instanciating new feats.
  */
@@ -23,8 +25,10 @@ public interface FeatFactory {
 	/**
 	 * creates a new feat.
 	 * @param name of new feat.
+     * @param summary
+     * @param source source feat comes from
 	 * @return
 	 */
-	Feat createFeat(String name, String summary);
+	Feat createFeat(String name, String summary, Source source);
 
 }

@@ -28,6 +28,7 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 import com.codecrate.shard.character.prereq.NullPrerequisite;
 import com.codecrate.shard.search.HibernateObjectSearcher;
+import com.codecrate.shard.source.Source;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -79,8 +80,8 @@ public class HibernateFeatDao extends HibernateDaoSupport implements FeatDao, Fe
         getHibernateTemplate().delete(feat);
     }
 
-    public Feat createFeat(String name, String summary) {
-    	return new DefaultFeat(name, "General", summary, new NullPrerequisite());
+    public Feat createFeat(String name, String summary, Source source) {
+    	return new DefaultFeat(name, "General", summary, new NullPrerequisite(), source);
     }
     
     public Collection searchFeats(String query) {

@@ -21,29 +21,31 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import com.codecrate.shard.character.prereq.CharacterPrerequisite;
 import com.codecrate.shard.character.prereq.FeatPrerequisite;
 import com.codecrate.shard.character.prereq.NullPrerequisite;
+import com.codecrate.shard.source.Source;
 
 public class DefaultFeat implements Feat, Comparable {
     public static final DefaultFeat ARMOR_PROFICIENCY_LIGHT= new DefaultFeat("Armor Proficiency (Light)",
             "General", "",
-            new NullPrerequisite());
+            new NullPrerequisite(), null);
     public static final DefaultFeat ARMOR_PROFICIENCY_MEDIUM = new DefaultFeat("Armor Proficiency (Medium)",
             "General", "",
-            new FeatPrerequisite(ARMOR_PROFICIENCY_LIGHT));
+            new FeatPrerequisite(ARMOR_PROFICIENCY_LIGHT), null);
     public static final DefaultFeat ARMOR_PROFICIENCY_HEAVY = new DefaultFeat("Armor Proficiency (Heavy)",
             "General", "",
-            new FeatPrerequisite(ARMOR_PROFICIENCY_MEDIUM));
+            new FeatPrerequisite(ARMOR_PROFICIENCY_MEDIUM), null);
     public static final DefaultFeat SHIELD_PROFICIENCY = new DefaultFeat("Shield Proficiency",
             "General", "",
-            new NullPrerequisite());
+            new NullPrerequisite(), null);
     public static final DefaultFeat TOWER_SHIELD_PROFICIENCY = new DefaultFeat("Tower Shield Proficiency",
             "General", "",
-            new FeatPrerequisite(SHIELD_PROFICIENCY));
+            new FeatPrerequisite(SHIELD_PROFICIENCY), null);
 
     private String id;
     private String name;
     private String type;
     private String summary;
     private CharacterPrerequisite prerequisite;
+    private Source source;
 
     /**
      * hibernate constructor.
@@ -52,11 +54,12 @@ public class DefaultFeat implements Feat, Comparable {
     }
 
     public DefaultFeat(String name, String type,
-    		String summary, CharacterPrerequisite prerequisite) {
+    		String summary, CharacterPrerequisite prerequisite, Source source) {
         this.name = name;
         this.type = type;
         this.summary = summary;
         this.prerequisite = prerequisite;
+        this.source = source;
     }
 
     public String toString() {
@@ -115,4 +118,12 @@ public class DefaultFeat implements Feat, Comparable {
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
+
+    public Source getSource() {
+        return source;
+    }
+
+    public void setSource(Source source) {
+        this.source = source;
+    }
 }

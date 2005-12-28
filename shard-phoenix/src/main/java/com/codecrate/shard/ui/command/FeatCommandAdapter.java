@@ -40,6 +40,7 @@ implements ObjectManagerCommandAdapter {
 		return new String[] {
 				"name"
 				, "type"
+                , "source.abbreviation"
 		};
 	}
 
@@ -48,7 +49,7 @@ implements ObjectManagerCommandAdapter {
 	}
 
 	public Object createObject() {
-		return featFactory.createFeat("New Feat", "Summary");
+		return featFactory.createFeat("New Feat", "Summary", null);
 	}
 
 	public void saveObject(Object object) {

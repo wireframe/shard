@@ -16,6 +16,7 @@
 package com.codecrate.shard.feat;
 
 import com.codecrate.shard.character.prereq.CharacterPrerequisite;
+import com.codecrate.shard.source.Source;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -43,4 +44,6 @@ public interface Feat {
      * @return
      */
     CharacterPrerequisite getPrerequisite();
+
+    Source getSource();
 }

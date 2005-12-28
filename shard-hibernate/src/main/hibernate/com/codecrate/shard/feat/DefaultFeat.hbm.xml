@@ -23,6 +23,8 @@
         <property name="summary" access="field">
             <column name="summary" not-null="true" />
         </property>
+
+        <many-to-one name="source" access="field" class="com.codecrate.shard.source.Source" column="source_id"/>
     </class>
 
 </hibernate-mapping>

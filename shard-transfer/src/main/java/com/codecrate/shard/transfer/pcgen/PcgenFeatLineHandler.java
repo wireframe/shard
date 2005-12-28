@@ -36,7 +36,7 @@ public class PcgenFeatLineHandler extends AbstractPcgenLineHandler {
     public Object handleParsedLine(String name, Map tags, Source source) {
     	String description = getStringTagValue(DESCRIPTION_TAG_NAME, tags);
 
-        Feat feat = featFactory.createFeat(name, description);
+        Feat feat = featFactory.createFeat(name, description, source);
         return featDao.saveFeat(feat);
     }
 }

@@ -37,9 +37,9 @@ public class ExcelFeatRowHandlerTest extends TestCase {
 
         MockControl mockFeatFactory = MockControl.createControl(FeatFactory.class);
         FeatFactory featFactory = (FeatFactory) mockFeatFactory.getMock();
-        featFactory.createFeat("Quickness", "Ability to run fast.");
+        featFactory.createFeat("Quickness", "Ability to run fast.", null);
         mockFeatFactory.setReturnValue(feat);
-        featFactory.createFeat("NoSummary", null);
+        featFactory.createFeat("NoSummary", null, null);
         mockFeatFactory.setReturnValue(feat);
         mockFeatFactory.replay();
 
@@ -63,9 +63,9 @@ public class ExcelFeatRowHandlerTest extends TestCase {
 
         MockControl mockFeatFactory = MockControl.createControl(FeatFactory.class);
         FeatFactory featFactory = (FeatFactory) mockFeatFactory.getMock();
-        featFactory.createFeat("Quickness", "Ability to run fast.");
+        featFactory.createFeat("Quickness", "Ability to run fast.", null);
         mockFeatFactory.setThrowable(new IllegalArgumentException("Test: Error creating feat"));
-        featFactory.createFeat("NoSummary", null);
+        featFactory.createFeat("NoSummary", null, null);
         mockFeatFactory.setReturnValue(feat);
         mockFeatFactory.replay();
 

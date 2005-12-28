@@ -38,7 +38,7 @@ public class PcgenFeatLineHandlerTest extends TestCase {
 
         MockControl mockFeatFactory = MockControl.createControl(FeatFactory.class);
         FeatFactory featFactory = (FeatFactory) mockFeatFactory.getMock();
-        featFactory.createFeat("Agility", "Move fast");
+        featFactory.createFeat("Agility", "Move fast", null);
         mockFeatFactory.setReturnValue(feat);
         mockFeatFactory.replay();
 
