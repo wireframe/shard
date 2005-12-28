@@ -38,7 +38,7 @@ public class Source implements Comparable {
     }
 
     public String toString() {
-        return name;
+        return abbreviation;
     }
 
     public int hashCode() {
@@ -61,7 +61,7 @@ public class Source implements Comparable {
 
     public int compareTo(Object object) {
         Source target = (Source) object;
-        return name.compareTo(target.name);
+        return abbreviation.compareTo(target.abbreviation);
     }
 
     public String getAbbreviation() {

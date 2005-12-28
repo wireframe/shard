@@ -40,7 +40,7 @@ implements ObjectManagerCommandAdapter {
 		return new String[] {
 				"name"
 				, "ability"
-                , "source.abbreviation"
+                , "source"
 		};
 	}
 

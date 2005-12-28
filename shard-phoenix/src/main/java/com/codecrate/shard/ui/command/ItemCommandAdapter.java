@@ -42,7 +42,7 @@ public class ItemCommandAdapter extends AbstractObjectManagerCommandAdapter impl
 				"name"
 				, "weight"
 				, "cost"
-                , "source.abbreviation"
+                , "source"
 		};
 	}
 
