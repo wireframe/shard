@@ -42,6 +42,7 @@ public class ItemCommandAdapter extends AbstractObjectManagerCommandAdapter impl
 				"name"
 				, "weight"
 				, "cost"
+                , "source.abbreviation"
 		};
 	}
 
@@ -50,7 +51,7 @@ public class ItemCommandAdapter extends AbstractObjectManagerCommandAdapter impl
 	}
 
 	public Object createObject() {
-		return itemFactory.createItem("New Item", new BigDecimal(0), Coin.COPPER_PIECE.getCost());
+		return itemFactory.createItem("New Item", new BigDecimal(0), Coin.COPPER_PIECE.getCost(), null);
 	}
 
 	public void saveObject(Object object) {

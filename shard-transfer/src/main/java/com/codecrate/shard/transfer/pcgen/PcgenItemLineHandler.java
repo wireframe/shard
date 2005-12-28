@@ -48,7 +48,7 @@ public class PcgenItemLineHandler extends AbstractPcgenLineHandler {
     	Currency currency = currencyDao.getLowestValueCurrency();
     	Money cost = currencyConverter.convertToHighestValueCurrency(new Money(amount, currency, BigDecimal.ROUND_HALF_UP));
 
-        Item item = itemFactory.createItem(name, weight, cost);
+        Item item = itemFactory.createItem(name, weight, cost, source);
         return itemDao.saveItem(item);
     }
 }

@@ -26,19 +26,19 @@ import com.codecrate.shard.ShardHibernateTestCaseSupport;
 public class HibernateItemDaoTest extends ShardHibernateTestCaseSupport {
 	private ItemDao itemDao;
 	private ItemFactory itemFactory;
-	
+
 	public void setItemFactory(ItemFactory itemFactory) {
 		this.itemFactory = itemFactory;
 	}
-	
+
 	public void setItemDao(ItemDao dao) {
 		this.itemDao = dao;
 	}
-	
+
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
-		
-		Item basicItem = new DefaultItem("test item", new BigDecimal(10), new Money(10, DefaultCurrency.GOLD));
+
+		Item basicItem = new DefaultItem("test item", new BigDecimal(10), new Money(10, DefaultCurrency.GOLD), null);
 		itemDao.saveItem(basicItem);
 	}
 
@@ -46,13 +46,13 @@ public class HibernateItemDaoTest extends ShardHibernateTestCaseSupport {
         Collection Items = itemDao.getItems();
         assertFalse(Items.isEmpty());
     }
-	
+
 	public void testSaveNewItem() {
-		Item item = itemFactory.createItem("New Item", new BigDecimal(0), Coin.COPPER_PIECE.getCost());
+		Item item = itemFactory.createItem("New Item", new BigDecimal(0), Coin.COPPER_PIECE.getCost(), null);
 		Item item2 = itemDao.saveItem(item);
 		assertSame(item, item2);
 	}
-	
+
 	public void testSearchItems() throws Exception {
 		Collection results = itemDao.searchItems("test");
 		assertFalse(results.isEmpty());

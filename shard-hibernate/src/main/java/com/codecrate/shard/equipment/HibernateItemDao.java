@@ -27,6 +27,7 @@ import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 import com.codecrate.shard.search.HibernateObjectSearcher;
+import com.codecrate.shard.source.Source;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -38,7 +39,7 @@ public class HibernateItemDao extends HibernateDaoSupport implements ItemDao, It
 	public HibernateItemDao(HibernateObjectSearcher searcher) {
 		this.searcher = searcher;
 	}
-	
+
 	public Collection getItems() {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
@@ -49,15 +50,15 @@ public class HibernateItemDao extends HibernateDaoSupport implements ItemDao, It
         });
     }
 
-    public Item createItem(String name, BigDecimal weight, Money cost) {
-    	return new DefaultItem(name, weight, cost);
+    public Item createItem(String name, BigDecimal weight, Money cost, Source source) {
+    	return new DefaultItem(name, weight, cost, source);
     }
-    
+
     public Item saveItem(Item item) {
         String id = (String) getHibernateTemplate().save(item);
         return (Item) getHibernateTemplate().load(DefaultItem.class, id);
     }
-    
+
     public void updateItem(Item item) {
         getHibernateTemplate().saveOrUpdate(item);
     }
@@ -65,7 +66,7 @@ public class HibernateItemDao extends HibernateDaoSupport implements ItemDao, It
     public void deleteItem(Item item) {
         getHibernateTemplate().delete(item);
     }
-    
+
     public Collection searchItems(String query) {
     	return searcher.search(DefaultItem.class, query);
     }

@@ -21,10 +21,10 @@ public class Coin extends DefaultItem {
     public static final Coin COPPER_PIECE = new Coin("Copper Coin", new BigDecimal(".1"), DefaultCurrency.COPPER);
     public static final Coin SILVER_PIECE = new Coin("Silver Coin", new BigDecimal(".1"), DefaultCurrency.SILVER);
     public static final Coin GOLD_PIECE = new Coin("Gold Coin", new BigDecimal(".1"), DefaultCurrency.GOLD);
-    
+
     private static final int SINGLE_COIN = 1;
-    
+
     public Coin(String name, BigDecimal weight, Currency currency) {
-    	super(name, weight, new Money(SINGLE_COIN, currency));
+    	super(name, weight, new Money(SINGLE_COIN, currency), null);
     }
 }

@@ -17,7 +17,17 @@ package com.codecrate.shard.equipment;
 
 import java.math.BigDecimal;
 
+import com.codecrate.shard.source.Source;
+
 public interface ItemFactory {
 
-    Item createItem(String name, BigDecimal weight, Money cost);
+    /**
+     * create a new item.
+     * @param name
+     * @param weight
+     * @param cost
+     * @param source
+     * @return
+     */
+    Item createItem(String name, BigDecimal weight, Money cost, Source source);
 }

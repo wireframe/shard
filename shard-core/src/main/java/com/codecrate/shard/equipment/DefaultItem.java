@@ -21,6 +21,8 @@ import java.text.ParseException;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import com.codecrate.shard.source.Source;
+
 /**
  * Default implementation of an item.
  * adds id field to be persistable.
@@ -32,6 +34,7 @@ public class DefaultItem implements Item, Comparable {
     private BigDecimal weight;
     private Money cost;
 	private String name;
+    private Source source;
 
 	/**
 	 * hibernate constructor.
@@ -45,10 +48,11 @@ public class DefaultItem implements Item, Comparable {
 	 * @param weight
 	 * @param money
 	 */
-    public DefaultItem(String name, BigDecimal weight, Money money) {
+    public DefaultItem(String name, BigDecimal weight, Money money, Source source) {
         this.name = name;
 		this.weight = weight;
         this.cost = money;
+        this.source = source;
     }
 
     public String toString() {
@@ -123,4 +127,12 @@ public class DefaultItem implements Item, Comparable {
 	public String getCostString() {
 		return getCost().toString();
 	}
+
+    public Source getSource() {
+        return source;
+    }
+
+    public void setSource(Source source) {
+        this.source = source;
+    }
 }
