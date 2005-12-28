@@ -19,6 +19,7 @@ import java.util.Collection;
 
 import com.codecrate.shard.character.prereq.CharacterPrerequisite;
 import com.codecrate.shard.dice.Dice;
+import com.codecrate.shard.skill.Skill;
 
 /**
  * Definition of a character class.
@@ -93,4 +94,6 @@ public interface CharacterClass {
      * @return
      */
     CharacterPrerequisite getPrerequisite();
+
+	void addClassSkill(Skill skill);
 }

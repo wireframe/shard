@@ -38,6 +38,7 @@ import com.codecrate.shard.modifier.DefaultKeyedModifier;
 import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.KeyedModifier;
 import com.codecrate.shard.skill.DefaultSkill;
+import com.codecrate.shard.skill.Skill;
 
 /**
  *
@@ -280,4 +281,8 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
     public String getHitDicePerLevelString() {
         return getHitDicePerLevel().toString();
     }
+
+	public void addClassSkill(Skill skill) {
+		classSkills.add(skill);
+	}
 }

@@ -22,11 +22,13 @@ import java.util.List;
 import net.sf.hibernate.Criteria;
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
+import net.sf.hibernate.expression.Expression;
 
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 import com.codecrate.shard.dice.Dice;
+import com.codecrate.shard.feat.DefaultFeat;
 import com.codecrate.shard.search.HibernateObjectSearcher;
 
 /**
@@ -48,7 +50,23 @@ public class HibernateCharacterClassDao extends HibernateDaoSupport implements C
             }
         });
     }
-    
+
+    public CharacterClass getCharacterClass(final String name) {
+    	CharacterClass kit = (CharacterClass) getHibernateTemplate().execute(new HibernateCallback() {
+            public Object doInHibernate(Session session)
+                    throws HibernateException {
+                Criteria query = session.createCriteria(DefaultFeat.class);
+                query.add(Expression.eq("name", name));
+                return query.uniqueResult();
+            }
+        });
+
+        if (null == kit) {
+            throw new IllegalArgumentException("Unable to find kit " + name);
+        }
+        return kit;
+    }
+
     public CharacterClass saveClass(CharacterClass kit) {
         String id = (String) getHibernateTemplate().save(kit);
         return (CharacterClass) getHibernateTemplate().load(DefaultCharacterClass.class, id);

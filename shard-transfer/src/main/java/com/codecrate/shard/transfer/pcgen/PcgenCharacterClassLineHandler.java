@@ -16,12 +16,15 @@
 package com.codecrate.shard.transfer.pcgen;
 
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.CharacterClassDao;
 import com.codecrate.shard.kit.CharacterClassFactory;
+import com.codecrate.shard.skill.Skill;
+import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTokenTagParser;
 
@@ -29,13 +32,17 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     private static final String NAME = "CLASS";
     private static final String HIT_DICE = "HD";
 	private static final String ABBREVIATION = "ABB";
+	private static final String SKILL_LIST_TAG_NAME = "CSKILL";
 
 	private final CharacterClassFactory kitFactory;
     private final CharacterClassDao kitDao;
+	private final SkillDao skillDao;
 
-    public PcgenCharacterClassLineHandler(CharacterClassFactory kitFactory, CharacterClassDao kitDao) {
+    public PcgenCharacterClassLineHandler(CharacterClassFactory kitFactory,
+			CharacterClassDao kitDao, SkillDao skillDao) {
         this.kitFactory = kitFactory;
         this.kitDao = kitDao;
+		this.skillDao = skillDao;
     }
 
     public Object handleLine(String line, Source source) {
@@ -46,10 +53,35 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     }
 
     public Object handleParsedLine(String name, Map tags, Source source) {
-    	Dice hitDice = new RandomDice(getIntTagValue(HIT_DICE, tags));
-    	String abbreviation = getStringTagValue(ABBREVIATION, tags);
+    	if (isFirstLine(tags)) {
+        	Dice hitDice = new RandomDice(getIntTagValue(HIT_DICE, tags));
+        	String abbreviation = getStringTagValue(ABBREVIATION, tags);
 
-        CharacterClass kit = kitFactory.createClass(name, abbreviation, hitDice);
-        return kitDao.saveClass(kit);
+            CharacterClass kit = kitFactory.createClass(name, abbreviation, hitDice);
+            return kitDao.saveClass(kit);
+    	} else if (isSecondLine(tags)) {
+    		CharacterClass kit = kitDao.getCharacterClass(name);
+
+    		String skills = getStringTagValue(SKILL_LIST_TAG_NAME, tags);
+    		StringTokenizer tokens = new StringTokenizer(skills, "|");
+    		while (tokens.hasMoreTokens()) {
+    			String skillName = tokens.nextToken();
+        		Skill skill = skillDao.getSkill(skillName);
+        		kit.addClassSkill(skill);
+    		}
+
+    		kitDao.updateClass(kit);
+    		return kit;
+    	} else {
+    		throw new IllegalStateException("Unable to update class information.");
+    	}
     }
+
+	private boolean isSecondLine(Map tags) {
+		return (null != tags.get(SKILL_LIST_TAG_NAME));
+	}
+
+	private boolean isFirstLine(Map tags) {
+		return (null != tags.get(HIT_DICE));
+	}
 }

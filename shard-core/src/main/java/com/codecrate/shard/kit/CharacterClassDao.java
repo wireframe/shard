@@ -36,4 +36,6 @@ public interface CharacterClassDao {
 	void deleteClass(CharacterClass kit);
 
 	void updateClass(CharacterClass kit);
+
+	CharacterClass getCharacterClass(String name);
 }
