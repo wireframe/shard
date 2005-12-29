@@ -16,7 +16,7 @@
 package com.codecrate.shard.character;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 import junit.framework.TestCase;
 
@@ -26,11 +26,10 @@ import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.ClassLevel;
-import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.movement.DefaultEncumberance;
 import com.codecrate.shard.movement.Encumberance;
-import com.codecrate.shard.race.DefaultRacialSize;
 import com.codecrate.shard.race.Race;
+import com.codecrate.shard.race.RacialSize;
 
 public class DefaultPlayerCharacterTest extends TestCase {
 
@@ -68,26 +67,34 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		mockClassLevel.setReturnValue(1);
 		mockClassLevel.replay();
 
+        MockControl mockKit = MockControl.createControl(CharacterClass.class);
+        CharacterClass kit = (CharacterClass) mockKit.getMock();
+        mockKit.replay();
+
 		MockControl mockProgression = MockControl.createControl(CharacterProgression.class);
 		CharacterProgression progression = (CharacterProgression) mockProgression.getMock();
 		progression.getCharacterLevel();
-		mockProgression.setReturnValue(2);
+		mockProgression.setReturnValue(1);
 		progression.getCharacterLevels();
 		mockProgression.setReturnValue(new ArrayList());
 		progression.getCharacterLevels();
 		mockProgression.setReturnValue(new ArrayList());
 		progression.getClasses();
-		mockProgression.setReturnValue(Arrays.asList(new CharacterClass[] {DefaultCharacterClass.BARBARIAN, DefaultCharacterClass.BARD}));
-		progression.getClassLevel(DefaultCharacterClass.BARBARIAN);
-		mockProgression.setReturnValue(classLevel);
-		progression.getClassLevel(DefaultCharacterClass.BARD);
+		mockProgression.setReturnValue(Collections.singletonList(kit));
+		progression.getClassLevel(kit);
 		mockProgression.setReturnValue(classLevel);
 		mockProgression.replay();
+
+        MockControl mockSize = MockControl.createControl(RacialSize.class);
+        RacialSize size = (RacialSize) mockSize.getMock();
+        size.getBaseAttackBonusModifier();
+        mockSize.setReturnValue(1);
+        mockSize.replay();
 
 		MockControl mockRace = MockControl.createControl(Race.class);
 		Race race = (Race) mockRace.getMock();
 		race.getSize();
-		mockRace.setReturnValue(DefaultRacialSize.SMALL);
+		mockRace.setReturnValue(size);
 		mockRace.replay();
 
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(null);

@@ -25,25 +25,30 @@ import com.codecrate.shard.race.DefaultRace;
 public class RacePrerequisiteTest extends TestCase {
 
 	public void testPrereqMetWhenRaceMatches() {
+        DefaultRace human = new DefaultRace("human", null, null, null, null, 0, null, null, null, null, null, 0);
+
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
 		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
 		character.getRace();
-		mockCharacter.setReturnValue(DefaultRace.HUMAN);
+		mockCharacter.setReturnValue(human);
 		mockCharacter.replay();
-		
-		RacePrerequisite prereq = new RacePrerequisite(DefaultRace.HUMAN);
+
+		RacePrerequisite prereq = new RacePrerequisite(human);
 		assertTrue(prereq.hasMetPrerequisite(character));
 	}
-	
+
 
 	public void testPrereqNotMetWhenRaceDifferent() {
-		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
+        DefaultRace human = new DefaultRace("human", null, null, null, null, 0, null, null, null, null, null, 0);
+
+        DefaultRace elf = new DefaultRace("elf", null, null, null, null, 0, null, null, null, null, null, 0);
+        MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
 		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
 		character.getRace();
-		mockCharacter.setReturnValue(DefaultRace.HUMAN);
+		mockCharacter.setReturnValue(human);
 		mockCharacter.replay();
-		
-		RacePrerequisite prereq = new RacePrerequisite(DefaultRace.ELF);
+
+		RacePrerequisite prereq = new RacePrerequisite(elf);
 		assertFalse(prereq.hasMetPrerequisite(character));
 	}
 }
