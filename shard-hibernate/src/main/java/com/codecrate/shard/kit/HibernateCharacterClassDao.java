@@ -28,7 +28,6 @@ import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 import com.codecrate.shard.dice.Dice;
-import com.codecrate.shard.feat.DefaultFeat;
 import com.codecrate.shard.search.HibernateObjectSearcher;
 
 /**
@@ -55,7 +54,7 @@ public class HibernateCharacterClassDao extends HibernateDaoSupport implements C
     	CharacterClass kit = (CharacterClass) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
                     throws HibernateException {
-                Criteria query = session.createCriteria(DefaultFeat.class);
+                Criteria query = session.createCriteria(DefaultCharacterClass.class);
                 query.add(Expression.eq("name", name));
                 return query.uniqueResult();
             }
@@ -79,7 +78,7 @@ public class HibernateCharacterClassDao extends HibernateDaoSupport implements C
     public void deleteClass(CharacterClass kit) {
         getHibernateTemplate().delete(kit);
     }
-    
+
     public Collection searchClasses(String query) {
     	return searcher.search(DefaultCharacterClass.class, query);
     }
