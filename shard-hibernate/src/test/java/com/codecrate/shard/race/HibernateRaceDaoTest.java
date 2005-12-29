@@ -24,22 +24,28 @@ import com.codecrate.shard.ShardHibernateTestCaseSupport;
  */
 public class HibernateRaceDaoTest extends ShardHibernateTestCaseSupport {
     private RaceDao raceDao;
-    
+    private RaceFactory raceFactory;
+
     public void setRaceDao(RaceDao dao) {
-    	this.raceDao = dao;
+        this.raceDao = dao;
     }
-    
+
+    public void setRaceFactory(RaceFactory factory) {
+        this.raceFactory = factory;
+    }
+
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
-		
-		raceDao.saveRace(DefaultRace.HUMAN);
+
+        Race race = raceFactory.createRace("human");
+		raceDao.saveRace(race);
 	}
 
 	public void testLoadsRaces() throws Exception {
         Collection races = raceDao.getRaces();
         assertFalse(races.isEmpty());
     }
-	
+
 	public void testSearchRaces() throws Exception {
 		Collection results = raceDao.searchRaces("human");
 		assertFalse(results.isEmpty());

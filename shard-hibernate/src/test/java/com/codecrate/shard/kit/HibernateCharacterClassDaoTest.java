@@ -26,7 +26,7 @@ import com.codecrate.shard.dice.RandomDice;
 public class HibernateCharacterClassDaoTest extends ShardHibernateTestCaseSupport {
 	private CharacterClassDao characterClassDao;
 	private CharacterClassFactory characterClassFactory;
-	
+
 	public void setCharacterClassDao(CharacterClassDao dao) {
 		this.characterClassDao = dao;
 	}
@@ -38,7 +38,6 @@ public class HibernateCharacterClassDaoTest extends ShardHibernateTestCaseSuppor
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
 		CharacterClass kit = characterClassFactory.createClass("Dragonslayer", "Dgs", new RandomDice(8));
-		characterClassDao.saveClass(DefaultCharacterClass.FIGHTER);
 		characterClassDao.saveClass(kit);
 	}
 

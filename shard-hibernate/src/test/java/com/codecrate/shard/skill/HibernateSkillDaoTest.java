@@ -37,9 +37,12 @@ public class HibernateSkillDaoTest extends ShardHibernateTestCaseSupport {
 
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
-		skillDao.saveSkill(DefaultSkill.APPRAISE);
-		skillDao.saveSkill(DefaultSkill.BALANCE);
-		skillDao.saveSkill(DefaultSkill.CLIMB);
+        Skill appraise = skillFactory.createSkill("appraise", null, false, false, null);
+        Skill balance = skillFactory.createSkill("balance", null, true, false, null);
+        Skill climb = skillFactory.createSkill("climb", null, true, false, null);
+		skillDao.saveSkill(appraise);
+		skillDao.saveSkill(balance);
+		skillDao.saveSkill(climb);
 	}
 
 
