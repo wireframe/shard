@@ -18,7 +18,6 @@ package com.codecrate.shard.skill;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import com.codecrate.shard.character.CharacterLevel;
 import com.codecrate.shard.character.CharacterProgression;
@@ -34,23 +33,23 @@ public class CharacterProgressionSkillEntryContainer implements SkillEntryContai
 
     public CharacterProgressionSkillEntryContainer(CharacterProgression progression) {
         delegate = new DefaultSkillEntryContainer(new HashMap(), progression.getCharacterLevel());
-        
-        Map classesUsed = new HashMap();
+
+        Iterator kits = progression.getClasses().iterator();
+        while (kits.hasNext()) {
+            CharacterClass kit = (CharacterClass) kits.next();
+            Collection grantedSkills = kit.getSkills();
+            populateEntries(grantedSkills);
+        }
+
         Iterator levels = progression.getCharacterLevels().iterator();
         while (levels.hasNext()) {
             CharacterLevel level = (CharacterLevel) levels.next();
-            CharacterClass kit = level.getClassLevel().getCharacterClass();
-            if (null == classesUsed.get(kit)) {
-                Collection grantedSkills = kit.getSkills();
-                populateEntries(grantedSkills);
-                classesUsed.put(kit, Boolean.TRUE);
-            }
-            
+
             Collection ranks = level.getSkillRanks();
             populateEntries(ranks);
         }
     }
-    
+
     private void populateEntries(Collection modifiers) {
         Iterator skills = modifiers.iterator();
         while (skills.hasNext()) {
@@ -58,7 +57,7 @@ public class CharacterProgressionSkillEntryContainer implements SkillEntryContai
             addModifier(rank);
         }
     }
-    
+
     public int getMaxClassSkillLevel() {
         return delegate.getMaxClassSkillLevel();
     }
