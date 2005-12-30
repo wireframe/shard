@@ -45,6 +45,9 @@
              column="LANGUAGE_ID"/>
         </set>
 
+		<one-to-one name="progression"
+		 class="com.codecrate.shard.kit.DefaultClassProgression"
+		 access="field" />
     </class>
 
 </hibernate-mapping>

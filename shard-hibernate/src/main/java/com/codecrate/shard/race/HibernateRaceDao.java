@@ -33,11 +33,11 @@ import com.codecrate.shard.search.HibernateObjectSearcher;
  */
 public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao, RaceFactory {
 	private final HibernateObjectSearcher searcher;
-	
+
 	public HibernateRaceDao(HibernateObjectSearcher searcher) {
 		this.searcher = searcher;
 	}
-	
+
     public Collection getRaces() {
         return (List) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session) throws HibernateException, SQLException {
@@ -46,14 +46,14 @@ public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao, Ra
             }
         });
     }
-    
+
     public Race saveRace(Race race) {
         String id = (String) getHibernateTemplate().save(race);
         return (Race) getHibernateTemplate().load(DefaultRace.class, id);
     }
-    
+
     public Race createRace(String name) {
-    	return new DefaultRace(name, DefaultRacialSize.MEDIUM, null, null, null, 0, null, null, null, null, null, 0 );
+    	return new DefaultRace(name, null, null, null, null, 0, null, null, null, null, null, 0 );
     }
 
 	public void deleteRace(Race race) {
@@ -63,7 +63,7 @@ public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao, Ra
 	public void updateRace(Race race) {
 		getHibernateTemplate().save(race);
 	}
-	
+
 	public Collection searchRaces(String query) {
 		return searcher.search(DefaultRace.class, query);
 	}

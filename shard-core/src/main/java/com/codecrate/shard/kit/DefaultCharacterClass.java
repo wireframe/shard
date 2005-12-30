@@ -35,15 +35,15 @@ import com.codecrate.shard.skill.Skill;
 public class DefaultCharacterClass implements CharacterClass, Comparable {
     private String id;
     private Set classSkills = new HashSet();
-    private Set bonusLanguages;
-    private Collection feats;
+    private Set bonusLanguages = new HashSet();;
+    private Collection feats = new ArrayList();
+    private Collection skillModifiers = new ArrayList();
     private Dice hitDicePerLevel;
     private int baseSkillPointsPerLevel;
     private String name;
     private String abbreviation;
     private ClassProgression progression;
     private CharacterPrerequisite prereq;
-    private Collection skillModifiers;
 
     /**
      * hibernate constructor.
@@ -52,17 +52,13 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
     }
 
     public DefaultCharacterClass(String name, String abbreviation, Dice hitDicePerLevel,
-            int baseSkillPointsPerLevel, CharacterPrerequisite prereq,
-			Set bonusLanguages, Collection feats, Collection skillModifiers) {
+            int baseSkillPointsPerLevel, CharacterPrerequisite prereq) {
         this.name = name;
         this.abbreviation = abbreviation;
         this.hitDicePerLevel = hitDicePerLevel;
         this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
         this.prereq = prereq;
-        this.bonusLanguages = bonusLanguages;
-        this.feats = feats;
-        this.skillModifiers = skillModifiers;
-        this.progression = new DefaultClassProgression(new ArrayList());
+        this.progression = new DefaultClassProgression(this);
     }
 
     public String toString() {

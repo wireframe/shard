@@ -17,6 +17,8 @@ package com.codecrate.shard.skill;
 
 import junit.framework.TestCase;
 
+import org.easymock.MockControl;
+
 import com.codecrate.shard.modifier.DefaultModifier;
 import com.codecrate.shard.modifier.DefaultModifierType;
 
@@ -26,7 +28,11 @@ import com.codecrate.shard.modifier.DefaultModifierType;
 public class DefaultSkillEntryTest extends TestCase {
 
     public void testMultipleModifiersUsedForValue() {
-        DefaultSkillEntry entry = new DefaultSkillEntry(DefaultSkill.SWIM);
+        MockControl mockSkill = MockControl.createControl(Skill.class);
+        Skill skill = (Skill) mockSkill.getMock();
+        mockSkill.replay();
+
+        DefaultSkillEntry entry = new DefaultSkillEntry(skill);
         entry.addModifier(new DefaultModifier(DefaultModifierType.RANK, 1));
         entry.addModifier(new DefaultModifier(DefaultModifierType.RANK, 1));
         assertEquals(2, entry.getModifiedValue());

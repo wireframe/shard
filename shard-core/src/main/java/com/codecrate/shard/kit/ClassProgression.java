@@ -20,7 +20,7 @@ import java.util.Collection;
 /**
  * represents the progression of levels for a character class.
  * this is a simple wrapper around the individual class levels.
- * 
+ *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface ClassProgression {
@@ -29,4 +29,13 @@ public interface ClassProgression {
     int getMaxLevel();
 
     ClassLevel getClassLevel(int level);
+
+    /**
+     * add new class level.
+     * @param baseAttackBonus
+     * @param fortitudeSave
+     * @param reflexSave
+     * @param willSave
+     */
+    void addLevel(int baseAttackBonus, int fortitudeSave, int reflexSave, int willSave);
 }

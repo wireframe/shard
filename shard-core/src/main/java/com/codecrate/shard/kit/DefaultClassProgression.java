@@ -15,25 +15,34 @@
  */
 package com.codecrate.shard.kit;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 public class DefaultClassProgression implements ClassProgression {
-	
-	private Collection levels;
-	
-	public DefaultClassProgression(Collection levels) {
-		this.levels = levels;
+
+    private String id;
+    private CharacterClass kit;
+	private Collection levels = new ArrayList();
+
+    /**
+     * hibernate constructor.
+     */
+    private DefaultClassProgression() {
+    }
+
+	public DefaultClassProgression(CharacterClass kit) {
+        this.kit = kit;
 	}
-	
+
 	public Collection getClassLevels() {
 		return levels;
 	}
-	
+
 	public int getMaxLevel() {
 	    return levels.size();
 	}
-	
+
 	public ClassLevel getClassLevel(int level) {
 	    ClassLevel kit = null;
 	    Iterator it = levels.iterator();
@@ -45,4 +54,8 @@ public class DefaultClassProgression implements ClassProgression {
 	    }
 	    return kit;
 	}
+
+    public void addLevel(int baseAttackBonus, int fortitudeSave, int reflexSave, int willSave) {
+        levels.add(new DefaultClassLevel(getMaxLevel() + 1, kit, baseAttackBonus, fortitudeSave, reflexSave, willSave));
+    }
 }

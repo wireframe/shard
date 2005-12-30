@@ -89,22 +89,22 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 		mockAbilityScoreDao.replay();
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
 
-		ClassLevel level1 = new DefaultClassLevel(1, DefaultCharacterClass.BARBARIAN, 1, 1, 1, 1);
-		ClassLevel level2 = new DefaultClassLevel(1, DefaultCharacterClass.FIGHTER, 1, 1, 1, 1);
-
-		Collection levels = new ArrayList();
-		levels.add(new DefaultCharacterLevel(null, 1, 1,
-                level1,
-                Arrays.asList(new KeyedModifier[] {
-                                new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultModifierType.RANK, 1),
-                                new DefaultKeyedModifier(DefaultSkill.INTIMIDATE, DefaultModifierType.RANK, 1)})));
-		levels.add(new DefaultCharacterLevel(null, 2, 1,
-		        level2,
-                Arrays.asList(new KeyedModifier[] {
-                        new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultModifierType.RANK, 1) })));
-		CharacterProgression progression = new DefaultCharacterProgression(levels);
-
-		Race race = DefaultRace.HUMAN;
+//		ClassLevel level1 = new DefaultClassLevel(1, DefaultCharacterClass.BARBARIAN, 1, 1, 1, 1);
+//		ClassLevel level2 = new DefaultClassLevel(1, DefaultCharacterClass.FIGHTER, 1, 1, 1, 1);
+//
+//		Collection levels = new ArrayList();
+//		levels.add(new DefaultCharacterLevel(null, 1, 1,
+//                level1,
+//                Arrays.asList(new KeyedModifier[] {
+//                                new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultModifierType.RANK, 1),
+//                                new DefaultKeyedModifier(DefaultSkill.INTIMIDATE, DefaultModifierType.RANK, 1)})));
+//		levels.add(new DefaultCharacterLevel(null, 2, 1,
+//		        level2,
+//                Arrays.asList(new KeyedModifier[] {
+//                        new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultModifierType.RANK, 1) })));
+//		CharacterProgression progression = new DefaultCharacterProgression(levels);
+//
+//		Race race = DefaultRace.HUMAN;
 		Age age = new Age() {
 
             public AgeCategory getCategory() {
@@ -124,11 +124,11 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 
 		MockControl mockEncumberanceDao = MockControl.createControl(EncumberanceDao.class);
 		EncumberanceDao encumberanceDao = (EncumberanceDao) mockEncumberanceDao.getMock();
-		encumberanceDao.getEncumberance(abilities, itemContainer, race.getSize());
+		encumberanceDao.getEncumberance(abilities, itemContainer, null);
 		mockEncumberanceDao.setReturnValue(DefaultEncumberance.LIGHT);
 		mockEncumberanceDao.replay();
 
-		Encumberance encumberance = new InventoryWeightEncumberance(abilities, itemContainer, race.getSize(), encumberanceDao);
+		Encumberance encumberance = new InventoryWeightEncumberance(abilities, itemContainer, null, encumberanceDao);
 
 		MockControl mockDeity = MockControl.createControl(Deity.class);
 		Deity deity = (Deity) mockDeity.getMock();
@@ -141,7 +141,7 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 
 		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
 
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, progression, itemContainer, encumberance, alignment, bio, deity);
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, null, null, itemContainer, encumberance, alignment, bio, deity);
 
 		PrintCharacterAction output = new PrintCharacterAction(character, template);
 		String text = output.render().toString();

@@ -45,4 +45,9 @@ public class HibernateCharacterClassDaoTest extends ShardHibernateTestCaseSuppor
         Collection classes = characterClassDao.getClasses();
         assertFalse(classes.isEmpty());
     }
+
+    public void testAddingClassLevels() throws Exception {
+        CharacterClass kit = characterClassDao.getCharacterClass("Dragonslayer");
+        kit.getClassProgression().addLevel(1, 1, 1, 1);
+    }
 }

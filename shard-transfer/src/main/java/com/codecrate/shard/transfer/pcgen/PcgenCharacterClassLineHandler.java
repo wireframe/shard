@@ -23,7 +23,6 @@ import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.CharacterClassDao;
 import com.codecrate.shard.kit.CharacterClassFactory;
-import com.codecrate.shard.kit.DefaultClassLevel;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.source.Source;
@@ -70,13 +69,13 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
             String baseAttackBonusProgression = getTokenAfterElement(BASE_ATTACK_BONUS_DECLARATION, bonusTokens);
 
             CharacterClass kit = kitFactory.createClass(name, abbreviation, hitDice);
-            int level = 1;
-            DefaultClassLevel classLevel = new DefaultClassLevel(level, kit,
-                    calculateClassLevelExpression(level, baseAttackBonusProgression),
-                    calculateClassLevelExpression(level, fortitudeSaveProgression),
-                    calculateClassLevelExpression(level, reflexSaveProgression),
-                    calculateClassLevelExpression(level, willpowerSaveProgression));
-            kit.getClassProgression().getClassLevels().add(classLevel);
+            for (int level = 1; level <= 20; level++) {
+                kit.getClassProgression().addLevel(
+                        calculateClassLevelExpression(level, baseAttackBonusProgression),
+                        calculateClassLevelExpression(level, fortitudeSaveProgression),
+                        calculateClassLevelExpression(level, reflexSaveProgression),
+                        calculateClassLevelExpression(level, willpowerSaveProgression));
+            }
             return kitDao.saveClass(kit);
     	} else if (isSecondLine(tags)) {
     		CharacterClass kit = kitDao.getCharacterClass(name);

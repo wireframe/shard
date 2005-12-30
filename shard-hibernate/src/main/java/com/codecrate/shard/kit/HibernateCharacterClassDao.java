@@ -84,6 +84,6 @@ public class HibernateCharacterClassDao extends HibernateDaoSupport implements C
     }
 
 	public CharacterClass createClass(String name, String abbreviation, Dice hitDice) {
-		return new DefaultCharacterClass(name, abbreviation, hitDice, 0, null, null, null, null);
+		return new DefaultCharacterClass(name, abbreviation, hitDice, 0, null);
 	}
 }

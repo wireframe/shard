@@ -21,6 +21,7 @@
 	      <value>com/codecrate/shard/equipment/DefaultItem.hbm.xml</value>
 	      <value>com/codecrate/shard/feat/DefaultFeat.hbm.xml</value>
 	      <value>com/codecrate/shard/kit/DefaultCharacterClass.hbm.xml</value>
+	      <value>com/codecrate/shard/kit/DefaultClassProgression.hbm.xml</value>
 	      <value>com/codecrate/shard/magic/Spell.hbm.xml</value>
 	      <value>com/codecrate/shard/movement/EncumberanceEntry.hbm.xml</value>
 	      <value>com/codecrate/shard/race/DefaultLanguage.hbm.xml</value>

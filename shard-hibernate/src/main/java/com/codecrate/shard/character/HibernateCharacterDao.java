@@ -38,27 +38,27 @@ import com.codecrate.shard.race.Race;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class HibernateCharacterDao extends HibernateDaoSupport implements CharacterDao, CharacterFactory {
-	
+
 	private final AbilityScoreDao abilityScoreDao;
-	
+
 	public HibernateCharacterDao(AbilityScoreDao abilityScoreDao) {
 		this.abilityScoreDao = abilityScoreDao;
 	}
-	
+
 	public PlayerCharacter createCharacter(String name) {
 		DefaultCharacterBio bio = new DefaultCharacterBio(name);
-		Race race = DefaultRace.HUMAN;
+		Race race = null;
 		Age age = new DefaultAge(18, 100, CummulativeAgeCategory.ADULT);
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
 		CharacterProgression characterProgression = new DefaultCharacterProgression(new ArrayList());
 		ItemEntryContainer inventory = new DefaultItemEntryContainer(new ArrayList());
 		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
-		Deity deity = null; 
-		
+		Deity deity = null;
+
 		return new DefaultPlayerCharacter(abilities, race, characterProgression, inventory, encumberance, alignment, bio, deity);
 	}
-	
+
 	public PlayerCharacter saveCharacter(PlayerCharacter character) {
         String id = (String) getHibernateTemplate().save(character);
         return (PlayerCharacter) getHibernateTemplate().load(DefaultPlayerCharacter.class, id);
