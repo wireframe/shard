@@ -56,6 +56,10 @@ public class DefaultClassProgression implements ClassProgression {
 	}
 
     public void addLevel(int baseAttackBonus, int fortitudeSave, int reflexSave, int willSave) {
-        levels.add(new DefaultClassLevel(getMaxLevel() + 1, kit, baseAttackBonus, fortitudeSave, reflexSave, willSave));
+        levels.add(new DefaultClassLevel(getMaxLevel() + 1, this, baseAttackBonus, fortitudeSave, reflexSave, willSave));
+    }
+
+    public CharacterClass getCharacterClass() {
+        return kit;
     }
 }

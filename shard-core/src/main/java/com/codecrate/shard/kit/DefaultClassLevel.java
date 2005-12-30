@@ -18,38 +18,45 @@ package com.codecrate.shard.kit;
 /**
  * Definition of a class level.
  * ex: Ranger level 1 grants +1 to hit ....
- * 
+ *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultClassLevel implements ClassLevel {
+    private String id;
+    private ClassProgression progression;
 	private int level;
     private int baseAttackBonus;
     private int fortituteSaveBonus;
     private int reflexSaveBonus;
     private int willpowerSaveBonus;
-    private CharacterClass characterClass;
 
-    public DefaultClassLevel(int level, CharacterClass characterClass, int baseAttackBonus, int fortitueSaveBonus, int reflexSaveBonus, int willpowerSaveBonus) {
+    /**
+     * hibernate constructor.
+     */
+    private DefaultClassLevel() {
+    }
+
+    public DefaultClassLevel(int level, ClassProgression progression, int baseAttackBonus, int fortitueSaveBonus, int reflexSaveBonus, int willpowerSaveBonus) {
     	this.level = level;
-    	this.characterClass = characterClass;
+        this.progression = progression;
         this.baseAttackBonus = baseAttackBonus;
         this.fortituteSaveBonus = fortitueSaveBonus;
         this.reflexSaveBonus = reflexSaveBonus;
         this.willpowerSaveBonus = willpowerSaveBonus;
     }
-    
+
     public String toString() {
-    	return characterClass + " (" + level + ")";
+    	return progression.getCharacterClass() + " (" + level + ")";
     }
-    
+
     public CharacterClass getCharacterClass() {
-    	return characterClass;
+    	return progression.getCharacterClass();
     }
-    
+
     public int getLevel() {
     	return level;
     }
-    
+
     public int getBaseAttackBonus() {
         return baseAttackBonus;
     }

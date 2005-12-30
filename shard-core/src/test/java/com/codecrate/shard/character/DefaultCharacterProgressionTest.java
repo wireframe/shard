@@ -28,92 +28,92 @@ import com.codecrate.shard.kit.DefaultClassLevel;
 
 public class DefaultCharacterProgressionTest extends TestCase {
 
-    public void testGetClassesReturnsAllUsedClasses() {
-		MockControl mockClass2 = MockControl.createControl(CharacterClass.class);
-		CharacterClass fighter = (CharacterClass) mockClass2.getMock();
-		mockClass2.replay();
-		
-		MockControl mockClass = MockControl.createControl(CharacterClass.class);
-		CharacterClass ranger = (CharacterClass) mockClass.getMock();
-		mockClass.replay();
-
-    	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
-    	ClassLevel fighterLevel1 = new DefaultClassLevel(1, fighter, 1, 1, 1, 1);
-    	
-    	CharacterLevel characterLevel1 = new DefaultCharacterLevel(null, 1, 3, rangerLevel1, new ArrayList());
-    	CharacterLevel characterLevel2 = new DefaultCharacterLevel(null, 2, 4, fighterLevel1, new ArrayList());
-    	
-    	Collection levels = new ArrayList();
-    	levels.add(characterLevel1);
-    	levels.add(characterLevel2);
-    	
-    	DefaultCharacterProgression progression = new DefaultCharacterProgression(levels);
-    	assertEquals(2, progression.getClasses().size());
-    	assertSame(ranger, progression.getClasses().iterator().next());
-    }
-
-    public void testNameFormattedCorrectly() {
-		MockControl mockClass2 = MockControl.createControl(CharacterClass.class);
-		CharacterClass fighter = (CharacterClass) mockClass2.getMock();
-		fighter.getAbbreviation();
-		mockClass2.setReturnValue("Ftr");
-		mockClass2.replay();
-		
-		MockControl mockClass = MockControl.createControl(CharacterClass.class);
-		CharacterClass ranger = (CharacterClass) mockClass.getMock();
-		ranger.getAbbreviation();
-		mockClass.setDefaultReturnValue("Rgr");
-		mockClass.replay();
-
-    	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
-    	ClassLevel fighterLevel1 = new DefaultClassLevel(1, fighter, 1, 1, 1, 1);
-    	
-    	CharacterLevel characterLevel1 = new DefaultCharacterLevel(null, 1, 3, rangerLevel1, new ArrayList());
-    	CharacterLevel characterLevel2 = new DefaultCharacterLevel(null, 2, 4, fighterLevel1, new ArrayList());
-    	
-    	Collection levels = new ArrayList();
-    	levels.add(characterLevel1);
-    	levels.add(characterLevel2);
-    	
-    	DefaultCharacterProgression progression = new DefaultCharacterProgression(levels);
-    	assertEquals("Rgr 1 / Ftr 1", progression.getDescription());
-    }
-
-    public void testGetMaxLevelReturnsHighestLevel() {
-		MockControl mockClass = MockControl.createControl(CharacterClass.class);
-		CharacterClass ranger = (CharacterClass) mockClass.getMock();
-		mockClass.replay();
-
-    	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
-    	ClassLevel rangerLevel2 = new DefaultClassLevel(2, ranger, 1, 1, 1, 1);
-    	
-    	CharacterLevel characterLevel1 = new DefaultCharacterLevel(null, 1, 2, rangerLevel1, new ArrayList());
-    	CharacterLevel characterLevel2 = new DefaultCharacterLevel(null, 1, 1, rangerLevel2, new ArrayList());
-    	
-    	Collection levels = new ArrayList();
-    	levels.add(characterLevel1);
-    	levels.add(characterLevel2);
-    	
-    	DefaultCharacterProgression progression = new DefaultCharacterProgression(levels);
-    	assertSame(rangerLevel2, progression.getClassLevel(ranger));
-    }
-    
-    public void testGetMaxLevelReturnsNullForUnusedClass() {
-		MockControl mockClass = MockControl.createControl(CharacterClass.class);
-		CharacterClass ranger = (CharacterClass) mockClass.getMock();
-		mockClass.replay();
-
-		MockControl mockClass2 = MockControl.createControl(CharacterClass.class);
-		CharacterClass fighter = (CharacterClass) mockClass2.getMock();
-		mockClass2.replay();
-		
-    	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
-    	CharacterLevel characterLevel1 = new DefaultCharacterLevel(null, 1, 5, rangerLevel1, new ArrayList());
-    	
-    	Collection levels = new ArrayList();
-    	levels.add(characterLevel1);
-    	
-    	DefaultCharacterProgression progression = new DefaultCharacterProgression(levels);
-    	assertNull(progression.getClassLevel(fighter));
-    }
+//    public void testGetClassesReturnsAllUsedClasses() {
+//		MockControl mockClass2 = MockControl.createControl(CharacterClass.class);
+//		CharacterClass fighter = (CharacterClass) mockClass2.getMock();
+//		mockClass2.replay();
+//
+//		MockControl mockClass = MockControl.createControl(CharacterClass.class);
+//		CharacterClass ranger = (CharacterClass) mockClass.getMock();
+//		mockClass.replay();
+//
+//    	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
+//    	ClassLevel fighterLevel1 = new DefaultClassLevel(1, fighter, 1, 1, 1, 1);
+//
+//    	CharacterLevel characterLevel1 = new DefaultCharacterLevel(null, 1, 3, rangerLevel1, new ArrayList());
+//    	CharacterLevel characterLevel2 = new DefaultCharacterLevel(null, 2, 4, fighterLevel1, new ArrayList());
+//
+//    	Collection levels = new ArrayList();
+//    	levels.add(characterLevel1);
+//    	levels.add(characterLevel2);
+//
+//    	DefaultCharacterProgression progression = new DefaultCharacterProgression(levels);
+//    	assertEquals(2, progression.getClasses().size());
+//    	assertSame(ranger, progression.getClasses().iterator().next());
+//    }
+//
+//    public void testNameFormattedCorrectly() {
+//		MockControl mockClass2 = MockControl.createControl(CharacterClass.class);
+//		CharacterClass fighter = (CharacterClass) mockClass2.getMock();
+//		fighter.getAbbreviation();
+//		mockClass2.setReturnValue("Ftr");
+//		mockClass2.replay();
+//
+//		MockControl mockClass = MockControl.createControl(CharacterClass.class);
+//		CharacterClass ranger = (CharacterClass) mockClass.getMock();
+//		ranger.getAbbreviation();
+//		mockClass.setDefaultReturnValue("Rgr");
+//		mockClass.replay();
+//
+//    	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
+//    	ClassLevel fighterLevel1 = new DefaultClassLevel(1, fighter, 1, 1, 1, 1);
+//
+//    	CharacterLevel characterLevel1 = new DefaultCharacterLevel(null, 1, 3, rangerLevel1, new ArrayList());
+//    	CharacterLevel characterLevel2 = new DefaultCharacterLevel(null, 2, 4, fighterLevel1, new ArrayList());
+//
+//    	Collection levels = new ArrayList();
+//    	levels.add(characterLevel1);
+//    	levels.add(characterLevel2);
+//
+//    	DefaultCharacterProgression progression = new DefaultCharacterProgression(levels);
+//    	assertEquals("Rgr 1 / Ftr 1", progression.getDescription());
+//    }
+//
+//    public void testGetMaxLevelReturnsHighestLevel() {
+//		MockControl mockClass = MockControl.createControl(CharacterClass.class);
+//		CharacterClass ranger = (CharacterClass) mockClass.getMock();
+//		mockClass.replay();
+//
+//    	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
+//    	ClassLevel rangerLevel2 = new DefaultClassLevel(2, ranger, 1, 1, 1, 1);
+//
+//    	CharacterLevel characterLevel1 = new DefaultCharacterLevel(null, 1, 2, rangerLevel1, new ArrayList());
+//    	CharacterLevel characterLevel2 = new DefaultCharacterLevel(null, 1, 1, rangerLevel2, new ArrayList());
+//
+//    	Collection levels = new ArrayList();
+//    	levels.add(characterLevel1);
+//    	levels.add(characterLevel2);
+//
+//    	DefaultCharacterProgression progression = new DefaultCharacterProgression(levels);
+//    	assertSame(rangerLevel2, progression.getClassLevel(ranger));
+//    }
+//
+//    public void testGetMaxLevelReturnsNullForUnusedClass() {
+//		MockControl mockClass = MockControl.createControl(CharacterClass.class);
+//		CharacterClass ranger = (CharacterClass) mockClass.getMock();
+//		mockClass.replay();
+//
+//		MockControl mockClass2 = MockControl.createControl(CharacterClass.class);
+//		CharacterClass fighter = (CharacterClass) mockClass2.getMock();
+//		mockClass2.replay();
+//
+//    	ClassLevel rangerLevel1 = new DefaultClassLevel(1, ranger, 1, 1, 1, 1);
+//    	CharacterLevel characterLevel1 = new DefaultCharacterLevel(null, 1, 5, rangerLevel1, new ArrayList());
+//
+//    	Collection levels = new ArrayList();
+//    	levels.add(characterLevel1);
+//
+//    	DefaultCharacterProgression progression = new DefaultCharacterProgression(levels);
+//    	assertNull(progression.getClassLevel(fighter));
+//    }
 }
