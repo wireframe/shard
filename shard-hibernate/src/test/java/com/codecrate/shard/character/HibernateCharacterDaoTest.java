@@ -15,25 +15,52 @@
  */
 package com.codecrate.shard.character;
 
+import java.util.ArrayList;
+
 import com.codecrate.shard.ShardHibernateTestCaseSupport;
+import com.codecrate.shard.dice.RandomDice;
+import com.codecrate.shard.kit.CharacterClass;
+import com.codecrate.shard.kit.CharacterClassDao;
+import com.codecrate.shard.kit.CharacterClassFactory;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class HibernateCharacterDaoTest extends ShardHibernateTestCaseSupport {
-    
+
 	private CharacterDao characterDao;
 	private CharacterFactory characterFactory;
-	
-	public void setCharacterDao(CharacterDao characterDao) {
+    private CharacterClassDao characterClassDao;
+    private CharacterClassFactory characterClassFactory;
+
+	public void setCharacterClassDao(CharacterClassDao characterClassDao) {
+        this.characterClassDao = characterClassDao;
+    }
+
+    public void setCharacterClassFactory(CharacterClassFactory characterClassFactory) {
+        this.characterClassFactory = characterClassFactory;
+    }
+
+    public void setCharacterDao(CharacterDao characterDao) {
 		this.characterDao = characterDao;
 	}
 
 	public void setCharacterFactory(CharacterFactory factory) {
 		this.characterFactory = factory;
 	}
-	
-	
+
+    protected void onSetUpInTransaction() throws Exception {
+        super.onSetUpInTransaction();
+
+        CharacterClass kit = characterClassFactory.createClass("MegaFighter", "FTR", new RandomDice(4));
+        kit.getClassProgression().addLevel(2, 3, 4, 5);
+        characterClassDao.saveClass(kit);
+
+        PlayerCharacter character = characterFactory.createCharacter("Bob");
+        character.getCharacterProgression().addLevel(kit, 1, new ArrayList());
+        characterDao.saveCharacter(character);
+    }
+
 	public void testSaveNewCharacter() throws Exception {
         PlayerCharacter character = characterFactory.createCharacter("test");
         character = characterDao.saveCharacter(character);

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping
+    PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+
+<hibernate-mapping package="com.codecrate.shard.character">
+
+    <class name="DefaultCharacterProgression" table="SHA_CHARACTER_PROGRESSION">
+
+        <id name="id" type="string" access="field">
+            <column name="ID" sql-type="char(32)" not-null="true"/>
+            <generator class="uuid.hex"/>
+        </id>
+
+		<one-to-one name="character"
+		 class="com.codecrate.shard.character.DefaultPlayerCharacter"
+		 access="field" />
+
+        <set name="levels"
+         access="field"
+         lazy="false"
+         inverse="true"
+         cascade="all-delete-orphan"
+         table="SHA_CHARACTER_LEVEL">
+            <key column="ID"/>
+            <one-to-many class="com.codecrate.shard.character.DefaultCharacterLevel"/>
+        </set>
+
+    </class>
+
+</hibernate-mapping>

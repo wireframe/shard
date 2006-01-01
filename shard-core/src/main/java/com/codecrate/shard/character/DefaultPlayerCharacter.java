@@ -35,7 +35,7 @@ import com.codecrate.shard.skill.SkillEntryContainer;
 
 /**
  * Default character.
- * 
+ *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultPlayerCharacter implements PlayerCharacter {
@@ -45,7 +45,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     private Race race;
     private Alignment alignment;
     private AbilityScoreContainer abilities;
-    private CharacterProgression characterProgression;
+    private CharacterProgression progression;
     private ItemEntryContainer inventory;
 
     private String id;
@@ -62,7 +62,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 	 */
 	private DefaultPlayerCharacter() {
 	}
-	
+
     /**
      * default constructor.
      * @param encumberance TODO
@@ -70,7 +70,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
      * @param challengeRating challengeRating for the character.
      */
     public DefaultPlayerCharacter(AbilityScoreContainer abilities,
-    		Race race, CharacterProgression characterProgression, 
+    		Race race,
     		ItemEntryContainer inventory, Encumberance encumberance,
     		Alignment alignment, CharacterBio bio, Deity deity) {
         this.race = race;
@@ -79,28 +79,31 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
         this.inventory = inventory;
         this.alignment = alignment;
         this.bio = bio;
-        this.characterProgression = characterProgression;
+        this.progression = new DefaultCharacterProgression(this);
         this.encumberance = encumberance;
-        
+
         this.challengeRating = new BigDecimal(0);
         this.feats = new FeatContainer(new ArrayList());
         this.savingThrows = new SavingThrowEntryContainer();
         this.initiative = new Initiative(abilities);
         this.armorClass = new DexterityArmorClass(abilities, encumberance);
-        this.skills = new CharacterProgressionSkillEntryContainer(characterProgression);
-        this.hitPoints = new CharacterProgressionHitPoints(characterProgression);
+        this.skills = new CharacterProgressionSkillEntryContainer(progression);
+        this.hitPoints = new CharacterProgressionHitPoints(progression);
     }
-    
+
+    public String toString() {
+        return bio.toString();
+    }
     public CharacterBio getBio() {
         return bio;
     }
-    
+
     public BigDecimal getChallengeRating() {
         return challengeRating;
     }
 
     public int getEffectiveCharacterLevel() {
-    	return characterProgression.getCharacterLevel() + race.getLevelAdjustment();
+    	return progression.getCharacterLevel() + race.getLevelAdjustment();
     }
 
 	public AbilityScoreContainer getAbilities() {
@@ -109,45 +112,45 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 
 	public int getBaseAttackBonus() {
 		int value = 0;
-		Iterator it = characterProgression.getClasses().iterator();
+		Iterator it = progression.getClasses().iterator();
 		while (it.hasNext()) {
 			CharacterClass kit = (CharacterClass) it.next();
-			value += characterProgression.getClassLevel(kit).getBaseAttackBonus();
+			value += progression.getClassLevel(kit).getBaseAttackBonus();
 		}
 		value += race.getSize().getBaseAttackBonusModifier();
 		return value;
 	}
-	
+
 	public Alignment getAlignment() {
 		return alignment;
 	}
-	
+
 	public HitPoints getHitPoints() {
 		return hitPoints;
 	}
-	
+
 	public Encumberance getEncumberance() {
 		return encumberance;
 	}
 	public Race getRace() {
 		return race;
 	}
-	
+
     public ArmorClass getArmorClass() {
         return armorClass;
     }
-    
+
     public CharacterProgression getCharacterProgression() {
-    	return characterProgression;
+    	return progression;
     }
     public SavingThrowEntryContainer getSavingThrows() {
         return savingThrows;
     }
-    
+
     public ItemEntryContainer getInventory() {
         return inventory;
     }
-    
+
     public SkillEntryContainer getSkills() {
     	return skills;
     }
@@ -161,11 +164,11 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     public Deity getDeity() {
         return deity;
     }
-    
+
     public void setRace(Race race) {
     	this.race = race;
     }
-    
+
     public void setAlignment(Alignment alignment) {
     	this.alignment = alignment;
     }

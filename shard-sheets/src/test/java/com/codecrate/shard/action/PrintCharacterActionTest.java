@@ -102,7 +102,6 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 //		        level2,
 //                Arrays.asList(new KeyedModifier[] {
 //                        new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultModifierType.RANK, 1) })));
-//		CharacterProgression progression = new DefaultCharacterProgression(levels);
 //
 //		Race race = DefaultRace.HUMAN;
 		Age age = new Age() {
@@ -141,7 +140,8 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 
 		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
 
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, null, null, itemContainer, encumberance, alignment, bio, deity);
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, null, itemContainer, encumberance, alignment, bio, deity);
+		character.getCharacterProgression().addLevel(null, 1, new ArrayList());
 
 		PrintCharacterAction output = new PrintCharacterAction(character, template);
 		String text = output.render().toString();

@@ -50,13 +50,12 @@ public class HibernateCharacterDao extends HibernateDaoSupport implements Charac
 		Race race = null;
 		Age age = new DefaultAge(18, 100, CummulativeAgeCategory.ADULT);
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
-		CharacterProgression characterProgression = new DefaultCharacterProgression(new ArrayList());
 		ItemEntryContainer inventory = new DefaultItemEntryContainer(new ArrayList());
 		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
 		Deity deity = null;
 
-		return new DefaultPlayerCharacter(abilities, race, characterProgression, inventory, encumberance, alignment, bio, deity);
+		return new DefaultPlayerCharacter(abilities, race, inventory, encumberance, alignment, bio, deity);
 	}
 
 	public PlayerCharacter saveCharacter(PlayerCharacter character) {

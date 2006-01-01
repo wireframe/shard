@@ -12,17 +12,22 @@
             <generator class="uuid.hex"/>
         </id>
 
-        <property name="alignment" 
-         column="ALIGNMENT" 
+        <property name="alignment"
+         column="ALIGNMENT"
 		 type="com.codecrate.shard.character.AlignmentUserType"
 		 not-null="true"
          access="field"/>
-        
-        <many-to-one name="race" 
-         class="com.codecrate.shard.race.DefaultRace" 
-         column="RACE" 
+
+        <many-to-one name="race"
+         class="com.codecrate.shard.race.DefaultRace"
+         column="RACE"
          cascade="all"
          access="field"/>
+
+		<one-to-one name="progression"
+		 cascade="all"
+		 class="com.codecrate.shard.character.DefaultCharacterProgression"
+		 access="field" />
     </class>
 
 </hibernate-mapping>

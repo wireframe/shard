@@ -26,6 +26,7 @@ import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.ClassLevel;
+import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.movement.DefaultEncumberance;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
@@ -40,21 +41,15 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		mockRace.setReturnValue(1);
 		mockRace.replay();
 
-		MockControl mockProgression = MockControl.createControl(CharacterProgression.class);
-		CharacterProgression progression = (CharacterProgression) mockProgression.getMock();
-		progression.getCharacterLevel();
-		mockProgression.setReturnValue(1);
-		progression.getCharacterLevel();
-		mockProgression.setReturnValue(1);
-		progression.getCharacterLevels();
-		mockProgression.setReturnValue(new ArrayList());
-		progression.getCharacterLevels();
-		mockProgression.setReturnValue(new ArrayList());
-		mockProgression.replay();
-
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(null);
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, progression, null, encumberance, null, null, null);
+
+        DefaultCharacterClass kit = new DefaultCharacterClass("test kit", "", null, 0, null);
+        kit.getClassProgression().addLevel(1, 2, 3, 4);
+
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, null, encumberance, null, null, null);
+        character.getCharacterProgression().addLevel(kit, 1, new ArrayList());
+
 		assertEquals(2, character.getEffectiveCharacterLevel());
 	}
 
@@ -67,23 +62,8 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		mockClassLevel.setReturnValue(1);
 		mockClassLevel.replay();
 
-        MockControl mockKit = MockControl.createControl(CharacterClass.class);
-        CharacterClass kit = (CharacterClass) mockKit.getMock();
-        mockKit.replay();
-
-		MockControl mockProgression = MockControl.createControl(CharacterProgression.class);
-		CharacterProgression progression = (CharacterProgression) mockProgression.getMock();
-		progression.getCharacterLevel();
-		mockProgression.setReturnValue(1);
-		progression.getCharacterLevels();
-		mockProgression.setReturnValue(new ArrayList());
-		progression.getCharacterLevels();
-		mockProgression.setReturnValue(new ArrayList());
-		progression.getClasses();
-		mockProgression.setReturnValue(Collections.singletonList(kit));
-		progression.getClassLevel(kit);
-		mockProgression.setReturnValue(classLevel);
-		mockProgression.replay();
+        DefaultCharacterClass kit = new DefaultCharacterClass("test kit", "", null, 0, null);
+        kit.getClassProgression().addLevel(2, 2, 3, 4);
 
         MockControl mockSize = MockControl.createControl(RacialSize.class);
         RacialSize size = (RacialSize) mockSize.getMock();
@@ -99,7 +79,9 @@ public class DefaultPlayerCharacterTest extends TestCase {
 
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(null);
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, progression, null, encumberance, null, null, null);
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, null, encumberance, null, null, null);
+        character.getCharacterProgression().addLevel(kit, 1, new ArrayList());
+
 		assertEquals(3, character.getBaseAttackBonus());
 	}
 }

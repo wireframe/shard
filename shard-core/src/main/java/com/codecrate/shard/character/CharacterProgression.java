@@ -31,7 +31,7 @@ public interface CharacterProgression {
 	 * @return
 	 */
 	String getDescription();
-	
+
     /**
      * gets all character levels.
      * @return
@@ -43,14 +43,14 @@ public interface CharacterProgression {
 	 * @return
 	 */
 	int getCharacterLevel();
-	
+
     /**
      * gets a specific character level.
      * @param level
      * @return
      */
     CharacterLevel getCharacterLevel(int level);
-    
+
 	/**
 	 * gets the different classes that the character has.
 	 * @return
@@ -63,11 +63,15 @@ public interface CharacterProgression {
 	 * @return
 	 */
 	ClassLevel getClassLevel(CharacterClass kit);
-	
+
 	/**
 	 * gets the penalty this character is subjected to.
 	 * this takes into account the character's racial favored class.
 	 * @return
 	 */
 	BigDecimal getMulticlassExperiencePenalty();
+
+    void addLevel(CharacterClass kit, int hitPoints, Collection skillRanks);
+
+    PlayerCharacter getCharacter();
 }

@@ -18,24 +18,29 @@ package com.codecrate.shard.character;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.ClassLevel;
 
 public class DefaultCharacterProgression implements CharacterProgression {
-
+    private String id;
+    private PlayerCharacter character;
 	private int experience;
-	private Collection levels;
+	private Set levels = new HashSet();
 
-	public DefaultCharacterProgression() {
-		this(new ArrayList());
+    /**
+     * hibernate constructor
+     */
+    private DefaultCharacterProgression() {
+    }
+
+	public DefaultCharacterProgression(PlayerCharacter playerCharacter) {
+        this.character = playerCharacter;
 	}
-	
-	public DefaultCharacterProgression(Collection levels) {
-		this.levels = levels;
-	}
-	
+
 	public Collection getClasses() {
 		Collection classes = new ArrayList();
 		Iterator it = levels.iterator();
@@ -48,11 +53,11 @@ public class DefaultCharacterProgression implements CharacterProgression {
 		}
 		return classes;
 	}
-	
+
 	public int getCharacterLevel() {
 		return levels.size();
 	}
-	
+
 	public ClassLevel getClassLevel(CharacterClass kit) {
 		ClassLevel level = null;
 		Iterator it = levels.iterator();
@@ -66,7 +71,7 @@ public class DefaultCharacterProgression implements CharacterProgression {
 		}
 		return level;
 	}
-	
+
 	public String getDescription() {
 		StringBuffer result = new StringBuffer();
 		Iterator classes = getClasses().iterator();
@@ -74,14 +79,24 @@ public class DefaultCharacterProgression implements CharacterProgression {
 			CharacterClass kit = (CharacterClass) classes.next();
 			ClassLevel maxLevel = getClassLevel(kit);
 			result.append(kit.getAbbreviation() + " " + maxLevel.getLevel());
-			
+
 			if (classes.hasNext()) {
 				result.append(" / ");
 			}
 		}
 		return result.toString();
 	}
-	
+
+    public void addLevel(CharacterClass kit, int hitPoints, Collection skillRanks) {
+        int level = 1;
+        ClassLevel currentClassLevel = this.getClassLevel(kit);
+        if (null != currentClassLevel) {
+            level = currentClassLevel.getLevel() + 1;
+        }
+        ClassLevel nextClassLevel = kit.getClassProgression().getClassLevel(level);
+        levels.add(new DefaultCharacterLevel(this, levels.size() + 1, hitPoints, nextClassLevel, skillRanks));
+    }
+
 	public String toString() {
 		return getDescription();
 	}
@@ -110,4 +125,8 @@ public class DefaultCharacterProgression implements CharacterProgression {
 	public int getExperience() {
 		return experience;
 	}
+
+    public PlayerCharacter getCharacter() {
+        return character;
+    }
 }

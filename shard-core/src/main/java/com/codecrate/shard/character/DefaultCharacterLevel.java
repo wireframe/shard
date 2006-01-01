@@ -24,41 +24,50 @@ import com.codecrate.shard.kit.ClassLevel;
 import com.codecrate.shard.race.Race;
 
 /**
- * 
+ *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultCharacterLevel implements CharacterLevel {
+    private String id;
+    private int level;
+    private int hitpoints;
+    private ClassLevel classLevel;
+	private Collection skillRanks;
+    private CharacterProgression progression;
 
-    private final int level;
-    private final int hitpoints;
-    private final ClassLevel classLevel;
-	private final Collection skillRanks;
-    private final PlayerCharacter character;
-    
-    public DefaultCharacterLevel(PlayerCharacter character, int level, int hitpoints, 
+    /**
+     * hibernate constructor
+     */
+    private DefaultCharacterLevel() {
+    }
+
+    public DefaultCharacterLevel(CharacterProgression progression, int level, int hitpoints,
     		ClassLevel classLevel, Collection skillRanks) {
-        this.character = character;
+        this.progression = progression;
         this.level = level;
     	this.hitpoints = hitpoints;
     	this.classLevel = classLevel;
 		this.skillRanks = skillRanks;
     }
-    
+
+    public String toString() {
+        return progression + " " + level;
+    }
     public PlayerCharacter getCharacter() {
-        return character;
+        return progression.getCharacter();
     }
     public int getLevel() {
         return level;
     }
-    
+
 	public ClassLevel getClassLevel() {
 		return classLevel;
 	}
-	
+
 	public int getHitpoints() {
 		return hitpoints;
 	}
-	
+
 	public Collection getSkillRanks() {
 		return skillRanks;
 	}
@@ -69,14 +78,14 @@ public class DefaultCharacterLevel implements CharacterLevel {
         if (1 == level) {
             modifier = 4;
         }
-        
-        AbilityScoreContainer abilities = character.getAbilities();
+
+        AbilityScoreContainer abilities = progression.getCharacter().getAbilities();
         if (abilities.hasAbilityScore(DefaultAbility.INTELLIGENCE)) {
             intBonus = abilities.getIntelligence().getModifier();
         }
-        
+
         CharacterClass kit = classLevel.getCharacterClass();
-        Race race = character.getRace();
+        Race race = progression.getCharacter().getRace();
         return modifier * (kit.getBaseSkillPointsPerLevel() + race.getBaseSkillPointsPerLevel() + intBonus);
     }
 }
