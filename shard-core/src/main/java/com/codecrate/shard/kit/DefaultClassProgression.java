@@ -15,15 +15,16 @@
  */
 package com.codecrate.shard.kit;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 public class DefaultClassProgression implements ClassProgression {
 
     private String id;
     private CharacterClass kit;
-	private Collection levels = new ArrayList();
+	private Set levels = new HashSet();
 
     /**
      * hibernate constructor.

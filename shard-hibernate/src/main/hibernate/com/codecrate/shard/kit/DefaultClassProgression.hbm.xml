@@ -19,6 +19,8 @@
         <set name="levels"
          access="field"
          lazy="false"
+         inverse="true"
+         cascade="all-delete-orphan"
          table="SHA_CLASS_LEVEL">
             <key column="ID"/>
             <one-to-many class="com.codecrate.shard.kit.DefaultClassLevel"/>

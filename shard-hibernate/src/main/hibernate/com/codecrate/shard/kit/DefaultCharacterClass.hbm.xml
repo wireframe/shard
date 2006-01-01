@@ -46,6 +46,7 @@
         </set>
 
 		<one-to-one name="progression"
+		 cascade="all"
 		 class="com.codecrate.shard.kit.DefaultClassProgression"
 		 access="field" />
     </class>
