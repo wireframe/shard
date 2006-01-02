@@ -38,6 +38,4 @@ public interface ClassProgression {
      * @param willSave
      */
     void addLevel(int baseAttackBonus, int fortitudeSave, int reflexSave, int willSave);
-
-    CharacterClass getCharacterClass();
 }

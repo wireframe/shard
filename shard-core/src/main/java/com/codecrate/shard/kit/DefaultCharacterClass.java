@@ -18,6 +18,7 @@ package com.codecrate.shard.kit;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -43,12 +44,14 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
     private String name;
     private String abbreviation;
     private ClassProgression progression;
+    private Set levels = new HashSet();
     private CharacterPrerequisite prereq;
 
     /**
      * hibernate constructor.
      */
     private DefaultCharacterClass() {
+        progression = new DefaultClassProgression(this);
     }
 
     public DefaultCharacterClass(String name, String abbreviation, Dice hitDicePerLevel,
@@ -58,7 +61,8 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
         this.hitDicePerLevel = hitDicePerLevel;
         this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
         this.prereq = prereq;
-        this.progression = new DefaultClassProgression(this);
+
+        progression = new DefaultClassProgression(this);
     }
 
     public String toString() {
@@ -162,4 +166,37 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
 	public void addClassSkill(Skill skill) {
 		classSkills.add(skill);
 	}
+
+
+    public class DefaultClassProgression implements ClassProgression {
+        private final CharacterClass kit;
+
+        public DefaultClassProgression(CharacterClass kit) {
+            this.kit = kit;
+        }
+
+        public Collection getClassLevels() {
+            return levels;
+        }
+
+        public int getMaxLevel() {
+            return levels.size();
+        }
+
+        public ClassLevel getClassLevel(int level) {
+            ClassLevel kit = null;
+            Iterator it = levels.iterator();
+            while (it.hasNext()) {
+                ClassLevel object = (ClassLevel) it.next();
+                if (level == object.getLevel()) {
+                    return object;
+                }
+            }
+            return kit;
+        }
+
+        public void addLevel(int baseAttackBonus, int fortitudeSave, int reflexSave, int willSave) {
+            levels.add(new DefaultClassLevel(getMaxLevel() + 1, kit, baseAttackBonus, fortitudeSave, reflexSave, willSave));
+        }
+    }
 }

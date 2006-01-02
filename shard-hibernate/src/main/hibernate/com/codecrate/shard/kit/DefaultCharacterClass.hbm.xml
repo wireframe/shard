@@ -45,10 +45,15 @@
              column="LANGUAGE_ID"/>
         </set>
 
-		<one-to-one name="progression"
-		 class="com.codecrate.shard.kit.DefaultClassProgression"
-		 cascade="all"
-		 access="field" />
+        <set name="levels"
+         access="field"
+         lazy="false"
+         inverse="true"
+         cascade="all-delete-orphan"
+         table="SHA_CLASS_LEVEL">
+            <key column="ID"/>
+            <one-to-many class="com.codecrate.shard.kit.DefaultClassLevel"/>
+        </set>
     </class>
 
 </hibernate-mapping>

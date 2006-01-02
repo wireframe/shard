@@ -26,7 +26,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 public class DefaultClassLevel implements ClassLevel {
     private String id;
-    private ClassProgression progression;
+    private CharacterClass kit;
 	private int level;
     private int baseAttackBonus;
     private int fortituteSaveBonus;
@@ -39,9 +39,9 @@ public class DefaultClassLevel implements ClassLevel {
     private DefaultClassLevel() {
     }
 
-    public DefaultClassLevel(int level, ClassProgression progression, int baseAttackBonus, int fortitueSaveBonus, int reflexSaveBonus, int willpowerSaveBonus) {
+    public DefaultClassLevel(int level, CharacterClass kit, int baseAttackBonus, int fortitueSaveBonus, int reflexSaveBonus, int willpowerSaveBonus) {
     	this.level = level;
-        this.progression = progression;
+        this.kit = kit;
         this.baseAttackBonus = baseAttackBonus;
         this.fortituteSaveBonus = fortitueSaveBonus;
         this.reflexSaveBonus = reflexSaveBonus;
@@ -49,12 +49,12 @@ public class DefaultClassLevel implements ClassLevel {
     }
 
     public String toString() {
-    	return progression.getCharacterClass() + " (" + level + ")";
+    	return kit + " (" + level + ")";
     }
 
     public int hashCode() {
         return new HashCodeBuilder(3, 7)
-        .append(progression)
+        .append(kit)
         .append(level)
         .toHashCode();
     }
@@ -69,12 +69,12 @@ public class DefaultClassLevel implements ClassLevel {
         }
         DefaultClassLevel target = (DefaultClassLevel) object;
         return new EqualsBuilder()
-            .append(progression, target.progression)
+            .append(kit, target.kit)
             .append(level, target.level)
             .isEquals();
     }
     public CharacterClass getCharacterClass() {
-    	return progression.getCharacterClass();
+    	return kit;
     }
 
     public int getLevel() {
