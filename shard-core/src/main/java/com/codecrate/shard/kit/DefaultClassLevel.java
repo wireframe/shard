@@ -15,6 +15,9 @@
  */
 package com.codecrate.shard.kit;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 /**
  * Definition of a class level.
  * ex: Ranger level 1 grants +1 to hit ....
@@ -49,6 +52,27 @@ public class DefaultClassLevel implements ClassLevel {
     	return progression.getCharacterClass() + " (" + level + ")";
     }
 
+    public int hashCode() {
+        return new HashCodeBuilder(3, 7)
+        .append(progression)
+        .append(level)
+        .toHashCode();
+    }
+
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (!(object instanceof DefaultClassLevel)) {
+            return false;
+        }
+        DefaultClassLevel target = (DefaultClassLevel) object;
+        return new EqualsBuilder()
+            .append(progression, target.progression)
+            .append(level, target.level)
+            .isEquals();
+    }
     public CharacterClass getCharacterClass() {
     	return progression.getCharacterClass();
     }

@@ -20,6 +20,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 public class DefaultClassProgression implements ClassProgression {
 
     private String id;
@@ -35,6 +38,30 @@ public class DefaultClassProgression implements ClassProgression {
 	public DefaultClassProgression(CharacterClass kit) {
         this.kit = kit;
 	}
+
+    public String toString() {
+        return kit.toString();
+    }
+
+    public int hashCode() {
+        return new HashCodeBuilder(3, 7)
+        .append(kit)
+        .toHashCode();
+    }
+
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (!(object instanceof DefaultClassProgression)) {
+            return false;
+        }
+        DefaultClassProgression target = (DefaultClassProgression) object;
+        return new EqualsBuilder()
+            .append(kit, target.kit)
+            .isEquals();
+    }
 
 	public Collection getClassLevels() {
 		return levels;
