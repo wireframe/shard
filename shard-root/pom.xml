@@ -14,6 +14,7 @@
     <module>../shard-transfer</module>
     <module>../shard-phoenix</module>
     <module>../shard-minotaur</module>
+    <module>../shard-hack</module>
   </modules>
 
   <description>d20 gaming engine</description>

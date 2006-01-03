@@ -1,0 +1,33 @@
+<model>
+  <parent>
+    <groupId>com.codecrate.shard</groupId>
+    <artifactId>shard-root</artifactId>
+    <version>0.4.0-SNAPSHOT</version>
+    <relativePath>../shard-root/pom.xml</relativePath>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.codecrate.shard</groupId>
+  <artifactId>shard-hack</artifactId>
+  <name>shard hack module</name>
+  <packaging>jar</packaging>
+  <version>0.4.0-SNAPSHOT</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>jme</groupId>
+      <artifactId>jme</artifactId>
+      <version>SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>jogg</groupId>
+      <artifactId>jogg</artifactId>
+      <version>0.0.5</version>
+    </dependency>
+    <dependency>
+      <groupId>jorbis</groupId>
+      <artifactId>jorbis</artifactId>
+      <version>0.0.12</version>
+    </dependency>
+  </dependencies>
+</model>

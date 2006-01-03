@@ -1,20 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <projectDescription>
   <name>shard-hack</name>
-  <comment>shard hack module</comment>
-  <projects>
-    <project>shard-dice</project>
-    <project>shard-core</project>
-  </projects>
+  <comment>d20 gaming engine</comment>
+  <projects/>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>
-      <arguments>
-      </arguments>
+      <arguments/>
+    </buildCommand>
+    <buildCommand>
+      <name>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</name>
+      <arguments/>
+    </buildCommand>
+    <buildCommand>
+      <name>org.eclipse.wst.validation.validationbuilder</name>
+      <arguments/>
+    </buildCommand>
+    <buildCommand>
+      <name>org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver</name>
+      <arguments/>
     </buildCommand>
   </buildSpec>
   <natures>
     <nature>org.eclipse.jdt.core.javanature</nature>
+    <nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
+    <nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
   </natures>
 </projectDescription>
