@@ -3,8 +3,9 @@
   <classpathentry kind="src" path="src/main/resources"/>
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-  <classpathentry kind="var" path="M2_REPO/jorbis/jorbis/0.0.12/jorbis-0.0.12.jar"/>
+  <classpathentry kind="var" path="M2_REPO/lwjgl/lwjgl/0.98/lwjgl-0.98.jar"/>
   <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/jorbis/jorbis/0.0.12/jorbis-0.0.12.jar"/>
   <classpathentry kind="var" path="M2_REPO/jogg/jogg/0.0.5/jogg-0.0.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/jme/jme/SNAPSHOT/jme-SNAPSHOT.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar"/>

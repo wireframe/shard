@@ -29,5 +29,10 @@
       <artifactId>jorbis</artifactId>
       <version>0.0.12</version>
     </dependency>
+    <dependency>
+      <groupId>lwjgl</groupId>
+      <artifactId>lwjgl</artifactId>
+      <version>0.98</version>
+    </dependency>
   </dependencies>
 </model>
