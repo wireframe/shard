@@ -52,7 +52,7 @@ public class HibernateCharacterDaoTest extends ShardHibernateTestCaseSupport {
     protected void onSetUpInTransaction() throws Exception {
         super.onSetUpInTransaction();
 
-        CharacterClass kit = characterClassFactory.createClass("MegaFighter", "FTR", new RandomDice(4));
+        CharacterClass kit = characterClassFactory.createClass("MegaFighter", "FTR", new RandomDice(4), null);
         kit.getClassProgression().addLevel(2, 3, 4, 5);
         characterClassDao.saveClass(kit);
 

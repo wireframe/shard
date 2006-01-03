@@ -16,6 +16,7 @@
 package com.codecrate.shard.kit;
 
 import com.codecrate.shard.dice.Dice;
+import com.codecrate.shard.source.Source;
 
 
 /**
@@ -28,7 +29,8 @@ public interface CharacterClassFactory {
      * @param name 
      * @param abbreviation
      * @param hitDice 
+     * @param source
      * @return
      */
-	CharacterClass createClass(String name, String abbreviation, Dice hitDice);
+	CharacterClass createClass(String name, String abbreviation, Dice hitDice, Source source);
 }

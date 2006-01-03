@@ -54,6 +54,8 @@
             <key column="ID"/>
             <one-to-many class="com.codecrate.shard.kit.DefaultClassLevel"/>
         </set>
+
+        <many-to-one name="source" access="field" class="com.codecrate.shard.source.Source" column="source_id"/>
     </class>
 
 </hibernate-mapping>

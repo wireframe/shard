@@ -27,8 +27,10 @@ import net.sf.hibernate.expression.Expression;
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
+import com.codecrate.shard.character.prereq.NullPrerequisite;
 import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.search.HibernateObjectSearcher;
+import com.codecrate.shard.source.Source;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -83,7 +85,7 @@ public class HibernateCharacterClassDao extends HibernateDaoSupport implements C
     	return searcher.search(DefaultCharacterClass.class, query);
     }
 
-	public CharacterClass createClass(String name, String abbreviation, Dice hitDice) {
-		return new DefaultCharacterClass(name, abbreviation, hitDice, 0, null);
+	public CharacterClass createClass(String name, String abbreviation, Dice hitDice, Source source) {
+		return new DefaultCharacterClass(name, abbreviation, hitDice, 0, new NullPrerequisite(), source);
 	}
 }

@@ -28,6 +28,7 @@ import com.codecrate.shard.character.prereq.CharacterPrerequisite;
 import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.dice.DiceExpression;
 import com.codecrate.shard.skill.Skill;
+import com.codecrate.shard.source.Source;
 
 /**
  *
@@ -46,6 +47,7 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
     private ClassProgression progression;
     private Set levels = new HashSet();
     private CharacterPrerequisite prereq;
+    private Source source;
 
     /**
      * hibernate constructor.
@@ -55,12 +57,13 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
     }
 
     public DefaultCharacterClass(String name, String abbreviation, Dice hitDicePerLevel,
-            int baseSkillPointsPerLevel, CharacterPrerequisite prereq) {
+            int baseSkillPointsPerLevel, CharacterPrerequisite prereq, Source source) {
         this.name = name;
         this.abbreviation = abbreviation;
         this.hitDicePerLevel = hitDicePerLevel;
         this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
         this.prereq = prereq;
+        this.source = source;
 
         progression = new DefaultClassProgression(this);
     }
@@ -167,7 +170,15 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
 		classSkills.add(skill);
 	}
 
+    public Source getSource() {
+        return source;
+    }
 
+    public void setSource(Source source) {
+        this.source = source;
+    }
+
+    
     public class DefaultClassProgression implements ClassProgression {
         private final CharacterClass kit;
 

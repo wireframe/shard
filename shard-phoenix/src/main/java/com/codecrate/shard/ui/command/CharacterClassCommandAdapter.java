@@ -40,6 +40,7 @@ public class CharacterClassCommandAdapter extends AbstractObjectManagerCommandAd
 		return new String[] {
 				"name"
 				, "abbreviation"
+                , "source"
 		};
 	}
 
@@ -48,7 +49,7 @@ public class CharacterClassCommandAdapter extends AbstractObjectManagerCommandAd
 	}
 
 	public Object createObject() {
-		return characterClassFactory.createClass("New Kit", "", new RandomDice(8));
+		return characterClassFactory.createClass("New Kit", "", new RandomDice(8), null);
 	}
 
 	public void saveObject(Object object) {

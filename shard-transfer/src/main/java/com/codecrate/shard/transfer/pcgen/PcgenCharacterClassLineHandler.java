@@ -68,7 +68,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
             String fortitudeSaveProgression = getTokenAfterElement(FORTITUDE_DECLARATION, bonusTokens);
             String baseAttackBonusProgression = getTokenAfterElement(BASE_ATTACK_BONUS_DECLARATION, bonusTokens);
 
-            CharacterClass kit = kitFactory.createClass(name, abbreviation, hitDice);
+            CharacterClass kit = kitFactory.createClass(name, abbreviation, hitDice, source);
             for (int level = 1; level <= 20; level++) {
                 kit.getClassProgression().addLevel(
                         calculateClassLevelExpression(level, baseAttackBonusProgression),

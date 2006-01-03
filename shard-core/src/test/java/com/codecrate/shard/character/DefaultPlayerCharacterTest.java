@@ -16,7 +16,6 @@
 package com.codecrate.shard.character;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import junit.framework.TestCase;
 
@@ -24,7 +23,6 @@ import org.easymock.MockControl;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
-import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.ClassLevel;
 import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.movement.DefaultEncumberance;
@@ -44,7 +42,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(null);
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
 
-        DefaultCharacterClass kit = new DefaultCharacterClass("test kit", "", null, 0, null);
+        DefaultCharacterClass kit = new DefaultCharacterClass("test kit", "", null, 0, null, null);
         kit.getClassProgression().addLevel(1, 2, 3, 4);
 
 		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, null, encumberance, null, null, null);
@@ -62,7 +60,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		mockClassLevel.setReturnValue(1);
 		mockClassLevel.replay();
 
-        DefaultCharacterClass kit = new DefaultCharacterClass("test kit", "", null, 0, null);
+        DefaultCharacterClass kit = new DefaultCharacterClass("test kit", "", null, 0, null, null);
         kit.getClassProgression().addLevel(2, 2, 3, 4);
 
         MockControl mockSize = MockControl.createControl(RacialSize.class);
