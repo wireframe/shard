@@ -7,14 +7,15 @@
 
     <class name="DefaultClassLevel" table="SHA_CLASS_LEVEL">
 
-        <id name="id" type="string" access="field">
+        <id name="id" type="string" access="field" unsaved-value="-1">
             <column name="ID" sql-type="char(32)" not-null="true"/>
             <generator class="uuid.hex"/>
         </id>
 
-		<one-to-one name="kit"
+		<many-to-one name="kit"
 		 class="com.codecrate.shard.kit.DefaultCharacterClass"
-		 access="field" />
+		 access="field"
+	  	 not-null="true" />
 
         <property name="level" access="field" />
 
