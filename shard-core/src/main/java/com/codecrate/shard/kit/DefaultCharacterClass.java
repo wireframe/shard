@@ -188,6 +188,9 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
             this.kit = kit;
         }
 
+        public String toString() {
+            return kit.toString() + " with " + getClassLevels().size() + " levels";
+        }
         public Collection getClassLevels() {
             return levels;
         }

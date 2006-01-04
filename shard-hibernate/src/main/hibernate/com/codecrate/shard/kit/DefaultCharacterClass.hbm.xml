@@ -52,7 +52,7 @@
          cascade="all-delete-orphan"
          sort="natural"
          table="SHA_CLASS_LEVEL">
-            <key column="ID"/>
+            <key column="kit"/>
             <one-to-many class="com.codecrate.shard.kit.DefaultClassLevel"/>
         </set>
 
