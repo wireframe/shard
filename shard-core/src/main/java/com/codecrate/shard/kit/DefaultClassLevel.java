@@ -24,12 +24,12 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DefaultClassLevel implements ClassLevel {
+public class DefaultClassLevel implements ClassLevel, Comparable {
     private String id;
     private CharacterClass kit;
 	private int level;
     private int baseAttackBonus;
-    private int fortituteSaveBonus;
+    private int fortitudeSaveBonus;
     private int reflexSaveBonus;
     private int willpowerSaveBonus;
 
@@ -43,7 +43,7 @@ public class DefaultClassLevel implements ClassLevel {
     	this.level = level;
         this.kit = kit;
         this.baseAttackBonus = baseAttackBonus;
-        this.fortituteSaveBonus = fortitueSaveBonus;
+        this.fortitudeSaveBonus = fortitueSaveBonus;
         this.reflexSaveBonus = reflexSaveBonus;
         this.willpowerSaveBonus = willpowerSaveBonus;
     }
@@ -73,6 +73,10 @@ public class DefaultClassLevel implements ClassLevel {
             .append(level, target.level)
             .isEquals();
     }
+    public int compareTo(Object target) {
+        DefaultClassLevel object = (DefaultClassLevel) target;
+        return new Integer(level).compareTo(new Integer(object.level));
+    }
     public CharacterClass getCharacterClass() {
     	return kit;
     }
@@ -84,8 +88,8 @@ public class DefaultClassLevel implements ClassLevel {
     public int getBaseAttackBonus() {
         return baseAttackBonus;
     }
-    public int getFortituteSaveBonus() {
-        return fortituteSaveBonus;
+    public int getFortitudeSaveBonus() {
+        return fortitudeSaveBonus;
     }
     public int getReflexSaveBonus() {
         return reflexSaveBonus;

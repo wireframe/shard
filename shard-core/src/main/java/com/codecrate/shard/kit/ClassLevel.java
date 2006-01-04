@@ -28,7 +28,7 @@ public interface ClassLevel {
 
 	int getBaseAttackBonus();
 
-	int getFortituteSaveBonus();
+	int getFortitudeSaveBonus();
 
 	int getReflexSaveBonus();
 

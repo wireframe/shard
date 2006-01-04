@@ -20,6 +20,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -45,7 +47,7 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
     private String name;
     private String abbreviation;
     private ClassProgression progression;
-    private Set levels = new HashSet();
+    private SortedSet levels = new TreeSet();
     private CharacterPrerequisite prereq;
     private Source source;
 
@@ -178,7 +180,7 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
         this.source = source;
     }
 
-    
+
     public class DefaultClassProgression implements ClassProgression {
         private final CharacterClass kit;
 

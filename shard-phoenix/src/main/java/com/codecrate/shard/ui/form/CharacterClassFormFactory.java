@@ -15,18 +15,33 @@
  */
 package com.codecrate.shard.ui.form;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.util.Collection;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.TableModel;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 
+import ca.odell.glazedlists.BasicEventList;
+import ca.odell.glazedlists.EventList;
+import ca.odell.glazedlists.SortedList;
+import ca.odell.glazedlists.swing.TableComparatorChooser;
+
+import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.source.SourceDao;
+import com.codecrate.shard.ui.table.ReadOnlyGlazedTableModel;
+import com.codecrate.shard.util.ComparableComparator;
 
 public class CharacterClassFormFactory extends AbstractFormFactory implements FormFactory {
+    private static final boolean SINGLE_COLUMN_SORT = false;
 
     private final SourceDao sourceDao;
 
@@ -41,8 +56,14 @@ public class CharacterClassFormFactory extends AbstractFormFactory implements Fo
     public class CharacterClassForm extends AbstractForm {
         private static final String PAGE_NAME = "characterClassPage";
 
+        private final CharacterClass kit;
+
+        private SortedList levels;
+
         public CharacterClassForm(FormModel formModel) {
             super(formModel, PAGE_NAME);
+
+            kit = (CharacterClass) getFormObject();
         }
 
         protected JComponent createFormControl() {
@@ -57,9 +78,46 @@ public class CharacterClassFormFactory extends AbstractFormFactory implements Fo
             formBuilder.row();
             formBuilder.add(bindingFactory.createBoundComboBox("source", getSources()));
 
-            return formBuilder.getForm();
+            JPanel panel = new JPanel();
+            panel.setLayout(new BorderLayout());
+            panel.add(formBuilder.getForm(), BorderLayout.NORTH);
+            panel.add(getClassProgressionPanel(), BorderLayout.SOUTH);
+            return panel;
         }
-        
+
+        private Component getClassProgressionPanel() {
+            JPanel panel = new JPanel();
+            panel.add(new JScrollPane(getTable()));
+
+            return panel;
+        }
+
+        private Component getTable() {
+            JTable table = new JTable(getModel());
+            new TableComparatorChooser(table, getSortedLevels(), SINGLE_COLUMN_SORT);
+
+            return table;
+        }
+
+        private SortedList getSortedLevels() {
+            if (null == levels) {
+                EventList temp = new BasicEventList();
+                temp.addAll(kit.getClassProgression().getClassLevels());
+                levels = new SortedList(temp, new ComparableComparator());
+            }
+            return levels;
+        }
+
+        private TableModel getModel() {
+            TableModel model = new ReadOnlyGlazedTableModel(getSortedLevels(), getMessageSource(), new String[] {
+                "level",
+                "baseAttackBonus",
+                "fortitudeSaveBonus",
+                "reflexSaveBonus"
+            });
+            return model;
+        }
+
         private Collection getSources() {
             return sourceDao.getSources();
         }

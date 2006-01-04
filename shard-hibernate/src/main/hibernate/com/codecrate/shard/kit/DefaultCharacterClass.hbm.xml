@@ -50,6 +50,7 @@
          lazy="false"
          inverse="true"
          cascade="all-delete-orphan"
+         sort="natural"
          table="SHA_CLASS_LEVEL">
             <key column="ID"/>
             <one-to-many class="com.codecrate.shard.kit.DefaultClassLevel"/>
