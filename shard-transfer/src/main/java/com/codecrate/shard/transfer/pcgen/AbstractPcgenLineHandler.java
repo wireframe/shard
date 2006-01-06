@@ -42,28 +42,28 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
     public AbstractPcgenLineHandler(PcgenTagParser tagParser) {
 		this.tagParser = tagParser;
     }
-    
+
 	public Object handleLine(String line, Source source) {
         String name = getNameToken(line);
         String tagsLine = getTagsFromLine(line);
-        
+
         Map tags = tagParser.parseTags(tagsLine);
 
         return handleParsedLine(name, tags, source);
     }
-	
+
 	protected abstract Object handleParsedLine(String name, Map tags, Source source);
 
 	private String getNameToken(String line) {
         StringTokenizer tokens = new StringTokenizer(line, "\t");
         return tokens.nextToken().trim();
 	}
-	
+
 	private String getTagsFromLine(String line) {
 		String name = getNameToken(line);
 		return line.substring(name.length() + 1);
 	}
-    
+
     protected String getStringTagValue(String tagName, Map tags) {
         String value = (String) tags.get(tagName);
         if (null == value) {
@@ -73,13 +73,18 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
     }
 
     protected int getIntTagValue(String tagName, Map tags) {
+        return getIntTagValue(tagName, tags, 0);
+    }
+
+    protected int getIntTagValue(String tagName, Map tags, int defaultValue) {
         String value = (String) tags.get(tagName);
         if (null == value) {
             LOG.info("No value found for tag " + tagName);
-            return 0;
+            return defaultValue;
         }
         return Integer.parseInt(value);
     }
+
 
     protected PcgenTagParser getTagParser() {
     	return tagParser;

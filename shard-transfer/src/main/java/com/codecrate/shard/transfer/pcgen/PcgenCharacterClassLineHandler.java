@@ -29,6 +29,7 @@ import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTokenTagParser;
 
 public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
+    private static final int MAX_CLASS_LEVEL = 20;
     private static final String NAME = "CLASS";
     private static final String HIT_DICE = "HD";
 	private static final String ABBREVIATION = "ABB";
@@ -38,6 +39,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     private static final String WILLPOWER_DECLARATION = "Willpower";
     private static final String FORTITUDE_DECLARATION = "Fortitude";
     private static final String BASE_ATTACK_BONUS_DECLARATION = "BAB";
+    private static final String MAX_LEVEL_TAG = "MAXLEVEL";
 
 	private final CharacterClassFactory kitFactory;
     private final CharacterClassDao kitDao;
@@ -61,6 +63,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     	if (isFirstLine(tags)) {
         	Dice hitDice = new RandomDice(getIntTagValue(HIT_DICE, tags));
         	String abbreviation = getStringTagValue(ABBREVIATION, tags);
+            int maxLevel = getIntTagValue(MAX_LEVEL_TAG, tags, MAX_CLASS_LEVEL);
 
             String bonusTokens = getStringTagValue(BONUS_TAG_NAME, tags);
             String reflexSaveProgression = getTokenAfterElement(REFLEX_DECLARATION, bonusTokens);
@@ -69,7 +72,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
             String baseAttackBonusProgression = getTokenAfterElement(BASE_ATTACK_BONUS_DECLARATION, bonusTokens);
 
             CharacterClass kit = kitFactory.createClass(name, abbreviation, hitDice, source);
-            for (int level = 1; level <= 20; level++) {
+            for (int level = 1; level <= maxLevel; level++) {
                 kit.getClassProgression().addLevel(
                         calculateClassLevelExpression(level, baseAttackBonusProgression),
                         calculateClassLevelExpression(level, fortitudeSaveProgression),
@@ -95,7 +98,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     	}
     }
 
-	private int calculateClassLevelExpression(int level, String expression) {
+    private int calculateClassLevelExpression(int level, String expression) {
         expression = expression.replaceAll("CL", Integer.toString(level));
         int divisor = getDivisor(expression);
         int dividend = getDividend(expression);
