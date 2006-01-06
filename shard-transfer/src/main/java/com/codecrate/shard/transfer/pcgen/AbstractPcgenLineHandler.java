@@ -79,7 +79,7 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
     protected int getIntTagValue(String tagName, Map tags, int defaultValue) {
         String value = (String) tags.get(tagName);
         if (null == value) {
-            LOG.info("No value found for tag " + tagName);
+            LOG.info("No value found for tag " + tagName + " defaulting to " + defaultValue);
             return defaultValue;
         }
         return Integer.parseInt(value);
