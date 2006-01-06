@@ -113,7 +113,8 @@ public class CharacterClassFormFactory extends AbstractFormFactory implements Fo
                 "level",
                 "baseAttackBonus",
                 "fortitudeSaveBonus",
-                "reflexSaveBonus"
+                "reflexSaveBonus",
+                "willpowerSaveBonus"
             });
             return model;
         }
