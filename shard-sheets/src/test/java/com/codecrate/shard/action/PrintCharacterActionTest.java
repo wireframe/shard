@@ -51,6 +51,7 @@ import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.movement.EncumberanceDao;
 import com.codecrate.shard.movement.InventoryWeightEncumberance;
 import com.codecrate.shard.race.DefaultRace;
+import com.codecrate.shard.race.DefaultVision;
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.race.RacialSize;
 import com.codecrate.shard.race.Vision;
@@ -159,17 +160,7 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
                 return null;
             }};
 
-            Vision vision = new Vision(){
-
-                public String getName() {
-                    return "short";
-                }
-
-                public int getDarkDistance() {
-                    // TODO Auto-generated method stub
-                    return 0;
-                }};
-        Race human = new DefaultRace("human", medium, null, 1, null, null, null, 2);
+        Race human = new DefaultRace("human", medium, null, 1, DefaultVision.NORMAL, null, null, 2);
 
         CharacterClass fighter = new DefaultCharacterClass("fighter", "ftr", new RandomDice(8), 4, new NullPrerequisite(), null);
         fighter.getClassProgression().addLevel(1, 2, 3, 4);
