@@ -53,7 +53,7 @@ public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao, Ra
     }
 
     public Race createRace(String name) {
-    	return new DefaultRace(name, null, null, null, null, 0, null, null, null, null, null, 0 );
+    	return new DefaultRace(name, null, null, 0, null, null, null, 0 );
     }
 
 	public void deleteRace(Race race) {

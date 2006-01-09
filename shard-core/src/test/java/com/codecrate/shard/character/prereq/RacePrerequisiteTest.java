@@ -25,7 +25,7 @@ import com.codecrate.shard.race.DefaultRace;
 public class RacePrerequisiteTest extends TestCase {
 
 	public void testPrereqMetWhenRaceMatches() {
-        DefaultRace human = new DefaultRace("human", null, null, null, null, 0, null, null, null, null, null, 0);
+        DefaultRace human = new DefaultRace("human", null, null, 0, null, null, null, 0);
 
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
 		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
@@ -39,9 +39,9 @@ public class RacePrerequisiteTest extends TestCase {
 
 
 	public void testPrereqNotMetWhenRaceDifferent() {
-        DefaultRace human = new DefaultRace("human", null, null, null, null, 0, null, null, null, null, null, 0);
+        DefaultRace human = new DefaultRace("human", null, null, 0, null, null, null, 0);
 
-        DefaultRace elf = new DefaultRace("elf", null, null, null, null, 0, null, null, null, null, null, 0);
+        DefaultRace elf = new DefaultRace("elf", null, null, 0, null, null, null, 0);
         MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
 		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
 		character.getRace();

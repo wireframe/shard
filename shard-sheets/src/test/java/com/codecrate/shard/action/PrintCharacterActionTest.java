@@ -87,21 +87,6 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 		mockAbilityScoreDao.replay();
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
 
-//		ClassLevel level1 = new DefaultClassLevel(1, DefaultCharacterClass.BARBARIAN, 1, 1, 1, 1);
-//		ClassLevel level2 = new DefaultClassLevel(1, DefaultCharacterClass.FIGHTER, 1, 1, 1, 1);
-//
-//		Collection levels = new ArrayList();
-//		levels.add(new DefaultCharacterLevel(null, 1, 1,
-//                level1,
-//                Arrays.asList(new KeyedModifier[] {
-//                                new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultModifierType.RANK, 1),
-//                                new DefaultKeyedModifier(DefaultSkill.INTIMIDATE, DefaultModifierType.RANK, 1)})));
-//		levels.add(new DefaultCharacterLevel(null, 2, 1,
-//		        level2,
-//                Arrays.asList(new KeyedModifier[] {
-//                        new DefaultKeyedModifier(DefaultSkill.SWIM, DefaultModifierType.RANK, 1) })));
-//
-//		Race race = DefaultRace.HUMAN;
 		Age age = new Age() {
 
             public AgeCategory getCategory() {
@@ -184,7 +169,7 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
                     // TODO Auto-generated method stub
                     return 0;
                 }};
-        Race human = new DefaultRace("human", medium, null, null, null, 1, null, null, vision, null, null, 2);
+        Race human = new DefaultRace("human", medium, null, 1, null, null, null, 2);
 
         CharacterClass fighter = new DefaultCharacterClass("fighter", "ftr", new RandomDice(8), 4, new NullPrerequisite(), null);
         fighter.getClassProgression().addLevel(1, 2, 3, 4);

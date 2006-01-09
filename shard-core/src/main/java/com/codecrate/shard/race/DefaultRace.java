@@ -16,6 +16,7 @@
 package com.codecrate.shard.race;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -29,17 +30,17 @@ import com.codecrate.shard.movement.Movement;
 public class DefaultRace implements Race, Comparable {
 	private String id;
 	private String name;
+    private int levelAdjustment;
+    private int baseSkillPointsPerLevel;
 	private RacialSize size;
 	private Movement movement;
-	private Collection abilityModifiers;
-	private int levelAdjustment;
-	private Collection bonusLanguages;
-	private Collection automaticLanguages;
-	private Vision vision;
-	private Collection skillModifiers;
-	private CharacterClass favoredClass;
-    private int baseSkillPointsPerLevel;
+    private Vision vision;
+    private CharacterClass favoredClass;
     private AgeCategorization ageCategorization;
+	private Collection abilityModifiers = new HashSet();
+	private Collection bonusLanguages = new HashSet();
+	private Collection automaticLanguages = new HashSet();
+	private Collection skillModifiers = new HashSet();
 
     /**
      * hibernate constructor.
@@ -48,19 +49,13 @@ public class DefaultRace implements Race, Comparable {
     }
 
 	public DefaultRace(String name, RacialSize size, Movement movement,
-			Collection abilityModifiers, Collection skillModifiers,
 			int levelAdjustment,
-			Collection grantedLanguages, Collection availableLanguages,
 			Vision vision, CharacterClass favoredClass, AgeCategorization ageCategory,
 			int baseSkillPointsPerLevel) {
 		this.name = name;
 		this.size = size;
 		this.movement = movement;
-		this.abilityModifiers = abilityModifiers;
-		this.skillModifiers = skillModifiers;
 		this.levelAdjustment = levelAdjustment;
-		this.automaticLanguages = grantedLanguages;
-		this.bonusLanguages = availableLanguages;
 		this.vision = vision;
 		this.favoredClass = favoredClass;
         this.ageCategorization = ageCategory;
