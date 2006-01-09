@@ -17,6 +17,7 @@ package com.codecrate.shard.race;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.HashSet;
 
 import com.codecrate.shard.modifier.Modifier;
 
@@ -32,18 +33,17 @@ public class DefaultRacialSize implements RacialSize {
     private final int baseAttackBonusModifier;
     private final BigDecimal space;
     private final int reach;
-	private final Collection skillModifiers;
     private final BigDecimal encumberanceMultiplier;
+    private Collection skillModifiers = new HashSet();
 
     public DefaultRacialSize(String name, int baseAttackBonusModifier,
     		Modifier armorClassModifier, BigDecimal space, int reach,
-			Collection skillModifiers, BigDecimal encumberanceMultiplier) {
+			BigDecimal encumberanceMultiplier) {
     	this.name = name;
         this.baseAttackBonusModifier = baseAttackBonusModifier;
         this.armorClassModifier = armorClassModifier;
         this.space = space;
         this.reach = reach;
-		this.skillModifiers = skillModifiers;
         this.encumberanceMultiplier = encumberanceMultiplier;
     }
 
