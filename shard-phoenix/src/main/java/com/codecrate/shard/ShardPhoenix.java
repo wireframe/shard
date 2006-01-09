@@ -23,13 +23,16 @@ import org.springframework.richclient.application.ApplicationLauncher;
  */
 public class ShardPhoenix {
 
+    private static final String[] CONTEXT_FILE_NAMES = new String[] {
+                        "/shard-phoenix-context.xml"
+                        , "/shard-hibernate-context.xml"
+                        , "/shard-datasource.xml"
+                };
+    private static final String STARTUP_CONTEXT_FILE_NAME = "/shard-phoenix-startup-context.xml";
+
     public static void main(String[] args) {
         try {
-            new ApplicationLauncher("/richclient-startup-context.xml", new String[] {
-                    "/richclient-application-context.xml"
-                    , "/shard-hibernate-context.xml"
-                    , "/shard-datasource.xml"
-            });
+            new ApplicationLauncher(STARTUP_CONTEXT_FILE_NAME, CONTEXT_FILE_NAMES);
         } catch (Exception e) {
         	System.out.println("Error launching application: " + e);
             e.printStackTrace();
