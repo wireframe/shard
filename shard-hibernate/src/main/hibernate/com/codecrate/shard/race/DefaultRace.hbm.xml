@@ -19,16 +19,18 @@
         <property name="levelAdjustment" access="field">
             <column name="LEVEL_ADJUSTMENT" length="2" not-null="true"/>
         </property>
-        
+
         <property name="baseSkillPointsPerLevel" access="field">
             <column name="BASE_SKILL_POINTS_PER_LEVEL" length="2" not-null="true"/>
         </property>
-        
-        <many-to-one name="favoredClass" 
-         class="com.codecrate.shard.kit.DefaultCharacterClass" 
-         column="FAVORED_CLASS" 
+
+        <many-to-one name="favoredClass"
+         class="com.codecrate.shard.kit.DefaultCharacterClass"
+         column="FAVORED_CLASS"
          cascade="all"
          access="field"/>
+
+        <many-to-one name="source" access="field" class="com.codecrate.shard.source.Source" column="source_id"/>
     </class>
 
 </hibernate-mapping>

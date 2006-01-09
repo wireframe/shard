@@ -47,7 +47,7 @@ public class RaceCommandAdapter extends AbstractObjectManagerCommandAdapter {
 	}
 
 	public Object createObject() {
-		return raceFactory.createRace("New Race", null);
+		return raceFactory.createRace("New Race", null, null);
 	}
 
 	public void saveObject(Object object) {

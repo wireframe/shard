@@ -138,6 +138,10 @@ public class DefaultRace implements Race, Comparable {
 		return favoredClass;
 	}
 
+    public void setFavoredClass(CharacterClass favoredClass) {
+        this.favoredClass = favoredClass;
+    }
+
 	public int getBaseSkillPointsPerLevel() {
 	    return baseSkillPointsPerLevel;
 	}
@@ -156,5 +160,9 @@ public class DefaultRace implements Race, Comparable {
 
     public Source getSource() {
         return source;
+    }
+
+    public void setSource(Source source) {
+        this.source = source;
     }
 }

@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.race;
 
+import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.source.Source;
 
 
@@ -26,8 +27,9 @@ public interface RaceFactory {
     /**
      * create a new race.
      * @param name
+     * @param favoredClass
      * @param source 
      * @return
      */
-	Race createRace(String name, Source source);
+    Race createRace(String name, CharacterClass favoredClass, Source source);
 }

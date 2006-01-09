@@ -22,13 +22,16 @@ import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 
+import com.codecrate.shard.kit.CharacterClassDao;
 import com.codecrate.shard.source.SourceDao;
 
 public class RaceFormFactory extends AbstractFormFactory implements FormFactory {
 
     private final SourceDao sourceDao;
+    private final CharacterClassDao characterClassDao;
 
-    public RaceFormFactory(SourceDao sourceDao) {
+    public RaceFormFactory(CharacterClassDao characterClassDao, SourceDao sourceDao) {
+        this.characterClassDao = characterClassDao;
         this.sourceDao = sourceDao;
     }
 
@@ -51,6 +54,8 @@ public class RaceFormFactory extends AbstractFormFactory implements FormFactory 
             formBuilder.add("levelAdjustment");
             formBuilder.row();
             formBuilder.add("baseSkillPointsPerLevel");
+            formBuilder.row();
+            formBuilder.add(bindingFactory.createBoundComboBox("favoredClass", characterClassDao.getClasses()));
             formBuilder.row();
             formBuilder.add(bindingFactory.createBoundComboBox("source", sourceDao.getSources()));
 

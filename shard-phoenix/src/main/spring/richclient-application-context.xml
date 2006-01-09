@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.21 2006/01/09 04:24:57 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.22 2006/01/09 04:34:15 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -379,6 +379,7 @@
 	    <constructor-arg>
 		    <bean
 		        class="com.codecrate.shard.ui.form.RaceFormFactory">
+		        <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
 		        <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 		    </bean>
 	    </constructor-arg>
