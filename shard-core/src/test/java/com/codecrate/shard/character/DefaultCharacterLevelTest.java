@@ -32,6 +32,8 @@ import com.codecrate.shard.race.Race;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultCharacterLevelTest extends TestCase {
+    public void test() {
+    }
 //
 //    public void testFirstLevelGetsFourTimesSkillPoints() {
 //        MockControl mockScore = MockControl.createControl(AbilityScore.class);

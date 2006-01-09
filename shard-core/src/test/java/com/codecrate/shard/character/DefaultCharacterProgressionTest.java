@@ -27,6 +27,8 @@ import com.codecrate.shard.kit.ClassLevel;
 import com.codecrate.shard.kit.DefaultClassLevel;
 
 public class DefaultCharacterProgressionTest extends TestCase {
+    public void test() {
+    }
 
 //    public void testGetClassesReturnsAllUsedClasses() {
 //		MockControl mockClass2 = MockControl.createControl(CharacterClass.class);

@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.action;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,34 +29,31 @@ import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.character.Alignment;
-import com.codecrate.shard.character.CharacterProgression;
 import com.codecrate.shard.character.DefaultAlignment;
-import com.codecrate.shard.character.DefaultCharacterLevel;
-import com.codecrate.shard.character.DefaultCharacterProgression;
 import com.codecrate.shard.character.DefaultPlayerCharacter;
 import com.codecrate.shard.character.bio.Age;
 import com.codecrate.shard.character.bio.AgeCategory;
 import com.codecrate.shard.character.bio.CummulativeAgeCategory;
 import com.codecrate.shard.character.bio.DefaultCharacterBio;
 import com.codecrate.shard.character.bio.DefaultGender;
+import com.codecrate.shard.character.prereq.NullPrerequisite;
+import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.Coin;
 import com.codecrate.shard.equipment.DefaultItemEntryContainer;
 import com.codecrate.shard.equipment.ItemEntry;
 import com.codecrate.shard.equipment.ItemEntryContainer;
-import com.codecrate.shard.kit.ClassLevel;
+import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.DefaultCharacterClass;
-import com.codecrate.shard.kit.DefaultClassLevel;
-import com.codecrate.shard.modifier.DefaultKeyedModifier;
-import com.codecrate.shard.modifier.DefaultModifierType;
-import com.codecrate.shard.modifier.KeyedModifier;
+import com.codecrate.shard.modifier.Modifier;
 import com.codecrate.shard.movement.DefaultEncumberance;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.movement.EncumberanceDao;
 import com.codecrate.shard.movement.InventoryWeightEncumberance;
 import com.codecrate.shard.race.DefaultRace;
 import com.codecrate.shard.race.Race;
-import com.codecrate.shard.skill.DefaultSkill;
+import com.codecrate.shard.race.RacialSize;
+import com.codecrate.shard.race.Vision;
 
 public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringContextTests {
 
@@ -138,10 +136,63 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 		DefaultCharacterBio bio = new DefaultCharacterBio("Gunthor the Terrible");
 		bio.setGender(DefaultGender.MALE);
 
-		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
+        Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
 
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, null, itemContainer, encumberance, alignment, bio, deity);
-		character.getCharacterProgression().addLevel(null, 1, new ArrayList());
+        RacialSize medium = new RacialSize() {
+
+            public int getBaseAttackBonusModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            public Modifier getArmorClassModifier() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            public String getName() {
+                return "medium";
+            }
+
+            public BigDecimal getSpace() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            public int getReach() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            public Collection getSkillModifiers() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            public BigDecimal getEncumberanceMultiplier() {
+                // TODO Auto-generated method stub
+                return null;
+            }};
+
+            Vision vision = new Vision(){
+
+                public String getName() {
+                    return "short";
+                }
+
+                public int getDarkDistance() {
+                    // TODO Auto-generated method stub
+                    return 0;
+                }};
+        Race human = new DefaultRace("human", medium, null, null, null, 1, null, null, vision, null, null, 2);
+
+        CharacterClass fighter = new DefaultCharacterClass("fighter", "ftr", new RandomDice(8), 4, new NullPrerequisite(), null);
+        fighter.getClassProgression().addLevel(1, 2, 3, 4);
+
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, human, itemContainer, encumberance, alignment, bio, deity);
+		character.getCharacterProgression().addLevel(fighter, 1, new ArrayList());
+
+        character.getBaseAttackBonus();
 
 		PrintCharacterAction output = new PrintCharacterAction(character, template);
 		String text = output.render().toString();
