@@ -27,6 +27,7 @@ import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 import com.codecrate.shard.search.HibernateObjectSearcher;
+import com.codecrate.shard.source.Source;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -52,8 +53,8 @@ public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao, Ra
         return (Race) getHibernateTemplate().load(DefaultRace.class, id);
     }
 
-    public Race createRace(String name) {
-    	return new DefaultRace(name, null, null, 0, null, null, null, 0 );
+    public Race createRace(String name, Source source) {
+    	return new DefaultRace(name, null, null, 0, null, null, null, 0, source);
     }
 
 	public void deleteRace(Race race) {

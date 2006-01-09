@@ -19,6 +19,7 @@ import java.util.Collection;
 
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Movement;
+import com.codecrate.shard.source.Source;
 
 /**
  * Defines a Race (ex: Human, Elf).
@@ -105,4 +106,6 @@ public interface Race {
      * ex: humans get +4 skill points at level 1 and +1 each other level.
      */
     int getBaseSkillPointsPerLevel();
+
+    Source getSource();
 }

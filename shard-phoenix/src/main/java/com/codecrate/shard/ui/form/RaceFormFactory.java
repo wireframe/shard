@@ -19,9 +19,18 @@ import javax.swing.JComponent;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.form.AbstractForm;
+import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 
+import com.codecrate.shard.source.SourceDao;
+
 public class RaceFormFactory extends AbstractFormFactory implements FormFactory {
+
+    private final SourceDao sourceDao;
+
+    public RaceFormFactory(SourceDao sourceDao) {
+        this.sourceDao = sourceDao;
+    }
 
 	public AbstractForm createForm(FormModel formModel) {
 		return new RaceForm(formModel);
@@ -35,12 +44,15 @@ public class RaceFormFactory extends AbstractFormFactory implements FormFactory 
         }
 
         protected JComponent createFormControl() {
-            TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
+            SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
+            TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
             formBuilder.add("name");
             formBuilder.row();
             formBuilder.add("levelAdjustment");
             formBuilder.row();
             formBuilder.add("baseSkillPointsPerLevel");
+            formBuilder.row();
+            formBuilder.add(bindingFactory.createBoundComboBox("source", sourceDao.getSources()));
 
             return formBuilder.getForm();
         }

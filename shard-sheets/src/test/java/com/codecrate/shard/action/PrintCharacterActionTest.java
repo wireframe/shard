@@ -160,7 +160,7 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
                 return null;
             }};
 
-        Race human = new DefaultRace("human", medium, null, 1, DefaultVision.NORMAL, null, null, 2);
+        Race human = new DefaultRace("human", medium, null, 1, DefaultVision.NORMAL, null, null, 2, null);
 
         CharacterClass fighter = new DefaultCharacterClass("fighter", "ftr", new RandomDice(8), 4, new NullPrerequisite(), null);
         fighter.getClassProgression().addLevel(1, 2, 3, 4);

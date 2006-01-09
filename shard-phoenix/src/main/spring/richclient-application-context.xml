@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: richclient-application-context.xml,v 1.20 2006/01/03 02:10:33 wireframe Exp $ -->
+<!-- $Id: richclient-application-context.xml,v 1.21 2006/01/09 04:24:57 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -344,14 +344,33 @@
 		</property>
 	</bean>
 
+    <bean id="raceImporter"
+    	class="com.codecrate.shard.transfer.FileExtensionObjectImporterResolver">
+    	<constructor-arg>
+    	  <list>
+	    	<bean class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
+	    	  <constructor-arg>
+	    	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenRaceLineHandler">
+				    <constructor-arg><ref bean="raceDao" /></constructor-arg>
+				    <constructor-arg><ref bean="raceDao" /></constructor-arg>
+				    <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
+				</bean>
+			  </constructor-arg>
+			  <constructor-arg><ref bean="sourceLineHandler" /></constructor-arg>
+			</bean>
+    	  </list>
+    	</constructor-arg>
+    </bean>
+
 	<bean id="raceManager"
 	    class="com.codecrate.shard.ui.view.ObjectManagerView"
 	    singleton="false">
 	    <constructor-arg>
 		    <bean
 		        class="com.codecrate.shard.ui.command.RaceCommandAdapter">
-		        <constructor-arg index="0"><ref bean="raceDao" /></constructor-arg>
-		        <constructor-arg index="1"><ref bean="raceDao" /></constructor-arg>
+		        <constructor-arg><ref bean="raceDao" /></constructor-arg>
+		        <constructor-arg><ref bean="raceDao" /></constructor-arg>
+		        <constructor-arg><ref bean="raceImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteRaceDialog</value>
 		        </property>
@@ -360,6 +379,7 @@
 	    <constructor-arg>
 		    <bean
 		        class="com.codecrate.shard.ui.form.RaceFormFactory">
+		        <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 		    </bean>
 	    </constructor-arg>
 	</bean>

@@ -23,6 +23,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.Movement;
+import com.codecrate.shard.source.Source;
 
 /**
  * <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -41,6 +42,7 @@ public class DefaultRace implements Race, Comparable {
 	private Collection bonusLanguages = new HashSet();
 	private Collection automaticLanguages = new HashSet();
 	private Collection skillModifiers = new HashSet();
+	private Source source;
 
     /**
      * hibernate constructor.
@@ -51,7 +53,7 @@ public class DefaultRace implements Race, Comparable {
 	public DefaultRace(String name, RacialSize size, Movement movement,
 			int levelAdjustment,
 			Vision vision, CharacterClass favoredClass, AgeCategorization ageCategory,
-			int baseSkillPointsPerLevel) {
+			int baseSkillPointsPerLevel, Source source) {
 		this.name = name;
 		this.size = size;
 		this.movement = movement;
@@ -60,6 +62,7 @@ public class DefaultRace implements Race, Comparable {
 		this.favoredClass = favoredClass;
         this.ageCategorization = ageCategory;
         this.baseSkillPointsPerLevel = baseSkillPointsPerLevel;
+        this.source = source;
 	}
 
 	public String toString() {
@@ -149,5 +152,9 @@ public class DefaultRace implements Race, Comparable {
 
     public AgeCategorization getAgeCategorization() {
         return ageCategorization;
+    }
+
+    public Source getSource() {
+        return source;
     }
 }

@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.race;
 
+import com.codecrate.shard.source.Source;
+
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -24,7 +26,8 @@ public interface RaceFactory {
     /**
      * create a new race.
      * @param name
+     * @param source 
      * @return
      */
-	Race createRace(String name);
+	Race createRace(String name, Source source);
 }

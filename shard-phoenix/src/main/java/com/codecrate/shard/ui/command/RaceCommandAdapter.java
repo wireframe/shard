@@ -15,22 +15,22 @@
  */
 package com.codecrate.shard.ui.command;
 
-import java.io.File;
 import java.util.Collection;
-import java.util.Collections;
 
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.race.RaceFactory;
+import com.codecrate.shard.transfer.ObjectImporter;
 
-public class RaceCommandAdapter implements ObjectManagerCommandAdapter {
+public class RaceCommandAdapter extends AbstractObjectManagerCommandAdapter {
 
 	private final RaceDao raceDao;
 	private final RaceFactory raceFactory;
 
 	private String deleteMessagePropertyName;
 
-	public RaceCommandAdapter(RaceDao raceDao, RaceFactory raceFactory) {
+	public RaceCommandAdapter(RaceDao raceDao, RaceFactory raceFactory, ObjectImporter importer) {
+        super(importer);
 		this.raceDao = raceDao;
 		this.raceFactory = raceFactory;
 	}
@@ -38,6 +38,7 @@ public class RaceCommandAdapter implements ObjectManagerCommandAdapter {
 	public String[] getColumnNames() {
 		return new String[] {
 				"name"
+                , "source"
 		};
 	}
 
@@ -46,7 +47,7 @@ public class RaceCommandAdapter implements ObjectManagerCommandAdapter {
 	}
 
 	public Object createObject() {
-		return raceFactory.createRace("New Race");
+		return raceFactory.createRace("New Race", null);
 	}
 
 	public void saveObject(Object object) {
@@ -72,14 +73,4 @@ public class RaceCommandAdapter implements ObjectManagerCommandAdapter {
 	public Collection searchObjects(String query) {
 		return raceDao.searchRaces(query);
 	}
-
-    public Collection importObjects(File file) {
-        // TODO Auto-generated method stub
-        return Collections.EMPTY_LIST;
-    }
-
-    public Collection getSupportedImportFileExtensions() {
-        // TODO Auto-generated method stub
-        return Collections.EMPTY_LIST;
-    }
 }

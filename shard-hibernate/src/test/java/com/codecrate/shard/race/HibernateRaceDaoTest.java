@@ -37,7 +37,7 @@ public class HibernateRaceDaoTest extends ShardHibernateTestCaseSupport {
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
 
-        Race race = raceFactory.createRace("human");
+        Race race = raceFactory.createRace("human", null);
 		raceDao.saveRace(race);
 	}
 
