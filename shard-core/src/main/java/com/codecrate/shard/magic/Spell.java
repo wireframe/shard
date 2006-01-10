@@ -11,6 +11,8 @@ public class Spell implements Comparable {
     private String school;
     private String summary;
     private Source source;
+    private boolean divine;
+    private boolean arcane;
 
     /**
      * hibernate constructor.
@@ -18,11 +20,13 @@ public class Spell implements Comparable {
     private Spell() {
     }
 
-    public Spell(String name, String summary, String school, Source source) {
+    public Spell(String name, String summary, String school, boolean arcane, boolean divine, Source source) {
         this.name = name;
         this.summary = summary;
         this.school = school;
         this.source = source;
+        this.arcane = arcane;
+        this.divine = divine;
     }
 
     public String toString() {
@@ -86,5 +90,21 @@ public class Spell implements Comparable {
 
     public void setSchool(String school) {
         this.school = school;
+    }
+
+    public boolean isArcane() {
+        return arcane;
+    }
+
+    public void setArcane(boolean arcane) {
+        this.arcane = arcane;
+    }
+
+    public boolean isDivine() {
+        return divine;
+    }
+
+    public void setDivine(boolean divine) {
+        this.divine = divine;
     }
 }

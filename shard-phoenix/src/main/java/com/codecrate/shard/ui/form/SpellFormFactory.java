@@ -52,6 +52,12 @@ public class SpellFormFactory extends AbstractFormFactory implements FormFactory
             formBuilder.row();
             formBuilder.addInScrollPane(bindingFactory.createBoundTextArea("summary", 5, 0));
             formBuilder.row();
+            formBuilder.add("school");
+            formBuilder.row();
+            formBuilder.add("arcane");
+            formBuilder.row();
+            formBuilder.add("divine");
+            formBuilder.row();
             formBuilder.add(bindingFactory.createBoundComboBox("source", getSources()));
             return formBuilder.getForm();
         }

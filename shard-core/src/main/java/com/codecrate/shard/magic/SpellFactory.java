@@ -9,8 +9,10 @@ public interface SpellFactory {
      * @param name
      * @param summary
      * @param school
+     * @param isDivine 
+     * @param isArcane 
      * @param source
      * @return
      */
-    Spell createSpell(String name, String summary, String school, Source source);
+    Spell createSpell(String name, String summary, String school, boolean isArcane, boolean isDivine, Source source);
 }

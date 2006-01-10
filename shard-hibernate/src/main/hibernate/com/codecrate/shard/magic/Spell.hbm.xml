@@ -22,6 +22,10 @@
 
         <property name="school" access="field" />
 
+        <property name="arcane" access="field" />
+
+        <property name="divine" access="field" />
+
         <many-to-one name="source" access="field" class="com.codecrate.shard.source.Source" column="source_id"/>
     </class>
 

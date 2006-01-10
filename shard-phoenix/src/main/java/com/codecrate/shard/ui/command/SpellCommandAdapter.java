@@ -41,6 +41,8 @@ implements ObjectManagerCommandAdapter {
 				"name"
 				, "summary"
                 , "school"
+                , "arcane"
+                , "divine"
                 , "source"
 		};
 	}
@@ -50,7 +52,7 @@ implements ObjectManagerCommandAdapter {
 	}
 
 	public Object createObject() {
-		return spellFactory.createSpell("New Spell", "Summary", null, null);
+		return spellFactory.createSpell("New Spell", "Summary", null, true, false, null);
 	}
 
 	public void saveObject(Object object) {
