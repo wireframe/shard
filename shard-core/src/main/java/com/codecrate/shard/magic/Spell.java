@@ -8,6 +8,7 @@ import com.codecrate.shard.source.Source;
 public class Spell implements Comparable {
     private String id;
     private String name;
+    private String school;
     private String summary;
     private Source source;
 
@@ -17,9 +18,10 @@ public class Spell implements Comparable {
     private Spell() {
     }
 
-    public Spell(String name, String summary, Source source) {
+    public Spell(String name, String summary, String school, Source source) {
         this.name = name;
         this.summary = summary;
+        this.school = school;
         this.source = source;
     }
 
@@ -76,5 +78,13 @@ public class Spell implements Comparable {
 
     public void setSource(Source source) {
         this.source = source;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
     }
 }

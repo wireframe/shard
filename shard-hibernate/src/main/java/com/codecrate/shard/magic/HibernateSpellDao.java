@@ -79,8 +79,8 @@ public class HibernateSpellDao extends HibernateDaoSupport implements SpellDao, 
         getHibernateTemplate().delete(spell);
     }
 
-    public Spell createSpell(String name, String summary, Source source) {
-    	return new Spell(name, summary, source);
+    public Spell createSpell(String name, String summary, String school, Source source) {
+    	return new Spell(name, summary, school, source);
     }
 
     public Collection searchSpells(String query) {

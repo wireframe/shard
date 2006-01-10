@@ -20,6 +20,8 @@
             <column name="summary" not-null="true" />
         </property>
 
+        <property name="school" access="field" />
+
         <many-to-one name="source" access="field" class="com.codecrate.shard.source.Source" column="source_id"/>
     </class>
 

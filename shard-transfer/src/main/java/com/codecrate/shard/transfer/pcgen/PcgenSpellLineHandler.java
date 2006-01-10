@@ -24,6 +24,7 @@ import com.codecrate.shard.source.Source;
 
 public class PcgenSpellLineHandler extends AbstractPcgenLineHandler {
 	private static final String DESCRIPTION_TAG_NAME = "DESC";
+    private static final String SCHOOL_TAG_NAME = "SCHOOL";
 
     private final SpellFactory spellFactory;
     private final SpellDao spellDao;
@@ -35,8 +36,9 @@ public class PcgenSpellLineHandler extends AbstractPcgenLineHandler {
 
     public Object handleParsedLine(String name, Map tags, Source source) {
     	String description = getStringTagValue(DESCRIPTION_TAG_NAME, tags);
+    	String school = getStringTagValue(SCHOOL_TAG_NAME, tags);
 
-        Spell spell = spellFactory.createSpell(name, description, source);
+        Spell spell = spellFactory.createSpell(name, description, school, source);
         return spellDao.saveSpell(spell);
     }
 }

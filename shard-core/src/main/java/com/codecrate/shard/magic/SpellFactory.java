@@ -4,5 +4,13 @@ import com.codecrate.shard.source.Source;
 
 public interface SpellFactory {
 
-    Spell createSpell(String name, String summary, Source source);
+    /**
+     * 
+     * @param name
+     * @param summary
+     * @param school
+     * @param source
+     * @return
+     */
+    Spell createSpell(String name, String summary, String school, Source source);
 }
