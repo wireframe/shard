@@ -49,7 +49,7 @@ implements ObjectManagerCommandAdapter {
 	}
 
 	public Object createObject() {
-		return spellFactory.createSpell("New Spell", "Summary", null);
+		return spellFactory.createSpell("New Spell", "Summary", null, null);
 	}
 
 	public void saveObject(Object object) {
