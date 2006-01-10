@@ -36,7 +36,7 @@ public class ExcelFeatRowHandler extends AbstractExcelRowHandler {
     public Object handleRow(HSSFRow row) {
         String name = getStringFromRow(row, NAME_COLUMN);
         String summary = getStringFromRow(row, SUMMARY_COLUMN);
-        Feat feat = featFactory.createFeat(name, summary, null);
+        Feat feat = featFactory.createFeat(name, summary, "General", null);
         return featDao.saveFeat(feat);
     }
 }

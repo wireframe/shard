@@ -26,9 +26,10 @@ public interface FeatFactory {
 	 * creates a new feat.
 	 * @param name of new feat.
      * @param summary
+	 * @param type 
      * @param source source feat comes from
 	 * @return
 	 */
-	Feat createFeat(String name, String summary, Source source);
+	Feat createFeat(String name, String summary, String type, Source source);
 
 }

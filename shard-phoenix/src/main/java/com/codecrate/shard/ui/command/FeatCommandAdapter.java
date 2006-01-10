@@ -49,7 +49,7 @@ implements ObjectManagerCommandAdapter {
 	}
 
 	public Object createObject() {
-		return featFactory.createFeat("New Feat", "Summary", null);
+		return featFactory.createFeat("New Feat", "Summary", "General", null);
 	}
 
 	public void saveObject(Object object) {

@@ -31,6 +31,7 @@ public class PcgenFeatLineHandlerTest extends TestCase {
     public void testBasicImport() throws Exception {
         Map tags = new HashMap();
         tags.put("DESC", "Move fast");
+        tags.put("TYPE", "General");
 
         MockControl mockFeat = MockControl.createControl(Feat.class);
         Feat feat = (Feat) mockFeat.getMock();
@@ -38,7 +39,7 @@ public class PcgenFeatLineHandlerTest extends TestCase {
 
         MockControl mockFeatFactory = MockControl.createControl(FeatFactory.class);
         FeatFactory featFactory = (FeatFactory) mockFeatFactory.getMock();
-        featFactory.createFeat("Agility", "Move fast", null);
+        featFactory.createFeat("Agility", "Move fast", "General", null);
         mockFeatFactory.setReturnValue(feat);
         mockFeatFactory.replay();
 
