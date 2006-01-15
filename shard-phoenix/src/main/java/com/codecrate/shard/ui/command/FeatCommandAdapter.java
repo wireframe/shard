@@ -21,6 +21,7 @@ import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
 import com.codecrate.shard.transfer.ObjectImporter;
+import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
 
 public class FeatCommandAdapter extends AbstractObjectManagerCommandAdapter
 implements ObjectManagerCommandAdapter {
@@ -30,8 +31,9 @@ implements ObjectManagerCommandAdapter {
 
 	private String deleteMessagePropertyName;
 
-	public FeatCommandAdapter(FeatDao featDao, FeatFactory featFactory, ObjectImporter importer) {
-        super(importer);
+	public FeatCommandAdapter(FeatDao featDao, FeatFactory featFactory,
+            ObjectImporter importer, PcgenDatasetImporter datasetImporter) {
+        super(importer, datasetImporter);
 		this.featDao = featDao;
 		this.featFactory = featFactory;
 	}

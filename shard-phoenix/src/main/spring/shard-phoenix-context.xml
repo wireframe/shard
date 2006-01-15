@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-phoenix-context.xml,v 1.1 2006/01/09 04:40:28 wireframe Exp $ -->
+<!-- $Id: shard-phoenix-context.xml,v 1.2 2006/01/15 18:32:45 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -170,9 +170,10 @@
 	    <constructor-arg>
 		    <bean
 		        class="com.codecrate.shard.ui.command.SkillCommandAdapter">
-		        <constructor-arg index="0"><ref bean="skillDao" /></constructor-arg>
-		        <constructor-arg index="1"><ref bean="skillDao" /></constructor-arg>
-		        <constructor-arg index="2"><ref bean="skillImporter" /></constructor-arg>
+		        <constructor-arg><ref bean="skillDao" /></constructor-arg>
+		        <constructor-arg><ref bean="skillDao" /></constructor-arg>
+		        <constructor-arg><ref bean="skillImporter" /></constructor-arg>
+    			<constructor-arg><ref bean="pcgenDatasetImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteSkillDialog</value>
 		        </property>
@@ -226,9 +227,10 @@
 	    <constructor-arg>
 		    <bean
 		        class="com.codecrate.shard.ui.command.FeatCommandAdapter">
-		        <constructor-arg index="0"><ref bean="featDao" /></constructor-arg>
-		        <constructor-arg index="1"><ref bean="featDao" /></constructor-arg>
-		        <constructor-arg index="2"><ref bean="featImporter" /></constructor-arg>
+		        <constructor-arg><ref bean="featDao" /></constructor-arg>
+		        <constructor-arg><ref bean="featDao" /></constructor-arg>
+		        <constructor-arg><ref bean="featImporter" /></constructor-arg>
+    			<constructor-arg><ref bean="pcgenDatasetImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteFeatDialog</value>
 		        </property>
@@ -273,9 +275,10 @@
 	    <constructor-arg>
 		    <bean
 		        class="com.codecrate.shard.ui.command.SpellCommandAdapter">
-		        <constructor-arg index="0"><ref bean="spellDao" /></constructor-arg>
-		        <constructor-arg index="1"><ref bean="spellDao" /></constructor-arg>
-		        <constructor-arg index="2"><ref bean="spellImporter" /></constructor-arg>
+		        <constructor-arg><ref bean="spellDao" /></constructor-arg>
+		        <constructor-arg><ref bean="spellDao" /></constructor-arg>
+		        <constructor-arg><ref bean="spellImporter" /></constructor-arg>
+    			<constructor-arg><ref bean="pcgenDatasetImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteSpellDialog</value>
 		        </property>
@@ -320,9 +323,10 @@
 	    <constructor-arg>
 		    <bean
 		        class="com.codecrate.shard.ui.command.ItemCommandAdapter">
-		        <constructor-arg index="0"><ref bean="itemDao" /></constructor-arg>
-		        <constructor-arg index="1"><ref bean="itemDao" /></constructor-arg>
+		        <constructor-arg><ref bean="itemDao" /></constructor-arg>
+		        <constructor-arg><ref bean="itemDao" /></constructor-arg>
 		        <constructor-arg><ref bean="itemImporter" /></constructor-arg>
+    			<constructor-arg><ref bean="pcgenDatasetImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteItemDialog</value>
 		        </property>
@@ -371,6 +375,7 @@
 		        <constructor-arg><ref bean="raceDao" /></constructor-arg>
 		        <constructor-arg><ref bean="raceDao" /></constructor-arg>
 		        <constructor-arg><ref bean="raceImporter" /></constructor-arg>
+    			<constructor-arg><ref bean="pcgenDatasetImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteRaceDialog</value>
 		        </property>
@@ -420,6 +425,7 @@
 		        <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
 		        <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
 		        <constructor-arg><ref bean="characterClassImporter" /></constructor-arg>
+    			<constructor-arg><ref bean="pcgenDatasetImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteCharacterClassDialog</value>
 		        </property>
@@ -430,6 +436,39 @@
 		        class="com.codecrate.shard.ui.form.CharacterClassFormFactory">
 		    	<constructor-arg><ref bean="sourceDao" /></constructor-arg>
 		    </bean>
+	    </constructor-arg>
+	</bean>
+
+
+	<bean id="pcgenDatasetImporter"
+	    class="com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter">
+	    <constructor-arg>
+		    <map>
+		      <entry>
+		        <key><value>equip</value></key>
+		        <ref bean="itemImporter" />
+		      </entry>
+		      <entry>
+		        <key><value>skills</value></key>
+		        <ref bean="skillImporter" />
+		      </entry>
+		      <entry>
+		        <key><value>feats</value></key>
+		        <ref bean="featImporter" />
+		      </entry>
+		      <entry>
+		        <key><value>classes</value></key>
+		        <ref bean="characterClassImporter" />
+		      </entry>
+		      <entry>
+		        <key><value>race</value></key>
+		        <ref bean="raceImporter" />
+		      </entry>
+		      <entry>
+		        <key><value>spells</value></key>
+		        <ref bean="spellImporter" />
+		      </entry>
+		    </map>
 	    </constructor-arg>
 	</bean>
 </beans>

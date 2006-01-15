@@ -97,6 +97,7 @@ public class ObjectManagerView extends AbstractView {
 	private final DeleteCommandExecutor deleteCommand;
 	private final PropertiesCommandExecutor propertiesCommand;
     private final ImportCommandExcecutor importCommand;
+    private final ImportDatasetCommandExcecutor importDatasetCommand;
 	private FilterList objects;
 	private SortedList sortedObjects;
 	private EventSelectionModel selectionModel;
@@ -105,6 +106,7 @@ public class ObjectManagerView extends AbstractView {
 		this.commandAdapter = commandAdapter;
 		this.newCommand = new NewCommandExcecutor(formFactory);
         this.importCommand = new ImportCommandExcecutor();
+        this.importDatasetCommand = new ImportDatasetCommandExcecutor();
 		this.propertiesCommand = new PropertiesCommandExecutor(formFactory);
 		this.deleteCommand = new DeleteCommandExecutor();
 	}
@@ -122,6 +124,7 @@ public class ObjectManagerView extends AbstractView {
         context.register(GlobalCommandIds.DELETE, deleteCommand);
         context.register(ShardCommandIds.NEW, newCommand);
         context.register(ShardCommandIds.IMPORT, importCommand);
+        context.register(ShardCommandIds.IMPORT_DATASET, importDatasetCommand);
     }
 
     public void componentFocusLost() {
@@ -205,6 +208,7 @@ public class ObjectManagerView extends AbstractView {
                 Job loadTask = new Job() {
 
                     public Object run() {
+                        getFilteredObjects().clear();
                         getFilteredObjects().addAll(commandAdapter.getObjects());
                         return null;
                     }
@@ -417,6 +421,32 @@ public class ObjectManagerView extends AbstractView {
                     }
                 };
                 executeBlockingJobInBackground("Importing...", importTask);
+            }
+        }
+    }
+
+    private class ImportDatasetCommandExcecutor extends AbstractActionCommandExecutor {
+        private JFileChooser fileChooser = new JFileChooser();
+
+        public ImportDatasetCommandExcecutor() {
+            this.setEnabled(true);
+
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        }
+
+        public void execute() {
+            if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(getWindowControl())) {
+                final File selectedFile = fileChooser.getSelectedFile();
+
+                Job importTask = new Job() {
+                    public Object run() {
+                        commandAdapter.importDataset(selectedFile);
+                        return null;
+                    }
+                };
+                executeBlockingJobInBackground("Importing...", importTask);
+
+                loadObjects();
             }
         }
     }

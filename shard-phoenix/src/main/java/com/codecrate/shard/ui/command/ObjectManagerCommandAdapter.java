@@ -44,4 +44,6 @@ public interface ObjectManagerCommandAdapter {
     String[] getColumnNames();
 
     Collection getSupportedImportFileExtensions();
+
+    void importDataset(File selectedFile);
 }

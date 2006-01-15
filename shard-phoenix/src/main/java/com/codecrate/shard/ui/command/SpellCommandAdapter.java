@@ -21,6 +21,7 @@ import com.codecrate.shard.magic.Spell;
 import com.codecrate.shard.magic.SpellDao;
 import com.codecrate.shard.magic.SpellFactory;
 import com.codecrate.shard.transfer.ObjectImporter;
+import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
 
 public class SpellCommandAdapter extends AbstractObjectManagerCommandAdapter
 implements ObjectManagerCommandAdapter {
@@ -30,8 +31,9 @@ implements ObjectManagerCommandAdapter {
 
 	private String deleteMessagePropertyName;
 
-	public SpellCommandAdapter(SpellDao spellDao, SpellFactory spellFactory, ObjectImporter importer) {
-        super(importer);
+	public SpellCommandAdapter(SpellDao spellDao, SpellFactory spellFactory,
+            ObjectImporter importer, PcgenDatasetImporter datasetImporter) {
+        super(importer, datasetImporter);
 		this.spellDao = spellDao;
 		this.spellFactory = spellFactory;
 	}
@@ -41,8 +43,6 @@ implements ObjectManagerCommandAdapter {
 				"name"
 				, "summary"
                 , "school"
-                , "arcane"
-                , "divine"
                 , "source"
 		};
 	}

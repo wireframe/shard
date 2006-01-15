@@ -23,6 +23,7 @@ import com.codecrate.shard.equipment.Item;
 import com.codecrate.shard.equipment.ItemDao;
 import com.codecrate.shard.equipment.ItemFactory;
 import com.codecrate.shard.transfer.ObjectImporter;
+import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
 
 public class ItemCommandAdapter extends AbstractObjectManagerCommandAdapter implements ObjectManagerCommandAdapter {
 
@@ -31,8 +32,9 @@ public class ItemCommandAdapter extends AbstractObjectManagerCommandAdapter impl
 
 	private String deleteMessagePropertyName;
 
-	public ItemCommandAdapter(ItemDao itemDao, ItemFactory itemFactory, ObjectImporter importer) {
-		super(importer);
+	public ItemCommandAdapter(ItemDao itemDao, ItemFactory itemFactory,
+            ObjectImporter importer, PcgenDatasetImporter datasetImporter) {
+		super(importer, datasetImporter);
 		this.itemDao = itemDao;
 		this.itemFactory = itemFactory;
 	}
