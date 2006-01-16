@@ -27,6 +27,9 @@ import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -91,7 +94,7 @@ public class ObjectManagerView extends AbstractView {
     private JTable table;
     private TableModel model;
     private JPopupMenu popup;
-	private JButton newButton;
+	private Action newAction;
     private JTaskPaneGroup commonTasks;
 
     private Timer timer = new Timer();
@@ -149,7 +152,7 @@ public class ObjectManagerView extends AbstractView {
             commonTasks = new JTaskPaneGroup();
             commonTasks.setExpanded(true);
             commonTasks.setTitle("Common Actions");
-            commonTasks.add(getNewButton());
+            commonTasks.add(getNewAction());
         }
         return commonTasks;
     }
@@ -289,16 +292,16 @@ public class ObjectManagerView extends AbstractView {
     	return selectionModel;
     }
 
-    private JButton getNewButton() {
-    	if (null == newButton) {
-    		newButton = new JButton("New...");
-    		newButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					newCommand.execute();
-				}
-    		});
+    private Action getNewAction() {
+    	if (null == newAction) {
+            Icon icon = getIconSource().getIcon("newCommand.icon");
+            String text = getMessage("newCommand.caption");
+            newAction = new AbstractAction(text, icon){
+                public void actionPerformed(ActionEvent e) {
+                    newCommand.execute();
+                }};
     	}
-    	return newButton;
+    	return newAction;
     }
 
     private boolean isDeleteCommandEnabled() {
