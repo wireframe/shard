@@ -71,6 +71,8 @@ import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
 import com.codecrate.shard.ui.form.FormFactory;
 import com.codecrate.shard.ui.table.ReadOnlyGlazedTableModel;
 import com.codecrate.shard.util.ComparableComparator;
+import com.l2fprod.common.swing.JTaskPane;
+import com.l2fprod.common.swing.JTaskPaneGroup;
 
 import foxtrot.Job;
 import foxtrot.Worker;
@@ -84,12 +86,13 @@ public class ObjectManagerView extends AbstractView {
     private JTextField quickSearchInput;
     private JButton searchButton;
     private JButton clearButton;
-	private JPanel centerPanel;
+    private JTaskPane taskPanel;
     private JScrollPane scrollPane;
     private JTable table;
     private TableModel model;
     private JPopupMenu popup;
 	private JButton newButton;
+    private JTaskPaneGroup commonTasks;
 
     private Timer timer = new Timer();
     private final ObjectManagerCommandAdapter commandAdapter;
@@ -111,8 +114,9 @@ public class ObjectManagerView extends AbstractView {
 
     protected JComponent createControl() {
         JPanel view = new JPanel(new BorderLayout());
-        view.add(getCenterPanel(), BorderLayout.CENTER);
+        view.add(getScrollPane(), BorderLayout.CENTER);
         view.add(getQuickSearchPanel(), BorderLayout.NORTH);
+        view.add(getTaskPanel(), BorderLayout.WEST);
 
         return view;
     }
@@ -132,13 +136,22 @@ public class ObjectManagerView extends AbstractView {
         getQuickSearchInput().setText("");
     }
 
-    private JPanel getCenterPanel() {
-    	if (null == centerPanel) {
-    		centerPanel = new JPanel();
-    		centerPanel.add(getScrollPane(), null);
-            centerPanel.add(getNewButton(), null);
-    	}
-    	return centerPanel;
+    private JTaskPane getTaskPanel() {
+        if (null == taskPanel) {
+            taskPanel = new JTaskPane();
+            taskPanel.add(getCommonTasks());
+        }
+        return taskPanel;
+    }
+
+    private JTaskPaneGroup getCommonTasks() {
+        if (null == commonTasks) {
+            commonTasks = new JTaskPaneGroup();
+            commonTasks.setExpanded(true);
+            commonTasks.setTitle("Common Actions");
+            commonTasks.add(getNewButton());
+        }
+        return commonTasks;
     }
 
     private JPanel getQuickSearchPanel() {

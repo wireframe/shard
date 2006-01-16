@@ -69,6 +69,13 @@
       <version>1.0.5</version>
     </dependency>
 
+	<!-- l2fprod-common dependencies -->
+	<dependency>
+	  <groupId>l2fprod-common-tasks</groupId>
+	  <artifactId>l2fprod-common-tasks</artifactId>
+	  <version>0.2-dev-20051211</version>
+	</dependency>
+
     <!-- javahelp dependencies -->
     <dependency>
       <groupId>javahelp</groupId>
