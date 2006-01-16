@@ -43,6 +43,10 @@ public class ExcelObjectImporter implements ObjectImporter {
         return Collections.singletonList(EXCEL_FILE_EXTENSION);
     }
 
+    public boolean isDirectoryImportSupported() {
+        return false;
+    }
+
     public Collection importObjects(File file) {
         Collection results = new ArrayList();
 

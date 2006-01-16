@@ -31,7 +31,7 @@ public interface ObjectManagerCommandAdapter {
 
     void updateObject(Object object);
 
-    Collection importObjects(File file);
+    void importObjects(File file);
 
     Object createObject();
 
@@ -45,5 +45,5 @@ public interface ObjectManagerCommandAdapter {
 
     Collection getSupportedImportFileExtensions();
 
-    void importDataset(File selectedFile);
+    boolean isDirectoryImportSupported();
 }

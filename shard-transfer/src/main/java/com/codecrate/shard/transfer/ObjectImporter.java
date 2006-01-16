@@ -23,4 +23,6 @@ public interface ObjectImporter {
 	Collection importObjects(File file);
 
     Collection getSupportedFileExtensions();
+
+    boolean isDirectoryImportSupported();
 }

@@ -18,7 +18,6 @@
 				<value>deleteCommand</value>
 				<value>newCommand</value>
 				<value>importCommand</value>
-				<value>importDatasetCommand</value>
 			</list>
 		</property>
 	</bean>
@@ -51,7 +50,6 @@
 				<value>separator</value>
 				<value>newCommand</value>
 				<value>importCommand</value>
-				<value>importDatasetCommand</value>
 				<value>separator</value>
 				<value>saveAsCommand</value>
 				<value>separator</value>

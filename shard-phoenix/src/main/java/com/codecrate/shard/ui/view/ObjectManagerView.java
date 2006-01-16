@@ -97,7 +97,6 @@ public class ObjectManagerView extends AbstractView {
 	private final DeleteCommandExecutor deleteCommand;
 	private final PropertiesCommandExecutor propertiesCommand;
     private final ImportCommandExcecutor importCommand;
-    private final ImportDatasetCommandExcecutor importDatasetCommand;
 	private FilterList objects;
 	private SortedList sortedObjects;
 	private EventSelectionModel selectionModel;
@@ -106,7 +105,6 @@ public class ObjectManagerView extends AbstractView {
 		this.commandAdapter = commandAdapter;
 		this.newCommand = new NewCommandExcecutor(formFactory);
         this.importCommand = new ImportCommandExcecutor();
-        this.importDatasetCommand = new ImportDatasetCommandExcecutor();
 		this.propertiesCommand = new PropertiesCommandExecutor(formFactory);
 		this.deleteCommand = new DeleteCommandExecutor();
 	}
@@ -124,7 +122,6 @@ public class ObjectManagerView extends AbstractView {
         context.register(GlobalCommandIds.DELETE, deleteCommand);
         context.register(ShardCommandIds.NEW, newCommand);
         context.register(ShardCommandIds.IMPORT, importCommand);
-        context.register(ShardCommandIds.IMPORT_DATASET, importDatasetCommand);
     }
 
     public void componentFocusLost() {
@@ -405,9 +402,26 @@ public class ObjectManagerView extends AbstractView {
                 filter.addExtension(extension);
             }
             fileChooser.setFileFilter(filter);
+
+            fileChooser.setFileSelectionMode(getFileSelectionMode());
+        }
+
+        private int getFileSelectionMode() {
+            if (isFileImportSupported() && commandAdapter.isDirectoryImportSupported()) {
+                return JFileChooser.FILES_AND_DIRECTORIES;
+            }
+            if (!isFileImportSupported() && commandAdapter.isDirectoryImportSupported()) {
+                return JFileChooser.DIRECTORIES_ONLY;
+            }
+            return JFileChooser.FILES_ONLY;
         }
 
         private boolean isImportEnabled() {
+            return (isFileImportSupported() ||
+                    commandAdapter.isDirectoryImportSupported());
+        }
+
+        private boolean isFileImportSupported() {
             return !commandAdapter.getSupportedImportFileExtensions().isEmpty();
         }
 
@@ -416,31 +430,7 @@ public class ObjectManagerView extends AbstractView {
                 final File selectedFile = fileChooser.getSelectedFile();
                 Job importTask = new Job() {
                     public Object run() {
-                        getFilteredObjects().addAll(commandAdapter.importObjects(selectedFile));
-                        return null;
-                    }
-                };
-                executeBlockingJobInBackground("Importing...", importTask);
-            }
-        }
-    }
-
-    private class ImportDatasetCommandExcecutor extends AbstractActionCommandExecutor {
-        private JFileChooser fileChooser = new JFileChooser();
-
-        public ImportDatasetCommandExcecutor() {
-            this.setEnabled(true);
-
-            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        }
-
-        public void execute() {
-            if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(getWindowControl())) {
-                final File selectedFile = fileChooser.getSelectedFile();
-
-                Job importTask = new Job() {
-                    public Object run() {
-                        commandAdapter.importDataset(selectedFile);
+                        commandAdapter.importObjects(selectedFile);
                         return null;
                     }
                 };

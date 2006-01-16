@@ -34,18 +34,34 @@ public class FileExtensionObjectImporterResolver implements ObjectImporter {
 	}
 
 	public Collection importObjects(File file) {
-		String filename = file.getName();
-		int index = filename.lastIndexOf(".");
-		String extension = filename.substring(index + 1);
-
-		ObjectImporter importer = (ObjectImporter) getImporterForExtension(extension);
+		ObjectImporter importer = (ObjectImporter) getImporterForFile(file);
 		if (null == importer) {
-			LOG.info("No importer found to support file with extension " + extension);
+			LOG.info("No importer found to support file " + file);
 			return Collections.EMPTY_LIST;
 		}
 
 		return importer.importObjects(file);
 	}
+
+    private ObjectImporter getImporterForFile(File file) {
+        if (file.isDirectory()) {
+            return getImporterForDirectory();
+        }
+        String filename = file.getName();
+        int index = filename.lastIndexOf(".");
+        String extension = filename.substring(index + 1);
+        return getImporterForExtension(extension);
+    }
+
+    private ObjectImporter getImporterForDirectory() {
+        for (Iterator it = importers.iterator(); it.hasNext();) {
+            ObjectImporter importer = (ObjectImporter) it.next();
+            if (importer.isDirectoryImportSupported()) {
+                return importer;
+            }
+        }
+        return null;
+    }
 
     private ObjectImporter getImporterForExtension(String extension) {
         Iterator it = importers.iterator();
@@ -67,4 +83,15 @@ public class FileExtensionObjectImporterResolver implements ObjectImporter {
         }
         return extensions;
     }
+
+    public boolean isDirectoryImportSupported() {
+        for (Iterator it = importers.iterator(); it.hasNext();) {
+            ObjectImporter importer = (ObjectImporter) it.next();
+            if (importer.isDirectoryImportSupported()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

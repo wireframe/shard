@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-phoenix-context.xml,v 1.2 2006/01/15 18:32:45 wireframe Exp $ -->
+<!-- $Id: shard-phoenix-context.xml,v 1.3 2006/01/16 00:41:18 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -138,32 +138,6 @@
 		</property>
 	</bean>
 
-    <bean id="skillImporter"
-    	class="com.codecrate.shard.transfer.FileExtensionObjectImporterResolver">
-    	<constructor-arg>
-    	  <list>
-	    	<bean class="com.codecrate.shard.transfer.excel.ExcelObjectImporter">
-	    	  <constructor-arg>
-	    	    <bean class="com.codecrate.shard.transfer.excel.ExcelSkillRowHandler">
-				    <constructor-arg index="0"><ref bean="skillDao" /></constructor-arg>
-				    <constructor-arg index="1"><ref bean="skillDao" /></constructor-arg>
-				</bean>
-			  </constructor-arg>
-			</bean>
-	    	<bean class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
-	    	  <constructor-arg>
-	    	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenSkillLineHandler">
-				    <constructor-arg index="0"><ref bean="skillDao" /></constructor-arg>
-				    <constructor-arg index="1"><ref bean="skillDao" /></constructor-arg>
-				    <constructor-arg index="2"><ref bean="abilityDao" /></constructor-arg>
-				</bean>
-			  </constructor-arg>
-			  <constructor-arg><ref bean="sourceLineHandler" /></constructor-arg>
-			</bean>
-    	  </list>
-    	</constructor-arg>
-    </bean>
-
 	<bean id="skillManager"
 	    class="com.codecrate.shard.ui.view.ObjectManagerView"
 	    singleton="false">
@@ -172,8 +146,7 @@
 		        class="com.codecrate.shard.ui.command.SkillCommandAdapter">
 		        <constructor-arg><ref bean="skillDao" /></constructor-arg>
 		        <constructor-arg><ref bean="skillDao" /></constructor-arg>
-		        <constructor-arg><ref bean="skillImporter" /></constructor-arg>
-    			<constructor-arg><ref bean="pcgenDatasetImporter" /></constructor-arg>
+		        <constructor-arg><ref bean="objectImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteSkillDialog</value>
 		        </property>
@@ -196,31 +169,6 @@
 		</property>
 	</bean>
 
-    <bean id="featImporter"
-    	class="com.codecrate.shard.transfer.FileExtensionObjectImporterResolver">
-    	<constructor-arg>
-    	  <list>
-	    	<bean class="com.codecrate.shard.transfer.excel.ExcelObjectImporter">
-	    	  <constructor-arg>
-	    	    <bean class="com.codecrate.shard.transfer.excel.ExcelFeatRowHandler">
-				    <constructor-arg index="0"><ref bean="featDao" /></constructor-arg>
-				    <constructor-arg index="1"><ref bean="featDao" /></constructor-arg>
-				</bean>
-			  </constructor-arg>
-			</bean>
-	    	<bean class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
-	    	  <constructor-arg>
-	    	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenFeatLineHandler">
-				    <constructor-arg index="0"><ref bean="featDao" /></constructor-arg>
-				    <constructor-arg index="1"><ref bean="featDao" /></constructor-arg>
-				</bean>
-			  </constructor-arg>
-			  <constructor-arg><ref bean="sourceLineHandler" /></constructor-arg>
-			</bean>
-    	  </list>
-    	</constructor-arg>
-    </bean>
-
 	<bean id="featManager"
 	    class="com.codecrate.shard.ui.view.ObjectManagerView"
 	    singleton="false">
@@ -230,7 +178,6 @@
 		        <constructor-arg><ref bean="featDao" /></constructor-arg>
 		        <constructor-arg><ref bean="featDao" /></constructor-arg>
 		        <constructor-arg><ref bean="featImporter" /></constructor-arg>
-    			<constructor-arg><ref bean="pcgenDatasetImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteFeatDialog</value>
 		        </property>
@@ -252,23 +199,6 @@
 		</property>
 	</bean>
 
-    <bean id="spellImporter"
-    	class="com.codecrate.shard.transfer.FileExtensionObjectImporterResolver">
-    	<constructor-arg>
-    	  <list>
-	    	<bean class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
-	    	  <constructor-arg>
-	    	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenSpellLineHandler">
-				    <constructor-arg index="0"><ref bean="spellDao" /></constructor-arg>
-				    <constructor-arg index="1"><ref bean="spellDao" /></constructor-arg>
-				</bean>
-			  </constructor-arg>
-			  <constructor-arg><ref bean="sourceLineHandler" /></constructor-arg>
-			</bean>
-    	  </list>
-    	</constructor-arg>
-    </bean>
-
 	<bean id="spellManager"
 	    class="com.codecrate.shard.ui.view.ObjectManagerView"
 	    singleton="false">
@@ -278,7 +208,6 @@
 		        <constructor-arg><ref bean="spellDao" /></constructor-arg>
 		        <constructor-arg><ref bean="spellDao" /></constructor-arg>
 		        <constructor-arg><ref bean="spellImporter" /></constructor-arg>
-    			<constructor-arg><ref bean="pcgenDatasetImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteSpellDialog</value>
 		        </property>
@@ -300,23 +229,6 @@
 		</property>
 	</bean>
 
-    <bean id="itemImporter"
-    	class="com.codecrate.shard.transfer.FileExtensionObjectImporterResolver">
-    	<constructor-arg>
-    	  <list>
-	    	<bean class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
-	    	  <constructor-arg>
-	    	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenItemLineHandler">
-				    <constructor-arg index="0"><ref bean="itemDao" /></constructor-arg>
-				    <constructor-arg index="1"><ref bean="itemDao" /></constructor-arg>
-				</bean>
-			  </constructor-arg>
-			  <constructor-arg><ref bean="sourceLineHandler" /></constructor-arg>
-			</bean>
-    	  </list>
-    	</constructor-arg>
-    </bean>
-
 	<bean id="itemManager"
 	    class="com.codecrate.shard.ui.view.ObjectManagerView"
 	    singleton="false">
@@ -326,7 +238,6 @@
 		        <constructor-arg><ref bean="itemDao" /></constructor-arg>
 		        <constructor-arg><ref bean="itemDao" /></constructor-arg>
 		        <constructor-arg><ref bean="itemImporter" /></constructor-arg>
-    			<constructor-arg><ref bean="pcgenDatasetImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteItemDialog</value>
 		        </property>
@@ -347,24 +258,6 @@
 			<value>raceManager</value>
 		</property>
 	</bean>
-
-    <bean id="raceImporter"
-    	class="com.codecrate.shard.transfer.FileExtensionObjectImporterResolver">
-    	<constructor-arg>
-    	  <list>
-	    	<bean class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
-	    	  <constructor-arg>
-	    	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenRaceLineHandler">
-				    <constructor-arg><ref bean="raceDao" /></constructor-arg>
-				    <constructor-arg><ref bean="raceDao" /></constructor-arg>
-				    <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
-				</bean>
-			  </constructor-arg>
-			  <constructor-arg><ref bean="sourceLineHandler" /></constructor-arg>
-			</bean>
-    	  </list>
-    	</constructor-arg>
-    </bean>
 
 	<bean id="raceManager"
 	    class="com.codecrate.shard.ui.view.ObjectManagerView"
@@ -398,24 +291,6 @@
 		</property>
 	</bean>
 
-    <bean id="characterClassImporter"
-    	class="com.codecrate.shard.transfer.FileExtensionObjectImporterResolver">
-    	<constructor-arg>
-    	  <list>
-	    	<bean class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
-	    	  <constructor-arg>
-	    	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenCharacterClassLineHandler">
-				    <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
-				    <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
-				    <constructor-arg><ref bean="skillDao" /></constructor-arg>
-				</bean>
-			  </constructor-arg>
-			  <constructor-arg><ref bean="sourceLineHandler" /></constructor-arg>
-			</bean>
-    	  </list>
-    	</constructor-arg>
-    </bean>
-
 	<bean id="characterClassManager"
 	    class="com.codecrate.shard.ui.view.ObjectManagerView"
 	    singleton="false">
@@ -439,9 +314,72 @@
 	    </constructor-arg>
 	</bean>
 
+	<!-- object importer definition -->
+	<bean id="skillImporter" class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
+	  <constructor-arg>
+	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenSkillLineHandler">
+		    <constructor-arg><ref bean="skillDao" /></constructor-arg>
+		    <constructor-arg><ref bean="skillDao" /></constructor-arg>
+		    <constructor-arg><ref bean="abilityDao" /></constructor-arg>
+		</bean>
+	  </constructor-arg>
+	  <constructor-arg><ref bean="sourceLineHandler" /></constructor-arg>
+	</bean>
 
-	<bean id="pcgenDatasetImporter"
-	    class="com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter">
+    <bean id="featImporter" class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
+	  <constructor-arg>
+	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenFeatLineHandler">
+		    <constructor-arg><ref bean="featDao" /></constructor-arg>
+		    <constructor-arg><ref bean="featDao" /></constructor-arg>
+		</bean>
+	  </constructor-arg>
+	  <constructor-arg><ref bean="sourceLineHandler" /></constructor-arg>
+	</bean>
+
+    <bean id="spellImporter" class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
+	  <constructor-arg>
+	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenSpellLineHandler">
+		    <constructor-arg><ref bean="spellDao" /></constructor-arg>
+		    <constructor-arg><ref bean="spellDao" /></constructor-arg>
+		</bean>
+	  </constructor-arg>
+	  <constructor-arg><ref bean="sourceLineHandler" /></constructor-arg>
+	</bean>
+
+    <bean id="itemImporter" class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
+	  <constructor-arg>
+	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenItemLineHandler">
+		    <constructor-arg><ref bean="itemDao" /></constructor-arg>
+		    <constructor-arg><ref bean="itemDao" /></constructor-arg>
+		</bean>
+	  </constructor-arg>
+	  <constructor-arg><ref bean="sourceLineHandler" /></constructor-arg>
+	</bean>
+
+    <bean id="raceImporter" class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
+	  <constructor-arg>
+	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenRaceLineHandler">
+		    <constructor-arg><ref bean="raceDao" /></constructor-arg>
+		    <constructor-arg><ref bean="raceDao" /></constructor-arg>
+		    <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
+		</bean>
+	  </constructor-arg>
+	  <constructor-arg><ref bean="sourceLineHandler" /></constructor-arg>
+	</bean>
+
+    <bean id="characterClassImporter" class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">
+	  <constructor-arg>
+	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenCharacterClassLineHandler">
+		    <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
+		    <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
+		    <constructor-arg><ref bean="skillDao" /></constructor-arg>
+		</bean>
+	  </constructor-arg>
+	  <constructor-arg><ref bean="sourceLineHandler" /></constructor-arg>
+	</bean>
+
+    <bean id="objectImporter"
+    	class="com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter">
 	    <constructor-arg>
 		    <map>
 		      <entry>
@@ -471,4 +409,5 @@
 		    </map>
 	    </constructor-arg>
 	</bean>
+
 </beans>

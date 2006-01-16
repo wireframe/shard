@@ -55,6 +55,10 @@ public class FileExtensionObjectImporterResolverTest extends TestCase {
             return Collections.EMPTY_LIST;
         }
 
+        public boolean isDirectoryImportSupported() {
+            return false;
+        }
+
         public Collection getSupportedFileExtensions() {
             return Collections.singletonList(extension);
         }

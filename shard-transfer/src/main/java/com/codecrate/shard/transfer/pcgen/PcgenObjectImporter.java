@@ -47,6 +47,10 @@ public class PcgenObjectImporter implements ObjectImporter {
         return Collections.singletonList(PCGEN_LST_FILE_EXTENSION);
     }
 
+    public boolean isDirectoryImportSupported() {
+        return false;
+    }
+
     public Collection importObjects(File file) {
         Collection results = new ArrayList();
         BufferedReader reader = null;

@@ -22,7 +22,6 @@ import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.CharacterClassDao;
 import com.codecrate.shard.kit.CharacterClassFactory;
 import com.codecrate.shard.transfer.ObjectImporter;
-import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
 
 public class CharacterClassCommandAdapter extends AbstractObjectManagerCommandAdapter {
 
@@ -33,8 +32,8 @@ public class CharacterClassCommandAdapter extends AbstractObjectManagerCommandAd
 
 	public CharacterClassCommandAdapter(CharacterClassDao characterClassDao,
             CharacterClassFactory characterClassFactory,
-            ObjectImporter importer, PcgenDatasetImporter datasetImporter) {
-		super(importer, datasetImporter);
+            ObjectImporter importer) {
+		super(importer);
 		this.characterClassDao = characterClassDao;
 		this.characterClassFactory = characterClassFactory;
 	}

@@ -19,27 +19,24 @@ import java.io.File;
 import java.util.Collection;
 
 import com.codecrate.shard.transfer.ObjectImporter;
-import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
 
 public abstract class AbstractObjectManagerCommandAdapter implements ObjectManagerCommandAdapter {
 
     private final ObjectImporter importer;
-    private final PcgenDatasetImporter datasetImporter;
 
-    public AbstractObjectManagerCommandAdapter(ObjectImporter importer, PcgenDatasetImporter datasetImporter) {
+    public AbstractObjectManagerCommandAdapter(ObjectImporter importer) {
         this.importer = importer;
-        this.datasetImporter = datasetImporter;
     }
 
-    public Collection importObjects(File file) {
-        return importer.importObjects(file);
-    }
-    
-    public void importDataset(File selectedFile) {
-        datasetImporter.importDataset(selectedFile);
+    public void importObjects(File file) {
+        importer.importObjects(file);
     }
 
     public Collection getSupportedImportFileExtensions() {
         return importer.getSupportedFileExtensions();
+    }
+
+    public boolean isDirectoryImportSupported() {
+        return importer.isDirectoryImportSupported();
     }
 }

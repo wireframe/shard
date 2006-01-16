@@ -21,7 +21,6 @@ import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
 import com.codecrate.shard.transfer.ObjectImporter;
-import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
 
 public class SkillCommandAdapter extends AbstractObjectManagerCommandAdapter
 implements ObjectManagerCommandAdapter {
@@ -32,8 +31,8 @@ implements ObjectManagerCommandAdapter {
 	private String deleteMessagePropertyName;
 
 	public SkillCommandAdapter(SkillDao skillDao, SkillFactory skillFactory,
-            ObjectImporter importer, PcgenDatasetImporter datasetImporter) {
-		super(importer, datasetImporter);
+            ObjectImporter importer) {
+		super(importer);
         this.skillDao = skillDao;
 		this.skillFactory = skillFactory;
 	}
