@@ -82,6 +82,7 @@ import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
 import com.codecrate.shard.ui.form.FormFactory;
 import com.codecrate.shard.ui.table.ReadOnlyGlazedTableModel;
+import com.codecrate.shard.ui.table.StretchWhenEmptyJTable;
 import com.codecrate.shard.util.ComparableComparator;
 import com.l2fprod.common.swing.JTaskPane;
 import com.l2fprod.common.swing.JTaskPaneGroup;
@@ -154,8 +155,6 @@ public class ObjectManagerView extends AbstractView {
         if (null == taskPanel) {
             taskPanel = new JTaskPane();
             taskPanel.add(getCommonTasks());
-
-            taskPanel.setTransferHandler(new FileTransferHandler());
         }
         return taskPanel;
     }
@@ -279,7 +278,7 @@ public class ObjectManagerView extends AbstractView {
 
     private JTable getTable() {
         if (null == table) {
-        	table = new JTable(getModel());
+        	table = new StretchWhenEmptyJTable(getModel());
             table.setSelectionModel(getSelectionModel());
             table.addMouseListener(new PopupMenuMouseListener(getPopupContextMenu()));
             table.addMouseListener(new MouseAdapter() {
@@ -289,6 +288,9 @@ public class ObjectManagerView extends AbstractView {
                     }
                 }
             });
+            
+
+            table.setTransferHandler(new FileTransferHandler());
 
             new TableComparatorChooser(table, getSortedObjects(), SINGLE_COLUMN_SORT);
         }
