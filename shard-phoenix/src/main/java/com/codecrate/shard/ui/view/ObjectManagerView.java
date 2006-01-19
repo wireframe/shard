@@ -17,13 +17,19 @@ package com.codecrate.shard.ui.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,12 +45,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.TransferHandler;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
@@ -81,6 +90,8 @@ import foxtrot.Job;
 import foxtrot.Worker;
 
 public class ObjectManagerView extends AbstractView {
+    private final Log LOG = LogFactory.getLog(ObjectManagerView.class);
+
     private static final boolean SINGLE_COLUMN_SORT = false;
     private static final Matcher ALWAYS_MATCH_MATCHER = new AlwaysMatchMatcher();
     private static final int SEARCH_DELAY_MILLIS = 300;
@@ -143,6 +154,8 @@ public class ObjectManagerView extends AbstractView {
         if (null == taskPanel) {
             taskPanel = new JTaskPane();
             taskPanel.add(getCommonTasks());
+
+            taskPanel.setTransferHandler(new FileTransferHandler());
         }
         return taskPanel;
     }
@@ -231,6 +244,18 @@ public class ObjectManagerView extends AbstractView {
             }
 
         });
+    }
+
+    private void importFile(final File selectedFile) {
+        Job importTask = new Job() {
+            public Object run() {
+                commandAdapter.importObjects(selectedFile);
+                return null;
+            }
+        };
+        executeBlockingJobInBackground("Importing...", importTask);
+
+        loadObjects();
     }
 
     private Object getSelectedObject() {
@@ -444,15 +469,7 @@ public class ObjectManagerView extends AbstractView {
         public void execute() {
             if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(getWindowControl())) {
                 final File selectedFile = fileChooser.getSelectedFile();
-                Job importTask = new Job() {
-                    public Object run() {
-                        commandAdapter.importObjects(selectedFile);
-                        return null;
-                    }
-                };
-                executeBlockingJobInBackground("Importing...", importTask);
-
-                loadObjects();
+                importFile(selectedFile);
             }
         }
     }
@@ -568,5 +585,85 @@ public class ObjectManagerView extends AbstractView {
         private boolean hasInputChanged() {
             return !originalInput.equals(getSearchableText());
         }
+    }
+
+    private class FileTransferHandler extends TransferHandler {
+        private final DataFlavor fileDataFlavor;
+        private final DataFlavor uriListFlavor;
+
+        public FileTransferHandler() {
+            fileDataFlavor = DataFlavor.javaFileListFlavor;
+            try {
+                uriListFlavor = new DataFlavor("text/uri-list;class=java.lang.String");
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public boolean canImport(JComponent c, DataFlavor[] flavors) {
+            if (hasFileFlavor(flavors)) {
+                return true;
+            }
+            if (hasUriListFlavor(flavors)) {
+                return true;
+            }
+
+            LOG.info("Can not handle data flavors: " + stringifyFlavors(flavors));
+            return false;
+        }
+
+        public int getSourceActions(JComponent c) {
+            return COPY_OR_MOVE;
+        }
+
+        public boolean importData(JComponent c, Transferable t) {
+            if (!canImport(c, t.getTransferDataFlavors())) {
+                return false;
+            }
+            try {
+                if (hasFileFlavor(t.getTransferDataFlavors())) {
+                    List files = (List)t.getTransferData(fileDataFlavor);
+                    for (int i = 0; i < files.size(); i++) {
+                        File file = (File)files.get(i);
+                        importFile(file);
+                    }
+                }
+                if (hasUriListFlavor(t.getTransferDataFlavors())) {
+                    String fileNames = (String) t.getTransferData(uriListFlavor);
+                    File file = new File(new URI(fileNames.trim()));
+                    importFile(file);
+                }
+                return true;
+            } catch (Exception e) {
+                LOG.error("Error handling drag/drop", e);
+            }
+            return false;
+        }
+
+        private boolean hasFileFlavor(DataFlavor[] flavors) {
+            for (int i = 0; i < flavors.length; i++) {
+                if (fileDataFlavor.equals(flavors[i])) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private boolean hasUriListFlavor(DataFlavor[] flavors) {
+            for (int i = 0; i < flavors.length; i++) {
+                if (uriListFlavor.equals(flavors[i])) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private String stringifyFlavors(DataFlavor[] flavors) {
+            String results = "";
+            for (int i = 0; i < flavors.length; i++) {
+                results += "\n\t" + flavors[i];
+            }
+            return results;
+        }
+
     }
 }
