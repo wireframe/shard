@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-phoenix-context.xml,v 1.4 2006/01/20 02:25:14 wireframe Exp $ -->
+<!-- $Id: shard-phoenix-context.xml,v 1.5 2006/01/20 02:27:25 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -262,7 +262,6 @@
 		        class="com.codecrate.shard.ui.command.RaceCommandAdapter">
 		        <constructor-arg><ref bean="raceDao" /></constructor-arg>
 		        <constructor-arg><ref bean="raceDao" /></constructor-arg>
-		        <constructor-arg><ref bean="raceImporter" /></constructor-arg>
     			<constructor-arg><ref bean="objectImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteRaceDialog</value>
@@ -294,7 +293,6 @@
 		        class="com.codecrate.shard.ui.command.CharacterClassCommandAdapter">
 		        <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
 		        <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
-		        <constructor-arg><ref bean="characterClassImporter" /></constructor-arg>
     			<constructor-arg><ref bean="objectImporter" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteCharacterClassDialog</value>
