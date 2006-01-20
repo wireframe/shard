@@ -19,13 +19,11 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.IOException;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Iterator;
@@ -288,7 +286,7 @@ public class ObjectManagerView extends AbstractView {
                     }
                 }
             });
-            
+
 
             table.setTransferHandler(new FileTransferHandler());
 
