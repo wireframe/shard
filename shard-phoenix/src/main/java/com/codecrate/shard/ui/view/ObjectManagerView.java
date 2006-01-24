@@ -165,18 +165,19 @@ public class ObjectManagerView extends AbstractView {
             commonTasks = new JTaskPaneGroup();
             commonTasks.setExpanded(true);
             commonTasks.setTitle("Common Actions");
-            commonTasks.add(getNewAction());
             
-            CommandManager commandManager = getApplication().getActiveWindow().getCommandManager();
-            if (commandManager instanceof ApplicationWindowCommandManager) {
-            	ApplicationWindowCommandManager awcommandManager = (ApplicationWindowCommandManager) commandManager;
-
-            	Iterator it = awcommandManager.getSharedCommands();
-            	while (it.hasNext()) {
-            		AbstractCommand cmd = (AbstractCommand) it.next();
-            		//cmd.addEnabledListener(thePropertyChangeListener);
-            	}
-            }
+            CommandGroup commandGroup = getWindowCommandManager().getCommandGroup("contextTasks");
+            commonTasks.add(commandGroup.createButtonBar());
+//            if (commandManager instanceof ApplicationWindowCommandManager) {
+//            	ApplicationWindowCommandManager awcommandManager = (ApplicationWindowCommandManager) commandManager;
+//
+//            	Iterator it = awcommandManager.getSharedCommands();
+//            	while (it.hasNext()) {
+//            		AbstractCommand cmd = (AbstractCommand) it.next();
+//            		//cmd.addEnabledListener(thePropertyChangeListener);
+//                    //commonTasks.add(new SwingActionAdapter(cmd));
+//            	}
+//            }
         }
         return commonTasks;
     }
@@ -331,18 +332,6 @@ public class ObjectManagerView extends AbstractView {
     	return selectionModel;
     }
 
-    private Action getNewAction() {
-    	if (null == newAction) {
-            Icon icon = getIconSource().getIcon("newCommand.icon");
-            String text = getMessage("newCommand.caption");
-            newAction = new AbstractAction(text, icon){
-                public void actionPerformed(ActionEvent e) {
-                    newCommand.execute();
-                }};
-    	}
-    	return newAction;
-    }
-
     private boolean isDeleteCommandEnabled() {
         return !getSelectedObjects().isEmpty();
     }
@@ -357,17 +346,10 @@ public class ObjectManagerView extends AbstractView {
 
     private JPopupMenu getPopupContextMenu() {
         if (null == popup) {
-            CommandGroup group = getWindowCommandManager().createCommandGroup( getCommandGroupName(), new Object[] {
-                    GlobalCommandIds.PROPERTIES,
-                    GlobalCommandIds.DELETE,
-                    ShardCommandIds.NEW});
+            CommandGroup group = getWindowCommandManager().getCommandGroup("popUp");
             popup = group.createPopupMenu();
         }
         return popup;
-    }
-
-    private String getCommandGroupName() {
-        return getDescriptor().getId() + "PopupCommandGroup";
     }
 
     private TableModel getModel() {
