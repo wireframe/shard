@@ -108,26 +108,6 @@ public class DefaultItem implements Item, Comparable {
 		this.weight = weight;
 	}
 
-	/**
-	 * @deprecated remove when spring-rcp binder created
-	 * @param cost
-	 */
-	public void setCostString(String cost) {
-		try {
-			setCost(Money.valueOf(cost));
-		} catch (ParseException e) {
-			throw new IllegalArgumentException("Unable to parse input to Money: " + cost);
-		}
-	}
-
-	/**
-	 * @deprecated remove when spring-rcp binder created.
-	 * @return
-	 */
-	public String getCostString() {
-		return getCost().toString();
-	}
-
     public Source getSource() {
         return source;
     }

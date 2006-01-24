@@ -31,7 +31,7 @@ public class ItemFormFactory extends AbstractFormFactory implements FormFactory 
 	private final SourceDao sourceDao;
 
 	public ItemFormFactory(SourceDao sourceDao) {
-		this.sourceDao = sourceDao;	
+		this.sourceDao = sourceDao;
 	}
 
 	public AbstractForm createForm(FormModel formModel) {
@@ -47,13 +47,13 @@ public class ItemFormFactory extends AbstractFormFactory implements FormFactory 
 
         protected JComponent createFormControl() {
             SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
-            
+
             TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
             formBuilder.add("name");
             formBuilder.row();
             formBuilder.add("weight");
             formBuilder.row();
-            formBuilder.add("costString");
+            formBuilder.add("cost");
             formBuilder.row();
             formBuilder.add(bindingFactory.createBoundComboBox("source", getSources()));
             return formBuilder.getForm();
