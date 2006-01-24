@@ -25,6 +25,7 @@ public class ShardPhoenix {
 
     private static final String[] CONTEXT_FILE_NAMES = new String[] {
                         "/shard-phoenix-context.xml"
+    					, "/shard-transfer-context.xml"
                         , "/shard-hibernate-context.xml"
                         , "/shard-datasource.xml"
                 };
