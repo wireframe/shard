@@ -367,7 +367,7 @@ public class ObjectManagerView extends AbstractView {
     }
 
     private String getCommandGroupName() {
-        return getDescriptor().getId() + "CommandGroup";
+        return getDescriptor().getId() + "PopupCommandGroup";
     }
 
     private TableModel getModel() {
