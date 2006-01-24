@@ -15,29 +15,19 @@
  */
 package com.codecrate.shard.skill;
 
-import java.util.Collection;
+public class DifficultyClass {
 
-import com.codecrate.shard.modifier.KeyedModifierContainer;
+	private final int target;
 
-/**
- * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
- */
-public interface SkillEntryContainer extends KeyedModifierContainer {
-    Collection getSkills();
-
-    boolean hasSkill(Skill skill);
-
-    DefaultSkillEntry getSkillEntry(Skill skill);
-
-    int getMaxClassSkillLevel();
-
-    int getMaxCrossClassSkillLevel();
-
-    /**
-     * roll a skill check.
-     * @param skill
-     * @param dc
-     * @return true if success, false if failure.
-     */
-	boolean rollSkillCheck(Skill skill, DifficultyClass dc);
+	public DifficultyClass(int target) {
+		this.target = target;
+	}
+	
+	public String toString() {
+		return "DC" + target;
+	}
+	
+	public boolean isSatisfiedBy(int roll) {
+		return (roll >= target);
+	}
 }

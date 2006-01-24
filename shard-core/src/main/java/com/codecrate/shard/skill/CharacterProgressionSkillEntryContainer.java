@@ -79,4 +79,7 @@ public class CharacterProgressionSkillEntryContainer implements SkillEntryContai
     public void removeModifier(KeyedModifier modifier) {
         delegate.removeModifier(modifier);
     }
+	public boolean rollSkillCheck(Skill skill, DifficultyClass dc) {
+		return delegate.rollSkillCheck(skill, dc);
+	}
 }
