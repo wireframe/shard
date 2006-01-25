@@ -25,7 +25,7 @@ import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.modifier.KeyedModifier;
 
 public class DefaultSkillEntryContainer implements SkillEntryContainer {
-	private static final Log LOG = LogFactory.getLog(DefaultSkillEntryContainer.class);
+	private static final Log LOG = LogFactory.getLog(SkillEntryContainer.class);
 
 	private final int characterLevel;
 	private final Map skills;
@@ -48,7 +48,7 @@ public class DefaultSkillEntryContainer implements SkillEntryContainer {
 	}
 	
 	public SkillEntry getSkillEntry(Skill skill) {
-		DefaultSkillEntry entry = (DefaultSkillEntry) skills.get(skill);
+		SkillEntry entry = (SkillEntry) skills.get(skill);
 		if (null == entry) {
 			LOG.debug("No skill entry found for skill: " + skill);
 		}
