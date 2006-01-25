@@ -60,7 +60,7 @@ public class PcgenDatasetImporter implements ObjectImporter {
 
             for (int x = 0; x < files.length; x++) {
                 File file = files[x];
-                if (file.getName().contains(supportedFileExpression)){
+                if (-1 != file.getName().indexOf(supportedFileExpression)) {
                     importer.importObjects(file);
                 }
             }
@@ -73,7 +73,7 @@ public class PcgenDatasetImporter implements ObjectImporter {
         File[] files = dataset.listFiles();
         for (int x = 0; x < files.length; x++) {
             File file = files[x];
-            if (file.getName().contains(".lst")) {
+            if (-1 != file.getName().indexOf(".lst")) {
                 return true;
             }
         }
