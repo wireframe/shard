@@ -163,8 +163,7 @@ public class ObjectManagerView extends AbstractView {
 
             ActionCommand command = getWindowCommandManager().getActionCommand(ShardCommandIds.NEW);
 
-            SwingActionAdapter adapter = new SwingActionAdapter(command) {
-            };
+            SwingActionAdapter adapter = new SwingActionAdapter(command);
             commonTasks.add(adapter);
         }
         return commonTasks;
