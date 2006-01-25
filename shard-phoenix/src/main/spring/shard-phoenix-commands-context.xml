@@ -52,7 +52,6 @@
 		class="org.springframework.richclient.command.CommandGroupFactoryBean">
 		<property name="members">
 			<list>
-				<value>separator</value>
 				<value>newCommand</value>
 				<value>importCommand</value>
 				<value>separator</value>
