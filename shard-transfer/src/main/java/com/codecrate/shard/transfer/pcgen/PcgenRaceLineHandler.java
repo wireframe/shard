@@ -25,7 +25,8 @@ import com.codecrate.shard.race.RaceFactory;
 import com.codecrate.shard.source.Source;
 
 public class PcgenRaceLineHandler extends AbstractPcgenLineHandler {
-    private final String TAG_NAME_FAVORED_CLASS="FAVCLASS";
+    private static final String TAG_NAME_FAVORED_CLASS = "FAVCLASS";
+    private static final String ANY = "ANY";
 
     private final RaceFactory raceFactory;
     private final RaceDao raceDao;
@@ -40,7 +41,7 @@ public class PcgenRaceLineHandler extends AbstractPcgenLineHandler {
     public Object handleParsedLine(String name, Map tags, Source source) {
         String favoredClassName = getStringTagValue(TAG_NAME_FAVORED_CLASS, tags);
         CharacterClass favoredClass = null;
-        if (null != favoredClassName) {
+        if (null != favoredClassName && !ANY.equals(favoredClassName)) {
             favoredClass = characterClassDao.getCharacterClass(favoredClassName);
         }
 
