@@ -393,8 +393,7 @@ public class ObjectManagerView extends AbstractView {
 
         public void execute() {
             object = commandAdapter.createObject();
-            formModel = FormModelHelper.createFormModel(object);
-            form = formFactory.createForm(formModel);
+            form = formFactory.createForm(object);
             page = new FormBackedDialogPage(form);
 
             TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
@@ -403,7 +402,7 @@ public class ObjectManagerView extends AbstractView {
                 }
 
                 protected boolean onFinish() {
-                    formModel.commit();
+                	form.getFormModel().commit();
                     commandAdapter.saveObject(object);
                     getFilteredObjects().add(object);
                     return true;

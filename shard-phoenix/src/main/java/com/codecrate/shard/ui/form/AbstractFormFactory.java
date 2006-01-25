@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.ui.form;
 
+import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.FormModelHelper;
 
@@ -22,4 +23,6 @@ public abstract class AbstractFormFactory implements FormFactory {
 	public AbstractForm createForm(Object model) {
 		return createForm(FormModelHelper.createFormModel(model));
 	}
+
+	public abstract AbstractForm createForm(FormModel formModel);
 }
