@@ -31,9 +31,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -55,10 +52,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
-import org.springframework.richclient.application.support.ApplicationWindowCommandManager;
-import org.springframework.richclient.command.AbstractCommand;
+import org.springframework.richclient.command.ActionCommand;
 import org.springframework.richclient.command.CommandGroup;
-import org.springframework.richclient.command.CommandManager;
+import org.springframework.richclient.command.SwingActionAdapter;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.ConfirmationDialog;
@@ -107,7 +103,6 @@ public class ObjectManagerView extends AbstractView {
     private JTable table;
     private TableModel model;
     private JPopupMenu popup;
-	private Action newAction;
     private JTaskPaneGroup commonTasks;
 
     private Timer timer = new Timer();
@@ -165,19 +160,12 @@ public class ObjectManagerView extends AbstractView {
             commonTasks = new JTaskPaneGroup();
             commonTasks.setExpanded(true);
             commonTasks.setTitle("Common Actions");
-            
-            CommandGroup commandGroup = getWindowCommandManager().getCommandGroup("contextTasks");
-            commonTasks.add(commandGroup.createButtonBar());
-//            if (commandManager instanceof ApplicationWindowCommandManager) {
-//            	ApplicationWindowCommandManager awcommandManager = (ApplicationWindowCommandManager) commandManager;
-//
-//            	Iterator it = awcommandManager.getSharedCommands();
-//            	while (it.hasNext()) {
-//            		AbstractCommand cmd = (AbstractCommand) it.next();
-//            		//cmd.addEnabledListener(thePropertyChangeListener);
-//                    //commonTasks.add(new SwingActionAdapter(cmd));
-//            	}
-//            }
+
+            ActionCommand command = getWindowCommandManager().getActionCommand(ShardCommandIds.NEW);
+
+            SwingActionAdapter adapter = new SwingActionAdapter(command) {
+            };
+            commonTasks.add(adapter);
         }
         return commonTasks;
     }
