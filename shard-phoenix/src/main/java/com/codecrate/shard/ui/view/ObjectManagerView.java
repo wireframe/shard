@@ -49,7 +49,6 @@ import javax.swing.table.TableModel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.ActionCommand;
@@ -62,7 +61,6 @@ import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.filechooser.DefaultFileFilter;
 import org.springframework.richclient.form.AbstractForm;
-import org.springframework.richclient.form.FormModelHelper;
 import org.springframework.richclient.progress.BusyIndicator;
 import org.springframework.richclient.progress.ProgressMonitor;
 import org.springframework.richclient.progress.StatusBar;
@@ -379,7 +377,6 @@ public class ObjectManagerView extends AbstractView {
 
     private class NewCommandExcecutor extends AbstractActionCommandExecutor {
         private Object object;
-        private FormModel formModel;
         private AbstractForm form;
         private FormBackedDialogPage page;
 
