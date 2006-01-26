@@ -51,9 +51,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
-import org.springframework.richclient.command.ActionCommand;
 import org.springframework.richclient.command.CommandGroup;
-import org.springframework.richclient.command.SwingActionAdapter;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.ConfirmationDialog;
@@ -75,12 +73,12 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
 
 import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
+import com.codecrate.shard.ui.command.task.TaskPaneCommandGroup;
 import com.codecrate.shard.ui.form.FormFactory;
 import com.codecrate.shard.ui.table.ReadOnlyGlazedTableModel;
 import com.codecrate.shard.ui.table.StretchWhenEmptyJTable;
 import com.codecrate.shard.util.ComparableComparator;
 import com.l2fprod.common.swing.JTaskPane;
-import com.l2fprod.common.swing.JTaskPaneGroup;
 
 import foxtrot.Job;
 import foxtrot.Worker;
@@ -101,7 +99,6 @@ public class ObjectManagerView extends AbstractView {
     private JTable table;
     private TableModel model;
     private JPopupMenu popup;
-    private JTaskPaneGroup commonTasks;
 
     private Timer timer = new Timer();
     private final ObjectManagerCommandAdapter commandAdapter;
@@ -147,24 +144,10 @@ public class ObjectManagerView extends AbstractView {
 
     private JTaskPane getTaskPanel() {
         if (null == taskPanel) {
-            taskPanel = new JTaskPane();
-            taskPanel.add(getCommonTasks());
+        	TaskPaneCommandGroup tasks = (TaskPaneCommandGroup) getWindowCommandManager().getCommandGroup("contextTasks");
+        	taskPanel = tasks.createTaskPane();
         }
         return taskPanel;
-    }
-
-    private JTaskPaneGroup getCommonTasks() {
-        if (null == commonTasks) {
-            commonTasks = new JTaskPaneGroup();
-            commonTasks.setExpanded(true);
-            commonTasks.setTitle("Common Actions");
-
-            ActionCommand command = getWindowCommandManager().getActionCommand(ShardCommandIds.NEW);
-
-            SwingActionAdapter adapter = new SwingActionAdapter(command);
-            commonTasks.add(adapter);
-        }
-        return commonTasks;
     }
 
     private JPanel getQuickSearchPanel() {

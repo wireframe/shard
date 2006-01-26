@@ -29,7 +29,16 @@
 	</bean>
 
 	<bean id="contextTasks"
-		class="org.springframework.richclient.command.CommandGroupFactoryBean">
+		class="com.codecrate.shard.ui.command.task.TaskPaneFactoryBean">
+		<property name="members">
+			<list>
+				<ref bean="commonTasks" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="commonTasks"
+		class="com.codecrate.shard.ui.command.task.TaskPaneGroupFactoryBean">
 		<property name="members">
 			<list>
 				<value>newCommand</value>
