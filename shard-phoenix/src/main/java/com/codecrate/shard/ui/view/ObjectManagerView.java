@@ -125,7 +125,11 @@ public class ObjectManagerView extends AbstractView {
     }
 
     public void componentFocusLost() {
-        fireClear();
+        clearSearchableText();
+    }
+    
+    private void clearSearchableText() {
+		getQuickSearchInput().setText("");
     }
 
     private JTaskPane getTaskPanel() {
@@ -187,7 +191,7 @@ public class ObjectManagerView extends AbstractView {
             clearButton.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent arg0) {
-                    fireClear();
+                    clearSearchableText();
                 }
 
             });
@@ -337,7 +341,6 @@ public class ObjectManagerView extends AbstractView {
 	}
 
 	private void fireClear() {
-		getQuickSearchInput().setText("");
 		getFilteredObjects().setMatcher(ALWAYS_MATCH_MATCHER);
 	}
 
