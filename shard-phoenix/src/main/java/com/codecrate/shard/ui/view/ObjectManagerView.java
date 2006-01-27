@@ -73,6 +73,7 @@ import com.codecrate.shard.ui.table.AlwaysMatchMatcher;
 import com.codecrate.shard.ui.table.ReadOnlyGlazedTableModel;
 import com.codecrate.shard.ui.table.StretchWhenEmptyJTable;
 import com.codecrate.shard.util.ComparableComparator;
+import com.codecrate.shard.util.MouseUtil;
 import com.l2fprod.common.swing.JTaskPane;
 
 import foxtrot.Job;
@@ -258,7 +259,7 @@ public class ObjectManagerView extends AbstractView {
             table.addMouseListener(new PopupMenuMouseListener(getPopupContextMenu()));
             table.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1 && propertiesCommand.isEnabled()) {
+                    if (MouseUtil.isDoubleClick(e) && propertiesCommand.isEnabled()) {
                         propertiesCommand.execute();
                     }
                 }
@@ -326,7 +327,7 @@ public class ObjectManagerView extends AbstractView {
     }
 
 	private void fireSearch() {
-		final Collection searchResults = commandAdapter.searchObjects(getQuickSearchInput().getText());
+		final Collection searchResults = commandAdapter.searchObjects(getSearchableText());
 		getFilteredObjects().setMatcher(new Matcher() {
 
 			public boolean matches(Object object) {

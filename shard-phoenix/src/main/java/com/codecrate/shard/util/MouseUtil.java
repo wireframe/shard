@@ -13,14 +13,13 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.codecrate.shard.ui.table;
+package com.codecrate.shard.util;
 
-import ca.odell.glazedlists.Matcher;
+import java.awt.event.MouseEvent;
 
-public class AlwaysMatchMatcher implements Matcher {
+public class MouseUtil {
 
-	public boolean matches(Object arg0) {
-		return true;
+	public static boolean isDoubleClick(MouseEvent e) {
+		return (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1); 
 	}
-
 }
