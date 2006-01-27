@@ -75,6 +75,7 @@ import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
 import com.codecrate.shard.ui.command.task.TaskPaneCommandGroup;
 import com.codecrate.shard.ui.form.FormFactory;
+import com.codecrate.shard.ui.table.AlwaysMatchMatcher;
 import com.codecrate.shard.ui.table.ReadOnlyGlazedTableModel;
 import com.codecrate.shard.ui.table.StretchWhenEmptyJTable;
 import com.codecrate.shard.util.ComparableComparator;
@@ -101,6 +102,7 @@ public class ObjectManagerView extends AbstractView {
     private JPopupMenu popup;
 
     private final ObjectManagerCommandAdapter commandAdapter;
+	private final FormFactory formFactory;
 	private final NewCommandExcecutor newCommand;
 	private final DeleteCommandExecutor deleteCommand;
 	private final PropertiesCommandExecutor propertiesCommand;
@@ -111,9 +113,10 @@ public class ObjectManagerView extends AbstractView {
 
 	public ObjectManagerView(ObjectManagerCommandAdapter commandAdapter, FormFactory formFactory) {
 		this.commandAdapter = commandAdapter;
-		this.newCommand = new NewCommandExcecutor(formFactory);
+		this.formFactory = formFactory;
+		this.newCommand = new NewCommandExcecutor();
         this.importCommand = new ImportCommandExcecutor();
-		this.propertiesCommand = new PropertiesCommandExecutor(formFactory);
+		this.propertiesCommand = new PropertiesCommandExecutor();
 		this.deleteCommand = new DeleteCommandExecutor();
 	}
 
@@ -362,11 +365,7 @@ public class ObjectManagerView extends AbstractView {
         private AbstractForm form;
         private FormBackedDialogPage page;
 
-		private final FormFactory formFactory;
-
-        public NewCommandExcecutor(FormFactory formFactory) {
-			this.formFactory = formFactory;
-
+        public NewCommandExcecutor() {
 			this.setEnabled(true);
         }
 
@@ -471,11 +470,6 @@ public class ObjectManagerView extends AbstractView {
         private AbstractForm form;
         private FormBackedDialogPage page;
         private int index;
-		private final FormFactory formFactory;
-
-        public PropertiesCommandExecutor(FormFactory formFactory) {
-			this.formFactory = formFactory;
-        }
 
         public void execute() {
             object = getSelectedObject();
@@ -497,14 +491,6 @@ public class ObjectManagerView extends AbstractView {
             };
             dialog.showDialog();
         }
-    }
-
-    private static class AlwaysMatchMatcher implements Matcher {
-
-		public boolean matches(Object arg0) {
-			return true;
-		}
-
     }
 
     private class SearchDocumentListener implements DocumentListener {
