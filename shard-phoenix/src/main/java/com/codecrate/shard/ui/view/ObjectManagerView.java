@@ -24,8 +24,6 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -34,10 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
@@ -67,6 +62,7 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
 import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
 import com.codecrate.shard.ui.command.task.TaskPaneCommandGroup;
+import com.codecrate.shard.ui.component.SearchOnPauseJTextField;
 import com.codecrate.shard.ui.dragdrop.FileTransferHandler;
 import com.codecrate.shard.ui.form.FormFactory;
 import com.codecrate.shard.ui.table.AlwaysMatchMatcher;
@@ -82,10 +78,9 @@ import foxtrot.Worker;
 public class ObjectManagerView extends AbstractView {
     private static final boolean SINGLE_COLUMN_SORT = false;
     private static final Matcher ALWAYS_MATCH_MATCHER = new AlwaysMatchMatcher();
-    private static final int SEARCH_DELAY_MILLIS = 300;
 
     private JPanel quickSearchPanel;
-    private JTextField quickSearchInput;
+    private SearchOnPauseJTextField quickSearchInput;
     private JButton searchButton;
     private JButton clearButton;
     private JTaskPane taskPanel;
@@ -130,11 +125,7 @@ public class ObjectManagerView extends AbstractView {
     }
 
     public void componentFocusLost() {
-        resetQuickSearchInput();
-    }
-
-    private void resetQuickSearchInput() {
-        getQuickSearchInput().setText("");
+        fireClear();
     }
 
     private JTaskPane getTaskPanel() {
@@ -156,11 +147,20 @@ public class ObjectManagerView extends AbstractView {
         return quickSearchPanel;
     }
 
-    private JTextField getQuickSearchInput() {
+    private SearchOnPauseJTextField getQuickSearchInput() {
         if (quickSearchInput == null) {
-            quickSearchInput = new JTextField();
+            quickSearchInput = new SearchOnPauseJTextField() {
+
+				protected void onClear() {
+					fireClear();
+				}
+
+				protected void onSearch(String input) {
+					fireSearch();
+				}
+            	
+            };
             quickSearchInput.setColumns(10);
-            quickSearchInput.getDocument().addDocumentListener(new SearchDocumentListener());
         }
         return quickSearchInput;
     }
@@ -187,7 +187,7 @@ public class ObjectManagerView extends AbstractView {
             clearButton.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent arg0) {
-                    getQuickSearchInput().setText("");
+                    fireClear();
                 }
 
             });
@@ -327,7 +327,7 @@ public class ObjectManagerView extends AbstractView {
     }
 
 	private void fireSearch() {
-		final Collection searchResults = commandAdapter.searchObjects(getSearchableText());
+		final Collection searchResults = commandAdapter.searchObjects(getQuickSearchInput().getSearchableText());
 		getFilteredObjects().setMatcher(new Matcher() {
 
 			public boolean matches(Object object) {
@@ -337,6 +337,7 @@ public class ObjectManagerView extends AbstractView {
 	}
 
 	private void fireClear() {
+		getQuickSearchInput().setText("");
 		getFilteredObjects().setMatcher(ALWAYS_MATCH_MATCHER);
 	}
 
@@ -351,10 +352,6 @@ public class ObjectManagerView extends AbstractView {
         progressMonitor.done();
 
         return result;
-    }
-
-    private String getSearchableText() {
-        return getQuickSearchInput().getText().trim();
     }
 
     private class NewCommandExcecutor extends AbstractActionCommandExecutor {
@@ -489,48 +486,4 @@ public class ObjectManagerView extends AbstractView {
             dialog.showDialog();
         }
     }
-
-    private class SearchDocumentListener implements DocumentListener {
-        private Timer timer = new Timer();
-
-        public void changedUpdate(DocumentEvent event) {
-            processEvent(event);
-        }
-
-        public void insertUpdate(DocumentEvent event) {
-            processEvent(event);
-        }
-
-        public void removeUpdate(DocumentEvent event) {
-            processEvent(event);
-        }
-
-        private void processEvent(DocumentEvent event) {
-            String value = getSearchableText();
-            if (0 < value.length()) {
-                TimerTask delaySearchTask = new DelaySearchTask(value);
-                timer.schedule(delaySearchTask, SEARCH_DELAY_MILLIS);
-            } else {
-                fireClear();
-            }
-        }
-    }
-
-
-    private class DelaySearchTask extends TimerTask {
-        private final String originalInput;
-
-        public DelaySearchTask(String originalInput) {
-            this.originalInput = originalInput;
-        }
-        public void run() {
-            if (!hasInputChanged()) {
-                fireSearch();
-            }
-        }
-        private boolean hasInputChanged() {
-            return !originalInput.equals(getSearchableText());
-        }
-    }
-
 }
