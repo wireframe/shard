@@ -100,7 +100,6 @@ public class ObjectManagerView extends AbstractView {
     private TableModel model;
     private JPopupMenu popup;
 
-    private Timer timer = new Timer();
     private final ObjectManagerCommandAdapter commandAdapter;
 	private final NewCommandExcecutor newCommand;
 	private final DeleteCommandExecutor deleteCommand;
@@ -509,6 +508,8 @@ public class ObjectManagerView extends AbstractView {
     }
 
     private class SearchDocumentListener implements DocumentListener {
+        private Timer timer = new Timer();
+
         public void changedUpdate(DocumentEvent event) {
             processEvent(event);
         }
