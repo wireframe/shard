@@ -26,7 +26,11 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 import org.springframework.binding.form.FormModel;
+import org.springframework.binding.form.HierarchicalFormModel;
+import org.springframework.richclient.dialog.AbstractDialogPage;
+import org.springframework.richclient.dialog.TabbedDialogPage;
 import org.springframework.richclient.form.AbstractForm;
+import org.springframework.richclient.form.FormModelHelper;
 import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 
@@ -40,7 +44,9 @@ import com.codecrate.shard.source.SourceDao;
 import com.codecrate.shard.ui.table.ReadOnlyGlazedTableModel;
 import com.codecrate.shard.util.ComparableComparator;
 
-public class CharacterClassFormFactory extends AbstractFormFactory implements FormFactory {
+public class CharacterClassFormFactory implements FormFactory {
+    private static final String COMPOSITE_PAGE_NAME = "characterClassProperties";
+
     private static final boolean SINGLE_COLUMN_SORT = false;
 
     private final SourceDao sourceDao;
@@ -49,21 +55,24 @@ public class CharacterClassFormFactory extends AbstractFormFactory implements Fo
         this.sourceDao = sourceDao;
     }
 
-	public AbstractForm createForm(FormModel formModel) {
-		return new CharacterClassForm(formModel);
-	}
+	public AbstractForm createInitialForm(Object model) {
+        HierarchicalFormModel ownerFormModel = FormModelHelper.createCompoundFormModel(model);
+        return new CharacterClassForm(FormModelHelper.createChildPageFormModel(ownerFormModel, null));
+    }
+
+    public AbstractDialogPage createPage(AbstractForm form) {
+        TabbedDialogPage compositePage = new TabbedDialogPage(COMPOSITE_PAGE_NAME);
+        compositePage.addForm(form);
+
+        compositePage.addForm(new CharacterClassLevelsForm(FormModelHelper.createChildPageFormModel(form.getFormModel(), null)));
+        return compositePage;
+    }
 
     public class CharacterClassForm extends AbstractForm {
         private static final String PAGE_NAME = "characterClassPage";
 
-        private final CharacterClass kit;
-
-        private SortedList levels;
-
         public CharacterClassForm(FormModel formModel) {
             super(formModel, PAGE_NAME);
-
-            kit = (CharacterClass) getFormObject();
         }
 
         protected JComponent createFormControl() {
@@ -78,10 +87,30 @@ public class CharacterClassFormFactory extends AbstractFormFactory implements Fo
             formBuilder.row();
             formBuilder.add(bindingFactory.createBoundComboBox("source", getSources()));
 
+            return formBuilder.getForm();
+        }
+
+        private Collection getSources() {
+            return sourceDao.getSources();
+        }
+    }
+
+    public class CharacterClassLevelsForm extends AbstractForm {
+        private static final String PAGE_NAME = "characterClassLevelsPage";
+
+        private final CharacterClass kit;
+        private SortedList levels;
+
+        public CharacterClassLevelsForm(FormModel formModel) {
+            super(formModel, PAGE_NAME);
+
+            kit = (CharacterClass) getFormObject();
+        }
+
+        protected JComponent createFormControl() {
             JPanel panel = new JPanel();
             panel.setLayout(new BorderLayout());
-            panel.add(formBuilder.getForm(), BorderLayout.NORTH);
-            panel.add(getClassProgressionPanel(), BorderLayout.SOUTH);
+            panel.add(getClassProgressionPanel(), BorderLayout.CENTER);
             return panel;
         }
 
@@ -117,10 +146,6 @@ public class CharacterClassFormFactory extends AbstractFormFactory implements Fo
                 "willpowerSaveBonus"
             });
             return model;
-        }
-
-        private Collection getSources() {
-            return sourceDao.getSources();
         }
     }
 }

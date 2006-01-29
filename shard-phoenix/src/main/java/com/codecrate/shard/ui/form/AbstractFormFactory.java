@@ -16,13 +16,19 @@
 package com.codecrate.shard.ui.form;
 
 import org.springframework.binding.form.FormModel;
+import org.springframework.richclient.dialog.AbstractDialogPage;
+import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.FormModelHelper;
 
 public abstract class AbstractFormFactory implements FormFactory {
-	public AbstractForm createForm(Object model) {
-		return createForm(FormModelHelper.createFormModel(model));
+	public AbstractForm createInitialForm(Object model) {
+		return createInitialFormWithModel(FormModelHelper.createFormModel(model));
 	}
+    
+    public AbstractDialogPage createPage(AbstractForm form) {
+        return new FormBackedDialogPage(form);
+    }
 
-	public abstract AbstractForm createForm(FormModel formModel);
+	public abstract AbstractForm createInitialFormWithModel(FormModel formModel);
 }

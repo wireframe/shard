@@ -34,7 +34,7 @@ public class SpellFormFactory extends AbstractFormFactory implements FormFactory
         this.sourceDao = sourceDao;
     }
     
-	public AbstractForm createForm(FormModel formModel) {
+	public AbstractForm createInitialFormWithModel(FormModel formModel) {
 		return new SpellForm(formModel);
 	}
 

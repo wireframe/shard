@@ -15,13 +15,22 @@
  */
 package com.codecrate.shard.ui.form;
 
+import org.springframework.richclient.dialog.AbstractDialogPage;
 import org.springframework.richclient.form.AbstractForm;
 
 public interface FormFactory {
     /**
      * create a form using the domain object.
+     * a multi-tabbed form will just return the first (selected) form.
      * @param model
      * @return
      */
-	AbstractForm createForm(Object model);
+	AbstractForm createInitialForm(Object model);
+
+    /**
+     * 
+     * @param form
+     * @return
+     */
+    AbstractDialogPage createPage(AbstractForm form);
 }

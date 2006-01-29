@@ -35,7 +35,7 @@ public class RaceFormFactory extends AbstractFormFactory implements FormFactory 
         this.sourceDao = sourceDao;
     }
 
-	public AbstractForm createForm(FormModel formModel) {
+	public AbstractForm createInitialFormWithModel(FormModel formModel) {
 		return new RaceForm(formModel);
 	}
 

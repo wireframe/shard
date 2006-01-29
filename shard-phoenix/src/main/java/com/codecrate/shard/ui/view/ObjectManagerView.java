@@ -42,8 +42,8 @@ import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.command.support.GlobalCommandIds;
+import org.springframework.richclient.dialog.AbstractDialogPage;
 import org.springframework.richclient.dialog.ConfirmationDialog;
-import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.filechooser.DefaultFileFilter;
 import org.springframework.richclient.form.AbstractForm;
@@ -127,7 +127,7 @@ public class ObjectManagerView extends AbstractView {
     public void componentFocusLost() {
         clearSearchableText();
     }
-    
+
     private void clearSearchableText() {
 		getQuickSearchInput().setText("");
     }
@@ -162,7 +162,7 @@ public class ObjectManagerView extends AbstractView {
 				protected void onSearch(String input) {
 					fireSearch();
 				}
-            	
+
             };
             quickSearchInput.setColumns(10);
         }
@@ -360,7 +360,7 @@ public class ObjectManagerView extends AbstractView {
     private class NewCommandExcecutor extends AbstractActionCommandExecutor {
         private Object object;
         private AbstractForm form;
-        private FormBackedDialogPage page;
+        private AbstractDialogPage page;
 
         public NewCommandExcecutor() {
 			this.setEnabled(true);
@@ -368,8 +368,8 @@ public class ObjectManagerView extends AbstractView {
 
         public void execute() {
             object = commandAdapter.createObject();
-            form = formFactory.createForm(object);
-            page = new FormBackedDialogPage(form);
+            form = formFactory.createInitialForm(object);
+            page = formFactory.createPage(form);
 
             TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
                 protected void onAboutToShow() {
@@ -465,14 +465,14 @@ public class ObjectManagerView extends AbstractView {
     private class PropertiesCommandExecutor extends AbstractActionCommandExecutor {
         private Object object;
         private AbstractForm form;
-        private FormBackedDialogPage page;
+        private AbstractDialogPage page;
         private int index;
 
         public void execute() {
             object = getSelectedObject();
             index = getFilteredObjects().indexOf(object);
-            form = formFactory.createForm(object);
-            page = new FormBackedDialogPage(form);
+            form = formFactory.createInitialForm(object);
+            page = formFactory.createPage(form);
 
             TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
                 protected void onAboutToShow() {
