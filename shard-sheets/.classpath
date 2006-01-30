@@ -16,6 +16,6 @@
   <classpathentry kind="var" path="M2_REPO/springframework/spring-mock/1.1.5/spring-mock-1.1.5.jar"/>
   <classpathentry kind="src" path="/shard-dice"/>
   <classpathentry kind="var" path="M2_REPO/velocity-tools/velocity-tools/1.1/velocity-tools-1.1.jar"/>
-  <classpathentry kind="src" path="/shard-core"/>
   <classpathentry kind="var" path="M2_REPO/easymock/easymock/1.1/easymock-1.1.jar"/>
+  <classpathentry kind="src" path="/shard-core"/>
 </classpath>

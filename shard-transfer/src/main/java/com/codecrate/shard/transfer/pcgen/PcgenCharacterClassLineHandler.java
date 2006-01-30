@@ -87,8 +87,10 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     		StringTokenizer tokens = new StringTokenizer(skills, "|");
     		while (tokens.hasMoreTokens()) {
     			String skillName = tokens.nextToken();
-        		Skill skill = skillDao.getSkill(skillName);
-        		kit.addClassSkill(skill);
+                if (isValidSkillName(skillName)) {
+                    Skill skill = skillDao.getSkill(skillName);
+                    kit.addClassSkill(skill);
+                }
     		}
 
     		kitDao.updateClass(kit);
@@ -96,6 +98,10 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     	} else {
     		throw new IllegalStateException("Unable to update class information.");
     	}
+    }
+
+    private boolean isValidSkillName(String skillName) {
+        return (-1 == skillName.indexOf("."));
     }
 
     private int calculateClassLevelExpression(int level, String expression) {

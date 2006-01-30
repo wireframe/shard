@@ -65,6 +65,7 @@ public class CharacterClassFormFactory implements FormFactory {
         compositePage.addForm(form);
 
         compositePage.addForm(new CharacterClassLevelsForm(FormModelHelper.createChildPageFormModel(form.getFormModel(), null)));
+        compositePage.addForm(new CharacterClassSkillsForm(FormModelHelper.createChildPageFormModel(form.getFormModel(), null)));
         return compositePage;
     }
 
@@ -144,6 +145,57 @@ public class CharacterClassFormFactory implements FormFactory {
                 "fortitudeSaveBonus",
                 "reflexSaveBonus",
                 "willpowerSaveBonus"
+            });
+            return model;
+        }
+    }
+
+    public class CharacterClassSkillsForm extends AbstractForm {
+        private static final String PAGE_NAME = "characterClassSkillsPage";
+
+        private final CharacterClass kit;
+        private SortedList skills;
+
+        public CharacterClassSkillsForm(FormModel formModel) {
+            super(formModel, PAGE_NAME);
+
+            kit = (CharacterClass) getFormObject();
+        }
+
+        protected JComponent createFormControl() {
+            JPanel panel = new JPanel();
+            panel.setLayout(new BorderLayout());
+            panel.add(getClassSkillsPanel(), BorderLayout.CENTER);
+            return panel;
+        }
+
+        private Component getClassSkillsPanel() {
+            JPanel panel = new JPanel();
+            panel.add(new JScrollPane(getTable()));
+
+            return panel;
+        }
+
+        private Component getTable() {
+            JTable table = new JTable(getModel());
+            new TableComparatorChooser(table, getSortedLevels(), SINGLE_COLUMN_SORT);
+
+            return table;
+        }
+
+        private SortedList getSortedLevels() {
+            if (null == skills) {
+                EventList temp = new BasicEventList();
+                temp.addAll(kit.getClassSkills());
+                skills = new SortedList(temp, new ComparableComparator());
+            }
+            return skills;
+        }
+
+        private TableModel getModel() {
+            TableModel model = new ReadOnlyGlazedTableModel(getSortedLevels(), getMessageSource(), new String[] {
+                "name",
+                "source",
             });
             return model;
         }

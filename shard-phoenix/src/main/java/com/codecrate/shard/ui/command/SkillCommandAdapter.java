@@ -41,6 +41,7 @@ implements ObjectManagerCommandAdapter {
 		return new String[] {
 				"name"
 				, "ability"
+                , "usableUntrained"
                 , "source"
 		};
 	}
