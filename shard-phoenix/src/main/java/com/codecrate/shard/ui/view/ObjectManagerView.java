@@ -95,6 +95,7 @@ public class ObjectManagerView extends AbstractView {
 	private final DeleteCommandExecutor deleteCommand;
 	private final PropertiesCommandExecutor propertiesCommand;
     private final ImportCommandExcecutor importCommand;
+    private final SelectAllCommandExcecutor selectAllCommand;
 	private FilterList objects;
 	private SortedList sortedObjects;
 	private EventSelectionModel selectionModel;
@@ -106,6 +107,7 @@ public class ObjectManagerView extends AbstractView {
         this.importCommand = new ImportCommandExcecutor();
 		this.propertiesCommand = new PropertiesCommandExecutor();
 		this.deleteCommand = new DeleteCommandExecutor();
+		this.selectAllCommand = new SelectAllCommandExcecutor();
 	}
 
     protected JComponent createControl() {
@@ -120,6 +122,7 @@ public class ObjectManagerView extends AbstractView {
     protected void registerLocalCommandExecutors(PageComponentContext context) {
         context.register(GlobalCommandIds.PROPERTIES, propertiesCommand);
         context.register(GlobalCommandIds.DELETE, deleteCommand);
+        context.register(GlobalCommandIds.SELECT_ALL, selectAllCommand);
         context.register(ShardCommandIds.NEW, newCommand);
         context.register(ShardCommandIds.IMPORT, importCommand);
     }
@@ -458,6 +461,16 @@ public class ObjectManagerView extends AbstractView {
                 }
             };
             dialog.showDialog();
+        }
+    }
+
+    private class SelectAllCommandExcecutor extends AbstractActionCommandExecutor {
+		public SelectAllCommandExcecutor() {
+			setEnabled(true);
+    	}
+
+        public void execute() {
+        	getTable().selectAll();
         }
     }
 
