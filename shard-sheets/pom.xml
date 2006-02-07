@@ -2,7 +2,7 @@
   <parent>
     <groupId>com.codecrate.shard</groupId>
     <artifactId>shard-root</artifactId>
-    <version>0.4.0-SNAPSHOT</version>
+    <version>0.4.0</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -10,13 +10,13 @@
   <artifactId>shard-sheets</artifactId>
   <name>shard sheets module</name>
   <packaging>jar</packaging>
-  <version>0.4.0-SNAPSHOT</version>
+  <version>0.4.0</version>
 
   <dependencies>
     <dependency>
       <groupId>com.codecrate.shard</groupId>
       <artifactId>shard-core</artifactId>
-      <version>0.4.0-SNAPSHOT</version>
+      <version>0.4.0</version>
     </dependency>
 
     <!-- velocity dependencies -->
