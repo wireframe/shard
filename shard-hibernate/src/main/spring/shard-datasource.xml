@@ -2,14 +2,28 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-	<bean id="dataSource" 
-		  class="org.apache.commons.dbcp.BasicDataSource" 
+	<bean id="resourceLocator" class="com.codecrate.shard.system.ResourceLocator" />
+
+	<bean id="applicationWorkingDirectory"
+	 factory-bean="resourceLocator"
+     factory-method="getApplicationWorkingDirectory" />
+
+    <bean id="dataSourceConfiguration" class="com.codecrate.shard.system.DataSourceConfiguration">
+      <constructor-arg><ref bean="applicationWorkingDirectory" /></constructor-arg>
+    </bean>
+
+    <bean id="dataSourceUrl"
+	 factory-bean="dataSourceConfiguration"
+     factory-method="getDataSourceUrl" />
+
+	<bean id="dataSource"
+		  class="org.apache.commons.dbcp.BasicDataSource"
 		  destroy-method="close">
 	  <property name="driverClassName">
 	    <value>org.hsqldb.jdbcDriver</value>
 	  </property>
 	  <property name="url">
-	    <value>jdbc:hsqldb:/home/rsonnek/Projects/shard/shard-hibernate/target/db</value>
+	    <ref bean="dataSourceUrl" />
 	  </property>
 	  <property name="username">
 	    <value>sa</value>
@@ -18,10 +32,9 @@
 	    <value></value>
 	  </property>
 	</bean>
-	
+
     <bean id="directoryManager" class="com.codecrate.shard.search.FSDirectoryManager" destroy-method="close">
-      <constructor-arg>
-        <value>/home/rsonnek/Projects/shard/shard-hibernate/target/index</value>
-      </constructor-arg>
+      <constructor-arg><ref bean="applicationWorkingDirectory" /></constructor-arg>
+      <constructor-arg><ref bean="analyzer" /></constructor-arg>
     </bean>
 </beans>

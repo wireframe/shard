@@ -20,21 +20,30 @@ import java.io.IOException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
+import com.codecrate.shard.io.AutoCreateDirectoriesFile;
+
 public class FSDirectoryManager implements DirectoryManager {
 	private static final Log LOG = LogFactory.getLog(FSDirectoryManager.class);
+    private static final String INDEX_FILE_NAME = "segments";
 
-	private Directory directory;
+	private final Directory directory;
+    private final Analyzer analyzer;
+    private final File indexDirectory;
 
-	public FSDirectoryManager(String path) throws IOException {
-		if (!isIndexAvailable(path)) {
-			initializeIndex(path);
-		}
-		directory = FSDirectory.getDirectory(path, false);
+	public FSDirectoryManager(File applicationWorkingDirectory, Analyzer analyzer) throws IOException {
+        this.analyzer = analyzer;
+        indexDirectory = new AutoCreateDirectoriesFile(applicationWorkingDirectory, "index");
+
+        if (!isIndexAvailable()) {
+            initializeIndex();
+        }
+
+		directory = FSDirectory.getDirectory(indexDirectory, false);
 	}
 
 	public Directory getDirectory() {
@@ -49,16 +58,16 @@ public class FSDirectoryManager implements DirectoryManager {
 		}
 	}
 
-	private boolean isIndexAvailable(String path) {
-        File rootPath = new File(path);
-        return rootPath.exists();
-	}
+    private boolean isIndexAvailable() {
+        File indexFile = new File(indexDirectory, INDEX_FILE_NAME);
+        return indexFile.exists();
+    }
 
-	private void initializeIndex(String path) throws IOException {
-        File rootPath = new File(path);
-        rootPath.mkdirs();
-        directory = FSDirectory.getDirectory(path, true);
-		IndexWriter writer = new IndexWriter(directory, new StandardAnalyzer(), true);
+	private void initializeIndex() throws IOException {
+        Directory directory = FSDirectory.getDirectory(indexDirectory, true);
+        LOG.info("Initializing search index: " + directory);
+		IndexWriter writer = new IndexWriter(directory, analyzer, true);
 		writer.close();
+        directory.close();
 	}
 }

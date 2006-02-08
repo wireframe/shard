@@ -13,25 +13,25 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.system;
+package com.codecrate.shard.io;
 
 import java.io.File;
-import java.io.IOException;
 
-import com.codecrate.shard.io.AutoCreateDirectoriesFile;
+/**
+ * simple utility class for creating paths if they don't exist.
+ */
+public class AutoCreateDirectoriesFile extends File {
 
-public class ResourceLocator {
-    private static final String ENV_USER_HOME= "user.home";
-    private static final String APPLICATION_WORKING_DIRECTORY = ".shard";
+    public AutoCreateDirectoriesFile(File parent, String child) {
+        super(parent, child);
 
-    private final File applicationWorkingDirectory;
-
-    public ResourceLocator() {
-        File userHome = new File(System.getProperty(ENV_USER_HOME));
-        applicationWorkingDirectory = new AutoCreateDirectoriesFile(userHome, APPLICATION_WORKING_DIRECTORY);
+        if (!exists()) {
+            mkdirs();
+        }
     }
 
-    public File getApplicationWorkingDirectory() {
-        return applicationWorkingDirectory;
+    public int compareTo(Object arg0) {
+        return super.compareTo((File)arg0);
     }
+
 }

@@ -18,20 +18,25 @@ package com.codecrate.shard.system;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.codecrate.shard.io.AutoCreateDirectoriesFile;
 
-public class ResourceLocator {
-    private static final String ENV_USER_HOME= "user.home";
-    private static final String APPLICATION_WORKING_DIRECTORY = ".shard";
+public class DataSourceConfiguration {
+    private static final Log LOG = LogFactory.getLog(DataSourceConfiguration.class);
+    private static final String DATASOURCE_PREFIX = "jdbc:hsqldb:";
 
-    private final File applicationWorkingDirectory;
+    private final String dataSourceUrl;
 
-    public ResourceLocator() {
-        File userHome = new File(System.getProperty(ENV_USER_HOME));
-        applicationWorkingDirectory = new AutoCreateDirectoriesFile(userHome, APPLICATION_WORKING_DIRECTORY);
+    public DataSourceConfiguration(File applicationWorkingDirectory) throws IOException {
+        File databaseDirectory = new AutoCreateDirectoriesFile(applicationWorkingDirectory, "data");
+
+        dataSourceUrl = DATASOURCE_PREFIX + databaseDirectory.getCanonicalPath() + "/" + "db";
+        LOG.info("Using datasource: " + dataSourceUrl);
     }
 
-    public File getApplicationWorkingDirectory() {
-        return applicationWorkingDirectory;
+    public String getDataSourceUrl() {
+        return dataSourceUrl;
     }
 }
