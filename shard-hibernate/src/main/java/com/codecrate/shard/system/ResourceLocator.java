@@ -16,11 +16,15 @@
 package com.codecrate.shard.system;
 
 import java.io.File;
-import java.io.IOException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.codecrate.shard.io.AutoCreateDirectoriesFile;
 
 public class ResourceLocator {
+    private static final Log LOG = LogFactory.getLog(ResourceLocator.class);
+
     private static final String ENV_USER_HOME= "user.home";
     private static final String APPLICATION_WORKING_DIRECTORY = ".shard";
 
@@ -29,6 +33,7 @@ public class ResourceLocator {
     public ResourceLocator() {
         File userHome = new File(System.getProperty(ENV_USER_HOME));
         applicationWorkingDirectory = new AutoCreateDirectoriesFile(userHome, APPLICATION_WORKING_DIRECTORY);
+        LOG.info("Using " + applicationWorkingDirectory + " as application working directory.");
     }
 
     public File getApplicationWorkingDirectory() {
