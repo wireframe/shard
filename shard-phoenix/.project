@@ -2,10 +2,10 @@
   <name>shard-phoenix</name>
   <comment>d20 gaming engine</comment>
   <projects>
-    <project>shard-transfer</project>
-    <project>shard-hibernate</project>
     <project>shard-dice</project>
     <project>shard-core</project>
+    <project>shard-hibernate</project>
+    <project>shard-transfer</project>
   </projects>
   <buildSpec>
     <buildCommand>

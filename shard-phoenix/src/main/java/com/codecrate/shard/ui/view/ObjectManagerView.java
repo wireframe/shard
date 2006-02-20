@@ -61,7 +61,6 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
 
 import com.codecrate.shard.ui.ShardCommandIds;
 import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
-import com.codecrate.shard.ui.command.task.TaskPaneCommandGroup;
 import com.codecrate.shard.ui.component.SearchOnPauseJTextField;
 import com.codecrate.shard.ui.dragdrop.FileTransferHandler;
 import com.codecrate.shard.ui.form.FormFactory;
@@ -70,6 +69,7 @@ import com.codecrate.shard.ui.table.ReadOnlyGlazedTableModel;
 import com.codecrate.shard.ui.table.StretchWhenEmptyJTable;
 import com.codecrate.shard.util.ComparableComparator;
 import com.codecrate.shard.util.MouseUtil;
+import com.l2fprod.common.springrcp.JTaskPaneCommandGroup;
 import com.l2fprod.common.swing.JTaskPane;
 
 import foxtrot.Job;
@@ -137,7 +137,7 @@ public class ObjectManagerView extends AbstractView {
 
     private JTaskPane getTaskPanel() {
         if (null == taskPanel) {
-        	TaskPaneCommandGroup tasks = (TaskPaneCommandGroup) getWindowCommandManager().getCommandGroup("contextTasks");
+        	JTaskPaneCommandGroup tasks = (JTaskPaneCommandGroup) getWindowCommandManager().getCommandGroup("contextTasks");
         	taskPanel = tasks.createTaskPane();
         }
         return taskPanel;

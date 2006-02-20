@@ -29,7 +29,7 @@
 	</bean>
 
 	<bean id="contextTasks"
-		class="com.codecrate.shard.ui.command.task.TaskPaneFactoryBean">
+		class="com.l2fprod.common.springrcp.JTaskPaneFactoryBean">
 		<property name="members">
 			<list>
 				<ref bean="commonTasks" />
@@ -38,7 +38,7 @@
 	</bean>
 
 	<bean id="commonTasks"
-		class="com.codecrate.shard.ui.command.task.TaskPaneGroupFactoryBean">
+		class="com.l2fprod.common.springrcp.JTaskPaneGroupFactoryBean">
 		<property name="members">
 			<list>
 				<value>newCommand</value>
