@@ -21,7 +21,6 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.modifier.KeyedModifier;
 
 public class DefaultSkillEntryContainer implements SkillEntryContainer {
@@ -88,9 +87,6 @@ public class DefaultSkillEntryContainer implements SkillEntryContainer {
     	if (!hasSkill(skill)) {
     		return false;
     	}
-    	int roll = RandomDice.d20.roll();
-    	
-    	int modifier = getSkillEntry(skill).getModifiedValue();
-    	return dc.isSatisfiedBy(roll + modifier);
+    	return getSkillEntry(skill).rollSkillCheck(dc);
     }
 }

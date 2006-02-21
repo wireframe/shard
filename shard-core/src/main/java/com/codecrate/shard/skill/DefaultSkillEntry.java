@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.skill;
 
+import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.Modifiable;
 import com.codecrate.shard.modifier.ModifiableObject;
@@ -40,5 +41,10 @@ public class DefaultSkillEntry extends ModifiableObject implements Modifiable, S
 	
 	public String toString() {
 	    return skill + "(" + getModifiedValue() + ")";
+	}
+
+	public boolean rollSkillCheck(DifficultyClass dc) {
+    	int roll = RandomDice.d20.roll();
+    	return dc.isSatisfiedBy(roll + getModifiedValue());
 	}
 }

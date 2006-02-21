@@ -34,4 +34,11 @@ public interface SkillEntry extends Modifiable {
      * @return
      */
     int getRank();
+
+    /**
+     * roll a skill check against a difficulty class.
+     * @param dc
+     * @return
+     */
+	boolean rollSkillCheck(DifficultyClass dc);
 }
