@@ -19,6 +19,8 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
+import com.codecrate.shard.dice.MaxValueDice;
+import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.modifier.DefaultModifier;
 import com.codecrate.shard.modifier.DefaultModifierType;
 
@@ -36,5 +38,18 @@ public class DefaultSkillEntryTest extends TestCase {
         entry.addModifier(new DefaultModifier(DefaultModifierType.RANK, 1));
         entry.addModifier(new DefaultModifier(DefaultModifierType.RANK, 1));
         assertEquals(2, entry.getModifiedValue());
+    }
+    
+    public void testSkillModifierUsedToRollSkillCheck() {
+        MockControl mockSkill = MockControl.createControl(Skill.class);
+        Skill skill = (Skill) mockSkill.getMock();
+        mockSkill.replay();
+
+        DefaultSkillEntry entry = new DefaultSkillEntry(skill, new MaxValueDice(RandomDice.d20));
+        entry.addModifier(new DefaultModifier(DefaultModifierType.RANK, 1));
+        
+        DifficultyClass dc = new DifficultyClass(20);
+
+        assertTrue(entry.rollSkillCheck(dc));
     }
 }

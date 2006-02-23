@@ -15,17 +15,16 @@
  */
 package com.codecrate.shard.skill;
 
-import java.util.HashMap;
-
 import junit.framework.TestCase;
 
-public class DefaultSkillEntryContainerTest extends TestCase {
+/**
+ * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
+ */
+public class DifficultyClassTest extends TestCase {
 
-	public void testRollSkillCheckFailsIfDoesNotHaveSkill() {
-		DefaultSkill swim = new DefaultSkill("swim", true, null, true, null);
-		DifficultyClass dc = new DifficultyClass(1);
-		DefaultSkillEntryContainer skills = new DefaultSkillEntryContainer(new HashMap(), 1);
+    public void testSatisfiedByMatchingValue() {
+        DifficultyClass dc = new DifficultyClass(20);
 
-		assertFalse(skills.rollSkillCheck(swim, dc));
-	}
+        assertTrue(dc.isSatisfiedBy(20));
+    }
 }
