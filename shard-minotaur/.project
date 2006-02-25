@@ -1,7 +1,12 @@
 <projectDescription>
   <name>shard-minotaur</name>
   <comment>d20 gaming engine</comment>
-  <projects/>
+  <projects>
+    <project>shard-dice</project>
+    <project>shard-core</project>
+    <project>shard-hibernate</project>
+    <project>shard-sheets</project>
+  </projects>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>
