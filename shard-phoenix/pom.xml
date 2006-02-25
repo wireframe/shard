@@ -51,6 +51,8 @@
       <artifactId>spring-binding</artifactId>
       <version>SNAPSHOT</version>
     </dependency>
+    
+    <!-- foxtrot dependencies -->
     <dependency>
       <groupId>foxtrot</groupId>
       <artifactId>foxtrot</artifactId>

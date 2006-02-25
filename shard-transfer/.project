@@ -2,8 +2,8 @@
   <name>shard-transfer</name>
   <comment>d20 gaming engine</comment>
   <projects>
-    <project>shard-dice</project>
     <project>shard-core</project>
+    <project>shard-dice</project>
   </projects>
   <buildSpec>
     <buildCommand>
