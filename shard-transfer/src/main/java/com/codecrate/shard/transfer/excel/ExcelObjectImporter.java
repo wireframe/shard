@@ -29,6 +29,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.codecrate.shard.transfer.ObjectImporter;
+import com.codecrate.shard.transfer.progress.ProgressMonitor;
 
 public class ExcelObjectImporter implements ObjectImporter {
     private static final String EXCEL_FILE_EXTENSION = "xls";
@@ -47,7 +48,7 @@ public class ExcelObjectImporter implements ObjectImporter {
         return false;
     }
 
-    public Collection importObjects(File file) {
+    public Collection importObjects(File file, ProgressMonitor progress) {
         Collection results = new ArrayList();
 
         try {
@@ -59,6 +60,7 @@ public class ExcelObjectImporter implements ObjectImporter {
             int firstRow = sheet.getFirstRowNum() + 1;
             int lastRow = sheet.getLastRowNum();
 
+            progress.startTask("Import objects from " + file.getName(), lastRow - firstRow);
             for (int currentRow = firstRow; currentRow <= lastRow; currentRow++) {
                 HSSFRow row = sheet.getRow(currentRow);
 
@@ -68,10 +70,14 @@ public class ExcelObjectImporter implements ObjectImporter {
                 } catch (Exception e) {
                     LOG.error("Error importing row: " + currentRow, e);
                 }
+                
+                progress.completeUnitOfWork();
             }
         } catch (Exception e) {
             LOG.error("Error importing file: " + file, e);
         }
+        
+        progress.finish();
 
         return results;
     }

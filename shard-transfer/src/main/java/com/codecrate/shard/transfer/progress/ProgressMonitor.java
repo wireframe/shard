@@ -17,4 +17,20 @@ package com.codecrate.shard.transfer.progress;
 
 public interface ProgressMonitor {
 
+	/**
+	 * start a new task.
+	 * @param description
+	 * @param totalUnitsOfWork
+	 */
+	void startTask(String description, int totalUnitsOfWork);
+
+	/**
+	 * complete a portion of work on the current task.
+	 */
+	void completeUnitOfWork();
+	
+	/**
+	 * finish task even if not all work has been completed.
+	 */
+	void finish();
 }

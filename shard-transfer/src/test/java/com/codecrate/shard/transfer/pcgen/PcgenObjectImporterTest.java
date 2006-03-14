@@ -26,6 +26,7 @@ import com.codecrate.shard.source.Source;
 import com.codecrate.shard.source.SourceDao;
 import com.codecrate.shard.source.SourceFactory;
 import com.codecrate.shard.transfer.FileUtils;
+import com.codecrate.shard.transfer.progress.NullProgressMonitor;
 
 public class PcgenObjectImporterTest extends TestCase {
 
@@ -58,7 +59,7 @@ public class PcgenObjectImporterTest extends TestCase {
 
         File file = FileUtils.getFile("pcgen/pcgen.lst");
         PcgenObjectImporter importer = new PcgenObjectImporter(lineHandler, sourceLineHandler);
-		Collection results = importer.importObjects(file);
+		Collection results = importer.importObjects(file, new NullProgressMonitor());
 
 		assertFalse(results.isEmpty());
         assertEquals(2, results.size());
@@ -93,7 +94,7 @@ public class PcgenObjectImporterTest extends TestCase {
 
         File file = FileUtils.getFile("pcgen/pcgen.lst");
         PcgenObjectImporter importer = new PcgenObjectImporter(lineHandler, sourceLineHandler);
-        Collection results = importer.importObjects(file);
+        Collection results = importer.importObjects(file, new NullProgressMonitor());
 
         assertFalse(results.isEmpty());
         assertEquals(1, results.size());

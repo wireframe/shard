@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.Collection;
 
 import com.codecrate.shard.transfer.ObjectImporter;
+import com.codecrate.shard.transfer.progress.NullProgressMonitor;
 
 public abstract class AbstractObjectManagerCommandAdapter implements ObjectManagerCommandAdapter {
 
@@ -29,7 +30,7 @@ public abstract class AbstractObjectManagerCommandAdapter implements ObjectManag
     }
 
     public void importObjects(File file) {
-        importer.importObjects(file);
+        importer.importObjects(file, new NullProgressMonitor());
     }
 
     public Collection getSupportedImportFileExtensions() {

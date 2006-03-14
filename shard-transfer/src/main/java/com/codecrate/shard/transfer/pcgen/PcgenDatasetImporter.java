@@ -25,6 +25,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.codecrate.shard.transfer.ObjectImporter;
+import com.codecrate.shard.transfer.progress.NullProgressMonitor;
+import com.codecrate.shard.transfer.progress.ProgressMonitor;
 
 /**
  * import a complete pcgen dataset.
@@ -48,26 +50,49 @@ public class PcgenDatasetImporter implements ObjectImporter {
         return true;
     }
 
-    public Collection importObjects(File dataset) {
+    public Collection importObjects(File dataset, ProgressMonitor progress) {
         if (!isDataset(dataset)) {
             LOG.warn(dataset + " is not a dataset.");
         }
         File[] files = dataset.listFiles();
 
+        progress.startTask("Importing dataset " + dataset, countTotalNumberOfFilesToImport(files));
         for (Iterator supportedFileExpressions = importers.keySet().iterator(); supportedFileExpressions.hasNext();) {
             String supportedFileExpression = (String) supportedFileExpressions.next();
             ObjectImporter importer = (ObjectImporter) importers.get(supportedFileExpression);
 
             for (int x = 0; x < files.length; x++) {
                 File file = files[x];
-                if (-1 != file.getName().indexOf(supportedFileExpression)) {
-                    importer.importObjects(file);
+                if (doesFileMatchExtension(supportedFileExpression, file)) {
+                    importer.importObjects(file, new NullProgressMonitor());
+                    
+                    progress.completeUnitOfWork();
                 }
             }
         }
         
+        progress.finish();
         return Collections.EMPTY_LIST;
     }
+
+	private int countTotalNumberOfFilesToImport(File[] files) {
+        int numberOfFiles = 0;
+		for (Iterator supportedFileExpressions = importers.keySet().iterator(); supportedFileExpressions.hasNext();) {
+            String supportedFileExpression = (String) supportedFileExpressions.next();
+
+            for (int x = 0; x < files.length; x++) {
+                File file = files[x];
+                if (doesFileMatchExtension(supportedFileExpression, file)) {
+                	numberOfFiles ++;
+                }
+            }
+        }
+        return numberOfFiles;
+	}
+
+	private boolean doesFileMatchExtension(String supportedFileExpression, File file) {
+		return -1 != file.getName().indexOf(supportedFileExpression);
+	}
 
     private boolean isDataset(File dataset) {
         File[] files = dataset.listFiles();

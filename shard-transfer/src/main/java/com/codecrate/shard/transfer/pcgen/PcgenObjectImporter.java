@@ -18,8 +18,10 @@ package com.codecrate.shard.transfer.pcgen;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -29,6 +31,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.ObjectImporter;
+import com.codecrate.shard.transfer.progress.ProgressMonitor;
 
 public class PcgenObjectImporter implements ObjectImporter {
 	private static final String PCGEN_LST_FILE_EXTENSION = "lst";
@@ -51,10 +54,12 @@ public class PcgenObjectImporter implements ObjectImporter {
         return false;
     }
 
-    public Collection importObjects(File file) {
+    public Collection importObjects(File file, ProgressMonitor progress) {
         Collection results = new ArrayList();
         BufferedReader reader = null;
         Source source = null;
+        
+        progress.startTask("Importing pcgen objects from " + file.getName(), getNumberOfFileLines(file));
         try {
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 
@@ -69,14 +74,32 @@ public class PcgenObjectImporter implements ObjectImporter {
 			    		LOG.error("Error processing line: " + line, e);
 			    	}
 			    }
+                
+                progress.completeUnitOfWork();
 			}
 		} catch (IOException e) {
 			LOG.error("Error importing file: " + file, e);
 		} finally {
 			closeReader(reader);
 		}
+		
+		progress.finish();
 
         return results;
+    }
+    
+    private int getNumberOfFileLines(File file) {
+    	int lines = 0;
+    	try {
+    		long lastByte = file.length();
+    		LineNumberReader lineRead = new LineNumberReader(new FileReader(file));
+    		lineRead.skip(lastByte);
+    		lines = lineRead.getLineNumber() - 1;
+    		lineRead.close();
+    	} catch(IOException e) {
+    		LOG.warn("Error counting the number of lines in file: " + file, e);
+    	}
+    	return lines;
     }
 
     private void closeReader(BufferedReader reader) {

@@ -18,9 +18,11 @@ package com.codecrate.shard.transfer;
 import java.io.File;
 import java.util.Collection;
 
+import com.codecrate.shard.transfer.progress.ProgressMonitor;
+
 public interface ObjectImporter {
 
-	Collection importObjects(File file);
+	Collection importObjects(File file, ProgressMonitor progress);
 
     Collection getSupportedFileExtensions();
 

@@ -22,12 +22,15 @@ import java.util.Collections;
 
 import junit.framework.TestCase;
 
+import com.codecrate.shard.transfer.progress.NullProgressMonitor;
+import com.codecrate.shard.transfer.progress.ProgressMonitor;
+
 public class FileExtensionObjectImporterResolverTest extends TestCase {
 
 	public void testImportWithUnsupportedFileExtensionReturnsEmptyList() {
         File file = FileUtils.getFile("excel/feats.xls");
 		FileExtensionObjectImporterResolver importer = new FileExtensionObjectImporterResolver(Collections.EMPTY_LIST);
-		Collection results = importer.importObjects(file);
+		Collection results = importer.importObjects(file, new NullProgressMonitor());
 
 		assertTrue(results.isEmpty());
 	}
@@ -51,7 +54,7 @@ public class FileExtensionObjectImporterResolverTest extends TestCase {
             this.extension = extension;
         }
 
-        public Collection importObjects(File file) {
+        public Collection importObjects(File file, ProgressMonitor progress) {
             return Collections.EMPTY_LIST;
         }
 

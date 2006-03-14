@@ -24,6 +24,8 @@ import java.util.Iterator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.codecrate.shard.transfer.progress.ProgressMonitor;
+
 public class FileExtensionObjectImporterResolver implements ObjectImporter {
 	private static final Log LOG = LogFactory.getLog(FileExtensionObjectImporterResolver.class);
 
@@ -33,25 +35,30 @@ public class FileExtensionObjectImporterResolver implements ObjectImporter {
 		this.importers = importers;
 	}
 
-	public Collection importObjects(File file) {
+	public Collection importObjects(File file, ProgressMonitor progress) {
 		ObjectImporter importer = (ObjectImporter) getImporterForFile(file);
 		if (null == importer) {
 			LOG.info("No importer found to support file " + file);
 			return Collections.EMPTY_LIST;
 		}
 
-		return importer.importObjects(file);
+		return importer.importObjects(file, progress);
 	}
 
     private ObjectImporter getImporterForFile(File file) {
         if (file.isDirectory()) {
             return getImporterForDirectory();
         }
-        String filename = file.getName();
-        int index = filename.lastIndexOf(".");
-        String extension = filename.substring(index + 1);
+        String extension = getExtension(file);
         return getImporterForExtension(extension);
     }
+
+	private String getExtension(File file) {
+		String filename = file.getName();
+        int index = filename.lastIndexOf(".");
+        String extension = filename.substring(index + 1);
+		return extension;
+	}
 
     private ObjectImporter getImporterForDirectory() {
         for (Iterator it = importers.iterator(); it.hasNext();) {

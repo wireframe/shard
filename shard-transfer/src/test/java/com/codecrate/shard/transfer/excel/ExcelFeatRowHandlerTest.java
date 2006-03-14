@@ -27,6 +27,7 @@ import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
 import com.codecrate.shard.transfer.FileUtils;
 import com.codecrate.shard.transfer.excel.ExcelFeatRowHandler;
+import com.codecrate.shard.transfer.progress.NullProgressMonitor;
 
 public class ExcelFeatRowHandlerTest extends TestCase {
 
@@ -52,7 +53,7 @@ public class ExcelFeatRowHandlerTest extends TestCase {
         mockFeatDao.replay();
 
         File file = FileUtils.getFile("excel/feats.xls");
-        Collection results = new ExcelObjectImporter(new ExcelFeatRowHandler(featFactory, featDao)).importObjects(file);
+        Collection results = new ExcelObjectImporter(new ExcelFeatRowHandler(featFactory, featDao)).importObjects(file, new NullProgressMonitor());
         assertFalse(results.isEmpty());
     }
 
@@ -78,7 +79,7 @@ public class ExcelFeatRowHandlerTest extends TestCase {
         mockFeatDao.replay();
 
         File file = FileUtils.getFile("excel/feats.xls");
-        Collection results = new ExcelObjectImporter(new ExcelFeatRowHandler(featFactory, featDao)).importObjects(file);
+        Collection results = new ExcelObjectImporter(new ExcelFeatRowHandler(featFactory, featDao)).importObjects(file, new NullProgressMonitor());
         assertFalse(results.isEmpty());
     }
 }
