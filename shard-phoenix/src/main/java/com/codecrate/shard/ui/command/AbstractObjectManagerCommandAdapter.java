@@ -19,7 +19,7 @@ import java.io.File;
 import java.util.Collection;
 
 import com.codecrate.shard.transfer.ObjectImporter;
-import com.codecrate.shard.transfer.progress.NullProgressMonitor;
+import com.codecrate.shard.transfer.progress.ProgressMonitor;
 
 public abstract class AbstractObjectManagerCommandAdapter implements ObjectManagerCommandAdapter {
 
@@ -29,8 +29,8 @@ public abstract class AbstractObjectManagerCommandAdapter implements ObjectManag
         this.importer = importer;
     }
 
-    public void importObjects(File file) {
-        importer.importObjects(file, new NullProgressMonitor());
+    public void importObjects(File file, ProgressMonitor progress) {
+        importer.importObjects(file, progress);
     }
 
     public Collection getSupportedImportFileExtensions() {

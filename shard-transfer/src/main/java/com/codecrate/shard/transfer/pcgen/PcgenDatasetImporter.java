@@ -25,7 +25,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.codecrate.shard.transfer.ObjectImporter;
-import com.codecrate.shard.transfer.progress.NullProgressMonitor;
 import com.codecrate.shard.transfer.progress.ProgressMonitor;
 
 /**
@@ -64,7 +63,7 @@ public class PcgenDatasetImporter implements ObjectImporter {
             for (int x = 0; x < files.length; x++) {
                 File file = files[x];
                 if (doesFileMatchExtension(supportedFileExpression, file)) {
-                    importer.importObjects(file, new NullProgressMonitor());
+                    importer.importObjects(file, progress);
                     
                     progress.completeUnitOfWork();
                 }

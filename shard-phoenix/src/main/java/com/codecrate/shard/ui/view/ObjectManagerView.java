@@ -231,7 +231,7 @@ public class ObjectManagerView extends AbstractView {
     private void importFile(final File selectedFile) {
         Job importTask = new Job() {
             public Object run() {
-                commandAdapter.importObjects(selectedFile);
+                commandAdapter.importObjects(selectedFile, new ImportProgressAdapter(getStatusBar().getProgressMonitor()));
                 return null;
             }
         };
