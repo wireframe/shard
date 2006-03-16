@@ -41,8 +41,8 @@ public class PcgenSpellLineHandler extends AbstractPcgenLineHandler {
     	String description = getStringTagValue(DESCRIPTION_TAG_NAME, tags);
     	String school = getStringTagValue(SCHOOL_TAG_NAME, tags);
     	String type = getStringTagValue(SPELL_TYPE_TAG_NAME, tags);
-        boolean isArcane = type.indexOf(ARCANE) != -1;
-        boolean isDivine = type.indexOf(DIVINE) != -1;
+        boolean isArcane = ARCANE.indexOf(type) != -1;
+        boolean isDivine = DIVINE.indexOf(type) != -1;
 
         Spell spell = spellFactory.createSpell(name, description, school, isArcane, isDivine, source);
         return spellDao.saveSpell(spell);

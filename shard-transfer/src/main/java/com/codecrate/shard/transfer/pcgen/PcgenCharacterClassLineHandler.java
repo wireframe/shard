@@ -29,6 +29,7 @@ import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTokenTagParser;
 
 public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
+    private static final String CASTER_LEVEL_TOKEN = "CL";
     private static final int MAX_CLASS_LEVEL = 20;
     private static final String NAME = "CLASS";
     private static final String HIT_DICE = "HD";
@@ -105,7 +106,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     }
 
     private int calculateClassLevelExpression(int level, String expression) {
-        expression = expression.replaceAll("CL", Integer.toString(level));
+        expression = expression.replaceAll(CASTER_LEVEL_TOKEN, Integer.toString(level));
         int divisor = getDivisor(expression);
         int dividend = getDividend(expression);
         int bonus = getBonus(expression);

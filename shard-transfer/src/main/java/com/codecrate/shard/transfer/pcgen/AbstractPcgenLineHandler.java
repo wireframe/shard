@@ -67,7 +67,7 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
     protected String getStringTagValue(String tagName, Map tags) {
         String value = (String) tags.get(tagName);
         if (null == value) {
-            LOG.info("No value found for tag " + tagName);
+            LOG.debug("No value found for tag " + tagName);
         }
         return value;
     }
@@ -79,7 +79,7 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
     protected int getIntTagValue(String tagName, Map tags, int defaultValue) {
         String value = (String) tags.get(tagName);
         if (null == value) {
-            LOG.info("No value found for tag " + tagName + " defaulting to " + defaultValue);
+            LOG.debug("No value found for tag " + tagName + " defaulting to " + defaultValue);
             return defaultValue;
         }
         return Integer.parseInt(value);
@@ -93,7 +93,7 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
     protected boolean getBooleanTagValue(String tagName, Map tags, boolean defaultValue) {
         String value = (String) tags.get(tagName);
         if (null == value) {
-            LOG.info("No value found for tag " + tagName + " defaulting to " + defaultValue);
+            LOG.debug("No value found for tag " + tagName + " defaulting to " + defaultValue);
             return defaultValue;
         }
         return (TRUE_TAG_VALUE.equals(value));
