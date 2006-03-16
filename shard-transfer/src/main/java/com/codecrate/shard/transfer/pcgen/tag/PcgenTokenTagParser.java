@@ -55,7 +55,7 @@ public class PcgenTokenTagParser implements PcgenTagParser {
             if (null != tags.get(tagName)) {
                 String oldValue = (String) tags.get(tagName);
                 tagValue = tagValueAggregator.aggregateValue(oldValue, tagValue);
-                LOG.info("A value is already defined for tag [" + tagName + "].  New tag value is: " + tagValue);
+                LOG.debug("A value is already defined for tag [" + tagName + "].  New tag value is: " + tagValue);
             }
 			tags.put(tagName, tagValue);
 		}

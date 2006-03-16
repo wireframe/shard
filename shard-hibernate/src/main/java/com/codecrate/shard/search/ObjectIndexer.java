@@ -51,7 +51,7 @@ public class ObjectIndexer {
             document.add(Field.Keyword(HibernateObjectSearcher.FIELD_ID, id.toString()));
             document.add(Field.Text(HibernateObjectSearcher.FIELD_TEXT, entity.toString()));
 
-            LOG.info("saving " + document);
+            LOG.debug("saving " + document);
             writer.addDocument(document);
         } catch (IOException e) {
             LOG.error("Error updating index for object " + entity, e);
@@ -80,7 +80,7 @@ public class ObjectIndexer {
             reader = IndexReader.open(directory);
             int numDeleted = reader.delete(new Term("id", id.toString()));
             if (0 < numDeleted) {
-                LOG.info("Removed " + numDeleted + " documents from index " + directory);
+                LOG.debug("Removed " + numDeleted + " documents from index " + directory);
             }
         } catch (IOException e) {
             LOG.error("Error removing documents for " + id + " from index " + directory, e);
@@ -107,7 +107,7 @@ public class ObjectIndexer {
 			for (int currentDocument = 0; currentDocument < numberDocuments; currentDocument++) {
                 reader.delete(currentDocument);
             }
-            LOG.info("Cleaned " + numberDocuments + " documents from index " + directory);
+            LOG.debug("Cleaned " + numberDocuments + " documents from index " + directory);
         } catch (IOException e) {
             LOG.error("Error cleaning index " + directory, e);
         } finally {

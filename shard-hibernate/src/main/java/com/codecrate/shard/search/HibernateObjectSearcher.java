@@ -60,10 +60,10 @@ public class HibernateObjectSearcher extends HibernateTemplate {
             masterQuery.add(new TermQuery(new Term(FIELD_CLASS, target.getName())), REQUIRED, NOT_PROHIBITED);
             masterQuery.add(QueryParser.parse(makeWildcardQuery(query), FIELD_TEXT, analyzer), REQUIRED, NOT_PROHIBITED);
 
-            LOG.info("Searching for " + masterQuery);
+            LOG.debug("Searching for " + masterQuery);
 
             Hits hits = searcher.search(masterQuery);
-            LOG.info("Found " + hits.length() + " matches");
+            LOG.debug("Found " + hits.length() + " matches");
             for (int x = 0; x < hits.length(); x++) {
                 Document document = hits.doc(x);
                 String id = document.getField(FIELD_ID).stringValue();

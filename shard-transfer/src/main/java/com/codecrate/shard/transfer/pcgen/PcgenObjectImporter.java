@@ -64,7 +64,7 @@ public class PcgenObjectImporter implements ObjectImporter {
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 
             while (reader.ready()) {
-			    String line = reader.readLine();
+			    String line = reader.readLine().trim();
                 if (sourceLineHandler.isSourceLine(line)) {
                     source = (Source) sourceLineHandler.handleLine(line, source);
                 } else if (!isEmptyLine(line)) {
@@ -113,7 +113,7 @@ public class PcgenObjectImporter implements ObjectImporter {
     }
 
     private boolean isEmptyLine(String value) {
-        return (null == value || value.trim().length() < 1  || value.startsWith("#"));
+        return (null == value || value.length() < 1  || value.startsWith("#") || value.contains(".MOD"));
     }
 
 
