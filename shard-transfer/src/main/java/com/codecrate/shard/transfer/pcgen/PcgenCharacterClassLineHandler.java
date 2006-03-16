@@ -18,6 +18,8 @@ package com.codecrate.shard.transfer.pcgen;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.nfunk.jep.JEP;
+
 import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.kit.CharacterClass;
@@ -29,7 +31,7 @@ import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTokenTagParser;
 
 public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
-    private static final String CASTER_LEVEL_TOKEN = "CL";
+    private static final String CLASS_LEVEL_TOKEN = "CL";
     private static final int MAX_CLASS_LEVEL = 20;
     private static final String NAME = "CLASS";
     private static final String HIT_DICE = "HD";
@@ -75,10 +77,10 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
             CharacterClass kit = kitFactory.createClass(name, abbreviation, hitDice, source);
             for (int level = 1; level <= maxLevel; level++) {
                 kit.getClassProgression().addLevel(
-                        calculateClassLevelExpression(level, baseAttackBonusProgression),
-                        calculateClassLevelExpression(level, fortitudeSaveProgression),
-                        calculateClassLevelExpression(level, reflexSaveProgression),
-                        calculateClassLevelExpression(level, willpowerSaveProgression));
+                        calculateClassLevelExpression(baseAttackBonusProgression, level),
+                        calculateClassLevelExpression(fortitudeSaveProgression, level),
+                        calculateClassLevelExpression(reflexSaveProgression, level),
+                        calculateClassLevelExpression(willpowerSaveProgression, level));
             }
             return kitDao.saveClass(kit);
     	} else if (isSecondLine(tags)) {
@@ -105,48 +107,14 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
         return (-1 == skillName.indexOf("."));
     }
 
-    private int calculateClassLevelExpression(int level, String expression) {
-        expression = expression.replaceAll(CASTER_LEVEL_TOKEN, Integer.toString(level));
-        int divisor = getDivisor(expression);
-        int dividend = getDividend(expression);
-        int bonus = getBonus(expression);
+    private int calculateClassLevelExpression(String expression, int characterLevel) {
+        JEP parser = new JEP();
+        parser.addStandardFunctions();
+        parser.addStandardConstants();
+        parser.addVariable(CLASS_LEVEL_TOKEN, characterLevel);
+        parser.parseExpression(expression);
 
-        int result = divisor / dividend;
-        return result + bonus;
-    }
-
-    private int getBonus(String expression) {
-        int bonusIndex = expression.indexOf("+");
-        if (-1 != bonusIndex) {
-            String bonus = expression.substring(bonusIndex + 1);
-            return Integer.parseInt(bonus);
-        }
-        return 0;
-    }
-
-    private int getDividend(String expression) {
-        int dividendStart = expression.indexOf("/");
-        if (-1 != dividendStart) {
-            int dividendEnd = expression.indexOf("+");
-            if (-1 == dividendEnd) {
-                dividendEnd = expression.length();
-            }
-            String dividend = expression.substring(dividendStart + 1, dividendEnd);
-            return Integer.parseInt(dividend);
-        }
-        return 1;
-    }
-
-    private int getDivisor(String expression) {
-        int divisorEnd = expression.indexOf("/");
-        if (divisorEnd == -1) {
-            divisorEnd = expression.indexOf("+");
-        }
-        if (divisorEnd == -1) {
-            divisorEnd = expression.length();
-        }
-        String divisor = expression.substring(0, divisorEnd);
-        return Integer.parseInt(divisor);
+        return (int) parser.getValue();
     }
 
     private String getTokenAfterElement(String element, String line) {

@@ -41,7 +41,7 @@ public class PcgenRaceLineHandler extends AbstractPcgenLineHandler {
     public Object handleParsedLine(String name, Map tags, Source source) {
         String favoredClassName = getStringTagValue(TAG_NAME_FAVORED_CLASS, tags);
         CharacterClass favoredClass = null;
-        if (null != favoredClassName && !ANY.equals(favoredClassName)) {
+        if (null != favoredClassName && !ANY.equalsIgnoreCase(favoredClassName)) {
             favoredClass = characterClassDao.getCharacterClass(favoredClassName);
         }
 

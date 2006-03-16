@@ -11,8 +11,8 @@
   <classpathentry kind="var" path="M2_REPO/ehcache/ehcache/0.9/ehcache-0.9.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-collections/commons-collections/2.1/commons-collections-2.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-hibernate/1.2.5/spring-hibernate-1.2.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/cglib/cglib/2.0.2/cglib-2.0.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-hibernate/1.2.5/spring-hibernate-1.2.5.jar"/>
   <classpathentry kind="src" path="/shard-dice"/>
   <classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.1/commons-lang-2.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-dao/1.2.5/spring-dao-1.2.5.jar"/>
@@ -33,20 +33,20 @@
   <classpathentry kind="var" path="M2_REPO/velocity/velocity-dep/1.4/velocity-dep-1.4.jar"/>
   <classpathentry kind="var" path="M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/asm/asm/1.4.3/asm-1.4.3.jar"/>
-  <classpathentry kind="src" path="/shard-hibernate"/>
   <classpathentry kind="var" path="M2_REPO/spring-rcp/spring-richclient/SNAPSHOT/spring-richclient-SNAPSHOT.jar"/>
+  <classpathentry kind="src" path="/shard-hibernate"/>
   <classpathentry kind="var" path="M2_REPO/velocity/velocity/1.4/velocity-1.4.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/1.2.5/spring-context-1.2.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-beans/1.2.5/spring-beans-1.2.5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/1.2.5/spring-context-1.2.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-core/1.2.5/spring-core-1.2.5.jar"/>
   <classpathentry kind="src" path="/shard-sheets"/>
   <classpathentry kind="var" path="M2_REPO/velocity-tools/velocity-tools/1.1/velocity-tools-1.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/easymock/easymock/1.1/easymock-1.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/spring-rcp/spring-sandbox/SNAPSHOT/spring-sandbox-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/easymock/easymock/1.1/easymock-1.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/jgoodies/forms/1.0.5/forms-1.0.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/geronimo-spec/geronimo-spec-jta/1.0-M1/geronimo-spec-jta-1.0-M1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/commons-pool/commons-pool/1.2/commons-pool-1.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/napkinlaf/napkinlaf/1.0-beta-5/napkinlaf-1.0-beta-5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-pool/commons-pool/1.2/commons-pool-1.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/xerces/xerces/2.0.2/xerces-2.0.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-jdbc/1.2.5/spring-jdbc-1.2.5.jar"/>
 </classpath>
