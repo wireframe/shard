@@ -20,6 +20,7 @@ import java.util.Collection;
 import com.codecrate.shard.magic.Spell;
 import com.codecrate.shard.magic.SpellDao;
 import com.codecrate.shard.magic.SpellFactory;
+import com.codecrate.shard.source.SourceDao;
 import com.codecrate.shard.transfer.ObjectImporter;
 
 public class SpellCommandAdapter extends AbstractObjectManagerCommandAdapter
@@ -29,12 +30,14 @@ implements ObjectManagerCommandAdapter {
 	private final SpellFactory spellFactory;
 
 	private String deleteMessagePropertyName;
+    private final SourceDao sourceDao;
 
 	public SpellCommandAdapter(SpellDao spellDao, SpellFactory spellFactory,
-            ObjectImporter importer) {
+            ObjectImporter importer, SourceDao sourceDao) {
         super(importer);
 		this.spellDao = spellDao;
 		this.spellFactory = spellFactory;
+        this.sourceDao = sourceDao;
 	}
 
 	public String[] getColumnNames() {
@@ -51,7 +54,7 @@ implements ObjectManagerCommandAdapter {
 	}
 
 	public Object createObject() {
-		return spellFactory.createSpell("New Spell", "Summary", null, true, false, null);
+		return spellFactory.createSpell("New Spell", "Summary", null, true, false, sourceDao.getCustomSource());
 	}
 
 	public void saveObject(Object object) {

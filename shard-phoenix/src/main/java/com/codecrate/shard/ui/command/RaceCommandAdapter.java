@@ -20,6 +20,7 @@ import java.util.Collection;
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.race.RaceFactory;
+import com.codecrate.shard.source.SourceDao;
 import com.codecrate.shard.transfer.ObjectImporter;
 
 public class RaceCommandAdapter extends AbstractObjectManagerCommandAdapter {
@@ -28,12 +29,14 @@ public class RaceCommandAdapter extends AbstractObjectManagerCommandAdapter {
 	private final RaceFactory raceFactory;
 
 	private String deleteMessagePropertyName;
+    private final SourceDao sourceDao;
 
 	public RaceCommandAdapter(RaceDao raceDao, RaceFactory raceFactory,
-            ObjectImporter importer) {
+            ObjectImporter importer, SourceDao sourceDao) {
         super(importer);
 		this.raceDao = raceDao;
 		this.raceFactory = raceFactory;
+        this.sourceDao = sourceDao;
 	}
 
 	public String[] getColumnNames() {
@@ -48,7 +51,7 @@ public class RaceCommandAdapter extends AbstractObjectManagerCommandAdapter {
 	}
 
 	public Object createObject() {
-		return raceFactory.createRace("New Race", null, null);
+		return raceFactory.createRace("New Race", null, sourceDao.getCustomSource());
 	}
 
 	public void saveObject(Object object) {

@@ -22,6 +22,7 @@ import com.codecrate.shard.equipment.Coin;
 import com.codecrate.shard.equipment.Item;
 import com.codecrate.shard.equipment.ItemDao;
 import com.codecrate.shard.equipment.ItemFactory;
+import com.codecrate.shard.source.SourceDao;
 import com.codecrate.shard.transfer.ObjectImporter;
 
 public class ItemCommandAdapter extends AbstractObjectManagerCommandAdapter implements ObjectManagerCommandAdapter {
@@ -30,12 +31,14 @@ public class ItemCommandAdapter extends AbstractObjectManagerCommandAdapter impl
 	private final ItemFactory itemFactory;
 
 	private String deleteMessagePropertyName;
+    private final SourceDao sourceDao;
 
 	public ItemCommandAdapter(ItemDao itemDao, ItemFactory itemFactory,
-            ObjectImporter importer) {
+            ObjectImporter importer, SourceDao sourceDao) {
 		super(importer);
 		this.itemDao = itemDao;
 		this.itemFactory = itemFactory;
+        this.sourceDao = sourceDao;
 	}
 
 	public String[] getColumnNames() {
@@ -52,7 +55,7 @@ public class ItemCommandAdapter extends AbstractObjectManagerCommandAdapter impl
 	}
 
 	public Object createObject() {
-		return itemFactory.createItem("New Item", new BigDecimal(0), Coin.COPPER_PIECE.getCost(), null);
+		return itemFactory.createItem("New Item", new BigDecimal(0), Coin.COPPER_PIECE.getCost(), sourceDao.getCustomSource());
 	}
 
 	public void saveObject(Object object) {

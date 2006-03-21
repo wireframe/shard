@@ -21,6 +21,7 @@ import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.CharacterClassDao;
 import com.codecrate.shard.kit.CharacterClassFactory;
+import com.codecrate.shard.source.SourceDao;
 import com.codecrate.shard.transfer.ObjectImporter;
 
 public class CharacterClassCommandAdapter extends AbstractObjectManagerCommandAdapter {
@@ -29,13 +30,16 @@ public class CharacterClassCommandAdapter extends AbstractObjectManagerCommandAd
 	private final CharacterClassFactory characterClassFactory;
 
 	private String deleteMessagePropertyName;
+    private final SourceDao sourceDao;
 
 	public CharacterClassCommandAdapter(CharacterClassDao characterClassDao,
             CharacterClassFactory characterClassFactory,
-            ObjectImporter importer) {
+            ObjectImporter importer, 
+            SourceDao sourceDao) {
 		super(importer);
 		this.characterClassDao = characterClassDao;
 		this.characterClassFactory = characterClassFactory;
+        this.sourceDao = sourceDao;
 	}
 
 	public String[] getColumnNames() {
@@ -51,7 +55,7 @@ public class CharacterClassCommandAdapter extends AbstractObjectManagerCommandAd
 	}
 
 	public Object createObject() {
-		return characterClassFactory.createClass("New Kit", "", new RandomDice(8), null);
+		return characterClassFactory.createClass("New Kit", "", new RandomDice(8), sourceDao.getCustomSource());
 	}
 
 	public void saveObject(Object object) {

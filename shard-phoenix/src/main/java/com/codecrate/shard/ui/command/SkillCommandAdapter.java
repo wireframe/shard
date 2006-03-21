@@ -20,6 +20,7 @@ import java.util.Collection;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
+import com.codecrate.shard.source.SourceDao;
 import com.codecrate.shard.transfer.ObjectImporter;
 
 public class SkillCommandAdapter extends AbstractObjectManagerCommandAdapter
@@ -29,12 +30,14 @@ implements ObjectManagerCommandAdapter {
 	private final SkillFactory skillFactory;
 
 	private String deleteMessagePropertyName;
+    private final SourceDao sourceDao;
 
 	public SkillCommandAdapter(SkillDao skillDao, SkillFactory skillFactory,
-            ObjectImporter importer) {
+            ObjectImporter importer, SourceDao sourceDao) {
 		super(importer);
         this.skillDao = skillDao;
 		this.skillFactory = skillFactory;
+        this.sourceDao = sourceDao;
 	}
 
 	public String[] getColumnNames() {
@@ -51,7 +54,7 @@ implements ObjectManagerCommandAdapter {
 	}
 
 	public Object createObject() {
-		return skillFactory.createSkill("New Skill", null, true, false, null);
+		return skillFactory.createSkill("New Skill", null, true, false, sourceDao.getCustomSource());
 	}
 
 	public void saveObject(Object object) {

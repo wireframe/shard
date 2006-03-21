@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-phoenix-context.xml,v 1.7 2006/03/21 03:41:17 wireframe Exp $ -->
+<!-- $Id: shard-phoenix-context.xml,v 1.8 2006/03/21 04:01:28 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -158,6 +158,7 @@
 		        <constructor-arg><ref bean="skillDao" /></constructor-arg>
 		        <constructor-arg><ref bean="skillDao" /></constructor-arg>
 		        <constructor-arg><ref bean="objectImporter" /></constructor-arg>
+		        <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteSkillDialog</value>
 		        </property>
@@ -220,6 +221,7 @@
 		        <constructor-arg><ref bean="spellDao" /></constructor-arg>
 		        <constructor-arg><ref bean="spellDao" /></constructor-arg>
 		        <constructor-arg><ref bean="spellImporter" /></constructor-arg>
+		        <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteSpellDialog</value>
 		        </property>
@@ -250,6 +252,7 @@
 		        <constructor-arg><ref bean="itemDao" /></constructor-arg>
 		        <constructor-arg><ref bean="itemDao" /></constructor-arg>
 		        <constructor-arg><ref bean="itemImporter" /></constructor-arg>
+		        <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteItemDialog</value>
 		        </property>
@@ -280,6 +283,7 @@
 		        <constructor-arg><ref bean="raceDao" /></constructor-arg>
 		        <constructor-arg><ref bean="raceDao" /></constructor-arg>
     			<constructor-arg><ref bean="objectImporter" /></constructor-arg>
+		        <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteRaceDialog</value>
 		        </property>
@@ -311,6 +315,7 @@
 		        <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
 		        <constructor-arg><ref bean="characterClassDao" /></constructor-arg>
     			<constructor-arg><ref bean="objectImporter" /></constructor-arg>
+    			<constructor-arg><ref bean="sourceDao" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteCharacterClassDialog</value>
 		        </property>
