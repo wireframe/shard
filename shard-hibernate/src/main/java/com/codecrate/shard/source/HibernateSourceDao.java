@@ -21,6 +21,7 @@ import java.util.List;
 import net.sf.hibernate.Criteria;
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
+import net.sf.hibernate.expression.Example;
 import net.sf.hibernate.expression.Expression;
 
 import org.springframework.orm.hibernate.HibernateCallback;
@@ -38,6 +39,25 @@ public class HibernateSourceDao extends HibernateDaoSupport implements SourceDao
                 Criteria query = session.createCriteria(Source.class);
                 query.add(Expression.eq("name", name));
                 return query.uniqueResult();
+            }
+        });
+
+        return source;
+    }
+
+    public Source getCustomSource() {
+        Source source = (Source) getHibernateTemplate().execute(new HibernateCallback() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Example example = Example.create(Source.CUSTOM);
+
+                Criteria query = session.createCriteria(Source.class);
+                query.add(example);
+                Object result = query.uniqueResult();
+                if (null == result) {
+                    logger.info("Loading custom source" + Source.CUSTOM);
+                    result = saveSource(Source.CUSTOM);
+                }
+                return result;
             }
         });
 

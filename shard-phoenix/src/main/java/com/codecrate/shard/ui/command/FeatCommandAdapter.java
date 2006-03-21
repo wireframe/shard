@@ -20,6 +20,7 @@ import java.util.Collection;
 import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
+import com.codecrate.shard.source.SourceDao;
 import com.codecrate.shard.transfer.ObjectImporter;
 
 public class FeatCommandAdapter extends AbstractObjectManagerCommandAdapter
@@ -29,12 +30,13 @@ implements ObjectManagerCommandAdapter {
 	private final FeatFactory featFactory;
 
 	private String deleteMessagePropertyName;
+    private final SourceDao sourceDao;
 
-	public FeatCommandAdapter(FeatDao featDao, FeatFactory featFactory,
-            ObjectImporter importer) {
+	public FeatCommandAdapter(FeatDao featDao, FeatFactory featFactory, ObjectImporter importer, SourceDao sourceDao) {
         super(importer);
 		this.featDao = featDao;
 		this.featFactory = featFactory;
+        this.sourceDao = sourceDao;
 	}
 
 	public String[] getColumnNames() {
@@ -50,7 +52,7 @@ implements ObjectManagerCommandAdapter {
 	}
 
 	public Object createObject() {
-		return featFactory.createFeat("New Feat", "Summary", "General", null);
+		return featFactory.createFeat("New Feat", "Summary", "General", sourceDao.getCustomSource());
 	}
 
 	public void saveObject(Object object) {

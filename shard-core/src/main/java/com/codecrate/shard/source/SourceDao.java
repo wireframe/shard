@@ -24,4 +24,11 @@ public interface SourceDao {
     Source getSource(String name);
 
     Source saveSource(Source source);
+    
+    /**
+     * get the default 'custom' source.
+     * the custom source is the default source used when creating new content.
+     * @return
+     */
+    Source getCustomSource();
 }

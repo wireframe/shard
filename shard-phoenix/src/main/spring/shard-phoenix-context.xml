@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-phoenix-context.xml,v 1.6 2006/01/24 03:47:25 wireframe Exp $ -->
+<!-- $Id: shard-phoenix-context.xml,v 1.7 2006/03/21 03:41:17 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -189,6 +189,7 @@
 		        <constructor-arg><ref bean="featDao" /></constructor-arg>
 		        <constructor-arg><ref bean="featDao" /></constructor-arg>
 		        <constructor-arg><ref bean="featImporter" /></constructor-arg>
+		        <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 		        <property name="deleteMessagePropertyName">
 		          <value>confirmDeleteFeatDialog</value>
 		        </property>

@@ -20,6 +20,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 public class Source implements Comparable {
 
+    public static final Source CUSTOM = new Source("Custom", "custom", "http://shard.codecrate.com");
     private String id;
     private String name;
     private String abbreviation;
