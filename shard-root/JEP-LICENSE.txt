@@ -1,0 +1,11 @@
+I hereby permit use of JEP version 2.3.x under the terms of the Apache
+License 2.0 (http://www.apache.org/licenses/LICENSE-2.0) for the project
+shard (http://shard.codecrate.com). Although JEP is otherwise licensed
+under the GPL and a commercial license, special permission is granted
+upon request by Ryan Sonnek. The license is valid for patches to version
+2.3.0 (i.e. version 2.3.1, 2.3.2...) but not for future releases such as
+JEP 2.4.x or JEP 3.x.
+
+Sincerely
+
+Nathan Funk
