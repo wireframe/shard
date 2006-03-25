@@ -47,6 +47,6 @@ public class MultipliedDice extends DiceSupport implements Dice {
     }
     
     public String toString() {
-        return dice.toString() + "x" + multiplier;
+        return dice.toString() + "*" + multiplier;
     }
 }

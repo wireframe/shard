@@ -34,8 +34,8 @@ public class DiceExpressionTest extends TestCase {
     
     public void testDiceParsesMultiplesWithModifier() {
         DiceExpression dice = new DiceExpression("2d4+1");
-        assertEquals(9, dice.getMaxValue());
         assertEquals(3, dice.getMinValue());
+        assertEquals(9, dice.getMaxValue());
     }
     
     public void testDiceParsesModifier() {
@@ -49,19 +49,12 @@ public class DiceExpressionTest extends TestCase {
     }
     
     public void testDiceParsesMultiplier() {
-        DiceExpression dice = new DiceExpression("d4x2");
+        DiceExpression dice = new DiceExpression("d4*2");
         assertEquals(8, dice.getMaxValue());
     }
-    
-    public void testCannotParseMultiplierAndModifier() {
-        try {
-             new DiceExpression("d4x2+1");
-            fail("Exception should be thrown");
-        } catch (IllegalArgumentException expected) { }
-    }
-    
+
     public void testSpacesAreTrimmed() {
-        DiceExpression dice = new DiceExpression("d4 +   1");
+        DiceExpression dice = new DiceExpression("1d4 +   1");
         assertEquals(5, dice.getMaxValue());
         assertEquals("1d4+1", dice.toString());
     }
@@ -71,5 +64,17 @@ public class DiceExpressionTest extends TestCase {
         Dice other = new ModifiedDice(new RandomDice(4), 1);
         
         assertTrue(dice.equals(other));
+    }
+    
+    public void testExpressionParsingOfLargerDice() {
+        DiceExpression dice = new DiceExpression("1d20");
+        assertEquals(1, dice.getMinValue());
+        assertEquals(20, dice.getMaxValue());
+    }
+
+    public void testMultiDiceExpressionsAreEvaluated() {
+        DiceExpression dice = new DiceExpression("d4+d6");
+        assertEquals(2, dice.getMinValue());
+        assertEquals(10, dice.getMaxValue());
     }
 }

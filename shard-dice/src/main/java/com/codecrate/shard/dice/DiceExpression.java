@@ -15,6 +15,14 @@
  */
 package com.codecrate.shard.dice;
 
+import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.nfunk.jep.JEP;
+import org.nfunk.jep.ParseException;
+import org.nfunk.jep.function.PostfixMathCommand;
+
 
 /**
  * parses a dice expression into a set of dice.
@@ -23,94 +31,102 @@ package com.codecrate.shard.dice;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DiceExpression extends DiceSupport implements Dice {
-	private static final String DICE_CHARACTER = "d";
-    private static final String MULTIPLIER = "x";
-    private static final String MODIFIER_NEGATIVE = "-";
-    private static final String MODIFIER_POSITIVE = "+";
-    
-    private static final int DEFAULT_MULTIPLIER = 1;
-    private static final int DEFAULT_MODIFIER = 0;
-    
-    private Dice dice;
-    
-    public DiceExpression(String diceExpression) {
-        diceExpression = diceExpression.replaceAll(" ", "");
-        dice = new RandomDice(parseDiceSides(diceExpression));
-        dice = new MultipleDice(dice, parseNumberOfDice(diceExpression));
+    private final String expression;
+    private final String functionExpression;
+    private final JEP parser = new JEP();
 
-        int modifier = parseModifier(diceExpression);
-        int multiplier = parseMultiplier(diceExpression);
-        if (DEFAULT_MODIFIER !=  modifier && DEFAULT_MULTIPLIER != multiplier) {
-            throw new IllegalArgumentException("Cannot use both modifier and multiplier on dice: " + diceExpression);
-        } else if (DEFAULT_MODIFIER != modifier) {
-            dice = new ModifiedDice(dice, modifier);
-        } else if (DEFAULT_MULTIPLIER != multiplier) {
-            dice = new MultipliedDice(dice, multiplier);
+    public DiceExpression(String diceExpression) {
+        this.expression = stripSpaces(diceExpression);
+        this.functionExpression = convertToFunctionExpression(diceExpression);
+
+        parser.addStandardFunctions();
+        parser.addStandardConstants();
+        parser.addFunction("d", new DiceFunction());
+        parser.setImplicitMul(true);
+        parser.parseExpression(functionExpression);
+
+        if (parser.hasError()) {
+            throw new IllegalArgumentException(parser.getErrorInfo());
         }
     }
-    
+
+    private String stripSpaces(String diceExpression) {
+        return diceExpression.replaceAll(" ", "");
+    }
+
+    /**
+     * convert dice expressions to JEP function expressions.
+     * example: change 1d6 to 1d(6)
+     * @param expression
+     * @return
+     */
+    private String convertToFunctionExpression(String expression) {
+        String patternStr = "d(\\d*)";
+        String replaceStr = "d($1)";
+        Pattern pattern = Pattern.compile(patternStr);
+        Matcher matcher = pattern.matcher(expression);
+
+        String newExpression = matcher.replaceAll(replaceStr);
+        return newExpression.replaceAll(" ", "");
+    }
+
     public int getMaxValue() {
-        return dice.getMaxValue();
+        String patternStr = "d\\((\\d*)\\)";
+        String replaceStr = "($1)";
+        Pattern pattern = Pattern.compile(patternStr);
+        Matcher matcher = pattern.matcher(functionExpression);
+
+        String maximumString = matcher.replaceAll(replaceStr);
+
+        JEP parser = new JEP();
+        parser.addStandardFunctions();
+        parser.addStandardConstants();
+        parser.addFunction("d", new DiceFunction());
+        parser.setImplicitMul(true);
+        parser.parseExpression(maximumString);
+
+        return (int) parser.getValue();
     }
     
     public int getMinValue() {
-        return dice.getMinValue();
+        String patternStr = "d\\(\\d*\\)";
+        String replaceStr = "y";
+        Pattern pattern = Pattern.compile(patternStr);
+        Matcher matcher = pattern.matcher(functionExpression);
+
+        String minimumString = matcher.replaceAll(replaceStr);
+
+        JEP parser = new JEP();
+        parser.addStandardFunctions();
+        parser.addStandardConstants();
+        parser.addFunction("d", new DiceFunction());
+        parser.setImplicitMul(true);
+        parser.addVariable("y", 1);
+        parser.parseExpression(minimumString);
+
+        return (int) parser.getValue();
     }
     
     public int roll() {
-        return dice.roll();
+        return (int) parser.getValue();
     }
     
     public String toString() {
-        return dice.toString();
+        return expression;
     }
-    
-    private static int parseDiceSides(String diceExpression) {
-        int indexOfDice = diceExpression.indexOf(DICE_CHARACTER);
-        
-        int indexOfNextModifier = diceExpression.indexOf(MODIFIER_POSITIVE);
-        if (-1 == indexOfNextModifier) {
-            indexOfNextModifier = diceExpression.indexOf(MODIFIER_NEGATIVE);
+
+
+    private class DiceFunction extends PostfixMathCommand {
+        public DiceFunction() {
+            numberOfParameters = 1;
         }
-        if (-1 == indexOfNextModifier) {
-            indexOfNextModifier = diceExpression.indexOf(MULTIPLIER);
+
+        public void run(Stack inStack) throws ParseException {
+            Double param = (Double) inStack.pop();
+
+            RandomDice dice = new RandomDice(param.intValue());
+            inStack.push(new Double(dice.roll()));
         }
-        if (-1 == indexOfNextModifier) {
-            indexOfNextModifier = diceExpression.length();
-        }
-        
-        return Integer.parseInt(diceExpression.substring(indexOfDice + 1, indexOfNextModifier));
-    }
-    
-    private static int parseNumberOfDice(String diceExpression) {
-        int multiple = 1;
-        
-        //get multiple dice
-        int indexOfDice = diceExpression.indexOf(DICE_CHARACTER);
-        if (0 <  indexOfDice) {
-            multiple = Integer.parseInt(diceExpression.substring(0, indexOfDice));
-        }
-        return multiple;
-    }
-    
-    private static int parseModifier(String diceExpression) {
-        int modifier = DEFAULT_MODIFIER;
-        int indexOfPositive = diceExpression.indexOf(MODIFIER_POSITIVE);
-        int indexOfNegative = diceExpression.indexOf(MODIFIER_NEGATIVE);
-        if (0 <  indexOfPositive) {
-            modifier = Integer.parseInt(diceExpression.substring(indexOfPositive + 1, diceExpression.length()));
-        } else if (0 <  indexOfNegative) {
-            modifier = Integer.parseInt(diceExpression.substring(indexOfNegative + 1, diceExpression.length())) * -1;
-        }
-        return modifier;
-    }
-    
-    private static int parseMultiplier(String diceExpression) {
-        int multiplier = DEFAULT_MULTIPLIER;
-        int indexOfMultiplier = diceExpression.indexOf(MULTIPLIER);
-        if (0 <  indexOfMultiplier) {
-            multiplier = Integer.parseInt(diceExpression.substring(indexOfMultiplier + 1, diceExpression.length()));
-        }
-        return multiplier;
+
     }
 }
