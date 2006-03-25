@@ -33,21 +33,26 @@ import org.nfunk.jep.function.PostfixMathCommand;
 public class DiceExpression extends DiceSupport implements Dice {
     private final String expression;
     private final String functionExpression;
-    private final JEP parser = new JEP();
 
     public DiceExpression(String diceExpression) {
         this.expression = stripSpaces(diceExpression);
-        this.functionExpression = convertToFunctionExpression(diceExpression);
+        this.functionExpression = convertToFunctionExpression(expression);
 
+        JEP parser = getExpressionParser();
+        parser.parseExpression(functionExpression);
+
+        if (parser.hasError()) {
+            throw new IllegalArgumentException("Error parsing dice expression [" + expression + "] " + parser.getErrorInfo());
+        }
+    }
+
+    private JEP getExpressionParser() {
+        JEP parser = new JEP();
         parser.addStandardFunctions();
         parser.addStandardConstants();
         parser.addFunction("d", new DiceFunction());
         parser.setImplicitMul(true);
-        parser.parseExpression(functionExpression);
-
-        if (parser.hasError()) {
-            throw new IllegalArgumentException(parser.getErrorInfo());
-        }
+        return parser;
     }
 
     private String stripSpaces(String diceExpression) {
@@ -67,47 +72,50 @@ public class DiceExpression extends DiceSupport implements Dice {
         Matcher matcher = pattern.matcher(expression);
 
         String newExpression = matcher.replaceAll(replaceStr);
-        return newExpression.replaceAll(" ", "");
+        return newExpression;
     }
 
     public int getMaxValue() {
+        String maximumString = replaceDiceExpressionWithMaximumValue();
+
+        JEP parser = getExpressionParser();
+        parser.parseExpression(maximumString);
+
+        return (int) parser.getValue();
+    }
+
+    private String replaceDiceExpressionWithMaximumValue() {
         String patternStr = "d\\((\\d*)\\)";
         String replaceStr = "($1)";
         Pattern pattern = Pattern.compile(patternStr);
         Matcher matcher = pattern.matcher(functionExpression);
 
         String maximumString = matcher.replaceAll(replaceStr);
-
-        JEP parser = new JEP();
-        parser.addStandardFunctions();
-        parser.addStandardConstants();
-        parser.addFunction("d", new DiceFunction());
-        parser.setImplicitMul(true);
-        parser.parseExpression(maximumString);
-
-        return (int) parser.getValue();
+        return maximumString;
     }
     
     public int getMinValue() {
-        String patternStr = "d\\(\\d*\\)";
-        String replaceStr = "y";
-        Pattern pattern = Pattern.compile(patternStr);
-        Matcher matcher = pattern.matcher(functionExpression);
+        String minimumString = replaceDiceFunctionWithMinimumValue();
 
-        String minimumString = matcher.replaceAll(replaceStr);
-
-        JEP parser = new JEP();
-        parser.addStandardFunctions();
-        parser.addStandardConstants();
-        parser.addFunction("d", new DiceFunction());
-        parser.setImplicitMul(true);
-        parser.addVariable("y", 1);
+        JEP parser = getExpressionParser();
         parser.parseExpression(minimumString);
 
         return (int) parser.getValue();
     }
+
+    private String replaceDiceFunctionWithMinimumValue() {
+        String patternStr = "d\\(\\d*\\)";
+        String replaceStr = "(1)";
+        Pattern pattern = Pattern.compile(patternStr);
+        Matcher matcher = pattern.matcher(functionExpression);
+
+        String minimumString = matcher.replaceAll(replaceStr);
+        return minimumString;
+    }
     
     public int roll() {
+        JEP parser = getExpressionParser();
+        parser.parseExpression(functionExpression);
         return (int) parser.getValue();
     }
     
@@ -116,7 +124,7 @@ public class DiceExpression extends DiceSupport implements Dice {
     }
 
 
-    private class DiceFunction extends PostfixMathCommand {
+    private static class DiceFunction extends PostfixMathCommand {
         public DiceFunction() {
             numberOfParameters = 1;
         }

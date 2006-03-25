@@ -77,4 +77,11 @@ public class DiceExpressionTest extends TestCase {
         assertEquals(2, dice.getMinValue());
         assertEquals(10, dice.getMaxValue());
     }
+    
+    public void testInvalidDiceExpressionThrowsException() {
+        try {
+            new DiceExpression("asdf");
+            fail("Exception should be thrown for invalid dice expression");
+        } catch (IllegalArgumentException expected) { }
+    }
 }
