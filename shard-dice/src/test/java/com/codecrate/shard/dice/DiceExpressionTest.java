@@ -15,6 +15,9 @@
  */
 package com.codecrate.shard.dice;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import junit.framework.TestCase;
 
 /**
@@ -83,5 +86,15 @@ public class DiceExpressionTest extends TestCase {
             new DiceExpression("asdf");
             fail("Exception should be thrown for invalid dice expression");
         } catch (IllegalArgumentException expected) { }
+    }
+    
+    public void testAllValuesAreRolled() {
+    	DiceExpression dice = new DiceExpression("2d4");
+    	Set rolls = new HashSet();
+    	for (int x = 0; x < 100; x++) {
+			rolls.add(new Integer(dice.roll()));
+		}
+    	
+    	assertEquals(7, rolls.size());
     }
 }
