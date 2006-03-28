@@ -27,11 +27,13 @@ public class DiceExpressionTest extends TestCase {
 
     public void testDiceParsesSides() {
         DiceExpression dice = new DiceExpression("d4");
+        assertEquals(1, dice.getMinValue());
         assertEquals(4, dice.getMaxValue());
     }
     
     public void testDiceParsesMultiples() {
         DiceExpression dice = new DiceExpression("2d4");
+        assertEquals(2, dice.getMinValue());
         assertEquals(8, dice.getMaxValue());
     }
     
@@ -43,22 +45,24 @@ public class DiceExpressionTest extends TestCase {
     
     public void testDiceParsesModifier() {
         DiceExpression dice = new DiceExpression("d4+1");
+        assertEquals(2, dice.getMinValue());
         assertEquals(5, dice.getMaxValue());
     }
     
     public void testDiceParsesNegativeModifier() {
         DiceExpression dice = new DiceExpression("d4-1");
+        assertEquals(1, dice.getMinValue());
         assertEquals(3, dice.getMaxValue());
     }
     
     public void testDiceParsesMultiplier() {
         DiceExpression dice = new DiceExpression("d4*2");
+        assertEquals(2, dice.getMinValue());
         assertEquals(8, dice.getMaxValue());
     }
 
-    public void testSpacesAreTrimmed() {
+    public void testStringRepresentationTrimsSpaces() {
         DiceExpression dice = new DiceExpression("1d4 +   1");
-        assertEquals(5, dice.getMaxValue());
         assertEquals("1d4+1", dice.toString());
     }
     
@@ -75,11 +79,11 @@ public class DiceExpressionTest extends TestCase {
         assertEquals(20, dice.getMaxValue());
     }
 
-    public void testMultiDiceExpressionsAreEvaluated() {
-        DiceExpression dice = new DiceExpression("d4+d6");
-        assertEquals(2, dice.getMinValue());
-        assertEquals(10, dice.getMaxValue());
-    }
+//    public void testMultiDiceExpressionsAreEvaluated() {
+//        DiceExpression dice = new DiceExpression("d4+d6");
+//        assertEquals(2, dice.getMinValue());
+//        assertEquals(10, dice.getMaxValue());
+//    }
     
     public void testInvalidDiceExpressionThrowsException() {
         try {

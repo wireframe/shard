@@ -33,6 +33,13 @@
       <artifactId>xstream</artifactId>
       <version>1.1.2</version>
     </dependency>
+
+    <!-- JEP dependencies -->
+    <dependency>
+      <groupId>jep</groupId>
+      <artifactId>jep</artifactId>
+      <version>2.24</version>
+    </dependency>
   </dependencies>
 
   <build>

@@ -18,7 +18,6 @@
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-beans/1.2.5/spring-beans-1.2.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/1.2.5/spring-context-1.2.5.jar"/>
   <classpathentry kind="src" path="/shard-core"/>
-  <classpathentry kind="var" path="M2_REPO/jep/jep/2.24/jep-2.24.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-core/1.2.5/spring-core-1.2.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/oro/oro/2.0.8/oro-2.0.8.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-mock/1.2.5/spring-mock-1.2.5.jar"/>
