@@ -4,14 +4,14 @@
   <classpathentry kind="src" path="src/test/resources" output="target/test-classes"/>
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-  <classpathentry kind="src" path="/shard-core"/>
   <classpathentry kind="var" path="M2_REPO/jep/jep/2.24/jep-2.24.jar"/>
+  <classpathentry kind="src" path="/shard-core"/>
   <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/xstream/xstream/1.1.2/xstream-1.1.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-collections/commons-collections/2.1/commons-collections-2.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/easymock/easymock/1.1/easymock-1.1.jar"/>
   <classpathentry kind="src" path="/shard-dice"/>
-  <classpathentry kind="var" path="M2_REPO/poi/poi/2.5.1-final-20040804/poi-2.5.1-final-20040804.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.1/commons-lang-2.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/poi/poi/2.5.1-final-20040804/poi-2.5.1-final-20040804.jar"/>
 </classpath>
