@@ -41,7 +41,7 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
 
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.source.SourceDao;
-import com.codecrate.shard.ui.table.ReadOnlyGlazedTableModel;
+import com.codecrate.shard.ui.table.ReadOnlyEventTableModel;
 import com.codecrate.shard.util.ComparableComparator;
 
 public class CharacterClassFormFactory implements FormFactory {
@@ -139,7 +139,7 @@ public class CharacterClassFormFactory implements FormFactory {
         }
 
         private TableModel getModel() {
-            TableModel model = new ReadOnlyGlazedTableModel(getSortedLevels(), getMessageSource(), new String[] {
+            TableModel model = new ReadOnlyEventTableModel(getSortedLevels(), getMessageSource(), new String[] {
                 "level",
                 "baseAttackBonus",
                 "fortitudeSaveBonus",
@@ -193,7 +193,7 @@ public class CharacterClassFormFactory implements FormFactory {
         }
 
         private TableModel getModel() {
-            TableModel model = new ReadOnlyGlazedTableModel(getSortedLevels(), getMessageSource(), new String[] {
+            TableModel model = new ReadOnlyEventTableModel(getSortedLevels(), getMessageSource(), new String[] {
                 "name",
                 "source",
             });

@@ -42,7 +42,7 @@ public class CharacterClassCommandAdapter extends AbstractObjectManagerCommandAd
         this.sourceDao = sourceDao;
 	}
 
-	public String[] getColumnNames() {
+	public String[] getPropertyNames() {
 		return new String[] {
 				"name"
 				, "abbreviation"

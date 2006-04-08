@@ -27,29 +27,9 @@
 
     <!-- spring-rcp dependencies -->
     <dependency>
-      <groupId>spring-rcp</groupId>
-      <artifactId>spring-richclient</artifactId>
-      <version>SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>spring-rcp</groupId>
-      <artifactId>spring-richclient-resources</artifactId>
-      <version>SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>spring-rcp</groupId>
-      <artifactId>spring-richclient-sandbox</artifactId>
-      <version>SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>spring-rcp</groupId>
-      <artifactId>spring-sandbox</artifactId>
-      <version>SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>spring-rcp</groupId>
-      <artifactId>spring-binding</artifactId>
-      <version>SNAPSHOT</version>
+      <groupId>org.springframework.richclient</groupId>
+      <artifactId>spring-richclient-support</artifactId>
+      <version>0.1.0</version>
     </dependency>
     
     <!-- foxtrot dependencies -->
@@ -57,18 +37,6 @@
       <groupId>foxtrot</groupId>
       <artifactId>foxtrot</artifactId>
       <version>2.0</version>
-    </dependency>
-
-    <!-- jgoodies dependencies -->
-    <dependency>
-      <groupId>jgoodies</groupId>
-      <artifactId>looks</artifactId>
-      <version>1.3.1</version>
-    </dependency>
-    <dependency>
-      <groupId>jgoodies</groupId>
-      <artifactId>forms</artifactId>
-      <version>1.0.5</version>
     </dependency>
 
 	<!-- l2fprod-common dependencies -->
@@ -82,20 +50,6 @@
 	  <artifactId>l2fprod-common-springrcp</artifactId>
 	  <version>0.2-dev-20060219</version>
 	</dependency>
-
-    <!-- javahelp dependencies -->
-    <dependency>
-      <groupId>javahelp</groupId>
-      <artifactId>javahelp</artifactId>
-      <version>2.0.2</version>
-    </dependency>
-
-    <!-- glazedlists dependencies -->
-    <dependency>
-      <groupId>glazedlists</groupId>
-      <artifactId>glazedlists</artifactId>
-      <version>0.9.6</version>
-    </dependency>
   </dependencies>
 
   <build>

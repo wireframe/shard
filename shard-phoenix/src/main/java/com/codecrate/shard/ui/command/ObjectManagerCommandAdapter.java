@@ -43,7 +43,7 @@ public interface ObjectManagerCommandAdapter {
 
     Collection getObjects();
 
-    String[] getColumnNames();
+    String[] getPropertyNames();
 
     Collection getSupportedImportFileExtensions();
 

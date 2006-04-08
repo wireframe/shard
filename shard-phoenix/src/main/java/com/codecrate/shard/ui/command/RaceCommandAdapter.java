@@ -39,7 +39,7 @@ public class RaceCommandAdapter extends AbstractObjectManagerCommandAdapter {
         this.sourceDao = sourceDao;
 	}
 
-	public String[] getColumnNames() {
+	public String[] getPropertyNames() {
 		return new String[] {
 				"name"
                 , "source"

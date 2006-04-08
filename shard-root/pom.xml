@@ -103,6 +103,26 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-mock</artifactId>
+        <version>1.2.6</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>1.2.6</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.richclient</groupId>
+        <artifactId>spring-richclient-support</artifactId>
+        <version>0.1.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>  
 
   <distributionManagement>
     <repository>
@@ -119,6 +139,14 @@
       <id>codecrate-maven-repo</id>
       <name>Codecrate Maven Repository</name>
       <url>http://maven.codecrate.com</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>spring-rich-client-maven-repo</id>
+      <name>Spring Rich Client Maven Repository</name>
+      <url>http://spring-rich-c.sourceforge.net/maven2repository</url>
     </repository>
   </repositories>
 

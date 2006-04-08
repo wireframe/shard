@@ -15,7 +15,7 @@
  */
 package com.codecrate.shard.ui.table;
 
-import ca.odell.glazedlists.Matcher;
+import ca.odell.glazedlists.matchers.Matcher;
 
 public class AlwaysMatchMatcher implements Matcher {
 

@@ -41,7 +41,7 @@ public class ItemCommandAdapter extends AbstractObjectManagerCommandAdapter impl
         this.sourceDao = sourceDao;
 	}
 
-	public String[] getColumnNames() {
+	public String[] getPropertyNames() {
 		return new String[] {
 				"name"
 				, "weight"

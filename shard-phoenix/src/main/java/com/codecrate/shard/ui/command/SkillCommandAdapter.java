@@ -40,7 +40,7 @@ implements ObjectManagerCommandAdapter {
         this.sourceDao = sourceDao;
 	}
 
-	public String[] getColumnNames() {
+	public String[] getPropertyNames() {
 		return new String[] {
 				"name"
 				, "ability"

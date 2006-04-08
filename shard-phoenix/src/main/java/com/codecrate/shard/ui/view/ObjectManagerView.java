@@ -54,9 +54,12 @@ import org.springframework.richclient.util.PopupMenuMouseListener;
 
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.FilterList;
-import ca.odell.glazedlists.Matcher;
+import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.SortedList;
+import ca.odell.glazedlists.gui.TableFormat;
+import ca.odell.glazedlists.matchers.Matcher;
 import ca.odell.glazedlists.swing.EventSelectionModel;
+import ca.odell.glazedlists.swing.EventTableModel;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 
 import com.codecrate.shard.ui.ShardCommandIds;
@@ -65,7 +68,7 @@ import com.codecrate.shard.ui.component.SearchOnPauseJTextField;
 import com.codecrate.shard.ui.dragdrop.FileTransferHandler;
 import com.codecrate.shard.ui.form.FormFactory;
 import com.codecrate.shard.ui.table.AlwaysMatchMatcher;
-import com.codecrate.shard.ui.table.ReadOnlyGlazedTableModel;
+import com.codecrate.shard.ui.table.ReadOnlyEventTableModel;
 import com.codecrate.shard.ui.table.StretchWhenEmptyJTable;
 import com.codecrate.shard.util.ComparableComparator;
 import com.codecrate.shard.util.MouseUtil;
@@ -294,7 +297,7 @@ public class ObjectManagerView extends AbstractView {
     private EventSelectionModel getSelectionModel() {
     	if (null == selectionModel) {
     		selectionModel = new EventSelectionModel(getSortedObjects());
-    	    selectionModel.setSelectionMode(EventSelectionModel.MULTIPLE_INTERVAL_SELECTION_DEFENSIVE);
+    	    selectionModel.setSelectionMode(EventSelectionModel.MULTIPLE_INTERVAL_SELECTION);
     	    selectionModel.addListSelectionListener(new ListSelectionListener() {
 
                 public void valueChanged(ListSelectionEvent event) {
@@ -328,12 +331,12 @@ public class ObjectManagerView extends AbstractView {
 
     private TableModel getModel() {
         if (null == model) {
-            model = new ReadOnlyGlazedTableModel(getSortedObjects(), getMessageSource(), commandAdapter.getColumnNames());
+            model = new ReadOnlyEventTableModel(getSortedObjects(), getMessageSource(), commandAdapter.getPropertyNames());
         }
         return model;
     }
 
-	private void fireSearch() {
+    private void fireSearch() {
 		final Collection searchResults = commandAdapter.searchObjects(getQuickSearchInput().getSearchableText());
 		getFilteredObjects().setMatcher(new Matcher() {
 
