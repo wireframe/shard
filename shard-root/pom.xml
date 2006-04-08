@@ -120,6 +120,12 @@
         <groupId>org.springframework.richclient</groupId>
         <artifactId>spring-richclient-support</artifactId>
         <version>0.1.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
     </dependencies>
   </dependencyManagement>  
