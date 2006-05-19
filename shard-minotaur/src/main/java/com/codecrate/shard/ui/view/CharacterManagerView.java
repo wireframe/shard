@@ -24,8 +24,8 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,19 +45,27 @@ import com.codecrate.shard.ui.ShardCommandIds;
 public class CharacterManagerView extends AbstractView implements WizardListener {
 	private static final Log LOGGER = LogFactory.getLog(CharacterManagerView.class);
 
-	private JLabel label;
-
     private PlayerCharacter character;
 
     private PrintCommandExecutor printExecutor;
     private VelocityEngine velocityEngine;
 
+    private JTabbedPane tabbedPane;
+
     protected JComponent createControl() {
         JPanel view = new JPanel();
-        view.add(getLabel(), BorderLayout.CENTER);
+        view.setLayout(new BorderLayout());
+        view.add(getTabbedPane(), BorderLayout.CENTER);
         return view;
     }
     
+    private JTabbedPane getTabbedPane() {
+        if (null == tabbedPane) {
+            tabbedPane = new JTabbedPane();
+        }
+        return tabbedPane;
+    }
+
     protected void registerLocalCommandExecutors(PageComponentContext context) {
         context.register(ShardCommandIds.PRINT, getPrintCommand());
     }
@@ -107,22 +115,9 @@ public class CharacterManagerView extends AbstractView implements WizardListener
        }
     }
 
-    private JLabel getLabel() {
-    	if (null == label) {
-    		label = new JLabel();
-    	}
-    	return label;
-    }
-    
 	public void onPerformFinish(Wizard wizard, boolean arg1) {
 		this.character = ((NewCharacterWizard)wizard).getCharacter();
-    	try {
-			Template template = velocityEngine.getTemplate("default.vm");
-			PrintCharacterAction printAction = new PrintCharacterAction(character , template);
-			getLabel().setText(printAction.render().toString());
-		} catch (Exception e) {
-			LOGGER.warn("Error rendering new character.", e);
-		}
+        getTabbedPane().add(new PlayerCharacterPanel(character));
 	}
 
 	public void onPerformCancel(Wizard wizard, boolean arg1) {
