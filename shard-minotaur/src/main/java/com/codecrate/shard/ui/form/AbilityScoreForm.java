@@ -40,9 +40,9 @@ public class AbilityScoreForm extends AbstractForm {
         formBuilder.row();
         formBuilder.add("abilities.constitution.value");
         formBuilder.row();
-        formBuilder.add("abilities.wisdom.value");
-        formBuilder.row();
         formBuilder.add("abilities.intelligence.value");
+        formBuilder.row();
+        formBuilder.add("abilities.wisdom.value");
         formBuilder.row();
         formBuilder.add("abilities.charisma.value");
         formBuilder.row();
