@@ -29,7 +29,7 @@
 	<dependency>
       <groupId>napkinlaf</groupId>
       <artifactId>napkinlaf</artifactId>
-      <version>1.0-beta-5</version>
+      <version>1.0</version>
 	</dependency>
 
     <!-- spring-rcp dependencies -->
