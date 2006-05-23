@@ -113,7 +113,7 @@ public class PcgenObjectImporter implements ObjectImporter {
     }
 
     private boolean isEmptyLine(String value) {
-        return (null == value || value.length() < 1  || value.startsWith("#") || value.contains(".MOD"));
+        return (null == value || value.length() < 1  || value.startsWith("#") || -1 != value.indexOf(".MOD"));
     }
 
 
