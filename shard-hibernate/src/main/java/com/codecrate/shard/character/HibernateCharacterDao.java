@@ -16,23 +16,21 @@
 package com.codecrate.shard.character;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
-import com.codecrate.shard.character.bio.Age;
-import com.codecrate.shard.character.bio.CummulativeAgeCategory;
-import com.codecrate.shard.character.bio.DefaultAge;
 import com.codecrate.shard.character.bio.DefaultCharacterBio;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.DefaultItemEntryContainer;
 import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.movement.DefaultEncumberance;
 import com.codecrate.shard.movement.Encumberance;
-import com.codecrate.shard.race.DefaultRace;
 import com.codecrate.shard.race.Race;
+import com.codecrate.shard.race.RaceDao;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -40,25 +38,33 @@ import com.codecrate.shard.race.Race;
 public class HibernateCharacterDao extends HibernateDaoSupport implements CharacterDao, CharacterFactory {
 
 	private final AbilityScoreDao abilityScoreDao;
+	private final RaceDao raceDao;
 
-	public HibernateCharacterDao(AbilityScoreDao abilityScoreDao) {
+	public HibernateCharacterDao(AbilityScoreDao abilityScoreDao, RaceDao raceDao) {
 		this.abilityScoreDao = abilityScoreDao;
+        this.raceDao = raceDao;
 	}
 
 	public PlayerCharacter createCharacter(String name) {
 		DefaultCharacterBio bio = new DefaultCharacterBio(name);
-		Race race = null;
-		Age age = new DefaultAge(18, 100, CummulativeAgeCategory.ADULT);
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
 		ItemEntryContainer inventory = new DefaultItemEntryContainer(new ArrayList());
 		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
 		Deity deity = null;
 
-		return new DefaultPlayerCharacter(abilities, race, inventory, encumberance, alignment, bio, deity);
+		return new DefaultPlayerCharacter(abilities, getFirstRace(), inventory, encumberance, alignment, bio, deity);
 	}
 
-	public PlayerCharacter saveCharacter(PlayerCharacter character) {
+	private Race getFirstRace() {
+        Collection races = raceDao.getRaces();
+        if (!races.isEmpty()) {
+            return (Race) races.iterator().next();
+        }
+        return null;
+    }
+
+    public PlayerCharacter saveCharacter(PlayerCharacter character) {
         String id = (String) getHibernateTemplate().save(character);
         return (PlayerCharacter) getHibernateTemplate().load(DefaultPlayerCharacter.class, id);
 	}

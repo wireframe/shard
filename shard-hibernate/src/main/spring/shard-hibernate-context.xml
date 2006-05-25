@@ -208,6 +208,9 @@
   	      <constructor-arg>
   	        <ref bean="abilityScoreDao"/>
 	      </constructor-arg>
+  	      <constructor-arg>
+  	        <ref bean="raceDao"/>
+	      </constructor-arg>
   	      <property name="sessionFactory">
 	        <ref bean="sessionFactory"/>
 	      </property>
