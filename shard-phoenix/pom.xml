@@ -97,6 +97,35 @@
           <workDirectory>target/temp-bin</workDirectory>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <configuration>
+          <!-- system properties only needed to prevent NPE -->
+		  <systemProperties>
+			<systemProperty>
+				<key>propkey</key>
+				<value>propvalue</value>
+			</systemProperty>
+		  </systemProperties>
+          <mainClass>com.codecrate.shard.ShardPhoenix</mainClass>
+          <keepAlive>true</keepAlive>
+        </configuration>
+      </plugin>
+<!--
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptorRefs>
+            <value>jar-with-dependencies</value>
+          </descriptorRefs>
+          <manifest>
+            <mainClass>com.codecrate.shard.ShardPhoenix</mainClass>
+            <addClasspath>true</addClasspath>
+          </manifest>
+        </configuration>
+      </plugin>
+-->
     </plugins>
   </build>
 </model>

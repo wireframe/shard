@@ -62,5 +62,24 @@
         </includes>
       </resource>
     </resources>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <configuration>
+          <!-- system properties only needed to prevent NPE -->
+		  <systemProperties>
+			<systemProperty>
+				<key>propkey</key>
+				<value>propvalue</value>
+			</systemProperty>
+		  </systemProperties>
+          <mainClass>com.codecrate.shard.ShardMinotaur</mainClass>
+          <keepAlive>true</keepAlive>
+        </configuration>
+      </plugin>
+
+    </plugins>
   </build>
 </model>
