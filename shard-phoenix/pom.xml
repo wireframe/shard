@@ -97,6 +97,7 @@
           <workDirectory>target/temp-bin</workDirectory>
         </configuration>
       </plugin>
+      <!-- support exec:java to run application -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
