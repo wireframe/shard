@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 
 import com.codecrate.shard.character.PlayerCharacter;
 import java.awt.GridLayout;
+import javax.swing.JTable;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
 
 public class PlayerCharacterPanel extends JPanel {
 
@@ -35,7 +38,29 @@ public class PlayerCharacterPanel extends JPanel {
     private JLabel dexterityValue = null;
     private JLabel jLabel10 = null;
     private JLabel strengthValue = null;
-    /**
+	private JLabel charsimaBonusValue = null;
+	private JLabel constitutionBonusValue = null;
+	private JLabel stengthBonusValue = null;
+	private JLabel wisdomBonusValue = null;
+	private JLabel intelegenceBonusValue = null;
+	private JLabel dextarityBonusValue = null;
+	private JPanel Appearance = null;
+	private JLabel haircolorValue = null;
+	private JLabel heightScript = null;
+	private JLabel eyecolorScript = null;
+	private JLabel weightScript = null;
+	private JLabel weightValue = null;
+	private JLabel haircolorScript = null;
+	private JLabel heightValue = null;
+	private JLabel eyecolorValue = null;
+	private JLabel ageScript = null;
+	private JLabel skincolorScript = null;
+	private JLabel ageValue = null;
+	private JLabel skincolorValue = null;
+	private JButton levelUp = null;
+	private JScrollPane description = null;
+	private JScrollPane bio = null;
+	/**
      * This is the default constructor
      */
     public PlayerCharacterPanel() {
@@ -72,16 +97,20 @@ public class PlayerCharacterPanel extends JPanel {
         thumbnailImage = new JLabel();
         thumbnailImage.setPreferredSize(new java.awt.Dimension(150,150));
         thumbnailImage.setBounds(new java.awt.Rectangle(5,5,150,150));
-        ImageIcon icon = new ImageIcon(new ImageIcon("/home/rsonnek/260_02_kl2.jpg").getImage().getScaledInstance(150, -1, Image.SCALE_DEFAULT));
+        ImageIcon icon = new ImageIcon(new ImageIcon("C:/Documents and Settings/Tyler/My Documents/My Pictures/games/dnd/beastman3.jpg").getImage().getScaledInstance(150, -1, Image.SCALE_DEFAULT));
         thumbnailImage.setIcon(icon);
         this.setLayout(null);
         this.setName("Thor the Almighty");
         this.setPreferredSize(new java.awt.Dimension(400,200));
-        this.setSize(new java.awt.Dimension(501,331));
+        this.setSize(new java.awt.Dimension(587,331));
         this.add(thumbnailImage, null);
         this.add(characterNameValue, null);
         this.add(getBasicInfoPanel(), null);
         this.add(getJPanel(), null);
+        this.add(getAppearance(), null);
+        this.add(getLevelUp(), null);
+        this.add(getDescription(), null);
+        this.add(getBio(), null);
         
     }
 
@@ -138,6 +167,18 @@ public class PlayerCharacterPanel extends JPanel {
      */
     private JPanel getJPanel() {
         if (jPanel == null) {
+            dextarityBonusValue = new JLabel();
+            dextarityBonusValue.setText("+3");
+            intelegenceBonusValue = new JLabel();
+            intelegenceBonusValue.setText("-6");
+            wisdomBonusValue = new JLabel();
+            wisdomBonusValue.setText("+4");
+            stengthBonusValue = new JLabel();
+            stengthBonusValue.setText("+4");
+            constitutionBonusValue = new JLabel();
+            constitutionBonusValue.setText("+1");
+            charsimaBonusValue = new JLabel();
+            charsimaBonusValue.setText("-1");
             strengthValue = new JLabel();
             strengthValue.setText("18");
             jLabel10 = new JLabel();
@@ -167,21 +208,123 @@ public class PlayerCharacterPanel extends JPanel {
             jPanel = new JPanel();
             jPanel.setLayout(gridLayout1);
             jPanel.setBounds(new java.awt.Rectangle(6,165,151,151));
-            jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.black,2), "Ability Scores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, null));
+            jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.black,2), "Ability Scores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12), new java.awt.Color(51,51,51)));
             jPanel.add(jLabel4, null);
             jPanel.add(strengthValue, null);
+            jPanel.add(stengthBonusValue, null);
             jPanel.add(jLabel10, null);
             jPanel.add(dexterityValue, null);
+            jPanel.add(dextarityBonusValue, null);
             jPanel.add(jLabel8, null);
             jPanel.add(constitutionValue, null);
+            jPanel.add(constitutionBonusValue, null);
             jPanel.add(jLabel3, null);
             jPanel.add(intelligenceValue, null);
+            jPanel.add(intelegenceBonusValue, null);
             jPanel.add(jLabel, null);
             jPanel.add(wisdomValue, null);
+            jPanel.add(wisdomBonusValue, null);
             jPanel.add(jLabel5, null);
             jPanel.add(charismaValue, null);
+            jPanel.add(charsimaBonusValue, null);
         }
         return jPanel;
     }
+
+	/**
+	 * This method initializes Appearance	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getAppearance() {
+		if (Appearance == null) {
+			skincolorValue = new JLabel();
+			skincolorValue.setText("Pale");
+			ageValue = new JLabel();
+			ageValue.setText("21");
+			skincolorScript = new JLabel();
+			skincolorScript.setText("Skin Color:");
+			ageScript = new JLabel();
+			ageScript.setText("Age:");
+			eyecolorValue = new JLabel();
+			eyecolorValue.setText("Blue");
+			heightValue = new JLabel();
+			heightValue.setText("5'11");
+			haircolorScript = new JLabel();
+			haircolorScript.setText("HairColor:");
+			weightValue = new JLabel();
+			weightValue.setText("180");
+			weightScript = new JLabel();
+			weightScript.setText("Weight:");
+			eyecolorScript = new JLabel();
+			eyecolorScript.setText("Eye Color:");
+			GridLayout gridLayout2 = new GridLayout();
+			gridLayout2.setRows(2);
+			heightScript = new JLabel();
+			heightScript.setText("Height:");
+			haircolorValue = new JLabel();
+			haircolorValue.setText("Blond");
+			Appearance = new JPanel();
+			Appearance.setLayout(gridLayout2);
+			Appearance.setBounds(new java.awt.Rectangle(165,120,392,60));
+			Appearance.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.black,1), "Appearance", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12), new java.awt.Color(51,51,51)));
+			Appearance.add(heightScript, null);
+			Appearance.add(heightValue, null);
+			Appearance.add(eyecolorScript, null);
+			Appearance.add(eyecolorValue, null);
+			Appearance.add(skincolorScript, null);
+			Appearance.add(skincolorValue, null);
+			Appearance.add(weightScript, null);
+			Appearance.add(weightValue, null);
+			Appearance.add(haircolorScript, null);
+			Appearance.add(haircolorValue, null);
+			Appearance.add(ageScript, null);
+			Appearance.add(ageValue, null);
+		}
+		return Appearance;
+	}
+
+	/**
+	 * This method initializes levelUp	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getLevelUp() {
+		if (levelUp == null) {
+			levelUp = new JButton();
+			levelUp.setBounds(new java.awt.Rectangle(480,45,91,27));
+			levelUp.setFont(new java.awt.Font("Dialog", java.awt.Font.BOLD | java.awt.Font.ITALIC, 12));
+			levelUp.setText("Level Up");
+		}
+		return levelUp;
+	}
+
+	/**
+	 * This method initializes description	
+	 * 	
+	 * @return javax.swing.JScrollPane	
+	 */
+	private JScrollPane getDescription() {
+		if (description == null) {
+			description = new JScrollPane();
+			description.setBounds(new java.awt.Rectangle(165,190,392,36));
+			description.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.black,1), "Description", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12), new java.awt.Color(51,51,51)));
+		}
+		return description;
+	}
+
+	/**
+	 * This method initializes bio	
+	 * 	
+	 * @return javax.swing.JScrollPane	
+	 */
+	private JScrollPane getBio() {
+		if (bio == null) {
+			bio = new JScrollPane();
+			bio.setBounds(new java.awt.Rectangle(165,232,392,84));
+			bio.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.black,1), "Bio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12), new java.awt.Color(51,51,51)));
+		}
+		return bio;
+	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
