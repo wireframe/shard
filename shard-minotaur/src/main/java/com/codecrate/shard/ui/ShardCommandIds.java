@@ -22,4 +22,5 @@ public class ShardCommandIds {
 
     public static final String NEW = "newCommand";
 	public static final String PRINT = "printCommand";
+    public static final String OPEN = "openCommand";
 }

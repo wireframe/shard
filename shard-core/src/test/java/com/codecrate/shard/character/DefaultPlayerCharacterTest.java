@@ -45,7 +45,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
         DefaultCharacterClass kit = new DefaultCharacterClass("test kit", "", null, 0, null, null);
         kit.getClassProgression().addLevel(1, 2, 3, 4);
 
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, null, encumberance, null, null, null);
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter("big bill", abilities, race, null, encumberance, null, null);
         character.getCharacterProgression().addLevel(kit, 1, new ArrayList());
 
 		assertEquals(2, character.getEffectiveCharacterLevel());
@@ -77,7 +77,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
 
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(null);
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, race, null, encumberance, null, null, null);
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter("uncle sam", abilities, race, null, encumberance, null, null);
         character.getCharacterProgression().addLevel(kit, 1, new ArrayList());
 
 		assertEquals(3, character.getBaseAttackBonus());

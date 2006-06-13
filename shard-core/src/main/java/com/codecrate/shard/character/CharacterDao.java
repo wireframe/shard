@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.character;
 
+import java.util.Collection;
+
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
@@ -25,4 +27,5 @@ public interface CharacterDao {
      */
     PlayerCharacter saveCharacter(PlayerCharacter character);
 
+    Collection getCharacters();
 }

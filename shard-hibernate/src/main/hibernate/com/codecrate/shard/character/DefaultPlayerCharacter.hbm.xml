@@ -28,6 +28,11 @@
 		 cascade="all"
 		 class="com.codecrate.shard.character.DefaultCharacterProgression"
 		 access="field" />
+		 
+        <property name="name"
+         column="NAME"
+		 not-null="true"
+         access="field"/>
     </class>
 
 </hibernate-mapping>

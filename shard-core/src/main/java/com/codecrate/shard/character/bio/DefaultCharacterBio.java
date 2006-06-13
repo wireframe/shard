@@ -32,6 +32,12 @@ public class DefaultCharacterBio implements CharacterBio {
     private Color hairColor;
     private Color eyeColor;
     
+    /**
+     * private hibernate constructor.
+     */
+    private DefaultCharacterBio() {
+    }
+
     public DefaultCharacterBio(String name) {
     	this.name = name;
     }

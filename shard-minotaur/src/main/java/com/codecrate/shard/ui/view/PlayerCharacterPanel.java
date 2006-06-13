@@ -1,19 +1,20 @@
 package com.codecrate.shard.ui.view;
 
+import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import com.codecrate.shard.character.PlayerCharacter;
-import java.awt.GridLayout;
-import javax.swing.JTable;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
 
 public class PlayerCharacterPanel extends JPanel {
 
+    private PlayerCharacter character;
+    
     private JLabel thumbnailImage = null;
     private JLabel characterNameValue = null;
     private JPanel basicInfoPanel = null;
@@ -60,6 +61,7 @@ public class PlayerCharacterPanel extends JPanel {
 	private JButton levelUp = null;
 	private JScrollPane description = null;
 	private JScrollPane bio = null;
+
 	/**
      * This is the default constructor
      */
@@ -70,19 +72,22 @@ public class PlayerCharacterPanel extends JPanel {
 
     public PlayerCharacterPanel(PlayerCharacter character) {
         this();
+        
+        this.character = character;
+        
         this.setName(character.getBio().getName());
         characterNameValue.setText(character.getBio().getName());
         alignmentValue.setText(character.getAlignment().getAbbreviation());
         raceValue.setText(character.getRace().getName());
-        classValue.setText(character.getCharacterProgression().getDescription());
-        levelValue.setText(Integer.toString(character.getCharacterProgression().getCharacterLevel()));
-        
-        strengthValue.setText(Integer.toString(character.getAbilities().getStrength().getModifiedValue()));
-        dexterityValue.setText(Integer.toString(character.getAbilities().getDexterity().getModifiedValue()));
-        constitutionValue.setText(Integer.toString(character.getAbilities().getConstitution().getModifiedValue()));
-        intelligenceValue.setText(Integer.toString(character.getAbilities().getIntelligence().getModifiedValue()));
-        wisdomValue.setText(Integer.toString(character.getAbilities().getWisdom().getModifiedValue()));
-        charismaValue.setText(Integer.toString(character.getAbilities().getCharisma().getModifiedValue()));
+//        classValue.setText(character.getCharacterProgression().getDescription());
+//        levelValue.setText(Integer.toString(character.getCharacterProgression().getCharacterLevel()));
+//        
+//        strengthValue.setText(Integer.toString(character.getAbilities().getStrength().getModifiedValue()));
+//        dexterityValue.setText(Integer.toString(character.getAbilities().getDexterity().getModifiedValue()));
+//        constitutionValue.setText(Integer.toString(character.getAbilities().getConstitution().getModifiedValue()));
+//        intelligenceValue.setText(Integer.toString(character.getAbilities().getIntelligence().getModifiedValue()));
+//        wisdomValue.setText(Integer.toString(character.getAbilities().getWisdom().getModifiedValue()));
+//        charismaValue.setText(Integer.toString(character.getAbilities().getCharisma().getModifiedValue()));
     }
 
     /**
@@ -326,5 +331,9 @@ public class PlayerCharacterPanel extends JPanel {
 		}
 		return bio;
 	}
+
+    public PlayerCharacter getCharacter() {
+        return character;
+    }
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-minotaur-context.xml,v 1.3 2006/05/20 13:15:03 wireframe Exp $ -->
+<!-- $Id: shard-minotaur-context.xml,v 1.4 2006/06/13 02:58:30 wireframe Exp $ -->
 <beans>
 	
 	<bean id="application" 
@@ -133,6 +133,9 @@
 			<map>
 				<entry key="velocityEngine">
 					<ref bean="velocityEngine"/>
+				</entry>
+				<entry key="characterDao">
+					<ref bean="characterDao"/>
 				</entry>
 				<entry key="newCharacterWizard">
 				    <ref bean="newCharacterWizard" />

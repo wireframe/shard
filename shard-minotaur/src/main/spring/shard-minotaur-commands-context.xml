@@ -8,6 +8,7 @@
 		<property name="sharedCommandIds">
 			<list>
 				<value>newCommand</value>
+				<value>openCommand</value>
 				<value>printCommand</value>
 			</list>
 		</property>
@@ -30,6 +31,7 @@
 			<list>
 				<ref bean="newCommand" />
 				<value>separator</value>
+				<value>openCommand</value>
 				<value>printCommand</value>
 				<value>separator</value>
 				<bean class="org.springframework.richclient.command.support.ExitCommand"/>

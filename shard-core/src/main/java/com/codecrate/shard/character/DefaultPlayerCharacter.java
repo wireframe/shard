@@ -15,14 +15,22 @@
  */
 package com.codecrate.shard.character;
 
+import java.awt.Color;
+import java.awt.Image;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
 import com.codecrate.shard.armorclass.DexterityArmorClass;
+import com.codecrate.shard.character.bio.Age;
 import com.codecrate.shard.character.bio.CharacterBio;
+import com.codecrate.shard.character.bio.DefaultGender;
+import com.codecrate.shard.character.bio.Gender;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.feat.FeatContainer;
@@ -38,7 +46,7 @@ import com.codecrate.shard.skill.SkillEntryContainer;
  *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DefaultPlayerCharacter implements PlayerCharacter {
+public class DefaultPlayerCharacter implements PlayerCharacter, Comparable {
     private Deity deity;
     private CharacterBio bio;
     private BigDecimal challengeRating;
@@ -57,10 +65,22 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 	private SavingThrowEntryContainer savingThrows;
 	private Initiative initiative;
 
+    //bio
+    private Age age;
+    private String name;
+    private Gender gender;
+    private String backstory;
+    private Image image;
+    private String height;
+    private String weight;
+    private Color hairColor;
+    private Color eyeColor;
+
 	/**
 	 * hibernate constructor.
 	 */
 	private DefaultPlayerCharacter() {
+        this.bio = new DefaultCharacterBio();
 	}
 
     /**
@@ -69,16 +89,16 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
      * @param skills skills for the character.
      * @param challengeRating challengeRating for the character.
      */
-    public DefaultPlayerCharacter(AbilityScoreContainer abilities,
+    public DefaultPlayerCharacter(String name, AbilityScoreContainer abilities,
     		Race race,
     		ItemEntryContainer inventory, Encumberance encumberance,
-    		Alignment alignment, CharacterBio bio, Deity deity) {
+    		Alignment alignment, Deity deity) {
         this.race = race;
         this.abilities = abilities;
         this.deity = deity;
         this.inventory = inventory;
         this.alignment = alignment;
-        this.bio = bio;
+        this.bio = new DefaultCharacterBio(name, DefaultGender.MALE);
         this.progression = new DefaultCharacterProgression(this);
         this.encumberance = encumberance;
 
@@ -94,6 +114,29 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
     public String toString() {
         return bio.toString();
     }
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (!(object instanceof DefaultPlayerCharacter)) {
+            return false;
+        }
+        DefaultPlayerCharacter target = (DefaultPlayerCharacter) object;
+        return new EqualsBuilder()
+            .append(name, target.name)
+            .isEquals();
+    }
+    public int hashCode() {
+        return new HashCodeBuilder(3, 7)
+        .append(name)
+        .toHashCode();
+    }
+    public int compareTo(Object object) {
+        DefaultPlayerCharacter target = (DefaultPlayerCharacter) object;
+        return name.compareTo(target.name);
+    }
+
     public CharacterBio getBio() {
         return bio;
     }
@@ -171,5 +214,123 @@ public class DefaultPlayerCharacter implements PlayerCharacter {
 
     public void setAlignment(Alignment alignment) {
     	this.alignment = alignment;
+    }
+
+    private class DefaultCharacterBio implements CharacterBio {
+        
+        /**
+         * private hibernate constructor.
+         */
+        private DefaultCharacterBio() {
+        }
+
+        public String toString() {
+            return name;
+        }
+        public DefaultCharacterBio(String name2, Gender gender2) {
+            name = name2;
+            gender = gender2;
+        }
+        
+        /**
+         * @return Returns the backstory.
+         */
+        public String getBackstory() {
+            return backstory;
+        }
+        /**
+         * @param backstory The backstory to set.
+         */
+        public void setBackstory(String backstory2) {
+            backstory = backstory2;
+        }
+        /**
+         * @return Returns the eyeColor.
+         */
+        public Color getEyeColor() {
+            return eyeColor;
+        }
+        /**
+         * @param eyeColor The eyeColor to set.
+         */
+        public void setEyeColor(Color eyeColor2) {
+            eyeColor = eyeColor2;
+        }
+        /**
+         * @return Returns the gender.
+         */
+        public Gender getGender() {
+            return gender;
+        }
+        /**
+         * @param gender The gender to set.
+         */
+        public void setGender(Gender gender2) {
+            gender = gender2;
+        }
+        /**
+         * @return Returns the hairColor.
+         */
+        public Color getHairColor() {
+            return hairColor;
+        }
+        /**
+         * @param hairColor The hairColor to set.
+         */
+        public void setHairColor(Color hairColor2) {
+            hairColor = hairColor2;
+        }
+        /**
+         * @return Returns the height.
+         */
+        public String getHeight() {
+            return height;
+        }
+        /**
+         * @param height The height to set.
+         */
+        public void setHeight(String height2) {
+            height = height2;
+        }
+        /**
+         * @return Returns the image.
+         */
+        public Image getImage() {
+            return image;
+        }
+        /**
+         * @param image The image to set.
+         */
+        public void setImage(Image image2) {
+            image = image2;
+        }
+        /**
+         * @return Returns the name.
+         */
+        public String getName() {
+            return name;
+        }
+        /**
+         * @param name The name to set.
+         */
+        public void setName(String name2) {
+            name = name2;
+        }
+        /**
+         * @return Returns the weight.
+         */
+        public String getWeight() {
+            return weight;
+        }
+        /**
+         * @param weight The weight to set.
+         */
+        public void setWeight(String weight2) {
+            weight = weight2;
+        }
+
+        public Age getAge() {
+            return age;
+        }
     }
 }

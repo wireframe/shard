@@ -17,13 +17,18 @@ package com.codecrate.shard.character;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import net.sf.hibernate.Criteria;
+import net.sf.hibernate.HibernateException;
+import net.sf.hibernate.Session;
+
+import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
-import com.codecrate.shard.character.bio.DefaultCharacterBio;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.DefaultItemEntryContainer;
 import com.codecrate.shard.equipment.ItemEntryContainer;
@@ -46,14 +51,13 @@ public class HibernateCharacterDao extends HibernateDaoSupport implements Charac
 	}
 
 	public PlayerCharacter createCharacter(String name) {
-		DefaultCharacterBio bio = new DefaultCharacterBio(name);
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
 		ItemEntryContainer inventory = new DefaultItemEntryContainer(new ArrayList());
 		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
 		Deity deity = null;
 
-		return new DefaultPlayerCharacter(abilities, getFirstRace(), inventory, encumberance, alignment, bio, deity);
+		return new DefaultPlayerCharacter(name, abilities, getFirstRace(), inventory, encumberance, alignment, deity);
 	}
 
 	private Race getFirstRace() {
@@ -68,4 +72,14 @@ public class HibernateCharacterDao extends HibernateDaoSupport implements Charac
         String id = (String) getHibernateTemplate().save(character);
         return (PlayerCharacter) getHibernateTemplate().load(DefaultPlayerCharacter.class, id);
 	}
+
+    public Collection getCharacters() {
+        return (List) getHibernateTemplate().execute(new HibernateCallback() {
+            public Object doInHibernate(Session session)
+                    throws HibernateException {
+                Criteria query = session.createCriteria(DefaultPlayerCharacter.class);
+                return query.list();
+            }
+        });
+    }
 }

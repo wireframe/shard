@@ -31,11 +31,6 @@ import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.character.Alignment;
 import com.codecrate.shard.character.DefaultAlignment;
 import com.codecrate.shard.character.DefaultPlayerCharacter;
-import com.codecrate.shard.character.bio.Age;
-import com.codecrate.shard.character.bio.AgeCategory;
-import com.codecrate.shard.character.bio.CummulativeAgeCategory;
-import com.codecrate.shard.character.bio.DefaultCharacterBio;
-import com.codecrate.shard.character.bio.DefaultGender;
 import com.codecrate.shard.character.prereq.NullPrerequisite;
 import com.codecrate.shard.dice.RandomDice;
 import com.codecrate.shard.divine.Deity;
@@ -54,7 +49,6 @@ import com.codecrate.shard.race.DefaultRace;
 import com.codecrate.shard.race.DefaultVision;
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.race.RacialSize;
-import com.codecrate.shard.race.Vision;
 
 public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringContextTests {
 
@@ -88,21 +82,6 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 		mockAbilityScoreDao.replay();
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
 
-		Age age = new Age() {
-
-            public AgeCategory getCategory() {
-                return CummulativeAgeCategory.ADULT;
-            }
-
-            public int getCurrentAge() {
-                return 21;
-            }
-
-            public int getMaxAge() {
-                return 100;
-            }
-        };
-
 		ItemEntryContainer itemContainer = new DefaultItemEntryContainer(Arrays.asList(new ItemEntry[] {new ItemEntry(Coin.GOLD_PIECE, 100)}));
 
 		MockControl mockEncumberanceDao = MockControl.createControl(EncumberanceDao.class);
@@ -118,9 +97,6 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 		deity.getName();
 		mockDeity.setReturnValue("Bob the Almighty");
 		mockDeity.replay();
-
-		DefaultCharacterBio bio = new DefaultCharacterBio("Gunthor the Terrible");
-		bio.setGender(DefaultGender.MALE);
 
         Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
 
@@ -165,7 +141,7 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
         CharacterClass fighter = new DefaultCharacterClass("fighter", "ftr", new RandomDice(8), 4, new NullPrerequisite(), null);
         fighter.getClassProgression().addLevel(1, 2, 3, 4);
 
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter(abilities, human, itemContainer, encumberance, alignment, bio, deity);
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter("Gunthor the Terrible", abilities, human, itemContainer, encumberance, alignment, deity);
 		character.getCharacterProgression().addLevel(fighter, 1, new ArrayList());
 
         character.getBaseAttackBonus();

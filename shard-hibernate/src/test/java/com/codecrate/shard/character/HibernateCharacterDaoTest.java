@@ -16,6 +16,8 @@
 package com.codecrate.shard.character;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 import com.codecrate.shard.ShardHibernateTestCaseSupport;
 import com.codecrate.shard.dice.RandomDice;
@@ -65,5 +67,17 @@ public class HibernateCharacterDaoTest extends ShardHibernateTestCaseSupport {
         PlayerCharacter character = characterFactory.createCharacter("test");
         character = characterDao.saveCharacter(character);
         assertNotNull(character);
+    }
+
+    public void testLoadingCharactersGrabsBioAsWell() throws Exception {
+        Collection characters = characterDao.getCharacters();
+        
+        assertFalse(characters.isEmpty());
+
+        for (Iterator iter = characters.iterator(); iter.hasNext();) {
+            PlayerCharacter character = (PlayerCharacter) iter.next();
+            assertNotNull(character.getBio());
+            assertNotNull(character.getBio().getName());
+        }
     }
 }
