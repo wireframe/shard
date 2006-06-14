@@ -172,14 +172,14 @@ public class CharacterManagerView extends AbstractView implements WizardListener
         if (null == panel) {
             panel = new PlayerCharacterPanel(character);
             getTabbedPane().add(panel);
-        } 
-        panel.requestFocusInWindow();
+        }
+        getTabbedPane().setSelectedComponent(panel);
         printExecutor.setEnabled(true);
     }
 
     private PlayerCharacterPanel getPanelForCharacter(PlayerCharacter character) {
-        for (int x = 1; x < getTabbedPane().getComponentCount(); x++) {
-            PlayerCharacterPanel panel = (PlayerCharacterPanel) getTabbedPane().getComponentAt(x -1 );
+        for (int x = 0; x < getTabbedPane().getTabCount(); x++) {
+            PlayerCharacterPanel panel = (PlayerCharacterPanel) getTabbedPane().getComponentAt(x);
             if (panel.getCharacter().equals(character)) {
                 return panel;
             }
