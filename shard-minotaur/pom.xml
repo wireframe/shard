@@ -64,6 +64,27 @@
     </resources>
     
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.codecrate.shard.ShardMinotaur</mainClass>
+              <addClasspath>true</addClasspath>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptor>assembly-descriptor-bin-with-dependencies.xml</descriptor>
+          <finalName>shard-minotaur</finalName>
+          <outputDirectory>target/bin</outputDirectory>
+          <workDirectory>target/temp-bin</workDirectory>
+        </configuration>
+      </plugin>
       <!-- support exec:java to run application -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
