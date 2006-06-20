@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
-	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-transfer-context.xml,v 1.1 2006/01/24 22:52:47 wireframe Exp $ -->
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
 <beans>
 
+	<!-- object importer definition -->
     <bean id="sourceLineHandler" class="com.codecrate.shard.transfer.pcgen.PcgenSourceLineHandler">
 	  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 	  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
@@ -103,5 +103,4 @@
 		    </map>
 	    </constructor-arg>
 	</bean>
-
 </beans>

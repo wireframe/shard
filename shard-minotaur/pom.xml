@@ -21,6 +21,11 @@
     </dependency>
     <dependency>
       <groupId>com.codecrate.shard</groupId>
+      <artifactId>shard-transfer</artifactId>
+      <version>0.5.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.codecrate.shard</groupId>
       <artifactId>shard-sheets</artifactId>
       <version>0.5.0-SNAPSHOT</version>
     </dependency>
@@ -37,6 +42,13 @@
       <groupId>org.springframework.richclient</groupId>
       <artifactId>spring-richclient-support</artifactId>
       <version>0.1.0</version>
+    </dependency>
+    
+    <!-- foxtrot dependencies -->
+    <dependency>
+      <groupId>foxtrot</groupId>
+      <artifactId>foxtrot</artifactId>
+      <version>2.0</version>
     </dependency>
   </dependencies>
 

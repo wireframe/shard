@@ -28,6 +28,7 @@ public class ShardMinotaur {
         , "/shard-hibernate-context.xml"
         , "/shard-datasource.xml"
         , "/shard-sheets-context.xml"
+        , "/shard-transfer-context.xml"
     };
     private static final String STARTUP_CONTEXT_FILE_NAME = "/shard-minotaur-startup-context.xml";
 
