@@ -63,7 +63,7 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
         BusyIndicator.showAt(getApplicationWindow().getControl());
         progressMonitor.taskStarted(description, StatusBar.UNKNOWN);
 
-        Object result = Worker.post(job);
+        Object result = job.run();
 
         BusyIndicator.clearAt(getApplicationWindow().getControl());
         progressMonitor.done();
