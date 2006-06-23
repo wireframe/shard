@@ -10,6 +10,8 @@ import javax.swing.JFileChooser;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.binding.form.ValidatingFormModel;
+import org.springframework.binding.validation.DefaultValidationResults;
+import org.springframework.binding.validation.Severity;
 import org.springframework.binding.validation.ValidationResults;
 import org.springframework.binding.validation.Validator;
 import org.springframework.richclient.command.ActionCommandExecutor;
@@ -113,9 +115,6 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
     public class DirectorySelection {
         private File selectedDirectory;
 
-        public DirectorySelection() {
-            selectedDirectory = new File(System.getProperty("user.home"));
-        }
         public File getSelectedDirectory() {
             return selectedDirectory;
         }
@@ -128,12 +127,14 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
     public class ValidPcgenDatasetValidator implements Validator {
 
 		public ValidationResults validate(Object model) {
+			DefaultValidationResults results = new DefaultValidationResults();
+
 			DirectorySelection directorySelection = (DirectorySelection) model;
 			File directory = directorySelection.getSelectedDirectory();
 			if (!importer.isDataset(directory)) {
-				System.out.println("ERROR!");
+				results.addMessage("not.valid.dataset", Severity.ERROR, "Not a valid dataset");
 			}
-			return null;
+			return results;
 		}
 	}
 
