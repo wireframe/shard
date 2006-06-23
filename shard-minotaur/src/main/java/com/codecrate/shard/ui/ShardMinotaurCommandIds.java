@@ -18,9 +18,9 @@ package com.codecrate.shard.ui;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class ShardCommandIds {
+public class ShardMinotaurCommandIds {
 
     public static final String NEW = "newCommand";
-    public static final String IMPORT = "importCommand";
-
+	public static final String PRINT = "printCommand";
+    public static final String OPEN = "openCommand";
 }

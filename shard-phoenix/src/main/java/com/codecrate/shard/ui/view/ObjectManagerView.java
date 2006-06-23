@@ -59,7 +59,7 @@ import ca.odell.glazedlists.matchers.Matcher;
 import ca.odell.glazedlists.swing.EventSelectionModel;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 
-import com.codecrate.shard.ui.ShardCommandIds;
+import com.codecrate.shard.ui.ShardPhoenixCommandIds;
 import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
 import com.codecrate.shard.ui.component.SearchOnPauseJTextField;
 import com.codecrate.shard.ui.dragdrop.FileTransferHandler;
@@ -123,8 +123,8 @@ public class ObjectManagerView extends AbstractView {
         context.register(GlobalCommandIds.PROPERTIES, propertiesCommand);
         context.register(GlobalCommandIds.DELETE, deleteCommand);
         context.register(GlobalCommandIds.SELECT_ALL, selectAllCommand);
-        context.register(ShardCommandIds.NEW, newCommand);
-        context.register(ShardCommandIds.IMPORT, importCommand);
+        context.register(ShardPhoenixCommandIds.NEW, newCommand);
+        context.register(ShardPhoenixCommandIds.IMPORT, importCommand);
     }
 
     public void componentFocusLost() {

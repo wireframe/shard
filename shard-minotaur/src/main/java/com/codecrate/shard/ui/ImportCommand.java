@@ -1,53 +1,72 @@
 package com.codecrate.shard.ui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.util.Map;
 
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.binding.form.FormModel;
+import org.springframework.binding.form.ValidatingFormModel;
 import org.springframework.richclient.command.ActionCommandExecutor;
 import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
-import org.springframework.richclient.filechooser.DefaultFileFilter;
+import org.springframework.richclient.dialog.FormBackedDialogPage;
+import org.springframework.richclient.dialog.TitledPageApplicationDialog;
+import org.springframework.richclient.form.AbstractForm;
+import org.springframework.richclient.form.FormModelHelper;
+import org.springframework.richclient.form.binding.Binding;
+import org.springframework.richclient.form.binding.support.AbstractBinder;
+import org.springframework.richclient.form.binding.support.CustomBinding;
+import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
+import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.progress.BusyIndicator;
 import org.springframework.richclient.progress.StatusBar;
 
 import com.codecrate.shard.race.RaceDao;
-import com.codecrate.shard.transfer.ObjectImporter;
-import com.codecrate.shard.transfer.progress.ProgressMonitor;
+import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
+import com.l2fprod.common.swing.JDirectoryChooser;
 
 import foxtrot.Job;
-import foxtrot.Worker;
 
 public class ImportCommand extends ApplicationWindowAwareCommand implements ActionCommandExecutor {
     private static final Log LOG = LogFactory.getLog(ImportCommand.class);
     private final RaceDao raceDao;
-    private final ObjectImporter importer;
+    private final PcgenDatasetImporter importer;
     
-    public ImportCommand(RaceDao raceDao, ObjectImporter importer) {
+    public ImportCommand(RaceDao raceDao, PcgenDatasetImporter importer) {
         this.raceDao = raceDao;
         this.importer = importer;
     }
+
     protected void doExecuteCommand() {
-        if (!isImportNeeded()) {
-            LOG.info("Import not needed at this time.");
-            return;
-        }
-        System.out.println(getApplicationWindow());
-        JFileChooser fileChooser = new JFileChooser();
-        DefaultFileFilter filter = new DefaultFileFilter();
-        fileChooser.setFileFilter(filter);
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        
-        if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(getApplicationWindow().getControl())) {
-            final File selectedFile = fileChooser.getSelectedFile();
-            importFile(selectedFile);
-        }
+        final DirectorySelection directorySelection = new DirectorySelection();
+        ValidatingFormModel model = FormModelHelper.createFormModel(directorySelection);
+        //model.setValidator();
+        final DirectorySelectionForm form = new DirectorySelectionForm(model);
+        final FormBackedDialogPage page = new FormBackedDialogPage(form);
+
+        TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getApplicationWindow().getControl()) {
+            protected void onAboutToShow() {
+                setEnabled(page.isPageComplete());
+            }
+
+            protected boolean onFinish() {
+                form.getFormModel().commit();
+                importFile(directorySelection.getSelectedDirectory());
+                return true;
+            }
+        };
+        dialog.showDialog();
     }
 
-    private boolean isImportNeeded() {
+    public boolean isImportNeeded() {
         return raceDao.getRaces().isEmpty();
     }
+
     private void importFile(final File selectedFile) {
         Job importTask = new Job() {
             public Object run() {
@@ -58,6 +77,7 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
         importTask.run();
         executeBlockingJobInBackground("Importing...", importTask);
     }
+
     private Object executeBlockingJobInBackground(String description, Job job) {
         org.springframework.richclient.progress.ProgressMonitor progressMonitor = getApplicationWindow().getStatusBar().getProgressMonitor();
         BusyIndicator.showAt(getApplicationWindow().getControl());
@@ -71,27 +91,91 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
         return result;
     }
     
-    public class ImportProgressAdapter implements ProgressMonitor {
+    public class DirectorySelectionForm extends AbstractForm {
+        private static final String PAGE_NAME = "importPage";
 
-        private final org.springframework.richclient.progress.ProgressMonitor delegate;
-        private int unitsWorked = 0;
-
-        public ImportProgressAdapter(org.springframework.richclient.progress.ProgressMonitor delegate) {
-            this.delegate = delegate;
+        public DirectorySelectionForm(FormModel formModel) {
+            super(formModel, PAGE_NAME);
         }
 
-        public void startTask(String description, int totalUnitsOfWork) {
-            unitsWorked = 0;
-            delegate.taskStarted(description, totalUnitsOfWork);
+        protected JComponent createFormControl() {
+            SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
+
+            TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
+            JDirectoryChooser directoryChooser = new JDirectoryChooser();
+            directoryChooser.setControlButtonsAreShown(false);
+            formBuilder.add(new CustomDirectoryBinding(getFormModel(), "selectedDirectory", directoryChooser));
+
+            return formBuilder.getForm();
+        }
+    }
+
+    public class DirectorySelection {
+        private File selectedDirectory;
+
+        public DirectorySelection() {
+            selectedDirectory = new File(System.getProperty("user.home"));
+        }
+        public File getSelectedDirectory() {
+            return selectedDirectory;
         }
 
-        public void completeUnitOfWork() {
-            unitsWorked++;
-            delegate.worked(unitsWorked);
+        public void setSelectedDirectory(File selectedDirectory) {
+            this.selectedDirectory = selectedDirectory;
+        }
+    }
+    
+    public class CustomDirectoryBinding extends CustomBinding {
+
+        private final JDirectoryChooser component;
+
+        protected CustomDirectoryBinding(FormModel model, String property, JDirectoryChooser component) {
+            super(model, property, File.class);
+            this.component = component;
         }
 
-        public void finish() {
-            delegate.done();
+        protected JComponent doBindControl() {
+            component.setSelectedFile((File)getValue());
+            component.addPropertyChangeListener(new PropertyChangeListener() {
+                public void propertyChange(PropertyChangeEvent evt) {
+                    String prop = evt.getPropertyName();
+                    // If the directory changed, don't show an image.
+                    if(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY.equals(prop)) {
+                        File file = (File) evt.getNewValue();
+                        System.out.println("Selection: " + file.getAbsolutePath());
+                        controlValueChanged(file);
+                    }
+                }
+            });
+            return component;
         }
+
+        protected void readOnlyChanged() {
+            component.setEnabled(isEnabled() && !isReadOnly());
+        }
+
+        protected void enabledChanged() {
+            component.setEnabled(isEnabled() && !isReadOnly());
+        }
+
+        protected void valueModelChanged(Object newValue) {
+            component.setSelectedFile((File)newValue);
+        }
+
+    }
+    
+    public class CustomDirectoryBinder extends AbstractBinder {
+
+        protected CustomDirectoryBinder() {
+            super(File.class);
+        }
+
+        protected JComponent createControl(Map context) {
+            return new JDirectoryChooser();
+        }
+
+        protected Binding doBind(JComponent control, FormModel formModel, String formPropertyPath, Map context) {
+            final JDirectoryChooser directoryChooser = (JDirectoryChooser) control;
+            return new CustomDirectoryBinding(formModel, formPropertyPath, directoryChooser);        }
     }
 }

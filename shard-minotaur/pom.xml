@@ -50,6 +50,13 @@
       <artifactId>foxtrot</artifactId>
       <version>2.0</version>
     </dependency>
+    
+	<!-- l2fprod-common dependencies -->
+	<dependency>
+	  <groupId>l2fprod-common-directorychooser</groupId>
+	  <artifactId>l2fprod-common-directorychooser</artifactId>
+	  <version>6.5.1</version>
+	</dependency>
   </dependencies>
 
   <build>

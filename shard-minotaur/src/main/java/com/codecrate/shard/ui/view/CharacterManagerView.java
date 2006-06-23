@@ -45,7 +45,7 @@ import com.codecrate.shard.action.PrintCharacterAction;
 import com.codecrate.shard.character.CharacterDao;
 import com.codecrate.shard.character.PlayerCharacter;
 import com.codecrate.shard.ui.NewCharacterWizard;
-import com.codecrate.shard.ui.ShardCommandIds;
+import com.codecrate.shard.ui.ShardMinotaurCommandIds;
 import com.codecrate.shard.ui.form.OpenCharacterForm;
 
 public class CharacterManagerView extends AbstractView implements WizardListener {
@@ -73,8 +73,8 @@ public class CharacterManagerView extends AbstractView implements WizardListener
     }
 
     protected void registerLocalCommandExecutors(PageComponentContext context) {
-        context.register(ShardCommandIds.PRINT, getPrintCommand());
-        context.register(ShardCommandIds.OPEN, getOpenCommand());
+        context.register(ShardMinotaurCommandIds.PRINT, getPrintCommand());
+        context.register(ShardMinotaurCommandIds.OPEN, getOpenCommand());
     }
     
     public void setVelocityEngine(VelocityEngine engine) {

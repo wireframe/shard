@@ -93,7 +93,7 @@ public class PcgenDatasetImporter implements ObjectImporter {
 		return -1 != file.getName().indexOf(supportedFileExpression);
 	}
 
-    private boolean isDataset(File dataset) {
+    public boolean isDataset(File dataset) {
         File[] files = dataset.listFiles();
         for (int x = 0; x < files.length; x++) {
             File file = files[x];
