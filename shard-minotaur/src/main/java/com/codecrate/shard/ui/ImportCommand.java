@@ -104,7 +104,7 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
             directoryChooser.setControlButtonsAreShown(false);
 
             TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
-            formBuilder.add(new CustomDirectoryBinding(getFormModel(), "selectedDirectory", directoryChooser));
+            formBuilder.add(new JDirectoryChooserBinding(getFormModel(), "selectedDirectory", directoryChooser));
 
             return formBuilder.getForm();
         }
@@ -137,11 +137,11 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
 		}
 	}
 
-    public class CustomDirectoryBinding extends CustomBinding {
+    public class JDirectoryChooserBinding extends CustomBinding {
 
         private final JDirectoryChooser component;
 
-        protected CustomDirectoryBinding(FormModel model, String property, JDirectoryChooser component) {
+        protected JDirectoryChooserBinding(FormModel model, String property, JDirectoryChooser component) {
             super(model, property, File.class);
             this.component = component;
         }
@@ -174,9 +174,9 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
 
     }
 
-    public class CustomDirectoryBinder extends AbstractBinder {
+    public class JDirectoryChooserBinder extends AbstractBinder {
 
-        protected CustomDirectoryBinder() {
+        protected JDirectoryChooserBinder() {
             super(File.class);
         }
 
@@ -186,7 +186,7 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
 
         protected Binding doBind(JComponent control, FormModel formModel, String formPropertyPath, Map context) {
             final JDirectoryChooser directoryChooser = (JDirectoryChooser) control;
-            return new CustomDirectoryBinding(formModel, formPropertyPath, directoryChooser);
+            return new JDirectoryChooserBinding(formModel, formPropertyPath, directoryChooser);
         }
     }
 }
