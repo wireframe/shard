@@ -8,10 +8,10 @@ import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.binding.form.FormModel;
 import org.springframework.binding.form.ValidatingFormModel;
+import org.springframework.binding.validation.ValidationResults;
+import org.springframework.binding.validation.Validator;
 import org.springframework.richclient.command.ActionCommandExecutor;
 import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
@@ -33,10 +33,9 @@ import com.l2fprod.common.swing.JDirectoryChooser;
 import foxtrot.Job;
 
 public class ImportCommand extends ApplicationWindowAwareCommand implements ActionCommandExecutor {
-    private static final Log LOG = LogFactory.getLog(ImportCommand.class);
     private final RaceDao raceDao;
     private final PcgenDatasetImporter importer;
-    
+
     public ImportCommand(RaceDao raceDao, PcgenDatasetImporter importer) {
         this.raceDao = raceDao;
         this.importer = importer;
@@ -45,7 +44,7 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
     protected void doExecuteCommand() {
         final DirectorySelection directorySelection = new DirectorySelection();
         ValidatingFormModel model = FormModelHelper.createFormModel(directorySelection);
-        //model.setValidator();
+        model.setValidator(new ValidPcgenDatasetValidator());
         final DirectorySelectionForm form = new DirectorySelectionForm(model);
         final FormBackedDialogPage page = new FormBackedDialogPage(form);
 
@@ -90,7 +89,7 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
 
         return result;
     }
-    
+
     public class DirectorySelectionForm extends AbstractForm {
         private static final String PAGE_NAME = "importPage";
 
@@ -101,9 +100,10 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
         protected JComponent createFormControl() {
             SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
 
-            TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
             JDirectoryChooser directoryChooser = new JDirectoryChooser();
             directoryChooser.setControlButtonsAreShown(false);
+
+            TableFormBuilder formBuilder = new TableFormBuilder(bindingFactory);
             formBuilder.add(new CustomDirectoryBinding(getFormModel(), "selectedDirectory", directoryChooser));
 
             return formBuilder.getForm();
@@ -124,7 +124,19 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
             this.selectedDirectory = selectedDirectory;
         }
     }
-    
+
+    public class ValidPcgenDatasetValidator implements Validator {
+
+		public ValidationResults validate(Object model) {
+			DirectorySelection directorySelection = (DirectorySelection) model;
+			File directory = directorySelection.getSelectedDirectory();
+			if (!importer.isDataset(directory)) {
+				System.out.println("ERROR!");
+			}
+			return null;
+		}
+	}
+
     public class CustomDirectoryBinding extends CustomBinding {
 
         private final JDirectoryChooser component;
@@ -139,10 +151,8 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
             component.addPropertyChangeListener(new PropertyChangeListener() {
                 public void propertyChange(PropertyChangeEvent evt) {
                     String prop = evt.getPropertyName();
-                    // If the directory changed, don't show an image.
                     if(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY.equals(prop)) {
                         File file = (File) evt.getNewValue();
-                        System.out.println("Selection: " + file.getAbsolutePath());
                         controlValueChanged(file);
                     }
                 }
@@ -163,7 +173,7 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
         }
 
     }
-    
+
     public class CustomDirectoryBinder extends AbstractBinder {
 
         protected CustomDirectoryBinder() {
@@ -176,6 +186,7 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
 
         protected Binding doBind(JComponent control, FormModel formModel, String formPropertyPath, Map context) {
             final JDirectoryChooser directoryChooser = (JDirectoryChooser) control;
-            return new CustomDirectoryBinding(formModel, formPropertyPath, directoryChooser);        }
+            return new CustomDirectoryBinding(formModel, formPropertyPath, directoryChooser);
+        }
     }
 }
