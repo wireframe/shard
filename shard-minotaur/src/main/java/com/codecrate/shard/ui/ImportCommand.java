@@ -172,7 +172,6 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
         protected void valueModelChanged(Object newValue) {
             component.setSelectedFile((File)newValue);
         }
-
     }
 
     public class JDirectoryChooserBinder extends AbstractBinder {
