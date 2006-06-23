@@ -44,7 +44,7 @@ public class PcgenDatasetImporter implements ObjectImporter {
     public Collection getSupportedFileExtensions() {
         return Collections.EMPTY_LIST;
     }
-    
+
     public boolean isDirectoryImportSupported() {
         return true;
     }
@@ -64,12 +64,12 @@ public class PcgenDatasetImporter implements ObjectImporter {
                 File file = files[x];
                 if (doesFileMatchExtension(supportedFileExpression, file)) {
                     importer.importObjects(file, progress);
-                    
+
                     progress.completeUnitOfWork();
                 }
             }
         }
-        
+
         progress.finish();
         return Collections.EMPTY_LIST;
     }
@@ -94,6 +94,9 @@ public class PcgenDatasetImporter implements ObjectImporter {
 	}
 
     public boolean isDataset(File dataset) {
+    	if (null == dataset) {
+    		return false;
+    	}
         File[] files = dataset.listFiles();
         for (int x = 0; x < files.length; x++) {
             File file = files[x];
