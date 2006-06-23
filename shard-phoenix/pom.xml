@@ -43,12 +43,12 @@
 	<dependency>
 	  <groupId>l2fprod-common-tasks</groupId>
 	  <artifactId>l2fprod-common-tasks</artifactId>
-	  <version>0.2-dev-20060219</version>
+	  <version>6.5.1</version>
 	</dependency>
 	<dependency>
 	  <groupId>l2fprod-common-springrcp</groupId>
 	  <artifactId>l2fprod-common-springrcp</artifactId>
-	  <version>0.2-dev-20060219</version>
+	  <version>6.5.1</version>
 	</dependency>
   </dependencies>
 
