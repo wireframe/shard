@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-minotaur-context.xml,v 1.5 2006/06/20 01:55:20 wireframe Exp $ -->
+<!-- $Id: shard-minotaur-context.xml,v 1.6 2006/06/24 22:05:59 wireframe Exp $ -->
 <beans>
 	
 	<bean id="application" 
@@ -54,13 +54,14 @@
 		</property>
 	</bean>
 	
+	<!--
 	<bean id="lookAndFeelConfigurer" 
 		class="org.springframework.richclient.application.config.UIManagerConfigurer">
 		<property name="lookAndFeel">
     	  <value>net.sourceforge.napkinlaf.NapkinLookAndFeel</value>
 		</property>
 	</bean>
-
+-->
 	<bean id="messageSource" 
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
@@ -160,7 +161,7 @@
 		</property>
 	</bean>
 
-  <bean id="importCommand"
+  <bean id="importCommandExecutor"
    class="com.codecrate.shard.ui.ImportCommand">
     <constructor-arg><ref bean="raceDao" /></constructor-arg>
     <constructor-arg><ref bean="objectImporter" /></constructor-arg>

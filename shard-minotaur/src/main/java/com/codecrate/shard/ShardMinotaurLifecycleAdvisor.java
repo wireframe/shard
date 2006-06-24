@@ -9,7 +9,6 @@ public class ShardMinotaurLifecycleAdvisor extends DefaultApplicationLifecycleAd
 
 private ImportCommand importCommand;
 
-//http://common.l2fprod.com/
 //    public void onPreWindowOpen(ApplicationWindowConfigurer configurer) {
 //        super.onPreWindowOpen(configurer);
 //        if (getApplication().getApplicationContext().containsBean("setupWizard")) {
@@ -26,8 +25,10 @@ private ImportCommand importCommand;
     public void onWindowOpened(ApplicationWindow window) {
         super.onWindowOpened(window);
         
-        importCommand = (ImportCommand) getApplication().getServices().getBean("importCommand", ImportCommand.class);
+        importCommand = (ImportCommand) getApplication().getServices().getBean("importCommandExecutor", ImportCommand.class);
         importCommand.setApplicationWindow(window);
-        importCommand.execute();
+        if (importCommand.isImportNeeded()) {
+            importCommand.execute();
+        }
     }
 }

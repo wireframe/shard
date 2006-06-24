@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.Map;
 
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.binding.form.ValidatingFormModel;
@@ -33,6 +32,7 @@ import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
 import com.l2fprod.common.swing.JDirectoryChooser;
 
 import foxtrot.Job;
+import foxtrot.Worker;
 
 public class ImportCommand extends ApplicationWindowAwareCommand implements ActionCommandExecutor {
     private final RaceDao raceDao;
@@ -46,7 +46,7 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
     protected void doExecuteCommand() {
         final DirectorySelection directorySelection = new DirectorySelection();
         ValidatingFormModel model = FormModelHelper.createFormModel(directorySelection);
-        model.setValidator(new ValidPcgenDatasetValidator());
+        //model.setValidator(new ValidPcgenDatasetValidator());
         final DirectorySelectionForm form = new DirectorySelectionForm(model);
         final FormBackedDialogPage page = new FormBackedDialogPage(form);
 
@@ -75,7 +75,6 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
                 return null;
             }
         };
-        importTask.run();
         executeBlockingJobInBackground("Importing...", importTask);
     }
 
@@ -84,7 +83,7 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
         BusyIndicator.showAt(getApplicationWindow().getControl());
         progressMonitor.taskStarted(description, StatusBar.UNKNOWN);
 
-        Object result = job.run();
+        Object result = Worker.post(job);
 
         BusyIndicator.clearAt(getApplicationWindow().getControl());
         progressMonitor.done();
@@ -152,7 +151,7 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
             component.addPropertyChangeListener(new PropertyChangeListener() {
                 public void propertyChange(PropertyChangeEvent evt) {
                     String prop = evt.getPropertyName();
-                    if(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY.equals(prop)) {
+                    if(JDirectoryChooser.SELECTED_FILE_CHANGED_PROPERTY.equals(prop)) {
                         File file = (File) evt.getNewValue();
                         controlValueChanged(file);
                     }

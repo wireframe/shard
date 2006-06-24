@@ -9,6 +9,7 @@
 			<list>
 				<value>newCommand</value>
 				<value>openCommand</value>
+				<value>importCommand</value>
 				<value>printCommand</value>
 			</list>
 		</property>
@@ -32,6 +33,7 @@
 				<ref bean="newCommand" />
 				<value>separator</value>
 				<value>openCommand</value>
+				<ref bean="importCommand" />
 				<value>printCommand</value>
 				<value>separator</value>
 				<bean class="org.springframework.richclient.command.support.ExitCommand"/>
@@ -76,6 +78,13 @@
 		class="org.springframework.richclient.command.TargetableActionCommand">
 		<property name="commandExecutor">
 			<ref bean="newCharacterWizard"/>
+		</property>
+	</bean>
+
+	<bean id="importCommand" 
+		class="org.springframework.richclient.command.TargetableActionCommand">
+		<property name="commandExecutor">
+			<ref bean="importCommandExecutor"/>
 		</property>
 	</bean>
 

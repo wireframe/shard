@@ -52,6 +52,7 @@ public class PcgenDatasetImporter implements ObjectImporter {
     public Collection importObjects(File dataset, ProgressMonitor progress) {
         if (!isDataset(dataset)) {
             LOG.warn(dataset + " is not a dataset.");
+            return Collections.EMPTY_LIST;
         }
         File[] files = dataset.listFiles();
 
