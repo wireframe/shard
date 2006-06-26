@@ -13,6 +13,10 @@ import org.springframework.binding.validation.DefaultValidationResults;
 import org.springframework.binding.validation.Severity;
 import org.springframework.binding.validation.ValidationResults;
 import org.springframework.binding.validation.Validator;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
+import org.springframework.context.ApplicationListener;
 import org.springframework.richclient.command.ActionCommandExecutor;
 import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
@@ -26,6 +30,7 @@ import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.progress.BusyIndicator;
 import org.springframework.richclient.progress.StatusBar;
 
+import com.codecrate.shard.event.SpecificApplicationEventListener;
 import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
 import com.l2fprod.common.swing.JDirectoryChooser;
@@ -33,9 +38,10 @@ import com.l2fprod.common.swing.JDirectoryChooser;
 import foxtrot.Job;
 import foxtrot.Worker;
 
-public class ImportCommand extends ApplicationWindowAwareCommand implements ActionCommandExecutor {
+public class ImportCommand extends ApplicationWindowAwareCommand implements ActionCommandExecutor, ApplicationEventPublisherAware, ApplicationListener {
     private final RaceDao raceDao;
     private final PcgenDatasetImporter importer;
+	private ApplicationEventPublisher publisher;
 
     public ImportCommand(RaceDao raceDao, PcgenDatasetImporter importer) {
         this.raceDao = raceDao;
@@ -51,12 +57,27 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
 
         FormModelCommittingTitledPageApplicationDialog dialog = new FormModelCommittingTitledPageApplicationDialog(page, getApplicationWindow().getControl(), model) {
             protected boolean doOnFinish() {
-                importFile(directorySelection.getSelectedDirectory());
+            	publisher.publishEvent(directorySelection);
                 return true;
             }
         };
         dialog.showDialog();
     }
+
+	public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
+		this.publisher = publisher;
+	}
+
+	public void onApplicationEvent(ApplicationEvent event) {
+		SpecificApplicationEventListener listener = new SpecificApplicationEventListener(DirectorySelection.class) {
+			protected void onSpecificApplicationEvent(ApplicationEvent event) {
+				DirectorySelection directorySelection = (DirectorySelection) event;
+				importFile(directorySelection.getSelectedDirectory());
+			}
+		};
+
+		listener.onApplicationEvent(event);
+	}
 
     public boolean isImportNeeded() {
         return raceDao.getRaces().isEmpty();
@@ -105,8 +126,12 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
         }
     }
 
-    public class DirectorySelection {
-        private File selectedDirectory;
+    public class DirectorySelection extends ApplicationEvent {
+        public DirectorySelection() {
+			super(null);
+		}
+
+		private File selectedDirectory;
 
         public File getSelectedDirectory() {
             return selectedDirectory;
