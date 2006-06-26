@@ -50,13 +50,8 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
         final DirectorySelectionForm form = new DirectorySelectionForm(model);
         final FormBackedDialogPage page = new FormBackedDialogPage(form);
 
-        TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getApplicationWindow().getControl()) {
-            protected void onAboutToShow() {
-                setEnabled(page.isPageComplete());
-            }
-
-            protected boolean onFinish() {
-                form.getFormModel().commit();
+        FormModelCommittingTitledPageApplicationDialog dialog = new FormModelCommittingTitledPageApplicationDialog(page, getApplicationWindow().getControl(), model) {
+            protected boolean doOnFinish() {
                 importFile(directorySelection.getSelectedDirectory());
                 return true;
             }
