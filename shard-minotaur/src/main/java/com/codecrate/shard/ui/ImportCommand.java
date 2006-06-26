@@ -16,7 +16,6 @@ import org.springframework.binding.validation.Validator;
 import org.springframework.richclient.command.ActionCommandExecutor;
 import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
-import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.FormModelHelper;
 import org.springframework.richclient.form.binding.Binding;
