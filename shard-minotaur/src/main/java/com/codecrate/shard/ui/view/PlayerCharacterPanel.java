@@ -1,3 +1,18 @@
+/*
+ * Copyright 2002-2004 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package com.codecrate.shard.ui.view;
 
 import java.awt.GridLayout;
@@ -14,7 +29,7 @@ import com.codecrate.shard.character.PlayerCharacter;
 public class PlayerCharacterPanel extends JPanel {
 
     private PlayerCharacter character;
-    
+
     private JLabel thumbnailImage = null;
     private JLabel characterNameValue = null;
     private JPanel basicInfoPanel = null;
@@ -72,16 +87,16 @@ public class PlayerCharacterPanel extends JPanel {
 
     public PlayerCharacterPanel(PlayerCharacter character) {
         this();
-        
+
         this.character = character;
-        
+
         this.setName(character.getBio().getName());
         characterNameValue.setText(character.getBio().getName());
         alignmentValue.setText(character.getAlignment().getAbbreviation());
         raceValue.setText(character.getRace().getName());
 //        classValue.setText(character.getCharacterProgression().getDescription());
 //        levelValue.setText(Integer.toString(character.getCharacterProgression().getCharacterLevel()));
-//        
+//
 //        strengthValue.setText(Integer.toString(character.getAbilities().getStrength().getModifiedValue()));
 //        dexterityValue.setText(Integer.toString(character.getAbilities().getDexterity().getModifiedValue()));
 //        constitutionValue.setText(Integer.toString(character.getAbilities().getConstitution().getModifiedValue()));
@@ -92,7 +107,7 @@ public class PlayerCharacterPanel extends JPanel {
 
     /**
      * This method initializes this
-     * 
+     *
      * @return void
      */
     private void initialize() {
@@ -116,13 +131,13 @@ public class PlayerCharacterPanel extends JPanel {
         this.add(getLevelUp(), null);
         this.add(getDescription(), null);
         this.add(getBio(), null);
-        
+
     }
 
     /**
-     * This method initializes jPanel	
-     * 	
-     * @return javax.swing.JPanel	
+     * This method initializes jPanel
+     *
+     * @return javax.swing.JPanel
      */
     private JPanel getBasicInfoPanel() {
         if (basicInfoPanel == null) {
@@ -166,9 +181,9 @@ public class PlayerCharacterPanel extends JPanel {
     }
 
     /**
-     * This method initializes jPanel	
-     * 	
-     * @return javax.swing.JPanel	
+     * This method initializes jPanel
+     *
+     * @return javax.swing.JPanel
      */
     private JPanel getJPanel() {
         if (jPanel == null) {
@@ -237,9 +252,9 @@ public class PlayerCharacterPanel extends JPanel {
     }
 
 	/**
-	 * This method initializes Appearance	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes Appearance
+	 *
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getAppearance() {
 		if (Appearance == null) {
@@ -290,9 +305,9 @@ public class PlayerCharacterPanel extends JPanel {
 	}
 
 	/**
-	 * This method initializes levelUp	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes levelUp
+	 *
+	 * @return javax.swing.JButton
 	 */
 	private JButton getLevelUp() {
 		if (levelUp == null) {
@@ -305,9 +320,9 @@ public class PlayerCharacterPanel extends JPanel {
 	}
 
 	/**
-	 * This method initializes description	
-	 * 	
-	 * @return javax.swing.JScrollPane	
+	 * This method initializes description
+	 *
+	 * @return javax.swing.JScrollPane
 	 */
 	private JScrollPane getDescription() {
 		if (description == null) {
@@ -319,9 +334,9 @@ public class PlayerCharacterPanel extends JPanel {
 	}
 
 	/**
-	 * This method initializes bio	
-	 * 	
-	 * @return javax.swing.JScrollPane	
+	 * This method initializes bio
+	 *
+	 * @return javax.swing.JScrollPane
 	 */
 	private JScrollPane getBio() {
 		if (bio == null) {

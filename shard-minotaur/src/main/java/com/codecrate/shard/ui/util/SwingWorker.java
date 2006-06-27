@@ -1,4 +1,4 @@
-package com.codecrate.shard.ui;
+package com.codecrate.shard.ui.util;
 
 import javax.swing.SwingUtilities;
 

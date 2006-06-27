@@ -1,3 +1,18 @@
+/*
+ * Copyright 2002-2004 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package com.codecrate.shard.ui;
 
 import java.beans.PropertyChangeEvent;
@@ -6,6 +21,7 @@ import java.io.File;
 import java.util.Map;
 
 import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.binding.form.ValidatingFormModel;
@@ -66,23 +82,28 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
     private void importFile(final File selectedFile) {
         Job importTask = new Job() {
             public Object run() {
-                importer.importObjects(selectedFile, new ImportProgressAdapter(getApplicationWindow().getStatusBar().getProgressMonitor()));
+                importer.importObjects(selectedFile, new ImportProgressAdapter(getProgressMonitor()));
                 return null;
             }
         };
         executeAsyncBlockingJobInBackground("Importing...", importTask);
     }
 
-    private void executeAsyncBlockingJobInBackground(String description, Job job) {
-        ProgressMonitor progressMonitor = getApplicationWindow().getStatusBar().getProgressMonitor();
-        BusyIndicator.showAt(getApplicationWindow().getControl());
-        progressMonitor.taskStarted(description, StatusBar.UNKNOWN);
+    private ProgressMonitor getProgressMonitor() {
+    	return getApplicationWindow().getStatusBar().getProgressMonitor();
+    }
+    private void executeAsyncBlockingJobInBackground(final String description, final Job job) {
+    	SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+		        BusyIndicator.showAt(getApplicationWindow().getControl());
+		        getProgressMonitor().taskStarted(description, StatusBar.UNKNOWN);
 
-        //use foxtrot 3 async worker
-        Worker.post(job);
+		        Worker.post(job);
 
-        BusyIndicator.clearAt(getApplicationWindow().getControl());
-        progressMonitor.done();
+		        BusyIndicator.clearAt(getApplicationWindow().getControl());
+		        getProgressMonitor().done();
+			}
+    	});
     }
 
     public class DirectorySelectionForm extends AbstractForm {

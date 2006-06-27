@@ -67,8 +67,8 @@ import com.codecrate.shard.ui.form.FormFactory;
 import com.codecrate.shard.ui.table.AlwaysMatchMatcher;
 import com.codecrate.shard.ui.table.ReadOnlyEventTableModel;
 import com.codecrate.shard.ui.table.StretchWhenEmptyJTable;
+import com.codecrate.shard.ui.util.MouseUtil;
 import com.codecrate.shard.util.ComparableComparator;
-import com.codecrate.shard.util.MouseUtil;
 import com.l2fprod.common.springrcp.JTaskPaneCommandGroup;
 import com.l2fprod.common.swing.JTaskPane;
 
