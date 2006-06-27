@@ -43,14 +43,14 @@
       <artifactId>spring-richclient-support</artifactId>
       <version>0.1.0</version>
     </dependency>
-    
+
     <!-- foxtrot dependencies -->
     <dependency>
       <groupId>foxtrot</groupId>
       <artifactId>foxtrot</artifactId>
       <version>2.0</version>
     </dependency>
-    
+
 	<!-- l2fprod-common dependencies -->
 	<dependency>
 	  <groupId>l2fprod-common-directorychooser</groupId>
@@ -81,7 +81,7 @@
         </includes>
       </resource>
     </resources>
-    
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
