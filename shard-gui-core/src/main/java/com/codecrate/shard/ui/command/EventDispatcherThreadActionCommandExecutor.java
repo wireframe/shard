@@ -18,11 +18,15 @@ public class EventDispatcherThreadActionCommandExecutor implements ActionCommand
 	public void execute() {
 		if (!SwingUtilities.isEventDispatchThread()) {
 			LOG.debug("Redirecting execution of " + delegate + " to event dispatch thread");
-			SwingUtilities.invokeAndWait((new Runnable() {
-				public void run() {
-					delegate.execute();
-				}
-			});
+			try {
+				SwingUtilities.invokeAndWait(new Runnable() {
+					public void run() {
+						delegate.execute();
+					}
+				});
+			} catch (Exception e) {
+				throw new RuntimeException("Error executing " + delegate + " on event dispatch thread");
+			}
 		} else {
 			delegate.execute();
 		}
