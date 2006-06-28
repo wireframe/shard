@@ -21,20 +21,19 @@ import org.springframework.context.ApplicationListener;
 /**
  * helper class for listening to specific application events.
  *
- *
  */
-public abstract class SpecificApplicationEventListener implements ApplicationListener {
+public abstract class AbstractSpecificApplicationEventListener implements ApplicationListener {
 
-	private final Class class1;
+	private final Class targetClass;
 
-	public SpecificApplicationEventListener(Class class1) {
-		this.class1 = class1;
+	public AbstractSpecificApplicationEventListener(Class targetClass) {
+		this.targetClass = targetClass;
 	}
 
 	protected abstract void onSpecificApplicationEvent(ApplicationEvent event);
 
 	public void onApplicationEvent(ApplicationEvent event) {
-		if (event.getClass().isAssignableFrom(class1)) {
+		if (event.getClass().isAssignableFrom(targetClass)) {
 			onSpecificApplicationEvent(event);
 		}
 	}
