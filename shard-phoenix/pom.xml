@@ -30,8 +30,23 @@
       <groupId>org.springframework.richclient</groupId>
       <artifactId>spring-richclient-support</artifactId>
       <version>0.1.0</version>
+<!--
+      <exclusions>
+        <exclusion>
+          <groupId>net.java.dev.glazedlists</groupId>
+          <artifactId>glazedlists</artifactId>
+        </exclusion>
+      </exclusions>
+-->
     </dependency>
     
+    <!-- glazed lists dependency -->
+    <dependency>
+      <groupId>net.java.dev.glazedlists</groupId>
+      <artifactId>glazedlists</artifactId>
+      <version>1.5.0_java14</version>
+    </dependency>
+
     <!-- foxtrot dependencies -->
     <dependency>
       <groupId>foxtrot</groupId>
