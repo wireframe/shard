@@ -21,25 +21,8 @@
     </dependency>
     <dependency>
       <groupId>com.codecrate.shard</groupId>
-      <artifactId>shard-transfer</artifactId>
+      <artifactId>shard-gui-core</artifactId>
       <version>0.5.0-SNAPSHOT</version>
-    </dependency>
-
-    <!-- spring-rcp dependencies -->
-    <dependency>
-      <groupId>org.springframework.richclient</groupId>
-      <artifactId>spring-richclient-support</artifactId>
-      <version>0.1.0</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-webmvc</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-web</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <!-- glazed lists dependency -->
@@ -47,13 +30,6 @@
       <groupId>net.java.dev.glazedlists</groupId>
       <artifactId>glazedlists</artifactId>
       <version>1.5.0_java14</version>
-    </dependency>
-
-    <!-- foxtrot dependencies -->
-    <dependency>
-      <groupId>foxtrot</groupId>
-      <artifactId>foxtrot</artifactId>
-      <version>2.0</version>
     </dependency>
 
 	<!-- l2fprod-common dependencies -->
@@ -99,7 +75,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.codecrate.shard.ShardPhoenix</mainClass>
+              <mainClass>com.codecrate.shard.ui.ShardPhoenix</mainClass>
               <addClasspath>true</addClasspath>
             </manifest>
           </archive>
@@ -157,7 +133,7 @@
 				<value>propvalue</value>
 			</systemProperty>
 		  </systemProperties>
-          <mainClass>com.codecrate.shard.ShardPhoenix</mainClass>
+          <mainClass>com.codecrate.shard.ui.ShardPhoenix</mainClass>
           <keepAlive>true</keepAlive>
         </configuration>
       </plugin>

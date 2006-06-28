@@ -21,6 +21,4 @@ package com.codecrate.shard.ui;
 public class ShardPhoenixCommandIds {
 
     public static final String NEW = "newCommand";
-    public static final String IMPORT = "importCommand";
-
 }

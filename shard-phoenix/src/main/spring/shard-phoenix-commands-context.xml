@@ -62,7 +62,7 @@
 		<property name="members">
 			<list>
 				<value>newCommand</value>
-				<value>importCommand</value>
+				<ref bean="importCommand" />
 				<value>separator</value>
 				<value>propertiesCommand</value>
 				<value>separator</value>
@@ -114,4 +114,10 @@
 		</property>
 	</bean>
 
+	<bean id="importCommand"
+		class="org.springframework.richclient.command.TargetableActionCommand">
+		<property name="commandExecutor">
+			<ref bean="importCommandExecutor"/>
+		</property>
+	</bean>
 </beans>

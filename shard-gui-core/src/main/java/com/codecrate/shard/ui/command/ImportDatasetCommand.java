@@ -13,12 +13,9 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.codecrate.shard.ui;
+package com.codecrate.shard.ui.command;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.util.Map;
 
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
@@ -34,9 +31,6 @@ import org.springframework.richclient.command.support.ApplicationWindowAwareComm
 import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.FormModelHelper;
-import org.springframework.richclient.form.binding.Binding;
-import org.springframework.richclient.form.binding.support.AbstractBinder;
-import org.springframework.richclient.form.binding.support.CustomBinding;
 import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.progress.BusyIndicator;
@@ -45,16 +39,19 @@ import org.springframework.richclient.progress.StatusBar;
 
 import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
+import com.codecrate.shard.ui.binding.JDirectoryChooserBinding;
+import com.codecrate.shard.ui.form.FormModelCommittingTitledPageApplicationDialog;
+import com.codecrate.shard.ui.transfer.ImportProgressAdapter;
 import com.l2fprod.common.swing.JDirectoryChooser;
 
 import foxtrot.Job;
 import foxtrot.Worker;
 
-public class ImportCommand extends ApplicationWindowAwareCommand implements ActionCommandExecutor {
+public class ImportDatasetCommand extends ApplicationWindowAwareCommand implements ActionCommandExecutor {
     private final RaceDao raceDao;
     private final PcgenDatasetImporter importer;
 
-    public ImportCommand(RaceDao raceDao, PcgenDatasetImporter importer) {
+    public ImportDatasetCommand(RaceDao raceDao, PcgenDatasetImporter importer) {
         this.raceDao = raceDao;
         this.importer = importer;
     }
@@ -62,7 +59,7 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
     protected void doExecuteCommand() {
         final DirectorySelection directorySelection = new DirectorySelection();
         ValidatingFormModel model = FormModelHelper.createFormModel(directorySelection);
-        //model.setValidator(new ValidPcgenDatasetValidator());
+        //model.setValidator(new ValidDatasetValidator());
         final DirectorySelectionForm form = new DirectorySelectionForm(model);
         final FormBackedDialogPage page = new FormBackedDialogPage(form);
 
@@ -138,7 +135,7 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
         }
     }
 
-    public class ValidPcgenDatasetValidator implements Validator {
+    public class ValidDatasetValidator implements Validator {
 
 		public ValidationResults validate(Object model) {
 			DefaultValidationResults results = new DefaultValidationResults();
@@ -151,56 +148,4 @@ public class ImportCommand extends ApplicationWindowAwareCommand implements Acti
 			return results;
 		}
 	}
-
-    public class JDirectoryChooserBinding extends CustomBinding {
-
-        private final JDirectoryChooser component;
-
-        protected JDirectoryChooserBinding(FormModel model, String property, JDirectoryChooser component) {
-            super(model, property, File.class);
-            this.component = component;
-        }
-
-        protected JComponent doBindControl() {
-            component.setSelectedFile((File)getValue());
-            component.addPropertyChangeListener(new PropertyChangeListener() {
-                public void propertyChange(PropertyChangeEvent evt) {
-                    String prop = evt.getPropertyName();
-                    if(JDirectoryChooser.SELECTED_FILE_CHANGED_PROPERTY.equals(prop)) {
-                        File file = (File) evt.getNewValue();
-                        controlValueChanged(file);
-                    }
-                }
-            });
-            return component;
-        }
-
-        protected void readOnlyChanged() {
-            component.setEnabled(isEnabled() && !isReadOnly());
-        }
-
-        protected void enabledChanged() {
-            component.setEnabled(isEnabled() && !isReadOnly());
-        }
-
-        protected void valueModelChanged(Object newValue) {
-            component.setSelectedFile((File)newValue);
-        }
-    }
-
-    public class JDirectoryChooserBinder extends AbstractBinder {
-
-        protected JDirectoryChooserBinder() {
-            super(File.class);
-        }
-
-        protected JComponent createControl(Map context) {
-            return new JDirectoryChooser();
-        }
-
-        protected Binding doBind(JComponent control, FormModel formModel, String formPropertyPath, Map context) {
-            final JDirectoryChooser directoryChooser = (JDirectoryChooser) control;
-            return new JDirectoryChooserBinding(formModel, formPropertyPath, directoryChooser);
-        }
-    }
 }

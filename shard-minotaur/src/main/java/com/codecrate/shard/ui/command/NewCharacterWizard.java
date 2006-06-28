@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.ui;
+package com.codecrate.shard.ui.command;
 
 import org.springframework.richclient.command.ActionCommandExecutor;
 import org.springframework.richclient.form.CompoundForm;

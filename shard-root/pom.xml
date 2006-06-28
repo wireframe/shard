@@ -12,6 +12,7 @@
     <module>../shard-hibernate</module>
     <module>../shard-sheets</module>
     <module>../shard-transfer</module>
+    <module>../shard-gui-core</module>
     <module>../shard-phoenix</module>
     <module>../shard-minotaur</module>
     <module>../shard-hack</module>
@@ -24,6 +25,10 @@
     <developer>
       <name>Ryan Sonnek</name>
       <id>wireframe</id>
+    </developer>
+    <developer>
+      <name>Tyler Sonnek</name>
+      <id>winterwolf</id>
     </developer>
   </developers>
 
@@ -128,7 +133,7 @@
         </exclusions>
       </dependency>
     </dependencies>
-  </dependencyManagement>  
+  </dependencyManagement>
 
   <distributionManagement>
     <repository>

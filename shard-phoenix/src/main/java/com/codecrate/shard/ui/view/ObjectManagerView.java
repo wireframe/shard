@@ -27,7 +27,6 @@ import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -45,7 +44,6 @@ import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.AbstractDialogPage;
 import org.springframework.richclient.dialog.ConfirmationDialog;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
-import org.springframework.richclient.filechooser.DefaultFileFilter;
 import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.progress.BusyIndicator;
 import org.springframework.richclient.progress.ProgressMonitor;
@@ -64,9 +62,11 @@ import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
 import com.codecrate.shard.ui.component.SearchOnPauseJTextField;
 import com.codecrate.shard.ui.dragdrop.FileTransferHandler;
 import com.codecrate.shard.ui.form.FormFactory;
+import com.codecrate.shard.ui.form.FormModelCommittingTitledPageApplicationDialog;
 import com.codecrate.shard.ui.table.AlwaysMatchMatcher;
 import com.codecrate.shard.ui.table.ReadOnlyEventTableModel;
 import com.codecrate.shard.ui.table.StretchWhenEmptyJTable;
+import com.codecrate.shard.ui.transfer.ImportProgressAdapter;
 import com.codecrate.shard.ui.util.MouseUtil;
 import com.codecrate.shard.util.ComparableComparator;
 import com.l2fprod.common.springrcp.JTaskPaneCommandGroup;
@@ -94,7 +94,6 @@ public class ObjectManagerView extends AbstractView {
 	private final NewCommandExcecutor newCommand;
 	private final DeleteCommandExecutor deleteCommand;
 	private final PropertiesCommandExecutor propertiesCommand;
-    private final ImportCommandExcecutor importCommand;
     private final SelectAllCommandExcecutor selectAllCommand;
 	private FilterList objects;
 	private SortedList sortedObjects;
@@ -104,7 +103,6 @@ public class ObjectManagerView extends AbstractView {
 		this.commandAdapter = commandAdapter;
 		this.formFactory = formFactory;
 		this.newCommand = new NewCommandExcecutor();
-        this.importCommand = new ImportCommandExcecutor();
 		this.propertiesCommand = new PropertiesCommandExecutor();
 		this.deleteCommand = new DeleteCommandExecutor();
 		this.selectAllCommand = new SelectAllCommandExcecutor();
@@ -124,7 +122,6 @@ public class ObjectManagerView extends AbstractView {
         context.register(GlobalCommandIds.DELETE, deleteCommand);
         context.register(GlobalCommandIds.SELECT_ALL, selectAllCommand);
         context.register(ShardPhoenixCommandIds.NEW, newCommand);
-        context.register(ShardPhoenixCommandIds.IMPORT, importCommand);
     }
 
     public void componentFocusLost() {
@@ -390,50 +387,6 @@ public class ObjectManagerView extends AbstractView {
         }
     }
 
-    private class ImportCommandExcecutor extends AbstractActionCommandExecutor {
-        private JFileChooser fileChooser = new JFileChooser();
-
-        public ImportCommandExcecutor() {
-            this.setEnabled(isImportEnabled());
-
-            DefaultFileFilter filter = new DefaultFileFilter();
-            Iterator extensions = commandAdapter.getSupportedImportFileExtensions().iterator();
-            while (extensions.hasNext()) {
-                String extension = (String) extensions.next();
-                filter.addExtension(extension);
-            }
-            fileChooser.setFileFilter(filter);
-
-            fileChooser.setFileSelectionMode(getFileSelectionMode());
-        }
-
-        private int getFileSelectionMode() {
-            if (isFileImportSupported() && commandAdapter.isDirectoryImportSupported()) {
-                return JFileChooser.FILES_AND_DIRECTORIES;
-            }
-            if (!isFileImportSupported() && commandAdapter.isDirectoryImportSupported()) {
-                return JFileChooser.DIRECTORIES_ONLY;
-            }
-            return JFileChooser.FILES_ONLY;
-        }
-
-        private boolean isImportEnabled() {
-            return (isFileImportSupported() ||
-                    commandAdapter.isDirectoryImportSupported());
-        }
-
-        private boolean isFileImportSupported() {
-            return !commandAdapter.getSupportedImportFileExtensions().isEmpty();
-        }
-
-        public void execute() {
-            if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(getWindowControl())) {
-                final File selectedFile = fileChooser.getSelectedFile();
-                importFile(selectedFile);
-            }
-        }
-    }
-
     private class DeleteCommandExecutor extends AbstractActionCommandExecutor {
     	private final String title;
 		private final String message;
@@ -487,13 +440,8 @@ public class ObjectManagerView extends AbstractView {
             form = formFactory.createInitialForm(object);
             page = formFactory.createPage(form);
 
-            TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
-                protected void onAboutToShow() {
-                    setEnabled(page.isPageComplete());
-                }
-
-                protected boolean onFinish() {
-                	form.getFormModel().commit();
+            FormModelCommittingTitledPageApplicationDialog dialog = new FormModelCommittingTitledPageApplicationDialog(page, getWindowControl(), form.getFormModel()) {
+                protected boolean doOnFinish() {
                     commandAdapter.updateObject(object);
                     getFilteredObjects().set(index, object);
                     return true;

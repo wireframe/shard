@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard;
+package com.codecrate.shard.ui;
 
 import org.springframework.richclient.application.ApplicationLauncher;
 
@@ -21,21 +21,22 @@ import org.springframework.richclient.application.ApplicationLauncher;
  *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class ShardPhoenix {
+public class ShardMinotaur {
 
     private static final String[] CONTEXT_FILE_NAMES = new String[] {
-                        "/shard-phoenix-context.xml"
-    					, "/shard-transfer-context.xml"
-                        , "/shard-hibernate-context.xml"
-                        , "/shard-datasource.xml"
-                };
-    private static final String STARTUP_CONTEXT_FILE_NAME = "/shard-phoenix-startup-context.xml";
+        "/shard-minotaur-context.xml"
+        , "/shard-hibernate-context.xml"
+        , "/shard-datasource.xml"
+        , "/shard-sheets-context.xml"
+        , "/shard-transfer-context.xml"
+    };
+    private static final String STARTUP_CONTEXT_FILE_NAME = "/shard-minotaur-startup-context.xml";
 
     public static void main(String[] args) {
         try {
             new ApplicationLauncher(STARTUP_CONTEXT_FILE_NAME, CONTEXT_FILE_NAMES);
         } catch (Exception e) {
-        	System.out.println("Error launching application: " + e);
+            System.out.println("Error launching application: " + e);
             e.printStackTrace();
             System.exit(1);
         }

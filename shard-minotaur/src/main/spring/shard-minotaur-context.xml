@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-minotaur-context.xml,v 1.6 2006/06/24 22:05:59 wireframe Exp $ -->
+<!-- $Id: shard-minotaur-context.xml,v 1.7 2006/06/28 16:25:47 wireframe Exp $ -->
 <beans>
-	
-	<bean id="application" 
+
+	<bean id="application"
 		class="org.springframework.richclient.application.Application">
 		<constructor-arg index="0">
 			<ref bean="applicationDescriptor"/>
@@ -14,8 +14,8 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="lifecycleAdvisor" 
-		class="com.codecrate.shard.ShardMinotaurLifecycleAdvisor">
+	<bean id="lifecycleAdvisor"
+		class="com.codecrate.shard.ui.ShardMinotaurLifecycleAdvisor">
 		<property name="windowCommandBarDefinitions">
 			<value>shard-minotaur-commands-context.xml</value>
 		</property>
@@ -24,10 +24,10 @@
 		</property>
 	</bean>
 
-	<bean id="applicationDescriptor" 
-		class="com.codecrate.shard.ShardApplicationDescriptor">
+	<bean id="applicationDescriptor"
+		class="com.codecrate.shard.ui.ShardApplicationDescriptor">
 	</bean>
-	
+
 	<bean id="applicationObjectConfigurer"
 		class="org.springframework.richclient.application.config.DefaultApplicationObjectConfigurer">
 		<constructor-arg index="0">
@@ -40,11 +40,11 @@
 			<ref bean="iconSource"/>
 		</constructor-arg>
 	</bean>
-		
-	<bean id="applicationEventMulticaster" 
+
+	<bean id="applicationEventMulticaster"
 		class="org.springframework.context.event.SimpleApplicationEventMulticaster"/>
-		
-	<bean id="componentFactory" 
+
+	<bean id="componentFactory"
 		class="org.springframework.richclient.factory.DefaultComponentFactory">
 		<property name="iconSource">
 			<ref bean="iconSource"/>
@@ -53,16 +53,15 @@
 			<ref bean="messageSource"/>
 		</property>
 	</bean>
-	
-	<!--
-	<bean id="lookAndFeelConfigurer" 
+
+	<bean id="lookAndFeelConfigurer"
 		class="org.springframework.richclient.application.config.UIManagerConfigurer">
 		<property name="lookAndFeel">
     	  <value>net.sourceforge.napkinlaf.NapkinLookAndFeel</value>
 		</property>
 	</bean>
--->
-	<bean id="messageSource" 
+
+	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
@@ -71,8 +70,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="imageResourcesFactory" 
+
+	<bean id="imageResourcesFactory"
 		class="org.springframework.context.support.ResourceMapFactoryBean">
 		<property name="locations">
 			<list>
@@ -84,8 +83,8 @@
 			<value>images/</value>
 		</property>
 	</bean>
-	
-	<bean id="imageSource" 
+
+	<bean id="imageSource"
 		class="org.springframework.richclient.image.DefaultImageSource">
 		<constructor-arg index="0">
 			<ref bean="imageResourcesFactory"/>
@@ -94,15 +93,15 @@
 			<value>images/alert/error_obj.gif</value>
 		</property>
 	</bean>
-	
-	<bean id="iconSource" 
+
+	<bean id="iconSource"
 		class="org.springframework.richclient.image.DefaultIconSource">
 		<constructor-arg index="0">
 			<ref bean="imageSource"/>
 		</constructor-arg>
 	</bean>
-	
-	<bean id="formComponentInterceptorFactory" 
+
+	<bean id="formComponentInterceptorFactory"
 		class="org.springframework.richclient.form.builder.support.ChainedInterceptorFactory">
 		<property name="interceptorFactories">
 			<list>
@@ -122,8 +121,8 @@
 		</property>
 	</bean>
 
-    <bean id="formPropertyFaceDescriptorSource" 
-		class="org.springframework.binding.form.support.MessageSourceFormPropertyFaceDescriptorSource"/>    
+    <bean id="formPropertyFaceDescriptorSource"
+		class="org.springframework.binding.form.support.MessageSourceFormPropertyFaceDescriptorSource"/>
 
 	<bean id="mainView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
@@ -144,9 +143,9 @@
 			</map>
 		</property>
 	</bean>
-	
-	<bean id="newCharacterWizard" 
-		class="com.codecrate.shard.ui.NewCharacterWizard">
+
+	<bean id="newCharacterWizard"
+		class="com.codecrate.shard.ui.command.NewCharacterWizard">
 		<property name="characterFactory">
 		    <ref bean="characterDao" />
 		</property>
@@ -162,7 +161,7 @@
 	</bean>
 
   <bean id="importCommandExecutor"
-   class="com.codecrate.shard.ui.ImportCommand">
+   class="com.codecrate.shard.ui.command.ImportDatasetCommand">
     <constructor-arg><ref bean="raceDao" /></constructor-arg>
     <constructor-arg><ref bean="objectImporter" /></constructor-arg>
   </bean>

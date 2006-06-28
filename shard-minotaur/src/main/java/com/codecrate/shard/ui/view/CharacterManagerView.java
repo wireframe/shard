@@ -1,12 +1,12 @@
 /*
  * Copyright 2002-2004 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -31,6 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
+import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
@@ -44,8 +45,9 @@ import org.springframework.richclient.wizard.WizardListener;
 import com.codecrate.shard.action.PrintCharacterAction;
 import com.codecrate.shard.character.CharacterDao;
 import com.codecrate.shard.character.PlayerCharacter;
-import com.codecrate.shard.ui.NewCharacterWizard;
 import com.codecrate.shard.ui.ShardMinotaurCommandIds;
+import com.codecrate.shard.ui.command.NewCharacterWizard;
+import com.codecrate.shard.ui.form.FormModelCommittingTitledPageApplicationDialog;
 import com.codecrate.shard.ui.form.OpenCharacterForm;
 
 public class CharacterManagerView extends AbstractView implements WizardListener {
@@ -64,7 +66,7 @@ public class CharacterManagerView extends AbstractView implements WizardListener
         view.add(getTabbedPane(), BorderLayout.CENTER);
         return view;
     }
-    
+
     private JTabbedPane getTabbedPane() {
         if (null == tabbedPane) {
             tabbedPane = new JTabbedPane();
@@ -76,18 +78,18 @@ public class CharacterManagerView extends AbstractView implements WizardListener
         context.register(ShardMinotaurCommandIds.PRINT, getPrintCommand());
         context.register(ShardMinotaurCommandIds.OPEN, getOpenCommand());
     }
-    
+
     public void setVelocityEngine(VelocityEngine engine) {
     	this.velocityEngine = engine;
     }
     public void setCharacterDao(CharacterDao characterDao) {
         this.characterDao = characterDao;
     }
-    
+
     public void setNewCharacterWizard(NewCharacterWizard wizard) {
     	wizard.addWizardListener(this);
     }
-    
+
     private PrintCommandExecutor getPrintCommand() {
         if (null == printExecutor) {
         	printExecutor = new PrintCommandExecutor();
@@ -109,7 +111,7 @@ public class CharacterManagerView extends AbstractView implements WizardListener
             try {
                 Template template = velocityEngine.getTemplate("default.vm");
                 PrintCharacterAction printAction = new PrintCharacterAction(getSelectedCharacter(), template);
-                
+
                 PrinterJob job = PrinterJob.getPrinterJob();
                 Book book = new Book();
                 Printable print = new Printable() {
@@ -144,15 +146,11 @@ public class CharacterManagerView extends AbstractView implements WizardListener
 
 		public void execute() {
             final CharacterSelection characterSelection = new CharacterSelection();
-            final OpenCharacterForm form = new OpenCharacterForm(characterDao, FormModelHelper.createFormModel(characterSelection));
+            FormModel model = FormModelHelper.createFormModel(characterSelection);
+            final OpenCharacterForm form = new OpenCharacterForm(characterDao, model);
             final AbstractDialogPage page = new FormBackedDialogPage(form);
-            TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
-                protected void onAboutToShow() {
-                    setEnabled(page.isPageComplete());
-                }
-
-                protected boolean onFinish() {
-                    form.getFormModel().commit();
+            FormModelCommittingTitledPageApplicationDialog dialog = new FormModelCommittingTitledPageApplicationDialog(page, getWindowControl(), model) {
+                protected boolean doOnFinish() {
                     PlayerCharacter character = characterSelection.getCharacter();
                     addCharacterPanel(character);
                     return true;
@@ -188,7 +186,7 @@ public class CharacterManagerView extends AbstractView implements WizardListener
     }
 	public void onPerformCancel(Wizard wizard, boolean arg1) {
 	}
-    
+
     public class CharacterSelection {
         private PlayerCharacter character;
 

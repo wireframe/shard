@@ -1,6 +1,5 @@
 package com.codecrate.shard.ui;
 
-import com.codecrate.shard.ShardPhoenix;
 
 import junit.framework.TestCase;
 

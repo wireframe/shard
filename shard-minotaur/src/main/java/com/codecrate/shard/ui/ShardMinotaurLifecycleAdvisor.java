@@ -13,16 +13,16 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.codecrate.shard;
+package com.codecrate.shard.ui;
 
 import org.springframework.richclient.application.ApplicationWindow;
 import org.springframework.richclient.application.config.DefaultApplicationLifecycleAdvisor;
 
-import com.codecrate.shard.ui.ImportCommand;
+import com.codecrate.shard.ui.command.ImportDatasetCommand;
 
 public class ShardMinotaurLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
 
-private ImportCommand importCommand;
+	private ImportDatasetCommand importCommand;
 
 //    public void onPreWindowOpen(ApplicationWindowConfigurer configurer) {
 //        super.onPreWindowOpen(configurer);
@@ -40,7 +40,7 @@ private ImportCommand importCommand;
     public void onWindowOpened(ApplicationWindow window) {
         super.onWindowOpened(window);
 
-        importCommand = (ImportCommand) getApplication().getServices().getBean("importCommandExecutor", ImportCommand.class);
+        importCommand = (ImportDatasetCommand) getApplication().getServices().getBean("importCommandExecutor", ImportDatasetCommand.class);
         importCommand.setApplicationWindow(window);
         if (importCommand.isImportNeeded()) {
             importCommand.execute();
