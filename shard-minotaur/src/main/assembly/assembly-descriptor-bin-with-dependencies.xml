@@ -14,7 +14,7 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>src/main/scripts</directory>
+      <directory>target/generated-sources/scripts</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
         <include>*.sh</include>

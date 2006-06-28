@@ -105,15 +105,46 @@
           </archive>
         </configuration>
       </plugin>
+
+      <!-- dynamically generate startup scripts -->
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <tasks>
+                <echo>Creating startup scripts</echo>
+                <mkdir dir="target/generated-sources/scripts" />
+
+                <copy todir="target/generated-sources/scripts" filtering="true">
+                  <fileset dir="src/main/scripts">
+                    <include name="*.sh"/>
+                    <include name="*.bat"/>
+                  </fileset>
+                  <filterset>
+			        <filter token="VERSION" value="${pom.version}"/>
+    			  </filterset>
+                </copy>
+              </tasks>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
-          <descriptor>assembly-descriptor-bin-with-dependencies.xml</descriptor>
+          <descriptor>src/main/assembly/assembly-descriptor-bin-with-dependencies.xml</descriptor>
           <finalName>shard-minotaur</finalName>
           <outputDirectory>target/bin</outputDirectory>
           <workDirectory>target/temp-bin</workDirectory>
         </configuration>
       </plugin>
+
       <!-- support exec:java to run application -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
