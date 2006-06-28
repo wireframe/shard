@@ -306,18 +306,14 @@ public class ObjectManagerView extends AbstractView {
 	}
 
     private class NewCommandExcecutor extends AbstractActionCommandExecutor {
-        private Object object;
-        private AbstractForm form;
-        private AbstractDialogPage page;
-
         public NewCommandExcecutor() {
 			this.setEnabled(true);
         }
 
         public void execute() {
-            object = commandAdapter.createObject();
-            form = formFactory.createInitialForm(object);
-            page = formFactory.createPage(form);
+            final Object object = commandAdapter.createObject();
+            AbstractForm form = formFactory.createInitialForm(object);
+            AbstractDialogPage page = formFactory.createPage(form);
 
             FormModelCommittingTitledPageApplicationDialog dialog = new FormModelCommittingTitledPageApplicationDialog(page, getWindowControl(), form.getFormModel()) {
                 protected boolean doOnFinish() {
@@ -365,16 +361,11 @@ public class ObjectManagerView extends AbstractView {
 
 
     private class PropertiesCommandExecutor extends AbstractActionCommandExecutor {
-        private Object object;
-        private AbstractForm form;
-        private AbstractDialogPage page;
-        private int index;
-
         public void execute() {
-            object = getSelectedObject();
-            index = getFilteredObjects().indexOf(object);
-            form = formFactory.createInitialForm(object);
-            page = formFactory.createPage(form);
+            final Object object = getSelectedObject();
+            final int index = getFilteredObjects().indexOf(object);
+            AbstractForm form = formFactory.createInitialForm(object);
+            AbstractDialogPage page = formFactory.createPage(form);
 
             FormModelCommittingTitledPageApplicationDialog dialog = new FormModelCommittingTitledPageApplicationDialog(page, getWindowControl(), form.getFormModel()) {
                 protected boolean doOnFinish() {
