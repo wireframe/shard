@@ -43,7 +43,6 @@ import org.springframework.richclient.command.support.AbstractActionCommandExecu
 import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.AbstractDialogPage;
 import org.springframework.richclient.dialog.ConfirmationDialog;
-import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.progress.BusyIndicator;
 import org.springframework.richclient.progress.ProgressMonitor;
@@ -371,13 +370,8 @@ public class ObjectManagerView extends AbstractView {
             form = formFactory.createInitialForm(object);
             page = formFactory.createPage(form);
 
-            TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(page, getWindowControl()) {
-                protected void onAboutToShow() {
-                    setEnabled(page.isPageComplete());
-                }
-
-                protected boolean onFinish() {
-                	form.getFormModel().commit();
+            FormModelCommittingTitledPageApplicationDialog dialog = new FormModelCommittingTitledPageApplicationDialog(page, getWindowControl(), form.getFormModel()) {
+                protected boolean doOnFinish() {
                     commandAdapter.saveObject(object);
                     getFilteredObjects().add(object);
                     return true;
