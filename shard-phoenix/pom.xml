@@ -30,16 +30,18 @@
       <groupId>org.springframework.richclient</groupId>
       <artifactId>spring-richclient-support</artifactId>
       <version>0.1.0</version>
-<!--
       <exclusions>
         <exclusion>
-          <groupId>net.java.dev.glazedlists</groupId>
-          <artifactId>glazedlists</artifactId>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webmvc</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-web</artifactId>
         </exclusion>
       </exclusions>
--->
     </dependency>
-    
+
     <!-- glazed lists dependency -->
     <dependency>
       <groupId>net.java.dev.glazedlists</groupId>
