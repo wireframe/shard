@@ -21,7 +21,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -44,9 +43,6 @@ import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.AbstractDialogPage;
 import org.springframework.richclient.dialog.ConfirmationDialog;
 import org.springframework.richclient.form.AbstractForm;
-import org.springframework.richclient.progress.BusyIndicator;
-import org.springframework.richclient.progress.ProgressMonitor;
-import org.springframework.richclient.progress.StatusBar;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
 import ca.odell.glazedlists.BasicEventList;
@@ -59,20 +55,15 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
 import com.codecrate.shard.ui.ShardPhoenixCommandIds;
 import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
 import com.codecrate.shard.ui.component.SearchOnPauseJTextField;
-import com.codecrate.shard.ui.dragdrop.FileTransferHandler;
 import com.codecrate.shard.ui.form.FormFactory;
 import com.codecrate.shard.ui.form.FormModelCommittingTitledPageApplicationDialog;
 import com.codecrate.shard.ui.table.AlwaysMatchMatcher;
 import com.codecrate.shard.ui.table.ReadOnlyEventTableModel;
 import com.codecrate.shard.ui.table.StretchWhenEmptyJTable;
-import com.codecrate.shard.ui.transfer.ImportProgressAdapter;
 import com.codecrate.shard.ui.util.MouseUtil;
 import com.codecrate.shard.util.ComparableComparator;
 import com.l2fprod.common.springrcp.JTaskPaneCommandGroup;
 import com.l2fprod.common.swing.JTaskPane;
-
-import foxtrot.Job;
-import foxtrot.Worker;
 
 public class ObjectManagerView extends AbstractView {
     private static final boolean SINGLE_COLUMN_SORT = false;
@@ -173,11 +164,9 @@ public class ObjectManagerView extends AbstractView {
             searchButton = new JButton();
             searchButton.setText("Search");
             searchButton.addActionListener(new ActionListener() {
-
                 public void actionPerformed(ActionEvent arg0) {
                     fireSearch();
                 }
-
             });
         }
         return searchButton;
@@ -209,31 +198,10 @@ public class ObjectManagerView extends AbstractView {
     private void loadObjects() {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                Job loadTask = new Job() {
-
-                    public Object run() {
-                        getFilteredObjects().clear();
-                        getFilteredObjects().addAll(commandAdapter.getObjects());
-                        return null;
-                    }
-
-                };
-                executeBlockingJobInBackground("Loading...", loadTask);
+            	getFilteredObjects().clear();
+            	getFilteredObjects().addAll(commandAdapter.getObjects());
             }
-
         });
-    }
-
-    private void importFile(final File selectedFile) {
-        Job importTask = new Job() {
-            public Object run() {
-                commandAdapter.importObjects(selectedFile, new ImportProgressAdapter(getStatusBar().getProgressMonitor()));
-                return null;
-            }
-        };
-        executeBlockingJobInBackground("Importing...", importTask);
-
-        loadObjects();
     }
 
     private Object getSelectedObject() {
@@ -268,12 +236,6 @@ public class ObjectManagerView extends AbstractView {
                 }
             });
 
-
-            table.setTransferHandler(new FileTransferHandler() {
-				protected void onFileDrop(File file) {
-					importFile(file);
-				}
-            });
 
             new TableComparatorChooser(table, getSortedObjects(), SINGLE_COLUMN_SORT);
         }
@@ -343,19 +305,6 @@ public class ObjectManagerView extends AbstractView {
 		getFilteredObjects().setMatcher(ALWAYS_MATCH_MATCHER);
 	}
 
-    private Object executeBlockingJobInBackground(String description, Job job) {
-        ProgressMonitor progressMonitor = getStatusBar().getProgressMonitor();
-        BusyIndicator.showAt(getWindowControl());
-        progressMonitor.taskStarted(description, StatusBar.UNKNOWN);
-
-        Object result = Worker.post(job);
-
-        BusyIndicator.clearAt(getWindowControl());
-        progressMonitor.done();
-
-        return result;
-    }
-
     private class NewCommandExcecutor extends AbstractActionCommandExecutor {
         private Object object;
         private AbstractForm form;
@@ -393,17 +342,10 @@ public class ObjectManagerView extends AbstractView {
         public void execute() {
         	ConfirmationDialog dialog = new ConfirmationDialog(title, getWindowControl(), message) {
                 protected void onConfirm() {
-                    Job deleteTask = new Job() {
-
-                        public Object run() {
-                            for (Iterator selectedObjects = getSelectedObjects().iterator(); selectedObjects.hasNext();) {
-                                Object object = (Object) selectedObjects.next();
-                                commandAdapter.deleteObject(object);
-                            }
-                            return null;
-                        }
-                    };
-                    executeBlockingJobInBackground("Deleting...", deleteTask);
+                    for (Iterator selectedObjects = getSelectedObjects().iterator(); selectedObjects.hasNext();) {
+                        Object object = (Object) selectedObjects.next();
+                        commandAdapter.deleteObject(object);
+                    }
                     getFilteredObjects().removeAll(getSelectedObjects());
                 }
             };
