@@ -1,12 +1,16 @@
 package com.codecrate.shard.ui.command;
 
+import java.util.Collections;
+import java.util.Map;
+
 import javax.swing.SwingUtilities;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.richclient.command.ActionCommandExecutor;
+import org.springframework.richclient.command.ParameterizableActionCommandExecutor;
 
-public class EventDispatcherThreadActionCommandExecutor implements ActionCommandExecutor {
+public class EventDispatcherThreadActionCommandExecutor implements ParameterizableActionCommandExecutor {
 	private static final Log LOG = LogFactory.getLog(EventDispatcherThreadActionCommandExecutor.class);
 
 	private final ActionCommandExecutor delegate;
@@ -16,6 +20,10 @@ public class EventDispatcherThreadActionCommandExecutor implements ActionCommand
 	}
 
 	public void execute() {
+		execute(Collections.EMPTY_MAP);
+	}
+
+	public void execute(Map params) {
 		if (!SwingUtilities.isEventDispatchThread()) {
 			LOG.debug("Redirecting execution of " + delegate + " to event dispatch thread");
 			try {
