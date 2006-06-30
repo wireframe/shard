@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.codecrate.shard.event;
+package com.codecrate.shard.ui.event;
 
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
