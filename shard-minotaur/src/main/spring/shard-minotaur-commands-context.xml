@@ -102,7 +102,7 @@
     <constructor-arg>
       <bean class="com.codecrate.shard.ui.command.EventDispatcherThreadActionCommandExecutor">
         <constructor-arg>
-          <bean class="com.codecrate.shard.ui.command.ApplicationWindowProgressMonitorActionCommandExecutor">
+          <bean id="importDataset" class="com.codecrate.shard.ui.command.ApplicationWindowProgressMonitorActionCommandExecutor">
             <constructor-arg>
               <bean class="com.codecrate.shard.ui.command.FoxtrotBackgroundJobActionCommandExecutor">
 	            <constructor-arg>
