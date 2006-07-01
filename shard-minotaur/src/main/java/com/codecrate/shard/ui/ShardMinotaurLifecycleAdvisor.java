@@ -22,8 +22,8 @@ import com.codecrate.shard.ui.command.ImportDatasetCommand;
 
 public class ShardMinotaurLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
 
-	private ImportDatasetCommand importCommand;
-
+//	private ImportDatasetCommand importCommand;
+//
 //    public void onPreWindowOpen(ApplicationWindowConfigurer configurer) {
 //        super.onPreWindowOpen(configurer);
 //        if (getApplication().getApplicationContext().containsBean("setupWizard")) {
@@ -36,14 +36,14 @@ public class ShardMinotaurLifecycleAdvisor extends DefaultApplicationLifecycleAd
 //        //configurer.setInitialSize(new Dimension(640, 480));
 //    }
 //
-
-    public void onWindowOpened(ApplicationWindow window) {
-        super.onWindowOpened(window);
-
-        importCommand = (ImportDatasetCommand) getApplication().getServices().getBean("importCommandExecutor", ImportDatasetCommand.class);
-        importCommand.setApplicationWindow(window);
-        if (importCommand.isImportNeeded()) {
-            importCommand.execute();
-        }
-    }
+//
+//    public void onWindowOpened(ApplicationWindow window) {
+//        super.onWindowOpened(window);
+//
+//        importCommand = (ImportDatasetCommand) getApplication().getServices().getBean("importCommandExecutor", ImportDatasetCommand.class);
+//        importCommand.setApplicationWindow(window);
+//        if (importCommand.isImportNeeded()) {
+//            importCommand.execute();
+//        }
+//    }
 }

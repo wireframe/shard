@@ -1,38 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-gui-core-context.xml,v 1.1 2006/07/01 14:48:52 wireframe Exp $ -->
+<!-- $Id: shard-gui-core-context.xml,v 1.2 2006/07/01 15:32:09 wireframe Exp $ -->
 <beans>
-
-  <bean id="commandExecutorFactory"
-   class="com.codecrate.shard.ui.command.DefaultActionCommandExecutorFactory" />
 
   <bean id="importDatasetService" class="com.codecrate.shard.ui.command.ImportDatasetService">
     <constructor-arg><ref bean="objectImporter" /></constructor-arg>
-  </bean>
-
-  <!-- The bean to be created via the factory bean -->
-  <bean id="importDatasetCommand"
-   class="com.codecrate.shard.ui.command.SpecificApplicationEventActionCommandExecutor">
-    <constructor-arg><value>com.codecrate.shard.ui.command.ImportDatasetEvent</value></constructor-arg>
-    <constructor-arg>
-      <bean class="com.codecrate.shard.ui.command.EventDispatcherThreadActionCommandExecutor">
-        <constructor-arg>
-          <bean class="com.codecrate.shard.ui.command.ApplicationWindowProgressMonitorActionCommandExecutor">
-            <constructor-arg>
-              <bean class="com.codecrate.shard.ui.command.FoxtrotBackgroundJobActionCommandExecutor">
-	            <constructor-arg>
-	              <bean class="com.codecrate.shard.ui.command.MethodInvokingActionCommandExecutor">
-	                <property name="targetObject"><ref bean="importDatasetService"/></property>
-	                <property name="targetMethod"><value>importDataset</value></property>
-	              </bean>
-	            </constructor-arg>
-              </bean>
-            </constructor-arg>
-          </bean>
-        </constructor-arg>
-      </bean>
-    </constructor-arg>
   </bean>
 
 </beans>

@@ -17,7 +17,7 @@ public class MethodInvokingActionCommandExecutor extends ArgumentConvertingMetho
             prepare();
             invoke();
         } catch (Exception e) {
-            throw new RuntimeException("Error executing method " + getTargetMethod() + " with arguments " + getArguments());
+            throw new RuntimeException("Error executing method " + getTargetMethod() + " on object " + getTargetObject() + " with arguments " + getArguments(), e);
         }
     }
 }

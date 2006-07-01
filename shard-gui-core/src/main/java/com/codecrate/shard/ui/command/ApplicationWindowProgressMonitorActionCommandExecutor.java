@@ -1,30 +1,47 @@
 package com.codecrate.shard.ui.command;
 
-import org.springframework.richclient.command.ActionCommandExecutor;
+import java.util.Collections;
+import java.util.Map;
+
+import org.springframework.richclient.application.ApplicationWindow;
+import org.springframework.richclient.application.config.ApplicationWindowAware;
 import org.springframework.richclient.command.ParameterizableActionCommandExecutor;
-import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
 import org.springframework.richclient.progress.BusyIndicator;
 import org.springframework.richclient.progress.ProgressMonitor;
 import org.springframework.richclient.progress.StatusBar;
 
-public class ApplicationWindowProgressMonitorActionCommandExecutor extends ApplicationWindowAwareCommand implements ActionCommandExecutor {
+public class ApplicationWindowProgressMonitorActionCommandExecutor implements ParameterizableActionCommandExecutor, ApplicationWindowAware {
 	private final ParameterizableActionCommandExecutor delegate;
+    private ApplicationWindow window;
 
 	public ApplicationWindowProgressMonitorActionCommandExecutor(ParameterizableActionCommandExecutor delegate) {
 		this.delegate = delegate;
 	}
 
 	protected void doExecuteCommand() {
-        BusyIndicator.showAt(getApplicationWindow().getControl());
-        getProgressMonitor().taskStarted(getText(), StatusBar.UNKNOWN);
-
-        delegate.execute(getParameters());
-
-        BusyIndicator.clearAt(getApplicationWindow().getControl());
-        getProgressMonitor().done();
 	}
 
     private ProgressMonitor getProgressMonitor() {
-    	return getApplicationWindow().getStatusBar().getProgressMonitor();
+    	return window.getStatusBar().getProgressMonitor();
+    }
+
+    public void execute() {
+        execute(Collections.EMPTY_MAP);
+    }
+
+    public void setApplicationWindow(ApplicationWindow window) {
+        this.window = window;
+    }
+
+    public void execute(Map params) {
+        BusyIndicator.showAt(window.getControl());
+        getProgressMonitor().taskStarted("TEXT GOES HERE!", StatusBar.UNKNOWN);
+
+        try {
+            delegate.execute(params);
+        } finally {
+            BusyIndicator.clearAt(window.getControl());
+            getProgressMonitor().done();
+        }
     }
 }

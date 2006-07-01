@@ -18,4 +18,8 @@ public class ImportDatasetEvent extends ApplicationEvent {
     public void setSelectedDirectory(File selectedDirectory) {
         this.selectedDirectory = selectedDirectory;
     }
+
+    public String toString() {
+        return ImportDatasetEvent.class.getName() + " selectedDirectory=" + selectedDirectory;
+    }
 }
