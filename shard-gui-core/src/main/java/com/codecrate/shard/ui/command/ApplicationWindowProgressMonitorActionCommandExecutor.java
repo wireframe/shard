@@ -18,9 +18,6 @@ public class ApplicationWindowProgressMonitorActionCommandExecutor implements Pa
 		this.delegate = delegate;
 	}
 
-	protected void doExecuteCommand() {
-	}
-
     private ProgressMonitor getProgressMonitor() {
     	return window.getStatusBar().getProgressMonitor();
     }
