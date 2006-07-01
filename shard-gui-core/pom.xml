@@ -51,4 +51,16 @@
 	</dependency>
   </dependencies>
 
+  <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/spring</directory>
+        <includes>
+          <include>**/*.xml</include>
+          <include>**/*.properties</include>
+          <include>**/*.html</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </model>

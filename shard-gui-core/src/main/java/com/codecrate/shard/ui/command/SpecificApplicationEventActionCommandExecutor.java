@@ -1,17 +1,17 @@
 package com.codecrate.shard.ui.command;
 
 import java.util.Collections;
-import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.richclient.command.ActionCommandExecutor;
 import org.springframework.richclient.command.ParameterizableActionCommandExecutor;
 
 import com.codecrate.shard.ui.event.AbstractSpecificApplicationEventListener;
 
-public class SpecificApplicationEventActionCommandExecutor extends AbstractSpecificApplicationEventListener implements ParameterizableActionCommandExecutor, ApplicationListener {
+public class SpecificApplicationEventActionCommandExecutor extends AbstractSpecificApplicationEventListener implements ActionCommandExecutor, ApplicationListener {
 	private static final Log LOG = LogFactory.getLog(SpecificApplicationEventActionCommandExecutor.class);
 
 	private final ParameterizableActionCommandExecutor delegate;
@@ -22,16 +22,11 @@ public class SpecificApplicationEventActionCommandExecutor extends AbstractSpeci
 	}
 
     protected void onSpecificApplicationEvent(ApplicationEvent event) {
-        LOG.info("Executing action " + delegate + " due to application event " + event);
-        execute(Collections.singletonMap("event", event));
+        LOG.info("Executing action specific action command due to application event " + event);
+        delegate.execute(Collections.singletonMap("event", event));
     }
 
     public void execute() {
-        execute(Collections.EMPTY_MAP);
-    }
-
-
-    public void execute(Map params) {
-        delegate.execute(params);
+        LOG.info("Cannot execute specific action command executor without application event");
     }
 }

@@ -1,23 +1,30 @@
 package com.codecrate.shard.ui.command;
 
-import org.springframework.richclient.command.ActionCommandExecutor;
+import java.util.Collections;
+import java.util.Map;
+
+import org.springframework.richclient.command.ParameterizableActionCommandExecutor;
 
 import foxtrot.Job;
 import foxtrot.Worker;
 
-public class FoxtrotBackgroundJobActionCommandExecutor implements ActionCommandExecutor {
-	private final ActionCommandExecutor delegate;
+public class FoxtrotBackgroundJobActionCommandExecutor implements ParameterizableActionCommandExecutor {
+	private final ParameterizableActionCommandExecutor delegate;
 
-	public FoxtrotBackgroundJobActionCommandExecutor(ActionCommandExecutor delegate) {
+	public FoxtrotBackgroundJobActionCommandExecutor(ParameterizableActionCommandExecutor delegate) {
 		this.delegate = delegate;
 	}
 
 	public void execute() {
-		Worker.post(new Job() {
-			public Object run() {
-				delegate.execute();
-				return null;
-			}
-		});
+        execute(Collections.EMPTY_MAP);
 	}
+
+    public void execute(final Map params) {
+        Worker.post(new Job() {
+            public Object run() {
+                delegate.execute(params);
+                return null;
+            }
+        });
+    }
 }

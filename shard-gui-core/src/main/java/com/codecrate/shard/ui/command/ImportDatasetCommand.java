@@ -18,7 +18,6 @@ package com.codecrate.shard.ui.command;
 import java.io.File;
 
 import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.binding.form.ValidatingFormModel;
@@ -26,6 +25,8 @@ import org.springframework.binding.validation.DefaultValidationResults;
 import org.springframework.binding.validation.Severity;
 import org.springframework.binding.validation.ValidationResults;
 import org.springframework.binding.validation.Validator;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.richclient.command.ActionCommandExecutor;
 import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
@@ -33,23 +34,17 @@ import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.FormModelHelper;
 import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
-import org.springframework.richclient.progress.BusyIndicator;
-import org.springframework.richclient.progress.ProgressMonitor;
-import org.springframework.richclient.progress.StatusBar;
 
 import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
 import com.codecrate.shard.ui.binding.JDirectoryChooserBinding;
 import com.codecrate.shard.ui.form.FormModelCommittingTitledPageApplicationDialog;
-import com.codecrate.shard.ui.transfer.ImportProgressAdapter;
 import com.l2fprod.common.swing.JDirectoryChooser;
 
-import foxtrot.Job;
-import foxtrot.Worker;
-
-public class ImportDatasetCommand extends ApplicationWindowAwareCommand implements ActionCommandExecutor {
+public class ImportDatasetCommand extends ApplicationWindowAwareCommand implements ActionCommandExecutor, ApplicationEventPublisherAware {
     private final RaceDao raceDao;
     private final PcgenDatasetImporter importer;
+    private ApplicationEventPublisher publisher;
 
     public ImportDatasetCommand(RaceDao raceDao, PcgenDatasetImporter importer) {
         this.raceDao = raceDao;
@@ -65,42 +60,21 @@ public class ImportDatasetCommand extends ApplicationWindowAwareCommand implemen
 
         FormModelCommittingTitledPageApplicationDialog dialog = new FormModelCommittingTitledPageApplicationDialog(page, getApplicationWindow().getControl(), model) {
             protected boolean doOnFinish() {
-            	importFile(directorySelection.getSelectedDirectory());
+                ImportDatasetEvent event = new ImportDatasetEvent(this);
+                event.setSelectedDirectory(directorySelection.getSelectedDirectory());
+                publisher.publishEvent(event);
                 return true;
             }
         };
         dialog.showDialog();
     }
 
+    public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
+        this.publisher = publisher;
+    }
+
     public boolean isImportNeeded() {
         return raceDao.getRaces().isEmpty();
-    }
-
-    private void importFile(final File selectedFile) {
-        Job importTask = new Job() {
-            public Object run() {
-                importer.importObjects(selectedFile, new ImportProgressAdapter(getProgressMonitor()));
-                return null;
-            }
-        };
-        executeAsyncBlockingJobInBackground("Importing...", importTask);
-    }
-
-    private ProgressMonitor getProgressMonitor() {
-    	return getApplicationWindow().getStatusBar().getProgressMonitor();
-    }
-    private void executeAsyncBlockingJobInBackground(final String description, final Job job) {
-    	SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-		        BusyIndicator.showAt(getApplicationWindow().getControl());
-		        getProgressMonitor().taskStarted(description, StatusBar.UNKNOWN);
-
-		        Worker.post(job);
-
-		        BusyIndicator.clearAt(getApplicationWindow().getControl());
-		        getProgressMonitor().done();
-			}
-    	});
     }
 
     public class DirectorySelectionForm extends AbstractForm {

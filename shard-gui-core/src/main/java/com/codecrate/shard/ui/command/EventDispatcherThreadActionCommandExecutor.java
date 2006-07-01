@@ -7,15 +7,14 @@ import javax.swing.SwingUtilities;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.richclient.command.ActionCommandExecutor;
 import org.springframework.richclient.command.ParameterizableActionCommandExecutor;
 
 public class EventDispatcherThreadActionCommandExecutor implements ParameterizableActionCommandExecutor {
 	private static final Log LOG = LogFactory.getLog(EventDispatcherThreadActionCommandExecutor.class);
 
-	private final ActionCommandExecutor delegate;
+	private final ParameterizableActionCommandExecutor delegate;
 
-	public EventDispatcherThreadActionCommandExecutor(ActionCommandExecutor delegate) {
+	public EventDispatcherThreadActionCommandExecutor(ParameterizableActionCommandExecutor delegate) {
 		this.delegate = delegate;
 	}
 
@@ -36,7 +35,7 @@ public class EventDispatcherThreadActionCommandExecutor implements Parameterizab
 				throw new RuntimeException("Error executing " + delegate + " on event dispatch thread");
 			}
 		} else {
-			delegate.execute();
+			delegate.execute(params);
 		}
 	}
 }
