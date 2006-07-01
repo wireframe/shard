@@ -41,6 +41,7 @@ import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
 import com.codecrate.shard.ui.binding.JDirectoryChooserBinding;
 import com.codecrate.shard.ui.form.FormModelCommittingTitledPageApplicationDialog;
+import com.codecrate.shard.ui.transfer.EventDispatcherThreadProgressMonitor;
 import com.codecrate.shard.ui.transfer.ImportProgressAdapter;
 import com.l2fprod.common.swing.JDirectoryChooser;
 
@@ -55,7 +56,7 @@ public class ImportDatasetCommand extends ApplicationWindowAwareCommand implemen
     }
 
     protected void doExecuteCommand() {
-        final ImportDatasetEvent directorySelection = new ImportDatasetEvent(this, new ImportProgressAdapter(getProgressMonitor()));
+        final ImportDatasetEvent directorySelection = new ImportDatasetEvent(this, new EventDispatcherThreadProgressMonitor(new ImportProgressAdapter(getProgressMonitor())));
         ValidatingFormModel model = FormModelHelper.createFormModel(directorySelection);
         //model.setValidator(new ValidDatasetValidator());
         final DirectorySelectionForm form = new DirectorySelectionForm(model);
