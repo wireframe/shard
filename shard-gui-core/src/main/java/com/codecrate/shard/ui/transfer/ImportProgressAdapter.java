@@ -15,9 +15,15 @@
  */
 package com.codecrate.shard.ui.transfer;
 
+import javax.swing.SwingUtilities;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.codecrate.shard.transfer.progress.ProgressMonitor;
 
 public class ImportProgressAdapter implements ProgressMonitor {
+    private static final Log LOG = LogFactory.getLog(ImportProgressAdapter.class);
 
 	private final org.springframework.richclient.progress.ProgressMonitor delegate;
 	private int unitsWorked = 0;
@@ -26,17 +32,37 @@ public class ImportProgressAdapter implements ProgressMonitor {
 		this.delegate = delegate;
 	}
 
-	public void startTask(String description, int totalUnitsOfWork) {
+	public void startTask(final String description, final int totalUnitsOfWork) {
 		unitsWorked = 0;
-		delegate.taskStarted(description, totalUnitsOfWork);
+        updateProgressBar(new Runnable() {
+            public void run() {
+                delegate.taskStarted(description, totalUnitsOfWork);
+            }
+        });
 	}
 
 	public void completeUnitOfWork() {
 		unitsWorked++;
-		delegate.worked(unitsWorked);
+        updateProgressBar(new Runnable() {
+            public void run() {
+                delegate.worked(unitsWorked);
+            }
+        });
 	}
 
 	public void finish() {
-		delegate.done();
+        updateProgressBar(new Runnable() {
+            public void run() {
+                delegate.done();
+            }
+        });
 	}
+
+    private void updateProgressBar(Runnable task) {
+        try {
+            SwingUtilities.invokeAndWait(task);
+        } catch (Exception e) {
+            LOG.warn("Error updating progress bar", e);
+        }
+    }
 }

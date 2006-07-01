@@ -18,6 +18,7 @@ package com.codecrate.shard.ui.command;
 import java.io.File;
 
 import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.binding.form.ValidatingFormModel;
@@ -34,11 +35,13 @@ import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.FormModelHelper;
 import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
+import org.springframework.richclient.progress.ProgressMonitor;
 
 import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
 import com.codecrate.shard.ui.binding.JDirectoryChooserBinding;
 import com.codecrate.shard.ui.form.FormModelCommittingTitledPageApplicationDialog;
+import com.codecrate.shard.ui.transfer.ImportProgressAdapter;
 import com.l2fprod.common.swing.JDirectoryChooser;
 
 public class ImportDatasetCommand extends ApplicationWindowAwareCommand implements ActionCommandExecutor, ApplicationEventPublisherAware {
@@ -52,7 +55,7 @@ public class ImportDatasetCommand extends ApplicationWindowAwareCommand implemen
     }
 
     protected void doExecuteCommand() {
-        final DirectorySelection directorySelection = new DirectorySelection();
+        final ImportDatasetEvent directorySelection = new ImportDatasetEvent(this, new ImportProgressAdapter(getProgressMonitor()));
         ValidatingFormModel model = FormModelHelper.createFormModel(directorySelection);
         //model.setValidator(new ValidDatasetValidator());
         final DirectorySelectionForm form = new DirectorySelectionForm(model);
@@ -60,13 +63,19 @@ public class ImportDatasetCommand extends ApplicationWindowAwareCommand implemen
 
         FormModelCommittingTitledPageApplicationDialog dialog = new FormModelCommittingTitledPageApplicationDialog(page, getApplicationWindow().getControl(), model) {
             protected boolean doOnFinish() {
-                ImportDatasetEvent event = new ImportDatasetEvent(this);
-                event.setSelectedDirectory(directorySelection.getSelectedDirectory());
-                publisher.publishEvent(event);
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        publisher.publishEvent(directorySelection);
+                    }
+                });
                 return true;
             }
         };
         dialog.showDialog();
+    }
+
+    private ProgressMonitor getProgressMonitor() {
+        return getApplicationWindow().getStatusBar().getProgressMonitor();
     }
 
     public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
@@ -97,24 +106,12 @@ public class ImportDatasetCommand extends ApplicationWindowAwareCommand implemen
         }
     }
 
-    public class DirectorySelection {
-		private File selectedDirectory;
-
-        public File getSelectedDirectory() {
-            return selectedDirectory;
-        }
-
-        public void setSelectedDirectory(File selectedDirectory) {
-            this.selectedDirectory = selectedDirectory;
-        }
-    }
-
     public class ValidDatasetValidator implements Validator {
 
 		public ValidationResults validate(Object model) {
 			DefaultValidationResults results = new DefaultValidationResults();
 
-			DirectorySelection directorySelection = (DirectorySelection) model;
+            ImportDatasetEvent directorySelection = (ImportDatasetEvent) model;
 			File directory = directorySelection.getSelectedDirectory();
 			if (!importer.isDataset(directory)) {
 				results.addMessage("not.valid.dataset", Severity.ERROR, "Not a valid dataset");

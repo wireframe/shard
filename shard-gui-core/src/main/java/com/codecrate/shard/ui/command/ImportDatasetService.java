@@ -16,7 +16,6 @@
 package com.codecrate.shard.ui.command;
 
 import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
-import com.codecrate.shard.transfer.progress.NullProgressMonitor;
 
 public class ImportDatasetService {
     private final PcgenDatasetImporter importer;
@@ -26,6 +25,6 @@ public class ImportDatasetService {
     }
 
     public void importDataset(ImportDatasetEvent event) {
-        importer.importObjects(event.getSelectedDirectory(), new NullProgressMonitor());
+        importer.importObjects(event.getSelectedDirectory(), event.getMonitor());
     }
 }
