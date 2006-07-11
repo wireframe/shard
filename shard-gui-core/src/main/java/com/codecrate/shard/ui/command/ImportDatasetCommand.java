@@ -40,6 +40,7 @@ import org.springframework.richclient.progress.ProgressMonitor;
 import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
 import com.codecrate.shard.ui.binding.JDirectoryChooserBinding;
+import com.codecrate.shard.ui.event.AsynchEventPublisher;
 import com.codecrate.shard.ui.form.FormModelCommittingTitledPageApplicationDialog;
 import com.codecrate.shard.ui.transfer.EventDispatcherThreadProgressMonitor;
 import com.codecrate.shard.ui.transfer.ImportProgressAdapter;
@@ -64,11 +65,7 @@ public class ImportDatasetCommand extends ApplicationWindowAwareCommand implemen
 
         FormModelCommittingTitledPageApplicationDialog dialog = new FormModelCommittingTitledPageApplicationDialog(page, getApplicationWindow().getControl(), model) {
             protected boolean doOnFinish() {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        publisher.publishEvent(directorySelection);
-                    }
-                });
+            	publisher.publishEvent(directorySelection);
                 return true;
             }
         };
@@ -80,7 +77,7 @@ public class ImportDatasetCommand extends ApplicationWindowAwareCommand implemen
     }
 
     public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
-        this.publisher = publisher;
+        this.publisher = new AsynchEventPublisher(publisher);
     }
 
     public boolean isImportNeeded() {
