@@ -18,10 +18,13 @@ package com.codecrate.shard.ui.command;
 import java.util.Collections;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.support.ArgumentConvertingMethodInvoker;
 import org.springframework.richclient.command.ParameterizableActionCommandExecutor;
 
 public class MethodInvokingActionCommandExecutor extends ArgumentConvertingMethodInvoker implements ParameterizableActionCommandExecutor {
+	private static final Log LOG = LogFactory.getLog(MethodInvokingActionCommandExecutor.class);
     public void execute() {
         execute(Collections.EMPTY_MAP);
     }
@@ -29,6 +32,7 @@ public class MethodInvokingActionCommandExecutor extends ArgumentConvertingMetho
     public void execute(Map params) {
         setArguments(params.values().toArray());
         try {
+        	LOG.info("Invoking method " + getTargetMethod() + " on object " + getTargetObject() + " with arguments " + getArguments());
             prepare();
             invoke();
         } catch (Exception e) {

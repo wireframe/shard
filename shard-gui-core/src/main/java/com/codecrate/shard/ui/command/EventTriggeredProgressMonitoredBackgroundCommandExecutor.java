@@ -30,8 +30,12 @@ public class EventTriggeredProgressMonitoredBackgroundCommandExecutor implements
 	private ApplicationWindowProgressMonitorActionCommandExecutor progressExecutor;
 
 	public EventTriggeredProgressMonitoredBackgroundCommandExecutor(Class eventClass, ParameterizableActionCommandExecutor delegate) {
-		this.progressExecutor = new ApplicationWindowProgressMonitorActionCommandExecutor(new EventDispatcherThreadActionCommandExecutor(delegate));
-		this.eventExecutor = new SpecificApplicationEventActionCommandExecutor(eventClass, new FoxtrotBackgroundJobActionCommandExecutor(progressExecutor));
+		FoxtrotBackgroundJobActionCommandExecutor backgroundJobExecutor = new FoxtrotBackgroundJobActionCommandExecutor(delegate);
+
+		this.progressExecutor = new ApplicationWindowProgressMonitorActionCommandExecutor(backgroundJobExecutor);
+		EventDispatcherThreadActionCommandExecutor edtExecutor = new EventDispatcherThreadActionCommandExecutor(progressExecutor);
+
+		this.eventExecutor = new SpecificApplicationEventActionCommandExecutor(eventClass, edtExecutor);
 	}
 
 	public void onApplicationEvent(ApplicationEvent event) {

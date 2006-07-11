@@ -18,12 +18,15 @@ package com.codecrate.shard.ui.command;
 import java.util.Collections;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.richclient.command.ParameterizableActionCommandExecutor;
 
 import foxtrot.Job;
 import foxtrot.Worker;
 
 public class FoxtrotBackgroundJobActionCommandExecutor implements ParameterizableActionCommandExecutor {
+	private static final Log LOG = LogFactory.getLog(FoxtrotBackgroundJobActionCommandExecutor.class);
 	private final ParameterizableActionCommandExecutor delegate;
 
 	public FoxtrotBackgroundJobActionCommandExecutor(ParameterizableActionCommandExecutor delegate) {
@@ -35,6 +38,7 @@ public class FoxtrotBackgroundJobActionCommandExecutor implements Parameterizabl
 	}
 
     public void execute(final Map params) {
+    	LOG.info("Executing action in foxtrot background thread " + delegate);
         Worker.post(new Job() {
             public Object run() {
                 delegate.execute(params);

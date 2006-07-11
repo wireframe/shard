@@ -39,7 +39,7 @@ public class EventDispatcherThreadActionCommandExecutor implements Parameterizab
 
 	public void execute(Map params) {
 		if (!SwingUtilities.isEventDispatchThread()) {
-			LOG.debug("Redirecting execution of " + delegate + " to event dispatch thread");
+			LOG.info("Redirecting execution of " + delegate + " to event dispatch thread");
 			try {
 				SwingUtilities.invokeAndWait(new Runnable() {
 					public void run() {
