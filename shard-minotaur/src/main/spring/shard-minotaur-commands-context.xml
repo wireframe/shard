@@ -88,8 +88,6 @@
 		</property>
 	</bean>
 
-
-
   <bean id="importCommandExecutor"
    class="com.codecrate.shard.ui.command.ImportDatasetCommand">
     <constructor-arg><ref bean="raceDao" /></constructor-arg>
@@ -97,25 +95,13 @@
   </bean>
 
   <bean id="importDatasetCommand"
-   class="com.codecrate.shard.ui.command.SpecificApplicationEventActionCommandExecutor">
+   class="com.codecrate.shard.ui.command.EventTriggeredProgressMonitoredBackgroundCommandExecutor">
     <constructor-arg><value>com.codecrate.shard.ui.command.ImportDatasetEvent</value></constructor-arg>
     <constructor-arg>
-      <bean class="com.codecrate.shard.ui.command.EventDispatcherThreadActionCommandExecutor">
-        <constructor-arg>
-          <bean id="importDataset" class="com.codecrate.shard.ui.command.ApplicationWindowProgressMonitorActionCommandExecutor">
-            <constructor-arg>
-              <bean class="com.codecrate.shard.ui.command.FoxtrotBackgroundJobActionCommandExecutor">
-	            <constructor-arg>
-	              <bean class="com.codecrate.shard.ui.command.MethodInvokingActionCommandExecutor">
-	                <property name="targetObject"><ref bean="importDatasetService"/></property>
-	                <property name="targetMethod"><value>importDataset</value></property>
-	              </bean>
-	            </constructor-arg>
-              </bean>
-            </constructor-arg>
-          </bean>
-        </constructor-arg>
-      </bean>
+      <bean class="com.codecrate.shard.ui.command.MethodInvokingActionCommandExecutor">
+	    <property name="targetObject"><ref bean="importDatasetService"/></property>
+	    <property name="targetMethod"><value>importDataset</value></property>
+	  </bean>
     </constructor-arg>
   </bean>
 

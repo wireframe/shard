@@ -120,4 +120,21 @@
 			<ref bean="importCommandExecutor"/>
 		</property>
 	</bean>
+
+  <bean id="importCommandExecutor"
+   class="com.codecrate.shard.ui.command.ImportDatasetCommand">
+    <constructor-arg><ref bean="raceDao" /></constructor-arg>
+    <constructor-arg><ref bean="objectImporter" /></constructor-arg>
+  </bean>
+	
+  <bean id="importDatasetCommand"
+   class="com.codecrate.shard.ui.command.EventTriggeredProgressMonitoredBackgroundCommandExecutor">
+    <constructor-arg><value>com.codecrate.shard.ui.command.ImportDatasetEvent</value></constructor-arg>
+    <constructor-arg>
+      <bean class="com.codecrate.shard.ui.command.MethodInvokingActionCommandExecutor">
+	    <property name="targetObject"><ref bean="importDatasetService"/></property>
+	    <property name="targetMethod"><value>importDataset</value></property>
+	  </bean>
+    </constructor-arg>
+  </bean>
 </beans>
