@@ -97,12 +97,8 @@
   <bean id="importDatasetCommand"
    class="com.codecrate.shard.ui.command.EventTriggeredProgressMonitoredBackgroundCommandExecutor">
     <constructor-arg><value>com.codecrate.shard.ui.command.ImportDatasetEvent</value></constructor-arg>
-    <constructor-arg>
-      <bean class="com.codecrate.shard.ui.command.MethodInvokingActionCommandExecutor">
-	    <property name="targetObject"><ref bean="importDatasetService"/></property>
-	    <property name="targetMethod"><value>importDataset</value></property>
-	  </bean>
-    </constructor-arg>
+    <constructor-arg index="1"><ref bean="importDatasetService"/></constructor-arg>
+    <constructor-arg index="2"><value>importDataset</value></constructor-arg>
   </bean>
 
 </beans>

@@ -22,15 +22,15 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.richclient.application.ApplicationWindow;
 import org.springframework.richclient.application.config.ApplicationWindowAware;
-import org.springframework.richclient.command.ParameterizableActionCommandExecutor;
 
 public class EventTriggeredProgressMonitoredBackgroundCommandExecutor implements ApplicationListener, ApplicationWindowAware, MessageSourceAware, BeanNameAware  {
 
 	private SpecificApplicationEventActionCommandExecutor eventExecutor;
 	private ApplicationWindowProgressMonitorActionCommandExecutor progressExecutor;
 
-	public EventTriggeredProgressMonitoredBackgroundCommandExecutor(Class eventClass, ParameterizableActionCommandExecutor delegate) {
-		FoxtrotJobActionCommandExecutor foxtrotExecutor = new FoxtrotJobActionCommandExecutor(delegate);
+	public EventTriggeredProgressMonitoredBackgroundCommandExecutor(Class eventClass, Object targetObject, String methodName) {
+		MethodInvokingActionCommandExecutor methodExecutor = new MethodInvokingActionCommandExecutor(targetObject, methodName);
+		FoxtrotJobActionCommandExecutor foxtrotExecutor = new FoxtrotJobActionCommandExecutor(methodExecutor);
 		this.progressExecutor = new ApplicationWindowProgressMonitorActionCommandExecutor(foxtrotExecutor);
 		EventDispatcherThreadActionCommandExecutor edtExecutor = new EventDispatcherThreadActionCommandExecutor(progressExecutor);
         BackgroundThreadActionCommandExecutor backgroundThreadExecutor = new BackgroundThreadActionCommandExecutor(edtExecutor);

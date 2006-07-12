@@ -25,7 +25,13 @@ import org.springframework.richclient.command.ParameterizableActionCommandExecut
 
 public class MethodInvokingActionCommandExecutor extends ArgumentConvertingMethodInvoker implements ParameterizableActionCommandExecutor {
 	private static final Log LOG = LogFactory.getLog(MethodInvokingActionCommandExecutor.class);
-    public void execute() {
+	
+    public MethodInvokingActionCommandExecutor(Object targetObject, String methodName) {
+    	setTargetObject(targetObject);
+    	setTargetMethod(methodName);
+	}
+
+	public void execute() {
         execute(Collections.EMPTY_MAP);
     }
 
