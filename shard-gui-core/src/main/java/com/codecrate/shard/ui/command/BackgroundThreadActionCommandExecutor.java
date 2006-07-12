@@ -18,32 +18,30 @@ package com.codecrate.shard.ui.command;
 import java.util.Collections;
 import java.util.Map;
 
+import javax.swing.SwingUtilities;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.richclient.command.ParameterizableActionCommandExecutor;
 
-import foxtrot.Job;
-import foxtrot.Worker;
-
-public class FoxtrotBackgroundJobActionCommandExecutor implements ParameterizableActionCommandExecutor {
-	private static final Log LOG = LogFactory.getLog(FoxtrotBackgroundJobActionCommandExecutor.class);
+public class BackgroundThreadActionCommandExecutor implements ParameterizableActionCommandExecutor {
+    private static final Log LOG = LogFactory.getLog(BackgroundThreadActionCommandExecutor.class);
 	private final ParameterizableActionCommandExecutor delegate;
 
-	public FoxtrotBackgroundJobActionCommandExecutor(ParameterizableActionCommandExecutor delegate) {
+	public BackgroundThreadActionCommandExecutor(ParameterizableActionCommandExecutor delegate) {
 		this.delegate = delegate;
 	}
 
 	public void execute() {
-        execute(Collections.EMPTY_MAP);
+		execute(Collections.EMPTY_MAP);
 	}
 
-    public void execute(final Map params) {
-    	LOG.info("Executing action in foxtrot background thread " + delegate);
-        Worker.post(new Job() {
-            public Object run() {
-                delegate.execute(params);
-                return null;
-            }
-        });
-    }
+	public void execute(final Map params) {
+        LOG.debug("Executing action in background thread: " + delegate);
+	    SwingUtilities.invokeLater(new Runnable() {
+	        public void run() {
+	            delegate.execute(params);
+	        }
+	    });
+	}
 }

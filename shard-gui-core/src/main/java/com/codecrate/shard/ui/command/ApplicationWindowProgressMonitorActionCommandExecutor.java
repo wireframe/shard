@@ -16,6 +16,7 @@
 package com.codecrate.shard.ui.command;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -53,6 +54,9 @@ public class ApplicationWindowProgressMonitorActionCommandExecutor implements Pa
         getProgressMonitor().taskStarted(description, StatusBar.UNKNOWN);
 
         try {
+            Map newParams = new HashMap();
+            newParams.putAll(params);
+            newParams.put("progressMonitor", getProgressMonitor());
             delegate.execute(params);
         } finally {
             BusyIndicator.clearAt(window.getControl());

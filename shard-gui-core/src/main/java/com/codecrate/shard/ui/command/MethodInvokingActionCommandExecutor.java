@@ -32,11 +32,25 @@ public class MethodInvokingActionCommandExecutor extends ArgumentConvertingMetho
     public void execute(Map params) {
         setArguments(params.values().toArray());
         try {
-        	LOG.info("Invoking method " + getTargetMethod() + " on object " + getTargetObject() + " with arguments " + getArguments());
+        	LOG.debug("Invoking method " + getTargetMethod() + " on object " + getTargetObject() + " with arguments " + stringifyArguments());
             prepare();
             invoke();
         } catch (Exception e) {
-            throw new RuntimeException("Error executing method " + getTargetMethod() + " on object " + getTargetObject() + " with arguments " + getArguments(), e);
+            throw new RuntimeException("Error executing method " + getTargetMethod() + " on object " + getTargetObject() + " with arguments " + stringifyArguments(), e);
         }
+    }
+
+    private String stringifyArguments() {
+        Object[] args = getArguments();
+        if (null == args) {
+            return "";
+        }
+        StringBuffer buffer = new StringBuffer();
+        for (int x = 0; x < args.length; x++) {
+            Object arg = args[x];
+            buffer.append(arg);
+            buffer.append(", ");
+        }
+        return buffer.toString();
     }
 }

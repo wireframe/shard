@@ -18,7 +18,6 @@ package com.codecrate.shard.ui.command;
 import java.io.File;
 
 import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.binding.form.ValidatingFormModel;
@@ -40,7 +39,6 @@ import org.springframework.richclient.progress.ProgressMonitor;
 import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
 import com.codecrate.shard.ui.binding.JDirectoryChooserBinding;
-import com.codecrate.shard.ui.event.AsynchEventPublisher;
 import com.codecrate.shard.ui.form.FormModelCommittingTitledPageApplicationDialog;
 import com.codecrate.shard.ui.transfer.EventDispatcherThreadProgressMonitor;
 import com.codecrate.shard.ui.transfer.ImportProgressAdapter;
@@ -77,7 +75,7 @@ public class ImportDatasetCommand extends ApplicationWindowAwareCommand implemen
     }
 
     public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
-        this.publisher = new AsynchEventPublisher(publisher);
+        this.publisher = publisher;
     }
 
     public boolean isImportNeeded() {
