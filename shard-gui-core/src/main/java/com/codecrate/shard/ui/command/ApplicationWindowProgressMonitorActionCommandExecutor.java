@@ -57,7 +57,7 @@ public class ApplicationWindowProgressMonitorActionCommandExecutor implements Pa
             Map newParams = new HashMap();
             newParams.putAll(params);
             newParams.put("progressMonitor", getProgressMonitor());
-            delegate.execute(params);
+            delegate.execute(newParams);
         } finally {
             BusyIndicator.clearAt(window.getControl());
             getProgressMonitor().done();

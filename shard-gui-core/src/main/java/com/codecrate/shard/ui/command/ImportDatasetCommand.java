@@ -34,14 +34,11 @@ import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.FormModelHelper;
 import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
-import org.springframework.richclient.progress.ProgressMonitor;
 
 import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
 import com.codecrate.shard.ui.binding.JDirectoryChooserBinding;
 import com.codecrate.shard.ui.form.FormModelCommittingTitledPageApplicationDialog;
-import com.codecrate.shard.ui.transfer.EventDispatcherThreadProgressMonitor;
-import com.codecrate.shard.ui.transfer.ImportProgressAdapter;
 import com.l2fprod.common.swing.JDirectoryChooser;
 
 public class ImportDatasetCommand extends ApplicationWindowAwareCommand implements ActionCommandExecutor, ApplicationEventPublisherAware {
@@ -55,7 +52,7 @@ public class ImportDatasetCommand extends ApplicationWindowAwareCommand implemen
     }
 
     protected void doExecuteCommand() {
-        final ImportDatasetEvent directorySelection = new ImportDatasetEvent(this, new EventDispatcherThreadProgressMonitor(new ImportProgressAdapter(getProgressMonitor())));
+        final ImportDatasetEvent directorySelection = new ImportDatasetEvent(this);
         ValidatingFormModel model = FormModelHelper.createFormModel(directorySelection);
         //model.setValidator(new ValidDatasetValidator());
         final DirectorySelectionForm form = new DirectorySelectionForm(model);
@@ -68,10 +65,6 @@ public class ImportDatasetCommand extends ApplicationWindowAwareCommand implemen
             }
         };
         dialog.showDialog();
-    }
-
-    private ProgressMonitor getProgressMonitor() {
-        return getApplicationWindow().getStatusBar().getProgressMonitor();
     }
 
     public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
