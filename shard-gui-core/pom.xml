@@ -43,24 +43,5 @@
       <version>2.0</version>
     </dependency>
 
-	<!-- l2fprod-common dependencies -->
-	<dependency>
-	  <groupId>l2fprod-common-directorychooser</groupId>
-	  <artifactId>l2fprod-common-directorychooser</artifactId>
-	  <version>6.5.1</version>
-	</dependency>
   </dependencies>
-
-  <build>
-    <resources>
-      <resource>
-        <directory>${basedir}/src/main/spring</directory>
-        <includes>
-          <include>**/*.xml</include>
-          <include>**/*.properties</include>
-          <include>**/*.html</include>
-        </includes>
-      </resource>
-    </resources>
-  </build>
 </model>

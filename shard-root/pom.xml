@@ -12,6 +12,7 @@
     <module>../shard-hibernate</module>
     <module>../shard-sheets</module>
     <module>../shard-transfer</module>
+    <module>../shard-pcgen</module>
     <module>../shard-gui-core</module>
     <module>../shard-phoenix</module>
     <module>../shard-minotaur</module>

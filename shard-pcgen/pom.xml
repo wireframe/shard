@@ -1,0 +1,70 @@
+<model>
+  <parent>
+    <groupId>com.codecrate.shard</groupId>
+    <artifactId>shard-root</artifactId>
+    <version>0.5.0-SNAPSHOT</version>
+    <relativePath>../shard-root/pom.xml</relativePath>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.codecrate.shard</groupId>
+  <artifactId>shard-pcgen</artifactId>
+  <name>shard pcgen module</name>
+  <packaging>jar</packaging>
+  <version>0.5.0-SNAPSHOT</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.codecrate.shard</groupId>
+      <artifactId>shard-transfer</artifactId>
+      <version>0.5.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.codecrate.shard</groupId>
+      <artifactId>shard-gui-core</artifactId>
+      <version>0.5.0-SNAPSHOT</version>
+    </dependency>
+
+    <!-- JEP dependencies -->
+    <dependency>
+      <groupId>jep</groupId>
+      <artifactId>jep</artifactId>
+      <version>2.24</version>
+    </dependency>
+
+	<!-- l2fprod-common dependencies -->
+	<dependency>
+	  <groupId>l2fprod-common-directorychooser</groupId>
+	  <artifactId>l2fprod-common-directorychooser</artifactId>
+	  <version>6.5.1</version>
+	</dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/spring</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${basedir}/src/main/pcgen</directory>
+        <includes>
+          <include>**/*.lst</include>
+        </includes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>${basedir}/src/test/resources</directory>
+        <includes>
+          <include>**/*.xls</include>
+          <include>**/*.xml</include>
+          <include>**/*.lst</include>
+        </includes>
+      </testResource>
+    </testResources>
+  </build>
+
+</model>
