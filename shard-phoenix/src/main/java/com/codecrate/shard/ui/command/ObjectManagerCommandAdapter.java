@@ -15,10 +15,7 @@
  */
 package com.codecrate.shard.ui.command;
 
-import java.io.File;
 import java.util.Collection;
-
-import com.codecrate.shard.transfer.progress.ProgressMonitor;
 
 /**
  * adapter to convert gui actions to the business layer.
@@ -33,8 +30,6 @@ public interface ObjectManagerCommandAdapter {
 
     void updateObject(Object object);
 
-    void importObjects(File file, ProgressMonitor adapter);
-
     Object createObject();
 
     void saveObject(Object object);
@@ -44,8 +39,4 @@ public interface ObjectManagerCommandAdapter {
     Collection getObjects();
 
     String[] getPropertyNames();
-
-    Collection getSupportedImportFileExtensions();
-
-    boolean isDirectoryImportSupported();
 }

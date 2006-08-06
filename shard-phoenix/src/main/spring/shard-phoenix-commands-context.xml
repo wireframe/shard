@@ -11,7 +11,6 @@
 				<value>selectAllCommand</value>
 				<value>deleteCommand</value>
 				<value>newCommand</value>
-				<value>importCommand</value>
 			</list>
 		</property>
 	</bean>
@@ -62,7 +61,6 @@
 		<property name="members">
 			<list>
 				<value>newCommand</value>
-				<ref bean="importCommand" />
 				<value>separator</value>
 				<value>propertiesCommand</value>
 				<value>separator</value>
@@ -113,24 +111,4 @@
 			<value>about.html</value>
 		</property>
 	</bean>
-
-	<bean id="importCommand"
-		class="org.springframework.richclient.command.TargetableActionCommand">
-		<property name="commandExecutor">
-			<ref bean="importCommandExecutor"/>
-		</property>
-	</bean>
-
-  <bean id="importCommandExecutor"
-   class="com.codecrate.shard.ui.command.ImportDatasetCommand">
-    <constructor-arg><ref bean="raceDao" /></constructor-arg>
-    <constructor-arg><ref bean="objectImporter" /></constructor-arg>
-  </bean>
-
-  <bean id="importDatasetCommand"
-   class="com.codecrate.shard.ui.command.EventTriggeredProgressMonitoredBackgroundCommandExecutor">
-    <constructor-arg><value>com.codecrate.shard.ui.command.ImportDatasetEvent</value></constructor-arg>
-    <constructor-arg index="1"><ref bean="importDatasetService"/></constructor-arg>
-    <constructor-arg index="2"><value>importDataset</value></constructor-arg>
-  </bean>
 </beans>

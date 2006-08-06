@@ -15,10 +15,7 @@
  */
 package com.codecrate.shard.ui;
 
-import org.springframework.richclient.application.ApplicationWindow;
 import org.springframework.richclient.application.config.DefaultApplicationLifecycleAdvisor;
-
-import com.codecrate.shard.ui.command.ImportDatasetCommand;
 
 public class ShardMinotaurLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
 

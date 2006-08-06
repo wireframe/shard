@@ -21,10 +21,8 @@ import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
 import com.codecrate.shard.source.SourceDao;
-import com.codecrate.shard.transfer.ObjectImporter;
 
-public class FeatCommandAdapter extends AbstractObjectManagerCommandAdapter
-implements ObjectManagerCommandAdapter {
+public class FeatCommandAdapter implements ObjectManagerCommandAdapter {
 
 	private final FeatDao featDao;
 	private final FeatFactory featFactory;
@@ -32,8 +30,7 @@ implements ObjectManagerCommandAdapter {
 	private String deleteMessagePropertyName;
     private final SourceDao sourceDao;
 
-	public FeatCommandAdapter(FeatDao featDao, FeatFactory featFactory, ObjectImporter importer, SourceDao sourceDao) {
-        super(importer);
+	public FeatCommandAdapter(FeatDao featDao, FeatFactory featFactory, SourceDao sourceDao) {
 		this.featDao = featDao;
 		this.featFactory = featFactory;
         this.sourceDao = sourceDao;

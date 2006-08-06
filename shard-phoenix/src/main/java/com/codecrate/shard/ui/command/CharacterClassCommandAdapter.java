@@ -22,9 +22,8 @@ import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.CharacterClassDao;
 import com.codecrate.shard.kit.CharacterClassFactory;
 import com.codecrate.shard.source.SourceDao;
-import com.codecrate.shard.transfer.ObjectImporter;
 
-public class CharacterClassCommandAdapter extends AbstractObjectManagerCommandAdapter {
+public class CharacterClassCommandAdapter implements ObjectManagerCommandAdapter {
 
 	private final CharacterClassDao characterClassDao;
 	private final CharacterClassFactory characterClassFactory;
@@ -34,9 +33,7 @@ public class CharacterClassCommandAdapter extends AbstractObjectManagerCommandAd
 
 	public CharacterClassCommandAdapter(CharacterClassDao characterClassDao,
             CharacterClassFactory characterClassFactory,
-            ObjectImporter importer, 
             SourceDao sourceDao) {
-		super(importer);
 		this.characterClassDao = characterClassDao;
 		this.characterClassFactory = characterClassFactory;
         this.sourceDao = sourceDao;

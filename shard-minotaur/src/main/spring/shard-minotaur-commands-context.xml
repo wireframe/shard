@@ -9,7 +9,6 @@
 			<list>
 				<value>newCommand</value>
 				<value>openCommand</value>
-				<value>importCommand</value>
 				<value>printCommand</value>
 			</list>
 		</property>
@@ -33,7 +32,6 @@
 				<ref bean="newCommand" />
 				<value>separator</value>
 				<value>openCommand</value>
-				<ref bean="importCommand" />
 				<value>printCommand</value>
 				<value>separator</value>
 				<bean class="org.springframework.richclient.command.support.ExitCommand"/>
@@ -80,25 +78,4 @@
 			<ref bean="newCharacterWizard"/>
 		</property>
 	</bean>
-
-	<bean id="importCommand"
-		class="org.springframework.richclient.command.TargetableActionCommand">
-		<property name="commandExecutor">
-			<ref bean="importCommandExecutor"/>
-		</property>
-	</bean>
-
-  <bean id="importCommandExecutor"
-   class="com.codecrate.shard.ui.command.ImportDatasetCommand">
-    <constructor-arg><ref bean="raceDao" /></constructor-arg>
-    <constructor-arg><ref bean="objectImporter" /></constructor-arg>
-  </bean>
-
-  <bean id="importDatasetCommand"
-   class="com.codecrate.shard.ui.command.EventTriggeredProgressMonitoredBackgroundCommandExecutor">
-    <constructor-arg><value>com.codecrate.shard.ui.command.ImportDatasetEvent</value></constructor-arg>
-    <constructor-arg index="1"><ref bean="importDatasetService"/></constructor-arg>
-    <constructor-arg index="2"><value>importDataset</value></constructor-arg>
-  </bean>
-
 </beans>

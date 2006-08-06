@@ -21,9 +21,8 @@ import com.codecrate.shard.race.Race;
 import com.codecrate.shard.race.RaceDao;
 import com.codecrate.shard.race.RaceFactory;
 import com.codecrate.shard.source.SourceDao;
-import com.codecrate.shard.transfer.ObjectImporter;
 
-public class RaceCommandAdapter extends AbstractObjectManagerCommandAdapter {
+public class RaceCommandAdapter implements ObjectManagerCommandAdapter {
 
 	private final RaceDao raceDao;
 	private final RaceFactory raceFactory;
@@ -31,9 +30,7 @@ public class RaceCommandAdapter extends AbstractObjectManagerCommandAdapter {
 	private String deleteMessagePropertyName;
     private final SourceDao sourceDao;
 
-	public RaceCommandAdapter(RaceDao raceDao, RaceFactory raceFactory,
-            ObjectImporter importer, SourceDao sourceDao) {
-        super(importer);
+	public RaceCommandAdapter(RaceDao raceDao, RaceFactory raceFactory, SourceDao sourceDao) {
 		this.raceDao = raceDao;
 		this.raceFactory = raceFactory;
         this.sourceDao = sourceDao;
