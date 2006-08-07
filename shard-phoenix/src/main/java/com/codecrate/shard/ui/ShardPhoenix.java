@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard.ui;
 
-import org.springframework.richclient.application.ApplicationLauncher;
 
 /**
  *
