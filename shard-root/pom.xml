@@ -14,7 +14,7 @@
     <module>../shard-transfer</module>
     <module>../shard-transfer-excel</module>
     <module>../shard-transfer-xml</module>
-    <module>../shard-pcgen</module>
+    <module>../shard-transfer-pcgen</module>
     <module>../shard-gui-core</module>
     <module>../shard-phoenix</module>
     <module>../shard-minotaur</module>
