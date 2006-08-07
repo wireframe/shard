@@ -15,8 +15,6 @@
  */
 package com.codecrate.shard.ui;
 
-import org.springframework.richclient.application.ApplicationLauncher;
-
 /**
  *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -32,12 +30,6 @@ public class ShardMinotaur {
     private static final String STARTUP_CONTEXT_FILE_NAME = "/shard-minotaur-startup-context.xml";
 
     public static void main(String[] args) {
-        try {
-            new ApplicationLauncher(STARTUP_CONTEXT_FILE_NAME, CONTEXT_FILE_NAMES);
-        } catch (Exception e) {
-            System.out.println("Error launching application: " + e);
-            e.printStackTrace();
-            System.exit(1);
-        }
+    	new ShardApplicationLauncher(STARTUP_CONTEXT_FILE_NAME, CONTEXT_FILE_NAMES);
     }
 }
