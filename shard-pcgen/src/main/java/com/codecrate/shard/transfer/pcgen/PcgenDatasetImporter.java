@@ -16,7 +16,6 @@
 package com.codecrate.shard.transfer.pcgen;
 
 import java.io.File;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -120,12 +119,10 @@ public class PcgenDatasetImporter implements ObjectImporter {
      */
     public Collection getAvailableDatasets() {
         Collection results = new ArrayList();
-        try {
-            File parent = new File(this.getClass().getClassLoader().getResource("data").toURI());
-            collectDatasets(parent, results);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException("Error loading available datasets.");
-        }
+
+        File parent = new File(this.getClass().getClassLoader().getResource("data").getFile());
+		collectDatasets(parent, results);
+
         return results;
     }
 
