@@ -28,7 +28,7 @@ import com.codecrate.shard.transfer.progress.ProgressMonitor;
 public class FileExtensionObjectImporterResolverTest extends TestCase {
 
 	public void testImportWithUnsupportedFileExtensionReturnsEmptyList() {
-        File file = FileUtils.getFile("excel/feats.xls");
+        File file = new File("excel/feats.xls");
 		FileExtensionObjectImporterResolver importer = new FileExtensionObjectImporterResolver(Collections.EMPTY_LIST);
 		Collection results = importer.importObjects(file, new NullProgressMonitor());
 
