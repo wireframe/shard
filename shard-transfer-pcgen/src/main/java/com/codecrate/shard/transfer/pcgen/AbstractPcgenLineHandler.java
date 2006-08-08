@@ -33,15 +33,7 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
 
     private static final String TRUE_TAG_VALUE = "YES";
 
-	private final PcgenTagParser tagParser;
-
-	public AbstractPcgenLineHandler() {
-		this(new PcgenTokenTagParser("\t"));
-	}
-
-    public AbstractPcgenLineHandler(PcgenTagParser tagParser) {
-		this.tagParser = tagParser;
-    }
+	private final PcgenTagParser tagParser = new PcgenTokenTagParser("\t");
 
 	public Object handleLine(String line, Source source) {
         String name = getNameToken(line);

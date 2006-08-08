@@ -5,7 +5,6 @@ import java.util.Map;
 import com.codecrate.shard.source.Source;
 import com.codecrate.shard.source.SourceDao;
 import com.codecrate.shard.source.SourceFactory;
-import com.codecrate.shard.transfer.pcgen.tag.PcgenTokenTagParser;
 
 public class PcgenSourceLineHandler extends AbstractPcgenLineHandler implements PcgenObjectImporter.PcgenLineHandler {
     private static final String SOURCE_NAME_TAG_NAME = "SOURCELONG";
@@ -15,7 +14,6 @@ public class PcgenSourceLineHandler extends AbstractPcgenLineHandler implements 
 	private final SourceDao sourceDao;
 
 	public PcgenSourceLineHandler(SourceDao sourceDao, SourceFactory sourceFactory) {
-		super(new PcgenTokenTagParser("|"));
 		this.sourceDao = sourceDao;
 		this.sourceFactory = sourceFactory;
 	}

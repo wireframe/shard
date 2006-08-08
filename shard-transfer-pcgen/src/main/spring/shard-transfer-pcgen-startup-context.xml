@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+<!-- $Id: shard-transfer-pcgen-startup-context.xml,v 1.1 2006/08/08 01:53:46 wireframe Exp $ -->
+<beans>
+	<bean id="splashScreen"
+		class="org.springframework.richclient.application.SplashScreen"
+		singleton="false">
+		<property name="imageResourcePath">
+			<value>/images/splash-screen.jpg</value>
+		</property>
+	</bean>
+
+</beans>

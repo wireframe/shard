@@ -37,7 +37,7 @@ public class PcgenTokenTagParser implements PcgenTagParser {
         this(tokenDelimiter, DEFAULT_TAG_SEPERATOR, tagValueAggregator);
     }
 
-	public PcgenTokenTagParser(String tokenDelimiter, String tagSeperator, TagValueAggregator tagValueAggregator) {
+	private PcgenTokenTagParser(String tokenDelimiter, String tagSeperator, TagValueAggregator tagValueAggregator) {
 		this.tokenDelimiter = tokenDelimiter;
 		this.tagSeperator = tagSeperator;
         this.tagValueAggregator = tagValueAggregator;
