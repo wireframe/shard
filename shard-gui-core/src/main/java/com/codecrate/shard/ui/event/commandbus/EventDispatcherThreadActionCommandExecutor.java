@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.codecrate.shard.ui.command;
+package com.codecrate.shard.ui.event.commandbus;
 
 import java.util.Collections;
 import java.util.Map;
@@ -24,11 +24,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.richclient.command.ParameterizableActionCommandExecutor;
 
-public class BackgroundThreadActionCommandExecutor implements ParameterizableActionCommandExecutor {
-    private static final Log LOG = LogFactory.getLog(BackgroundThreadActionCommandExecutor.class);
+public class EventDispatcherThreadActionCommandExecutor implements ParameterizableActionCommandExecutor {
+	private static final Log LOG = LogFactory.getLog(EventDispatcherThreadActionCommandExecutor.class);
+
 	private final ParameterizableActionCommandExecutor delegate;
 
-	public BackgroundThreadActionCommandExecutor(ParameterizableActionCommandExecutor delegate) {
+	public EventDispatcherThreadActionCommandExecutor(ParameterizableActionCommandExecutor delegate) {
 		this.delegate = delegate;
 	}
 
@@ -36,12 +37,20 @@ public class BackgroundThreadActionCommandExecutor implements ParameterizableAct
 		execute(Collections.EMPTY_MAP);
 	}
 
-	public void execute(final Map params) {
-        LOG.debug("Executing action in background thread: " + delegate);
-	    SwingUtilities.invokeLater(new Runnable() {
-	        public void run() {
-	            delegate.execute(params);
-	        }
-	    });
+	public void execute(Map params) {
+		if (!SwingUtilities.isEventDispatchThread()) {
+			LOG.debug("Redirecting execution of " + delegate + " to event dispatch thread");
+			try {
+				SwingUtilities.invokeAndWait(new Runnable() {
+					public void run() {
+						delegate.execute();
+					}
+				});
+			} catch (Exception e) {
+				throw new RuntimeException("Error executing " + delegate + " on event dispatch thread");
+			}
+		} else {
+			delegate.execute(params);
+		}
 	}
 }

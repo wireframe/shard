@@ -10,6 +10,8 @@ import org.easymock.MockControl;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.richclient.command.ParameterizableActionCommandExecutor;
 
+import com.codecrate.shard.ui.event.commandbus.SpecificApplicationEventActionCommandExecutor;
+
 public class SpecificApplicationEventActionCommandExecutorTest extends TestCase {
 
     public void testEventPassedToDelegateAsMapEntry() {

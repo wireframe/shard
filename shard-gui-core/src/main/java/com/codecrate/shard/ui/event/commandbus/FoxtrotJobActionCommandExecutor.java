@@ -13,30 +13,37 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.codecrate.shard.ui.command;
+package com.codecrate.shard.ui.event.commandbus;
 
 import java.util.Collections;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
 import org.springframework.richclient.command.ParameterizableActionCommandExecutor;
 
-import com.codecrate.shard.ui.event.AbstractSpecificApplicationEventListener;
+import foxtrot.Job;
+import foxtrot.Worker;
 
-public class SpecificApplicationEventActionCommandExecutor extends AbstractSpecificApplicationEventListener implements ApplicationListener {
-	private static final Log LOG = LogFactory.getLog(SpecificApplicationEventActionCommandExecutor.class);
-
+public class FoxtrotJobActionCommandExecutor implements ParameterizableActionCommandExecutor {
+	private static final Log LOG = LogFactory.getLog(FoxtrotJobActionCommandExecutor.class);
 	private final ParameterizableActionCommandExecutor delegate;
 
-	public SpecificApplicationEventActionCommandExecutor(Class targetClass, ParameterizableActionCommandExecutor delegate) {
-        super(targetClass);
+	public FoxtrotJobActionCommandExecutor(ParameterizableActionCommandExecutor delegate) {
 		this.delegate = delegate;
 	}
 
-    protected void onSpecificApplicationEvent(ApplicationEvent event) {
-        LOG.info("Executing action specific action command due to application event " + event);
-        delegate.execute(Collections.singletonMap("event", event));
+	public void execute() {
+        execute(Collections.EMPTY_MAP);
+	}
+
+    public void execute(final Map params) {
+    	LOG.debug("Executing action in foxtrot background thread " + delegate);
+        Worker.post(new Job() {
+            public Object run() {
+                delegate.execute(params);
+                return null;
+            }
+        });
     }
 }
