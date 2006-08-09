@@ -19,22 +19,22 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-public class PcgenTokenTagParserTest extends TestCase {
+public class PcgenTagParserTest extends TestCase {
 
 	public void testTagsSeperatedByTokenAreMappedCorrectly() {
-		Map tags = new PcgenTokenTagParser().parseTags("NAME:Thor \t EYES:blue");
+		Map tags = new PcgenTagParser().parseTags("NAME:Thor \t EYES:blue");
 
 		assertEquals(2, tags.size());
 	}
 
 	public void testTagValueIsValueAfterDelimiter() {
-		Map tags = new PcgenTokenTagParser().parseTags("NAME:Thor");
+		Map tags = new PcgenTagParser().parseTags("NAME:Thor");
 
 		assertEquals("Thor", tags.get("NAME"));
 	}
 
 	public void testUrlWithColonCanBeUsedAsTagValue() {
-		Map tags = new PcgenTokenTagParser().parseTags("URL:http://blah.com");
+		Map tags = new PcgenTagParser().parseTags("URL:http://blah.com");
 
 		assertEquals("http://blah.com", tags.get("URL"));
 	}

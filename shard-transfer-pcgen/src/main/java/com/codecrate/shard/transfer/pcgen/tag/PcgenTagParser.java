@@ -15,9 +15,44 @@
  */
 package com.codecrate.shard.transfer.pcgen.tag;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.StringTokenizer;
 
-public interface PcgenTagParser {
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-	Map parseTags(String line);
+public class PcgenTagParser {
+	private static final String TAG_SEPERATOR = "\t";
+    private static final String TAG_NAME_VALUE_SEPERATOR = ":";
+    private static final Log LOG = LogFactory.getLog(PcgenTagParser.class);
+    private final TagValueAggregator tagValueAggregator;
+
+	public PcgenTagParser() {
+		this(new NoOpTagValueAggregator());
+	}
+
+    public PcgenTagParser(TagValueAggregator tagValueAggregator) {
+        this.tagValueAggregator = tagValueAggregator;
+	}
+
+	public Map parseTags(String line) {
+		Map tags = new HashMap();
+		StringTokenizer tokens = new StringTokenizer(line, TAG_SEPERATOR);
+		while (tokens.hasMoreTokens()) {
+			String token = tokens.nextToken();
+			int seperatorIndex = token.indexOf(TAG_NAME_VALUE_SEPERATOR);
+			String tagName = token.substring(0, seperatorIndex);
+			String tagValue = token.substring(seperatorIndex + 1, token.length());
+
+            if (null != tags.get(tagName)) {
+                String oldValue = (String) tags.get(tagName);
+                tagValue = tagValueAggregator.aggregateValue(oldValue, tagValue);
+                LOG.debug("A value is already defined for tag [" + tagName + "].  New tag value is: " + tagValue);
+            }
+			tags.put(tagName, tagValue);
+		}
+		return tags;
+	}
+
 }

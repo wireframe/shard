@@ -28,7 +28,7 @@ import com.codecrate.shard.kit.CharacterClassFactory;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.source.Source;
-import com.codecrate.shard.transfer.pcgen.tag.PcgenTokenTagParser;
+import com.codecrate.shard.transfer.pcgen.tag.PcgenTagParser;
 
 public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     private static final String CLASS_LEVEL_TOKEN = "CL";
@@ -56,7 +56,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     }
 
     public Object handleLine(String line, Source source) {
-    	Map tags = new PcgenTokenTagParser(new ConcatTagValueAggregator("|")).parseTags(line);
+    	Map tags = new PcgenTagParser(new ConcatTagValueAggregator("|")).parseTags(line);
     	String name = getStringTagValue(NAME, tags);
 
     	return handleParsedLine(name, tags, source);

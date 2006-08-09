@@ -23,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTagParser;
-import com.codecrate.shard.transfer.pcgen.tag.PcgenTokenTagParser;
+import com.codecrate.shard.transfer.pcgen.tag.PcgenTagParser;
 
 /**
  * helper class for parsing PCGen LST files.
@@ -33,7 +33,7 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
 
     private static final String TRUE_TAG_VALUE = "YES";
 
-	private final PcgenTagParser tagParser = new PcgenTokenTagParser();
+	private final PcgenTagParser tagParser = new PcgenTagParser();
 
 	public Object handleLine(String line, Source source) {
         String name = getNameToken(line);
