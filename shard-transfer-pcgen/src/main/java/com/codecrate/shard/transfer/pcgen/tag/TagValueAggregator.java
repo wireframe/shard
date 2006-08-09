@@ -15,8 +15,17 @@
  */
 package com.codecrate.shard.transfer.pcgen.tag;
 
+/**
+ * simple interface to handle pcgen data when same tag used more than once.
+ */
 public interface TagValueAggregator {
 
+	/**
+	 * aggregate new value with old value.
+	 * @param oldValue
+	 * @param tagValue
+	 * @return
+	 */
     String aggregateValue(String oldValue, String tagValue);
 
 }

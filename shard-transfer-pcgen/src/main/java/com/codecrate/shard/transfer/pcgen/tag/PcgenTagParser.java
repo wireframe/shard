@@ -45,12 +45,10 @@ public class PcgenTagParser {
 			String tagName = token.substring(0, seperatorIndex);
 			String tagValue = token.substring(seperatorIndex + 1, token.length());
 
-            if (null != tags.get(tagName)) {
-                String oldValue = (String) tags.get(tagName);
-                tagValue = tagValueAggregator.aggregateValue(oldValue, tagValue);
-                LOG.debug("A value is already defined for tag [" + tagName + "].  New tag value is: " + tagValue);
-            }
-			tags.put(tagName, tagValue);
+            String oldValue = (String) tags.get(tagName);
+            String newValue = tagValueAggregator.aggregateValue(oldValue, tagValue);
+
+			tags.put(tagName, newValue);
 		}
 		return tags;
 	}

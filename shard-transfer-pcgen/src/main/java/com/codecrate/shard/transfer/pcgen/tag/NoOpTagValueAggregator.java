@@ -15,10 +15,12 @@
  */
 package com.codecrate.shard.transfer.pcgen.tag;
 
+/**
+ * aggregator that simply returns the new tag value.
+ */
 public class NoOpTagValueAggregator implements TagValueAggregator {
 
     public String aggregateValue(String oldValue, String tagValue) {
         return tagValue;
     }
-
 }
