@@ -56,7 +56,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     }
 
     public Object handleLine(String line, Source source) {
-    	Map tags = new PcgenTokenTagParser("\t", new ConcatTagValueAggregator("|")).parseTags(line);
+    	Map tags = new PcgenTokenTagParser(new ConcatTagValueAggregator("|")).parseTags(line);
     	String name = getStringTagValue(NAME, tags);
 
     	return handleParsedLine(name, tags, source);

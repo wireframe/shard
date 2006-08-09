@@ -21,9 +21,21 @@ import junit.framework.TestCase;
 
 public class PcgenTokenTagParserTest extends TestCase {
 
-	public void testParseSourceCorrectlyHandlesUrls() {
-		Map tags = new PcgenTokenTagParser("\t").parseTags("URL:http://blah.com");
-		
+	public void testTagsSeperatedByTokenAreMappedCorrectly() {
+		Map tags = new PcgenTokenTagParser().parseTags("NAME:Thor \t EYES:blue");
+
+		assertEquals(2, tags.size());
+	}
+
+	public void testTagValueIsValueAfterDelimiter() {
+		Map tags = new PcgenTokenTagParser().parseTags("NAME:Thor");
+
+		assertEquals("Thor", tags.get("NAME"));
+	}
+
+	public void testUrlWithColonCanBeUsedAsTagValue() {
+		Map tags = new PcgenTokenTagParser().parseTags("URL:http://blah.com");
+
 		assertEquals("http://blah.com", tags.get("URL"));
 	}
 }

@@ -23,32 +23,25 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class PcgenTokenTagParser implements PcgenTagParser {
-    private static final String DEFAULT_TAG_SEPERATOR = ":";
+	private static final String TAG_SEPERATOR = "\t";
+    private static final String TAG_NAME_VALUE_SEPERATOR = ":";
     private static final Log LOG = LogFactory.getLog(PcgenTokenTagParser.class);
-	private final String tokenDelimiter;
-	private final String tagSeperator;
     private final TagValueAggregator tagValueAggregator;
 
-	public PcgenTokenTagParser(String tokenDelimiter) {
-		this(tokenDelimiter, DEFAULT_TAG_SEPERATOR, new NoOpTagValueAggregator());
+	public PcgenTokenTagParser() {
+		this(new NoOpTagValueAggregator());
 	}
 
-    public PcgenTokenTagParser(String tokenDelimiter, TagValueAggregator tagValueAggregator) {
-        this(tokenDelimiter, DEFAULT_TAG_SEPERATOR, tagValueAggregator);
-    }
-
-	private PcgenTokenTagParser(String tokenDelimiter, String tagSeperator, TagValueAggregator tagValueAggregator) {
-		this.tokenDelimiter = tokenDelimiter;
-		this.tagSeperator = tagSeperator;
+    public PcgenTokenTagParser(TagValueAggregator tagValueAggregator) {
         this.tagValueAggregator = tagValueAggregator;
 	}
 
 	public Map parseTags(String line) {
 		Map tags = new HashMap();
-		StringTokenizer tokens = new StringTokenizer(line, tokenDelimiter);
+		StringTokenizer tokens = new StringTokenizer(line, TAG_SEPERATOR);
 		while (tokens.hasMoreTokens()) {
 			String token = tokens.nextToken();
-			int seperatorIndex = token.indexOf(tagSeperator);
+			int seperatorIndex = token.indexOf(TAG_NAME_VALUE_SEPERATOR);
 			String tagName = token.substring(0, seperatorIndex);
 			String tagValue = token.substring(seperatorIndex + 1, token.length());
 
