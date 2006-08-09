@@ -1,6 +1,7 @@
-package com.codecrate.shard.transfer.pcgen;
+package com.codecrate.shard.transfer.pcgen.tag;
 
-import com.codecrate.shard.transfer.pcgen.tag.TagValueAggregator;
+import java.util.StringTokenizer;
+
 
 public class ConcatTagValueAggregator implements TagValueAggregator {
 
@@ -12,6 +13,10 @@ public class ConcatTagValueAggregator implements TagValueAggregator {
 
     public String aggregateValue(String oldValue, String tagValue) {
         return oldValue + seperator + tagValue;
+    }
+    
+    public StringTokenizer parseAggregatedValue(String value) {
+    	return new StringTokenizer(value, seperator);
     }
 
 }

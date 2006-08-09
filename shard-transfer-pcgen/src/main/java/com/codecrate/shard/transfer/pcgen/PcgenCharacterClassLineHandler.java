@@ -28,9 +28,11 @@ import com.codecrate.shard.kit.CharacterClassFactory;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.source.Source;
+import com.codecrate.shard.transfer.pcgen.tag.ConcatTagValueAggregator;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTagParser;
 
 public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
+	private static final String TAG_VALUE_DELIMITER = "|";
     private static final String CLASS_LEVEL_TOKEN = "CL";
     private static final int MAX_CLASS_LEVEL = 20;
     private static final String NAME = "CLASS";
@@ -47,6 +49,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
 	private final CharacterClassFactory kitFactory;
     private final CharacterClassDao kitDao;
 	private final SkillDao skillDao;
+	private final ConcatTagValueAggregator tagValueAggregator = new ConcatTagValueAggregator(TAG_VALUE_DELIMITER);
 
     public PcgenCharacterClassLineHandler(CharacterClassFactory kitFactory,
 			CharacterClassDao kitDao, SkillDao skillDao) {
@@ -56,7 +59,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     }
 
     public Object handleLine(String line, Source source) {
-    	Map tags = new PcgenTagParser(new ConcatTagValueAggregator("|")).parseTags(line);
+		Map tags = new PcgenTagParser(tagValueAggregator).parseTags(line);
     	String name = getStringTagValue(NAME, tags);
 
     	return handleParsedLine(name, tags, source);
@@ -87,7 +90,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     		CharacterClass kit = kitDao.getCharacterClass(name);
 
     		String skills = getStringTagValue(SKILL_LIST_TAG_NAME, tags);
-    		StringTokenizer tokens = new StringTokenizer(skills, "|");
+    		StringTokenizer tokens = tagValueAggregator.parseAggregatedValue(skills);
     		while (tokens.hasMoreTokens()) {
     			String skillName = tokens.nextToken();
                 if (isValidSkillName(skillName)) {
