@@ -1,6 +1,0 @@
-# CVS $Revision: 1.1 $ $Author: wireframe $ -- Sun Sep 19 15:32:34 2004 -- reformated by prettylst.pl v1.34 (build 422)
-SOURCELONG:System Reference Document|SOURCESHORT:SRD|SOURCEWEB:http://groups.yahoo.com/group/pcgen/files/3.0%20SRD/
-
-###Block:Alchemical Stuff and Liquids
-# Equipment Name			Type						Cost		Weight	Source Page
-Acid					TYPE:Goods.Alchemical.Liquid		COST:9.97	WT:1.00	SOURCEPAGE:SRDEquipmentII.rtf

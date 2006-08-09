@@ -58,7 +58,7 @@ public class PcgenObjectImporterTest extends TestCase {
 
         PcgenSourceLineHandler sourceLineHandler = new PcgenSourceLineHandler(sourceDao, sourceFactory);
 
-        File file = FileUtils.getFile("pcgen/pcgen.lst");
+        File file = FileUtils.getFile("sample.lst");
         PcgenObjectImporter importer = new PcgenObjectImporter(lineHandler, sourceLineHandler);
 		Collection results = importer.importObjects(file, new NullProgressMonitor());
 
@@ -93,7 +93,7 @@ public class PcgenObjectImporterTest extends TestCase {
 
         PcgenSourceLineHandler sourceLineHandler = new PcgenSourceLineHandler(sourceDao, sourceFactory);
 
-        File file = FileUtils.getFile("pcgen/pcgen.lst");
+        File file = FileUtils.getFile("sample.lst");
         PcgenObjectImporter importer = new PcgenObjectImporter(lineHandler, sourceLineHandler);
         Collection results = importer.importObjects(file, new NullProgressMonitor());
 

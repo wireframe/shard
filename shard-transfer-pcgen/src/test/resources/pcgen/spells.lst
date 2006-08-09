@@ -1,6 +1,0 @@
-# CVS $Revision: 1.1 $ $Author: wireframe $ -- Sun Aug 21 18:37:09 2005 -- reformated by prettylst.pl v1.35 (build 469)
-SOURCELONG:System Reference Document|SOURCESHORT:SRD|SOURCEWEB:http://groups.yahoo.com/group/pcgen/files/3.0%20SRD/
-
-###Block: A
-# Spell Name	Classes of caster					Domains granting the spell	School			Sub-School			Spell Descriptors			Type				Components				Casting Time		Range			Target Area														Duration						Save Info			Spell Resistance		Cost		XP Cost	Description											Combat bonus						Bonus to HP									Choose									Source Page				Item
-Acid Arrow		CLASSES:Sorcerer,Wizard=2								SCHOOL:Conjuration	SUBSCHOOL:Creation	DESCRIPTOR:Acid			TYPE:Arcane			COMPS:V, S, M, F			CASTTIME:1 action		RANGE:Long		TARGETAREA:One arrow of acid											DURATION:((CASTERLEVEL/3)+1) rounds		SAVEINFO:None		SPELLRES:Yes						DESC:Ranged touch attack; 2d4 damage for ((CASTERLEVEL/3)+1) rounds.																													SOURCEPAGE:srdspellsa.rtf
