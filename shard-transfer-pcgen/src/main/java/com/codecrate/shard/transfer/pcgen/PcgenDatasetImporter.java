@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -64,7 +65,7 @@ public class PcgenDatasetImporter implements ObjectImporter {
 
             for (int x = 0; x < files.length; x++) {
                 File file = files[x];
-                if (doesFileMatchExtension(supportedFileExpression, file)) {
+                if (doesFileMatchExpression(supportedFileExpression, file)) {
                     importer.importObjects(file, progress);
 
                     progress.completeUnitOfWork();
@@ -83,7 +84,7 @@ public class PcgenDatasetImporter implements ObjectImporter {
 
             for (int x = 0; x < files.length; x++) {
                 File file = files[x];
-                if (doesFileMatchExtension(supportedFileExpression, file)) {
+                if (doesFileMatchExpression(supportedFileExpression, file)) {
                 	numberOfFiles ++;
                 }
             }
@@ -91,7 +92,10 @@ public class PcgenDatasetImporter implements ObjectImporter {
         return numberOfFiles;
 	}
 
-	private boolean doesFileMatchExtension(String supportedFileExpression, File file) {
+	private boolean doesFileMatchExpression(String supportedFileExpression, File file) {
+		if (!isPcgenLstFile(file)) {
+			return false;
+		}
 		return -1 != file.getName().indexOf(supportedFileExpression);
 	}
 
@@ -105,37 +109,39 @@ public class PcgenDatasetImporter implements ObjectImporter {
         }
         for (int x = 0; x < files.length; x++) {
             File file = files[x];
-            if (-1 != file.getName().indexOf(".lst")) {
+            if (isPcgenLstFile(file)) {
                 return true;
             }
         }
         return false;
     }
 
+	private boolean isPcgenLstFile(File file) {
+		return -1 != file.getName().indexOf(".lst");
+	}
 
     /**
      * get all availble datasets found on the current classpath.
      * @return
      */
     public Collection getAvailableDatasets() {
-        Collection results = new ArrayList();
-
         File parent = new File(this.getClass().getClassLoader().getResource("data").getFile());
-		collectDatasets(parent, results);
-
-        return results;
+        return findDatasets(parent);
     }
 
-    private void collectDatasets(File parent, Collection results) {
-        if (isDataset(parent)) {
-            results.add(parent);
-        }
-        File[] files = parent.listFiles();
+    private Collection findDatasets(File root) {
+    	if (isDataset(root)) {
+    		return Collections.singleton(root);
+    	}
+
+    	Collection results = new TreeSet();
+        File[] files = root.listFiles();
         if (null != files) {
             for (int i = 0; i < files.length; i++) {
                 File child = files[i];
-                collectDatasets(child, results);
+                results.addAll(findDatasets(child));
             }
         }
+        return results;
     }
 }

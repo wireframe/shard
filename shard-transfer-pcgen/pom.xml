@@ -57,8 +57,6 @@
       <testResource>
         <directory>${basedir}/src/test/resources</directory>
         <includes>
-          <include>**/*.xls</include>
-          <include>**/*.xml</include>
           <include>**/*.lst</include>
         </includes>
       </testResource>
