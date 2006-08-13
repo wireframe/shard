@@ -43,8 +43,8 @@ public class PcgenItemLineHandler extends AbstractPcgenLineHandler {
     }
 
     public Object handleParsedLine(String name, Map tags, Source source) {
-    	BigDecimal weight = new BigDecimal(getStringTagValue(WEIGHT_TAG_NAME, tags));
-    	BigDecimal amount = new BigDecimal(getStringTagValue(COST_TAG_NAME, tags)).movePointRight(COST_TO_LOWEST_CURRENCY_MULTIPLIER);
+    	BigDecimal weight = new BigDecimal(getStringTagValue(WEIGHT_TAG_NAME, tags, Integer.toString(Integer.MAX_VALUE)));
+    	BigDecimal amount = new BigDecimal(getStringTagValue(COST_TAG_NAME, tags, Integer.toString(Integer.MAX_VALUE))).movePointRight(COST_TO_LOWEST_CURRENCY_MULTIPLIER);
     	Currency currency = currencyDao.getLowestValueCurrency();
     	Money cost = currencyConverter.convertToHighestValueCurrency(new Money(amount, currency, BigDecimal.ROUND_HALF_UP));
 
