@@ -57,9 +57,14 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
 	}
 
     protected String getStringTagValue(String tagName, Map tags) {
+        return getStringTagValue(tagName, tags, null);
+    }
+
+    protected String getStringTagValue(String tagName, Map tags, String defaultValue) {
         String value = (String) tags.get(tagName);
         if (null == value) {
             LOG.debug("No value found for tag " + tagName);
+            return defaultValue;
         }
         return value;
     }
