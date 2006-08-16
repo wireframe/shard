@@ -22,14 +22,7 @@ public class PcgenSourceLineHandler extends AbstractPcgenLineHandler implements 
         return line.startsWith("SOURCE");
 	}
 
-	public Object handleLine(String line, Source source) {
-		Map tags = getTagParser().parseTags(line);
-		String name = (String) tags.get(SOURCE_NAME_TAG_NAME);
-
-		return handleParsedLine(name, tags, source);
-	}
-
-	public Object handleParsedLine(String name, Map tags, Source arg) {
+	protected Object handleParsedLine(String name, Map tags, Source arg) {
         Source source = sourceDao.getSource(name);
         if (null == source) {
             String abbreviation = (String) tags.get(SOURCE_ABBREVIATION_TAG_NAME);
@@ -38,5 +31,10 @@ public class PcgenSourceLineHandler extends AbstractPcgenLineHandler implements 
             source = sourceDao.saveSource(source);
         }
         return source;
+	}
+
+	protected String getNameToken(String line) {
+		Map tags = getTagParser().parseTags(line);
+		return getStringTagValue(SOURCE_NAME_TAG_NAME, tags);
 	}
 }

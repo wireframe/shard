@@ -49,23 +49,22 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
 	private final CharacterClassFactory kitFactory;
     private final CharacterClassDao kitDao;
 	private final SkillDao skillDao;
-	private final ConcatTagValueAggregator tagValueAggregator = new ConcatTagValueAggregator(TAG_VALUE_DELIMITER);
+	private static final ConcatTagValueAggregator tagValueAggregator = new ConcatTagValueAggregator(TAG_VALUE_DELIMITER);
 
     public PcgenCharacterClassLineHandler(CharacterClassFactory kitFactory,
 			CharacterClassDao kitDao, SkillDao skillDao) {
+    	super(new PcgenTagParser(tagValueAggregator));
         this.kitFactory = kitFactory;
         this.kitDao = kitDao;
 		this.skillDao = skillDao;
     }
 
-    public Object handleLine(String line, Source source) {
-		Map tags = new PcgenTagParser(tagValueAggregator).parseTags(line);
-    	String name = getStringTagValue(NAME, tags);
+    protected String getNameToken(String line) {
+		Map tags = getTagParser().parseTags(line);
+    	return getStringTagValue(NAME, tags);
+	}
 
-    	return handleParsedLine(name, tags, source);
-    }
-
-    public Object handleParsedLine(String name, Map tags, Source source) {
+	protected Object handleParsedLine(String name, Map tags, Source source) {
     	if (isFirstLine(tags)) {
         	Dice hitDice = new RandomDice(getIntTagValue(HIT_DICE, tags));
         	String abbreviation = getStringTagValue(ABBREVIATION, tags);

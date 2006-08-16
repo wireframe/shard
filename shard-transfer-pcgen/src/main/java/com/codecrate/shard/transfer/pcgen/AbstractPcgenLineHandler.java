@@ -23,7 +23,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTagParser;
-import com.codecrate.shard.transfer.pcgen.tag.PcgenTagParser;
 
 /**
  * helper class for parsing PCGen LST files.
@@ -33,9 +32,17 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
 
     private static final String TRUE_TAG_VALUE = "YES";
 
-	private final PcgenTagParser tagParser = new PcgenTagParser();
+	private final PcgenTagParser tagParser;
 
-	public Object handleLine(String line, Source source) {
+	public AbstractPcgenLineHandler() {
+		this(new PcgenTagParser());
+	}
+
+	public AbstractPcgenLineHandler(PcgenTagParser parser) {
+		this.tagParser = parser;
+	}
+
+	public final Object handleLine(String line, Source source) {
         String name = getNameToken(line);
         String tagsLine = getTagsFromLine(line);
 
@@ -46,7 +53,12 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
 
 	protected abstract Object handleParsedLine(String name, Map tags, Source source);
 
-	private String getNameToken(String line) {
+	/**
+	 * extension point for subclasses to override where to get the name from.
+	 * @param line
+	 * @return
+	 */
+	protected String getNameToken(String line) {
         StringTokenizer tokens = new StringTokenizer(line, "\t");
         return tokens.nextToken().trim();
 	}
@@ -82,10 +94,9 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
         return Integer.parseInt(value);
     }
 
-
-    protected PcgenTagParser getTagParser() {
-    	return tagParser;
-    }
+	protected PcgenTagParser getTagParser() {
+		return tagParser;
+	}
 
     protected boolean getBooleanTagValue(String tagName, Map tags, boolean defaultValue) {
         String value = (String) tags.get(tagName);

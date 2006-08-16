@@ -19,13 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class PcgenTagParser {
 	private static final String TAG_SEPERATOR = "\t";
     private static final String TAG_NAME_VALUE_SEPERATOR = ":";
-    private static final Log LOG = LogFactory.getLog(PcgenTagParser.class);
     private final TagValueAggregator tagValueAggregator;
 
 	public PcgenTagParser() {
