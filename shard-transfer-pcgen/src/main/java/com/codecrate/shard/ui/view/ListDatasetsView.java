@@ -96,7 +96,7 @@ public class ListDatasetsView extends AbstractView implements ApplicationEventPu
         return panel;
     }
     private String trimDatasetPath(String path) {
-        int index = path.indexOf("data/pcgen");
+        int index = path.indexOf("pcgen-");
 
         return path.substring(index);
     }
