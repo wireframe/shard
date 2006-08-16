@@ -15,43 +15,36 @@
  */
 package com.codecrate.shard.transfer.pcgen;
 
-import java.util.Map;
 import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.codecrate.shard.source.Source;
-import com.codecrate.shard.transfer.pcgen.tag.PcgenTagParser;
+import com.codecrate.shard.transfer.pcgen.tag.NoOpTagValueAggregator;
+import com.codecrate.shard.transfer.pcgen.tag.PcgenTags;
+import com.codecrate.shard.transfer.pcgen.tag.TagValueAggregator;
 
 /**
  * helper class for parsing PCGen LST files.
  */
 public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.PcgenLineHandler {
-    private static final Log LOG = LogFactory.getLog(AbstractPcgenLineHandler.class);
-
-    private static final String TRUE_TAG_VALUE = "YES";
-
-	private final PcgenTagParser tagParser;
+	private final TagValueAggregator tagValueAggregator;
 
 	public AbstractPcgenLineHandler() {
-		this(new PcgenTagParser());
+		this(new NoOpTagValueAggregator());
 	}
 
-	public AbstractPcgenLineHandler(PcgenTagParser parser) {
-		this.tagParser = parser;
+	public AbstractPcgenLineHandler(TagValueAggregator tagValueAggregator) {
+		this.tagValueAggregator = tagValueAggregator;
 	}
 
 	public final Object handleLine(String line, Source source) {
         String name = getNameToken(line);
-        String tagsLine = getTagsFromLine(line);
 
-        Map tags = tagParser.parseTags(tagsLine);
+        PcgenTags tags = new PcgenTags(line, tagValueAggregator);
 
         return handleParsedLine(name, tags, source);
     }
 
-	protected abstract Object handleParsedLine(String name, Map tags, Source source);
+	protected abstract Object handleParsedLine(String name, PcgenTags tags, Source source);
 
 	/**
 	 * extension point for subclasses to override where to get the name from.
@@ -62,48 +55,4 @@ public abstract class AbstractPcgenLineHandler implements PcgenObjectImporter.Pc
         StringTokenizer tokens = new StringTokenizer(line, "\t");
         return tokens.nextToken().trim();
 	}
-
-	private String getTagsFromLine(String line) {
-		String name = getNameToken(line);
-		return line.substring(name.length() + 1);
-	}
-
-    protected String getStringTagValue(String tagName, Map tags) {
-        return getStringTagValue(tagName, tags, null);
-    }
-
-    protected String getStringTagValue(String tagName, Map tags, String defaultValue) {
-        String value = (String) tags.get(tagName);
-        if (null == value) {
-            LOG.debug("No value found for tag " + tagName);
-            return defaultValue;
-        }
-        return value;
-    }
-
-    protected int getIntTagValue(String tagName, Map tags) {
-        return getIntTagValue(tagName, tags, 0);
-    }
-
-    protected int getIntTagValue(String tagName, Map tags, int defaultValue) {
-        String value = (String) tags.get(tagName);
-        if (null == value) {
-            LOG.debug("No value found for tag " + tagName + " defaulting to " + defaultValue);
-            return defaultValue;
-        }
-        return Integer.parseInt(value);
-    }
-
-	protected PcgenTagParser getTagParser() {
-		return tagParser;
-	}
-
-    protected boolean getBooleanTagValue(String tagName, Map tags, boolean defaultValue) {
-        String value = (String) tags.get(tagName);
-        if (null == value) {
-            LOG.debug("No value found for tag " + tagName + " defaulting to " + defaultValue);
-            return defaultValue;
-        }
-        return (TRUE_TAG_VALUE.equals(value));
-    }
 }

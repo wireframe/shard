@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard.transfer.pcgen;
 
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.nfunk.jep.JEP;
@@ -29,7 +28,7 @@ import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.pcgen.tag.ConcatTagValueAggregator;
-import com.codecrate.shard.transfer.pcgen.tag.PcgenTagParser;
+import com.codecrate.shard.transfer.pcgen.tag.PcgenTags;
 
 public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
 	private static final String TAG_VALUE_DELIMITER = "|";
@@ -53,28 +52,28 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
 
     public PcgenCharacterClassLineHandler(CharacterClassFactory kitFactory,
 			CharacterClassDao kitDao, SkillDao skillDao) {
-    	super(new PcgenTagParser(tagValueAggregator));
+    	super(tagValueAggregator);
         this.kitFactory = kitFactory;
         this.kitDao = kitDao;
 		this.skillDao = skillDao;
     }
 
     protected String getNameToken(String line) {
-		Map tags = getTagParser().parseTags(line);
-    	return getStringTagValue(NAME, tags);
+		PcgenTags tags = new PcgenTags(line);
+    	return tags.getStringTagValue(NAME);
 	}
 
-	protected Object handleParsedLine(String name, Map tags, Source source) {
+	protected Object handleParsedLine(String name, PcgenTags tags, Source source) {
     	if (isFirstLine(tags)) {
-        	Dice hitDice = new RandomDice(getIntTagValue(HIT_DICE, tags));
-        	String abbreviation = getStringTagValue(ABBREVIATION, tags);
-            int maxLevel = getIntTagValue(MAX_LEVEL_TAG, tags, MAX_CLASS_LEVEL);
+        	Dice hitDice = new RandomDice(tags.getIntTagValue(HIT_DICE));
+        	String abbreviation = tags.getStringTagValue(ABBREVIATION);
+            int maxLevel = tags.getIntTagValue(MAX_LEVEL_TAG, MAX_CLASS_LEVEL);
 
-            String bonusTokens = getStringTagValue(BONUS_TAG_NAME, tags);
-            String reflexSaveProgression = getTokenAfterElement(REFLEX_DECLARATION, bonusTokens);
-            String willpowerSaveProgression = getTokenAfterElement(WILLPOWER_DECLARATION, bonusTokens);
-            String fortitudeSaveProgression = getTokenAfterElement(FORTITUDE_DECLARATION, bonusTokens);
-            String baseAttackBonusProgression = getTokenAfterElement(BASE_ATTACK_BONUS_DECLARATION, bonusTokens);
+            String bonusTokens = tags.getStringTagValue(BONUS_TAG_NAME);
+            String reflexSaveProgression = getTokenAfterElement(bonusTokens, REFLEX_DECLARATION);
+            String willpowerSaveProgression = getTokenAfterElement(bonusTokens, WILLPOWER_DECLARATION);
+            String fortitudeSaveProgression = getTokenAfterElement(bonusTokens, FORTITUDE_DECLARATION);
+            String baseAttackBonusProgression = getTokenAfterElement(bonusTokens, BASE_ATTACK_BONUS_DECLARATION);
 
             CharacterClass kit = kitFactory.createClass(name, abbreviation, hitDice, source);
             for (int level = 1; level <= maxLevel; level++) {
@@ -88,7 +87,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     	} else if (isSecondLine(tags)) {
     		CharacterClass kit = kitDao.getCharacterClass(name);
 
-    		String skills = getStringTagValue(SKILL_LIST_TAG_NAME, tags);
+    		String skills = tags.getStringTagValue(SKILL_LIST_TAG_NAME);
     		StringTokenizer tokens = tagValueAggregator.parseAggregatedValue(skills);
     		while (tokens.hasMoreTokens()) {
     			String skillName = tokens.nextToken();
@@ -101,7 +100,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
     		kitDao.updateClass(kit);
     		return kit;
     	} else {
-    		throw new IllegalStateException("Unable to update class information.");
+    		throw new IllegalStateException("Unable to process class information for line");
     	}
     }
 
@@ -119,8 +118,14 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
         return (int) parser.getValue();
     }
 
-    private String getTokenAfterElement(String element, String line) {
+    private String getTokenAfterElement(String line, String element) {
+        if (line == null) {
+        	return null;
+        }
         int index = line.indexOf(element);
+        if (index == -1) {
+        	return null;
+        }
         int nextElementStart = line.indexOf("|", index) + 1;
         int nextElementEnd = line.indexOf("|", nextElementStart);
         if (nextElementEnd == -1) {
@@ -129,11 +134,11 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
         return line.substring(nextElementStart, nextElementEnd);
     }
 
-    private boolean isSecondLine(Map tags) {
-		return (null != tags.get(SKILL_LIST_TAG_NAME));
+    private boolean isSecondLine(PcgenTags tags) {
+    	return tags.hasTag(SKILL_LIST_TAG_NAME);
 	}
 
-	private boolean isFirstLine(Map tags) {
-		return (null != tags.get(HIT_DICE));
+	private boolean isFirstLine(PcgenTags tags) {
+		return tags.hasTag(HIT_DICE);
 	}
 }

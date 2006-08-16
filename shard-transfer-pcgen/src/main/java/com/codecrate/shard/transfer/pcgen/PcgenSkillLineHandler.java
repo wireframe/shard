@@ -15,14 +15,13 @@
  */
 package com.codecrate.shard.transfer.pcgen;
 
-import java.util.Map;
-
 import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.ability.AbilityDao;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
 import com.codecrate.shard.source.Source;
+import com.codecrate.shard.transfer.pcgen.tag.PcgenTags;
 
 public class PcgenSkillLineHandler extends AbstractPcgenLineHandler {
 	private static final String ARMOR_CHECK_PENALTY_TAG_NAME = "ACHECK";
@@ -39,10 +38,10 @@ public class PcgenSkillLineHandler extends AbstractPcgenLineHandler {
 		this.abilityDao = abilityDao;
     }
 
-    public Object handleParsedLine(String name, Map tags, Source source) {
-    	boolean isUsableUntrained = getBooleanTagValue(USABLE_UNTRAINED_TAG_NAME, tags, true);
-    	boolean hasArmorCheckPenalty = getBooleanTagValue(ARMOR_CHECK_PENALTY_TAG_NAME, tags, false);
-    	String abilityName = getStringTagValue(ABILITY_TAG_NAME, tags);
+    protected Object handleParsedLine(String name, PcgenTags tags, Source source) {
+    	boolean isUsableUntrained = tags.getBooleanTagValue(USABLE_UNTRAINED_TAG_NAME, true);
+    	boolean hasArmorCheckPenalty = tags.getBooleanTagValue(ARMOR_CHECK_PENALTY_TAG_NAME, false);
+    	String abilityName = tags.getStringTagValue(ABILITY_TAG_NAME);
 
     	Ability ability = abilityDao.getAbilityByAbbreviation(abilityName);
         Skill skill = skillFactory.createSkill(name, ability, isUsableUntrained, hasArmorCheckPenalty, source);

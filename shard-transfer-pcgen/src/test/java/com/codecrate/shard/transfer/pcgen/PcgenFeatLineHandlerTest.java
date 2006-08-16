@@ -50,7 +50,7 @@ public class PcgenFeatLineHandlerTest extends TestCase {
         mockFeatDao.replay();
 
         PcgenFeatLineHandler importer = new PcgenFeatLineHandler(featFactory, featDao);
-		Object result = importer.handleParsedLine("Agility", tags, null);
+		Object result = importer.handleLine("Agility \t DESC:Move fast \t TYPE:General", null);
 
 		assertNotNull(result);
     }

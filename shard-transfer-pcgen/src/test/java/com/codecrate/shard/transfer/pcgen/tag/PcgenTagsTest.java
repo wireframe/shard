@@ -15,27 +15,32 @@
  */
 package com.codecrate.shard.transfer.pcgen.tag;
 
-import java.util.Map;
-
 import junit.framework.TestCase;
 
-public class PcgenTagParserTest extends TestCase {
+public class PcgenTagsTest extends TestCase {
 
-	public void testTagsSeperatedByTokenAreMappedCorrectly() {
-		Map tags = new PcgenTagParser().parseTags("NAME:Thor \t EYES:blue");
+	public void testTagsSeperatedByTokenAreConsideredSeperateTags() {
+		PcgenTags tags = new PcgenTags("NAME:Thor \t EYES:blue");
 
-		assertEquals(2, tags.size());
+		assertTrue(tags.hasTag("NAME"));
+		assertTrue(tags.hasTag("EYES"));
 	}
 
 	public void testTagValueIsValueAfterDelimiter() {
-		Map tags = new PcgenTagParser().parseTags("NAME:Thor");
+		PcgenTags tags = new PcgenTags("NAME:Thor");
 
-		assertEquals("Thor", tags.get("NAME"));
+		assertEquals("Thor", tags.getStringTagValue("NAME"));
 	}
 
 	public void testUrlWithColonCanBeUsedAsTagValue() {
-		Map tags = new PcgenTagParser().parseTags("URL:http://blah.com");
+		PcgenTags tags = new PcgenTags("URL:http://blah.com");
 
-		assertEquals("http://blah.com", tags.get("URL"));
+		assertEquals("http://blah.com", tags.getStringTagValue("URL"));
+	}
+
+	public void testCreatingTagsWithLeadingNameGrabsOtherTags() {
+		PcgenTags tags = new PcgenTags("Thor The Alighty \t URL:http://blah.com");
+
+		assertEquals("http://blah.com", tags.getStringTagValue("URL"));
 	}
 }

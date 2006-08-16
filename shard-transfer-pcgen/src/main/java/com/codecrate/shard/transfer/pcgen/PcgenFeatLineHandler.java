@@ -15,12 +15,11 @@
  */
 package com.codecrate.shard.transfer.pcgen;
 
-import java.util.Map;
-
 import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatDao;
 import com.codecrate.shard.feat.FeatFactory;
 import com.codecrate.shard.source.Source;
+import com.codecrate.shard.transfer.pcgen.tag.PcgenTags;
 
 public class PcgenFeatLineHandler extends AbstractPcgenLineHandler {
 	private static final String DESCRIPTION_TAG_NAME = "DESC";
@@ -34,9 +33,9 @@ public class PcgenFeatLineHandler extends AbstractPcgenLineHandler {
         this.featDao = featDao;
     }
 
-    public Object handleParsedLine(String name, Map tags, Source source) {
-    	String description = nullSafeString(getStringTagValue(DESCRIPTION_TAG_NAME, tags));
-    	String type = getStringTagValue(TYPE_TAG_NAME, tags);
+    protected Object handleParsedLine(String name, PcgenTags tags, Source source) {
+    	String description = nullSafeString(tags.getStringTagValue(DESCRIPTION_TAG_NAME));
+    	String type = tags.getStringTagValue(TYPE_TAG_NAME);
 
         Feat feat = featFactory.createFeat(name, description, type, source);
         return featDao.saveFeat(feat);
