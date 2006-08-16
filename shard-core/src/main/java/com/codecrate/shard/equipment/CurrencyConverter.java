@@ -24,7 +24,7 @@ public class CurrencyConverter {
     public Money convert(Money money, Currency currency) {
         BigDecimal rate = getConversionRate(money.getCurrency(), currency);
         BigDecimal amount = money.getAmount().multiply(rate);
-        
+
         return new Money(amount, currency, BigDecimal.ROUND_DOWN);
     }
 
@@ -32,17 +32,13 @@ public class CurrencyConverter {
     	int baseAmount = amount.getAmount().multiply(new BigDecimal(amount.getCurrency().getValueInLowestCurrency())).intValue();
 
     	Iterator it = currencyDao.getCurrencies().iterator();
-    	Currency highestCurrency = null;
+    	Currency highestCurrency = amount.getCurrency();
     	while (it.hasNext()) {
     		Currency currency = (Currency) it.next();
     		if (baseAmount >= currency.getValueInLowestCurrency()) {
-    			if (highestCurrency == null) {
-    				highestCurrency = currency;
-    			} else {
-    				if (highestCurrency.getValueInLowestCurrency() < currency.getValueInLowestCurrency()) {
-    					highestCurrency = currency;
-    				}
-    			}
+				if (highestCurrency.getValueInLowestCurrency() < currency.getValueInLowestCurrency()) {
+					highestCurrency = currency;
+				}
     		}
     	}
     	return convert(amount, highestCurrency);
@@ -52,7 +48,7 @@ public class CurrencyConverter {
         BigDecimal rate = new BigDecimal(from.getValueInLowestCurrency()).setScale(2);
         BigDecimal rate2 = new BigDecimal(to.getValueInLowestCurrency()).setScale(2);
         rate = rate.divide(rate2, BigDecimal.ROUND_HALF_UP);
-        
+
         return rate;
     }
 }
