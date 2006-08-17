@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
 /**
  * concatonates tag values and seperates them with a delimiter.
  */
-public class ConcatTagValueAggregator implements TagValueAggregator {
+public class ConcatTagValueAggregator {
 
     private final String seperator;
 

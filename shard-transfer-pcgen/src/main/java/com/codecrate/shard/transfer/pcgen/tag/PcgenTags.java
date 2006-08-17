@@ -1,3 +1,18 @@
+/*
+ * Copyright 2004 codecrate consulting
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package com.codecrate.shard.transfer.pcgen.tag;
 
 import java.util.HashMap;
@@ -9,21 +24,16 @@ import org.apache.commons.logging.LogFactory;
 
 public class PcgenTags {
     private static final Log LOG = LogFactory.getLog(PcgenTags.class);
+	private static final String TAG_VALUE_DELIMITER = "|";
 	private static final String TAG_SEPERATOR = "\t";
     private static final String TAG_NAME_VALUE_SEPERATOR = ":";
     private static final String TRUE_TAG_VALUE = "YES";
 
-    private final TagValueAggregator tagValueAggregator;
+    private final ConcatTagValueAggregator tagValueAggregator = new ConcatTagValueAggregator(TAG_VALUE_DELIMITER);
     private final Map tags = new HashMap();
 	private String undefinedTagValue;
 
 	public PcgenTags(String line) {
-		this(line, new NoOpTagValueAggregator());
-	}
-
-	public PcgenTags(String line, TagValueAggregator aggregator) {
-		this.tagValueAggregator = aggregator;
-
 		parseTags(line);
 	}
 
@@ -49,8 +59,8 @@ public class PcgenTags {
         String newValue = tagValueAggregator.aggregateValue(oldValue, value);
 
 		tags.put(name, newValue);
-
 	}
+
 	public String getStringTagValue(String tagName) {
         return getStringTagValue(tagName, null);
     }
@@ -95,4 +105,19 @@ public class PcgenTags {
 		return undefinedTagValue;
 	}
 
+    public String getTagValueAfterElement(String tagName, String expression) {
+        StringTokenizer tokens = getTagValues(tagName);
+        while (tokens.hasMoreTokens()) {
+			String token = tokens.nextToken();
+			if (token.indexOf(expression) != -1 && tokens.hasMoreTokens()) {
+				return tokens.nextToken();
+			}
+		}
+        return null;
+    }
+
+	public StringTokenizer getTagValues(String tagName) {
+		String value = getStringTagValue(tagName);
+		return tagValueAggregator.parseAggregatedValue(value);
+	}
 }

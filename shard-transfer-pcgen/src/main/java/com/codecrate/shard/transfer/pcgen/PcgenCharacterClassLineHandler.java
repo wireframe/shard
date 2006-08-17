@@ -27,11 +27,9 @@ import com.codecrate.shard.kit.CharacterClassFactory;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.source.Source;
-import com.codecrate.shard.transfer.pcgen.tag.ConcatTagValueAggregator;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTags;
 
 public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.PcgenLineHandler {
-	private static final String TAG_VALUE_DELIMITER = "|";
     private static final String CLASS_LEVEL_TOKEN = "CL";
     private static final int MAX_CLASS_LEVEL = 20;
     private static final String NAME = "CLASS";
@@ -48,7 +46,6 @@ public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.Pcgen
 	private final CharacterClassFactory kitFactory;
     private final CharacterClassDao kitDao;
 	private final SkillDao skillDao;
-	private static final ConcatTagValueAggregator tagValueAggregator = new ConcatTagValueAggregator(TAG_VALUE_DELIMITER);
 
     public PcgenCharacterClassLineHandler(CharacterClassFactory kitFactory,
 			CharacterClassDao kitDao, SkillDao skillDao) {
@@ -58,18 +55,17 @@ public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.Pcgen
     }
 
     public Object handleLine(String line, Source source) {
-    	PcgenTags tags = new PcgenTags(line, tagValueAggregator);
+    	PcgenTags tags = new PcgenTags(line);
     	String name = tags.getStringTagValue(NAME);
     	if (isFirstLine(tags)) {
         	Dice hitDice = new RandomDice(tags.getIntTagValue(HIT_DICE));
         	String abbreviation = tags.getStringTagValue(ABBREVIATION);
             int maxLevel = tags.getIntTagValue(MAX_LEVEL_TAG, MAX_CLASS_LEVEL);
 
-            String bonusTokens = tags.getStringTagValue(BONUS_TAG_NAME);
-            String reflexSaveProgression = getTokenAfterElement(bonusTokens, REFLEX_DECLARATION);
-            String willpowerSaveProgression = getTokenAfterElement(bonusTokens, WILLPOWER_DECLARATION);
-            String fortitudeSaveProgression = getTokenAfterElement(bonusTokens, FORTITUDE_DECLARATION);
-            String baseAttackBonusProgression = getTokenAfterElement(bonusTokens, BASE_ATTACK_BONUS_DECLARATION);
+            String reflexSaveProgression = tags.getTagValueAfterElement(BONUS_TAG_NAME, REFLEX_DECLARATION);
+            String willpowerSaveProgression = tags.getTagValueAfterElement(BONUS_TAG_NAME, WILLPOWER_DECLARATION);
+            String fortitudeSaveProgression = tags.getTagValueAfterElement(BONUS_TAG_NAME, FORTITUDE_DECLARATION);
+            String baseAttackBonusProgression = tags.getTagValueAfterElement(BONUS_TAG_NAME, BASE_ATTACK_BONUS_DECLARATION);
 
             CharacterClass kit = kitFactory.createClass(name, abbreviation, hitDice, source);
             for (int level = 1; level <= maxLevel; level++) {
@@ -83,8 +79,7 @@ public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.Pcgen
     	} else if (isSecondLine(tags)) {
     		CharacterClass kit = kitDao.getCharacterClass(name);
 
-    		String skills = tags.getStringTagValue(SKILL_LIST_TAG_NAME);
-    		StringTokenizer tokens = tagValueAggregator.parseAggregatedValue(skills);
+    		StringTokenizer tokens = tags.getTagValues(SKILL_LIST_TAG_NAME);
     		while (tokens.hasMoreTokens()) {
     			String skillName = tokens.nextToken();
                 if (isValidSkillName(skillName)) {
@@ -112,22 +107,6 @@ public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.Pcgen
         parser.parseExpression(expression);
 
         return (int) parser.getValue();
-    }
-
-    private String getTokenAfterElement(String line, String element) {
-        if (line == null) {
-        	return null;
-        }
-        int index = line.indexOf(element);
-        if (index == -1) {
-        	return null;
-        }
-        int nextElementStart = line.indexOf("|", index) + 1;
-        int nextElementEnd = line.indexOf("|", nextElementStart);
-        if (nextElementEnd == -1) {
-            nextElementEnd = line.length();
-        }
-        return line.substring(nextElementStart, nextElementEnd);
     }
 
     private boolean isSecondLine(PcgenTags tags) {
