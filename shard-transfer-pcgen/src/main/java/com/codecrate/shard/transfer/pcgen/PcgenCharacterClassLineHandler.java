@@ -17,6 +17,8 @@ package com.codecrate.shard.transfer.pcgen;
 
 import java.util.StringTokenizer;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.nfunk.jep.JEP;
 
 import com.codecrate.shard.dice.Dice;
@@ -30,6 +32,7 @@ import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTags;
 
 public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.PcgenLineHandler {
+	private static final Log LOG = LogFactory.getLog(PcgenCharacterClassLineHandler.class);
     private static final String CLASS_LEVEL_TOKEN = "CL";
     private static final int MAX_CLASS_LEVEL = 20;
     private static final String NAME = "CLASS";
@@ -47,6 +50,8 @@ public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.Pcgen
     private final CharacterClassDao kitDao;
 	private final SkillDao skillDao;
 
+	private PcgenTags currentKit = null;
+
     public PcgenCharacterClassLineHandler(CharacterClassFactory kitFactory,
 			CharacterClassDao kitDao, SkillDao skillDao) {
         this.kitFactory = kitFactory;
@@ -57,6 +62,7 @@ public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.Pcgen
     public Object handleLine(String line, Source source) {
     	PcgenTags tags = new PcgenTags(line);
     	String name = tags.getStringTagValue(NAME);
+
     	if (isFirstLine(tags)) {
         	Dice hitDice = new RandomDice(tags.getIntTagValue(HIT_DICE));
         	String abbreviation = tags.getStringTagValue(ABBREVIATION);
@@ -75,6 +81,8 @@ public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.Pcgen
                         calculateClassLevelExpression(reflexSaveProgression, level),
                         calculateClassLevelExpression(willpowerSaveProgression, level));
             }
+
+            currentKit = tags;
             return kitDao.saveClass(kit);
     	} else if (isSecondLine(tags)) {
     		CharacterClass kit = kitDao.getCharacterClass(name);
@@ -91,7 +99,13 @@ public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.Pcgen
     		kitDao.updateClass(kit);
     		return kit;
     	} else {
-    		throw new IllegalStateException("Unable to process class information for line");
+    		name = currentKit.getStringTagValue(NAME);
+    		LOG.info("Processing additional info for class: " + name + " = " + line);
+
+    		return null;
+//    		CharacterClass kit = kitDao.getCharacterClass(name);
+//
+//    		return kitDao.saveClass(kit);
     	}
     }
 

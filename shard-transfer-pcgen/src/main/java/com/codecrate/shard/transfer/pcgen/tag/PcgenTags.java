@@ -34,10 +34,6 @@ public class PcgenTags {
 	private String undefinedTagValue;
 
 	public PcgenTags(String line) {
-		parseTags(line);
-	}
-
-	private Map parseTags(String line) {
 		StringTokenizer tokens = new StringTokenizer(line, TAG_SEPERATOR);
 		while (tokens.hasMoreTokens()) {
 			String token = tokens.nextToken();
@@ -51,10 +47,9 @@ public class PcgenTags {
 				addTagValue(tagName, tagValue);
 			}
 		}
-		return tags;
 	}
 
-	public void addTagValue(String name, String value) {
+	private void addTagValue(String name, String value) {
 		String oldValue = (String) tags.get(name);
         String newValue = tagValueAggregator.aggregateValue(oldValue, value);
 
