@@ -21,7 +21,7 @@ import com.codecrate.shard.magic.SpellFactory;
 import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTags;
 
-public class PcgenSpellLineHandler extends AbstractPcgenLineHandler {
+public class PcgenSpellLineHandler implements PcgenObjectImporter.PcgenLineHandler {
 	private static final String DESCRIPTION_TAG_NAME = "DESC";
     private static final String SCHOOL_TAG_NAME = "SCHOOL";
     private static final String SPELL_TYPE_TAG_NAME = "TYPE";
@@ -36,7 +36,9 @@ public class PcgenSpellLineHandler extends AbstractPcgenLineHandler {
         this.spellDao = spellDao;
     }
 
-    public Object handleParsedLine(String name, PcgenTags tags, Source source) {
+    public Object handleLine(String line, Source source) {
+    	PcgenTags tags = new PcgenTags(line);
+    	String name = tags.getUndefinedTagValue();
     	String description = tags.getStringTagValue(DESCRIPTION_TAG_NAME);
     	String school = tags.getStringTagValue(SCHOOL_TAG_NAME);
     	String type = tags.getStringTagValue(SPELL_TYPE_TAG_NAME);

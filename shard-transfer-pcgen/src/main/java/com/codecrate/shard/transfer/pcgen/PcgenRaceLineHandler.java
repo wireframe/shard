@@ -15,9 +15,6 @@
  */
 package com.codecrate.shard.transfer.pcgen;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.kit.CharacterClassDao;
 import com.codecrate.shard.race.Race;
@@ -26,9 +23,7 @@ import com.codecrate.shard.race.RaceFactory;
 import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTags;
 
-public class PcgenRaceLineHandler extends AbstractPcgenLineHandler {
-	private static final Log LOG = LogFactory.getLog(PcgenRaceLineHandler.class);
-
+public class PcgenRaceLineHandler implements PcgenObjectImporter.PcgenLineHandler {
     private static final String TAG_NAME_FAVORED_CLASS = "FAVCLASS";
     private static final String ANY = "ANY";
 
@@ -42,11 +37,9 @@ public class PcgenRaceLineHandler extends AbstractPcgenLineHandler {
         this.characterClassDao = characterClassDao;
     }
 
-    protected Object handleParsedLine(String name, PcgenTags tags, Source source) {
-    	if (-1 != name.indexOf(":")) {
-    		LOG.info("Can not use race with name: " + name);
-    		return null;
-    	}
+    public Object handleLine(String line, Source source) {
+    	PcgenTags tags = new PcgenTags(line);
+    	String name = tags.getUndefinedTagValue();
         String favoredClassName = tags.getStringTagValue(TAG_NAME_FAVORED_CLASS);
         CharacterClass favoredClass = null;
         if (null != favoredClassName && !ANY.equalsIgnoreCase(favoredClassName)) {

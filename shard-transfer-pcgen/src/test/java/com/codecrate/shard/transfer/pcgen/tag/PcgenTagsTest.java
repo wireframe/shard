@@ -43,4 +43,10 @@ public class PcgenTagsTest extends TestCase {
 
 		assertEquals("http://blah.com", tags.getStringTagValue("URL"));
 	}
+	
+	public void testUndefinedTagValueIsSaved() {
+		PcgenTags tags = new PcgenTags("Thor The Alighty \t URL:http://blah.com");
+
+		assertEquals("Thor The Alighty", tags.getUndefinedTagValue());
+	}
 }

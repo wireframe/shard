@@ -5,7 +5,7 @@ import com.codecrate.shard.source.SourceDao;
 import com.codecrate.shard.source.SourceFactory;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTags;
 
-public class PcgenSourceLineHandler extends AbstractPcgenLineHandler implements PcgenObjectImporter.PcgenLineHandler {
+public class PcgenSourceLineHandler implements PcgenObjectImporter.PcgenLineHandler {
     private static final String SOURCE_NAME_TAG_NAME = "SOURCELONG";
     private static final String SOURCE_ABBREVIATION_TAG_NAME = "SOURCESHORT";
     private static final String SOURCE_URL_TAG_NAME = "SOURCEWEB";
@@ -21,8 +21,11 @@ public class PcgenSourceLineHandler extends AbstractPcgenLineHandler implements 
         return line.startsWith("SOURCE");
 	}
 
-	protected Object handleParsedLine(String name, PcgenTags tags, Source arg) {
-        Source source = sourceDao.getSource(name);
+    public Object handleLine(String line, Source arg) {
+    	PcgenTags tags = new PcgenTags(line);
+    	String name = tags.getStringTagValue(SOURCE_NAME_TAG_NAME);
+
+    	Source source = sourceDao.getSource(name);
         if (null == source) {
             String abbreviation = tags.getStringTagValue(SOURCE_ABBREVIATION_TAG_NAME);
             String url = tags.getStringTagValue(SOURCE_URL_TAG_NAME);
@@ -30,10 +33,5 @@ public class PcgenSourceLineHandler extends AbstractPcgenLineHandler implements 
             source = sourceDao.saveSource(source);
         }
         return source;
-	}
-
-	protected String getNameToken(String line) {
-		PcgenTags tags = new PcgenTags(line);
-		return tags.getStringTagValue(SOURCE_NAME_TAG_NAME);
 	}
 }

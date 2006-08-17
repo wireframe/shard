@@ -30,7 +30,7 @@ import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.pcgen.tag.ConcatTagValueAggregator;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTags;
 
-public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
+public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.PcgenLineHandler {
 	private static final String TAG_VALUE_DELIMITER = "|";
     private static final String CLASS_LEVEL_TOKEN = "CL";
     private static final int MAX_CLASS_LEVEL = 20;
@@ -40,7 +40,7 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
 	private static final String SKILL_LIST_TAG_NAME = "CSKILL";
     private static final String BONUS_TAG_NAME = "BONUS";
     private static final String REFLEX_DECLARATION = "Reflex";
-    private static final String WILLPOWER_DECLARATION = "Willpower";
+    private static final String WILLPOWER_DECLARATION = "Will";
     private static final String FORTITUDE_DECLARATION = "Fortitude";
     private static final String BASE_ATTACK_BONUS_DECLARATION = "BAB";
     private static final String MAX_LEVEL_TAG = "MAXLEVEL";
@@ -52,18 +52,14 @@ public class PcgenCharacterClassLineHandler extends AbstractPcgenLineHandler {
 
     public PcgenCharacterClassLineHandler(CharacterClassFactory kitFactory,
 			CharacterClassDao kitDao, SkillDao skillDao) {
-    	super(tagValueAggregator);
         this.kitFactory = kitFactory;
         this.kitDao = kitDao;
 		this.skillDao = skillDao;
     }
 
-    protected String getNameToken(String line) {
-		PcgenTags tags = new PcgenTags(line);
-    	return tags.getStringTagValue(NAME);
-	}
-
-	protected Object handleParsedLine(String name, PcgenTags tags, Source source) {
+    public Object handleLine(String line, Source source) {
+    	PcgenTags tags = new PcgenTags(line, tagValueAggregator);
+    	String name = tags.getStringTagValue(NAME);
     	if (isFirstLine(tags)) {
         	Dice hitDice = new RandomDice(tags.getIntTagValue(HIT_DICE));
         	String abbreviation = tags.getStringTagValue(ABBREVIATION);

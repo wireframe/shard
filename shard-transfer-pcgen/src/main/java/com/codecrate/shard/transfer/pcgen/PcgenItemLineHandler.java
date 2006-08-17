@@ -27,7 +27,7 @@ import com.codecrate.shard.equipment.Money;
 import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTags;
 
-public class PcgenItemLineHandler extends AbstractPcgenLineHandler {
+public class PcgenItemLineHandler implements PcgenObjectImporter.PcgenLineHandler {
 	private static final int COST_TO_LOWEST_CURRENCY_MULTIPLIER = 2;
 	private static final String COST_TAG_NAME = "COST";
 	private static final String WEIGHT_TAG_NAME = "WT";
@@ -44,7 +44,10 @@ public class PcgenItemLineHandler extends AbstractPcgenLineHandler {
         this.itemDao = itemDao;
     }
 
-    protected Object handleParsedLine(String name, PcgenTags tags, Source source) {
+    public Object handleLine(String line, Source source) {
+    	PcgenTags tags = new PcgenTags(line);
+    	String name = tags.getUndefinedTagValue();
+
     	BigDecimal weight = new BigDecimal(tags.getStringTagValue(WEIGHT_TAG_NAME, DEFAULT_WEIGHT));
     	BigDecimal amount = new BigDecimal(tags.getStringTagValue(COST_TAG_NAME, DEFAULT_COST)).movePointRight(COST_TO_LOWEST_CURRENCY_MULTIPLIER);
     	Currency currency = currencyDao.getLowestValueCurrency();

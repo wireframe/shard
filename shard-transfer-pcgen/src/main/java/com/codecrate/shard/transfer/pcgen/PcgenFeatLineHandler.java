@@ -21,7 +21,7 @@ import com.codecrate.shard.feat.FeatFactory;
 import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTags;
 
-public class PcgenFeatLineHandler extends AbstractPcgenLineHandler {
+public class PcgenFeatLineHandler implements PcgenObjectImporter.PcgenLineHandler {
 	private static final String DESCRIPTION_TAG_NAME = "DESC";
     private static final String TYPE_TAG_NAME = "TYPE";
 
@@ -33,7 +33,9 @@ public class PcgenFeatLineHandler extends AbstractPcgenLineHandler {
         this.featDao = featDao;
     }
 
-    protected Object handleParsedLine(String name, PcgenTags tags, Source source) {
+    public Object handleLine(String line, Source source) {
+    	PcgenTags tags = new PcgenTags(line);
+    	String name = tags.getUndefinedTagValue();
     	String description = nullSafeString(tags.getStringTagValue(DESCRIPTION_TAG_NAME));
     	String type = tags.getStringTagValue(TYPE_TAG_NAME);
 

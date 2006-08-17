@@ -7,16 +7,15 @@ import java.util.StringTokenizer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.codecrate.shard.transfer.pcgen.AbstractPcgenLineHandler;
-
 public class PcgenTags {
-    private static final Log LOG = LogFactory.getLog(AbstractPcgenLineHandler.class);
+    private static final Log LOG = LogFactory.getLog(PcgenTags.class);
 	private static final String TAG_SEPERATOR = "\t";
     private static final String TAG_NAME_VALUE_SEPERATOR = ":";
     private static final String TRUE_TAG_VALUE = "YES";
 
     private final TagValueAggregator tagValueAggregator;
     private final Map tags = new HashMap();
+	private String undefinedTagValue;
 
 	public PcgenTags(String line) {
 		this(line, new NoOpTagValueAggregator());
@@ -33,7 +32,9 @@ public class PcgenTags {
 		while (tokens.hasMoreTokens()) {
 			String token = tokens.nextToken();
 			int seperatorIndex = token.indexOf(TAG_NAME_VALUE_SEPERATOR);
-			if (-1 != seperatorIndex) {
+			if (-1 == seperatorIndex) {
+				this.undefinedTagValue = token.trim();
+			} else {
 				String tagName = token.substring(0, seperatorIndex).trim();
 				String tagValue = token.substring(seperatorIndex + 1, token.length()).trim();
 
@@ -88,6 +89,10 @@ public class PcgenTags {
 
 	public boolean hasTag(String tagName) {
 		return (null != tags.get(tagName));
+	}
+
+	public String getUndefinedTagValue() {
+		return undefinedTagValue;
 	}
 
 }

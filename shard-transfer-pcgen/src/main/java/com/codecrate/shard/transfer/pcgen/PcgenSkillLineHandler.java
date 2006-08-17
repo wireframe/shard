@@ -23,7 +23,7 @@ import com.codecrate.shard.skill.SkillFactory;
 import com.codecrate.shard.source.Source;
 import com.codecrate.shard.transfer.pcgen.tag.PcgenTags;
 
-public class PcgenSkillLineHandler extends AbstractPcgenLineHandler {
+public class PcgenSkillLineHandler implements PcgenObjectImporter.PcgenLineHandler {
 	private static final String ARMOR_CHECK_PENALTY_TAG_NAME = "ACHECK";
 	private static final String USABLE_UNTRAINED_TAG_NAME = "USEUNTRAINED";
 	private static final String ABILITY_TAG_NAME = "KEYSTAT";
@@ -38,7 +38,9 @@ public class PcgenSkillLineHandler extends AbstractPcgenLineHandler {
 		this.abilityDao = abilityDao;
     }
 
-    protected Object handleParsedLine(String name, PcgenTags tags, Source source) {
+    public Object handleLine(String line, Source source) {
+    	PcgenTags tags = new PcgenTags(line);
+    	String name = tags.getUndefinedTagValue();
     	boolean isUsableUntrained = tags.getBooleanTagValue(USABLE_UNTRAINED_TAG_NAME, true);
     	boolean hasArmorCheckPenalty = tags.getBooleanTagValue(ARMOR_CHECK_PENALTY_TAG_NAME, false);
     	String abilityName = tags.getStringTagValue(ABILITY_TAG_NAME);
