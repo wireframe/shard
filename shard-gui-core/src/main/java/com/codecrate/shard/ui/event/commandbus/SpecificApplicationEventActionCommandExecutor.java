@@ -36,7 +36,7 @@ public class SpecificApplicationEventActionCommandExecutor extends AbstractSpeci
 	}
 
     protected void onSpecificApplicationEvent(ApplicationEvent event) {
-        LOG.info("Executing action specific action command due to application event " + event);
+        LOG.info("Executing specific action command due to application event " + event);
         delegate.execute(Collections.singletonMap("event", event));
     }
 }
