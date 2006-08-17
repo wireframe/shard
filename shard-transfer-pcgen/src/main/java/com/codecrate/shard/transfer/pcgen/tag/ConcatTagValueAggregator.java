@@ -36,6 +36,9 @@ public class ConcatTagValueAggregator {
     }
 
     public StringTokenizer parseAggregatedValue(String value) {
+    	if (null == value) {
+    		return new StringTokenizer("");
+    	}
     	return new StringTokenizer(value, seperator);
     }
 }
