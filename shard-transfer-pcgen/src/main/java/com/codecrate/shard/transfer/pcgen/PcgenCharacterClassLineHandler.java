@@ -15,6 +15,9 @@
  */
 package com.codecrate.shard.transfer.pcgen;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
@@ -50,7 +53,12 @@ public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.Pcgen
     private final CharacterClassDao kitDao;
 	private final SkillDao skillDao;
 
-	private PcgenTags currentKit = null;
+	private String currentKit = null;
+
+	private final Collection parsedLineHandlers = Arrays.asList(new PcgenCharacterClassParsedLineHandler[] {
+			new PcgenCharacterClassMasterParsedLineHandler()
+			, new PcgenCharacterClassSkillsParsedLineHandler()
+	});
 
     public PcgenCharacterClassLineHandler(CharacterClassFactory kitFactory,
 			CharacterClassDao kitDao, SkillDao skillDao) {
@@ -62,8 +70,30 @@ public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.Pcgen
     public Object handleLine(String line, Source source) {
     	PcgenTags tags = new PcgenTags(line);
     	String name = tags.getStringTagValue(NAME);
+    	if (null != name && !name.equals(currentKit)) {
+    		currentKit = name;
+    	}
 
-    	if (isFirstLine(tags)) {
+    	for (Iterator iter = parsedLineHandlers.iterator(); iter.hasNext();) {
+			PcgenCharacterClassParsedLineHandler handler = (PcgenCharacterClassParsedLineHandler) iter.next();
+			if (handler.supportsLine(tags)) {
+				return handler.handleParsedLine(name, tags, source);
+			}
+		}
+    	LOG.info("No handler found to process line for class " + currentKit + ": " + line);
+    	return null;
+    }
+
+
+	public interface PcgenCharacterClassParsedLineHandler {
+		boolean supportsLine(PcgenTags tags);
+
+		Object handleParsedLine(String name, PcgenTags tags, Source source);
+	}
+
+	public class PcgenCharacterClassMasterParsedLineHandler implements PcgenCharacterClassParsedLineHandler {
+
+		public Object handleParsedLine(String name, PcgenTags tags, Source source) {
         	Dice hitDice = new RandomDice(tags.getIntTagValue(HIT_DICE));
         	String abbreviation = tags.getStringTagValue(ABBREVIATION);
             int maxLevel = tags.getIntTagValue(MAX_LEVEL_TAG, MAX_CLASS_LEVEL);
@@ -82,9 +112,27 @@ public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.Pcgen
                         calculateClassLevelExpression(willpowerSaveProgression, level));
             }
 
-            currentKit = tags;
             return kitDao.saveClass(kit);
-    	} else if (isSecondLine(tags)) {
+		}
+
+		public boolean supportsLine(PcgenTags tags) {
+			return tags.hasTag(HIT_DICE);
+		}
+
+	    private int calculateClassLevelExpression(String expression, int characterLevel) {
+	        JEP parser = new JEP();
+	        parser.addStandardFunctions();
+	        parser.addStandardConstants();
+	        parser.addVariable(CLASS_LEVEL_TOKEN, characterLevel);
+	        parser.parseExpression(expression);
+
+	        return (int) parser.getValue();
+	    }
+	}
+
+	public class PcgenCharacterClassSkillsParsedLineHandler implements PcgenCharacterClassParsedLineHandler {
+
+		public Object handleParsedLine(String name, PcgenTags tags, Source source) {
     		CharacterClass kit = kitDao.getCharacterClass(name);
 
     		StringTokenizer tokens = tags.getTagValues(SKILL_LIST_TAG_NAME);
@@ -98,36 +146,14 @@ public class PcgenCharacterClassLineHandler implements PcgenObjectImporter.Pcgen
 
     		kitDao.updateClass(kit);
     		return kit;
-    	} else {
-    		name = currentKit.getStringTagValue(NAME);
-    		LOG.info("Processing additional info for class: " + name + " = " + line);
+		}
 
-    		return null;
-//    		CharacterClass kit = kitDao.getCharacterClass(name);
-//
-//    		return kitDao.saveClass(kit);
-    	}
-    }
+		public boolean supportsLine(PcgenTags tags) {
+	    	return tags.hasTag(SKILL_LIST_TAG_NAME);
+		}
 
-    private boolean isValidSkillName(String skillName) {
-        return (-1 == skillName.indexOf("."));
-    }
-
-    private int calculateClassLevelExpression(String expression, int characterLevel) {
-        JEP parser = new JEP();
-        parser.addStandardFunctions();
-        parser.addStandardConstants();
-        parser.addVariable(CLASS_LEVEL_TOKEN, characterLevel);
-        parser.parseExpression(expression);
-
-        return (int) parser.getValue();
-    }
-
-    private boolean isSecondLine(PcgenTags tags) {
-    	return tags.hasTag(SKILL_LIST_TAG_NAME);
-	}
-
-	private boolean isFirstLine(PcgenTags tags) {
-		return tags.hasTag(HIT_DICE);
+	    private boolean isValidSkillName(String skillName) {
+	        return (-1 == skillName.indexOf("."));
+	    }
 	}
 }
