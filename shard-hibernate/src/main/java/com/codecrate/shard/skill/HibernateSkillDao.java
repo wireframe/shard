@@ -24,8 +24,8 @@ import net.sf.hibernate.Session;
 import net.sf.hibernate.expression.Expression;
 
 import org.springframework.orm.hibernate.HibernateCallback;
-import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
+import com.codecrate.shard.BasicHibernateDao;
 import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.search.HibernateObjectSearcher;
 import com.codecrate.shard.source.Source;
@@ -33,22 +33,14 @@ import com.codecrate.shard.source.Source;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao, SkillFactory {
-
-	private final HibernateObjectSearcher searcher;
+public class HibernateSkillDao extends BasicHibernateDao implements SkillDao, SkillFactory {
 
 	public HibernateSkillDao(HibernateObjectSearcher searcher) {
-		this.searcher = searcher;
+		super(searcher, DefaultSkill.class, "name");
 	}
 
     public Collection getSkills() {
-        return (List) getHibernateTemplate().execute(new HibernateCallback() {
-            public Object doInHibernate(Session session)
-                    throws HibernateException {
-                Criteria query = session.createCriteria(DefaultSkill.class);
-                return query.list();
-            }
-        });
+    	return getAllObjects();
     }
 
     public Collection getUntrainedSkills() {
@@ -68,35 +60,22 @@ public class HibernateSkillDao extends HibernateDaoSupport implements SkillDao, 
     }
 
     public Skill saveSkill(Skill skill) {
-        String id = (String) getHibernateTemplate().save(skill);
-        return (Skill) getHibernateTemplate().load(DefaultSkill.class, id);
+    	return (Skill) saveObject(skill);
     }
 
     public Skill getSkill(final String name) {
-        Skill skill = (Skill) getHibernateTemplate().execute(new HibernateCallback() {
-            public Object doInHibernate(Session session)
-                    throws HibernateException {
-                Criteria query = session.createCriteria(DefaultSkill.class);
-                query.add(Expression.eq("name", name));
-                return query.uniqueResult();
-            }
-        });
-
-        if (null == skill) {
-            throw new IllegalArgumentException("Unable to find skill " + name);
-        }
-        return skill;
+    	return (Skill) getObjectByKey(name);
     }
 
     public void deleteSkill(Skill skill) {
-        getHibernateTemplate().delete(skill);
+        deleteObject(skill);
     }
 
     public void updateSkill(Skill skill) {
-        getHibernateTemplate().saveOrUpdate(skill);
+        updateObject(skill);
     }
 
     public Collection searchSkills(String query) {
-    	return searcher.search(DefaultSkill.class, query);
+    	return searchObjects(query);
     }
 }

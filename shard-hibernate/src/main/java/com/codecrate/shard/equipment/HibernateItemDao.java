@@ -17,37 +17,22 @@ package com.codecrate.shard.equipment;
 
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.List;
 
-import net.sf.hibernate.Criteria;
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Session;
-
-import org.springframework.orm.hibernate.HibernateCallback;
-import org.springframework.orm.hibernate.support.HibernateDaoSupport;
-
+import com.codecrate.shard.BasicHibernateDao;
 import com.codecrate.shard.search.HibernateObjectSearcher;
 import com.codecrate.shard.source.Source;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateItemDao extends HibernateDaoSupport implements ItemDao, ItemFactory {
-
-	private final HibernateObjectSearcher searcher;
+public class HibernateItemDao extends BasicHibernateDao implements ItemDao, ItemFactory {
 
 	public HibernateItemDao(HibernateObjectSearcher searcher) {
-		this.searcher = searcher;
+		super(searcher, DefaultItem.class, "name");
 	}
 
 	public Collection getItems() {
-        return (List) getHibernateTemplate().execute(new HibernateCallback() {
-            public Object doInHibernate(Session session)
-                    throws HibernateException {
-                Criteria query = session.createCriteria(Item.class);
-                return query.list();
-            }
-        });
+		return getAllObjects();
     }
 
     public Item createItem(String name, BigDecimal weight, Money cost, Source source) {
@@ -55,19 +40,18 @@ public class HibernateItemDao extends HibernateDaoSupport implements ItemDao, It
     }
 
     public Item saveItem(Item item) {
-        String id = (String) getHibernateTemplate().save(item);
-        return (Item) getHibernateTemplate().load(DefaultItem.class, id);
+    	return (Item) saveObject(item);
     }
 
     public void updateItem(Item item) {
-        getHibernateTemplate().saveOrUpdate(item);
+    	updateItem(item);
     }
 
     public void deleteItem(Item item) {
-        getHibernateTemplate().delete(item);
+    	deleteObject(item);
     }
 
     public Collection searchItems(String query) {
-    	return searcher.search(DefaultItem.class, query);
+    	return searchObjects(query);
     }
 }

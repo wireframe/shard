@@ -16,67 +16,38 @@
 package com.codecrate.shard.magic;
 
 import java.util.Collection;
-import java.util.List;
 
-import net.sf.hibernate.Criteria;
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.expression.Expression;
-
-import org.springframework.orm.hibernate.HibernateCallback;
-import org.springframework.orm.hibernate.support.HibernateDaoSupport;
-
+import com.codecrate.shard.BasicHibernateDao;
 import com.codecrate.shard.search.HibernateObjectSearcher;
 import com.codecrate.shard.source.Source;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateSpellDao extends HibernateDaoSupport implements SpellDao, SpellFactory {
-
-	private final HibernateObjectSearcher searcher;
+public class HibernateSpellDao extends BasicHibernateDao implements SpellDao, SpellFactory {
 
 	public HibernateSpellDao(HibernateObjectSearcher searcher) {
-		this.searcher = searcher;
+		super(searcher, Spell.class, "name");
 	}
 
     public Collection getSpells() {
-        return (List) getHibernateTemplate().execute(new HibernateCallback() {
-            public Object doInHibernate(Session session)
-                    throws HibernateException {
-                Criteria query = session.createCriteria(Spell.class);
-                return query.list();
-            }
-        });
+    	return getAllObjects();
     }
 
     public Spell getSpell(final String name) {
-        Spell spell = (Spell) getHibernateTemplate().execute(new HibernateCallback() {
-            public Object doInHibernate(Session session)
-                    throws HibernateException {
-                Criteria query = session.createCriteria(Spell.class);
-                query.add(Expression.eq("name", name));
-                return query.uniqueResult();
-            }
-        });
-
-        if (null == spell) {
-            throw new IllegalArgumentException("Unable to find spell " + name);
-        }
-        return spell;
+    	return (Spell) getObjectByKey(name);
     }
 
     public void updateSpell(Spell spell) {
-        getHibernateTemplate().saveOrUpdate(spell);
+    	updateObject(spell);
     }
 
     public Spell saveSpell(Spell spell) {
-        String id = (String) getHibernateTemplate().save(spell);
-        return (Spell) getHibernateTemplate().load(Spell.class, id);
+    	return (Spell) saveObject(spell);
     }
 
     public void deleteSpell(Spell spell) {
-        getHibernateTemplate().delete(spell);
+    	deleteObject(spell);
     }
 
     public Spell createSpell(String name, String summary, String school, boolean isArcane, boolean isDivine, Source source) {
@@ -84,6 +55,6 @@ public class HibernateSpellDao extends HibernateDaoSupport implements SpellDao, 
     }
 
     public Collection searchSpells(String query) {
-    	return searcher.search(Spell.class, query);
+    	return searchObjects(query);
     }
 }

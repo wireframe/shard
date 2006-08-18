@@ -15,18 +15,9 @@
  */
 package com.codecrate.shard.kit;
 
-import java.sql.SQLException;
 import java.util.Collection;
-import java.util.List;
 
-import net.sf.hibernate.Criteria;
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.expression.Expression;
-
-import org.springframework.orm.hibernate.HibernateCallback;
-import org.springframework.orm.hibernate.support.HibernateDaoSupport;
-
+import com.codecrate.shard.BasicHibernateDao;
 import com.codecrate.shard.character.prereq.NullPrerequisite;
 import com.codecrate.shard.dice.Dice;
 import com.codecrate.shard.search.HibernateObjectSearcher;
@@ -35,54 +26,34 @@ import com.codecrate.shard.source.Source;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateCharacterClassDao extends HibernateDaoSupport implements CharacterClassDao, CharacterClassFactory {
-
-	private final HibernateObjectSearcher searcher;
+public class HibernateCharacterClassDao extends BasicHibernateDao implements CharacterClassDao, CharacterClassFactory {
 
 	public HibernateCharacterClassDao(HibernateObjectSearcher searcher) {
-		this.searcher = searcher;
+		super(searcher, DefaultCharacterClass.class, "name");
 	}
 
     public Collection getClasses() {
-        return (List) getHibernateTemplate().execute(new HibernateCallback(){
-            public Object doInHibernate(Session session) throws HibernateException, SQLException {
-                Criteria query = session.createCriteria(DefaultCharacterClass.class);
-                return query.list();
-            }
-        });
+    	return getAllObjects();
     }
 
     public CharacterClass getCharacterClass(final String name) {
-    	CharacterClass kit = (CharacterClass) getHibernateTemplate().execute(new HibernateCallback() {
-            public Object doInHibernate(Session session)
-                    throws HibernateException {
-                Criteria query = session.createCriteria(DefaultCharacterClass.class);
-                query.add(Expression.eq("name", name));
-                return query.uniqueResult();
-            }
-        });
-
-        if (null == kit) {
-            throw new IllegalArgumentException("Unable to find kit " + name);
-        }
-        return kit;
+    	return (CharacterClass) getObjectByKey(name);
     }
 
     public CharacterClass saveClass(CharacterClass kit) {
-        String id = (String) getHibernateTemplate().save(kit);
-        return (CharacterClass) getHibernateTemplate().load(DefaultCharacterClass.class, id);
+    	return (CharacterClass) saveObject(kit);
     }
 
     public void updateClass(CharacterClass kit) {
-        getHibernateTemplate().saveOrUpdate(kit);
+    	updateObject(kit);
     }
 
     public void deleteClass(CharacterClass kit) {
-        getHibernateTemplate().delete(kit);
+    	deleteObject(kit);
     }
 
     public Collection searchClasses(String query) {
-    	return searcher.search(DefaultCharacterClass.class, query);
+    	return searchObjects(query);
     }
 
 	public CharacterClass createClass(String name, String abbreviation, Dice hitDice, Source source) {

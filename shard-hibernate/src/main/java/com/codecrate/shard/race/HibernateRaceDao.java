@@ -15,17 +15,9 @@
  */
 package com.codecrate.shard.race;
 
-import java.sql.SQLException;
 import java.util.Collection;
-import java.util.List;
 
-import net.sf.hibernate.Criteria;
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Session;
-
-import org.springframework.orm.hibernate.HibernateCallback;
-import org.springframework.orm.hibernate.support.HibernateDaoSupport;
-
+import com.codecrate.shard.BasicHibernateDao;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.search.HibernateObjectSearcher;
 import com.codecrate.shard.source.Source;
@@ -33,25 +25,18 @@ import com.codecrate.shard.source.Source;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao, RaceFactory {
-	private final HibernateObjectSearcher searcher;
+public class HibernateRaceDao extends BasicHibernateDao implements RaceDao, RaceFactory {
 
 	public HibernateRaceDao(HibernateObjectSearcher searcher) {
-		this.searcher = searcher;
+		super(searcher, DefaultRace.class, "name");
 	}
 
     public Collection getRaces() {
-        return (List) getHibernateTemplate().execute(new HibernateCallback() {
-            public Object doInHibernate(Session session) throws HibernateException, SQLException {
-                Criteria query = session.createCriteria(DefaultRace.class);
-                return query.list();
-            }
-        });
+    	return getAllObjects();
     }
 
     public Race saveRace(Race race) {
-        String id = (String) getHibernateTemplate().save(race);
-        return (Race) getHibernateTemplate().load(DefaultRace.class, id);
+    	return (Race) saveObject(race);
     }
 
     public Race createRace(String name, CharacterClass favoredClass, Source source) {
@@ -59,14 +44,14 @@ public class HibernateRaceDao extends HibernateDaoSupport implements RaceDao, Ra
     }
 
 	public void deleteRace(Race race) {
-		getHibernateTemplate().delete(race);
+		deleteObject(race);
 	}
 
 	public void updateRace(Race race) {
-		getHibernateTemplate().save(race);
+		updateObject(race);
 	}
 
 	public Collection searchRaces(String query) {
-		return searcher.search(DefaultRace.class, query);
+		return searchObjects(query);
 	}
 }
