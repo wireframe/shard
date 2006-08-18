@@ -16,16 +16,8 @@
 package com.codecrate.shard.feat;
 
 import java.util.Collection;
-import java.util.List;
 
-import net.sf.hibernate.Criteria;
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.expression.Expression;
-
-import org.springframework.orm.hibernate.HibernateCallback;
-import org.springframework.orm.hibernate.support.HibernateDaoSupport;
-
+import com.codecrate.shard.BasicHibernateDao;
 import com.codecrate.shard.character.prereq.NullPrerequisite;
 import com.codecrate.shard.search.HibernateObjectSearcher;
 import com.codecrate.shard.source.Source;
@@ -33,58 +25,37 @@ import com.codecrate.shard.source.Source;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateFeatDao extends HibernateDaoSupport implements FeatDao, FeatFactory {
-	
-	private final HibernateObjectSearcher searcher;
+public class HibernateFeatDao extends BasicHibernateDao implements FeatDao, FeatFactory {
 
 	public HibernateFeatDao(HibernateObjectSearcher searcher) {
-		this.searcher = searcher;
+		super(searcher, DefaultFeat.class, "name");
 	}
-	
+
     public Collection getFeats() {
-        return (List) getHibernateTemplate().execute(new HibernateCallback() {
-            public Object doInHibernate(Session session)
-                    throws HibernateException {
-                Criteria query = session.createCriteria(DefaultFeat.class);
-                return query.list();
-            }
-        });
+    	return getAllObjects();
     }
 
     public Feat getFeat(final String name) {
-        Feat feat = (Feat) getHibernateTemplate().execute(new HibernateCallback() {
-            public Object doInHibernate(Session session)
-                    throws HibernateException {
-                Criteria query = session.createCriteria(DefaultFeat.class);
-                query.add(Expression.eq("name", name));
-                return query.uniqueResult();
-            }
-        });
-
-        if (null == feat) {
-            throw new IllegalArgumentException("Unable to find feat " + name);
-        }
-        return feat;
+    	return (Feat) getObjectByKey(name);
     }
 
     public void updateFeat(Feat feat) {
-        getHibernateTemplate().saveOrUpdate(feat);
+    	updateObject(feat);
     }
 
     public Feat saveFeat(Feat feat) {
-        String id = (String) getHibernateTemplate().save(feat);
-        return (Feat) getHibernateTemplate().load(DefaultFeat.class, id);
+    	return (Feat) saveObject(feat);
     }
 
     public void deleteFeat(Feat feat) {
-        getHibernateTemplate().delete(feat);
+    	deleteObject(feat);
     }
 
     public Feat createFeat(String name, String summary, String type, Source source) {
     	return new DefaultFeat(name, type, summary, new NullPrerequisite(), source);
     }
-    
+
     public Collection searchFeats(String query) {
-    	return searcher.search(DefaultFeat.class, query);
+    	return searchObjects(query);
     }
 }

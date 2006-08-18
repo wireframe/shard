@@ -24,14 +24,14 @@ import com.codecrate.shard.ShardHibernateTestCaseSupport;
  */
 public class HibernateFeatDaoTest extends ShardHibernateTestCaseSupport {
 	private FeatDao featDao;
-	
+
 	public void setFeatDao(FeatDao dao) {
 		this.featDao = dao;
 	}
-	
+
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
-		
+
 		featDao.saveFeat(DefaultFeat.ARMOR_PROFICIENCY_HEAVY);
 	}
 
@@ -39,26 +39,32 @@ public class HibernateFeatDaoTest extends ShardHibernateTestCaseSupport {
         Collection feats = featDao.getFeats();
         assertFalse(feats.isEmpty());
     }
-    
+
     public void testGetSkillName() throws Exception {
         Feat feat = (Feat) featDao.getFeats().iterator().next();
         Feat feat2 = featDao.getFeat(feat.getName());
         assertNotNull(feat2);
     }
-    
+
     public void testGetSkillByUnknownNameThrowsException() throws Exception {
-        
+
         try {
             featDao.getFeat("invalid feat");
             fail("Exception should be thrown.");
         } catch (IllegalArgumentException expected) { }
     }
-    
+
     public void testSearchForFeats() throws Exception {
     	Collection results = featDao.searchFeats("armor");
     	assertFalse(results.isEmpty());
     }
-    
+
+    public void testExceptionThrownIfSavingExistingFeat() throws Exception {
+    	try {
+        	featDao.saveFeat(DefaultFeat.ARMOR_PROFICIENCY_HEAVY);
+    	} catch (IllegalArgumentException expected) { }
+    }
+
     public void testSearchAddsWildcard() throws Exception {
     	Collection results = featDao.searchFeats("arm");
     	assertFalse(results.isEmpty());
