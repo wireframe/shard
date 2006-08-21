@@ -28,9 +28,13 @@ public interface ProgressMonitor {
 	 * complete a portion of work on the current task.
 	 */
 	void completeUnitOfWork();
-	
+
 	/**
 	 * finish task even if not all work has been completed.
 	 */
 	void finish();
+
+	void cancel();
+
+	boolean isCanceled();
 }

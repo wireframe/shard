@@ -58,12 +58,12 @@ public class PcgenObjectImporter implements ObjectImporter {
         Collection results = new ArrayList();
         BufferedReader reader = null;
         Source source = null;
-        
+
         progress.startTask("Importing pcgen objects from " + file.getName(), getNumberOfFileLines(file));
         try {
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 
-            while (reader.ready()) {
+            while (reader.ready() && !progress.isCanceled()) {
 			    String line = reader.readLine().trim();
                 if (sourceLineHandler.isSourceLine(line)) {
                     source = (Source) sourceLineHandler.handleLine(line, source);
@@ -74,7 +74,7 @@ public class PcgenObjectImporter implements ObjectImporter {
 			    		LOG.error("Error processing line: " + line, e);
 			    	}
 			    }
-                
+
                 progress.completeUnitOfWork();
 			}
 		} catch (IOException e) {
@@ -82,12 +82,12 @@ public class PcgenObjectImporter implements ObjectImporter {
 		} finally {
 			closeReader(reader);
 		}
-		
+
 		progress.finish();
 
         return results;
     }
-    
+
     private int getNumberOfFileLines(File file) {
     	int lines = 0;
     	try {

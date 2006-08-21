@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.codecrate.shard.ui.transfer;
+package com.codecrate.shard.ui.transfer.progress;
 
 import javax.swing.SwingUtilities;
 
@@ -58,6 +58,14 @@ public class EventDispatcherThreadProgressMonitor implements ProgressMonitor {
                 delegate.finish();
             }
         });
+	}
+
+	public void cancel() {
+		delegate.cancel();
+	}
+
+	public boolean isCanceled() {
+		return delegate.isCanceled();
 	}
 
     private void updateProgressBar(Runnable task) {

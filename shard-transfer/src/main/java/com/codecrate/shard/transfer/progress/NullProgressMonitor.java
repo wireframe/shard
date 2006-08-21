@@ -24,12 +24,13 @@ public class NullProgressMonitor implements ProgressMonitor {
 	private String description;
 	private int totalUnitsOfWork;
 	private int completedUnitsOfWork;
+	private boolean canceled = false;
 
 	public void startTask(String description, int totalUnitsOfWork) {
 		this.description = description;
 		this.totalUnitsOfWork = totalUnitsOfWork;
 		this.completedUnitsOfWork = 0;
-		
+
 		LOG.info("Starting task: " + description);
 	}
 
@@ -38,7 +39,7 @@ public class NullProgressMonitor implements ProgressMonitor {
 		if (completedUnitsOfWork > totalUnitsOfWork) {
 			completedUnitsOfWork = totalUnitsOfWork;
 		}
-		
+
 		LOG.info(description + " is " + getPercentComplete() + " complete");
 	}
 
@@ -49,5 +50,13 @@ public class NullProgressMonitor implements ProgressMonitor {
 	private String getPercentComplete() {
 		double x = (double)completedUnitsOfWork / (double)totalUnitsOfWork;
 		return Math.round(x * 100) + "%";
+	}
+
+	public void cancel() {
+		this.canceled = true;
+	}
+
+	public boolean isCanceled() {
+		return canceled;
 	}
 }

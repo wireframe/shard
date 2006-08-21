@@ -64,7 +64,7 @@ public class PcgenDatasetImporter implements ObjectImporter {
 
             for (int x = 0; x < files.length; x++) {
                 File file = files[x];
-                if (doesFileMatchExpression(supportedFileExpression, file)) {
+                if (doesFileMatchExpression(supportedFileExpression, file) && !progress.isCanceled()) {
                     importer.importObjects(file, progress);
 
                     progress.completeUnitOfWork();

@@ -13,16 +13,16 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.codecrate.shard.ui.transfer;
+package com.codecrate.shard.ui.transfer.progress;
 
 import com.codecrate.shard.transfer.progress.ProgressMonitor;
 
-public class ImportProgressAdapter implements ProgressMonitor {
+public class SpringRichImportProgressAdapter implements ProgressMonitor {
 
 	private final org.springframework.richclient.progress.ProgressMonitor delegate;
 	private int unitsWorked = 0;
 
-	public ImportProgressAdapter(org.springframework.richclient.progress.ProgressMonitor delegate) {
+	public SpringRichImportProgressAdapter(org.springframework.richclient.progress.ProgressMonitor delegate) {
 		this.delegate = delegate;
 	}
 
@@ -38,5 +38,13 @@ public class ImportProgressAdapter implements ProgressMonitor {
 
 	public void finish() {
 		delegate.done();
+	}
+
+	public void cancel() {
+		delegate.setCanceled(true);
+	}
+
+	public boolean isCanceled() {
+		return delegate.isCanceled();
 	}
 }

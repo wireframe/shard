@@ -26,7 +26,6 @@ import org.springframework.context.MessageSourceAware;
 import org.springframework.richclient.application.ApplicationWindow;
 import org.springframework.richclient.application.config.ApplicationWindowAware;
 import org.springframework.richclient.command.ParameterizableActionCommandExecutor;
-import org.springframework.richclient.progress.BusyIndicator;
 import org.springframework.richclient.progress.ProgressMonitor;
 import org.springframework.richclient.progress.StatusBar;
 
@@ -50,7 +49,6 @@ public class ApplicationWindowProgressMonitorActionCommandExecutor implements Pa
 
     public void execute(Map params) {
         String description = messageSource.getMessage(messageKey, new Object[] {}, messageKey, Locale.getDefault());
-        BusyIndicator.showAt(window.getControl());
         getProgressMonitor().taskStarted(description, StatusBar.UNKNOWN);
 
         try {
@@ -59,7 +57,6 @@ public class ApplicationWindowProgressMonitorActionCommandExecutor implements Pa
             newParams.put("progressMonitor", getProgressMonitor());
             delegate.execute(newParams);
         } finally {
-            BusyIndicator.clearAt(window.getControl());
             getProgressMonitor().done();
         }
     }
