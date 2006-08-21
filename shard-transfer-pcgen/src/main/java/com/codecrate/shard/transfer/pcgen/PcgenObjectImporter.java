@@ -63,7 +63,7 @@ public class PcgenObjectImporter implements ObjectImporter {
         try {
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 
-            while (reader.ready() && !progress.isCanceled()) {
+            while (reader.ready() && !progress.isCancelled()) {
 			    String line = reader.readLine().trim();
                 if (sourceLineHandler.isSourceLine(line)) {
                     source = (Source) sourceLineHandler.handleLine(line, source);

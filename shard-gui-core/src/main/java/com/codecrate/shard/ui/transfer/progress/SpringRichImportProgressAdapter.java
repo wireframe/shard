@@ -44,7 +44,7 @@ public class SpringRichImportProgressAdapter implements ProgressMonitor {
 		delegate.setCanceled(true);
 	}
 
-	public boolean isCanceled() {
+	public boolean isCancelled() {
 		return delegate.isCanceled();
 	}
 }

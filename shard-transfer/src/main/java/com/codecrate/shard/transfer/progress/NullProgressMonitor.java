@@ -56,7 +56,7 @@ public class NullProgressMonitor implements ProgressMonitor {
 		this.canceled = true;
 	}
 
-	public boolean isCanceled() {
+	public boolean isCancelled() {
 		return canceled;
 	}
 }

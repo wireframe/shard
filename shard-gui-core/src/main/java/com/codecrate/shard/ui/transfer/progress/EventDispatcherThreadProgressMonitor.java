@@ -64,8 +64,8 @@ public class EventDispatcherThreadProgressMonitor implements ProgressMonitor {
 		delegate.cancel();
 	}
 
-	public boolean isCanceled() {
-		return delegate.isCanceled();
+	public boolean isCancelled() {
+		return delegate.isCancelled();
 	}
 
     private void updateProgressBar(Runnable task) {

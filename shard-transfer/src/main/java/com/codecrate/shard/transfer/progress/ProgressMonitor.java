@@ -36,5 +36,5 @@ public interface ProgressMonitor {
 
 	void cancel();
 
-	boolean isCanceled();
+	boolean isCancelled();
 }
