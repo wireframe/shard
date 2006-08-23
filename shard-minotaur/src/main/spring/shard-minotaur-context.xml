@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-minotaur-context.xml,v 1.8 2006/07/01 15:32:15 wireframe Exp $ -->
+<!-- $Id: shard-minotaur-context.xml,v 1.9 2006/08/23 20:47:44 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -54,12 +54,14 @@
 		</property>
 	</bean>
 
+<!--
 	<bean id="lookAndFeelConfigurer"
 		class="org.springframework.richclient.application.config.UIManagerConfigurer">
 		<property name="lookAndFeel">
     	  <value>net.sourceforge.napkinlaf.NapkinLookAndFeel</value>
 		</property>
 	</bean>
+-->
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">

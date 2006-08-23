@@ -17,6 +17,7 @@ package com.codecrate.shard.character;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -217,21 +218,29 @@ public class DefaultPlayerCharacter implements PlayerCharacter, Comparable {
     }
 
     private class DefaultCharacterBio implements CharacterBio {
-        
+    	private File file;
         /**
          * private hibernate constructor.
          */
         private DefaultCharacterBio() {
         }
 
-        public String toString() {
-            return name;
-        }
         public DefaultCharacterBio(String name2, Gender gender2) {
             name = name2;
             gender = gender2;
         }
+
+        public String toString() {
+            return name;
+        }
+
+        public File getFile() {
+        	return file;
+        }
         
+        public void setFile(File file) {
+        	this.file = file;
+        }
         /**
          * @return Returns the backstory.
          */
