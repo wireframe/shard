@@ -17,6 +17,8 @@ package com.codecrate.shard.ui.view;
 
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.File;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,9 +26,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.codecrate.shard.character.PlayerCharacter;
 
 public class PlayerCharacterPanel extends JPanel {
+	private static final Log LOG = LogFactory.getLog(PlayerCharacterPanel.class);
 
     private PlayerCharacter character;
 
@@ -94,6 +100,10 @@ public class PlayerCharacterPanel extends JPanel {
         characterNameValue.setText(character.getBio().getName());
         alignmentValue.setText(character.getAlignment().getAbbreviation());
         raceValue.setText(character.getRace().getName());
+
+        character.getBio().getImage();
+        initializePortrait(null);
+
 //        classValue.setText(character.getCharacterProgression().getDescription());
 //        levelValue.setText(Integer.toString(character.getCharacterProgression().getCharacterLevel()));
 //
@@ -105,7 +115,25 @@ public class PlayerCharacterPanel extends JPanel {
 //        charismaValue.setText(Integer.toString(character.getAbilities().getCharisma().getModifiedValue()));
     }
 
-    /**
+    private boolean isValidFile(URL url) {
+    	if (null == url) {
+    		return false;
+    	}
+    	File file = new File(url.getFile());
+    	return file.exists();
+    }
+
+    private void initializePortrait(URL portraitUrl) {
+    	if (!isValidFile(portraitUrl)) {
+    		LOG.warn("Unable to locate portrait with url: " + portraitUrl);
+        	portraitUrl = this.getClass().getClassLoader().getResource("images/default-portrait.jpg");
+    	}
+		Image scaledImage = new ImageIcon(portraitUrl).getImage().getScaledInstance(150, -1, Image.SCALE_DEFAULT);
+		ImageIcon icon = new ImageIcon(scaledImage);
+        thumbnailImage.setIcon(icon);
+	}
+
+	/**
      * This method initializes this
      *
      * @return void
@@ -117,8 +145,6 @@ public class PlayerCharacterPanel extends JPanel {
         thumbnailImage = new JLabel();
         thumbnailImage.setPreferredSize(new java.awt.Dimension(150,150));
         thumbnailImage.setBounds(new java.awt.Rectangle(5,5,150,150));
-        ImageIcon icon = new ImageIcon(new ImageIcon("C:/Documents and Settings/Tyler/My Documents/My Pictures/games/dnd/beastman3.jpg").getImage().getScaledInstance(150, -1, Image.SCALE_DEFAULT));
-        thumbnailImage.setIcon(icon);
         this.setLayout(null);
         this.setName("Thor the Almighty");
         this.setPreferredSize(new java.awt.Dimension(400,200));
@@ -132,6 +158,7 @@ public class PlayerCharacterPanel extends JPanel {
         this.add(getDescription(), null);
         this.add(getBio(), null);
 
+        initializePortrait(null);
     }
 
     /**
