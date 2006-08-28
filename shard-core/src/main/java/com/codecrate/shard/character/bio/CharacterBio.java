@@ -50,7 +50,7 @@ public interface CharacterBio {
     /**
      * @return Returns the image.
      */
-    Image getImage();
+    Image getPortraitImage();
     /**
      * @return Returns the name.
      */

@@ -19,6 +19,7 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 
 import org.springframework.binding.form.FormModel;
+import org.springframework.richclient.filechooser.DefaultFileFilter;
 import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
@@ -40,11 +41,17 @@ public class BioForm extends AbstractForm {
         SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
 
         JFileChooser fileChooser = new JFileChooser();
+        DefaultFileFilter filter = new DefaultFileFilter();
+        filter.addExtension("jpg");
+        filter.addExtension("gif");
+        filter.addExtension("png");
+
+		fileChooser.setFileFilter(filter);
 
         TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
         formBuilder.add("bio.name");
         formBuilder.row();
-		formBuilder.add(new JFileChooserBinding(getFormModel(), "bio.file", fileChooser));
+		formBuilder.add(new JFileChooserBinding(getFormModel(), "bio.portraitFile", fileChooser));
         formBuilder.row();
         formBuilder.add("bio.height");
         formBuilder.row();

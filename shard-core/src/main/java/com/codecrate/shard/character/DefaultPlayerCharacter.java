@@ -19,11 +19,16 @@ import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.ImageIcon;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.armorclass.ArmorClass;
@@ -48,6 +53,8 @@ import com.codecrate.shard.skill.SkillEntryContainer;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultPlayerCharacter implements PlayerCharacter, Comparable {
+	private static final Log LOG = LogFactory.getLog(DefaultPlayerCharacter.class);
+
     private Deity deity;
     private CharacterBio bio;
     private BigDecimal challengeRating;
@@ -69,9 +76,9 @@ public class DefaultPlayerCharacter implements PlayerCharacter, Comparable {
     //bio
     private Age age;
     private String name;
+	private File portraitFile;
     private Gender gender;
     private String backstory;
-    private Image image;
     private String height;
     private String weight;
     private Color hairColor;
@@ -217,8 +224,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter, Comparable {
     	this.alignment = alignment;
     }
 
-    private class DefaultCharacterBio implements CharacterBio {
-    	private File file;
+    class DefaultCharacterBio implements CharacterBio {
         /**
          * private hibernate constructor.
          */
@@ -234,12 +240,12 @@ public class DefaultPlayerCharacter implements PlayerCharacter, Comparable {
             return name;
         }
 
-        public File getFile() {
-        	return file;
+        public File getPortraitFile() {
+        	return portraitFile;
         }
-        
-        public void setFile(File file) {
-        	this.file = file;
+
+        public void setPortraitFile(File file) {
+        	portraitFile = file;
         }
         /**
          * @return Returns the backstory.
@@ -304,14 +310,15 @@ public class DefaultPlayerCharacter implements PlayerCharacter, Comparable {
         /**
          * @return Returns the image.
          */
-        public Image getImage() {
-            return image;
-        }
-        /**
-         * @param image The image to set.
-         */
-        public void setImage(Image image2) {
-            image = image2;
+        public Image getPortraitImage() {
+        	if (null != portraitFile && portraitFile.exists()) {
+        		try {
+					return new ImageIcon(portraitFile.toURL()).getImage();
+				} catch (MalformedURLException e) {
+					LOG.warn("Unable to find image using: " + portraitFile);
+				}
+        	}
+            return null;
         }
         /**
          * @return Returns the name.

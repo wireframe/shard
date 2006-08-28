@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.character;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
@@ -23,6 +24,7 @@ import org.easymock.MockControl;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
+import com.codecrate.shard.character.DefaultPlayerCharacter.DefaultCharacterBio;
 import com.codecrate.shard.kit.ClassLevel;
 import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.movement.DefaultEncumberance;
@@ -81,5 +83,15 @@ public class DefaultPlayerCharacterTest extends TestCase {
         character.getCharacterProgression().addLevel(kit, 1, new ArrayList());
 
 		assertEquals(3, character.getBaseAttackBonus());
+	}
+
+	public void testBioImageIsNullIfFileIsNotFound() {
+		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(null);
+		Encumberance encumberance = DefaultEncumberance.LIGHT;
+
+		DefaultPlayerCharacter character = new DefaultPlayerCharacter("big bill", abilities, null, null, encumberance, null, null);
+		DefaultPlayerCharacter.DefaultCharacterBio bio = (DefaultCharacterBio) character.getBio();
+		bio.setPortraitFile(new File("blah"));
+		assertNull(bio.getPortraitImage());
 	}
 }
