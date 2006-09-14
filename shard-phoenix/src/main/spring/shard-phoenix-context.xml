@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-phoenix-context.xml,v 1.12 2006/09/14 21:04:50 wireframe Exp $ -->
+<!-- $Id: shard-phoenix-context.xml,v 1.13 2006/09/14 21:55:28 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -45,20 +45,7 @@
     <bean id="applicationObjectConfigurer" depends-on="serviceLocator"
         class="org.springframework.richclient.application.config.DefaultApplicationObjectConfigurer">
     </bean>
-    <!--
-	<bean id="applicationObjectConfigurer"
-		class="org.springframework.richclient.application.config.DefaultApplicationObjectConfigurer">
-		<constructor-arg index="0">
-			<ref bean="messageSource"/>
-		</constructor-arg>
-		<constructor-arg index="1">
-			<ref bean="imageSource"/>
-		</constructor-arg>
-		<constructor-arg index="2">
-			<ref bean="iconSource"/>
-		</constructor-arg>
-	</bean>
--->
+
 	<bean id="applicationEventMulticaster"
 		class="org.springframework.context.event.SimpleApplicationEventMulticaster"/>
 
