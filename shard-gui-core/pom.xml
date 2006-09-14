@@ -24,16 +24,10 @@
     <dependency>
       <groupId>org.springframework.richclient</groupId>
       <artifactId>spring-richclient-support</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-webmvc</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-web</artifactId>
-        </exclusion>
-      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.richclient</groupId>
+      <artifactId>spring-richclient-resources</artifactId>
     </dependency>
 
     <!-- foxtrot dependencies -->

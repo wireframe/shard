@@ -86,7 +86,6 @@
 				<bean class="org.springframework.richclient.command.support.NewWindowCommand"/>
 				<value>separator</value>
 				<bean class="org.springframework.richclient.command.support.ShowViewMenu"/>
-				<value>separator</value>
 			</list>
 		</property>
 	</bean>
@@ -95,15 +94,19 @@
 		class="org.springframework.richclient.command.CommandGroupFactoryBean">
 		<property name="members">
 			<list>
+			<!--
 				<ref bean="helpContentsCommand"/>
 				<value>separator</value>
+				-->
 				<ref bean="aboutCommand"/>
 			</list>
 		</property>
 	</bean>
 
+<!--
 	<bean id="helpContentsCommand"
 		class="org.springframework.richclient.command.support.HelpContentsCommand"/>
+		-->
 
 	<bean id="aboutCommand"
 		class="org.springframework.richclient.command.support.AboutCommand">
