@@ -41,6 +41,8 @@ public class BrowserLauncherCommand extends ApplicationWindowAwareCommand {
 			"mozilla",
 			"netscape" };
 
+		private static final String PLATFORM_MAC = "Mac OS";
+		private static final String PLATFORM_WINDOWS = "Windows";
 		private static final String WINDOWS_EXEC_COMMAND = "rundll32 url.dll,FileProtocolHandler ";
 		private static final String MAC_FILE_MANAGER_CLASS = "com.apple.eio.FileManager";
 		private static final String errMsg = "Error attempting to launch web browser";
@@ -49,11 +51,11 @@ public class BrowserLauncherCommand extends ApplicationWindowAwareCommand {
 			String osName = System.getProperty("os.name");
 			Runtime runtime = Runtime.getRuntime();
 			try {
-				if (osName.startsWith("Mac OS")) {
+				if (osName.startsWith(PLATFORM_MAC)) {
 					Class fileMgr = Class.forName(MAC_FILE_MANAGER_CLASS);
 					Method openURL = fileMgr.getDeclaredMethod("openURL", new Class[] { String.class });
 					openURL.invoke(null, new Object[] { url });
-				} else if (osName.startsWith("Windows")) {
+				} else if (osName.startsWith(PLATFORM_WINDOWS)) {
 					runtime.exec(WINDOWS_EXEC_COMMAND + url);
 				} else {
 					String browser = getAvailableBrowser(runtime);
