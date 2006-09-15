@@ -62,8 +62,6 @@
 			<list>
 				<value>newCommand</value>
 				<value>separator</value>
-				<value>propertiesCommand</value>
-				<value>separator</value>
 				<bean class="org.springframework.richclient.command.support.ExitCommand"/>
 			</list>
 		</property>
@@ -74,6 +72,8 @@
 		<property name="members">
 			<list>
 				<value>selectAllCommand</value>
+				<value>separator</value>
+				<value>propertiesCommand</value>
 				<value>deleteCommand</value>
 			</list>
 		</property>
