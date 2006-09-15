@@ -94,19 +94,17 @@
 		class="org.springframework.richclient.command.CommandGroupFactoryBean">
 		<property name="members">
 			<list>
-			<!--
 				<ref bean="helpContentsCommand"/>
 				<value>separator</value>
-				-->
 				<ref bean="aboutCommand"/>
 			</list>
 		</property>
 	</bean>
 
-<!--
 	<bean id="helpContentsCommand"
-		class="org.springframework.richclient.command.support.HelpContentsCommand"/>
-		-->
+		class="com.codecrate.shard.ui.command.BrowserLauncherCommand">
+		<property name="url"><value>http://wiki.codecrate.com/display/SHA/User+Guide</value></property>
+	</bean>
 
 	<bean id="aboutCommand"
 		class="org.springframework.richclient.command.support.AboutCommand">
