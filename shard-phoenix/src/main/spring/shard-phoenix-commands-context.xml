@@ -103,7 +103,9 @@
 
 	<bean id="helpContentsCommand"
 		class="com.codecrate.shard.ui.command.BrowserLauncherCommand">
-		<property name="url"><value>http://wiki.codecrate.com/display/SHA/User+Guide</value></property>
+		<property name="url">
+		  <value>http://wiki.codecrate.com/display/SHA/User+Guide</value>
+		</property>
 	</bean>
 
 	<bean id="aboutCommand"
