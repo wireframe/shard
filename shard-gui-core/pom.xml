@@ -30,11 +30,16 @@
       <artifactId>spring-richclient-resources</artifactId>
     </dependency>
 
-    <!-- jgoodies looks dependency TODO: remove this when it's added to spring rich POM-->
+    <!-- jgoodies dependency TODO: remove this when it's added to spring rich POM-->
     <dependency>
       <groupId>com.jgoodies</groupId>
       <artifactId>forms</artifactId>
       <version>1.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jgoodies</groupId>
+      <artifactId>looks</artifactId>
+      <version>2.0.4</version>
     </dependency>
 
     <!-- foxtrot dependencies -->
