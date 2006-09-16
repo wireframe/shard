@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard.ui;
 
-
 /**
  *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -23,7 +22,8 @@ package com.codecrate.shard.ui;
 public class ShardTransferPcgen {
 
     private static final String[] CONTEXT_FILE_NAMES = new String[] {
-    	"/shard-transfer-pcgen-context.xml"
+    	"/shard-gui-core-context.xml"
+    	, "/shard-transfer-pcgen-context.xml"
     	, "/shard-hibernate-context.xml"
     	, "/shard-datasource.xml"
     };
