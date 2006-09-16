@@ -22,7 +22,8 @@ package com.codecrate.shard.ui;
 public class ShardMinotaur {
 
     private static final String[] CONTEXT_FILE_NAMES = new String[] {
-        "/shard-minotaur-context.xml"
+        "/shard-gui-core-context.xml"
+        , "/shard-minotaur-context.xml"
         , "/shard-hibernate-context.xml"
         , "/shard-datasource.xml"
         , "/shard-sheets-context.xml"
