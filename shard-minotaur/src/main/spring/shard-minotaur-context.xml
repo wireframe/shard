@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-minotaur-context.xml,v 1.10 2006/09/16 14:11:47 wireframe Exp $ -->
+<!-- $Id: shard-minotaur-context.xml,v 1.11 2006/09/18 21:37:59 wireframe Exp $ -->
 <beans>
 
 	<bean id="lifecycleAdvisor"
@@ -14,12 +14,14 @@
 		</property>
 	</bean>
 
+<!--
 	<bean id="lookAndFeelConfigurer"
 		class="org.springframework.richclient.application.config.UIManagerConfigurer">
 		<property name="lookAndFeel">
     	  <value>net.sourceforge.napkinlaf.NapkinLookAndFeel</value>
 		</property>
 	</bean>
+-->
 
 	<bean id="mainView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
@@ -44,6 +46,22 @@
 
 	<bean id="newCharacterWizard"
 		class="com.codecrate.shard.ui.command.NewCharacterWizard">
+		<property name="characterFactory">
+		    <ref bean="characterDao" />
+		</property>
+		<property name="characterDao">
+		    <ref bean="characterDao" />
+		</property>
+		<property name="raceDao">
+		    <ref bean="raceDao" />
+		</property>
+		<property name="alignmentDao">
+		    <ref bean="alignmentDao" />
+		</property>
+	</bean>
+
+	<bean id="levelUpWizard"
+		class="com.codecrate.shard.ui.command.LevelUpWizard">
 		<property name="characterFactory">
 		    <ref bean="characterDao" />
 		</property>

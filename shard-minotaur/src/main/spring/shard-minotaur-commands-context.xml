@@ -82,4 +82,12 @@
 			<ref bean="newCharacterWizard"/>
 		</property>
 	</bean>
+
+	<bean id="levelUpCommand"
+		class="org.springframework.richclient.command.TargetableActionCommand">
+		<property name="commandExecutor">
+			<ref bean="levelUpWizard"/>
+		</property>
+	</bean>
+
 </beans>

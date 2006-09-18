@@ -34,10 +34,10 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
+import org.springframework.richclient.command.ActionCommand;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.dialog.AbstractDialogPage;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
-import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.form.FormModelHelper;
 import org.springframework.richclient.wizard.Wizard;
 import org.springframework.richclient.wizard.WizardListener;
@@ -59,6 +59,8 @@ public class CharacterManagerView extends AbstractView implements WizardListener
     private CharacterDao characterDao;
 
     private JTabbedPane tabbedPane;
+
+	private ActionCommand levelUpCommand;
 
     protected JComponent createControl() {
         JPanel view = new JPanel();
@@ -168,14 +170,15 @@ public class CharacterManagerView extends AbstractView implements WizardListener
     private void addCharacterPanel(PlayerCharacter character) {
         PlayerCharacterPanel panel = getPanelForCharacter(character);
         if (null == panel) {
-            panel = new PlayerCharacterPanel(character);
+        	ActionCommand levelUpCommand = getWindowCommandManager().getActionCommand(ShardMinotaurCommandIds.LEVEL_UP);
+            panel = new PlayerCharacterPanel(character, levelUpCommand);
             getTabbedPane().add(panel);
         }
         getTabbedPane().setSelectedComponent(panel);
         printExecutor.setEnabled(true);
     }
 
-    private PlayerCharacterPanel getPanelForCharacter(PlayerCharacter character) {
+	private PlayerCharacterPanel getPanelForCharacter(PlayerCharacter character) {
         for (int x = 0; x < getTabbedPane().getTabCount(); x++) {
             PlayerCharacterPanel panel = (PlayerCharacterPanel) getTabbedPane().getComponentAt(x);
             if (panel.getCharacter().equals(character)) {
@@ -198,6 +201,10 @@ public class CharacterManagerView extends AbstractView implements WizardListener
             this.character = character;
         }
     }
+
+	public void setLevelUpCommand(ActionCommand levelUpCommand) {
+		this.levelUpCommand = levelUpCommand;
+	}
 
 
 }

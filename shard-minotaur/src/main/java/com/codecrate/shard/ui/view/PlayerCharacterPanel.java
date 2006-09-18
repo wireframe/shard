@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.ui.view;
 
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.net.URL;
@@ -25,10 +26,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import org.springframework.richclient.command.ActionCommand;
+import org.springframework.richclient.command.SwingActionAdapter;
+
+import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
+import com.codecrate.shard.ability.HibernateAbilityScoreDao;
+import com.codecrate.shard.character.DefaultPlayerCharacter;
 import com.codecrate.shard.character.PlayerCharacter;
 
 public class PlayerCharacterPanel extends JPanel {
-    private PlayerCharacter character;
+    private final PlayerCharacter character;
 
     private JLabel thumbnailImage = null;
     private JLabel characterNameValue = null;
@@ -80,22 +87,17 @@ public class PlayerCharacterPanel extends JPanel {
 	/**
      * This is the default constructor
      */
-    public PlayerCharacterPanel() {
-        super();
-        initialize();
+    private PlayerCharacterPanel() {
+    	this(new DefaultPlayerCharacter("Thor the Almighty", DefaultAbilityScoreContainer.averageScores(new HibernateAbilityScoreDao()), null, null, null, null, null), new ActionCommand("levelUpCommand") {
+			protected void doExecuteCommand() {
+			}
+		});
     }
 
-    public PlayerCharacterPanel(PlayerCharacter character) {
-        this();
-
+    public PlayerCharacterPanel(PlayerCharacter character, ActionCommand levelUpCommand) {
         this.character = character;
 
-        this.setName(character.getBio().getName());
-        characterNameValue.setText(character.getBio().getName());
-        alignmentValue.setText(character.getAlignment().getAbbreviation());
-        raceValue.setText(character.getRace().getName());
-
-        initializePortrait(character.getBio().getPortraitImage());
+        initialize();
 
 //        classValue.setText(character.getCharacterProgression().getDescription());
 //        levelValue.setText(Integer.toString(character.getCharacterProgression().getCharacterLevel()));
@@ -106,17 +108,9 @@ public class PlayerCharacterPanel extends JPanel {
 //        intelligenceValue.setText(Integer.toString(character.getAbilities().getIntelligence().getModifiedValue()));
 //        wisdomValue.setText(Integer.toString(character.getAbilities().getWisdom().getModifiedValue()));
 //        charismaValue.setText(Integer.toString(character.getAbilities().getCharisma().getModifiedValue()));
-    }
 
-    private void initializePortrait(Image image) {
-    	if (null == image) {
-        	URL portraitUrl = this.getClass().getClassLoader().getResource("images/default-portrait.jpg");
-    		image = new ImageIcon(portraitUrl).getImage(); 
-    	}
-		Image scaledImage = image.getScaledInstance(150, -1, Image.SCALE_DEFAULT);
-		ImageIcon icon = new ImageIcon(scaledImage);
-        thumbnailImage.setIcon(icon);
-	}
+		levelUp.setAction(new SwingActionAdapter(levelUpCommand));
+    }
 
 	/**
      * This method initializes this
@@ -124,42 +118,62 @@ public class PlayerCharacterPanel extends JPanel {
      * @return void
      */
     private void initialize() {
-        characterNameValue = new JLabel();
-        characterNameValue.setText("Thor the Almighty");
-        characterNameValue.setBounds(new java.awt.Rectangle(165,15,114,15));
-        thumbnailImage = new JLabel();
-        thumbnailImage.setPreferredSize(new java.awt.Dimension(150,150));
-        thumbnailImage.setBounds(new java.awt.Rectangle(5,5,150,150));
+        this.setName(character.getBio().getName());
+
         this.setLayout(null);
-        this.setName("Thor the Almighty");
         this.setPreferredSize(new java.awt.Dimension(400,200));
         this.setSize(new java.awt.Dimension(587,331));
-        this.add(thumbnailImage, null);
-        this.add(characterNameValue, null);
+        this.add(getThumbnailImage(), null);
+        this.add(getCharacterNameValue(), null);
         this.add(getBasicInfoPanel(), null);
         this.add(getJPanel(), null);
         this.add(getAppearance(), null);
         this.add(getLevelUp(), null);
         this.add(getDescription(), null);
         this.add(getBio(), null);
-
-        initializePortrait(null);
     }
 
-    /**
+    private Component getCharacterNameValue() {
+    	if (null == characterNameValue) {
+            characterNameValue = new JLabel();
+            characterNameValue.setBounds(new java.awt.Rectangle(165,15,114,15));
+            characterNameValue.setText(character.getBio().getName());
+    	}
+
+        return characterNameValue;
+	}
+
+	private Component getThumbnailImage() {
+    	if (null == thumbnailImage) {
+            thumbnailImage = new JLabel();
+            thumbnailImage.setPreferredSize(new java.awt.Dimension(150,150));
+            thumbnailImage.setBounds(new java.awt.Rectangle(5,5,150,150));
+            thumbnailImage.setIcon(getPortraitIcon());
+    	}
+        return thumbnailImage;
+	}
+
+    private ImageIcon getPortraitIcon() {
+        Image image = character.getBio().getPortraitImage();
+
+    	if (null == image) {
+        	URL portraitUrl = this.getClass().getClassLoader().getResource("images/default-portrait.jpg");
+    		image = new ImageIcon(portraitUrl).getImage();
+    	}
+		Image scaledImage = image.getScaledInstance(150, -1, Image.SCALE_DEFAULT);
+		return new ImageIcon(scaledImage);
+	}
+
+	/**
      * This method initializes jPanel
      *
      * @return javax.swing.JPanel
      */
     private JPanel getBasicInfoPanel() {
         if (basicInfoPanel == null) {
-            alignmentValue = new JLabel();
-            alignmentValue.setText("NG");
             alignmentScript = new JLabel();
             alignmentScript.setText("Alignment:");
             alignmentScript.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            raceValue = new JLabel();
-            raceValue.setText("Human");
             raceScript = new JLabel();
             raceScript.setText("Race:");
             raceScript.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -185,12 +199,28 @@ public class PlayerCharacterPanel extends JPanel {
             basicInfoPanel.add(levelScript, null);
             basicInfoPanel.add(levelValue, null);
             basicInfoPanel.add(raceScript, null);
-            basicInfoPanel.add(raceValue, null);
+            basicInfoPanel.add(getRaceValue(), null);
             basicInfoPanel.add(alignmentScript, null);
-            basicInfoPanel.add(alignmentValue, null);
+            basicInfoPanel.add(getAlignmentValue(), null);
         }
         return basicInfoPanel;
     }
+
+	private JLabel getRaceValue() {
+		if (null == raceValue) {
+            raceValue = new JLabel();
+            raceValue.setText(character.getRace().getName());
+		}
+		return raceValue;
+	}
+
+	private JLabel getAlignmentValue() {
+		if (null == alignmentValue) {
+			alignmentValue = new JLabel();
+	        alignmentValue.setText(character.getAlignment().getAbbreviation());
+		}
+		return alignmentValue;
+	}
 
     /**
      * This method initializes jPanel
