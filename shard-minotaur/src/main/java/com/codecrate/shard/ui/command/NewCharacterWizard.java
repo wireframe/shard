@@ -35,7 +35,7 @@ import com.codecrate.shard.ui.form.RaceForm;
  */
 public class NewCharacterWizard extends AbstractWizard implements ActionCommandExecutor {
     private static final String WIZARD_NAME = "newCharacterWizard";
-    
+
     private WizardDialog wizardDialog;
     private CompoundForm wizardForm;
 	private CharacterFactory characterFactory;
@@ -44,7 +44,7 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
     private RaceDao raceDao;
     private AlignmentDao alignmentDao;
 
-	private static PlayerCharacter character;
+	private PlayerCharacter character;
 
     public NewCharacterWizard() {
         super(WIZARD_NAME);
@@ -55,7 +55,7 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
         addPage(new FormBackedWizardPage(new RaceForm(getWizardForm().getFormModel(), raceDao, alignmentDao)));
         addPage(new FormBackedWizardPage(new BioForm(getWizardForm().getFormModel())));
     }
-    
+
     protected boolean onFinish() {
         getWizardForm().commit();
         character = (PlayerCharacter) getWizardForm().getFormObject();
@@ -67,21 +67,21 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
         getWizardForm().setFormObject(characterFactory.createCharacter("New Character"));
         getWizardDialog().showDialog();
     }
-    
+
     private CompoundForm getWizardForm() {
         if (null == wizardForm) {
             wizardForm = new CompoundForm();
         }
         return wizardForm;
     }
-    
+
     private WizardDialog getWizardDialog() {
         if (null == wizardDialog) {
             wizardDialog = new WizardDialog(this);
         }
         return wizardDialog;
     }
-    
+
     public void setCharacterFactory(CharacterFactory characterFactory) {
     	this.characterFactory = characterFactory;
     }
@@ -89,7 +89,7 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
     public void setCharacterDao(CharacterDao characterDao) {
     	this.characterDao = characterDao;
     }
-    
+
     public void setRaceDao(RaceDao raceDao) {
         this.raceDao = raceDao;
     }
@@ -97,7 +97,7 @@ public class NewCharacterWizard extends AbstractWizard implements ActionCommandE
     public void setAlignmentDao(AlignmentDao alignmentDao) {
     	this.alignmentDao = alignmentDao;
     }
-    
+
     public PlayerCharacter getCharacter() {
     	return character;
     }

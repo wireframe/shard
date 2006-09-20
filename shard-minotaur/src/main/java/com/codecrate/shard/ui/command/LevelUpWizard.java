@@ -21,14 +21,9 @@ import org.springframework.richclient.wizard.AbstractWizard;
 import org.springframework.richclient.wizard.FormBackedWizardPage;
 import org.springframework.richclient.wizard.WizardDialog;
 
-import com.codecrate.shard.character.AlignmentDao;
-import com.codecrate.shard.character.CharacterDao;
-import com.codecrate.shard.character.CharacterFactory;
-import com.codecrate.shard.character.PlayerCharacter;
-import com.codecrate.shard.race.RaceDao;
-import com.codecrate.shard.ui.form.AbilityScoreForm;
-import com.codecrate.shard.ui.form.BioForm;
-import com.codecrate.shard.ui.form.RaceForm;
+import com.codecrate.shard.kit.CharacterClass;
+import com.codecrate.shard.kit.CharacterClassDao;
+import com.codecrate.shard.ui.form.CharacterClassForm;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -38,33 +33,27 @@ public class LevelUpWizard extends AbstractWizard implements ActionCommandExecut
 
     private WizardDialog wizardDialog;
     private CompoundForm wizardForm;
-	private CharacterFactory characterFactory;
-	private CharacterDao characterDao;
 
-    private RaceDao raceDao;
-    private AlignmentDao alignmentDao;
+	private CharacterClassDao kitDao;
 
-	private static PlayerCharacter character;
+	private LevelUpOptions levelUpOptions;
 
     public LevelUpWizard() {
         super(WIZARD_NAME);
     }
 
     public void addPages() {
-        addPage(new FormBackedWizardPage(new AbilityScoreForm(getWizardForm().getFormModel())));
-        addPage(new FormBackedWizardPage(new RaceForm(getWizardForm().getFormModel(), raceDao, alignmentDao)));
-        addPage(new FormBackedWizardPage(new BioForm(getWizardForm().getFormModel())));
+        addPage(new FormBackedWizardPage(new CharacterClassForm(getWizardForm().getFormModel(), kitDao)));
     }
 
     protected boolean onFinish() {
         getWizardForm().commit();
-        character = (PlayerCharacter) getWizardForm().getFormObject();
-		characterDao.saveCharacter(character);
         return true;
     }
 
     public void execute() {
-        getWizardForm().setFormObject(characterFactory.createCharacter("New Character"));
+    	this.levelUpOptions = new LevelUpOptions();
+        getWizardForm().setFormObject(levelUpOptions);
         getWizardDialog().showDialog();
     }
 
@@ -82,23 +71,19 @@ public class LevelUpWizard extends AbstractWizard implements ActionCommandExecut
         return wizardDialog;
     }
 
-    public void setCharacterFactory(CharacterFactory characterFactory) {
-    	this.characterFactory = characterFactory;
-    }
+	public void setKitDao(CharacterClassDao kitDao) {
+		this.kitDao = kitDao;
+	}
+	
+	public static class LevelUpOptions {
+		private CharacterClass kit;
 
-    public void setCharacterDao(CharacterDao characterDao) {
-    	this.characterDao = characterDao;
-    }
+		public CharacterClass getKit() {
+			return kit;
+		}
 
-    public void setRaceDao(RaceDao raceDao) {
-        this.raceDao = raceDao;
-    }
-
-    public void setAlignmentDao(AlignmentDao alignmentDao) {
-    	this.alignmentDao = alignmentDao;
-    }
-
-    public PlayerCharacter getCharacter() {
-    	return character;
-    }
+		public void setKit(CharacterClass kit) {
+			this.kit = kit;
+		}
+	}
 }
