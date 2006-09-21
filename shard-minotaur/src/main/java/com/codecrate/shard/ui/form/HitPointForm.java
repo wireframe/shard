@@ -15,40 +15,26 @@
  */
 package com.codecrate.shard.ui.form;
 
-import java.util.Collection;
-
 import javax.swing.JComponent;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.form.AbstractForm;
-import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
-
-import com.codecrate.shard.kit.CharacterClassDao;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class CharacterClassForm extends AbstractForm {
+public class HitPointForm extends AbstractForm {
 
-    public static final String PAGE_NAME = "characterClassPage";
+    public static final String PAGE_NAME = "hitPointPage";
 
-    private final CharacterClassDao kitDao;
-
-    public CharacterClassForm(FormModel formModel, CharacterClassDao kitDao) {
+    public HitPointForm(FormModel formModel) {
         super(formModel, PAGE_NAME);
-        this.kitDao = kitDao;
     }
 
     protected JComponent createFormControl() {
-        SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
-
         TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
-        formBuilder.add(bindingFactory.createBoundComboBox("characterClass", getClasses()));
+        formBuilder.add("hitpoints");
         return formBuilder.getForm();
     }
-
-	private Collection getClasses() {
-		return kitDao.getClasses();
-	}
 }

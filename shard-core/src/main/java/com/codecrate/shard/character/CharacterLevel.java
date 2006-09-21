@@ -17,7 +17,7 @@ package com.codecrate.shard.character;
 
 import java.util.Collection;
 
-import com.codecrate.shard.kit.ClassLevel;
+import com.codecrate.shard.kit.CharacterClass;
 
 public interface CharacterLevel {
     /**
@@ -27,8 +27,6 @@ public interface CharacterLevel {
     PlayerCharacter getCharacter();
     
     int getLevel();
-
-    ClassLevel getClassLevel();
 
     int getHitpoints();
     
@@ -45,4 +43,10 @@ public interface CharacterLevel {
      * @return
      */
     int getSkillPoints();
+
+    /**
+     * get the kit used for this level. 
+     * @return
+     */
+	CharacterClass getCharacterClass();
 }

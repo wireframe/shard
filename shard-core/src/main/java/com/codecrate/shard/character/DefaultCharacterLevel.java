@@ -20,7 +20,6 @@ import java.util.Collection;
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.kit.CharacterClass;
-import com.codecrate.shard.kit.ClassLevel;
 import com.codecrate.shard.race.Race;
 
 /**
@@ -31,7 +30,7 @@ public class DefaultCharacterLevel implements CharacterLevel {
     private String id;
     private int level;
     private int hitpoints;
-    private ClassLevel classLevel;
+    private CharacterClass kit;
 	private Collection skillRanks;
     private CharacterProgression progression;
 
@@ -41,12 +40,11 @@ public class DefaultCharacterLevel implements CharacterLevel {
     private DefaultCharacterLevel() {
     }
 
-    public DefaultCharacterLevel(CharacterProgression progression, int level, int hitpoints,
-    		ClassLevel classLevel, Collection skillRanks) {
+    public DefaultCharacterLevel(CharacterProgression progression, int level, int hitpoints, CharacterClass kit, Collection skillRanks) {
         this.progression = progression;
         this.level = level;
+        this.kit = kit;
     	this.hitpoints = hitpoints;
-    	this.classLevel = classLevel;
 		this.skillRanks = skillRanks;
     }
 
@@ -60,16 +58,20 @@ public class DefaultCharacterLevel implements CharacterLevel {
         return level;
     }
 
-	public ClassLevel getClassLevel() {
-		return classLevel;
-	}
-
 	public int getHitpoints() {
 		return hitpoints;
 	}
 
+	public void setHitpoints(int hitpoints) {
+		this.hitpoints = hitpoints;
+	}
+
 	public Collection getSkillRanks() {
 		return skillRanks;
+	}
+
+	public void setSkillRanks(Collection skillRanks) {
+		this.skillRanks = skillRanks;
 	}
 
     public int getSkillPoints() {
@@ -84,8 +86,15 @@ public class DefaultCharacterLevel implements CharacterLevel {
             intBonus = abilities.getIntelligence().getModifier();
         }
 
-        CharacterClass kit = classLevel.getCharacterClass();
         Race race = progression.getCharacter().getRace();
         return modifier * (kit.getBaseSkillPointsPerLevel() + race.getBaseSkillPointsPerLevel() + intBonus);
     }
+
+	public CharacterClass getCharacterClass() {
+		return kit;
+	}
+
+	public void setCharacterClass(CharacterClass kit) {
+		this.kit = kit;
+	}
 }

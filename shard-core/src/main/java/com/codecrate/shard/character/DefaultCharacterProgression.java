@@ -46,7 +46,7 @@ public class DefaultCharacterProgression implements CharacterProgression {
 		Iterator it = levels.iterator();
 		while (it.hasNext()) {
 			CharacterLevel level = (CharacterLevel) it.next();
-			CharacterClass characterClass = level.getClassLevel().getCharacterClass();
+			CharacterClass characterClass = level.getCharacterClass();
 			if (!classes.contains(characterClass)) {
 				classes.add(characterClass);
 			}
@@ -59,17 +59,15 @@ public class DefaultCharacterProgression implements CharacterProgression {
 	}
 
 	public ClassLevel getClassLevel(CharacterClass kit) {
-		ClassLevel level = null;
+		int level = 0;
 		Iterator it = levels.iterator();
 		while (it.hasNext()) {
 			CharacterLevel characterLevel = (CharacterLevel) it.next();
-			ClassLevel classLevel = characterLevel.getClassLevel();
-			if (kit.equals(classLevel.getCharacterClass())) {
-				if (null == level || level.getLevel() < classLevel.getLevel())
-					level = classLevel;
+			if (kit.equals(characterLevel.getCharacterClass())) {
+				level++;
 			}
 		}
-		return level;
+		return kit.getClassProgression().getClassLevel(level);
 	}
 
 	public String getDescription() {
@@ -88,13 +86,7 @@ public class DefaultCharacterProgression implements CharacterProgression {
 	}
 
     public void addLevel(CharacterClass kit, int hitPoints, Collection skillRanks) {
-        int level = 1;
-        ClassLevel currentClassLevel = this.getClassLevel(kit);
-        if (null != currentClassLevel) {
-            level = currentClassLevel.getLevel() + 1;
-        }
-        ClassLevel nextClassLevel = kit.getClassProgression().getClassLevel(level);
-        levels.add(new DefaultCharacterLevel(this, levels.size() + 1, hitPoints, nextClassLevel, skillRanks));
+        levels.add(new DefaultCharacterLevel(this, levels.size() + 1, hitPoints, kit, skillRanks));
     }
 
 	public String toString() {

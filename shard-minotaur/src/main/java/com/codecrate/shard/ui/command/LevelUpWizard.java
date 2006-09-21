@@ -15,15 +15,18 @@
  */
 package com.codecrate.shard.ui.command;
 
+import java.util.ArrayList;
+
 import org.springframework.richclient.command.ActionCommandExecutor;
 import org.springframework.richclient.form.CompoundForm;
 import org.springframework.richclient.wizard.AbstractWizard;
 import org.springframework.richclient.wizard.FormBackedWizardPage;
 import org.springframework.richclient.wizard.WizardDialog;
 
-import com.codecrate.shard.kit.CharacterClass;
+import com.codecrate.shard.character.DefaultCharacterLevel;
 import com.codecrate.shard.kit.CharacterClassDao;
 import com.codecrate.shard.ui.form.CharacterClassForm;
+import com.codecrate.shard.ui.form.HitPointForm;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -36,7 +39,7 @@ public class LevelUpWizard extends AbstractWizard implements ActionCommandExecut
 
 	private CharacterClassDao kitDao;
 
-	private LevelUpOptions levelUpOptions;
+	private DefaultCharacterLevel characterLevel;
 
     public LevelUpWizard() {
         super(WIZARD_NAME);
@@ -44,6 +47,7 @@ public class LevelUpWizard extends AbstractWizard implements ActionCommandExecut
 
     public void addPages() {
         addPage(new FormBackedWizardPage(new CharacterClassForm(getWizardForm().getFormModel(), kitDao)));
+        addPage(new FormBackedWizardPage(new HitPointForm(getWizardForm().getFormModel())));
     }
 
     protected boolean onFinish() {
@@ -52,8 +56,8 @@ public class LevelUpWizard extends AbstractWizard implements ActionCommandExecut
     }
 
     public void execute() {
-    	this.levelUpOptions = new LevelUpOptions();
-        getWizardForm().setFormObject(levelUpOptions);
+    	this.characterLevel = new DefaultCharacterLevel(null, 0, 0, null, new ArrayList());
+        getWizardForm().setFormObject(characterLevel);
         getWizardDialog().showDialog();
     }
 
@@ -73,17 +77,5 @@ public class LevelUpWizard extends AbstractWizard implements ActionCommandExecut
 
 	public void setKitDao(CharacterClassDao kitDao) {
 		this.kitDao = kitDao;
-	}
-	
-	public static class LevelUpOptions {
-		private CharacterClass kit;
-
-		public CharacterClass getKit() {
-			return kit;
-		}
-
-		public void setKit(CharacterClass kit) {
-			this.kit = kit;
-		}
 	}
 }
