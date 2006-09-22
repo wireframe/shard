@@ -99,9 +99,6 @@ public class PlayerCharacterPanel extends JPanel {
 
         initialize();
 
-//        classValue.setText(character.getCharacterProgression().getDescription());
-//        levelValue.setText(Integer.toString(character.getCharacterProgression().getCharacterLevel()));
-//
 //        strengthValue.setText(Integer.toString(character.getAbilities().getStrength().getModifiedValue()));
 //        dexterityValue.setText(Integer.toString(character.getAbilities().getDexterity().getModifiedValue()));
 //        constitutionValue.setText(Integer.toString(character.getAbilities().getConstitution().getModifiedValue()));
@@ -177,13 +174,9 @@ public class PlayerCharacterPanel extends JPanel {
             raceScript = new JLabel();
             raceScript.setText("Race:");
             raceScript.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            classValue = new JLabel();
-            classValue.setText("Fighter");
             classScript = new JLabel();
             classScript.setText("Class:");
             classScript.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            levelValue = new JLabel();
-            levelValue.setText("1");
             levelScript = new JLabel();
             levelScript.setText("Level:");
             levelScript.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -195,9 +188,9 @@ public class PlayerCharacterPanel extends JPanel {
             basicInfoPanel.setSize(new java.awt.Dimension(300,60));
             basicInfoPanel.setLayout(gridLayout);
             basicInfoPanel.add(classScript, null);
-            basicInfoPanel.add(classValue, null);
+            basicInfoPanel.add(getClassValue(), null);
             basicInfoPanel.add(levelScript, null);
-            basicInfoPanel.add(levelValue, null);
+            basicInfoPanel.add(getLevelValue(), null);
             basicInfoPanel.add(raceScript, null);
             basicInfoPanel.add(getRaceValue(), null);
             basicInfoPanel.add(alignmentScript, null);
@@ -205,6 +198,22 @@ public class PlayerCharacterPanel extends JPanel {
         }
         return basicInfoPanel;
     }
+
+	private Component getClassValue() {
+		if (null == classValue) {
+            classValue = new JLabel();
+            classValue.setText(character.getCharacterProgression().getDescription());
+		}
+		return classValue;
+	}
+
+	private JLabel getLevelValue() {
+		if (levelValue == null) {
+			levelValue = new JLabel();
+			levelValue.setText(Integer.toString(character.getCharacterProgression().getCharacterLevel()));
+		}
+		return levelValue;
+	}
 
 	private JLabel getRaceValue() {
 		if (null == raceValue) {
