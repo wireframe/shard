@@ -12,10 +12,6 @@
             <generator class="uuid.hex"/>
         </id>
 
-		<one-to-one name="progression"
-		 class="com.codecrate.shard.character.DefaultCharacterProgression"
-		 access="field" />
-
         <property name="level" access="field" />
     </class>
 

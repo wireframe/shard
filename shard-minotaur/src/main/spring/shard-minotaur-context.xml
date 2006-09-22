@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-minotaur-context.xml,v 1.12 2006/09/20 22:05:09 wireframe Exp $ -->
+<!-- $Id: shard-minotaur-context.xml,v 1.13 2006/09/22 19:34:02 wireframe Exp $ -->
 <beans>
 
 	<bean id="lifecycleAdvisor"
@@ -64,6 +64,9 @@
 		class="com.codecrate.shard.ui.command.LevelUpWizard">
 		<property name="kitDao">
 		    <ref bean="characterClassDao" />
+		</property>
+		<property name="skillDao">
+		    <ref bean="skillDao" />
 		</property>
 	</bean>
 </beans>

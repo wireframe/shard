@@ -25,8 +25,10 @@ import org.springframework.richclient.wizard.WizardDialog;
 
 import com.codecrate.shard.character.DefaultCharacterLevel;
 import com.codecrate.shard.kit.CharacterClassDao;
+import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.ui.form.CharacterClassForm;
 import com.codecrate.shard.ui.form.HitPointForm;
+import com.codecrate.shard.ui.form.SkillSelectionForm;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -38,6 +40,7 @@ public class LevelUpWizard extends AbstractWizard implements ActionCommandExecut
     private CompoundForm wizardForm;
 
 	private CharacterClassDao kitDao;
+	private SkillDao skillDao;
 
 	private DefaultCharacterLevel characterLevel;
 
@@ -48,9 +51,10 @@ public class LevelUpWizard extends AbstractWizard implements ActionCommandExecut
     public void addPages() {
         addPage(new FormBackedWizardPage(new CharacterClassForm(getWizardForm().getFormModel(), kitDao)));
         addPage(new FormBackedWizardPage(new HitPointForm(getWizardForm().getFormModel())));
+        addPage(new FormBackedWizardPage(new SkillSelectionForm(getWizardForm().getFormModel(), skillDao)));
     }
 
-    protected boolean onFinish() {
+	protected boolean onFinish() {
         getWizardForm().commit();
         return true;
     }
@@ -77,5 +81,8 @@ public class LevelUpWizard extends AbstractWizard implements ActionCommandExecut
 
 	public void setKitDao(CharacterClassDao kitDao) {
 		this.kitDao = kitDao;
+	}
+    public void setSkillDao(SkillDao skillDao) {
+		this.skillDao = skillDao;
 	}
 }
