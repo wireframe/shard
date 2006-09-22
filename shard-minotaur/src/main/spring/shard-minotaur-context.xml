@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-minotaur-context.xml,v 1.13 2006/09/22 19:34:02 wireframe Exp $ -->
+<!-- $Id: shard-minotaur-context.xml,v 1.14 2006/09/22 19:57:54 wireframe Exp $ -->
 <beans>
 
 	<bean id="lifecycleAdvisor"
@@ -38,6 +38,9 @@
 				</entry>
 				<entry key="newCharacterWizard">
 				    <ref bean="newCharacterWizard" />
+				</entry>
+				<entry key="levelUpWizard">
+				    <ref bean="levelUpWizard" />
 				</entry>
 			</map>
 		</property>

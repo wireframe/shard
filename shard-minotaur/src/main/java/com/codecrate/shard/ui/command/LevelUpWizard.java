@@ -24,11 +24,13 @@ import org.springframework.richclient.wizard.FormBackedWizardPage;
 import org.springframework.richclient.wizard.WizardDialog;
 
 import com.codecrate.shard.character.DefaultCharacterLevel;
+import com.codecrate.shard.character.PlayerCharacter;
 import com.codecrate.shard.kit.CharacterClassDao;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.ui.form.CharacterClassForm;
 import com.codecrate.shard.ui.form.HitPointForm;
 import com.codecrate.shard.ui.form.SkillSelectionForm;
+import com.codecrate.shard.ui.view.CharacterManagerView;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
@@ -43,6 +45,7 @@ public class LevelUpWizard extends AbstractWizard implements ActionCommandExecut
 	private SkillDao skillDao;
 
 	private DefaultCharacterLevel characterLevel;
+	private PlayerCharacter character;
 
     public LevelUpWizard() {
         super(WIZARD_NAME);
@@ -56,11 +59,13 @@ public class LevelUpWizard extends AbstractWizard implements ActionCommandExecut
 
 	protected boolean onFinish() {
         getWizardForm().commit();
+        character.getCharacterProgression().addLevel(characterLevel.getCharacterClass(), characterLevel.getHitpoints(), characterLevel.getSkillRanks());
         return true;
     }
 
     public void execute() {
-    	this.characterLevel = new DefaultCharacterLevel(null, 0, 0, null, new ArrayList());
+    	this.character = CharacterManagerView.getSelectedCharacter();
+    	this.characterLevel = new DefaultCharacterLevel(character, character.getCharacterProgression().getNextCharacterLevel(), 0, null, new ArrayList());
         getWizardForm().setFormObject(characterLevel);
         getWizardDialog().showDialog();
     }

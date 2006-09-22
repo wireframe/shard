@@ -46,11 +46,12 @@ import com.codecrate.shard.action.PrintCharacterAction;
 import com.codecrate.shard.character.CharacterDao;
 import com.codecrate.shard.character.PlayerCharacter;
 import com.codecrate.shard.ui.ShardMinotaurCommandIds;
+import com.codecrate.shard.ui.command.LevelUpWizard;
 import com.codecrate.shard.ui.command.NewCharacterWizard;
 import com.codecrate.shard.ui.form.FormModelCommittingTitledPageApplicationDialog;
 import com.codecrate.shard.ui.form.OpenCharacterForm;
 
-public class CharacterManagerView extends AbstractView implements WizardListener {
+public class CharacterManagerView extends AbstractView {
     private static final Log LOGGER = LogFactory.getLog(CharacterManagerView.class);
 
     private PrintCommandExecutor printExecutor;
@@ -58,9 +59,7 @@ public class CharacterManagerView extends AbstractView implements WizardListener
     private VelocityEngine velocityEngine;
     private CharacterDao characterDao;
 
-    private JTabbedPane tabbedPane;
-
-	private ActionCommand levelUpCommand;
+    private static JTabbedPane tabbedPane;
 
     protected JComponent createControl() {
         JPanel view = new JPanel();
@@ -69,7 +68,7 @@ public class CharacterManagerView extends AbstractView implements WizardListener
         return view;
     }
 
-    private JTabbedPane getTabbedPane() {
+    private static JTabbedPane getTabbedPane() {
         if (null == tabbedPane) {
             tabbedPane = new JTabbedPane();
         }
@@ -89,7 +88,28 @@ public class CharacterManagerView extends AbstractView implements WizardListener
     }
 
     public void setNewCharacterWizard(NewCharacterWizard wizard) {
-    	wizard.addWizardListener(this);
+    	wizard.addWizardListener(new WizardListener() {
+    		public void onPerformFinish(Wizard wizard, boolean arg1) {
+    			PlayerCharacter character = ((NewCharacterWizard)wizard).getCharacter();
+    			addCharacterPanel(character);
+    		}
+
+    		public void onPerformCancel(Wizard wizard, boolean arg1) {
+    		}
+    	});
+    }
+
+    public void setLevelUpWizard(LevelUpWizard wizard) {
+    	wizard.addWizardListener(new WizardListener() {
+    		public void onPerformFinish(Wizard wizard, boolean arg1) {
+    			PlayerCharacter character = getSelectedCharacter();
+    			closeCharacterPanel(character);
+    			addCharacterPanel(character);
+    		}
+
+    		public void onPerformCancel(Wizard wizard, boolean arg1) {
+    		}
+    	});
     }
 
     private PrintCommandExecutor getPrintCommand() {
@@ -162,11 +182,6 @@ public class CharacterManagerView extends AbstractView implements WizardListener
        }
     }
 
-	public void onPerformFinish(Wizard wizard, boolean arg1) {
-		PlayerCharacter character = ((NewCharacterWizard)wizard).getCharacter();
-        addCharacterPanel(character);
-	}
-
     private void addCharacterPanel(PlayerCharacter character) {
         PlayerCharacterPanel panel = getPanelForCharacter(character);
         if (null == panel) {
@@ -178,6 +193,13 @@ public class CharacterManagerView extends AbstractView implements WizardListener
         printExecutor.setEnabled(true);
     }
 
+    private void closeCharacterPanel(PlayerCharacter character) {
+        PlayerCharacterPanel panel = getPanelForCharacter(character);
+        if (null != panel) {
+        	getTabbedPane().remove(panel);
+        }
+    }
+
 	private PlayerCharacterPanel getPanelForCharacter(PlayerCharacter character) {
         for (int x = 0; x < getTabbedPane().getTabCount(); x++) {
             PlayerCharacterPanel panel = (PlayerCharacterPanel) getTabbedPane().getComponentAt(x);
@@ -187,8 +209,6 @@ public class CharacterManagerView extends AbstractView implements WizardListener
         }
         return null;
     }
-	public void onPerformCancel(Wizard wizard, boolean arg1) {
-	}
 
     public class CharacterSelection {
         private PlayerCharacter character;
@@ -202,8 +222,9 @@ public class CharacterManagerView extends AbstractView implements WizardListener
         }
     }
 
-	public void setLevelUpCommand(ActionCommand levelUpCommand) {
-		this.levelUpCommand = levelUpCommand;
+	public static PlayerCharacter getSelectedCharacter() {
+		PlayerCharacterPanel panel = (PlayerCharacterPanel) getTabbedPane().getSelectedComponent();
+		return panel.getCharacter();
 	}
 
 

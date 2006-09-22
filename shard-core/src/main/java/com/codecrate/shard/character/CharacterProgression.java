@@ -74,4 +74,6 @@ public interface CharacterProgression {
     void addLevel(CharacterClass kit, int hitPoints, Collection skillRanks);
 
     PlayerCharacter getCharacter();
+
+	int getNextCharacterLevel();
 }

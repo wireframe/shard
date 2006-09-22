@@ -121,4 +121,8 @@ public class DefaultCharacterProgression implements CharacterProgression {
     public PlayerCharacter getCharacter() {
         return character;
     }
+
+	public int getNextCharacterLevel() {
+		return getCharacterLevel() + 1;
+	}
 }
