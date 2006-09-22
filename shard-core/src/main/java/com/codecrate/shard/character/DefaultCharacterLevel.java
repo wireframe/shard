@@ -16,11 +16,16 @@
 package com.codecrate.shard.character;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.kit.CharacterClass;
+import com.codecrate.shard.modifier.DefaultKeyedModifier;
+import com.codecrate.shard.modifier.DefaultModifierType;
+import com.codecrate.shard.modifier.KeyedModifier;
 import com.codecrate.shard.race.Race;
+import com.codecrate.shard.skill.Skill;
 
 /**
  *
@@ -69,6 +74,28 @@ public class DefaultCharacterLevel implements CharacterLevel {
 
 	public void setSkillRanks(Collection skillRanks) {
 		this.skillRanks = skillRanks;
+	}
+
+	public void addSkillRank(Skill skill) {
+		int cost = getPointCost(skill);
+		if (getNumberOfUsedSkillPoints() + cost > getSkillPoints()) {
+			throw new IllegalArgumentException("Can not exceed " + getSkillPoints() + " skill points.");
+		}
+		skillRanks.add(new DefaultKeyedModifier(skill, DefaultModifierType.RANK, 1));
+	}
+
+	private int getNumberOfUsedSkillPoints() {
+		int total = 0;
+		for (Iterator iter = skillRanks.iterator(); iter.hasNext();) {
+			KeyedModifier rank = (KeyedModifier) iter.next();
+			Skill skill = (Skill) rank.getKey();
+			total += getPointCost(skill);
+		}
+		return total;
+	}
+
+	private int getPointCost(Skill skill) {
+		return (kit.getClassSkills().contains(skill) ? 1 : 2);
 	}
 
     public int getSkillPoints() {
