@@ -20,12 +20,6 @@ import java.util.Collection;
 import com.codecrate.shard.kit.CharacterClass;
 
 public interface CharacterLevel {
-    /**
-     * gets the player character this level belongs to.
-     * @return
-     */
-    PlayerCharacter getCharacter();
-    
     int getLevel();
 
     int getHitpoints();

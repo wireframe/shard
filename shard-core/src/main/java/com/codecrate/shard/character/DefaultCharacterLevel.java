@@ -32,7 +32,7 @@ public class DefaultCharacterLevel implements CharacterLevel {
     private int hitpoints;
     private CharacterClass kit;
 	private Collection skillRanks;
-    private CharacterProgression progression;
+	private PlayerCharacter character;
 
     /**
      * hibernate constructor
@@ -40,19 +40,16 @@ public class DefaultCharacterLevel implements CharacterLevel {
     private DefaultCharacterLevel() {
     }
 
-    public DefaultCharacterLevel(CharacterProgression progression, int level, int hitpoints, CharacterClass kit, Collection skillRanks) {
-        this.progression = progression;
-        this.level = level;
+    public DefaultCharacterLevel(PlayerCharacter character, int level, int hitpoints, CharacterClass kit, Collection skillRanks) {
+        this.character = character;
+		this.level = level;
         this.kit = kit;
     	this.hitpoints = hitpoints;
 		this.skillRanks = skillRanks;
     }
 
     public String toString() {
-        return progression + " " + level;
-    }
-    public PlayerCharacter getCharacter() {
-        return progression.getCharacter();
+        return character + " " + level;
     }
     public int getLevel() {
         return level;
@@ -81,12 +78,12 @@ public class DefaultCharacterLevel implements CharacterLevel {
             modifier = 4;
         }
 
-        AbilityScoreContainer abilities = progression.getCharacter().getAbilities();
+        AbilityScoreContainer abilities = character.getAbilities();
         if (abilities.hasAbilityScore(DefaultAbility.INTELLIGENCE)) {
             intBonus = abilities.getIntelligence().getModifier();
         }
 
-        Race race = progression.getCharacter().getRace();
+        Race race = character.getRace();
         return modifier * (kit.getBaseSkillPointsPerLevel() + race.getBaseSkillPointsPerLevel() + intBonus);
     }
 
