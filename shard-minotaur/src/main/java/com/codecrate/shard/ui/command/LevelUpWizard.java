@@ -65,7 +65,7 @@ public class LevelUpWizard extends AbstractWizard implements ActionCommandExecut
 
     public void execute() {
     	this.character = CharacterManagerView.getSelectedCharacter();
-    	this.characterLevel = new DefaultCharacterLevel(character, character.getCharacterProgression().getNextCharacterLevel(), 0, null, new ArrayList());
+    	this.characterLevel = new DefaultCharacterLevel(character, character.getCharacterProgression().getNextCharacterLevel(), 1, null, new ArrayList());
         getWizardForm().setFormObject(characterLevel);
         getWizardDialog().showDialog();
     }

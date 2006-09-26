@@ -13,6 +13,8 @@
 		</property>
 	</bean>
 
+    <bean id="rulesSource" class="org.springframework.rules.support.DefaultRulesSource" />
+
 	<bean id="lookAndFeelConfigurer"
 		class="org.springframework.richclient.application.config.JGoodiesLooksConfigurer">
 		<property name="theme">

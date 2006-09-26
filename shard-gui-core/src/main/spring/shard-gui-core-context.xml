@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-gui-core-context.xml,v 1.5 2006/09/16 14:11:36 wireframe Exp $ -->
+<!-- $Id: shard-gui-core-context.xml,v 1.6 2006/09/26 02:52:14 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -21,9 +21,7 @@
     <bean id="applicationServices" singleton="true"
             class="org.springframework.richclient.application.support.DefaultApplicationServices">
         <property name="imageSource" ref="imageSource"/>
-        <!--
         <property name="rulesSource" ref="rulesSource"/>
-        -->
         <property name="formComponentInterceptorFactory" ref="formComponentInterceptorFactory"/>
         <property name="applicationObjectConfigurerId"><idref bean="applicationObjectConfigurer"/></property>
     </bean>

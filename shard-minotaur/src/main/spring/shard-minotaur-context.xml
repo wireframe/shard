@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-minotaur-context.xml,v 1.14 2006/09/22 19:57:54 wireframe Exp $ -->
+<!-- $Id: shard-minotaur-context.xml,v 1.15 2006/09/26 02:52:06 wireframe Exp $ -->
 <beans>
+
+    <bean id="rulesSource" class="com.codecrate.shard.ui.validation.ShardMinotaurRulesSource" />
 
 	<bean id="lifecycleAdvisor"
 		class="com.codecrate.shard.ui.ShardMinotaurLifecycleAdvisor">
@@ -14,14 +16,12 @@
 		</property>
 	</bean>
 
-<!--
 	<bean id="lookAndFeelConfigurer"
 		class="org.springframework.richclient.application.config.UIManagerConfigurer">
 		<property name="lookAndFeel">
     	  <value>net.sourceforge.napkinlaf.NapkinLookAndFeel</value>
 		</property>
 	</bean>
--->
 
 	<bean id="mainView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
