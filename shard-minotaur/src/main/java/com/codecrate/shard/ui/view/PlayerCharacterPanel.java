@@ -63,10 +63,10 @@ public class PlayerCharacterPanel extends JPanel {
     private JLabel strengthValue = null;
 	private JLabel charsimaBonusValue = null;
 	private JLabel constitutionBonusValue = null;
-	private JLabel stengthBonusValue = null;
+	private JLabel strengthBonusValue = null;
 	private JLabel wisdomBonusValue = null;
-	private JLabel intelegenceBonusValue = null;
-	private JLabel dextarityBonusValue = null;
+	private JLabel intelligenceBonusValue = null;
+	private JLabel dexterityBonusValue = null;
 	private JPanel Appearance = null;
 	private JLabel haircolorValue = null;
 	private JLabel heightScript = null;
@@ -98,14 +98,6 @@ public class PlayerCharacterPanel extends JPanel {
         this.character = character;
 
         initialize();
-
-//        strengthValue.setText(Integer.toString(character.getAbilities().getStrength().getModifiedValue()));
-//        dexterityValue.setText(Integer.toString(character.getAbilities().getDexterity().getModifiedValue()));
-//        constitutionValue.setText(Integer.toString(character.getAbilities().getConstitution().getModifiedValue()));
-//        intelligenceValue.setText(Integer.toString(character.getAbilities().getIntelligence().getModifiedValue()));
-//        wisdomValue.setText(Integer.toString(character.getAbilities().getWisdom().getModifiedValue()));
-//        charismaValue.setText(Integer.toString(character.getAbilities().getCharisma().getModifiedValue()));
-
 		levelUp.setAction(new SwingActionAdapter(levelUpCommand));
     }
 
@@ -238,40 +230,16 @@ public class PlayerCharacterPanel extends JPanel {
      */
     private JPanel getJPanel() {
         if (jPanel == null) {
-            dextarityBonusValue = new JLabel();
-            dextarityBonusValue.setText("+3");
-            intelegenceBonusValue = new JLabel();
-            intelegenceBonusValue.setText("-6");
-            wisdomBonusValue = new JLabel();
-            wisdomBonusValue.setText("+4");
-            stengthBonusValue = new JLabel();
-            stengthBonusValue.setText("+4");
-            constitutionBonusValue = new JLabel();
-            constitutionBonusValue.setText("+1");
-            charsimaBonusValue = new JLabel();
-            charsimaBonusValue.setText("-1");
-            strengthValue = new JLabel();
-            strengthValue.setText("18");
             jLabel10 = new JLabel();
             jLabel10.setText("DEX");
-            dexterityValue = new JLabel();
-            dexterityValue.setText("16");
             jLabel8 = new JLabel();
             jLabel8.setText("CON");
-            constitutionValue = new JLabel();
-            constitutionValue.setText("12");
-            charismaValue = new JLabel();
-            charismaValue.setText("9");
             jLabel5 = new JLabel();
             jLabel5.setText("CHA");
             jLabel4 = new JLabel();
             jLabel4.setText("STR");
             jLabel3 = new JLabel();
             jLabel3.setText("INT");
-            intelligenceValue = new JLabel();
-            intelligenceValue.setText("4");
-            wisdomValue = new JLabel();
-            wisdomValue.setText("19");
             jLabel = new JLabel();
             jLabel.setText("WIS");
             GridLayout gridLayout1 = new GridLayout();
@@ -281,26 +249,129 @@ public class PlayerCharacterPanel extends JPanel {
             jPanel.setBounds(new java.awt.Rectangle(6,165,151,151));
             jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.black,2), "Ability Scores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12), new java.awt.Color(51,51,51)));
             jPanel.add(jLabel4, null);
-            jPanel.add(strengthValue, null);
-            jPanel.add(stengthBonusValue, null);
+            jPanel.add(getStrengthValue(), null);
+            jPanel.add(getStrengthBonusValue(), null);
             jPanel.add(jLabel10, null);
-            jPanel.add(dexterityValue, null);
-            jPanel.add(dextarityBonusValue, null);
+            jPanel.add(getDexterityValue(), null);
+            jPanel.add(getDexterityBonusValue(), null);
             jPanel.add(jLabel8, null);
-            jPanel.add(constitutionValue, null);
-            jPanel.add(constitutionBonusValue, null);
+            jPanel.add(getConstitutionValue(), null);
+            jPanel.add(getConstitutionBonusValue(), null);
             jPanel.add(jLabel3, null);
-            jPanel.add(intelligenceValue, null);
-            jPanel.add(intelegenceBonusValue, null);
+            jPanel.add(getIntelligenceValue(), null);
+            jPanel.add(getIntelligenceBonusValue(), null);
             jPanel.add(jLabel, null);
-            jPanel.add(wisdomValue, null);
-            jPanel.add(wisdomBonusValue, null);
+            jPanel.add(getWisdomValue(), null);
+            jPanel.add(getWisdomBonusValue(), null);
             jPanel.add(jLabel5, null);
-            jPanel.add(charismaValue, null);
-            jPanel.add(charsimaBonusValue, null);
+            jPanel.add(getCharismaValue(), null);
+            jPanel.add(getCharsimaBonusValue(), null);
         }
         return jPanel;
     }
+
+	private Component getCharsimaBonusValue() {
+		if (null == charsimaBonusValue) {
+            charsimaBonusValue = new JLabel();
+            charsimaBonusValue.setText(formatModifier(character.getAbilities().getCharisma().getModifier()));
+		}
+		return charsimaBonusValue;
+	}
+
+	private String formatModifier(int modifier) {
+		if (0 <= modifier) {
+			return "+" + modifier;
+		}
+		return Integer.toString(modifier);
+	}
+
+	private Component getConstitutionBonusValue() {
+		if (null == constitutionBonusValue) {
+            constitutionBonusValue = new JLabel();
+            constitutionBonusValue.setText(formatModifier(character.getAbilities().getConstitution().getModifier()));
+		}
+		return constitutionBonusValue;
+	}
+
+	private Component getStrengthBonusValue() {
+		if (null == strengthBonusValue) {
+            strengthBonusValue = new JLabel();
+            strengthBonusValue.setText(formatModifier(character.getAbilities().getStrength().getModifier()));
+		}
+		return strengthBonusValue;
+	}
+
+	private Component getWisdomBonusValue() {
+		if (null == wisdomBonusValue) {
+            wisdomBonusValue = new JLabel();
+            wisdomBonusValue.setText(formatModifier(character.getAbilities().getWisdom().getModifier()));
+		}
+		return wisdomBonusValue;
+	}
+
+	private Component getIntelligenceBonusValue() {
+		if (null == intelligenceBonusValue) {
+            intelligenceBonusValue = new JLabel();
+            intelligenceBonusValue.setText(formatModifier(character.getAbilities().getIntelligence().getModifier()));
+		}
+		return intelligenceBonusValue;
+	}
+
+	private Component getDexterityBonusValue() {
+		if (null == dexterityBonusValue) {
+            dexterityBonusValue = new JLabel();
+            dexterityBonusValue.setText(formatModifier(character.getAbilities().getDexterity().getModifier()));
+		}
+		return dexterityBonusValue;
+	}
+
+	private Component getCharismaValue() {
+		if (null == charismaValue) {
+            charismaValue = new JLabel();
+            charismaValue.setText(Integer.toString(character.getAbilities().getCharisma().getModifiedValue()));
+		}
+		return charismaValue;
+	}
+
+	private Component getWisdomValue() {
+		if (null == wisdomValue) {
+            wisdomValue = new JLabel();
+            wisdomValue.setText(Integer.toString(character.getAbilities().getWisdom().getModifiedValue()));
+		}
+		return wisdomValue;
+	}
+
+	private Component getIntelligenceValue() {
+		if (null == intelligenceValue) {
+            intelligenceValue = new JLabel();
+            intelligenceValue.setText(Integer.toString(character.getAbilities().getIntelligence().getModifiedValue()));
+		}
+		return intelligenceValue;
+	}
+
+	private Component getConstitutionValue() {
+		if (null == constitutionValue) {
+            constitutionValue = new JLabel();
+            constitutionValue.setText(Integer.toString(character.getAbilities().getConstitution().getModifiedValue()));
+		}
+		return constitutionValue;
+	}
+
+	private JLabel getDexterityValue() {
+		if (null == dexterityValue) {
+			dexterityValue = new JLabel();
+			dexterityValue.setText(Integer.toString(character.getAbilities().getDexterity().getModifiedValue()));
+		}
+		return dexterityValue;
+	}
+
+	private Component getStrengthValue() {
+		if (null == strengthValue) {
+			strengthValue = new JLabel();
+			strengthValue.setText(Integer.toString(character.getAbilities().getStrength().getModifiedValue()));
+		}
+		return strengthValue;
+	}
 
 	/**
 	 * This method initializes Appearance
