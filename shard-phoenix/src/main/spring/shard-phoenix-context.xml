@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-phoenix-context.xml,v 1.16 2006/09/26 02:52:00 wireframe Exp $ -->
+<!-- $Id: shard-phoenix-context.xml,v 1.17 2006/09/27 03:35:25 wireframe Exp $ -->
 <beans>
 
 	<!-- application life cycle advisor -->
@@ -14,8 +14,6 @@
 			<value>skillManagerView</value>
 		</property>
 	</bean>
-
-    <bean id="rulesSource" class="org.springframework.rules.support.DefaultRulesSource" />
 
 	<!-- look and feel configuration -->
 	<bean id="lookAndFeelConfigurer"

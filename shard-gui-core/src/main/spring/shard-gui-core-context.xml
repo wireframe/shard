@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-gui-core-context.xml,v 1.6 2006/09/26 02:52:14 wireframe Exp $ -->
+<!-- $Id: shard-gui-core-context.xml,v 1.7 2006/09/27 03:35:36 wireframe Exp $ -->
 <beans>
 
 	<bean id="application"
@@ -25,6 +25,8 @@
         <property name="formComponentInterceptorFactory" ref="formComponentInterceptorFactory"/>
         <property name="applicationObjectConfigurerId"><idref bean="applicationObjectConfigurer"/></property>
     </bean>
+
+    <bean id="rulesSource" class="com.codecrate.shard.ui.validation.ShardRulesSource" />
 
 	<bean id="applicationDescriptor"
 		class="com.codecrate.shard.ui.ShardApplicationDescriptor">
