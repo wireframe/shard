@@ -67,7 +67,7 @@ public class DiceExpression extends DiceSupport implements Dice {
 
     /**
      * convert dice expressions to JEP function expressions.
-     * example: change 1d6 to 1d(6)
+     * example: change 1d6 to d(1, 6, m)
      * @param expression
      * @return
      */
