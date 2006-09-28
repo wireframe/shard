@@ -30,31 +30,31 @@ public class DiceExpressionTest extends TestCase {
         assertEquals(1, dice.getMinValue());
         assertEquals(4, dice.getMaxValue());
     }
-    
+
     public void testDiceParsesMultiples() {
         DiceExpression dice = new DiceExpression("2d4");
         assertEquals(2, dice.getMinValue());
         assertEquals(8, dice.getMaxValue());
     }
-    
+
     public void testDiceParsesMultiplesWithModifier() {
         DiceExpression dice = new DiceExpression("2d4+1");
         assertEquals(3, dice.getMinValue());
         assertEquals(9, dice.getMaxValue());
     }
-    
+
     public void testDiceParsesModifier() {
         DiceExpression dice = new DiceExpression("d4+1");
         assertEquals(2, dice.getMinValue());
         assertEquals(5, dice.getMaxValue());
     }
-    
+
     public void testDiceParsesNegativeModifier() {
         DiceExpression dice = new DiceExpression("d4-1");
         assertEquals(1, dice.getMinValue());
         assertEquals(3, dice.getMaxValue());
     }
-    
+
     public void testDiceParsesMultiplier() {
         DiceExpression dice = new DiceExpression("d4*2");
         assertEquals(2, dice.getMinValue());
@@ -65,40 +65,40 @@ public class DiceExpressionTest extends TestCase {
         DiceExpression dice = new DiceExpression("1d4 +   1");
         assertEquals("1d4+1", dice.toString());
     }
-    
+
     public void testExpressionEqualsProgrammaticallyConstructedDice() {
         DiceExpression dice = new DiceExpression("1d4+1");
         Dice other = new ModifiedDice(new RandomDice(4), 1);
-        
+
         assertTrue(dice.equals(other));
     }
-    
+
     public void testExpressionParsingOfLargerDice() {
         DiceExpression dice = new DiceExpression("1d20");
         assertEquals(1, dice.getMinValue());
         assertEquals(20, dice.getMaxValue());
     }
 
-//    public void testMultiDiceExpressionsAreEvaluated() {
-//        DiceExpression dice = new DiceExpression("d4+d6");
-//        assertEquals(2, dice.getMinValue());
-//        assertEquals(10, dice.getMaxValue());
-//    }
-    
+    public void testMultiDiceExpressionsAreEvaluated() {
+        DiceExpression dice = new DiceExpression("d4+d6");
+        assertEquals(2, dice.getMinValue());
+        assertEquals(10, dice.getMaxValue());
+    }
+
     public void testInvalidDiceExpressionThrowsException() {
         try {
             new DiceExpression("asdf");
             fail("Exception should be thrown for invalid dice expression");
         } catch (IllegalArgumentException expected) { }
     }
-    
+
     public void testAllValuesAreRolled() {
     	DiceExpression dice = new DiceExpression("2d4");
     	Set rolls = new HashSet();
     	for (int x = 0; x < 100; x++) {
 			rolls.add(new Integer(dice.roll()));
 		}
-    	
+
     	assertEquals(7, rolls.size());
     }
 }
