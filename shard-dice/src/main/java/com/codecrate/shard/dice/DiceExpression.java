@@ -67,7 +67,7 @@ public class DiceExpression extends DiceSupport implements Dice {
 
     /**
      * convert dice expressions to JEP function expressions.
-     * example: change 1d6 to d(1, 6, m)
+     * example: change 1d6 to 1d(6)
      * @param expression
      * @return
      */
@@ -78,7 +78,8 @@ public class DiceExpression extends DiceSupport implements Dice {
         Matcher matcher = pattern.matcher(expression);
 
         String newExpression = matcher.replaceAll(replaceStr);
-        return addDefaultTimes(newExpression);
+        newExpression = addDefaultTimes(newExpression);
+        return newExpression;
     }
 
     /**
