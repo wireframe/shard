@@ -13,6 +13,14 @@
         </id>
 
         <property name="level" access="field" />
+        
+        <property name="hitpoints" access="field" />
+        
+		<many-to-one name="kit"
+		 class="com.codecrate.shard.kit.DefaultCharacterClass"
+		 access="field"
+	  	 not-null="true" />
+
     </class>
 
 </hibernate-mapping>

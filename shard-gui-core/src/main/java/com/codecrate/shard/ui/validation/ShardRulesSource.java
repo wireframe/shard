@@ -2,7 +2,6 @@ package com.codecrate.shard.ui.validation;
 
 import org.springframework.rules.Rules;
 import org.springframework.rules.constraint.LessThanEqualTo;
-import org.springframework.rules.constraint.property.PropertiesConstraint;
 import org.springframework.rules.support.DefaultRulesSource;
 
 import com.codecrate.shard.character.DefaultCharacterLevel;
@@ -31,7 +30,7 @@ public class ShardRulesSource extends DefaultRulesSource {
 			protected void initRules() {
 				addRequired("characterClass");
 				add("hitpoints", gt(0));
-				add(new PropertiesConstraint("hitpoints", LessThanEqualTo.instance(), "characterClass.hitDicePerLevel.maxValue"));
+				add(new LenientPropertiesConstraint("hitpoints", LessThanEqualTo.instance(), "characterClass.hitDicePerLevel.maxValue"));
 			}
 		};
 	}
