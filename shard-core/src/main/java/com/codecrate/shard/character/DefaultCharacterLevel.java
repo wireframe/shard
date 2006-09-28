@@ -45,12 +45,11 @@ public class DefaultCharacterLevel implements CharacterLevel {
     private DefaultCharacterLevel() {
     }
 
-    public DefaultCharacterLevel(PlayerCharacter character, int level, int hitpoints, CharacterClass kit, Collection skillRanks) {
+    public DefaultCharacterLevel(PlayerCharacter character, CharacterClass kit, int hitpoints) {
         this.character = character;
-		this.level = level;
+		this.level = character.getCharacterProgression().getNextCharacterLevel();
         this.kit = kit;
     	this.hitpoints = hitpoints;
-		this.skillRanks = skillRanks;
     }
 
     public String toString() {

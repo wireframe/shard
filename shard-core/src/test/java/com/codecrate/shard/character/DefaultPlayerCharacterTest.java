@@ -16,7 +16,6 @@
 package com.codecrate.shard.character;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
@@ -48,7 +47,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
         kit.getClassProgression().addLevel(1, 2, 3, 4);
 
 		DefaultPlayerCharacter character = new DefaultPlayerCharacter("big bill", abilities, race, null, encumberance, null, null);
-        character.getCharacterProgression().addLevel(kit, 1, new ArrayList());
+        character.getCharacterProgression().addLevel(new DefaultCharacterLevel(character, kit, 1));
 
 		assertEquals(2, character.getEffectiveCharacterLevel());
 	}
@@ -80,7 +79,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(null);
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
 		DefaultPlayerCharacter character = new DefaultPlayerCharacter("uncle sam", abilities, race, null, encumberance, null, null);
-        character.getCharacterProgression().addLevel(kit, 1, new ArrayList());
+        character.getCharacterProgression().addLevel(new DefaultCharacterLevel(character, kit, 1));
 
 		assertEquals(3, character.getBaseAttackBonus());
 	}

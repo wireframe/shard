@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard.ui.command;
 
-import java.util.ArrayList;
 
 import org.springframework.richclient.command.ActionCommandExecutor;
 import org.springframework.richclient.form.CompoundForm;
@@ -59,13 +58,13 @@ public class LevelUpWizard extends AbstractWizard implements ActionCommandExecut
 
 	protected boolean onFinish() {
         getWizardForm().commit();
-        character.getCharacterProgression().addLevel(characterLevel.getCharacterClass(), characterLevel.getHitpoints(), characterLevel.getSkillRanks());
+        character.getCharacterProgression().addLevel(characterLevel);
         return true;
     }
 
     public void execute() {
     	this.character = CharacterManagerView.getSelectedCharacter();
-    	this.characterLevel = new DefaultCharacterLevel(character, character.getCharacterProgression().getNextCharacterLevel(), 1, null, new ArrayList());
+    	this.characterLevel = new DefaultCharacterLevel(character, null, 1);
         getWizardForm().setFormObject(characterLevel);
         getWizardDialog().showDialog();
     }

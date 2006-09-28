@@ -16,7 +16,6 @@
 package com.codecrate.shard.action;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -30,6 +29,7 @@ import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.character.Alignment;
 import com.codecrate.shard.character.DefaultAlignment;
+import com.codecrate.shard.character.DefaultCharacterLevel;
 import com.codecrate.shard.character.DefaultPlayerCharacter;
 import com.codecrate.shard.character.prereq.NullPrerequisite;
 import com.codecrate.shard.dice.RandomDice;
@@ -142,7 +142,7 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
         fighter.getClassProgression().addLevel(1, 2, 3, 4);
 
 		DefaultPlayerCharacter character = new DefaultPlayerCharacter("Gunthor the Terrible", abilities, human, itemContainer, encumberance, alignment, deity);
-		character.getCharacterProgression().addLevel(fighter, 1, new ArrayList());
+		character.getCharacterProgression().addLevel(new DefaultCharacterLevel(character, fighter, 1));
 
         character.getBaseAttackBonus();
 

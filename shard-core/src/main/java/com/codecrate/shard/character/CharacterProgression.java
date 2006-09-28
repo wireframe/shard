@@ -71,7 +71,7 @@ public interface CharacterProgression {
 	 */
 	BigDecimal getMulticlassExperiencePenalty();
 
-    void addLevel(CharacterClass kit, int hitPoints, Collection skillRanks);
+    void addLevel(CharacterLevel level);
 
     PlayerCharacter getCharacter();
 

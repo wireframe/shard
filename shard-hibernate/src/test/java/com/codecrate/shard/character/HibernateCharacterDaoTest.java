@@ -15,7 +15,6 @@
  */
 package com.codecrate.shard.character;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -59,7 +58,7 @@ public class HibernateCharacterDaoTest extends ShardHibernateTestCaseSupport {
         characterClassDao.saveClass(kit);
 
         PlayerCharacter character = characterFactory.createCharacter("Bob");
-        character.getCharacterProgression().addLevel(kit, 1, new ArrayList());
+        character.getCharacterProgression().addLevel(new DefaultCharacterLevel(character, kit, 1));
         characterDao.saveCharacter(character);
     }
 
@@ -71,7 +70,7 @@ public class HibernateCharacterDaoTest extends ShardHibernateTestCaseSupport {
 
     public void testLoadingCharactersGrabsBioAsWell() throws Exception {
         Collection characters = characterDao.getCharacters();
-        
+
         assertFalse(characters.isEmpty());
 
         for (Iterator iter = characters.iterator(); iter.hasNext();) {

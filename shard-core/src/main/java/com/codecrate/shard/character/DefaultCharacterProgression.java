@@ -85,8 +85,8 @@ public class DefaultCharacterProgression implements CharacterProgression {
 		return result.toString();
 	}
 
-    public void addLevel(CharacterClass kit, int hitPoints, Collection skillRanks) {
-        levels.add(new DefaultCharacterLevel(character, levels.size() + 1, hitPoints, kit, skillRanks));
+    public void addLevel(CharacterLevel level) {
+        levels.add(level);
     }
 
 	public String toString() {
