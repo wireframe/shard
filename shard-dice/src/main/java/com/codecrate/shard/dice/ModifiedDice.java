@@ -17,39 +17,30 @@ package com.codecrate.shard.dice;
 
 /**
  * Rolls a dice with a modifier.
- * modifier can be negative, but the minimum value returned from the roll 
- * is 1.
- * 
+ *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class ModifiedDice extends DiceSupport implements Dice {
     private Dice dice;
     private int modifier;
-    
+
     public ModifiedDice(Dice dice, int modifier) {
         this.dice = dice;
         this.modifier = modifier;
     }
-    
+
     public int getMaxValue() {
-        return atLeastOne(dice.getMaxValue() + modifier);
+        return dice.getMaxValue() + modifier;
     }
-    
+
     public int getMinValue() {
-        return atLeastOne(dice.getMinValue() + modifier);
+        return dice.getMinValue() + modifier;
     }
-    
+
     public int roll() {
-        return atLeastOne(dice.roll() + modifier);
+        return dice.roll() + modifier;
     }
-    
-    private int atLeastOne(int value) {
-        if (value < 1) {
-            return 1;
-        }
-        return value;
-    }
-    
+
     public String toString() {
         if (0 == modifier) {
             return dice.toString();

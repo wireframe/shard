@@ -51,7 +51,7 @@ public class DiceExpressionTest extends TestCase {
 
     public void testDiceParsesNegativeModifier() {
         DiceExpression dice = new DiceExpression("d4-1");
-        assertEquals(1, dice.getMinValue());
+        assertEquals(0, dice.getMinValue());
         assertEquals(3, dice.getMaxValue());
     }
 

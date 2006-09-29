@@ -58,7 +58,7 @@ public class DiceExpression extends DiceSupport implements Dice {
         if (parser.hasError()) {
             throw new IllegalArgumentException("Error parsing dice expression [" + expression + "] into [" + functionExpression + "]" + parser.getErrorInfo());
         }
-        return atLeastOne((int) parser.getValue());
+        return (int) parser.getValue();
 	}
 
     private String stripSpaces(String diceExpression) {
@@ -78,8 +78,7 @@ public class DiceExpression extends DiceSupport implements Dice {
         Matcher matcher = pattern.matcher(expression);
 
         String newExpression = matcher.replaceAll(replaceStr);
-        newExpression = addDefaultTimes(newExpression);
-        return newExpression;
+        return addDefaultTimes(newExpression);
     }
 
     /**
@@ -89,13 +88,6 @@ public class DiceExpression extends DiceSupport implements Dice {
 	private String addDefaultTimes(String newExpression) {
 		return newExpression.replaceAll("\\(,", "\\(1,");
 	}
-
-    private int atLeastOne(int value) {
-        if (value < 1) {
-            return 1;
-        }
-        return value;
-    }
 
     public int getMaxValue() {
     	return roll(MODE_MAXIMUM);
