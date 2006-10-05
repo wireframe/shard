@@ -24,10 +24,18 @@
          cascade="all"
          access="field"/>
 
-		<one-to-one name="progression"
-		 cascade="all"
-		 class="com.codecrate.shard.character.DefaultCharacterProgression"
-		 access="field" />
+        <set name="levels"
+         access="field"
+         lazy="false"
+         inverse="true"
+         cascade="all-delete-orphan"
+         sort="natural"
+         table="SHA_CHARACTER_LEVEL">
+            <key column="ID"/>
+            <one-to-many class="com.codecrate.shard.character.DefaultCharacterLevel"/>
+        </set>
+
+        <property name="experience" access="field" />
 
         <property name="name"
          column="NAME"

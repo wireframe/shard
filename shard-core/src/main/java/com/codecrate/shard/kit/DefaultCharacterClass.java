@@ -47,9 +47,11 @@ public class DefaultCharacterClass implements CharacterClass, Comparable {
     private String name;
     private String abbreviation;
     private ClassProgression progression;
-    private SortedSet levels = new TreeSet();
     private CharacterPrerequisite prereq;
     private Source source;
+
+    //progression
+    private SortedSet levels = new TreeSet();
 
     /**
      * hibernate constructor.

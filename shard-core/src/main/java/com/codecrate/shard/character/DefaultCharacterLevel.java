@@ -31,7 +31,7 @@ import com.codecrate.shard.skill.Skill;
  *
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class DefaultCharacterLevel implements CharacterLevel {
+public class DefaultCharacterLevel implements CharacterLevel, Comparable {
     private String id;
     private int level;
     private int hitpoints;
@@ -120,4 +120,9 @@ public class DefaultCharacterLevel implements CharacterLevel {
 	public void setCharacterClass(CharacterClass kit) {
 		this.kit = kit;
 	}
+
+    public int compareTo(Object target) {
+        DefaultCharacterLevel object = (DefaultCharacterLevel) target;
+        return new Integer(level).compareTo(new Integer(object.level));
+    }
 }

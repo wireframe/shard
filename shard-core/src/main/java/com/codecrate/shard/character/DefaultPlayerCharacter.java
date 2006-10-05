@@ -21,7 +21,12 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.swing.ImageIcon;
 
@@ -41,6 +46,7 @@ import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.feat.FeatContainer;
 import com.codecrate.shard.kit.CharacterClass;
+import com.codecrate.shard.kit.ClassLevel;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.save.SavingThrowEntryContainer;
@@ -84,11 +90,16 @@ public class DefaultPlayerCharacter implements PlayerCharacter, Comparable {
     private Color hairColor;
     private Color eyeColor;
 
+    //progression
+	private int experience;
+    private SortedSet levels = new TreeSet();
+
 	/**
 	 * hibernate constructor.
 	 */
 	private DefaultPlayerCharacter() {
         this.bio = new DefaultCharacterBio();
+        this.progression = new DefaultCharacterProgression();
 	}
 
     /**
@@ -107,7 +118,7 @@ public class DefaultPlayerCharacter implements PlayerCharacter, Comparable {
         this.inventory = inventory;
         this.alignment = alignment;
         this.bio = new DefaultCharacterBio(name, DefaultGender.MALE);
-        this.progression = new DefaultCharacterProgression(this);
+        this.progression = new DefaultCharacterProgression();
         this.encumberance = encumberance;
 
         this.challengeRating = new BigDecimal(0);
@@ -348,5 +359,94 @@ public class DefaultPlayerCharacter implements PlayerCharacter, Comparable {
         public Age getAge() {
             return age;
         }
+    }
+
+    class DefaultCharacterProgression implements CharacterProgression {
+        /**
+         * hibernate constructor
+         */
+        private DefaultCharacterProgression() {
+        }
+
+    	public Collection getClasses() {
+    		Collection classes = new ArrayList();
+    		Iterator it = levels.iterator();
+    		while (it.hasNext()) {
+    			CharacterLevel level = (CharacterLevel) it.next();
+    			CharacterClass characterClass = level.getCharacterClass();
+    			if (!classes.contains(characterClass)) {
+    				classes.add(characterClass);
+    			}
+    		}
+    		return classes;
+    	}
+
+    	public int getCharacterLevel() {
+    		return levels.size();
+    	}
+
+    	public ClassLevel getClassLevel(CharacterClass kit) {
+    		int level = 0;
+    		Iterator it = levels.iterator();
+    		while (it.hasNext()) {
+    			CharacterLevel characterLevel = (CharacterLevel) it.next();
+    			if (kit.equals(characterLevel.getCharacterClass())) {
+    				level++;
+    			}
+    		}
+    		return kit.getClassProgression().getClassLevel(level);
+    	}
+
+    	public String getDescription() {
+    		StringBuffer result = new StringBuffer();
+    		Iterator classes = getClasses().iterator();
+    		while (classes.hasNext()) {
+    			CharacterClass kit = (CharacterClass) classes.next();
+    			ClassLevel maxLevel = getClassLevel(kit);
+    			result.append(kit.getAbbreviation() + " " + maxLevel.getLevel());
+
+    			if (classes.hasNext()) {
+    				result.append(" / ");
+    			}
+    		}
+    		return result.toString();
+    	}
+
+        public void addLevel(CharacterLevel level) {
+            levels.add(level);
+        }
+
+    	public String toString() {
+    		return getDescription();
+    	}
+
+        public Collection getCharacterLevels() {
+            return levels;
+        }
+
+        public CharacterLevel getCharacterLevel(int level) {
+    	    CharacterLevel kit = null;
+    	    Iterator it = levels.iterator();
+    	    while (it.hasNext()) {
+    	        CharacterLevel object = (CharacterLevel) it.next();
+    	        if (level == object.getLevel()) {
+    	            return object;
+    	        }
+    	    }
+    	    return kit;
+        }
+
+        public BigDecimal getMulticlassExperiencePenalty() {
+
+            return null;
+        }
+
+    	public int getExperience() {
+    		return experience;
+    	}
+
+    	public int getNextCharacterLevel() {
+    		return getCharacterLevel() + 1;
+    	}
     }
 }

@@ -73,7 +73,5 @@ public interface CharacterProgression {
 
     void addLevel(CharacterLevel level);
 
-    PlayerCharacter getCharacter();
-
 	int getNextCharacterLevel();
 }
