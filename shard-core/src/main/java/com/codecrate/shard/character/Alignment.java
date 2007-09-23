@@ -15,66 +15,122 @@
  */
 package com.codecrate.shard.character;
 
+import java.util.StringTokenizer;
+
 /**
- * defines an alignment.
+ * An Alignment defines a characters moral and ethical preconditions.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface Alignment {
+public enum Alignment {
+	LAWFUL_GOOD (AlignmentComponent.POSITIVE, AlignmentComponent.POSITIVE, "Lawful Good"),
+	LAWFUL_NEUTRAL (AlignmentComponent.POSITIVE, AlignmentComponent.NEUTRAL, "Lawful Neutral"),
+	LAWFUL_EVIL (AlignmentComponent.POSITIVE, AlignmentComponent.NEGATIVE, "Lawful Evil"),
+	NEUTRAL_GOOD (AlignmentComponent.NEUTRAL, AlignmentComponent.POSITIVE, "Neutral Good"),
+	NEUTRAL_NEUTRAL (AlignmentComponent.NEUTRAL, AlignmentComponent.NEUTRAL, "Neutral"),
+	NEUTRAL_EVIL (AlignmentComponent.NEUTRAL, AlignmentComponent.NEGATIVE, "Neutral Evil"),
+	CHAOTIC_GOOD (AlignmentComponent.NEGATIVE, AlignmentComponent.POSITIVE, "Chaotic Good"),
+	CHAOTIC_NEUTRAL (AlignmentComponent.NEGATIVE, AlignmentComponent.NEUTRAL, "Chaotic Neutral"),
+	CHAOTIC_EVIL (AlignmentComponent.NEGATIVE, AlignmentComponent.NEGATIVE, "Chaotic Evil");
+
+	private String name;
+	private AlignmentComponent ethicalAlignment;
+	private AlignmentComponent moralAlignment;
+
+	Alignment(AlignmentComponent ethicalAlignment, AlignmentComponent moralAlignment, String name) {
+		this.ethicalAlignment = ethicalAlignment;
+		this.moralAlignment = moralAlignment;
+		this.name = name;
+	}
+
+	public String toString() {
+		return name;
+	}
+
+	public boolean isTrueNeutral() {
+		if (isEthicalNeutral() && isMoralNeutral()) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isLawful() {
+		return ethicalAlignment.isPositive();
+	}
+
+	public boolean isChaotic() {
+		return ethicalAlignment.isNegative();
+	}
+
+	public boolean isGood() {
+		return moralAlignment.isPositive();
+	}
+
+	public boolean isEvil() {
+		return moralAlignment.isNegative();
+	}
+
+	public boolean isEthicalNeutral() {
+		return ethicalAlignment.isNeutral();
+	}
+
+	public boolean isMoralNeutral() {
+		return moralAlignment.isNeutral();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getAbbreviation() {
+		String abbreviation = "";
+		StringTokenizer tokens = new StringTokenizer(name, " ");
+		while (tokens.hasMoreElements()) {
+			String token = (String) tokens.nextElement();
+			abbreviation += "" + token.charAt(0);
+		}
+		return abbreviation;
+	}
 	
+
 	/**
-	 * gets the name of the alignment.
-	 * ex: Lawful Good.
-	 * @return
+	 * Helper class for defining an alignment.
+	 * Alignments can be broken up into two components, (law to chaos) and
+	 * (good to evil).  both of these components have a positive, neutral 
+	 * and negative element.
+	 * 
+	 * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
 	 */
-	String getName();
-	
-	/**
-	 * gets the abbreviation for the alignment.
-	 * ex: LG for Lawful Good.
-	 * @return
-	 */
-	String getAbbreviation();
-	
-	/**
-	 * flag for if the alignment is lawful.
-	 * @return
-	 */
-    boolean isLawful();
-    
-    /**
-     * flag for if the alignment is between lawful and chaotic.
-     * @return
-     */
-    boolean isEthicalNeutral();
-    
-    /**
-     * flag for if the alignment is chaotic.
-     * @return
-     */
-    boolean isChaotic();
-    
-    /**
-     * returns if the alignment is true neutral.
-     * @return
-     */
-    boolean isTrueNeutral();
-    
-    /**
-     * flag for if the alignment is good.
-     * @return
-     */
-    boolean isGood();
-    
-    /**
-     * flag for if the alignment is between good and evil.
-     * @return
-     */
-    boolean isMoralNeutral();
-    
-    /**
-     * flag for if the alignment is evil.
-     * @return
-     */
-    boolean isEvil();
+	private enum AlignmentComponent {
+	    POSITIVE (Boolean.TRUE),
+	    NEGATIVE (Boolean.FALSE),
+	    NEUTRAL (null);
+
+	    private Boolean alignment;
+
+	    AlignmentComponent(Boolean alignment) {
+	        this.alignment = alignment;
+	    }
+	   
+	    public boolean isPositive() {
+	        if (null != alignment) {
+	            return alignment.booleanValue();
+	        }
+	        return false;
+	    }
+
+	    public boolean isNegative() {
+	        if (null != alignment) {
+	            return !alignment.booleanValue();
+	        }
+	        return false;
+	    }
+	    
+	    public boolean isNeutral() {
+	        if (null != alignment) {
+	            return false;
+	        }
+	        return true;
+	    }
+	}
 }
