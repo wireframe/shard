@@ -19,7 +19,7 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.character.DefaultAlignment;
+import com.codecrate.shard.character.Alignment;
 import com.codecrate.shard.character.PlayerCharacter;
 
 public class AlignmentPrerequisiteTest extends TestCase {
@@ -28,10 +28,10 @@ public class AlignmentPrerequisiteTest extends TestCase {
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
 		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
 		character.getAlignment();
-		mockCharacter.setReturnValue(DefaultAlignment.LAWFUL_GOOD);
+		mockCharacter.setReturnValue(Alignment.LAWFUL_GOOD);
 		mockCharacter.replay();
 		
-		AlignmentPrerequisite prereq = new AlignmentPrerequisite(DefaultAlignment.LAWFUL_GOOD);
+		AlignmentPrerequisite prereq = new AlignmentPrerequisite(Alignment.LAWFUL_GOOD);
 		assertTrue(prereq.hasMetPrerequisite(character));
 	}
 	
@@ -40,10 +40,10 @@ public class AlignmentPrerequisiteTest extends TestCase {
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
 		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
 		character.getAlignment();
-		mockCharacter.setReturnValue(DefaultAlignment.CHAOTIC_EVIL);
+		mockCharacter.setReturnValue(Alignment.CHAOTIC_EVIL);
 		mockCharacter.replay();
 		
-		AlignmentPrerequisite prereq = new AlignmentPrerequisite(DefaultAlignment.LAWFUL_GOOD);
+		AlignmentPrerequisite prereq = new AlignmentPrerequisite(Alignment.LAWFUL_GOOD);
 		assertFalse(prereq.hasMetPrerequisite(character));
 	}
 }
