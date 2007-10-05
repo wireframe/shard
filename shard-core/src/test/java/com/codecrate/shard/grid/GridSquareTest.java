@@ -5,65 +5,81 @@ import junit.framework.TestCase;
 public class GridSquareTest extends TestCase {
 
 	public void testDistanceToNextSquareOnXAxisIsFiveFeet() {
-		GridSquare start = new GridSquare(0, 0);
-		GridSquare end = new GridSquare(1, 0);
+		Grid grid = new Grid(2, 2);
+		GridSquare start = grid.getSquare(0, 0);
+		GridSquare end = grid.getSquare(1, 0);
 		
 		assertEquals(5, start.distanceTo(end));
 	}
 
 	public void testDistanceToPreviousSquareOnXAxisIsFiveFeet() {
-		GridSquare start = new GridSquare(1, 0);
-		GridSquare end = new GridSquare(0, 0);
+		Grid grid = new Grid(2, 2);
+		GridSquare start = grid.getSquare(1, 0);
+		GridSquare end = grid.getSquare(0, 0);
 		
 		assertEquals(5, start.distanceTo(end));
 	}
 
 	public void testDistanceToNextSquareOnYAxisIsFiveFeet() {
-		GridSquare start = new GridSquare(0, 0);
-		GridSquare end = new GridSquare(0, 1);
+		Grid grid = new Grid(2, 2);
+		GridSquare start = grid.getSquare(0, 0);
+		GridSquare end = grid.getSquare(0, 1);
 		
 		assertEquals(5, start.distanceTo(end));
 	}
 
 	public void testDistanceToPreviousSquareOnYAxisIsFiveFeet() {
-		GridSquare start = new GridSquare(0, 1);
-		GridSquare end = new GridSquare(0, 0);
+		Grid grid = new Grid(2, 2);
+		GridSquare start = grid.getSquare(0, 1);
+		GridSquare end = grid.getSquare(0, 0);
 		
 		assertEquals(5, start.distanceTo(end));
 	}
 
 	public void testDiagonalDistanceStartsWithFiveFeet() {
-		GridSquare start = new GridSquare(0, 0);
-		GridSquare end = new GridSquare(1, 1);
+		Grid grid = new Grid(2, 2);
+		GridSquare start = grid.getSquare(0, 0);
+		GridSquare end = grid.getSquare(1, 1);
 		
 		assertEquals(5, start.distanceTo(end));
 	}
 	
 	public void testDiagonalDistanceIncreasesToTenFeet() {
-		GridSquare start = new GridSquare(0, 0);
-		GridSquare end = new GridSquare(2, 2);
+		Grid grid = new Grid(3, 3);
+		GridSquare start = grid.getSquare(0, 0);
+		GridSquare end = grid.getSquare(2, 2);
 		
 		assertEquals(15, start.distanceTo(end));
 	}
 	
 	public void testDiagonalDistanceAlternatesBetweenFiveAndTenFeet() {
-		GridSquare start = new GridSquare(0, 0);
-		GridSquare end = new GridSquare(4, 4);
+		Grid grid = new Grid(5, 5);
+		GridSquare start = grid.getSquare(0, 0);
+		GridSquare end = grid.getSquare(4, 4);
 		
 		assertEquals(30, start.distanceTo(end));
 	}
 	
 	public void testDiagonalDistanceWithXAxis() {
-		GridSquare start = new GridSquare(0, 0);
-		GridSquare end = new GridSquare(4, 2);
+		Grid grid = new Grid(5, 5);
+		GridSquare start = grid.getSquare(0, 0);
+		GridSquare end = grid.getSquare(4, 2);
 		
 		assertEquals(25, start.distanceTo(end));
 	}
 	
 	public void testDiagonalDistanceWithYAxis() {
-		GridSquare start = new GridSquare(0, 0);
-		GridSquare end = new GridSquare(2, 4);
+		Grid grid = new Grid(5, 5);
+		GridSquare start = grid.getSquare(0, 0);
+		GridSquare end = grid.getSquare(2, 4);
 		
 		assertEquals(25, start.distanceTo(end));
+	}
+	
+	public void testUniqueIdStartsWithZero() {
+		Grid grid = new Grid(2, 2);
+		GridSquare start = grid.getSquare(0, 0);
+		
+		assertEquals(0, start.uniqueId());
 	}
 }
