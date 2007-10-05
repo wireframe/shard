@@ -1,10 +1,12 @@
 package com.codecrate.shard.grid;
 
 public class GridSquare {
-	final int x;
-	final int y;
+	private final Grid grid;
+	private final int x;
+	private final int y;
 
-	public GridSquare(int x, int y) {
+	public GridSquare(Grid grid, int x, int y) {
+		this.grid = grid;
 		this.x = x;
 		this.y = y;
 	}
@@ -23,5 +25,13 @@ public class GridSquare {
 
 		int fullDIstance = 5 * (distanceX + distanceY);
 		return fullDIstance - diaganolDiscount;
+	}
+	
+	public int uniqueId() {
+		return (x * grid.getWidth()) + y;
+	}
+	
+	public String toString() {
+		return "" + x + "," + y;
 	}
 }
