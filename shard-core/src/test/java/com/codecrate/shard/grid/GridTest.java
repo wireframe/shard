@@ -19,4 +19,12 @@ public class GridTest extends TestCase {
 		GridSquare end = grid.getSquare(1, 1);
 		grid.pathBetween(start, end);
 	}
+	
+	public void testFindBigPath() {
+		Grid grid = new Grid(5, 5);
+		
+		GridSquare start = grid.getSquare(1, 1);
+		GridSquare end = grid.getSquare(4, 2);
+		grid.pathBetween(start, end);
+	}
 }

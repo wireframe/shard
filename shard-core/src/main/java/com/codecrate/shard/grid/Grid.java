@@ -1,5 +1,7 @@
 package com.codecrate.shard.grid;
 
+import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -72,55 +74,80 @@ public class Grid {
 	 * @see http://forum.java.sun.com/thread.jspa?threadID=740955&start=0
 	 */
 	public Collection pathBetween(GridSquare start, GridSquare end) {
-		int maxSize = getLastSquare().uniqueId();
-		
-		int[] path = new int[maxSize];
-		int[] path2 = new int[maxSize];
+		int maxSize = width * height;
 
-		int startInt = start.uniqueId();
-		int endInt = end.uniqueId();
+		int[] queue = new int[maxSize];
+		int[] origin = new int[maxSize];
+		for(int i = 0; i < maxSize; i++){
+			queue[i]=-1; 
+			origin[i]=-1;
+		}
 
-		int current = endInt;
-		int previous = endInt;
-		
-		while(current != startInt){
-			visit(current, 1, path, path2, previous, maxSize);
-			visit(current,-1, path, path2, previous, maxSize);
-			visit(current, height, path, path2, previous, maxSize);
-			visit(current,-height, path, path2, previous, maxSize);
-			
-			System.out.println(stringify(path));
-			current = path[current];
+		GridSquare current = end;
+		GridSquare previous = end;
+
+		while (!current.equals(start)) {
+			if (current.canMoveRight()) {
+				previous = visit(current.right(), queue, origin, previous, current);
+			}
+			if (current.canMoveLeft()) {
+				previous = visit(current.left(), queue, origin, previous, current);
+			}
+			if (current.canMoveUp()) {
+				previous = visit(current.up(), queue, origin, previous, current);
+			}
+			if (current.canMoveDown()) {
+				previous = visit(current.down(), queue, origin, previous, current);
+			}
+
+			int nextSquareId = queue[current.getSequentialId()];
+			current = findSquare(nextSquareId);
+//			System.out.println(current);
+//			System.out.println(format(path));
+//			System.out.println(format(sources));
 		}
-		
-		while(current != endInt){
-			System.out.print(path2[current]); 
-			current += path2[current];
+
+		System.out.println("start: " + start);
+		System.out.println("end: " + end);
+
+		System.out.println("path begin:");
+		Collection shortestPath = new ArrayList();
+		while (!current.equals(end)) {
+			int location = origin[current.getSequentialId()];
+			GridSquare step = findSquare(location);
+			current = findSquare(step.getSequentialId() + current.getSequentialId());
+			shortestPath.add(current);
+			System.out.println(current);
 		}
-		
-		return null;
+		System.out.println("path end.");
+
+		return shortestPath;
 	}
 
-	private String stringify(int[] path) {
+	private GridSquare visit(GridSquare next, int[] queue, int[] origin, GridSquare previous, GridSquare current) {
+		if (queue[next.getSequentialId()] == -1) {
+			queue[previous.getSequentialId()] = next.getSequentialId(); 
+			origin[next.getSequentialId()] = -(next.getSequentialId() - current.getSequentialId());
+			return next;
+		}
+		return previous;
+	}
+
+	private GridSquare findSquare(int sequenceId) {
+		Dimension location = GridSquare.parseSequenceId(this, sequenceId);
+		return getSquare(location.width, location.height);
+	}
+
+	private String format(int[] values) {
 		StringBuffer buffer = new StringBuffer();
-		for (int x = 0; x < path.length; x++) {
-			int i = path[x];
-			buffer.append(Integer.toString(i)).append(", ");
+		buffer.append("[");
+		for (int x = 0; x < values.length; x++) {
+			int j = values[x];
+			buffer.append("" + j + ",");
 		}
-		return buffer.toString();
-	}
 
-	private void visit(int source, int increment, int[] path, int[] path2, int previous, int maxSize) {
-		int destination = source + increment;
-		if (destination >= maxSize) {
-			return;
-		}
-		if (path[destination] == -1) {
-			path[previous] = destination; 
-			
-			previous = destination; 
-			path2[destination] = -increment;
-		}
+		buffer.append("]");
+		return buffer.toString();
 	}
 
 	/**
@@ -128,44 +155,43 @@ public class Grid {
 	 * @author rsonnek
 	 */
 	public static class PathFinder {
-		int a,b,rows,lastInt,startInt, endInt;
-		int[] s, g;
+		int current,previous,columns,gridSize,start, end;
+		int[] queue, origin;
 
 		void solve(String[] maze){ // maze MUST have solid border of *
-			rows = maze[0].length();
-			lastInt = maze.length*rows;
-			s = new int[lastInt];
-			g = new int[lastInt];
-			
-			for(int i = 0; i<lastInt; i++){
-				s[i]=-1; g[i]=-1; // path
-				char ch = maze[i/rows].charAt(i%rows);
-				if(ch=='*')s[i]=-2; // wall
-				if(ch=='S')startInt=i;
-				if(ch=='E')endInt=i;
+			columns = maze[0].length();
+			gridSize = maze.length*columns;
+			queue = new int[gridSize];
+			origin = new int[gridSize];
+			for(int i = 0; i<gridSize; i++){
+				queue[i]=-1; origin[i]=-1; // path
+				char ch = maze[i/columns].charAt(i%columns);
+				if(ch=='*')queue[i]=-2; // wall
+				if(ch=='S')start=i;
+				if(ch=='E')end=i;
 			}
 
-			a = endInt; 
-			b=endInt;
-			while(a!=startInt){
-				add(a,1);
-				add(a,-1);
-				add(a,rows);
-				add(a,-rows);
-				a=s[a];
+			current = end; 
+			previous = end;
+			while(current != start){
+				add(1);
+				add(-1);
+				add(columns);
+				add(-columns);
+				current=queue[current];
 			}
-			while(a!=endInt){
-				System.out.print(sv(g[a])); 
-				a+=g[a];
+
+			while(current!=end){
+				System.out.print(sv(origin[current])); 
+				current+=origin[current];
 			}
 			System.out.println();
 		}
-
-		void add(int p, int o){
-			if(s[p+o] == -1) {
-				s[b]=p+o; 
-				b=p+o; 
-				g[p+o]=-o;
+		void add(int increment){
+			if(queue[current+increment] == -1) {
+				queue[previous]=current+increment; 
+				previous=current+increment; 
+				origin[current+increment]=-increment;
 			}
 		}
 		String sv(int o){
