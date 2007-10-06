@@ -70,10 +70,11 @@ public class Grid {
 	}
 
 	/**
+	 * find the path between two squares.
 	 * @see http://www.codeproject.com/cs/algorithms/mazesolver.asp
 	 * @see http://forum.java.sun.com/thread.jspa?threadID=740955&start=0
 	 */
-	public Collection pathBetween(GridSquare start, GridSquare end) {
+	public Collection<GridSquare> pathBetween(GridSquare start, GridSquare end) {
 		int maxSize = width * height;
 
 		int[] queue = new int[maxSize];
@@ -102,24 +103,15 @@ public class Grid {
 
 			int nextSquareId = queue[current.getSequentialId()];
 			current = findSquare(nextSquareId);
-//			System.out.println(current);
-//			System.out.println(format(path));
-//			System.out.println(format(sources));
 		}
 
-		System.out.println("start: " + start);
-		System.out.println("end: " + end);
-
-		System.out.println("path begin:");
-		Collection shortestPath = new ArrayList();
+		Collection<GridSquare> shortestPath = new ArrayList<GridSquare>();
 		while (!current.equals(end)) {
 			int location = origin[current.getSequentialId()];
-			GridSquare step = findSquare(location);
-			current = findSquare(step.getSequentialId() + current.getSequentialId());
+			GridSquare direction = findSquare(location);
+			current = findSquare(direction.getSequentialId() + current.getSequentialId());
 			shortestPath.add(current);
-			System.out.println(current);
 		}
-		System.out.println("path end.");
 
 		return shortestPath;
 	}
@@ -136,69 +128,5 @@ public class Grid {
 	private GridSquare findSquare(int sequenceId) {
 		Dimension location = GridSquare.parseSequenceId(this, sequenceId);
 		return getSquare(location.width, location.height);
-	}
-
-	private String format(int[] values) {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append("[");
-		for (int x = 0; x < values.length; x++) {
-			int j = values[x];
-			buffer.append("" + j + ",");
-		}
-
-		buffer.append("]");
-		return buffer.toString();
-	}
-
-	/**
-	 * @see http://forum.java.sun.com/thread.jspa?threadID=740955&start=0
-	 * @author rsonnek
-	 */
-	public static class PathFinder {
-		int current,previous,columns,gridSize,start, end;
-		int[] queue, origin;
-
-		void solve(String[] maze){ // maze MUST have solid border of *
-			columns = maze[0].length();
-			gridSize = maze.length*columns;
-			queue = new int[gridSize];
-			origin = new int[gridSize];
-			for(int i = 0; i<gridSize; i++){
-				queue[i]=-1; origin[i]=-1; // path
-				char ch = maze[i/columns].charAt(i%columns);
-				if(ch=='*')queue[i]=-2; // wall
-				if(ch=='S')start=i;
-				if(ch=='E')end=i;
-			}
-
-			current = end; 
-			previous = end;
-			while(current != start){
-				add(1);
-				add(-1);
-				add(columns);
-				add(-columns);
-				current=queue[current];
-			}
-
-			while(current!=end){
-				System.out.print(sv(origin[current])); 
-				current+=origin[current];
-			}
-			System.out.println();
-		}
-		void add(int increment){
-			if(queue[current+increment] == -1) {
-				queue[previous]=current+increment; 
-				previous=current+increment; 
-				origin[current+increment]=-increment;
-			}
-		}
-		String sv(int o){
-			if(o>0) { 
-				return (o==1)?"E":"S";
-			}
-			return (o==-1)?"W":"N";
-		}
 	}
 }
