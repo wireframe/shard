@@ -107,9 +107,8 @@ public class Grid {
 
 		Collection<GridSquare> shortestPath = new ArrayList<GridSquare>();
 		while (!current.equals(end)) {
-			int location = origin[current.getSequentialId()];
-			GridSquare direction = findSquare(location);
-			current = findSquare(direction.getSequentialId() + current.getSequentialId());
+			int direction = origin[current.getSequentialId()];
+			current = findSquare(direction + current.getSequentialId());
 			shortestPath.add(current);
 		}
 
