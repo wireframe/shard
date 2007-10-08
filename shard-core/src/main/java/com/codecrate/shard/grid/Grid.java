@@ -1,8 +1,9 @@
 package com.codecrate.shard.grid;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import com.codecrate.shard.grid.GridSquare.Direction;
 
 /**
  * The grid is an n x m sized Grid of <code>GridSquare</code>s.
@@ -55,10 +56,14 @@ public class Grid {
 	}
 
 	public GridSquare getSquare(int x, int y) {
-		if (x >= width || y >= height) {
-			throw new IllegalArgumentException("Must retrieve grid square from within bounds of " + getFirstSquare() + " and " + getLastSquare());
+		if (!doesSquareExist(x, y)) {
+			throw new IllegalArgumentException("Cannot location square at (" + x + "," + y + ").  Must retrieve grid square from within bounds of " + getFirstSquare() + " and " + getLastSquare());
 		}
 		return grid[x][y];
+	}
+	
+	public boolean doesSquareExist(int x, int y) {
+		return x >=0 && y >=0 && x < width && y < height;
 	}
 
 	private GridSquare getFirstSquare() {
@@ -73,6 +78,7 @@ public class Grid {
 	 * find the path between two squares.
 	 * @see http://www.codeproject.com/cs/algorithms/mazesolver.asp
 	 * @see http://forum.java.sun.com/thread.jspa?threadID=740955&start=0
+	 * @see http://renaud.waldura.com/doc/java/dijkstra/
 	 */
 	public Collection<GridSquare> pathBetween(GridSquare start, GridSquare end) {
 		int maxSize = width * height;
@@ -88,27 +94,32 @@ public class Grid {
 		GridSquare previous = end;
 
 		while (!current.equals(start)) {
-			if (current.canMoveRight()) {
-				previous = visit(current.right(), queue, origin, previous, current);
+			for (Direction direction : GridSquare.Direction.values()) {
+				if (current.canMove(direction)) {
+					previous = visit(current.move(direction), queue, origin, previous, current);
+				}
 			}
-			if (current.canMoveLeft()) {
-				previous = visit(current.left(), queue, origin, previous, current);
-			}
-			if (current.canMoveUp()) {
-				previous = visit(current.up(), queue, origin, previous, current);
-			}
-			if (current.canMoveDown()) {
-				previous = visit(current.down(), queue, origin, previous, current);
-			}
+//			if (current.canMoveRight()) {
+//				previous = visit(current.right(), queue, origin, previous, current);
+//			}
+//			if (current.canMoveLeft()) {
+//				previous = visit(current.left(), queue, origin, previous, current);
+//			}
+//			if (current.canMoveUp()) {
+//				previous = visit(current.up(), queue, origin, previous, current);
+//			}
+//			if (current.canMoveDown()) {
+//				previous = visit(current.down(), queue, origin, previous, current);
+//			}
 
 			int nextSquareId = queue[current.getSequentialId()];
-			current = findSquare(nextSquareId);
+			current = GridSquare.parseSequenceId(this, nextSquareId);
 		}
 
 		Collection<GridSquare> shortestPath = new ArrayList<GridSquare>();
 		while (!current.equals(end)) {
 			int direction = origin[current.getSequentialId()];
-			current = findSquare(direction + current.getSequentialId());
+			current = GridSquare.parseSequenceId(this, direction + current.getSequentialId());
 			shortestPath.add(current);
 		}
 
@@ -122,10 +133,5 @@ public class Grid {
 			return next;
 		}
 		return previous;
-	}
-
-	private GridSquare findSquare(int sequenceId) {
-		Dimension location = GridSquare.parseSequenceId(this, sequenceId);
-		return getSquare(location.width, location.height);
 	}
 }

@@ -57,6 +57,17 @@ public class GridSquare {
     public boolean canMoveRight() {
     	return x != grid.getWidth() - 1;
     }
+    
+    public boolean canMove(Direction direction) {
+    	Dimension location = direction.nextLocation(this);
+    	return grid.doesSquareExist(location.width, location.height);
+    }
+
+    public GridSquare move(Direction direction) {
+    	Dimension location = direction.nextLocation(this);
+    	return grid.getSquare(location.width, location.height);
+    }
+
 	/**
 	 * return a unique id for each square on the grid.
 	 * @see http://www.codeproject.com/cs/algorithms/mazesolver.asp
@@ -69,9 +80,31 @@ public class GridSquare {
 		return "(" + x + "," + y + ")";
 	}
 
-	public static Dimension parseSequenceId(Grid grid, int id) {
+	public static GridSquare parseSequenceId(Grid grid, int id) {
 		int row = id / grid.getWidth();
 		int column = id % grid.getWidth();
-		return new Dimension(column, row);
+		
+		return grid.getSquare(row, column);
+	}
+	
+	public enum Direction {
+		UP(0, -1),
+		DOWN(0, 1),
+		LEFT(-1, 0),
+		RIGHT(1, 0);
+
+		private final int xModifier;
+		private int yModifier;
+
+		Direction(int xModifier, int yModifier) {
+			this.xModifier = xModifier;
+			this.yModifier = yModifier;
+		}
+
+		Dimension nextLocation(GridSquare square) {
+			int x = square.x + xModifier;
+			int y = square.y + yModifier;
+			return new Dimension(x, y);
+		}
 	}
 }
