@@ -1,10 +1,5 @@
 package com.codecrate.shard.grid;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import com.codecrate.shard.grid.GridSquare.Direction;
-
 /**
  * The grid is an n x m sized Grid of <code>GridSquare</code>s.
  * <p>
@@ -72,66 +67,5 @@ public class Grid {
 
 	private GridSquare getLastSquare() {
 		return getSquare(width - 1, height -1);
-	}
-
-	/**
-	 * find the path between two squares.
-	 * @see http://www.codeproject.com/cs/algorithms/mazesolver.asp
-	 * @see http://forum.java.sun.com/thread.jspa?threadID=740955&start=0
-	 * @see http://renaud.waldura.com/doc/java/dijkstra/
-	 */
-	public Collection<GridSquare> pathBetween(GridSquare start, GridSquare end) {
-		int maxSize = width * height;
-
-		int[] queue = new int[maxSize];
-		int[] origin = new int[maxSize];
-		for(int i = 0; i < maxSize; i++){
-			queue[i]=-1; 
-			origin[i]=-1;
-		}
-
-		GridSquare current = end;
-		GridSquare previous = end;
-
-		while (!current.equals(start)) {
-			for (Direction direction : GridSquare.Direction.values()) {
-				if (current.canMove(direction)) {
-					previous = visit(current.move(direction), queue, origin, previous, current);
-				}
-			}
-//			if (current.canMoveRight()) {
-//				previous = visit(current.right(), queue, origin, previous, current);
-//			}
-//			if (current.canMoveLeft()) {
-//				previous = visit(current.left(), queue, origin, previous, current);
-//			}
-//			if (current.canMoveUp()) {
-//				previous = visit(current.up(), queue, origin, previous, current);
-//			}
-//			if (current.canMoveDown()) {
-//				previous = visit(current.down(), queue, origin, previous, current);
-//			}
-
-			int nextSquareId = queue[current.getSequentialId()];
-			current = GridSquare.parseSequenceId(this, nextSquareId);
-		}
-
-		Collection<GridSquare> shortestPath = new ArrayList<GridSquare>();
-		while (!current.equals(end)) {
-			int direction = origin[current.getSequentialId()];
-			current = GridSquare.parseSequenceId(this, direction + current.getSequentialId());
-			shortestPath.add(current);
-		}
-
-		return shortestPath;
-	}
-
-	private GridSquare visit(GridSquare next, int[] queue, int[] origin, GridSquare previous, GridSquare current) {
-		if (queue[next.getSequentialId()] == -1) {
-			queue[previous.getSequentialId()] = next.getSequentialId(); 
-			origin[next.getSequentialId()] = -(next.getSequentialId() - current.getSequentialId());
-			return next;
-		}
-		return previous;
 	}
 }

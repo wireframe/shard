@@ -28,36 +28,7 @@ public class GridSquare {
 		int fullDIstance = 5 * (distanceX + distanceY);
 		return fullDIstance - diaganolDiscount;
 	}
-	
-	public GridSquare left() {
-		return grid.getSquare(x - 1, y);
-	}
 
-	public GridSquare right() {
-		return grid.getSquare(x + 1, y);
-	}
-
-	public GridSquare up() {
-		return grid.getSquare(x, y - 1);
-	}
-	
-	public GridSquare down() {
-		return grid.getSquare(x, y + 1);
-	}
-
-	public boolean canMoveUp() {
-		return y != 0;
-	}
-	public boolean canMoveDown() {
-		return y != grid.getHeight() - 1;
-	}
-    public boolean canMoveLeft() {
-    	return x != 0;
-    }
-    public boolean canMoveRight() {
-    	return x != grid.getWidth() - 1;
-    }
-    
     public boolean canMove(Direction direction) {
     	Dimension location = direction.nextLocation(this);
     	return grid.doesSquareExist(location.width, location.height);
