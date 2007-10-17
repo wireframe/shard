@@ -1,6 +1,5 @@
 package com.codecrate.shard.grid;
 
-import java.util.Collection;
 
 /**
  * API for finding a path between two <code>GridSquare</code>s.
@@ -10,10 +9,7 @@ import java.util.Collection;
 public interface PathFinder {
 
 	/**
-	 * find a path of <code>GridSquare</code>s from start to finish.
-	 * @param start
-	 * @param end
-	 * @return
+	 * find a <code>Path</code> of <code>GridSquare</code>s from start to end.
 	 */
-	public Collection<GridSquare> findPathBetween(Grid grid, GridSquare start, GridSquare end);
+	public Path findPathBetween(Grid grid, GridSquare start, GridSquare end);
 }

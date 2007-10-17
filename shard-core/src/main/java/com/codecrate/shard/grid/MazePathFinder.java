@@ -1,8 +1,5 @@
 package com.codecrate.shard.grid;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import com.codecrate.shard.grid.GridSquare.Direction;
 
 /**
@@ -14,7 +11,7 @@ import com.codecrate.shard.grid.GridSquare.Direction;
 public class MazePathFinder implements PathFinder {
 
 	@Override
-	public Collection<GridSquare> findPathBetween(Grid grid, GridSquare start, GridSquare end) {
+	public Path findPathBetween(Grid grid, GridSquare start, GridSquare end) {
 		int maxSize = grid.getWidth() * grid.getHeight();
 
 		int[] queue = new int[maxSize];
@@ -38,14 +35,14 @@ public class MazePathFinder implements PathFinder {
 			current = GridSquare.parseSequenceId(grid, nextSquareId);
 		}
 
-		Collection<GridSquare> shortestPath = new ArrayList<GridSquare>();
+		Path path = new Path(start);
 		while (!current.equals(end)) {
 			int direction = origin[current.getSequentialId()];
 			current = GridSquare.parseSequenceId(grid, direction + current.getSequentialId());
-			shortestPath.add(current);
+			path.addStep(current);
 		}
 
-		return shortestPath;
+		return path;
 	}
 
 	private GridSquare visit(GridSquare next, int[] queue, int[] origin, GridSquare previous, GridSquare current) {

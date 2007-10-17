@@ -1,7 +1,5 @@
 package com.codecrate.shard.grid;
 
-import java.util.Collection;
-
 /**
  * 
  * @see http://renaud.waldura.com/doc/java/dijkstra/
@@ -11,7 +9,7 @@ import java.util.Collection;
 public class DijkstraPathFinder implements PathFinder {
 
 	@Override
-	public Collection<GridSquare> findPathBetween(Grid grid, GridSquare start, GridSquare end) {
+	public Path findPathBetween(Grid grid, GridSquare start, GridSquare end) {
 		return null;
 	}
 }

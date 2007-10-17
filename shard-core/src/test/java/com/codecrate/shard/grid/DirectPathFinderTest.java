@@ -1,7 +1,5 @@
 package com.codecrate.shard.grid;
 
-import java.util.Collection;
-
 import junit.framework.TestCase;
 
 public class DirectPathFinderTest extends TestCase {
@@ -12,7 +10,7 @@ public class DirectPathFinderTest extends TestCase {
 		GridSquare end = grid.getSquare(1, 1);
 		
 		DirectPathFinder finder = new DirectPathFinder();
-		Collection<GridSquare> path = finder.findPathBetween(grid, start, end);
+		Path path = finder.findPathBetween(grid, start, end);
 		assertTrue(path.contains(grid.getSquare(1, 1)));
 	}
 	
@@ -22,7 +20,7 @@ public class DirectPathFinderTest extends TestCase {
 		GridSquare end = grid.getSquare(2, 1);
 		
 		DirectPathFinder finder = new DirectPathFinder();
-		Collection<GridSquare> path = finder.findPathBetween(grid, start, end);
+		Path path = finder.findPathBetween(grid, start, end);
 		assertTrue(path.contains(grid.getSquare(1, 1)));
 		assertTrue(path.contains(grid.getSquare(2, 1)));
 	}

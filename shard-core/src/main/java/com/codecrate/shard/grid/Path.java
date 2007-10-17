@@ -25,4 +25,8 @@ public class Path {
 		
 		this.current = next;
 	}
+
+	boolean contains(GridSquare square) {
+		return path.contains(square);
+	}
 }
