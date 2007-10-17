@@ -1,6 +1,7 @@
 package com.codecrate.shard.grid;
 
 import java.awt.Dimension;
+import java.util.Iterator;
 
 public class GridSquare {
 	private final Grid grid;
@@ -59,10 +60,23 @@ public class GridSquare {
 	}
 
 	public GridSquare towards(GridSquare end) {
-		int nextX = restrictRange(end.x - x);
-		int nextY = restrictRange(end.y - y);
+		int directionX = restrictRange(end.x - x);
+		int directionY = restrictRange(end.y - y);
 		
-		return grid.getSquare(x + nextX, y + nextY);
+		return grid.getSquare(x + directionX, y + directionY);
+	}
+
+	public Direction directionTo(GridSquare next) {
+		int directionX = next.x - x;
+		int directionY = next.y - y;
+		
+		for (Direction direction : Direction.values()) {
+			if (direction.xModifier == directionX && direction.yModifier == directionY) {
+				return direction;
+			}
+		}
+
+		throw new IllegalArgumentException("Unable to determine direction from " + this + " to " + next);
 	}
 
 	/**
@@ -82,7 +96,11 @@ public class GridSquare {
 		UP(0, -1),
 		DOWN(0, 1),
 		LEFT(-1, 0),
-		RIGHT(1, 0);
+		RIGHT(1, 0),
+		UP_LEFT(-1, -1),
+		UP_RIGHT(1, -1),
+		DOWN_LEFT(-1, 1),
+		DOWN_RIGHT(1, 1);
 
 		private final int xModifier;
 		private int yModifier;
@@ -96,6 +114,10 @@ public class GridSquare {
 			int x = square.x + xModifier;
 			int y = square.y + yModifier;
 			return new Dimension(x, y);
+		}
+		
+		public boolean isDiagonal() {
+			return xModifier != 0 && yModifier != 0;
 		}
 	}
 }
