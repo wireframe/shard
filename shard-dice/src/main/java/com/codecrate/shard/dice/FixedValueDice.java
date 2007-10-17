@@ -27,9 +27,7 @@ public class FixedValueDice extends DiceSupport implements Dice {
     private int value;
     
     public FixedValueDice(Dice dice, int value) {
-    	if (value > dice.getMaxValue() || value < dice.getMinValue()) {
-    		throw new IllegalArgumentException("Value must be between " + dice.getMinValue() + " and " + dice.getMaxValue() + ": " + value);
-    	}
+    	DiceAssertion.assertValueInRange(dice, value);
         this.dice = dice;
         this.value = value;
     }
