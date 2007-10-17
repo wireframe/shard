@@ -57,7 +57,27 @@ public class GridSquare {
 		
 		return grid.getSquare(row, column);
 	}
-	
+
+	public GridSquare towards(GridSquare end) {
+		int nextX = restrictRange(end.x - x);
+		int nextY = restrictRange(end.y - y);
+		
+		return grid.getSquare(x + nextX, y + nextY);
+	}
+
+	/**
+	 * restrict the range of the value between -1 and 1.
+	 */
+	private int restrictRange(int value) {
+		if (value < 0) {
+			value = Math.max(-1, value);
+		}
+		if (value > 0) {
+			value = Math.min(1, value);
+		}
+		return value;
+	}
+
 	public enum Direction {
 		UP(0, -1),
 		DOWN(0, 1),
