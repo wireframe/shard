@@ -1,4 +1,4 @@
-<model>
+<project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.codecrate.shard</groupId>
   <name>shard</name>
@@ -198,4 +198,4 @@
     </pluginManagement>
 
   </build>
-</model>
+</project>
