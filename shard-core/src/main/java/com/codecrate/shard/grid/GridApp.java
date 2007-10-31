@@ -12,22 +12,21 @@ import javax.swing.border.LineBorder;
 
 public class GridApp extends JFrame {
 
-	public GridApp(int x, int y) {
-		LayoutManager layout = new GridLayout(x, y);
+	public GridApp(Grid grid) {
+		LayoutManager layout = new GridLayout(grid.getHeight(), grid.getWidth());
 		
 		JPanel squaresPanel = new JPanel();
 		squaresPanel.setLayout(layout);
-		for (int i = x - 1; i >= 0; i--) {
-			for (int j = 0; j <= y; j++) {
-				JLabel square = new JLabel("r" + i + ":c" + j);
-				square.setForeground(new Color(0, 0, 250));
-				
+		for (int y = 0; y <  grid.getHeight(); y++) {
+			for (int x = 0; x < grid.getWidth(); x++) {
+				GridSquare square = grid.getSquare(x, y);
+				JLabel label = new JLabel(square.toString());
+				label.setForeground(new Color(0, 0, 250));
 
 				JPanel squarePanel = new JPanel();
-				squarePanel.add(square);
-				squarePanel.setBackground(getColor(i, j));
+				squarePanel.add(label);
+				squarePanel.setBackground(getColor(y, x));
 				squarePanel.setBorder(new LineBorder(Color.BLACK));
-				squarePanel.setToolTipText("Row " + i + " and Column " + j);
 				squaresPanel.add(squarePanel);
 			}
 		}
@@ -46,6 +45,6 @@ public class GridApp extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new GridApp(10, 10);
+		new GridApp(new Grid(10, 10));
 	}
 }
