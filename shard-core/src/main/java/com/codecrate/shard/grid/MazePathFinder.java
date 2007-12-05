@@ -1,6 +1,5 @@
 package com.codecrate.shard.grid;
 
-import com.codecrate.shard.grid.GridSquare.Direction;
 
 /**
  * find the path between two squares using a fast "maze" algorithm.
@@ -25,7 +24,7 @@ public class MazePathFinder implements PathFinder {
 		GridSquare previous = end;
 
 		while (!current.equals(start)) {
-			for (Direction direction : GridSquare.Direction.values()) {
+			for (Direction direction : Direction.values()) {
 				if (current.canMove(direction)) {
 					previous = visit(current.move(direction), queue, origin, previous, current);
 				}

@@ -1,26 +1,27 @@
 package com.codecrate.shard.grid;
 
-import java.awt.Dimension;
-
+/**
+ * A GridSquare is a composition of a {@link Location location along with metadata about the location.
+ * 
+ */
 public class GridSquare {
 	private final Grid grid;
-	private final int x;
-	private final int y;
+	private final Location location;
+	private boolean blocked = false;
 
-	public GridSquare(Grid grid, int x, int y) {
+	public GridSquare(Grid grid, Location location) {
 		this.grid = grid;
-		this.x = x;
-		this.y = y;
+		this.location = location;
 	}
 
     public boolean canMove(Direction direction) {
-    	Dimension location = direction.nextLocation(this);
-    	return grid.doesSquareExist(location.width, location.height);
+    	Location location = this.location.nextLocation(direction);
+    	return grid.doesSquareExist(location);
     }
 
     public GridSquare move(Direction direction) {
-    	Dimension location = direction.nextLocation(this);
-    	return grid.getSquare(location.width, location.height);
+    	Location location = this.location.nextLocation(direction);
+    	return grid.getSquare(location);
     }
 
 	/**
@@ -28,38 +29,40 @@ public class GridSquare {
 	 * @see http://www.codeproject.com/cs/algorithms/mazesolver.asp
 	 */
 	public int getSequentialId() {
-		return (y * grid.getWidth()) + x;
+		return (location.getY() * grid.getWidth()) + location.getX();
 	}
 	
 	public String toString() {
-		return "(" + x + "," + y + ")";
+		return location.toString();
 	}
 
 	public static GridSquare parseSequenceId(Grid grid, int id) {
 		int row = id / grid.getWidth();
 		int column = id % grid.getWidth();
 		
-		return grid.getSquare(row, column);
+		return grid.getSquare(new Location(row, column));
+	}
+
+	/**
+	 * toggle between blocked and not blocked.
+	 */
+	public void toggle() {
+		this.blocked = !blocked;
+	}
+
+	public  boolean isBlocked() {
+		return blocked ;
 	}
 
 	public GridSquare towards(GridSquare end) {
-		int directionX = restrictRange(end.x - x);
-		int directionY = restrictRange(end.y - y);
+		int directionX = restrictRange(end.location.getX() - location.getX());
+		int directionY = restrictRange(end.location.getY() - location.getY());
 		
-		return grid.getSquare(x + directionX, y + directionY);
+		return grid.getSquare(new Location(location.getX() + directionX, location.getY() + directionY));
 	}
 
 	public Direction directionTo(GridSquare next) {
-		int directionX = next.x - x;
-		int directionY = next.y - y;
-		
-		for (Direction direction : Direction.values()) {
-			if (direction.xModifier == directionX && direction.yModifier == directionY) {
-				return direction;
-			}
-		}
-
-		throw new IllegalArgumentException("Unable to determine direction from " + this + " to " + next);
+		return this.location.directionTo(next.location);
 	}
 
 	/**
@@ -73,34 +76,5 @@ public class GridSquare {
 			value = Math.min(1, value);
 		}
 		return value;
-	}
-
-	public enum Direction {
-		UP(0, -1),
-		DOWN(0, 1),
-		LEFT(-1, 0),
-		RIGHT(1, 0),
-		UP_LEFT(-1, -1),
-		UP_RIGHT(1, -1),
-		DOWN_LEFT(-1, 1),
-		DOWN_RIGHT(1, 1);
-
-		private final int xModifier;
-		private int yModifier;
-
-		Direction(int xModifier, int yModifier) {
-			this.xModifier = xModifier;
-			this.yModifier = yModifier;
-		}
-
-		Dimension nextLocation(GridSquare square) {
-			int x = square.x + xModifier;
-			int y = square.y + yModifier;
-			return new Dimension(x, y);
-		}
-		
-		public boolean isDiagonal() {
-			return xModifier != 0 && yModifier != 0;
-		}
 	}
 }

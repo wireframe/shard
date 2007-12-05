@@ -38,7 +38,7 @@ public class Grid {
 
 		for (int m = 0; m < width; m++) {
 			for (int n = 0; n < height; n++) {
-				this.grid[m][n] = new GridSquare(this, m, n);
+				this.grid[m][n] = new GridSquare(this, new Location(m, n));
 			}
 		}
 	}
@@ -50,22 +50,29 @@ public class Grid {
 		return height;
 	}
 
-	public GridSquare getSquare(int x, int y) {
-		if (!doesSquareExist(x, y)) {
-			throw new IllegalArgumentException("Cannot location square at (" + x + "," + y + ").  Must retrieve grid square from within bounds of " + getFirstSquare() + " and " + getLastSquare());
+	public GridSquare getSquare(Location location) {
+		if (!doesSquareExist(location)) {
+			throw new IllegalArgumentException("Cannot location square at " + location + ".  Must retrieve grid square from within bounds of " + getFirstLocation() + " and " + getLastLocation());
 		}
-		return grid[x][y];
-	}
-	
-	public boolean doesSquareExist(int x, int y) {
-		return x >=0 && y >=0 && x < width && y < height;
+		return grid[location.getX()][location.getY()];
 	}
 
-	private GridSquare getFirstSquare() {
-		return getSquare(0, 0);
+	public boolean doesSquareExist(Location location) {
+		return location.getX() >=0 && location.getY() >=0 && location.getX() < width && location.getY() < height;
 	}
 
-	private GridSquare getLastSquare() {
-		return getSquare(width - 1, height -1);
+	private Location getFirstLocation() {
+		return new Location(0, 0);
+	}
+
+	private Location getLastLocation() {
+		return new Location(width - 1, height - 1);
+	}
+
+	/**
+	 * return all {@link GridSquare squares} in a row
+	 */
+	public GridSquare[] row(int row) {
+		return grid[row];
 	}
 }

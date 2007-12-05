@@ -7,7 +7,7 @@ public class GridTest extends TestCase {
 	public void testErrorOccursWhenAccessingSquareNotOnGrid() {
 		Grid grid = new Grid(2, 2);
 		try {
-			grid.getSquare(5, 5);
+			grid.getSquare(new Location(5, 5));
 			fail("expected failure");
 		} catch(IllegalArgumentException expected) {}
 	}
