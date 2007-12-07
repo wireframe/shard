@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * A GridSquare is a composition of a {@link Location location along with metadata about the location.
+ * A GridSquare is a composition of a {@link Location location} along with metadata about the location.
  * 
  */
 public class GridSquare {
@@ -17,15 +17,9 @@ public class GridSquare {
 		this.location = location;
 	}
 
-    public boolean canMove(Direction direction) {
-    	Location location = this.location.nextLocation(direction);
-    	return grid.doesSquareExist(location);
-    }
-
-    public GridSquare move(Direction direction) {
-    	Location location = this.location.nextLocation(direction);
-    	return grid.getSquare(location);
-    }
+	public String toString() {
+		return location.toString();
+	}
 
 	/**
 	 * return a unique id for each square on the grid.
@@ -35,10 +29,6 @@ public class GridSquare {
 		return (location.getY() * grid.getWidth()) + location.getX();
 	}
 	
-	public String toString() {
-		return location.toString();
-	}
-
 	public static GridSquare parseSequenceId(Grid grid, int id) {
 		int row = id / grid.getWidth();
 		int column = id % grid.getWidth();
@@ -56,6 +46,16 @@ public class GridSquare {
 	public  boolean isBlocked() {
 		return blocked ;
 	}
+
+    public boolean canMove(Direction direction) {
+    	Location location = this.location.nextLocation(direction);
+    	return grid.isWithinBounds(location);
+    }
+
+    public GridSquare move(Direction direction) {
+    	Location location = this.location.nextLocation(direction);
+    	return grid.getSquare(location);
+    }
 
 	/** 
 	 * return the most direct direction towards the end position.
@@ -79,7 +79,7 @@ public class GridSquare {
 		Collection<GridSquare> results = new ArrayList<GridSquare>();
 		for (Direction direction : Direction.values()) {
 			Location newLocation = location.nextLocation(direction);
-			if (grid.doesSquareExist(newLocation)) {
+			if (grid.isWithinBounds(newLocation)) {
 				results.add(grid.getSquare(newLocation));
 			}
 		}

@@ -2,9 +2,10 @@ package com.codecrate.shard.grid;
 
 /**
  * A Location is a set of X and Y coordinates.
- * 
  */
 public class Location {
+	public static final Location ORIGIN = new Location(0, 0);
+
 	private final int x;
 	private final int y;
 
