@@ -1,5 +1,8 @@
 package com.codecrate.shard.grid;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * The grid is an n x m sized Grid of <code>GridSquare</code>s.
  * <p>
@@ -51,18 +54,14 @@ public class Grid {
 	}
 
 	public GridSquare getSquare(Location location) {
-		if (!doesSquareExist(location)) {
-			throw new IllegalArgumentException("Cannot locate square at " + location + ".  Must retrieve grid square from within bounds of " + getFirstLocation() + " and " + getLastLocation());
+		if (!isWithinBounds(location)) {
+			throw new IllegalArgumentException("Cannot locate square at " + location + ".  Must retrieve grid square from within bounds of " + Location.ORIGIN + " and " + getLastLocation());
 		}
 		return grid[location.getX()][location.getY()];
 	}
 
-	public boolean doesSquareExist(Location location) {
+	public boolean isWithinBounds(Location location) {
 		return location.getX() >=0 && location.getY() >=0 && location.getX() < width && location.getY() < height;
-	}
-
-	private Location getFirstLocation() {
-		return new Location(0, 0);
 	}
 
 	private Location getLastLocation() {
@@ -72,7 +71,11 @@ public class Grid {
 	/**
 	 * return all {@link GridSquare squares} in a row
 	 */
-	public GridSquare[] row(int row) {
-		return grid[row];
+	public Collection<GridSquare> row(int row) {
+		Collection<GridSquare> results = new ArrayList<GridSquare>();
+		for (int x = 0; x < width; x++) {
+			results.add(grid[x][row]);
+		}
+		return results;
 	}
 }
