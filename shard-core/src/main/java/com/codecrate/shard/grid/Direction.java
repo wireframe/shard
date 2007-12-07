@@ -36,6 +36,10 @@ public enum Direction {
 	public boolean isDiagonal() {
 		return xModifier != 0 && yModifier != 0;
 	}
+	
+	public Direction opposite() {
+		return findByDirection(xModifier * -1, yModifier * -1);
+	}
 
 	public static Direction findByDirection(int directionX, int directionY) {
 		for (Direction direction : values()) {
