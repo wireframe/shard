@@ -52,7 +52,7 @@ public class Grid {
 
 	public GridSquare getSquare(Location location) {
 		if (!doesSquareExist(location)) {
-			throw new IllegalArgumentException("Cannot location square at " + location + ".  Must retrieve grid square from within bounds of " + getFirstLocation() + " and " + getLastLocation());
+			throw new IllegalArgumentException("Cannot locate square at " + location + ".  Must retrieve grid square from within bounds of " + getFirstLocation() + " and " + getLastLocation());
 		}
 		return grid[location.getX()][location.getY()];
 	}

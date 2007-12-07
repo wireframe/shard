@@ -37,8 +37,10 @@ public class MazePathFinder implements PathFinder {
 		Path path = new Path(start);
 		while (!current.equals(end)) {
 			int direction = origin[current.getSequentialId()];
-			current = GridSquare.parseSequenceId(grid, direction + current.getSequentialId());
-			path.addStep(current);
+			GridSquare next = GridSquare.parseSequenceId(grid, direction + current.getSequentialId());
+			
+			path.addStep(current.towards(next));
+			current = next;
 		}
 
 		return path;

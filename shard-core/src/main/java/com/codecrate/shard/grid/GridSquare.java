@@ -57,11 +57,14 @@ public class GridSquare {
 		return blocked ;
 	}
 
-	public GridSquare towards(GridSquare end) {
+	/** 
+	 * return the most direct direction towards the end position.
+	 */
+	public Direction towards(GridSquare end) {
 		int directionX = restrictRange(end.location.getX() - location.getX());
 		int directionY = restrictRange(end.location.getY() - location.getY());
 		
-		return grid.getSquare(new Location(location.getX() + directionX, location.getY() + directionY));
+		return Direction.findByDirection(directionX, directionY);
 	}
 
 	public Direction directionTo(GridSquare next) {

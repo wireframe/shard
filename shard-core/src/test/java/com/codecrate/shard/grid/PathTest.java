@@ -12,40 +12,40 @@ public class PathTest extends TestCase {
 		assertEquals(0, path.getLength());
 	}
 
-	public void testLengthOfPathIncreasesAlongIncreasingXAxis() {
+	public void testLengthOfPathIncreasesWhenMovingRight() {
 		Grid grid = new Grid(2, 2);
 		GridSquare start = grid.getSquare(new Location(0, 0));
 		Path path = new Path(start);
-		path.addStep(grid.getSquare(new Location(1, 0)));
+		path.addStep(Direction.RIGHT);
 		
 		assertEquals(5, path.getLength());
 	}
 
-	public void testLengthOfPathIncreasesAlongDecreasingXAxis() {
+	public void testLengthOfPathIncreasesWhenMovingLeft() {
 		Grid grid = new Grid(2, 2);
 		GridSquare start = grid.getSquare(new Location(1, 0));
 		Path path = new Path(start);
-		path.addStep(grid.getSquare(new Location(0, 0)));
+		path.addStep(Direction.LEFT);
 		
 		assertEquals(5, path.getLength());
 	}
 
-	public void testLengthOfPathIncreasesAlongDiagonalAxis() {
+	public void testLengthOfPathIncreasesWhenMovingDiagonal() {
 		Grid grid = new Grid(2, 2);
 		GridSquare start = grid.getSquare(new Location(1, 0));
 		Path path = new Path(start);
-		path.addStep(grid.getSquare(new Location(1, 1)));
+		path.addStep(Direction.DOWN_LEFT);
 		
 		assertEquals(5, path.getLength());
 	}
 
-	public void testLengthOfPathIncreasesAlongDiagonalAndXAxis() {
+	public void testLengthOfPathIncreasesWhenMovingDiagonalAndRight() {
 		Grid grid = new Grid(3, 3);
 		GridSquare start = grid.getSquare(new Location(1, 0));
 
 		Path path = new Path(start);
-		path.addStep(grid.getSquare(new Location(1, 1)));
-		path.addStep(grid.getSquare(new Location(2, 1)));
+		path.addStep(Direction.DOWN_LEFT);
+		path.addStep(Direction.RIGHT);
 		
 		assertEquals(10, path.getLength());
 	}
@@ -54,10 +54,9 @@ public class PathTest extends TestCase {
 		Grid grid = new Grid(3, 3);
 		GridSquare start = grid.getSquare(new Location(0, 0));
 		Path path = new Path(start);
-		path.addStep(grid.getSquare(new Location(1, 1)));
-		path.addStep(grid.getSquare(new Location(2, 2)));
+		path.addStep(Direction.DOWN_RIGHT);
+		path.addStep(Direction.DOWN_RIGHT);
 		
 		assertEquals(15, path.getLength());
 	}
-
 }

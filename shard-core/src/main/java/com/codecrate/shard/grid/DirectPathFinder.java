@@ -12,8 +12,10 @@ public class DirectPathFinder implements PathFinder {
 
 		GridSquare current = start;
 		while (!current.equals(end)) {
-			current = current.towards(end);
-			path.addStep(current);
+			Direction step = current.towards(end);
+			path.addStep(step);
+			
+			current = current.move(step);
 		}
 		return path;
 	}

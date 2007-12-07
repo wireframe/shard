@@ -3,6 +3,9 @@ package com.codecrate.shard.grid;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/** 
+ * Represents a <b>continuous</b> path from a start {@link GridSquare square} to an end position.
+ */
 public class Path {
 	private Collection<GridSquare> steps = new ArrayList<GridSquare>();
 	private GridSquare current;
@@ -16,13 +19,16 @@ public class Path {
 		return 5 * steps.size() + 5 * (diagonals / 2);
 	}
 	
-	public void addStep(GridSquare next) {
-		steps.add(next);
-
-		if (current.directionTo(next).isDiagonal()) {
+	/**
+	 * add the next step to the path.
+	 */
+	public void addStep(Direction step) {
+		if (step.isDiagonal()) {
 			diagonals++;
 		}
-		
+
+		GridSquare next = current.move(step);
+		steps.add(next);
 		this.current = next;
 	}
 
