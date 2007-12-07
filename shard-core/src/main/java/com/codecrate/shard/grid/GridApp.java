@@ -1,6 +1,7 @@
 package com.codecrate.shard.grid;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
@@ -42,7 +43,7 @@ public class GridApp extends JFrame {
 			this.square = square;
 			setBorder(new LineBorder(Color.BLACK));
 
-			updateSquareColor(square);
+			updateSquareColor();
 
 			JLabel label = new JLabel(square.toString());
 			label.setForeground(new Color(0, 0, 250));
@@ -50,7 +51,12 @@ public class GridApp extends JFrame {
 			
 			addMouseListener(this);
 		}
-		private void updateSquareColor(GridSquare square) {
+
+		public GridSquare getSquare() {
+			return square;
+		}
+
+		private void updateSquareColor() {
 			Color color = Color.GRAY;
 			
 			if (square.getSequentialId() % 2 == 0) {
@@ -66,7 +72,7 @@ public class GridApp extends JFrame {
 
 		private void toggle() {
 			square.toggle();
-			updateSquareColor(square);
+			updateSquareColor();
 		}
 
 		@Override
@@ -75,9 +81,25 @@ public class GridApp extends JFrame {
 		}
 		@Override
 		public void mouseEntered(MouseEvent e) {
+			for (GridSquare gridSquare : square.neighbors()) {
+				for (Component sibling : getParent().getComponents()) {
+					GridSquarePanel panel = (GridSquarePanel) sibling;
+					if (panel.getSquare().equals(gridSquare)) {
+						panel.highlight();
+					}
+				}
+			}
 		}
+		private void highlight() {
+			setBackground(Color.GREEN);
+		}
+
 		@Override
 		public void mouseExited(MouseEvent e) {
+			for (Component sibling : getParent().getComponents()) {
+				GridSquarePanel panel = (GridSquarePanel) sibling;
+				panel.updateSquareColor();
+			}
 		}
 		@Override
 		public void mousePressed(MouseEvent e) {

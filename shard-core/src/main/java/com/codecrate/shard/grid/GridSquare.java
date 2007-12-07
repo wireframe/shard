@@ -1,5 +1,8 @@
 package com.codecrate.shard.grid;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * A GridSquare is a composition of a {@link Location location along with metadata about the location.
  * 
@@ -63,6 +66,21 @@ public class GridSquare {
 
 	public Direction directionTo(GridSquare next) {
 		return this.location.directionTo(next.location);
+	}
+	
+	/**
+	 * return all adjacent {@link GridSquare squares} to the current object.
+	 * @return
+	 */
+	public Collection<GridSquare> neighbors() {
+		Collection<GridSquare> results = new ArrayList<GridSquare>();
+		for (Direction direction : Direction.values()) {
+			Location newLocation = location.nextLocation(direction);
+			if (grid.doesSquareExist(newLocation)) {
+				results.add(grid.getSquare(newLocation));
+			}
+		}
+		return results;
 	}
 
 	/**
