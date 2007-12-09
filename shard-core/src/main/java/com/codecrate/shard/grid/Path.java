@@ -27,7 +27,7 @@ public class Path {
 			diagonals++;
 		}
 
-		GridSquare next = current.move(step);
+		GridSquare next = current.nextSquare(step);
 		steps.add(next);
 		this.current = next;
 	}

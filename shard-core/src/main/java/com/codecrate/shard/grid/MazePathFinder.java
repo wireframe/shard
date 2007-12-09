@@ -25,8 +25,8 @@ public class MazePathFinder implements PathFinder {
 
 		while (!current.equals(start)) {
 			for (Direction direction : Direction.values()) {
-				if (current.canMove(direction)) {
-					previous = visit(current.move(direction), queue, origin, previous, current);
+				if (current.doesSquareExist(direction)) {
+					previous = visit(current.nextSquare(direction), queue, origin, previous, current);
 				}
 			}
 

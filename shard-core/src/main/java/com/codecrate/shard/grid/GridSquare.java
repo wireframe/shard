@@ -47,12 +47,12 @@ public class GridSquare {
 		return blocked ;
 	}
 
-    public boolean canMove(Direction direction) {
+    public boolean doesSquareExist(Direction direction) {
     	Location location = this.location.nextLocation(direction);
     	return grid.isWithinBounds(location);
     }
 
-    public GridSquare move(Direction direction) {
+    public GridSquare nextSquare(Direction direction) {
     	Location location = this.location.nextLocation(direction);
     	return grid.getSquare(location);
     }

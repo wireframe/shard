@@ -15,7 +15,7 @@ public class DirectPathFinder implements PathFinder {
 			Direction step = current.towards(end);
 			path.addStep(step);
 			
-			current = current.move(step);
+			current = current.nextSquare(step);
 		}
 		return path;
 	}

@@ -12,7 +12,6 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,11 +22,14 @@ public class GridApp extends JFrame {
 	public GridApp(Grid grid) {
 		setLayout(new BorderLayout());
 		GridPanel gridPanel = new GridPanel(grid);
+		TokenLabel tokenLabel = new TokenLabel(gridPanel, new Token());
 		add(gridPanel, BorderLayout.CENTER);
-		add(new ToolboxPanel(gridPanel), BorderLayout.EAST);
+		add(new ToolboxPanel(tokenLabel), BorderLayout.EAST);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(new Dimension(400, 400));
 		setVisible(true);
+		
+		tokenLabel.place(grid.getSquare(Location.ORIGIN));
 	}
 
 	public static void main(String[] args) {
@@ -35,21 +37,31 @@ public class GridApp extends JFrame {
 	}
 
 	private static class ToolboxPanel extends JPanel {
-		public ToolboxPanel(final GridPanel gridPanel) {
-			JButton down = new JButton("Down");
-			down.addActionListener(new ActionListener() {
+		public ToolboxPanel(final TokenLabel tokenLabel) {
+			setLayout(new GridLayout(3, 3));
+			addDirectionButton("Up-Left", Direction.UP_LEFT, tokenLabel);
+			addDirectionButton("Up", Direction.UP, tokenLabel);
+			addDirectionButton("Up-Right", Direction.UP_RIGHT, tokenLabel);
+			addDirectionButton("Left", Direction.LEFT, tokenLabel);
+			add(new JLabel("directions"));
+			addDirectionButton("Right", Direction.RIGHT, tokenLabel);
+			addDirectionButton("Down-Left", Direction.DOWN_LEFT, tokenLabel);
+			addDirectionButton("Down", Direction.DOWN, tokenLabel);
+			addDirectionButton("Down-Right", Direction.DOWN_RIGHT, tokenLabel);
+		}
+		
+		private void addDirectionButton(String label, final Direction direction, final TokenLabel tokenLabel) {
+			JButton directionButton = new JButton(label);
+			directionButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					gridPanel.moveToken(Direction.DOWN);
+					tokenLabel.move(direction);
 				}});
-			add(down);
+			add(directionButton);
 		}
 	}
 
 	private static class GridPanel extends JPanel {
-		private JLabel token;
-		private GridSquare tokenSquare;
-
 		public GridPanel(Grid grid) {
 			setLayout(new GridLayout(grid.getHeight(), grid.getWidth()));
 			for (int rowNum = 0; rowNum <  grid.getHeight(); rowNum++) {
@@ -57,18 +69,6 @@ public class GridApp extends JFrame {
 					add(new GridSquarePanel(this, square));
 				}
 			}
-			
-			token = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("images/token.png")));
-			tokenSquare = grid.getSquare(new Location(0,0));
-			findGridSquarePanel(tokenSquare).add(token);
-		}
-
-		public void moveToken(Direction direction) {
-			findGridSquarePanel(tokenSquare).remove(token);
-			
-			tokenSquare = tokenSquare.move(direction);
-			findGridSquarePanel(tokenSquare).add(token);
-			repaint();
 		}
 
 		public GridSquarePanel findGridSquarePanel(GridSquare gridSquare) {
@@ -87,6 +87,33 @@ public class GridApp extends JFrame {
 				results.add(panel);
 			}
 			return results;
+		}
+	}
+	
+	private static class TokenLabel extends JLabel {
+		private final Token token;
+		private final GridPanel gridPanel;
+
+		public TokenLabel(GridPanel gridPanel, Token token) {
+			super(token.getIcon());
+			this.gridPanel = gridPanel;
+			this.token = token;
+		}
+		
+		private void place(GridSquare square) {
+			token.place(square);
+			gridPanel.findGridSquarePanel(square).add(this);
+		}
+		
+		private void move(Direction direction) {
+			GridSquarePanel previous = gridPanel.findGridSquarePanel(token.getGridSquare());
+			previous.remove(this);
+			previous.repaint();
+			
+			token.move(direction);
+			GridSquarePanel newSquare = gridPanel.findGridSquarePanel(token.getGridSquare());
+			newSquare.add(this);
+			newSquare.repaint();
 		}
 	}
 	
