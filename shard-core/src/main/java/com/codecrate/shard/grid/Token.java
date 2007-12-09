@@ -10,13 +10,30 @@ import javax.swing.ImageIcon;
 public class Token {
 	private GridSquare square;
 
+	/**
+	 * place the token on a grid square.
+	 */
 	public void place(GridSquare square) {
 		this.square = square;
 	}
+
+	/** 
+	 * check if the token can move in a particular direciton.
+	 */
 	public boolean canMove(Direction direction) {
-		return square.doesSquareExist(direction);
+		if (!square.doesSquareExist(direction)) {
+			return false;
+		}
+		if (square.nextSquare(direction).isBlocked()) {
+			return false;
+		}
+		return true;
 	}
+	
 	public void move(Direction direction) {
+		if (!canMove(direction)) {
+			throw new IllegalArgumentException("Unable to move in direction: " + direction);
+		}
 		this.square = square.nextSquare(direction);
 	}
 	

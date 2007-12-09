@@ -59,4 +59,24 @@ public class PathTest extends TestCase {
 		
 		assertEquals(15, path.getLength());
 	}
+
+	public void testPathIsStraightWhenDoesNotChangeDirections() {
+		Grid grid = new Grid(3, 3);
+		GridSquare start = grid.getSquare(new Location(0, 0));
+		Path path = new Path(start);
+		path.addStep(Direction.DOWN_RIGHT);
+		path.addStep(Direction.DOWN_RIGHT);
+
+		assertTrue(path.isStraight());
+	}
+
+	public void testPathIsNotStraightWhenChangesDirections() {
+		Grid grid = new Grid(3, 3);
+		GridSquare start = grid.getSquare(new Location(0, 0));
+		Path path = new Path(start);
+		path.addStep(Direction.RIGHT);
+		path.addStep(Direction.DOWN);
+
+		assertFalse(path.isStraight());
+	}
 }

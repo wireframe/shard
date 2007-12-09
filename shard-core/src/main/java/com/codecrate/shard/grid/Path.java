@@ -8,11 +8,13 @@ import java.util.Collection;
  */
 public class Path {
 	private Collection<GridSquare> steps = new ArrayList<GridSquare>();
-	private GridSquare current;
+	private GridSquare currentSquare;
+	private Direction currentDirection;
 	private int diagonals;
+	private boolean straight = true;
 	
 	public Path(GridSquare start) {
-		this.current = start;
+		this.currentSquare = start;
 	}
 
 	public int getLength() {
@@ -26,10 +28,20 @@ public class Path {
 		if (step.isDiagonal()) {
 			diagonals++;
 		}
-
-		GridSquare next = current.nextSquare(step);
+		if (currentDirection != null && !currentDirection.equals(step)) {
+			straight = false;
+		}
+		GridSquare next = currentSquare.nextSquare(step);
 		steps.add(next);
-		this.current = next;
+		this.currentSquare = next;
+		this.currentDirection = step;
+	}
+
+	/**
+	 * check if the path does not change directions and is considered "straight".
+	 */
+	public boolean isStraight() {
+		return straight;
 	}
 
 	boolean contains(GridSquare square) {

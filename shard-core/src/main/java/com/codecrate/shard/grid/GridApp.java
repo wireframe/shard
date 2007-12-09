@@ -55,6 +55,9 @@ public class GridApp extends JFrame {
 			directionButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					if (!tokenLabel.canMove(direction)) {
+						return;
+					}
 					tokenLabel.move(direction);
 				}});
 			add(directionButton);
@@ -100,6 +103,10 @@ public class GridApp extends JFrame {
 			this.token = token;
 		}
 		
+		public boolean canMove(Direction direction) {
+			return token.canMove(direction);
+		}
+
 		private void place(GridSquare square) {
 			token.place(square);
 			gridPanel.findGridSquarePanel(square).add(this);
@@ -135,16 +142,11 @@ public class GridApp extends JFrame {
 		}
 
 		private void updateSquareColor() {
-			Color color = Color.GRAY;
-			
-			if (square.getSequentialId() % 2 == 0) {
-				color = Color.WHITE;
-			}
-
+			Color color = Color.WHITE;
 			if (square.isBlocked()) {
 				color = Color.BLACK;
 			}
-
+			
 			setBackground(color);
 		}
 
