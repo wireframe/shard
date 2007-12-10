@@ -44,7 +44,7 @@ public class Path {
 		return straight;
 	}
 
-	boolean contains(GridSquare square) {
-		return steps.contains(square);
+	public Collection<GridSquare> getGridSquares() {
+		return steps;
 	}
 }

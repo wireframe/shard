@@ -11,7 +11,7 @@ public class DirectPathFinderTest extends TestCase {
 		
 		DirectPathFinder finder = new DirectPathFinder();
 		Path path = finder.findPathBetween(grid, start, end);
-		assertTrue(path.contains(grid.getSquare(new Location(1, 1))));
+		assertTrue(path.getGridSquares().contains(grid.getSquare(new Location(1, 1))));
 	}
 	
 	public void testDiagonalPathIsUsedFirstAndThenAlongTheCorrectAxis() {
@@ -21,7 +21,7 @@ public class DirectPathFinderTest extends TestCase {
 		
 		DirectPathFinder finder = new DirectPathFinder();
 		Path path = finder.findPathBetween(grid, start, end);
-		assertTrue(path.contains(grid.getSquare(new Location(1, 1))));
-		assertTrue(path.contains(grid.getSquare(new Location(2, 1))));
+		assertTrue(path.getGridSquares().contains(grid.getSquare(new Location(1, 1))));
+		assertTrue(path.getGridSquares().contains(grid.getSquare(new Location(2, 1))));
 	}
 }

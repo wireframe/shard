@@ -5,20 +5,21 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 public class GridApp extends JFrame {
+	public static GridSquare start = null;
+	public static GridSquare end = null;
+	public static Path path;
+	
 	public GridApp(Grid grid) {
 		setLayout(new BorderLayout());
 		GridPanel gridPanel = new GridPanel(grid);
@@ -38,34 +39,15 @@ public class GridApp extends JFrame {
 
 	private static class ToolboxPanel extends JPanel {
 		public ToolboxPanel(final TokenLabel tokenLabel) {
-			setLayout(new GridLayout(3, 3));
-			addDirectionButton("Up-Left", Direction.UP_LEFT, tokenLabel);
-			addDirectionButton("Up", Direction.UP, tokenLabel);
-			addDirectionButton("Up-Right", Direction.UP_RIGHT, tokenLabel);
-			addDirectionButton("Left", Direction.LEFT, tokenLabel);
-			add(new JLabel("directions"));
-			addDirectionButton("Right", Direction.RIGHT, tokenLabel);
-			addDirectionButton("Down-Left", Direction.DOWN_LEFT, tokenLabel);
-			addDirectionButton("Down", Direction.DOWN, tokenLabel);
-			addDirectionButton("Down-Right", Direction.DOWN_RIGHT, tokenLabel);
-		}
-		
-		private void addDirectionButton(String label, final Direction direction, final TokenLabel tokenLabel) {
-			JButton directionButton = new JButton(label);
-			directionButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if (!tokenLabel.canMove(direction)) {
-						return;
-					}
-					tokenLabel.move(direction);
-				}});
-			add(directionButton);
+			add(new JLabel("Tools"));
 		}
 	}
 
 	private static class GridPanel extends JPanel {
+		private final Grid grid;
+
 		public GridPanel(Grid grid) {
+			this.grid = grid;
 			setLayout(new GridLayout(grid.getHeight(), grid.getWidth()));
 			for (int rowNum = 0; rowNum <  grid.getHeight(); rowNum++) {
 				for (GridSquare square : grid.row(rowNum)) {
@@ -91,9 +73,19 @@ public class GridApp extends JFrame {
 			}
 			return results;
 		}
+
+		public Grid getGrid() {
+			return grid;
+		}
+
+		public void resetPanels() {
+			for (GridSquarePanel panel : getGridSquarePanels()) {
+				panel.updateSquareColor();
+			}
+		}
 	}
 	
-	private static class TokenLabel extends JLabel {
+	private static class TokenLabel extends JLabel implements MouseListener {
 		private final Token token;
 		private final GridPanel gridPanel;
 
@@ -101,6 +93,8 @@ public class GridApp extends JFrame {
 			super(token.getIcon());
 			this.gridPanel = gridPanel;
 			this.token = token;
+			
+			addMouseListener(this);
 		}
 		
 		public boolean canMove(Direction direction) {
@@ -121,6 +115,41 @@ public class GridApp extends JFrame {
 			GridSquarePanel newSquare = gridPanel.findGridSquarePanel(token.getGridSquare());
 			newSquare.add(this);
 			newSquare.repaint();
+		}
+
+		private void startPath(GridSquare gridSquare) {
+			start = gridSquare;
+		}
+
+		private void endPath() {
+			start = null;
+			for (GridSquare square: GridApp.path.getGridSquares()) {
+				Direction step = token.getGridSquare().directionTo(square);
+				move(step);
+			}
+			gridPanel.resetPanels();
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			startPath(token.getGridSquare());
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			endPath();
 		}
 	}
 	
@@ -155,29 +184,32 @@ public class GridApp extends JFrame {
 			updateSquareColor();
 		}
 
+		private void highlight() {
+			setBackground(Color.GREEN);
+		}
+
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			System.out.println("clicked:" + square);
 		}
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			for (GridSquare gridSquare : square.neighbors()) {
-				gridPanel.findGridSquarePanel(gridSquare).highlight();
+			if (GridApp.start != null) {
+				PathFinder pathFinder = new DirectPathFinder();
+				GridApp.path = pathFinder.findPathBetween(gridPanel.getGrid(), GridApp.start, square);
+				for (GridSquare gridSquare : path.getGridSquares()) {
+					gridPanel.findGridSquarePanel(gridSquare).highlight();
+				}
+				GridApp.end = square;
 			}
-		}
-		private void highlight() {
-			setBackground(Color.GREEN);
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			for (GridSquarePanel panel : gridPanel.getGridSquarePanels()) {
-				panel.updateSquareColor();
-			}
+			gridPanel.resetPanels();
 		}
 		@Override
 		public void mousePressed(MouseEvent e) {
-			System.out.println("pressed:" + square);
 			toggle();
 		}
 		@Override
