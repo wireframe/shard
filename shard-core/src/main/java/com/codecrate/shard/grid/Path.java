@@ -7,17 +7,23 @@ import java.util.Collection;
  * Represents a <b>continuous</b> path from a start {@link GridSquare square} to an end position.
  */
 public class Path {
-	private Collection<GridSquare> steps = new ArrayList<GridSquare>();
-	private GridSquare currentSquare;
-	private Direction currentDirection;
-	private int diagonals;
-	private boolean straight = true;
+	private Collection<Direction> steps = new ArrayList<Direction>();
+	private GridSquare start;
 	
 	public Path(GridSquare start) {
-		this.currentSquare = start;
+		this.start = start;
 	}
 
+	/** 
+	 * get the length of the path.
+	 */
 	public int getLength() {
+		int diagonals = 0;
+		for (Direction step : steps) {
+			if (step.isDiagonal()) {
+				diagonals++;
+			}
+		}
 		return 5 * steps.size() + 5 * (diagonals / 2);
 	}
 	
@@ -25,26 +31,33 @@ public class Path {
 	 * add the next step to the path.
 	 */
 	public void addStep(Direction step) {
-		if (step.isDiagonal()) {
-			diagonals++;
-		}
-		if (currentDirection != null && !currentDirection.equals(step)) {
-			straight = false;
-		}
-		GridSquare next = currentSquare.nextSquare(step);
-		steps.add(next);
-		this.currentSquare = next;
-		this.currentDirection = step;
+		steps.add(step);
 	}
 
 	/**
 	 * check if the path does not change directions and is considered "straight".
 	 */
 	public boolean isStraight() {
-		return straight;
+		Direction currentDirection = null;
+		for (Direction step : steps) {
+			if (currentDirection != null && !currentDirection.equals(step)) {
+				return false;
+			}
+			currentDirection = step;
+		}
+		return true;
 	}
 
-	public Collection<GridSquare> getGridSquares() {
+	public Collection<Direction> getDirections() {
 		return steps;
+	}
+	public Collection<GridSquare> getGridSquares() {
+		Collection<GridSquare> results = new ArrayList<GridSquare>();
+		GridSquare currentSquare = start;
+		for (Direction step : steps) {
+			currentSquare = currentSquare.nextSquare(step);
+			results.add(currentSquare);
+		}
+		return results;
 	}
 }

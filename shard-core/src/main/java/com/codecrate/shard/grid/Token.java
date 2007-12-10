@@ -18,7 +18,7 @@ public class Token {
 	}
 
 	/** 
-	 * check if the token can move in a particular direciton.
+	 * check if the token can move along a given path.
 	 */
 	public boolean canMove(Direction direction) {
 		if (!square.doesSquareExist(direction)) {

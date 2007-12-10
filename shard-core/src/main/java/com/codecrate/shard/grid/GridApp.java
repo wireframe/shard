@@ -25,7 +25,7 @@ public class GridApp extends JFrame {
 		GridPanel gridPanel = new GridPanel(grid);
 		TokenLabel tokenLabel = new TokenLabel(gridPanel, new Token());
 		add(gridPanel, BorderLayout.CENTER);
-		add(new ToolboxPanel(tokenLabel), BorderLayout.EAST);
+//		add(new ToolboxPanel(), BorderLayout.EAST);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(new Dimension(400, 400));
 		setVisible(true);
@@ -38,7 +38,7 @@ public class GridApp extends JFrame {
 	}
 
 	private static class ToolboxPanel extends JPanel {
-		public ToolboxPanel(final TokenLabel tokenLabel) {
+		public ToolboxPanel() {
 			add(new JLabel("Tools"));
 		}
 	}
@@ -122,11 +122,10 @@ public class GridApp extends JFrame {
 		}
 
 		private void endPath() {
-			start = null;
-			for (GridSquare square: GridApp.path.getGridSquares()) {
-				Direction step = token.getGridSquare().directionTo(square);
+			for (Direction step : GridApp.path.getDirections()) {
 				move(step);
 			}
+			start = null;
 			gridPanel.resetPanels();
 		}
 
@@ -190,7 +189,6 @@ public class GridApp extends JFrame {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			System.out.println("clicked:" + square);
 		}
 		@Override
 		public void mouseEntered(MouseEvent e) {
