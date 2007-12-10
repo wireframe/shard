@@ -13,12 +13,8 @@ public class MazePathFinder implements PathFinder {
 	public Path findPathBetween(Grid grid, GridSquare start, GridSquare end) {
 		int maxSize = grid.getWidth() * grid.getHeight();
 
-		int[] queue = new int[maxSize];
-		int[] origin = new int[maxSize];
-		for(int i = 0; i < maxSize; i++){
-			queue[i]=-1; 
-			origin[i]=-1;
-		}
+		int[] queue = initializeGridArray(grid, maxSize);
+		int[] origin = initializeGridArray(grid, maxSize);
 
 		GridSquare current = end;
 		GridSquare previous = end;
@@ -26,7 +22,7 @@ public class MazePathFinder implements PathFinder {
 		while (!current.equals(start)) {
 			for (Direction direction : Direction.values()) {
 				if (current.doesSquareExist(direction)) {
-					previous = visit(current.nextSquare(direction), queue, origin, previous, current);
+					previous = visit(previous, current, current.nextSquare(direction), queue, origin);
 				}
 			}
 
@@ -46,7 +42,19 @@ public class MazePathFinder implements PathFinder {
 		return path;
 	}
 
-	private GridSquare visit(GridSquare next, int[] queue, int[] origin, GridSquare previous, GridSquare current) {
+	private int[] initializeGridArray(Grid grid, int maxSize) {
+		int[] array = new int[maxSize];
+		for(int i = 0; i < maxSize; i++){
+			int value = -1;
+			if (GridSquare.parseSequenceId(grid, i).isBlocked()) {
+				value = -2;
+			}
+			array[i] = value;
+		}
+		return array;
+	}
+
+	private GridSquare visit(GridSquare previous, GridSquare current, GridSquare next, int[] queue, int[] origin) {
 		if (queue[next.getSequentialId()] == -1) {
 			queue[previous.getSequentialId()] = next.getSequentialId(); 
 			origin[next.getSequentialId()] = -(next.getSequentialId() - current.getSequentialId());

@@ -33,7 +33,7 @@ public class GridSquare {
 		int row = id / grid.getWidth();
 		int column = id % grid.getWidth();
 		
-		return grid.getSquare(new Location(row, column));
+		return grid.getSquare(new Location(column, row));
 	}
 
 	/**
