@@ -16,16 +16,15 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 public class GridApp extends JFrame {
-	public static GridSquare start = null;
-	public static GridSquare end = null;
+	public static TokenLabel currentToken = null;
 	public static Path path;
+	public static boolean error;
 	
 	public GridApp(Grid grid) {
 		setLayout(new BorderLayout());
 		GridPanel gridPanel = new GridPanel(grid);
 		TokenLabel tokenLabel = new TokenLabel(gridPanel, new Token());
 		add(gridPanel, BorderLayout.CENTER);
-//		add(new ToolboxPanel(), BorderLayout.EAST);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(new Dimension(400, 400));
 		setVisible(true);
@@ -35,12 +34,6 @@ public class GridApp extends JFrame {
 
 	public static void main(String[] args) {
 		new GridApp(new Grid(10, 10));
-	}
-
-	private static class ToolboxPanel extends JPanel {
-		public ToolboxPanel() {
-			add(new JLabel("Tools"));
-		}
 	}
 
 	private static class GridPanel extends JPanel {
@@ -82,6 +75,12 @@ public class GridApp extends JFrame {
 			for (GridSquarePanel panel : getGridSquarePanels()) {
 				panel.updateSquareColor();
 			}
+			
+			if (GridApp.path != null) {
+				for (GridSquare square : GridApp.path.getGridSquares()) {
+					findGridSquarePanel(square).highlight();
+				}
+			}
 		}
 	}
 	
@@ -96,36 +95,33 @@ public class GridApp extends JFrame {
 			
 			addMouseListener(this);
 		}
-		
-		public boolean canMove(Direction direction) {
-			return token.canMove(direction);
-		}
 
 		private void place(GridSquare square) {
 			token.place(square);
 			gridPanel.findGridSquarePanel(square).add(this);
 		}
-		
-		private void move(Direction direction) {
-			GridSquarePanel previous = gridPanel.findGridSquarePanel(token.getGridSquare());
-			previous.remove(this);
-			previous.repaint();
-			
-			token.move(direction);
-			GridSquarePanel newSquare = gridPanel.findGridSquarePanel(token.getGridSquare());
-			newSquare.add(this);
-			newSquare.repaint();
+
+		private GridSquare getGridSquare() {
+			return token.getGridSquare();
+		}
+
+		private boolean canMove(Path path) {
+			return token.canMove(path);
 		}
 
 		private void startPath(GridSquare gridSquare) {
-			start = gridSquare;
+			GridApp.currentToken = this;
 		}
 
 		private void endPath() {
-			for (Direction step : GridApp.path.getDirections()) {
-				move(step);
+			if (GridApp.path != null && token.canMove(GridApp.path)) {
+				gridPanel.findGridSquarePanel(token.getGridSquare()).remove(this);
+				token.move(GridApp.path);
+				gridPanel.findGridSquarePanel(token.getGridSquare()).add(this);
 			}
-			start = null;
+
+			GridApp.currentToken = null;
+			GridApp.path = null;
 			gridPanel.resetPanels();
 		}
 
@@ -153,6 +149,7 @@ public class GridApp extends JFrame {
 	}
 	
 	private static class GridSquarePanel extends JPanel implements MouseListener {
+		private PathFinder pathFinder = new DirectPathFinder();
 		private final GridSquare square;
 		private final GridPanel gridPanel;
 
@@ -176,6 +173,7 @@ public class GridApp extends JFrame {
 			}
 			
 			setBackground(color);
+			repaint();
 		}
 
 		private void toggle() {
@@ -184,21 +182,23 @@ public class GridApp extends JFrame {
 		}
 
 		private void highlight() {
-			setBackground(Color.GREEN);
+			Color color = Color.GREEN;
+			if (GridApp.error) {
+				color = Color.RED;
+			}
+			setBackground(color);
 		}
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
 		}
+
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			if (GridApp.start != null) {
-				PathFinder pathFinder = new DirectPathFinder();
-				GridApp.path = pathFinder.findPathBetween(gridPanel.getGrid(), GridApp.start, square);
-				for (GridSquare gridSquare : path.getGridSquares()) {
-					gridPanel.findGridSquarePanel(gridSquare).highlight();
-				}
-				GridApp.end = square;
+			if (GridApp.currentToken != null) {
+				GridApp.path = pathFinder.findPathBetween(gridPanel.getGrid(), GridApp.currentToken.getGridSquare(), square);
+				GridApp.error = !GridApp.currentToken.canMove(path);
+				gridPanel.resetPanels();
 			}
 		}
 

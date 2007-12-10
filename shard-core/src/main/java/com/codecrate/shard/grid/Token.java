@@ -8,39 +8,41 @@ import javax.swing.ImageIcon;
  * 
  */
 public class Token {
-	private GridSquare square;
+	private GridSquare location;
 
 	/**
 	 * place the token on a grid square.
 	 */
 	public void place(GridSquare square) {
-		this.square = square;
+		this.location = square;
 	}
 
 	/** 
 	 * check if the token can move along a given path.
 	 */
-	public boolean canMove(Direction direction) {
-		if (!square.doesSquareExist(direction)) {
-			return false;
-		}
-		if (square.nextSquare(direction).isBlocked()) {
-			return false;
+	public boolean canMove(Path path) {
+		for (GridSquare square : path.getGridSquares()) {
+			if (square.isBlocked()) {
+				return false;
+			}
 		}
 		return true;
 	}
 	
-	public void move(Direction direction) {
-		if (!canMove(direction)) {
-			throw new IllegalArgumentException("Unable to move in direction: " + direction);
+	/**
+	 * move the token along the given path.
+	 */
+	public void move(Path path) {
+		if (!canMove(path)) {
+			throw new IllegalArgumentException("Unable to move token along path: " + path);
 		}
-		this.square = square.nextSquare(direction);
+		this.location = path.getDestination();
 	}
 	
 	public Icon getIcon() {
 		return new ImageIcon(getClass().getClassLoader().getResource("images/token.png"));
 	}
 	public GridSquare getGridSquare() {
-		return square;
+		return location;
 	}
 }
