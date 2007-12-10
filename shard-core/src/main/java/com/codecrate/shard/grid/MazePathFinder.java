@@ -8,13 +8,13 @@ package com.codecrate.shard.grid;
  * @see http://forum.java.sun.com/thread.jspa?threadID=740955&start=0
  */
 public class MazePathFinder implements PathFinder {
+	private static final int BLOCKED = -2;
+	private static final int OPEN = -1;
 
 	@Override
 	public Path findPathBetween(Grid grid, GridSquare start, GridSquare end) {
-		int maxSize = grid.getWidth() * grid.getHeight();
-
-		int[] queue = initializeGridArray(grid, maxSize);
-		int[] origin = initializeGridArray(grid, maxSize);
+		int[] queue = initializeGridArray(grid);
+		int[] origin = initializeGridArray(grid);
 
 		GridSquare current = end;
 		GridSquare previous = end;
@@ -42,20 +42,25 @@ public class MazePathFinder implements PathFinder {
 		return path;
 	}
 
-	private int[] initializeGridArray(Grid grid, int maxSize) {
+	/**
+	 * create a one dimensional array that represents the grid in use.
+	 * each location within the array maps to a square within the grid. 
+	 * the value of each array location tells if the square is available for path movement.
+	 */
+	private int[] initializeGridArray(Grid grid) {
+		int maxSize = grid.getWidth() * grid.getHeight();
 		int[] array = new int[maxSize];
-		for(int i = 0; i < maxSize; i++){
-			int value = -1;
-			if (GridSquare.parseSequenceId(grid, i).isBlocked()) {
-				value = -2;
+		
+		for (int x = 0; x < grid.getHeight(); x++) {
+			for (GridSquare square : grid.row(x)) {
+				array[square.getSequentialId()] = (square.isBlocked() ? BLOCKED : OPEN);
 			}
-			array[i] = value;
 		}
 		return array;
 	}
 
 	private GridSquare visit(GridSquare previous, GridSquare current, GridSquare next, int[] queue, int[] origin) {
-		if (queue[next.getSequentialId()] == -1) {
+		if (queue[next.getSequentialId()] == OPEN) {
 			queue[previous.getSequentialId()] = next.getSequentialId(); 
 			origin[next.getSequentialId()] = -(next.getSequentialId() - current.getSequentialId());
 			return next;
