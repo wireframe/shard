@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
 public class GridApp extends JFrame {
@@ -24,10 +25,16 @@ public class GridApp extends JFrame {
 	public GridApp(Grid grid) {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
-		setSize(new Dimension(400, 400));
+		setSize(new Dimension(600, 600));
 
 		GridPanel gridPanel = new GridPanel(grid);
-		add(gridPanel, BorderLayout.CENTER);
+		gridPanel.setPreferredSize(new Dimension(800, 800));
+
+		JScrollPane pane = new JScrollPane(gridPanel);
+	    pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+	    pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+	  
+		add(pane, BorderLayout.CENTER);
 		add(new ToolBoxPanel(gridPanel), BorderLayout.EAST);
 		
 		setVisible(true);
@@ -117,7 +124,6 @@ public class GridApp extends JFrame {
 			this.gridPanel = gridPanel;
 			this.square = square;
 			setBorder(new LineBorder(Color.BLACK));
-			setSize(50, 50);
 
 			addMouseListener(this);
 		}
