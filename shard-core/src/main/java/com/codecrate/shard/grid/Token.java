@@ -21,6 +21,9 @@ public class Token {
 	 * check if the token can move along a given path.
 	 */
 	public boolean canMove(Path path) {
+		if (location == null) {
+			return false;
+		}
 		for (GridSquare square : path.getGridSquares()) {
 			if (square.isBlocked()) {
 				return false;
@@ -31,12 +34,14 @@ public class Token {
 	
 	/**
 	 * move the token along the given path.
+	 * @return the final destination from moving along the path.
 	 */
-	public void move(Path path) {
+	public GridSquare move(Path path) {
 		if (!canMove(path)) {
 			throw new IllegalArgumentException("Unable to move token along path: " + path);
 		}
 		this.location = path.getDestination();
+		return location;
 	}
 	
 	public Icon getIcon() {

@@ -15,7 +15,7 @@ public class GridTest extends TestCase {
 	}
 	
 	public void testRowOneContainsSquaresWithYEqualToOne() {
-		Grid grid = new Grid(2,2);
+		Grid grid = new Grid(2, 2);
 		Collection<GridSquare> row = grid.row(1);
 		assertEquals(grid.getSquare(new Location(0, 1)), row.iterator().next());
 	}

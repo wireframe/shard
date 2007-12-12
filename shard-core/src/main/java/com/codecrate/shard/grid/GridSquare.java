@@ -23,12 +23,16 @@ public class GridSquare {
 
 	/**
 	 * return a unique id for each square on the grid.
+	 * values range from: 0 to total_number_of_squares_in_grid - 1
 	 * @see http://www.codeproject.com/cs/algorithms/mazesolver.asp
 	 */
 	public int getSequentialId() {
 		return (location.getY() * grid.getWidth()) + location.getX();
 	}
-	
+
+	/**
+	 * locate a particular grid square based on it's {@link #getSequentialId() unique id}
+	 */
 	public static GridSquare parseSequenceId(Grid grid, int id) {
 		int row = id / grid.getWidth();
 		int column = id % grid.getWidth();
@@ -67,10 +71,6 @@ public class GridSquare {
 		return Direction.findByDirection(directionX, directionY);
 	}
 
-	public Direction directionTo(GridSquare next) {
-		return this.location.directionTo(next.location);
-	}
-	
 	/**
 	 * return all adjacent {@link GridSquare squares} to the current object.
 	 * @return
