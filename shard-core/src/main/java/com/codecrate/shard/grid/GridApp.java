@@ -118,7 +118,6 @@ public class GridApp extends JFrame {
 		private PathFinder pathFinder = new DirectPathFinder();
 		private final GridSquare square;
 		private final GridPanel gridPanel;
-		private Color highlight;
 
 		public GridSquarePanel(GridPanel gridPanel, GridSquare square) {
 			this.gridPanel = gridPanel;
@@ -129,34 +128,30 @@ public class GridApp extends JFrame {
 		}
 
 		public void unhighlight() {
-			this.highlight = null;
+			updateSquareColor();
 			repaint();
+		}
+
+		private void updateSquareColor() {
+			if (square.isBlocked()) {
+				setBackground(Color.BLACK);
+			} else {
+				setBackground(Color.WHITE);
+			}
 		}
 
 		public GridSquare getSquare() {
 			return square;
 		}
 		
-		@Override
-		public void repaint() {
-			Color color = Color.WHITE;
-			if (highlight != null) {
-				color = highlight;
-			} else if (square != null && square.isBlocked()) {
-				color = Color.BLACK;
-			}
-			
-			setBackground(color);
-			super.repaint();
-		}
-
 		private void toggle() {
 			square.toggle();
+			updateSquareColor();
 			repaint();
 		}
 
 		private void highlight(Color color) {
-			this.highlight = color;
+			setBackground(color);
 			repaint();
 		}
 
