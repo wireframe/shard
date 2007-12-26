@@ -28,7 +28,6 @@ import com.codecrate.shard.grid.PathFinder;
 import com.codecrate.shard.grid.Token;
 
 public class ShardCyclops extends JFrame {
-	public static TokenLabel currentToken = null;
 
 	public ShardCyclops(Grid grid) {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -76,7 +75,7 @@ public class ShardCyclops extends JFrame {
 
 			for (int rowNum = 0; rowNum <  grid.getHeight(); rowNum++) {
 				for (GridSquare square : grid.row(rowNum)) {
-					add(new GridSquarePanel(this, square));
+					add(new GridSquarePanel(square));
 				}
 			}
 		}
@@ -103,12 +102,10 @@ public class ShardCyclops extends JFrame {
 			return grid;
 		}
 
-		public void highlightPath(Path path) {
+		public void highlightPath(Path path, boolean error) {
 			if (this.path != null) {
 				unhighlightPath();
 			}
-
-			boolean error = !ShardCyclops.currentToken.canMove(path);
 			for (GridSquare square : path.getGridSquares()) {
 				findGridSquarePanel(square).highlight((error ? Color.red : Color.green));
 			}
@@ -122,19 +119,58 @@ public class ShardCyclops extends JFrame {
 		}
 	}
 	
-	private static class GridSquarePanel extends JPanel implements MouseListener {
-		private PathFinder pathFinder = new DirectPathFinder();
-		private final GridSquare square;
-		private final GridPanel gridPanel;
+	private static class GridSquarePanel extends JPanel {
+		private static GridMovementListener LISTENER = GridMovementListener.NO_OP_LISTENER;
 
-		public GridSquarePanel(GridPanel gridPanel, GridSquare square) {
-			this.gridPanel = gridPanel;
+		private final GridSquare square;
+
+		public GridSquarePanel(final GridSquare square) {
 			this.square = square;
 			setBorder(new LineBorder(Color.BLACK));
 
-			addMouseListener(this);
-			
+			addMouseListener(new MouseListener() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+				}
+				@Override
+				public void mouseEntered(MouseEvent e) {
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+				}
+				@Override
+				public void mousePressed(MouseEvent e) {
+					toggle();
+				}
+				@Override
+				public void mouseReleased(MouseEvent e) {
+				}
+			});
+
+			addMouseListener(new MouseListener() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+				}
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					LISTENER.onSquareEnter(square);
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+				}
+				@Override
+				public void mousePressed(MouseEvent e) {
+				}
+				@Override
+				public void mouseReleased(MouseEvent e) {
+				}
+			});
+
 			updateSquareColor();
+		}
+		
+		public static void setListener(GridMovementListener listener) {
+			LISTENER = listener;
 		}
 
 		public void unhighlight() {
@@ -175,40 +211,39 @@ public class ShardCyclops extends JFrame {
 			remove(tokenLabel);
 			repaint();
 		}
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-		}
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			if (ShardCyclops.currentToken != null) {
-				Path path = pathFinder.findPathBetween(gridPanel.getGrid(), ShardCyclops.currentToken.getGridSquare(), square);
-				gridPanel.highlightPath(path);
-			}
-		}
-		@Override
-		public void mouseExited(MouseEvent e) {
-		}
-		@Override
-		public void mousePressed(MouseEvent e) {
-			toggle();
-		}
-		@Override
-		public void mouseReleased(MouseEvent e) {
-		}
 	}
 	
-	private static class TokenLabel extends JLabel implements MouseListener {
+	private static class TokenLabel extends JLabel {
+		private static final PathFinder pathFinder = new DirectPathFinder();
+
 		private final Token token;
 		private final GridPanel gridPanel;
 		private GridSquarePanel gridSquarePanel;
 
-		public TokenLabel(GridPanel gridPanel, Token token) {
+		public TokenLabel(GridPanel gridPanel, final Token token) {
 			super(token.getIcon());
 			this.gridPanel = gridPanel;
 			this.token = token;
 			
-			addMouseListener(this);
+			addMouseListener(new MouseListener() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+				}
+				@Override
+				public void mouseEntered(MouseEvent e) {
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+				}
+				@Override
+				public void mousePressed(MouseEvent e) {
+					startPath(token.getGridSquare());
+				}
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					endPath();
+				}
+			});
 		}
 
 		private void place(GridSquarePanel panel) {
@@ -217,44 +252,25 @@ public class ShardCyclops extends JFrame {
 			panel.addToken(this);
 		}
 
-		private GridSquare getGridSquare() {
-			return token.getGridSquare();
-		}
-
-		private boolean canMove(Path path) {
-			return token.canMove(path);
-		}
-
 		private void startPath(GridSquare gridSquare) {
-			ShardCyclops.currentToken = this;
+			GridSquarePanel.setListener(new GridMovementListener() {
+				@Override
+				public void onSquareEnter(GridSquare square) {
+					Path path = pathFinder.findPathBetween(gridPanel.getGrid(), token.getGridSquare(), square);
+					boolean error = !token.canMove(path);
+					gridPanel.highlightPath(path, error);
+				}
+			});
 		}
 
 		private void endPath() {
-			if (ShardCyclops.currentToken != null && token.canMove(gridPanel.path)) {
+			if (token.canMove(gridPanel.path)) {
 				gridSquarePanel.removeToken(this);
 				gridSquarePanel = gridPanel.findGridSquarePanel(token.move(gridPanel.path));
 				gridSquarePanel.addToken(this);
 			}
 			gridPanel.unhighlightPath();
-			ShardCyclops.currentToken = null;
-		}
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-		}
-		@Override
-		public void mouseEntered(MouseEvent e) {
-		}
-		@Override
-		public void mouseExited(MouseEvent e) {
-		}
-		@Override
-		public void mousePressed(MouseEvent e) {
-			startPath(token.getGridSquare());
-		}
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			endPath();
+			GridSquarePanel.setListener(GridMovementListener.NO_OP_LISTENER);
 		}
 	}
 }
