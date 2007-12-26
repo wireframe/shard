@@ -125,6 +125,8 @@ public class GridApp extends JFrame {
 			setBorder(new LineBorder(Color.BLACK));
 
 			addMouseListener(this);
+			
+			updateSquareColor();
 		}
 
 		public void unhighlight() {
