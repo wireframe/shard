@@ -75,7 +75,7 @@ public class ShardCyclops extends JFrame {
 
 			for (int rowNum = 0; rowNum <  grid.getHeight(); rowNum++) {
 				for (GridSquare square : grid.row(rowNum)) {
-					add(new GridSquarePanel(square));
+					add(new GridSquarePanel(this, square));
 				}
 			}
 		}
@@ -124,7 +124,7 @@ public class ShardCyclops extends JFrame {
 
 		private final GridSquare square;
 
-		public GridSquarePanel(final GridSquare square) {
+		public GridSquarePanel(final GridPanel gridPanel, final GridSquare square) {
 			this.square = square;
 			setBorder(new LineBorder(Color.BLACK));
 
@@ -141,9 +141,15 @@ public class ShardCyclops extends JFrame {
 				@Override
 				public void mousePressed(MouseEvent e) {
 					toggle();
+					GridSquarePanel.setListener(new GridMovementListener() {
+						@Override
+						public void onSquareEnter(GridSquare square) {
+							gridPanel.findGridSquarePanel(square).toggle();
+						}});
 				}
 				@Override
 				public void mouseReleased(MouseEvent e) {
+					GridSquarePanel.setListener(GridMovementListener.NO_OP_LISTENER);
 				}
 			});
 
