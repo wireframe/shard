@@ -1,4 +1,4 @@
-<model>
+<project>
   <parent>
     <groupId>com.codecrate.shard</groupId>
     <artifactId>shard-root</artifactId>
@@ -35,4 +35,4 @@
       <version>0.98</version>
     </dependency>
   </dependencies>
-</model>
+</project>

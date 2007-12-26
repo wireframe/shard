@@ -1,4 +1,4 @@
-<model>
+<project>
   <parent>
     <groupId>com.codecrate.shard</groupId>
     <artifactId>shard-root</artifactId>
@@ -189,4 +189,4 @@
       </testResource>
     </testResources>
   </build>
-</model>
+</project>
