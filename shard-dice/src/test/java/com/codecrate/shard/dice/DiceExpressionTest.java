@@ -85,6 +85,12 @@ public class DiceExpressionTest extends TestCase {
         assertEquals(10, dice.getMaxValue());
     }
 
+    public void testComplexMultiDiceExpressionsAreEvaluated() {
+        DiceExpression dice = new DiceExpression("d4+ d6(1d4 + d20)");
+        assertEquals(3, dice.getMinValue());
+        assertEquals(148, dice.getMaxValue());
+    }
+
     public void testInvalidDiceExpressionThrowsException() {
         try {
             new DiceExpression("asdf");
