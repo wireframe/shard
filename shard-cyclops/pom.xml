@@ -63,16 +63,8 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>keytool-maven-plugin</artifactId>
-        <executions>
-           <execution>
-              <goals>
-                 <phase>package</phase>
-                 <goal>genkey</goal>
-              </goals>
-           </execution>
-        </executions>
         <configuration>
-           <keystore>${project.basedir}/target/keystore</keystore>
+           <keystore>${project.basedir}/src/main/webstart/keystore</keystore>
            <dname>cn=shard.codecrate.com, ou=Shard, L=Minneapolis, ST=Minnesota, o=CodeCrate, c=US</dname>
            <alias>shard</alias>
            <keypass>shard-rox</keypass>
@@ -82,53 +74,23 @@
 
       <!-- create webstart bundle for launching application -->
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
+        <groupId>com.codecrate</groupId>
         <artifactId>webstart-maven-plugin</artifactId>
         <executions>
           <execution>
             <phase>package</phase>
             <goals>
-              <goal>jnlp</goal>
+              <goal>generate-jnlp</goal>
              </goals>
           </execution>
         </executions>
         <configuration>
-          <jnlp>
-            <mainClass>${mainClass}</mainClass>
-          </jnlp>
-           <verbose>true</verbose>
-
-          <sign>
-            <keystore>${project.basedir}/target/keystore</keystore>
-            <keypass>shard-rox</keypass>
-            <storepass>shard-rox</storepass>
-			<!--  storetype></storetype -->
-            
-            <alias>shard</alias>
-            <validity>180</validity>
-
-            <dnameCn>shard.codecrate.com</dnameCn>
-            <dnameOu>Shard</dnameOu>
-            <dnameO>Codecrate</dnameO>
-            <dnameL>Minneapolis</dnameL>
-            <dnameSt>Minnesota</dnameSt>
-            <dnameC>US</dnameC>
-
-            <!--  <verify>true</verify>  -->
-
-			<!-- 
-            <keystoreConfig>
-              <delete>true</delete>
-              <gen>true</gen>
-            </keystoreConfig>
-             -->
-           </sign>
-
-           <!-- 
-           <pack200>true</pack200>
-           <gzip>true</gzip>
-           <outputJarVersions>true</outputJarVersions>
-           -->
+          <mainClass>${mainClass}</mainClass>
+          
+          <keystore>${project.basedir}/src/main/webstart/keystore</keystore>
+          <keypass>shard-rox</keypass>
+          <storepass>shard-rox</storepass>
+          <alias>shard</alias>
         </configuration>
       </plugin>
       
