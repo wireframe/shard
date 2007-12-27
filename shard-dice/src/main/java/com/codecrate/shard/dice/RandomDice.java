@@ -16,13 +16,12 @@
 package com.codecrate.shard.dice;
 
 /**
- * creates a dice with range from 1 to maxValue.
- * randomly generates values between 1 and maxvalue.
+ * creates a dice with range from {@link #MIN_VALUE 1} and {@link #maxValue a maximum value}.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class RandomDice extends DiceSupport implements Dice {
-    public static final int MIN_VALUE = 1;
+    private static final int MIN_VALUE = 1;
     
     public static final Dice d100 = new RandomDice(100);
     public static final Dice d20 = new RandomDice(20);
