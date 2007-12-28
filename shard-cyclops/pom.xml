@@ -78,13 +78,6 @@
         <artifactId>webstart-maven-plugin</artifactId>
         <executions>
           <execution>
-            <id>package-webstart</id>
-            <phase>package</phase>
-            <goals>
-              <goal>generate-jnlp</goal>
-             </goals>
-          </execution>
-          <execution>
             <id>deploy-webstart</id>
             <phase>deploy</phase>
             <goals>
