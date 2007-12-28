@@ -5,10 +5,6 @@
 	<classpathentry kind="src" path="src/main/spring"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="/shard-core"/>
-	<classpathentry kind="src" path="/shard-hibernate"/>
-	<classpathentry kind="src" path="/shard-sheets"/>
-	<classpathentry kind="src" path="/shard-dice"/>
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -15,6 +15,7 @@
  */
 package com.codecrate.shard.ui.form;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import javax.swing.JComponent;
@@ -55,6 +56,6 @@ public class RaceForm extends AbstractForm {
     }
     
     private Collection getAlignments() {
-    	return Alignment.values();
+    	return Arrays.asList(Alignment.values());
     }
 }

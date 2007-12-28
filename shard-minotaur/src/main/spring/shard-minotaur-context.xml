@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-minotaur-context.xml,v 1.17 2006/09/28 20:06:49 wireframe Exp $ -->
+<!-- $Id: shard-minotaur-context.xml,v 1.18 2007/12/28 16:28:03 wireframe Exp $ -->
 <beans>
 
 	<bean id="lifecycleAdvisor"
@@ -57,9 +57,6 @@
 		</property>
 		<property name="raceDao">
 		    <ref bean="raceDao" />
-		</property>
-		<property name="alignmentDao">
-		    <ref bean="alignmentDao" />
 		</property>
 	</bean>
 
