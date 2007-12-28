@@ -128,16 +128,6 @@
 	  </property>
 	</bean>
 
-	<bean id="alignmentDao" parent="transactionTemplate">
-	  <property name="target">
-	    <bean class="com.codecrate.shard.character.HibernateAlignmentDao">
-  	      <property name="sessionFactory">
-	        <ref bean="sessionFactory"/>
-	      </property>
-	    </bean>
-	  </property>
-	</bean>
-
 	<bean id="abilityScoreDao" parent="transactionTemplate">
 	  <property name="target">
 	    <bean class="com.codecrate.shard.ability.HibernateAbilityScoreDao">

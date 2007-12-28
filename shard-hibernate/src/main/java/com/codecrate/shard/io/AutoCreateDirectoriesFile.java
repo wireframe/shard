@@ -29,9 +29,4 @@ public class AutoCreateDirectoriesFile extends File {
             mkdirs();
         }
     }
-
-    public int compareTo(Object arg0) {
-        return super.compareTo((File)arg0);
-    }
-
 }

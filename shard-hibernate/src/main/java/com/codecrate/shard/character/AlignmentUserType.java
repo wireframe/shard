@@ -57,7 +57,7 @@ public class AlignmentUserType implements UserType, Serializable {
             throws HibernateException, SQLException {
 
       String name = resultSet.getString(names[0]);
-      return resultSet.wasNull() ? null : DefaultAlignment.getInstance(name);
+      return resultSet.wasNull() ? null : Alignment.valueOf(name);
     }
 
     public void nullSafeSet(PreparedStatement statement,

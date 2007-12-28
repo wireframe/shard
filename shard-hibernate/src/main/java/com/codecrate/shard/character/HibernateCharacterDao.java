@@ -53,7 +53,7 @@ public class HibernateCharacterDao extends HibernateDaoSupport implements Charac
 	public PlayerCharacter createCharacter(String name) {
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
 		ItemEntryContainer inventory = new DefaultItemEntryContainer(new ArrayList());
-		Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
+		Alignment alignment = Alignment.LAWFUL_GOOD;
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
 		Deity deity = null;
 

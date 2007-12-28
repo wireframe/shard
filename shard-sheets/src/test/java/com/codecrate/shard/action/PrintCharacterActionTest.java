@@ -28,7 +28,6 @@ import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.AbilityScoreDao;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.character.Alignment;
-import com.codecrate.shard.character.DefaultAlignment;
 import com.codecrate.shard.character.DefaultCharacterLevel;
 import com.codecrate.shard.character.DefaultPlayerCharacter;
 import com.codecrate.shard.character.prereq.NullPrerequisite;
@@ -98,7 +97,7 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 		mockDeity.setReturnValue("Bob the Almighty");
 		mockDeity.replay();
 
-        Alignment alignment = DefaultAlignment.LAWFUL_GOOD;
+        Alignment alignment = Alignment.LAWFUL_GOOD;
 
         RacialSize medium = new RacialSize() {
 
