@@ -12,11 +12,13 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ToolTipManager;
 import javax.swing.border.LineBorder;
 
 import com.codecrate.shard.grid.DirectPathFinder;
@@ -110,11 +112,22 @@ public class ShardCyclops extends JFrame {
 				findGridSquarePanel(square).highlight((error ? Color.red : Color.green));
 			}
 			this.path = path;
+			
+			
+			GridSquarePanel gridSquare = findGridSquarePanel(path.getDestination());
+			gridSquare.setToolTipText(path.getLength() + " Feet");
+			//@see http://binkley.blogspot.com/2006/06/programmatically-show-tool-tip-in.html
+	        ToolTipManager.sharedInstance().mouseMoved(
+	                new MouseEvent(gridSquare, 0, 0, 0,
+	                        0, 0, // X-Y of the mouse for the tool tip
+	                        0, false));
 		}
 
 		private void unhighlightPath() {
 			for (GridSquare square : this.path.getGridSquares()) {
-				findGridSquarePanel(square).unhighlight();
+				GridSquarePanel gridSquare = findGridSquarePanel(square);
+				gridSquare.unhighlight();
+				gridSquare.setToolTipText(null);
 			}
 		}
 	}
