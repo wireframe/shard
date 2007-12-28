@@ -78,9 +78,17 @@
         <artifactId>webstart-maven-plugin</artifactId>
         <executions>
           <execution>
+            <id>package-webstart</id>
             <phase>package</phase>
             <goals>
               <goal>generate-jnlp</goal>
+             </goals>
+          </execution>
+          <execution>
+            <id>deploy-webstart</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>deploy-jnlp</goal>
              </goals>
           </execution>
         </executions>
@@ -91,9 +99,12 @@
           <keypass>shard-rox</keypass>
           <storepass>shard-rox</storepass>
           <alias>shard</alias>
+          
+          <id>codecrate-ftp-repo</id>
+          <url>ftp://www.codecrate.com/shard/shard-cyclops</url>
         </configuration>
       </plugin>
-      
+
       <!-- support exec:java to run application -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>

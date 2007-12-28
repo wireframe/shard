@@ -130,9 +130,15 @@
 
   <distributionManagement>
     <repository>
-      <id>codecrate-maven-repo</id>
+      <id>codecrate-ftp-repo</id>
+      <name>Codecrate maven repository</name>
       <url>ftp://www.codecrate.com/maven</url>
     </repository>
+    <snapshotRepository>
+      <id>codecrate-ftp-repo</id>
+      <name>Codecrate maven repository</name>
+      <url>ftp://www.codecrate.com/maven</url>
+    </snapshotRepository>
   </distributionManagement>
 
   <repositories>
@@ -167,5 +173,12 @@
       </plugins>
     </pluginManagement>
 
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+         <artifactId>wagon-ftp</artifactId>
+         <version>1.0-alpha-6</version>
+      </extension>
+    </extensions>
   </build>
 </project>
