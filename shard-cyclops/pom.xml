@@ -59,22 +59,9 @@
         </configuration>
       </plugin>
 
-      <!--  TODO: this should be removed once the webstart plugin can auto create the keystore -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>keytool-maven-plugin</artifactId>
-        <configuration>
-           <keystore>${project.basedir}/src/main/webstart/keystore</keystore>
-           <dname>cn=shard.codecrate.com, ou=Shard, L=Minneapolis, ST=Minnesota, o=CodeCrate, c=US</dname>
-           <alias>shard</alias>
-           <keypass>shard-rox</keypass>
-           <storepass>shard-rox</storepass>
-        </configuration>
-      </plugin>
-
       <!-- create webstart bundle for launching application -->
       <plugin>
-        <groupId>com.codecrate</groupId>
+        <groupId>com.codecrate.webstart</groupId>
         <artifactId>webstart-maven-plugin</artifactId>
         <executions>
           <execution>
@@ -87,12 +74,8 @@
         </executions>
         <configuration>
           <mainClass>${mainClass}</mainClass>
-          
-          <keystore>${project.basedir}/src/main/webstart/keystore</keystore>
-          <keypass>shard-rox</keypass>
-          <storepass>shard-rox</storepass>
-          <alias>shard</alias>
-          
+          <!--  <allPermissions>true</allPermissions> -->
+
           <id>codecrate-ftp-repo</id>
           <url>ftp://www.codecrate.com/shard/shard-cyclops</url>
         </configuration>
@@ -109,6 +92,15 @@
     </plugins>
   </build>
   
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>com.codecrate.webstart</groupId>
+        <artifactId>webstart-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+
   <properties>
     <mainClass>com.codecrate.shard.ui.ShardCyclops</mainClass>
   </properties>
