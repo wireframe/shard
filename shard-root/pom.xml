@@ -139,6 +139,10 @@
       <name>Codecrate maven repository</name>
       <url>ftp://www.codecrate.com/maven</url>
     </snapshotRepository>
+    <site>
+      <id>codecrate-ftp-repo</id>
+      <url>ftp://www.codecrate.com/shard/${project.artifactId}</url>
+    </site>
   </distributionManagement>
 
   <repositories>
