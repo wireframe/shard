@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,15 +12,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Hashtable;
 
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.ToolTipManager;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.codecrate.shard.grid.DirectPathFinder;
 import com.codecrate.shard.grid.Grid;
@@ -37,7 +41,6 @@ public class ShardCyclops extends JFrame {
 		setSize(new Dimension(600, 600));
 
 		GridPanel gridPanel = new GridPanel(grid);
-		gridPanel.setPreferredSize(new Dimension(800, 800));
 
 		JScrollPane pane = new JScrollPane(gridPanel);
 	    pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -55,31 +58,57 @@ public class ShardCyclops extends JFrame {
 
 	private static class ToolBoxPanel extends JPanel {
 		public ToolBoxPanel(final GridPanel gridPanel) {
-			final GridSquarePanel start = gridPanel.findGridSquarePanel(gridPanel.getGrid().getSquare(Location.ORIGIN));
+			setLayout(new FlowLayout());
 			JButton addToken = new JButton("New Token");
 			addToken.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					TokenLabel tokenLabel = new TokenLabel(gridPanel, new Token());
+					GridSquarePanel start = gridPanel.findGridSquarePanel(gridPanel.getGrid().getSquare(Location.ORIGIN));
 					tokenLabel.place(start);
 				}});
 			add(addToken);
+			
+			//see http://forum.java.sun.com/thread.jspa?forumID=57&threadID=708987
+			int min = -200;
+			int max = 200;
+			final JSlider zoom = new JSlider(JSlider.HORIZONTAL, min, max, 0);
+			Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
+			labelTable.put(new Integer(min), new JLabel("Zoom Out"));
+			labelTable.put(new Integer(max), new JLabel("Zoom In"));
+			zoom.setLabelTable(labelTable);
+			zoom.setPaintLabels(true);
+			zoom.addChangeListener(new ChangeListener() {
+				@Override
+				public void stateChanged(ChangeEvent e) {
+					int scale = zoom.getValue();
+					gridPanel.setZoomScale(scale);
+				}
+			});
+			add(zoom);
 		}
 	}
 	
 	private static class GridPanel extends JPanel {
+		private static final int DEFAULT_SIZE = 800;
 		private final Grid grid;
 		private Path path;
 
 		public GridPanel(Grid grid) {
 			this.grid = grid;
 			setLayout(new GridLayout(grid.getHeight(), grid.getWidth()));
+			setPreferredSize(new Dimension(DEFAULT_SIZE, DEFAULT_SIZE));
 
 			for (int rowNum = 0; rowNum <  grid.getHeight(); rowNum++) {
 				for (GridSquare square : grid.row(rowNum)) {
 					add(new GridSquarePanel(this, square));
 				}
 			}
+		}
+
+		public void setZoomScale(int scale) {
+			int size = DEFAULT_SIZE + scale;
+			setSize(new Dimension(size, size));
 		}
 
 		public GridSquarePanel findGridSquarePanel(GridSquare gridSquare) {
