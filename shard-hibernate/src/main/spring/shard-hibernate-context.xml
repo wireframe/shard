@@ -118,16 +118,6 @@
 	  </property>
 	</bean>
 
-	<bean id="abilityDao" parent="transactionTemplate">
-	  <property name="target">
-	    <bean class="com.codecrate.shard.ability.HibernateAbilityDao">
-  	      <property name="sessionFactory">
-	        <ref bean="sessionFactory"/>
-	      </property>
-	    </bean>
-	  </property>
-	</bean>
-
 	<bean id="abilityScoreDao" parent="transactionTemplate">
 	  <property name="target">
 	    <bean class="com.codecrate.shard.ability.HibernateAbilityScoreDao">
