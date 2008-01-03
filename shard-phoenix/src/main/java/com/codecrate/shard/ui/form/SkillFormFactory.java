@@ -16,6 +16,7 @@
 package com.codecrate.shard.ui.form;
 
 import java.util.Collection;
+import java.util.Arrays;
 
 import javax.swing.JComponent;
 
@@ -24,16 +25,14 @@ import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 
-import com.codecrate.shard.ability.AbilityDao;
+import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.source.SourceDao;
 
 public class SkillFormFactory extends AbstractFormFactory implements FormFactory {
 
-	private final AbilityDao abilityDao;
 	private final SourceDao sourceDao;
 
-	public SkillFormFactory(AbilityDao abilityDao, SourceDao sourceDao) {
-		this.abilityDao = abilityDao;
+	public SkillFormFactory(SourceDao sourceDao) {
 		this.sourceDao = sourceDao;
 	}
 
@@ -64,7 +63,7 @@ public class SkillFormFactory extends AbstractFormFactory implements FormFactory
         }
 
         private Collection getAbilities() {
-            return abilityDao.getAbilities();
+            return Arrays.asList(Ability.values());
         }
         private Collection getSources() {
         	return sourceDao.getSources();

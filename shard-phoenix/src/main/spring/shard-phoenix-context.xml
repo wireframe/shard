@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- $Id: shard-phoenix-context.xml,v 1.17 2006/09/27 03:35:25 wireframe Exp $ -->
+<!-- $Id: shard-phoenix-context.xml,v 1.18 2008/01/03 22:53:08 wireframe Exp $ -->
 <beans>
 
 	<!-- application life cycle advisor -->
@@ -49,7 +49,6 @@
 	    <constructor-arg>
 		    <bean
 		        class="com.codecrate.shard.ui.form.SkillFormFactory">
-		        <constructor-arg><ref bean="abilityDao" /></constructor-arg>
 		        <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 		    </bean>
 	    </constructor-arg>
