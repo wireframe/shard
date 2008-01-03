@@ -57,7 +57,7 @@ public class AbilityUserType implements UserType, Serializable {
             throws HibernateException, SQLException {
 
       String name = resultSet.getString(names[0]);
-      return resultSet.wasNull() ? null : DefaultAbility.getInstance(name);
+      return resultSet.wasNull() ? null : Ability.valueOf(name);
     }
 
     public void nullSafeSet(PreparedStatement statement,

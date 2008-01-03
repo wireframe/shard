@@ -20,9 +20,9 @@ import java.math.BigDecimal;
 import org.easymock.MockControl;
 
 import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
+import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
 import com.codecrate.shard.equipment.ItemEntryContainer;
 import com.codecrate.shard.race.RacialSize;
@@ -40,13 +40,13 @@ public class HibernateEncumberanceDaoTest extends ShardHibernateDbUnitTestCaseSu
     }
     
     public void testLookupOfEncumberanceEntry() throws Exception {
-        AbilityScore score = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, null);
+        AbilityScore score = new DefaultAbilityScore(Ability.STRENGTH, 10, null);
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
-        abilities.hasAbilityScore(DefaultAbility.STRENGTH);
+        abilities.hasAbilityScore(Ability.STRENGTH);
         mockAbilities.setReturnValue(true);
-        abilities.getAbilityScore(DefaultAbility.STRENGTH);
+        abilities.getAbilityScore(Ability.STRENGTH);
         mockAbilities.setReturnValue(score);
         mockAbilities.replay();
         
@@ -70,7 +70,7 @@ public class HibernateEncumberanceDaoTest extends ShardHibernateDbUnitTestCaseSu
     public void testNoEncumberanceCalculatedWithoutStrength() throws Exception {
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
-        abilities.hasAbilityScore(DefaultAbility.STRENGTH);
+        abilities.hasAbilityScore(Ability.STRENGTH);
         mockAbilities.setReturnValue(false);
         mockAbilities.replay();
         
