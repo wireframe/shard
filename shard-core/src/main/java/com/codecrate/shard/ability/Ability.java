@@ -49,4 +49,13 @@ public enum Ability {
     public String getAbbreviation() {
         return name.toUpperCase().substring(0, 3);
     }
+    
+    public static Ability findByAbbreviation(String abbrevation) {
+    	for (Ability ability : values()) {
+			if (ability.getAbbreviation().equals(abbrevation)) {
+				return ability;
+			}
+		}
+    	throw new IllegalArgumentException("Unable to find ability with abbreviation: " + abbrevation);
+    }
 }

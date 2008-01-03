@@ -42,7 +42,7 @@ public class PcgenSkillLineHandler implements PcgenObjectImporter.PcgenLineHandl
     	boolean hasArmorCheckPenalty = tags.getBooleanTagValue(ARMOR_CHECK_PENALTY_TAG_NAME, false);
     	String abilityAbbreviation = tags.getStringTagValue(ABILITY_TAG_NAME);
 
-    	Ability ability = Ability.valueOf(abilityAbbreviation);
+    	Ability ability = Ability.findByAbbreviation(abilityAbbreviation);
         Skill skill = skillFactory.createSkill(name, ability, isUsableUntrained, hasArmorCheckPenalty, source);
         return skillDao.saveSkill(skill);
     }

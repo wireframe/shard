@@ -22,4 +22,19 @@ public class AbilityTest extends TestCase {
 	public void testAbbreviationSubstringOfName() {
 		assertEquals("STR", Ability.STRENGTH.getAbbreviation());
 	}
+	
+	public void testAbleToLookupAbilityByAbbreviation() {
+		assertEquals(Ability.STRENGTH, Ability.findByAbbreviation("STR"));
+		assertEquals(Ability.DEXTERITY, Ability.findByAbbreviation("DEX"));
+		assertEquals(Ability.WISDOM, Ability.findByAbbreviation("WIS"));
+		assertEquals(Ability.INTELLIGENCE, Ability.findByAbbreviation("INT"));
+		assertEquals(Ability.CONSTITUTION, Ability.findByAbbreviation("CON"));
+		assertEquals(Ability.CHARISMA, Ability.findByAbbreviation("CHA"));
+	}
+	
+	public void testErrorThrownLookingUpUnknownAbbreviation() {
+		try {
+			Ability.findByAbbreviation("ABC");
+		} catch (IllegalArgumentException expected) {}
+	}
 }

@@ -22,6 +22,7 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
+import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
@@ -38,7 +39,7 @@ public class PcgenSkillLineHandlerTest extends TestCase {
 
         MockControl mockSkillFactory = MockControl.createControl(SkillFactory.class);
         SkillFactory skillFactory = (SkillFactory) mockSkillFactory.getMock();
-        skillFactory.createSkill("Climb", null, true, false, null);
+        skillFactory.createSkill("Climb", Ability.STRENGTH, true, false, null);
         mockSkillFactory.setReturnValue(skill);
         mockSkillFactory.replay();
 
