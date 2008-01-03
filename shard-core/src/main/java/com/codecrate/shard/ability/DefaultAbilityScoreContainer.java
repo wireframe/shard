@@ -30,7 +30,7 @@ import com.codecrate.shard.modifier.KeyedModifier;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DefaultAbilityScoreContainer implements AbilityScoreContainer {
-	private static final Log LOG = LogFactory.getLog(DefaultAbilityScoreContainer.class);
+	private static final Log LOG = LogFactory.getLog(AbilityScoreContainer.class);
 	
 	private final Map scores;
 
@@ -45,12 +45,12 @@ public class DefaultAbilityScoreContainer implements AbilityScoreContainer {
 	 */
 	public static AbilityScoreContainer averageScores(AbilityScoreDao abilityScoreDao) {
 		Map scores = new HashMap();
-		scores.put(DefaultAbility.STRENGTH, new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, abilityScoreDao));
-		scores.put(DefaultAbility.DEXTERITY, new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10, abilityScoreDao));
-		scores.put(DefaultAbility.WISDOM, new DefaultAbilityScore(DefaultAbility.WISDOM, 10, abilityScoreDao));
-		scores.put(DefaultAbility.INTELLIGENCE, new DefaultAbilityScore(DefaultAbility.INTELLIGENCE, 10, abilityScoreDao));
-		scores.put(DefaultAbility.CONSTITUTION, new DefaultAbilityScore(DefaultAbility.CONSTITUTION, 10, abilityScoreDao));
-		scores.put(DefaultAbility.CHARISMA, new DefaultAbilityScore(DefaultAbility.CHARISMA, 10, abilityScoreDao));
+		scores.put(Ability.STRENGTH, new DefaultAbilityScore(Ability.STRENGTH, 10, abilityScoreDao));
+		scores.put(Ability.DEXTERITY, new DefaultAbilityScore(Ability.DEXTERITY, 10, abilityScoreDao));
+		scores.put(Ability.WISDOM, new DefaultAbilityScore(Ability.WISDOM, 10, abilityScoreDao));
+		scores.put(Ability.INTELLIGENCE, new DefaultAbilityScore(Ability.INTELLIGENCE, 10, abilityScoreDao));
+		scores.put(Ability.CONSTITUTION, new DefaultAbilityScore(Ability.CONSTITUTION, 10, abilityScoreDao));
+		scores.put(Ability.CHARISMA, new DefaultAbilityScore(Ability.CHARISMA, 10, abilityScoreDao));
 		return new DefaultAbilityScoreContainer(scores);
 	}
 	
@@ -88,27 +88,27 @@ public class DefaultAbilityScoreContainer implements AbilityScoreContainer {
 	}
 	
     public AbilityScore getStrength() {
-        return getAbilityScore(DefaultAbility.STRENGTH);
+        return getAbilityScore(Ability.STRENGTH);
     }
 
     public AbilityScore getDexterity() {
-        return getAbilityScore(DefaultAbility.DEXTERITY);
+        return getAbilityScore(Ability.DEXTERITY);
     }
 
     public AbilityScore getWisdom() {
-        return getAbilityScore(DefaultAbility.WISDOM);
+        return getAbilityScore(Ability.WISDOM);
     }
 
     public AbilityScore getIntelligence() {
-        return getAbilityScore(DefaultAbility.INTELLIGENCE);
+        return getAbilityScore(Ability.INTELLIGENCE);
     }
 
     public AbilityScore getConstitution() {
-        return getAbilityScore(DefaultAbility.CONSTITUTION);
+        return getAbilityScore(Ability.CONSTITUTION);
     }
 
     public AbilityScore getCharisma() {
-        return getAbilityScore(DefaultAbility.CHARISMA);
+        return getAbilityScore(Ability.CHARISMA);
     }
 
     public void addModifier(KeyedModifier modifier) {

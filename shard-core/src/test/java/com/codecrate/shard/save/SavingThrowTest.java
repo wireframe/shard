@@ -13,14 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.ability;
+package com.codecrate.shard.save;
 
 import junit.framework.TestCase;
 
-public class DefaultAbilityTest extends TestCase {
+public class SavingThrowTest extends TestCase {
 
 	public void testAbbreviationSubstringOfName() {
-	    DefaultAbility ability = new DefaultAbility("ability");
-		assertEquals("ABI", ability.getAbbreviation());
+		assertEquals("REF", SavingThrow.REFLEX.getAbbreviation());
 	}
 }

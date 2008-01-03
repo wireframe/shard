@@ -26,7 +26,7 @@ public class SavingThrowEntryContainerTest extends TestCase {
 
 	public void testLookupByKeyReturnsSameAsActualCall() {
 		SavingThrowEntryContainer container = new SavingThrowEntryContainer();
-		assertSame(container.getReflexSavingThrow(), container.getSavingThrowEntry(DefaultSavingThrow.REFLEX));
+		assertSame(container.getReflexSavingThrow(), container.getSavingThrowEntry(SavingThrow.REFLEX));
 	    
 	}
 }

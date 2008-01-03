@@ -15,18 +15,7 @@
  */
 package com.codecrate.shard.character;
 
-import java.util.ArrayList;
-
 import junit.framework.TestCase;
-
-import org.easymock.MockControl;
-
-import com.codecrate.shard.ability.AbilityScore;
-import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.ability.DefaultAbility;
-import com.codecrate.shard.kit.CharacterClass;
-import com.codecrate.shard.kit.ClassLevel;
-import com.codecrate.shard.race.Race;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>

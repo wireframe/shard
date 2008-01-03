@@ -18,9 +18,9 @@ package com.codecrate.shard.character;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.modifier.Modifiable;
 import com.codecrate.shard.modifier.ModifiableObject;
 import com.codecrate.shard.modifier.Modifier;
@@ -39,8 +39,8 @@ public class Initiative extends ModifiableObject implements Modifiable, Modifier
 
     public Initiative(AbilityScoreContainer abilities) {
         super();
-        if (abilities.hasAbilityScore(DefaultAbility.DEXTERITY)) {
-            abilityScore = abilities.getAbilityScore(DefaultAbility.DEXTERITY);
+        if (abilities.hasAbilityScore(Ability.DEXTERITY)) {
+            abilityScore = abilities.getAbilityScore(Ability.DEXTERITY);
             abilityScore.addListener(this);
         }
         onModify();

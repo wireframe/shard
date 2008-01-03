@@ -19,8 +19,8 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
+import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
 import com.codecrate.shard.modifier.DefaultModifier;
 import com.codecrate.shard.modifier.DefaultModifierType;
@@ -31,13 +31,13 @@ import com.codecrate.shard.movement.DefaultEncumberance;
 public class DexterityArmorClassTest extends TestCase {
 
     public void testListenerRegisteredOnDexterity() {
-        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 1, null);
+        DefaultAbilityScore abilityScore = new DefaultAbilityScore(Ability.DEXTERITY, 1, null);
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
-        abilities.hasAbilityScore(DefaultAbility.DEXTERITY);
+        abilities.hasAbilityScore(Ability.DEXTERITY);
         mockAbilities.setReturnValue(true);
-        abilities.getAbilityScore(DefaultAbility.DEXTERITY);
+        abilities.getAbilityScore(Ability.DEXTERITY);
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         
@@ -46,13 +46,13 @@ public class DexterityArmorClassTest extends TestCase {
     }
     
     public void testDexModifierAttachedToArmorClass() {
-        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 1, null);
+        DefaultAbilityScore abilityScore = new DefaultAbilityScore(Ability.DEXTERITY, 1, null);
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
-        abilities.hasAbilityScore(DefaultAbility.DEXTERITY);
+        abilities.hasAbilityScore(Ability.DEXTERITY);
         mockAbilities.setReturnValue(true);
-        abilities.getAbilityScore(DefaultAbility.DEXTERITY);
+        abilities.getAbilityScore(Ability.DEXTERITY);
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         
@@ -61,16 +61,16 @@ public class DexterityArmorClassTest extends TestCase {
     }
     
     public void testArmorClassUpdatedWhenAbilityChanged() {
-        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10, null);
+        DefaultAbilityScore abilityScore = new DefaultAbilityScore(Ability.DEXTERITY, 10, null);
 
 	    ModifierType type = DefaultModifierType.ARMOR;
         Modifier modifier = new DefaultModifier(type, 8);
 
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
-        abilities.hasAbilityScore(DefaultAbility.DEXTERITY);
+        abilities.hasAbilityScore(Ability.DEXTERITY);
         mockAbilities.setReturnValue(true);
-        abilities.getAbilityScore(DefaultAbility.DEXTERITY);
+        abilities.getAbilityScore(Ability.DEXTERITY);
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         
@@ -80,16 +80,16 @@ public class DexterityArmorClassTest extends TestCase {
     }
     
     public void testModifierLimitedToEncumberanceMaxValue() {
-        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10, null);
+        DefaultAbilityScore abilityScore = new DefaultAbilityScore(Ability.DEXTERITY, 10, null);
         
 	    ModifierType type = DefaultModifierType.ARMOR;
         Modifier modifier = new DefaultModifier(type, 8);
 
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
-        abilities.hasAbilityScore(DefaultAbility.DEXTERITY);
+        abilities.hasAbilityScore(Ability.DEXTERITY);
         mockAbilities.setReturnValue(true);
-        abilities.getAbilityScore(DefaultAbility.DEXTERITY);
+        abilities.getAbilityScore(Ability.DEXTERITY);
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         

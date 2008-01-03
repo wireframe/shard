@@ -32,9 +32,9 @@ public class SavingThrowEntryContainer implements KeyedModifierContainer {
 	private SavingThrowEntry willSave;
 	
 	public SavingThrowEntryContainer() {
-		reflexSave = new SavingThrowEntry(DefaultSavingThrow.REFLEX);
-		fortitudeSave = new SavingThrowEntry(DefaultSavingThrow.FORTITUDE);
-		willSave = new SavingThrowEntry(DefaultSavingThrow.WILLPOWER);
+		reflexSave = new SavingThrowEntry(SavingThrow.REFLEX);
+		fortitudeSave = new SavingThrowEntry(SavingThrow.FORTITUDE);
+		willSave = new SavingThrowEntry(SavingThrow.WILLPOWER);
 	}
 	
 	public SavingThrowEntry getReflexSavingThrow() {
@@ -50,11 +50,11 @@ public class SavingThrowEntryContainer implements KeyedModifierContainer {
 	}
 	
 	public SavingThrowEntry getSavingThrowEntry(SavingThrow save) {
-		if (DefaultSavingThrow.REFLEX.equals(save)) {
+		if (SavingThrow.REFLEX.equals(save)) {
 			return reflexSave;
-		} else if (DefaultSavingThrow.FORTITUDE.equals(save)) {
+		} else if (SavingThrow.FORTITUDE.equals(save)) {
 			return fortitudeSave;
-		} else if (DefaultSavingThrow.WILLPOWER.equals(save)) {
+		} else if (SavingThrow.WILLPOWER.equals(save)) {
 			return willSave;
 		}
 		LOG.error("No saving throw entry found for " + save);

@@ -15,19 +15,38 @@
  */
 package com.codecrate.shard.ability;
 
-public interface Ability {
-
+public enum Ability {
+    STRENGTH("Strength"), 
+	DEXTERITY("Dexterity"),
+	CONSTITUTION("Constitution"),
+	WISDOM("Wisdom"),
+	INTELLIGENCE("Intelligence"),
+	CHARISMA("Charisma");
+	
+    private final String name;
+    
+    Ability(String name) {
+        this.name = name;
+    }
+    
+    public String toString() {
+        return name;
+    }
+    
     /**
      * gets the name of the ability.
      * ex: Strength
-     * @return
      */
-    String getName();
-    
+    public String getName() {
+        return name;
+    }
+
     /**
      * gets the abbreviation for the ability.
      * ex: STR
      * @return
      */
-    String getAbbreviation();
+    public String getAbbreviation() {
+        return name.toUpperCase().substring(0, 3);
+    }
 }

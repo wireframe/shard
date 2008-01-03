@@ -17,15 +17,32 @@ package com.codecrate.shard.save;
 
 import com.codecrate.shard.ability.Ability;
 
-public interface SavingThrow {
-
-    String getName();
+public enum SavingThrow {
+    REFLEX("Reflex", Ability.DEXTERITY),
+	FORTITUDE("Fortitude", Ability.CONSTITUTION),
+	WILLPOWER("Willpower", Ability.WISDOM);
     
-    String getAbbreviation();
+    private final String name;
+    private final Ability ability;
+    
+    SavingThrow(String name, Ability ability) {
+        this.name = name;
+        this.ability = ability;
+    }
     
     /**
      * gets the ability used to add additional modifiers.
      * @return
      */
-    Ability getAbility();
+    public Ability getAbility() {
+        return ability;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public String getAbbreviation() {
+        return name.toUpperCase().substring(0, 3);
+    }
 }

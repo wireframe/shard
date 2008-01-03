@@ -30,26 +30,26 @@ import com.codecrate.shard.modifier.ModifierType;
 public class DefaultAbilityScoreContainerTest extends TestCase {
 
 	public void testGetAbilityReturnsSameObject() {
-		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, null);
+		AbilityScore ability = new DefaultAbilityScore(Ability.STRENGTH, 10, null);
 		Map abilities = new HashMap();
-		abilities.put(DefaultAbility.STRENGTH, ability);
+		abilities.put(Ability.STRENGTH, ability);
 		
 		DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 		assertSame(ability, container.getStrength());
-		assertSame(ability, container.getAbilityScore(DefaultAbility.STRENGTH));
+		assertSame(ability, container.getAbilityScore(Ability.STRENGTH));
 	}
 	
 	public void testHasAbilityFailsForNoAbility() {
 		Map abilities = new HashMap();
 		DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
-		assertFalse(container.hasAbilityScore(DefaultAbility.STRENGTH));
+		assertFalse(container.hasAbilityScore(Ability.STRENGTH));
 	}
 	
 	public void testHasAbilitySucceedsWhenAbilityExists() {
 		Map abilities = new HashMap();
-		abilities.put(DefaultAbility.STRENGTH, new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, null));
+		abilities.put(Ability.STRENGTH, new DefaultAbilityScore(Ability.STRENGTH, 10, null));
 		DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
-		assertTrue(container.hasAbilityScore(DefaultAbility.STRENGTH));
+		assertTrue(container.hasAbilityScore(Ability.STRENGTH));
 	}
 
 	public void testTotalPointScoreIsSumOfAbilityPointScores() {
@@ -60,7 +60,7 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 	    mockScore.replay();
 	    
 		Map abilities = new HashMap();
-		abilities.put(DefaultAbility.STRENGTH, score);
+		abilities.put(Ability.STRENGTH, score);
 		
 		DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 		int totalPointScore = container.getTotalPointScore();
@@ -68,21 +68,21 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 	}
 
 	public void testAbilityScoresReturned() {
-		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, null);
+		AbilityScore ability = new DefaultAbilityScore(Ability.STRENGTH, 10, null);
 		Map abilities = new HashMap();
-		abilities.put(DefaultAbility.STRENGTH, ability);
+		abilities.put(Ability.STRENGTH, ability);
 		DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 
 		assertEquals(1, container.getAbilityScores().size());
 	}
 	
 	public void testAddModifierAttachesModifierToScore() {
-		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, null);
+		AbilityScore ability = new DefaultAbilityScore(Ability.STRENGTH, 10, null);
 		Map abilities = new HashMap();
-		abilities.put(DefaultAbility.STRENGTH, ability);
+		abilities.put(Ability.STRENGTH, ability);
 	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 	    ModifierType type = DefaultModifierType.ABILITY;
-	    container.addModifier(new DefaultKeyedModifier(DefaultAbility.STRENGTH, type, 8));
+	    container.addModifier(new DefaultKeyedModifier(Ability.STRENGTH, type, 8));
 
 	    assertEquals(18, ability.getModifiedValue());
 	}
@@ -91,18 +91,18 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 		Map abilities = new HashMap();
 	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 	    ModifierType type = DefaultModifierType.ABILITY;
-	    container.addModifier(new DefaultKeyedModifier(DefaultAbility.STRENGTH, type, 8));
-	    assertFalse(container.hasAbilityScore(DefaultAbility.STRENGTH));
+	    container.addModifier(new DefaultKeyedModifier(Ability.STRENGTH, type, 8));
+	    assertFalse(container.hasAbilityScore(Ability.STRENGTH));
 	}
 	
 	
 	public void testRemoveModifierModifierToScore() {
-		AbilityScore ability = new DefaultAbilityScore(DefaultAbility.STRENGTH, 10, null);
+		AbilityScore ability = new DefaultAbilityScore(Ability.STRENGTH, 10, null);
 		Map abilities = new HashMap();
-		abilities.put(DefaultAbility.STRENGTH, ability);
+		abilities.put(Ability.STRENGTH, ability);
 	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 	    ModifierType type = DefaultModifierType.ABILITY;
-	    KeyedModifier modifier = new DefaultKeyedModifier(DefaultAbility.STRENGTH, type, 8);
+	    KeyedModifier modifier = new DefaultKeyedModifier(Ability.STRENGTH, type, 8);
         container.addModifier(modifier);
 	    container.removeModifier(modifier);
 
@@ -113,7 +113,7 @@ public class DefaultAbilityScoreContainerTest extends TestCase {
 		Map abilities = new HashMap();
 	    DefaultAbilityScoreContainer container = new DefaultAbilityScoreContainer(abilities);
 	    ModifierType type = DefaultModifierType.ABILITY;
-	    container.removeModifier(new DefaultKeyedModifier(DefaultAbility.STRENGTH, type, 8));
-	    assertFalse(container.hasAbilityScore(DefaultAbility.STRENGTH));
+	    container.removeModifier(new DefaultKeyedModifier(Ability.STRENGTH, type, 8));
+	    assertFalse(container.hasAbilityScore(Ability.STRENGTH));
 	}
 }

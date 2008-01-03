@@ -19,8 +19,8 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
+import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.ability.DefaultAbilityScore;
 import com.codecrate.shard.modifier.DefaultModifier;
 import com.codecrate.shard.modifier.DefaultModifierType;
@@ -29,13 +29,13 @@ import com.codecrate.shard.modifier.ModifierType;
 public class InitiativeTest extends TestCase {
 
     public void testListenerRegisteredOnDexterity() {
-        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 1, null);
+        DefaultAbilityScore abilityScore = new DefaultAbilityScore(Ability.DEXTERITY, 1, null);
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
-        abilities.hasAbilityScore(DefaultAbility.DEXTERITY);
+        abilities.hasAbilityScore(Ability.DEXTERITY);
         mockAbilities.setReturnValue(true);
-        abilities.getAbilityScore(DefaultAbility.DEXTERITY);
+        abilities.getAbilityScore(Ability.DEXTERITY);
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         
@@ -44,13 +44,13 @@ public class InitiativeTest extends TestCase {
     }
     
     public void testDexModifierAttachedToInitiative() {
-        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 18, null);
+        DefaultAbilityScore abilityScore = new DefaultAbilityScore(Ability.DEXTERITY, 18, null);
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
-        abilities.hasAbilityScore(DefaultAbility.DEXTERITY);
+        abilities.hasAbilityScore(Ability.DEXTERITY);
         mockAbilities.setReturnValue(true);
-        abilities.getAbilityScore(DefaultAbility.DEXTERITY);
+        abilities.getAbilityScore(Ability.DEXTERITY);
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         
@@ -60,13 +60,13 @@ public class InitiativeTest extends TestCase {
     
     public void testInitiativeUpdatedWhenAbilityChanged() {
 	    ModifierType type = DefaultModifierType.ARMOR;
-        DefaultAbilityScore abilityScore = new DefaultAbilityScore(DefaultAbility.DEXTERITY, 10, null);
+        DefaultAbilityScore abilityScore = new DefaultAbilityScore(Ability.DEXTERITY, 10, null);
         
         MockControl mockAbilities = MockControl.createControl(AbilityScoreContainer.class);
         AbilityScoreContainer abilities = (AbilityScoreContainer) mockAbilities.getMock();
-        abilities.hasAbilityScore(DefaultAbility.DEXTERITY);
+        abilities.hasAbilityScore(Ability.DEXTERITY);
         mockAbilities.setReturnValue(true);
-        abilities.getAbilityScore(DefaultAbility.DEXTERITY);
+        abilities.getAbilityScore(Ability.DEXTERITY);
         mockAbilities.setReturnValue(abilityScore);
         mockAbilities.replay();
         

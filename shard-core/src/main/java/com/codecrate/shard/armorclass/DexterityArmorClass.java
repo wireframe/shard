@@ -18,9 +18,9 @@ package com.codecrate.shard.armorclass;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.ability.AbilityScore;
 import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.modifier.DefaultModifier;
 import com.codecrate.shard.modifier.DefaultModifierType;
 import com.codecrate.shard.modifier.ModifiableObject;
@@ -45,8 +45,8 @@ public class DexterityArmorClass extends ModifiableObject implements ArmorClass,
         super(DefaultArmorClass.BASE_ARMOR_CLASS);
         this.encumberance = encumberance;
         
-        if (abilities.hasAbilityScore(DefaultAbility.DEXTERITY)) {
-            abilityScore = abilities.getAbilityScore(DefaultAbility.DEXTERITY);
+        if (abilities.hasAbilityScore(Ability.DEXTERITY)) {
+            abilityScore = abilities.getAbilityScore(Ability.DEXTERITY);
             abilityScore.addListener(this);
             addModifier(abilityScore);
         }

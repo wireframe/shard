@@ -13,16 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.save;
-
-import com.codecrate.shard.ability.DefaultAbility;
+package com.codecrate.shard.ability;
 
 import junit.framework.TestCase;
 
-public class DefaultSavingThrowTest extends TestCase {
+public class AbilityTest extends TestCase {
 
 	public void testAbbreviationSubstringOfName() {
-	    DefaultSavingThrow save= new DefaultSavingThrow("throw", DefaultAbility.STRENGTH);
-		assertEquals("THR", save.getAbbreviation());
+		assertEquals("STR", Ability.STRENGTH.getAbbreviation());
 	}
 }

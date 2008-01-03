@@ -18,8 +18,8 @@ package com.codecrate.shard.character;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.codecrate.shard.ability.Ability;
 import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.ability.DefaultAbility;
 import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.modifier.DefaultKeyedModifier;
 import com.codecrate.shard.modifier.DefaultModifierType;
@@ -105,7 +105,7 @@ public class DefaultCharacterLevel implements CharacterLevel, Comparable {
         }
 
         AbilityScoreContainer abilities = character.getAbilities();
-        if (abilities.hasAbilityScore(DefaultAbility.INTELLIGENCE)) {
+        if (abilities.hasAbilityScore(Ability.INTELLIGENCE)) {
             intBonus = abilities.getIntelligence().getModifier();
         }
 
