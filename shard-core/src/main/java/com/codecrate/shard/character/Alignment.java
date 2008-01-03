@@ -127,10 +127,7 @@ public enum Alignment {
 	    }
 	    
 	    public boolean isNeutral() {
-	        if (null != alignment) {
-	            return false;
-	        }
-	        return true;
+	        return alignment == null;
 	    }
 	}
 }
