@@ -22,7 +22,7 @@
   </modules>
 
   <description>d20 gaming engine</description>
-  <url>http://shard.codecrate.com</url>
+  <url>http://shard.codecrate.com/${project.artifactId}</url>
 
   <developers>
     <developer>
@@ -50,9 +50,9 @@
   </licenses>
 
   <scm>
-    <connection>scm:cvs:pserver:guest@cvs.dev.java.net:/cvs:shard/</connection>
-    <developerConnection>scm:cvs:pserver:${maven.username}@cvs.dev.java.net:/cvs:shard/</developerConnection>
-    <url>https://shard.dev.java.net/source/browse/shard</url>
+    <connection>scm:cvs:pserver:guest@cvs.dev.java.net:/cvs:shard/${project.artifactId}</connection>
+    <developerConnection>scm:cvs:pserver:${maven.username}@cvs.dev.java.net:/cvs:shard/${project.artifactId}</developerConnection>
+    <url>https://shard.dev.java.net/source/browse/shard/${project.artifactId}</url>
   </scm>
 
   <ciManagement>
