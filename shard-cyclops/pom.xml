@@ -77,7 +77,7 @@
           <!--  <allPermissions>true</allPermissions> -->
 
           <id>codecrate-ftp-repo</id>
-          <url>ftp://www.codecrate.com/shard/shard-cyclops</url>
+          <url>ftp://www.codecrate.com/shard/${project.artifactId}</url>
         </configuration>
       </plugin>
 

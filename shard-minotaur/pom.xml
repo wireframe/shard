@@ -10,6 +10,7 @@
   <groupId>com.codecrate.shard</groupId>
   <artifactId>shard-minotaur</artifactId>
   <name>shard minotaur module</name>
+  <description>Shard Character Generator Application</description>
   <packaging>jar</packaging>
   <version>0.5.0-SNAPSHOT</version>
 
@@ -68,49 +69,32 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.codecrate.shard.ui.ShardMinotaur</mainClass>
+              <mainClass>${mainClass}</mainClass>
               <addClasspath>true</addClasspath>
             </manifest>
           </archive>
         </configuration>
       </plugin>
 
-      <!-- dynamically generate startup scripts -->
+      <!-- create webstart bundle for launching application -->
       <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
+        <groupId>com.codecrate.webstart</groupId>
+        <artifactId>webstart-maven-plugin</artifactId>
         <executions>
           <execution>
-            <phase>generate-sources</phase>
+            <id>deploy-webstart</id>
+            <phase>deploy</phase>
             <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <tasks>
-                <echo>Creating startup scripts</echo>
-                <mkdir dir="target/generated-sources/scripts" />
-
-                <copy todir="target/generated-sources/scripts" filtering="true">
-                  <fileset dir="src/main/scripts">
-                    <include name="*.sh"/>
-                    <include name="*.bat"/>
-                  </fileset>
-                  <filterset>
-			        <filter token="VERSION" value="${pom.version}"/>
-    			  </filterset>
-                </copy>
-              </tasks>
-            </configuration>
+              <goal>deploy-jnlp</goal>
+             </goals>
           </execution>
         </executions>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
-          <descriptor>src/main/assembly/assembly-descriptor-bin-with-dependencies.xml</descriptor>
-          <finalName>shard-minotaur</finalName>
-          <outputDirectory>target/bin</outputDirectory>
-          <workDirectory>target/temp-bin</workDirectory>
+          <mainClass>${mainClass}</mainClass>
+          <allPermissions>true</allPermissions>
+
+          <id>codecrate-ftp-repo</id>
+          <url>ftp://www.codecrate.com/shard/${project.artifactId}</url>
         </configuration>
       </plugin>
 
@@ -119,18 +103,22 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <configuration>
-          <!-- system properties only needed to prevent NPE -->
-		  <systemProperties>
-			<systemProperty>
-				<key>propkey</key>
-				<value>propvalue</value>
-			</systemProperty>
-		  </systemProperties>
-          <mainClass>com.codecrate.shard.ui.ShardMinotaur</mainClass>
-          <keepAlive>true</keepAlive>
+          <mainClass>${mainClass}</mainClass>
         </configuration>
       </plugin>
-
     </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>com.codecrate.webstart</groupId>
+        <artifactId>webstart-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <properties>
+    <mainClass>com.codecrate.shard.ui.ShardMinotaur</mainClass>
+  </properties>
 </project>
