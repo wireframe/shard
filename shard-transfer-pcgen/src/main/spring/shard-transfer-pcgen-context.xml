@@ -47,7 +47,6 @@
 	    <bean class="com.codecrate.shard.transfer.pcgen.PcgenSkillLineHandler">
 		    <constructor-arg><ref bean="skillDao" /></constructor-arg>
 		    <constructor-arg><ref bean="skillDao" /></constructor-arg>
-		    <constructor-arg><ref bean="abilityDao" /></constructor-arg>
 		</bean>
 	  </constructor-arg>
 	  <constructor-arg><ref bean="sourceLineHandler" /></constructor-arg>

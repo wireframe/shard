@@ -22,7 +22,6 @@ import junit.framework.TestCase;
 
 import org.easymock.MockControl;
 
-import com.codecrate.shard.ability.AbilityDao;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
@@ -49,13 +48,7 @@ public class PcgenSkillLineHandlerTest extends TestCase {
         mockSkillDao.setReturnValue(skill);
         mockSkillDao.replay();
 
-        MockControl mockAbilityDao = MockControl.createControl(AbilityDao.class);
-        AbilityDao abilityDao = (AbilityDao) mockAbilityDao.getMock();
-        abilityDao.getAbilityByAbbreviation("STR");
-        mockAbilityDao.setReturnValue(null);
-        mockAbilityDao.replay();
-
-        PcgenSkillLineHandler importer = new PcgenSkillLineHandler(skillFactory, skillDao, abilityDao);
+        PcgenSkillLineHandler importer = new PcgenSkillLineHandler(skillFactory, skillDao);
 		Object result = importer.handleLine("Climb \t KEYSTAT:STR", null);
 
 		assertNotNull(result);

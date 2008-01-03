@@ -16,7 +16,6 @@
 package com.codecrate.shard.transfer.pcgen;
 
 import com.codecrate.shard.ability.Ability;
-import com.codecrate.shard.ability.AbilityDao;
 import com.codecrate.shard.skill.Skill;
 import com.codecrate.shard.skill.SkillDao;
 import com.codecrate.shard.skill.SkillFactory;
@@ -30,12 +29,10 @@ public class PcgenSkillLineHandler implements PcgenObjectImporter.PcgenLineHandl
 
     private final SkillFactory skillFactory;
     private final SkillDao skillDao;
-	private final AbilityDao abilityDao;
 
-    public PcgenSkillLineHandler(SkillFactory skillFactory, SkillDao skillDao, AbilityDao abilityDao) {
+    public PcgenSkillLineHandler(SkillFactory skillFactory, SkillDao skillDao) {
         this.skillFactory = skillFactory;
         this.skillDao = skillDao;
-		this.abilityDao = abilityDao;
     }
 
     public Object handleLine(String line, Source source) {
@@ -43,9 +40,9 @@ public class PcgenSkillLineHandler implements PcgenObjectImporter.PcgenLineHandl
     	String name = tags.getUndefinedTagValue();
     	boolean isUsableUntrained = tags.getBooleanTagValue(USABLE_UNTRAINED_TAG_NAME, true);
     	boolean hasArmorCheckPenalty = tags.getBooleanTagValue(ARMOR_CHECK_PENALTY_TAG_NAME, false);
-    	String abilityName = tags.getStringTagValue(ABILITY_TAG_NAME);
+    	String abilityAbbreviation = tags.getStringTagValue(ABILITY_TAG_NAME);
 
-    	Ability ability = abilityDao.getAbilityByAbbreviation(abilityName);
+    	Ability ability = Ability.valueOf(abilityAbbreviation);
         Skill skill = skillFactory.createSkill(name, ability, isUsableUntrained, hasArmorCheckPenalty, source);
         return skillDao.saveSkill(skill);
     }
