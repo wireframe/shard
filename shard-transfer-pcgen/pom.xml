@@ -45,6 +45,7 @@
         <directory>${basedir}/src/main/spring</directory>
         <includes>
           <include>**/*.xml</include>
+          <include>**/*.properties</include>
         </includes>
       </resource>
       <resource>
