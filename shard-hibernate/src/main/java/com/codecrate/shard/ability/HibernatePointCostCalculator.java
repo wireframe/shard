@@ -31,7 +31,7 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class HibernatePointCostCalculator extends HibernateDaoSupport implements PointCostCalculator {
-    private static final Log LOG = LogFactory.getLog(HibernatePointCostCalculatorTest.class);
+    private static final Log LOG = LogFactory.getLog(HibernatePointCostCalculator.class);
     
     public int getPointCost(final int score) {
         List values= (List) getHibernateTemplate().execute(new HibernateCallback() {

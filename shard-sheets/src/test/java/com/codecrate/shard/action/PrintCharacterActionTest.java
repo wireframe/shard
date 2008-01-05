@@ -25,7 +25,7 @@ import org.easymock.MockControl;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.ability.AbilityScoreDao;
+import com.codecrate.shard.ability.PointCostCalculator;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.character.Alignment;
 import com.codecrate.shard.character.DefaultCharacterLevel;
@@ -64,22 +64,22 @@ public class PrintCharacterActionTest extends AbstractDependencyInjectionSpringC
 	public void testMerge() throws Exception {
 		Template template = engine.getTemplate("default.vm");
 
-		MockControl mockAbilityScoreDao = MockControl.createControl(AbilityScoreDao.class);
-		AbilityScoreDao abilityScoreDao = (AbilityScoreDao) mockAbilityScoreDao.getMock();
-		abilityScoreDao.getPointCost(10);
-		mockAbilityScoreDao.setReturnValue(1);
-		abilityScoreDao.getPointCost(10);
-		mockAbilityScoreDao.setReturnValue(1);
-		abilityScoreDao.getPointCost(10);
-		mockAbilityScoreDao.setReturnValue(1);
-		abilityScoreDao.getPointCost(10);
-		mockAbilityScoreDao.setReturnValue(1);
-		abilityScoreDao.getPointCost(10);
-		mockAbilityScoreDao.setReturnValue(1);
-		abilityScoreDao.getPointCost(10);
-		mockAbilityScoreDao.setReturnValue(1);
-		mockAbilityScoreDao.replay();
-		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
+		MockControl mockPointCostCalculator = MockControl.createControl(PointCostCalculator.class);
+		PointCostCalculator pointCostCalculator = (PointCostCalculator) mockPointCostCalculator.getMock();
+		pointCostCalculator.getPointCost(10);
+		mockPointCostCalculator.setReturnValue(1);
+		pointCostCalculator.getPointCost(10);
+		mockPointCostCalculator.setReturnValue(1);
+		pointCostCalculator.getPointCost(10);
+		mockPointCostCalculator.setReturnValue(1);
+		pointCostCalculator.getPointCost(10);
+		mockPointCostCalculator.setReturnValue(1);
+		pointCostCalculator.getPointCost(10);
+		mockPointCostCalculator.setReturnValue(1);
+		pointCostCalculator.getPointCost(10);
+		mockPointCostCalculator.setReturnValue(1);
+		mockPointCostCalculator.replay();
+		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(pointCostCalculator);
 
 		ItemEntryContainer itemContainer = new DefaultItemEntryContainer(Arrays.asList(new ItemEntry[] {new ItemEntry(Coin.GOLD_PIECE, 100)}));
 
