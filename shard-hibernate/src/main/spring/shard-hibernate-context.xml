@@ -118,9 +118,9 @@
 	  </property>
 	</bean>
 
-	<bean id="abilityScoreDao" parent="transactionTemplate">
+	<bean id="pointCostCalculator" parent="transactionTemplate">
 	  <property name="target">
-	    <bean class="com.codecrate.shard.ability.HibernateAbilityScoreDao">
+	    <bean class="com.codecrate.shard.ability.HibernatePointCostCalculator">
   	      <property name="sessionFactory">
 	        <ref bean="sessionFactory"/>
 	      </property>
@@ -185,7 +185,7 @@
 	  <property name="target">
 	    <bean class="com.codecrate.shard.character.HibernateCharacterDao">
   	      <constructor-arg>
-  	        <ref bean="abilityScoreDao"/>
+  	        <ref bean="pointCostCalculator"/>
 	      </constructor-arg>
   	      <constructor-arg>
   	        <ref bean="raceDao"/>

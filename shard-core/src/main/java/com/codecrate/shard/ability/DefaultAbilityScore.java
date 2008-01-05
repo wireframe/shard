@@ -28,12 +28,12 @@ import com.codecrate.shard.modifier.ModifierType;
 public class DefaultAbilityScore extends ModifiableObject implements AbilityScore {
     private final Ability ability;
     private final ModifierType type;
-    private AbilityScoreDao dao;
+    private PointCostCalculator calculator;
     
-    public DefaultAbilityScore(Ability ability, int baseScore, AbilityScoreDao dao) {
+    public DefaultAbilityScore(Ability ability, int baseScore, PointCostCalculator calculator) {
         super(baseScore);
     	this.ability = ability;
-    	this.dao = dao;
+    	this.calculator = calculator;
     	type = new DefaultModifierType(ability.getName(), new HighestModifierCalculator());
     }
     
@@ -46,7 +46,7 @@ public class DefaultAbilityScore extends ModifiableObject implements AbilityScor
     }
     
     public int getPointCost() {
-    	return dao.getPointCost(getModifiedValue());
+    	return calculator.getPointCost(getModifiedValue());
     }
 
     public ModifierType getModifierType() {

@@ -64,13 +64,13 @@ public class DefaultAbilityScoreTest extends TestCase {
 	}
 	
 	public void testDaoUsedToLookupPointCost() {
-	    MockControl mockAbilityScoreDao = MockControl.createControl(AbilityScoreDao.class);
-	    AbilityScoreDao abilityScoreDao = (AbilityScoreDao) mockAbilityScoreDao.getMock();
-	    abilityScoreDao.getPointCost(10);
-	    mockAbilityScoreDao.setReturnValue(1);
-	    mockAbilityScoreDao.replay();
+	    MockControl mockCalculator = MockControl.createControl(PointCostCalculator.class);
+	    PointCostCalculator calculator = (PointCostCalculator) mockCalculator.getMock();
+	    calculator.getPointCost(10);
+	    mockCalculator.setReturnValue(1);
+	    mockCalculator.replay();
 	    
-	    DefaultAbilityScore ability = new DefaultAbilityScore(Ability.CHARISMA, 10, abilityScoreDao);
+	    DefaultAbilityScore ability = new DefaultAbilityScore(Ability.CHARISMA, 10, calculator);
 	    int pointCost = ability.getPointCost();
 	    assertEquals(1, pointCost);
 	}

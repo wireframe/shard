@@ -27,7 +27,7 @@ import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
-import com.codecrate.shard.ability.AbilityScoreDao;
+import com.codecrate.shard.ability.PointCostCalculator;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.equipment.DefaultItemEntryContainer;
@@ -42,16 +42,16 @@ import com.codecrate.shard.race.RaceDao;
  */
 public class HibernateCharacterDao extends HibernateDaoSupport implements CharacterDao, CharacterFactory {
 
-	private final AbilityScoreDao abilityScoreDao;
+	private final PointCostCalculator calculator;
 	private final RaceDao raceDao;
 
-	public HibernateCharacterDao(AbilityScoreDao abilityScoreDao, RaceDao raceDao) {
-		this.abilityScoreDao = abilityScoreDao;
+	public HibernateCharacterDao(PointCostCalculator calculator, RaceDao raceDao) {
+		this.calculator = calculator;
         this.raceDao = raceDao;
 	}
 
 	public PlayerCharacter createCharacter(String name) {
-		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(abilityScoreDao);
+		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(calculator);
 		ItemEntryContainer inventory = new DefaultItemEntryContainer(new ArrayList());
 		Alignment alignment = Alignment.LAWFUL_GOOD;
 		Encumberance encumberance = DefaultEncumberance.LIGHT;

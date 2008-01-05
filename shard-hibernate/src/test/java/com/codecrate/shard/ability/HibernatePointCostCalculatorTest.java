@@ -20,8 +20,8 @@ import com.codecrate.shard.ShardHibernateDbUnitTestCaseSupport;
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateAbilityScoreDaoTest extends ShardHibernateDbUnitTestCaseSupport {
-    public HibernateAbilityScoreDaoTest(String name) throws Exception {
+public class HibernatePointCostCalculatorTest extends ShardHibernateDbUnitTestCaseSupport {
+    public HibernatePointCostCalculatorTest(String name) throws Exception {
         super(name);
     }
 
@@ -30,14 +30,14 @@ public class HibernateAbilityScoreDaoTest extends ShardHibernateDbUnitTestCaseSu
     }
     
     public void testLookupOfValidScore() throws Exception {
-        AbilityScoreDao abilityScoreDao = (AbilityScoreDao) getContext().getBean("abilityScoreDao");
-        int pointCost = abilityScoreDao.getPointCost(10);
+        PointCostCalculator calculator = (PointCostCalculator) getContext().getBean("pointCostCalculator");
+        int pointCost = calculator.getPointCost(10);
         assertEquals(2, pointCost);
     }
     
     public void testZeroReturnedWhenScoreNotFound() throws Exception {
-        AbilityScoreDao abilityScoreDao = (AbilityScoreDao) getContext().getBean("abilityScoreDao");
-        int pointCost = abilityScoreDao.getPointCost(100);
+        PointCostCalculator calculator = (PointCostCalculator) getContext().getBean("pointCostCalculator");
+        int pointCost = calculator.getPointCost(100);
         assertEquals(0, pointCost);
     }
 }

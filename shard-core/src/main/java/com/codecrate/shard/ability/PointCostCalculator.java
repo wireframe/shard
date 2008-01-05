@@ -16,9 +16,11 @@
 package com.codecrate.shard.ability;
 
 /**
+ * Pluggable interface for computing point costs for ability scores.
+ * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface AbilityScoreDao {
+public interface PointCostCalculator {
     
     int getPointCost(int score);
 }
