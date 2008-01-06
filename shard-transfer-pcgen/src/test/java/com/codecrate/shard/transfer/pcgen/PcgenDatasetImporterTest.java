@@ -1,14 +1,18 @@
 package com.codecrate.shard.transfer.pcgen;
 
-import java.util.HashMap;
+import java.io.File;
+import java.util.Collections;
 
 import junit.framework.TestCase;
 
+import com.codecrate.shard.transfer.FileUtils;
+
 public class PcgenDatasetImporterTest extends TestCase {
 
-	//TODO: enable this to point to test resources
-	public void testAbleToLoadDatasetsFromClassPath() {
-//		PcgenDatasetImporter importer = new PcgenDatasetImporter(new HashMap());
-//		assertFalse(importer.getAvailableDatasets().isEmpty());
+	public void testAbleToLocateDatasetsInChildDirectories() {
+        File file = FileUtils.getFile("pcgen-5.10.1");
+
+		PcgenDatasetImporter importer = new PcgenDatasetImporter(Collections.EMPTY_MAP);
+		assertFalse(importer.getAvailableDatasets(file).isEmpty());
 	}
 }

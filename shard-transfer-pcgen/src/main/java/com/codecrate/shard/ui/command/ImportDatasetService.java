@@ -31,15 +31,8 @@ public class ImportDatasetService {
     }
 
     public void importDataset(ImportDatasetEvent event, ProgressMonitor progressMonitor) {
-    	importDirectory(event.getSelectedDirectory(), progressMonitor);
-    }
-
-	private void importDirectory(File directory, ProgressMonitor progressMonitor) {
-        importer.importObjects(directory, new EventDispatcherThreadProgressMonitor(new SpringRichImportProgressAdapter(progressMonitor)));
-        for (File child : directory.listFiles()) {
-			if (child.isDirectory()) {
-				importDirectory(child, progressMonitor);
-			}
+    	for (File dataset : importer.getAvailableDatasets(event.getSelectedDirectory())) {
+            importer.importObjects(directory, new EventDispatcherThreadProgressMonitor(new SpringRichImportProgressAdapter(progressMonitor)));
 		}
-	}
+    }
 }

@@ -120,12 +120,10 @@ public class PcgenDatasetImporter implements ObjectImporter {
 	}
 
     /**
-     * get all availble datasets found on the current classpath.
-     * @return
+     * get all availble datasets from a given directory
      */
-    public Collection getAvailableDatasets() {
-        File parent = new File(this.getClass().getClassLoader().getResource("data").getFile());
-        return findDatasets(parent);
+    public Collection getAvailableDatasets(File rootDirectory) {
+        return findDatasets(rootDirectory);
     }
 
     private Collection findDatasets(File root) {
@@ -138,7 +136,9 @@ public class PcgenDatasetImporter implements ObjectImporter {
         if (null != files) {
             for (int i = 0; i < files.length; i++) {
                 File child = files[i];
-                results.addAll(findDatasets(child));
+                if (child.isDirectory()) {
+                	results.addAll(findDatasets(child));
+                }
             }
         }
         return results;
