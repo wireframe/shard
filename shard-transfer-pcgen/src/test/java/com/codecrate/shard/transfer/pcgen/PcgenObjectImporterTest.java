@@ -17,7 +17,6 @@ package com.codecrate.shard.transfer.pcgen;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.Collections;
 
 import junit.framework.TestCase;
 
@@ -99,11 +98,5 @@ public class PcgenObjectImporterTest extends TestCase {
 
         assertFalse(results.isEmpty());
         assertEquals(1, results.size());
-    }
-
-    public void testAllAvailableDatasetsReturnedFromTheClassPath() {
-        PcgenDatasetImporter importer = new PcgenDatasetImporter(Collections.EMPTY_MAP);
-
-        assertFalse(importer.getAvailableDatasets().isEmpty());
     }
 }

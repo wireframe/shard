@@ -20,28 +20,29 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.richclient.application.ApplicationWindow;
 import org.springframework.richclient.application.config.ApplicationWindowAware;
 import org.springframework.richclient.command.ParameterizableActionCommandExecutor;
+import org.springframework.richclient.progress.NullProgressMonitor;
 import org.springframework.richclient.progress.ProgressMonitor;
 import org.springframework.richclient.progress.StatusBar;
+import org.springframework.richclient.progress.StatusBarCommandGroup;
 
 public class ApplicationWindowProgressMonitorActionCommandExecutor implements ParameterizableActionCommandExecutor, ApplicationWindowAware, MessageSourceAware, BeanNameAware {
+	private static final Log LOG = LogFactory.getLog(ApplicationWindowProgressMonitorActionCommandExecutor.class);
 	private final ParameterizableActionCommandExecutor delegate;
-    private ApplicationWindow window;
     private MessageSource messageSource;
     private String messageKey;
+	private ProgressMonitor progressMonitor = new NullProgressMonitor();
 
 	public ApplicationWindowProgressMonitorActionCommandExecutor(ParameterizableActionCommandExecutor delegate) {
         this.delegate = delegate;
 	}
-
-    private ProgressMonitor getProgressMonitor() {
-    	return window.getStatusBar().getProgressMonitor();
-    }
 
     public void execute() {
         execute(Collections.EMPTY_MAP);
@@ -49,20 +50,24 @@ public class ApplicationWindowProgressMonitorActionCommandExecutor implements Pa
 
     public void execute(Map params) {
         String description = messageSource.getMessage(messageKey, new Object[] {}, messageKey, Locale.getDefault());
-        getProgressMonitor().taskStarted(description, StatusBar.UNKNOWN);
+        progressMonitor.taskStarted(description, StatusBar.UNKNOWN);
 
         try {
             Map newParams = new HashMap();
             newParams.putAll(params);
-            newParams.put("progressMonitor", getProgressMonitor());
+            newParams.put("progressMonitor", progressMonitor);
             delegate.execute(newParams);
         } finally {
-            getProgressMonitor().done();
+            progressMonitor.done();
         }
     }
 
-    public void setApplicationWindow(ApplicationWindow window) {
-        this.window = window;
+	public void setApplicationWindow(ApplicationWindow window) {
+		if (window.getStatusBar() == null) {
+			LOG.warn("Status bar is null for some reason.");
+		} else {
+			this.progressMonitor = window.getStatusBar().getProgressMonitor();
+		}
     }
 
     public void setMessageSource(MessageSource messageSource) {

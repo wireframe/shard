@@ -10,7 +10,7 @@
   <groupId>com.codecrate.shard</groupId>
   <artifactId>shard-transfer-pcgen</artifactId>
   <name>shard transfer pcgen module</name>
-  <description>Shard application for importing PCGen datasets</description>
+  <description>Shard module for importing PCGen datasets</description>
   <packaging>jar</packaging>
   <version>0.5.0-SNAPSHOT</version>
 
@@ -18,11 +18,6 @@
     <dependency>
       <groupId>com.codecrate.shard</groupId>
       <artifactId>shard-transfer</artifactId>
-      <version>0.5.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>com.codecrate.shard</groupId>
-      <artifactId>shard-hibernate</artifactId>
       <version>0.5.0-SNAPSHOT</version>
     </dependency>
     <dependency>
@@ -48,12 +43,6 @@
           <include>**/*.properties</include>
         </includes>
       </resource>
-      <resource>
-        <directory>${basedir}/src/main/pcgen</directory>
-        <includes>
-          <include>**/*.lst</include>
-        </includes>
-      </resource>
     </resources>
     <testResources>
       <testResource>
@@ -63,64 +52,5 @@
         </includes>
       </testResource>
     </testResources>
-
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>${mainClass}</mainClass>
-              <addClasspath>true</addClasspath>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-
-      <!-- create webstart bundle for launching application -->
-      <plugin>
-        <groupId>com.codecrate.webstart</groupId>
-        <artifactId>webstart-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>deploy-webstart</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>deploy-jnlp</goal>
-             </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <mainClass>${mainClass}</mainClass>
-          <allPermissions>true</allPermissions>
-
-          <id>codecrate-ftp-repo</id>
-          <url>ftp://www.codecrate.com/shard/${project.artifactId}</url>
-        </configuration>
-      </plugin>
-
-      <!-- support exec:java to run application -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <configuration>
-          <mainClass>${mainClass}</mainClass>
-        </configuration>
-      </plugin>
-    </plugins>
   </build>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>com.codecrate.webstart</groupId>
-        <artifactId>webstart-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </reporting>
-  
-  <properties>
-    <mainClass>com.codecrate.shard.ui.ShardTransferPcgen</mainClass>
-  </properties>
 </project>

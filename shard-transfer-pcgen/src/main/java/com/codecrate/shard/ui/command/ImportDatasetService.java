@@ -15,6 +15,8 @@
  */
 package com.codecrate.shard.ui.command;
 
+import java.io.File;
+
 import org.springframework.richclient.progress.ProgressMonitor;
 
 import com.codecrate.shard.transfer.pcgen.PcgenDatasetImporter;
@@ -29,6 +31,15 @@ public class ImportDatasetService {
     }
 
     public void importDataset(ImportDatasetEvent event, ProgressMonitor progressMonitor) {
-        importer.importObjects(event.getSelectedDirectory(), new EventDispatcherThreadProgressMonitor(new SpringRichImportProgressAdapter(progressMonitor)));
+    	importDirectory(event.getSelectedDirectory(), progressMonitor);
     }
+
+	private void importDirectory(File directory, ProgressMonitor progressMonitor) {
+        importer.importObjects(directory, new EventDispatcherThreadProgressMonitor(new SpringRichImportProgressAdapter(progressMonitor)));
+        for (File child : directory.listFiles()) {
+			if (child.isDirectory()) {
+				importDirectory(child, progressMonitor);
+			}
+		}
+	}
 }

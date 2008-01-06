@@ -26,6 +26,9 @@ import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -35,6 +38,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
@@ -53,6 +58,7 @@ import ca.odell.glazedlists.swing.EventSelectionModel;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 
 import com.codecrate.shard.ui.ShardPhoenixCommandIds;
+import com.codecrate.shard.ui.command.ImportDatasetEvent;
 import com.codecrate.shard.ui.command.ObjectManagerCommandAdapter;
 import com.codecrate.shard.ui.component.SearchOnPauseJTextField;
 import com.codecrate.shard.ui.form.FormFactory;
@@ -65,7 +71,7 @@ import com.codecrate.shard.util.ComparableComparator;
 import com.l2fprod.common.springrcp.JTaskPaneCommandGroup;
 import com.l2fprod.common.swing.JTaskPane;
 
-public class ObjectManagerView extends AbstractView {
+public class ObjectManagerView extends AbstractView implements ApplicationEventPublisherAware {
     private static final boolean SINGLE_COLUMN_SORT = false;
     private static final Matcher ALWAYS_MATCH_MATCHER = new AlwaysMatchMatcher();
 
@@ -81,6 +87,7 @@ public class ObjectManagerView extends AbstractView {
 
     private final ObjectManagerCommandAdapter commandAdapter;
 	private final FormFactory formFactory;
+	private final ImportCommandExcecutor importCommand;
 	private final NewCommandExcecutor newCommand;
 	private final DeleteCommandExecutor deleteCommand;
 	private final PropertiesCommandExecutor propertiesCommand;
@@ -88,11 +95,13 @@ public class ObjectManagerView extends AbstractView {
 	private FilterList objects;
 	private SortedList sortedObjects;
 	private EventSelectionModel selectionModel;
+	private ApplicationEventPublisher publisher;
 
 	public ObjectManagerView(ObjectManagerCommandAdapter commandAdapter, FormFactory formFactory) {
 		this.commandAdapter = commandAdapter;
 		this.formFactory = formFactory;
 		this.newCommand = new NewCommandExcecutor();
+		this.importCommand = new ImportCommandExcecutor();
 		this.propertiesCommand = new PropertiesCommandExecutor();
 		this.deleteCommand = new DeleteCommandExecutor();
 		this.selectAllCommand = new SelectAllCommandExcecutor();
@@ -112,6 +121,7 @@ public class ObjectManagerView extends AbstractView {
         context.register(GlobalCommandIds.DELETE, deleteCommand);
         context.register(GlobalCommandIds.SELECT_ALL, selectAllCommand);
         context.register(ShardPhoenixCommandIds.NEW, newCommand);
+        context.register(ShardPhoenixCommandIds.IMPORT, importCommand);
     }
 
     public void componentFocusLost() {
@@ -326,6 +336,28 @@ public class ObjectManagerView extends AbstractView {
         }
     }
 
+    private class ImportCommandExcecutor extends AbstractActionCommandExecutor {
+
+		public ImportCommandExcecutor() {
+			this.setEnabled(true);
+        }
+
+        public void execute() {
+        	JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            chooser.setAcceptAllFileFilterUsed(false);
+            chooser.setDialogTitle("Select your PCGen Installation location");
+        	int returnVal = chooser.showOpenDialog(ObjectManagerView.this.getControl());
+        	if (returnVal == JFileChooser.APPROVE_OPTION) {
+                ImportDatasetEvent event = new ImportDatasetEvent(this);
+                event.setSelectedDirectory(chooser.getSelectedFile());
+
+                publisher.publishEvent(event);
+                JOptionPane.showMessageDialog(ObjectManagerView.this.getControl(), "Please wait while PCGen datasets are imported.  Once complete, please restart the application to view data.", "Import in progress", JOptionPane.INFORMATION_MESSAGE);
+        	}
+        }
+    }
+
     private class DeleteCommandExecutor extends AbstractActionCommandExecutor {
     	private final String title;
 		private final String message;
@@ -377,4 +409,10 @@ public class ObjectManagerView extends AbstractView {
             dialog.showDialog();
         }
     }
+
+
+	@Override
+	public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
+		this.publisher = publisher;
+	}
 }

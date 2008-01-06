@@ -25,6 +25,11 @@
       <artifactId>shard-gui-core</artifactId>
       <version>0.5.0-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>com.codecrate.shard</groupId>
+      <artifactId>shard-transfer-pcgen</artifactId>
+      <version>0.5.0-SNAPSHOT</version>
+    </dependency>
 
     <!-- glazed lists dependency -->
     <dependency>

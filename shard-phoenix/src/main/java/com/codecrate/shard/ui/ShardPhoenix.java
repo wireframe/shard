@@ -26,6 +26,7 @@ public class ShardPhoenix {
     	"/shard-gui-core-context.xml"
     	, "/shard-phoenix-context.xml"
     	, "/shard-hibernate-context.xml"
+    	, "/shard-transfer-pcgen-context.xml"
     	, "/shard-datasource.xml"
     };
     private static final String STARTUP_CONTEXT_FILE_NAME = "/shard-phoenix-startup-context.xml";

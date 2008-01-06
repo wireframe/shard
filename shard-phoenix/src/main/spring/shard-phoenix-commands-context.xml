@@ -11,6 +11,7 @@
 				<value>selectAllCommand</value>
 				<value>deleteCommand</value>
 				<value>newCommand</value>
+				<value>importCommand</value>
 			</list>
 		</property>
 	</bean>
@@ -61,6 +62,7 @@
 		<property name="members">
 			<list>
 				<value>newCommand</value>
+				<value>importCommand</value>
 				<value>separator</value>
 				<bean class="org.springframework.richclient.command.support.ExitCommand"/>
 			</list>
@@ -104,7 +106,7 @@
 	<bean id="helpContentsCommand"
 		class="com.codecrate.shard.ui.command.BrowserLauncherCommand">
 		<property name="url">
-		  <value>http://wiki.codecrate.com/display/SHA/User+Guide</value>
+		  <value>http://shard.codecrate.com</value>
 		</property>
 	</bean>
 
@@ -114,4 +116,21 @@
 			<value>about.html</value>
 		</property>
 	</bean>
+	
+	<!--  commandbus beans MUST be in this context file to locate application window -->
+    <bean id="importDatasetService"
+    	class="com.codecrate.shard.ui.command.ImportDatasetService">
+    	<constructor-arg>
+    		<ref bean="objectImporter" />
+    	</constructor-arg>
+    </bean>
+
+    <bean id="importDatasetCommand"
+    	class="com.codecrate.shard.ui.event.commandbus.EventTriggeredProgressMonitoredBackgroundCommandExecutor">
+    	<constructor-arg>
+    		<value>com.codecrate.shard.ui.command.ImportDatasetEvent</value>
+    	</constructor-arg>
+    	<constructor-arg index="1"><ref bean="importDatasetService" /></constructor-arg>
+    	<constructor-arg index="2"><value>importDataset</value></constructor-arg>
+    </bean>
 </beans>

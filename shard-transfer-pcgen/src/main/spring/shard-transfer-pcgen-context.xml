@@ -2,41 +2,6 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-
-	<bean id="lifecycleAdvisor"
-		class="org.springframework.richclient.application.config.DefaultApplicationLifecycleAdvisor">
-		<property name="windowCommandBarDefinitions">
-			<value>shard-transfer-pcgen-commands-context.xml</value>
-		</property>
-		<property name="startingPageId">
-			<value>listDatasetsView</value>
-		</property>
-	</bean>
-
-	<bean id="lookAndFeelConfigurer"
-		class="org.springframework.richclient.application.config.JGoodiesLooksConfigurer">
-		<property name="theme">
-			<bean class="com.jgoodies.looks.plastic.theme.ExperienceBlue"/>
-		</property>
-	</bean>
-
-    <bean id="listDatasetsView"
-		class="org.springframework.richclient.application.support.LookupViewDescriptor">
-		<property name="viewPrototypeBeanName">
-			<value>listDatasets</value>
-		</property>
-	</bean>
-
-	<bean id="listDatasets"
-	    class="com.codecrate.shard.ui.view.ListDatasetsView"
-	    singleton="false">
-	    <constructor-arg>
-		    <ref bean="objectImporter" />
-	    </constructor-arg>
-	</bean>
-
-
-	<!-- object importer definition -->
     <bean id="sourceLineHandler" class="com.codecrate.shard.transfer.pcgen.PcgenSourceLineHandler">
 	  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
 	  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
