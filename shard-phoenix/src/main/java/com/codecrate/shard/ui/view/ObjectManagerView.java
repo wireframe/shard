@@ -346,7 +346,7 @@ public class ObjectManagerView extends AbstractView implements ApplicationEventP
         	JFileChooser chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             chooser.setAcceptAllFileFilterUsed(false);
-            chooser.setDialogTitle("Select your PCGen Installation location");
+            chooser.setDialogTitle("Select the location of the PCGen datasets to import.");
         	int returnVal = chooser.showOpenDialog(ObjectManagerView.this.getControl());
         	if (returnVal == JFileChooser.APPROVE_OPTION) {
                 ImportDatasetEvent event = new ImportDatasetEvent(this);
