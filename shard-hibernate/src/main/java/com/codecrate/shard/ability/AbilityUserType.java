@@ -15,60 +15,14 @@
  */
 package com.codecrate.shard.ability;
 
-import java.io.Serializable;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
-
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.UserType;
+import com.codecrate.shard.hibernate.EnumUserType;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class AbilityUserType implements UserType, Serializable {
+public class AbilityUserType extends EnumUserType {
 
-    private static final int[] SQL_TYPES = {Types.VARCHAR};
-
-    public int[] sqlTypes() { 
-        return SQL_TYPES; 
-    }
- 
-    public Class returnedClass() { 
-        return Ability.class; 
-    }
-    
-    public boolean equals(Object x, Object y) { 
-        return x == y; 
-    }
-    
-    public Object deepCopy(Object value) { 
-        return value; 
-    }
-    
-    public boolean isMutable() { 
-        return false; 
-    }
-
-    public Object nullSafeGet(ResultSet resultSet,
-                              String[] names,
-                              Object owner)
-            throws HibernateException, SQLException {
-
-      String name = resultSet.getString(names[0]);
-      return resultSet.wasNull() ? null : Ability.valueOf(name);
-    }
-
-    public void nullSafeSet(PreparedStatement statement,
-                            Object value,
-                            int index)
-            throws HibernateException, SQLException {
-
-        if (value == null) {
-            statement.setNull(index, Types.VARCHAR);
-        } else {
-            statement.setString(index, value.toString());
-        }
-    }
+	public AbilityUserType() {
+		super(Ability.class);
+	}
 }
