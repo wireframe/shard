@@ -122,16 +122,16 @@ public class PcgenDatasetImporter implements ObjectImporter {
     /**
      * get all availble datasets from a given directory
      */
-    public Collection getAvailableDatasets(File rootDirectory) {
+    public Collection<File> getAvailableDatasets(File rootDirectory) {
         return findDatasets(rootDirectory);
     }
 
-    private Collection findDatasets(File root) {
+    private Collection<File> findDatasets(File root) {
     	if (isDataset(root)) {
     		return Collections.singleton(root);
     	}
 
-    	Collection results = new TreeSet();
+    	Collection<File> results = new TreeSet<File>();
         File[] files = root.listFiles();
         if (null != files) {
             for (int i = 0; i < files.length; i++) {

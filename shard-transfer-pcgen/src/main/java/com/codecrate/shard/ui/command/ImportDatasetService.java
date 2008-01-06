@@ -32,7 +32,7 @@ public class ImportDatasetService {
 
     public void importDataset(ImportDatasetEvent event, ProgressMonitor progressMonitor) {
     	for (File dataset : importer.getAvailableDatasets(event.getSelectedDirectory())) {
-            importer.importObjects(directory, new EventDispatcherThreadProgressMonitor(new SpringRichImportProgressAdapter(progressMonitor)));
+            importer.importObjects(dataset, new EventDispatcherThreadProgressMonitor(new SpringRichImportProgressAdapter(progressMonitor)));
 		}
     }
 }
