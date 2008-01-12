@@ -17,34 +17,39 @@ package com.codecrate.shard.skill;
 
 import java.util.Collection;
 
-import com.codecrate.shard.ShardHibernateTestCaseSupport;
+import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateSkillDaoTest extends ShardHibernateTestCaseSupport {
-
+public class HibernateSkillDaoTest extends AbstractTransactionalDataSourceSpringContextTests {
 	private SkillDao skillDao;
-	private SkillFactory skillFactory;
+
+	public HibernateSkillDaoTest() {
+		super();
+		setDefaultRollback(true);
+	}
+	
+	protected final String[] getConfigLocations() {
+		return new String[] {
+				"/shard-hibernate-context.xml"
+				, "/test-datasource.xml"
+		}; 
+	}
 
 	public void setSkillDao(SkillDao dao) {
 		this.skillDao = dao;
 	}
 
-	public void setSkillFactory(SkillFactory factory) {
-		this.skillFactory = factory;
-	}
-
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
-        Skill appraise = skillFactory.createSkill("appraise", null, false, false, null);
-        Skill balance = skillFactory.createSkill("balance", null, true, false, null);
-        Skill climb = skillFactory.createSkill("climb", null, true, false, null);
+        Skill appraise = new Skill("appraise", null, null);
+        Skill balance = new Skill("balance", null, null);
+        Skill climb = new Skill("climb", null, null);
 		skillDao.saveSkill(appraise);
 		skillDao.saveSkill(balance);
 		skillDao.saveSkill(climb);
 	}
-
 
     public void testLoadsSkills() throws Exception {
         Collection skills = skillDao.getSkills();
@@ -57,7 +62,7 @@ public class HibernateSkillDaoTest extends ShardHibernateTestCaseSupport {
     }
 
     public void testSkillCreation() throws Exception {
-        Skill skill = skillFactory.createSkill("test skill", null, true, true, null);
+        Skill skill = new Skill("test skill", null, null);
         skill = skillDao.saveSkill(skill);
         assertNotNull(skill);
     }
@@ -70,6 +75,7 @@ public class HibernateSkillDaoTest extends ShardHibernateTestCaseSupport {
     }
 
     public void testSearchForSkills() throws Exception {
+    	((HibernateSkillDao)skillDao).indexAll();
     	Collection results = skillDao.searchSkills("balance");
     	assertFalse(results.isEmpty());
     }

@@ -82,52 +82,6 @@
     </dependency>
   </dependencies>
 
-  <dependencyManagement>
-    <dependencies>
-
-      <!-- spring dependency management -->
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-mock</artifactId>
-        <version>1.2.8</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-context</artifactId>
-        <version>1.2.8</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-aop</artifactId>
-        <version>1.2.8</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-hibernate</artifactId>
-        <version>1.2.8</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-
-      <!-- spring rich client dependency management -->
-      <dependency>
-        <groupId>org.springframework.richclient</groupId>
-        <artifactId>spring-richclient-support</artifactId>
-        <version>0.2.1</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.richclient</groupId>
-        <artifactId>spring-richclient-resources</artifactId>
-        <version>0.2.1</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <distributionManagement>
     <repository>
       <id>codecrate-ftp-repo</id>

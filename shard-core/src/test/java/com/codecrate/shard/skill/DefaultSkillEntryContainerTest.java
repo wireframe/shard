@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 public class DefaultSkillEntryContainerTest extends TestCase {
 
 	public void testRollSkillCheckFailsIfDoesNotHaveSkill() {
-		DefaultSkill swim = new DefaultSkill("swim", true, null, true, null);
+		Skill swim = new Skill("swim", null, null);
 		DifficultyClass dc = new DifficultyClass(1);
 		DefaultSkillEntryContainer skills = new DefaultSkillEntryContainer(new HashMap(), 1);
 

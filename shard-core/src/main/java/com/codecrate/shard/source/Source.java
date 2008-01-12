@@ -15,13 +15,26 @@
  */
 package com.codecrate.shard.source;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+/**
+ * Represents the source of a ruleset.
+ * 
+ * @author rsonnek
+ */
+@Entity
 public class Source implements Comparable {
-
     public static final Source CUSTOM = new Source("Custom", "custom", "http://shard.codecrate.com");
-    private String id;
+
+    @Id
+    @GeneratedValue 
+    private int sequenceId;
+
     private String name;
     private String abbreviation;
     private String url;

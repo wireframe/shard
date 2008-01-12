@@ -27,16 +27,15 @@ public interface SkillDao {
     /**
      * gets untrained skills.
      * convenience method.  can use get all skills and iterate through and 
-     * manually check the isUsableUntrained flag.
-     * @return
+     * manually check the {@link Skill#isUsableUntrained() isUsableUntrained flag}.
      */
-    Collection getUntrainedSkills();
+    Collection<Skill> getUntrainedSkills();
 
     /**
      * gets all skills
      * @return
      */
-    Collection getSkills();
+    Collection<Skill> getSkills();
 
     /**
      * saves a new skill.
@@ -64,5 +63,5 @@ public interface SkillDao {
      */
     Skill getSkill(String name);
 
-	Collection searchSkills(String query);
+	Collection<Skill> searchSkills(String query);
 }
