@@ -24,6 +24,7 @@ import javax.persistence.ManyToOne;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -50,7 +51,9 @@ public class Item implements Comparable {
 	private String name;
 
     private BigDecimal weight;
-    private transient Money cost;
+    
+    @Type(type="com.codecrate.shard.hibernate.MoneyUserType")
+    private Money cost;
 
     @ManyToOne
     private Source source;

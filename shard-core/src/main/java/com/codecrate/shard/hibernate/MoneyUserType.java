@@ -13,38 +13,40 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codecrate.shard.equipment;
+package com.codecrate.shard.hibernate;
 
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.text.ParseException;
 
-import net.sf.hibernate.Hibernate;
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.UserType;
+import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
+import org.hibernate.usertype.UserType;
+
+import com.codecrate.shard.equipment.Money;
 
 /**
- * custom hibernate usertype for storing Money expressions.
- * Money expressions are stored as strings.  any expression that 
- * is a valid <code>MoneyExpression</code> can be stored.
- * 
- * @see com.codecreate.shard.Money.MoneyExpression
+ * custom hibernate usertype for storing Money.
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class MoneyUserType implements UserType {
     private static final int[] TYPES = { Types.VARCHAR };
 
+	@Override
 	public int[] sqlTypes() {
 		return TYPES;
 	}
 	
+	@Override
     public Class returnedClass() {
         return Money.class;
     }
     
+	@Override
 	public boolean equals(Object x, Object y) {
 		if (x == y) {
 		    return true;
@@ -57,6 +59,7 @@ public class MoneyUserType implements UserType {
 		return ((Money)x).equals(y);
 	}
 
+	@Override
 	public Object deepCopy(Object x) {
 		if (x == null) {
 		    return null;
@@ -68,10 +71,12 @@ public class MoneyUserType implements UserType {
 		}
 	}
 
+	@Override
 	public boolean isMutable() { 
 	    return true; 
 	}
 
+	@Override
     public Object nullSafeGet(ResultSet rs, String[] names, Object arg2) throws HibernateException, SQLException {
 		String expression = (String) Hibernate.STRING.nullSafeGet(rs, names[0]);
 		if (null == expression) {
@@ -84,9 +89,30 @@ public class MoneyUserType implements UserType {
 		}
     }
     
+	@Override
     public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
         String expression = value.toString();
 
 		Hibernate.STRING.nullSafeSet(st, expression, index);
     }
+
+	@Override
+	public Object assemble(Serializable state, Object owner) throws HibernateException {
+		return state;
+	}
+
+	@Override
+	public Serializable disassemble(Object value) throws HibernateException {
+		return (Serializable) value;
+	}
+
+	@Override
+	public int hashCode(Object value) throws HibernateException {
+		return value.hashCode();
+	}
+
+	@Override
+	public Object replace(Object original, Object target, Object owner) throws HibernateException {
+		return original;
+	}
 }
