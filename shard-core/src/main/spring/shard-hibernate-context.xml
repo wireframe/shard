@@ -16,6 +16,7 @@
 	  </property>
 	   <property name="annotatedClasses">
 	     <list>
+	       <value>com.codecrate.shard.feat.Feat</value>
 	       <value>com.codecrate.shard.skill.Skill</value>
 	       <value>com.codecrate.shard.source.Source</value>
 	     </list>
@@ -30,6 +31,13 @@
 
     <!-- Dao declarations -->
 	<bean id="skillDao" class="com.codecrate.shard.skill.HibernateSkillDao">
+	  <constructor-arg><ref bean="analyzer" /></constructor-arg>
+  	  <property name="sessionFactory">
+	    <ref bean="sessionFactory"/>
+	  </property>
+	</bean>
+	
+	<bean id="featDao" class="com.codecrate.shard.feat.HibernateFeatDao">
 	  <constructor-arg><ref bean="analyzer" /></constructor-arg>
   	  <property name="sessionFactory">
 	    <ref bean="sessionFactory"/>

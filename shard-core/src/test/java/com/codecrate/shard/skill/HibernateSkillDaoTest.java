@@ -49,6 +49,7 @@ public class HibernateSkillDaoTest extends AbstractTransactionalDataSourceSpring
 		skillDao.saveSkill(appraise);
 		skillDao.saveSkill(balance);
 		skillDao.saveSkill(climb);
+		
 	}
 
     public void testLoadsSkills() throws Exception {
@@ -75,7 +76,6 @@ public class HibernateSkillDaoTest extends AbstractTransactionalDataSourceSpring
     }
 
     public void testSearchForSkills() throws Exception {
-    	((HibernateSkillDao)skillDao).indexAll();
     	Collection results = skillDao.searchSkills("balance");
     	assertFalse(results.isEmpty());
     }

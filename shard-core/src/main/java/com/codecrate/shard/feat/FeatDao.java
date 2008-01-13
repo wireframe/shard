@@ -26,15 +26,8 @@ public interface FeatDao {
      * get all feats.
      * @return
      */
-    Collection getFeats();
+    Collection<Feat> getFeats();
     
-    /**
-     * gets a single feat by name;
-     * @param name
-     * @return
-     */
-    Feat getFeat(String name);
-
     /**
      * update a feat.
      * saves changes to a feat.
@@ -59,5 +52,5 @@ public interface FeatDao {
 	 * @param query
 	 * @return
 	 */
-	Collection searchFeats(String query);
+	Collection<Feat> searchFeats(String query);
 }

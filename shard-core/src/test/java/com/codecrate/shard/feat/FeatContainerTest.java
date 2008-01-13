@@ -17,7 +17,7 @@ package com.codecrate.shard.feat;
 
 import java.util.Arrays;
 
-import com.codecrate.shard.feat.DefaultFeat;
+import com.codecrate.shard.feat.Feat;
 import com.codecrate.shard.feat.FeatContainer;
 
 import junit.framework.TestCase;
@@ -28,7 +28,7 @@ import junit.framework.TestCase;
 public class FeatContainerTest extends TestCase {
 
     public void testHasFeatTrueWhenHasFeat() {
-        FeatContainer container = new FeatContainer(Arrays.asList(new DefaultFeat[] {DefaultFeat.ARMOR_PROFICIENCY_HEAVY}));
-        assertTrue(container.hasFeat(DefaultFeat.ARMOR_PROFICIENCY_HEAVY));
+        FeatContainer container = new FeatContainer(Arrays.asList(new Feat[] {Feat.ARMOR_PROFICIENCY_HEAVY}));
+        assertTrue(container.hasFeat(Feat.ARMOR_PROFICIENCY_HEAVY));
     }
 }

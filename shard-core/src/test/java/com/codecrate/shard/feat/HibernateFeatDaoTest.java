@@ -17,13 +17,26 @@ package com.codecrate.shard.feat;
 
 import java.util.Collection;
 
-import com.codecrate.shard.ShardHibernateTestCaseSupport;
+import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateFeatDaoTest extends ShardHibernateTestCaseSupport {
+public class HibernateFeatDaoTest extends AbstractTransactionalDataSourceSpringContextTests {
 	private FeatDao featDao;
+
+	public HibernateFeatDaoTest() {
+		
+		super();
+		setDefaultRollback(true);
+	}
+	
+	protected final String[] getConfigLocations() {
+		return new String[] {
+				"/shard-hibernate-context.xml"
+				, "/test-datasource.xml"
+		}; 
+	}
 
 	public void setFeatDao(FeatDao dao) {
 		this.featDao = dao;
@@ -32,26 +45,12 @@ public class HibernateFeatDaoTest extends ShardHibernateTestCaseSupport {
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
 
-		featDao.saveFeat(DefaultFeat.ARMOR_PROFICIENCY_HEAVY);
+		featDao.saveFeat(Feat.ARMOR_PROFICIENCY_HEAVY);
 	}
 
 	public void testLoadsFeats() throws Exception {
         Collection feats = featDao.getFeats();
         assertFalse(feats.isEmpty());
-    }
-
-    public void testGetSkillName() throws Exception {
-        Feat feat = (Feat) featDao.getFeats().iterator().next();
-        Feat feat2 = featDao.getFeat(feat.getName());
-        assertNotNull(feat2);
-    }
-
-    public void testGetSkillByUnknownNameThrowsException() throws Exception {
-
-        try {
-            featDao.getFeat("invalid feat");
-            fail("Exception should be thrown.");
-        } catch (IllegalArgumentException expected) { }
     }
 
     public void testSearchForFeats() throws Exception {
@@ -61,7 +60,7 @@ public class HibernateFeatDaoTest extends ShardHibernateTestCaseSupport {
 
     public void testExceptionThrownIfSavingExistingFeat() throws Exception {
     	try {
-        	featDao.saveFeat(DefaultFeat.ARMOR_PROFICIENCY_HEAVY);
+        	featDao.saveFeat(Feat.ARMOR_PROFICIENCY_HEAVY);
     	} catch (IllegalArgumentException expected) { }
     }
 
