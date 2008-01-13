@@ -4,9 +4,7 @@ import java.util.Collection;
 
 public interface SpellDao {
 
-    Collection getSpells();
-
-    Spell getSpell(String name);
+    Collection<Spell> getSpells();
 
     void updateSpell(Spell spell);
 
@@ -14,5 +12,5 @@ public interface SpellDao {
 
     void deleteSpell(Spell spell);
 
-    Collection searchSpells(String query);
+    Collection<Spell> searchSpells(String query);
 }

@@ -19,6 +19,7 @@
 	       <value>com.codecrate.shard.feat.Feat</value>
 	       <value>com.codecrate.shard.skill.Skill</value>
 	       <value>com.codecrate.shard.source.Source</value>
+	       <value>com.codecrate.shard.magic.Spell</value>
 	     </list>
 	   </property>
 	</bean>
@@ -38,6 +39,13 @@
 	</bean>
 	
 	<bean id="featDao" class="com.codecrate.shard.feat.HibernateFeatDao">
+	  <constructor-arg><ref bean="analyzer" /></constructor-arg>
+  	  <property name="sessionFactory">
+	    <ref bean="sessionFactory"/>
+	  </property>
+	</bean>
+	
+	<bean id="spellDao" class="com.codecrate.shard.magic.HibernateSpellDao">
 	  <constructor-arg><ref bean="analyzer" /></constructor-arg>
   	  <property name="sessionFactory">
 	    <ref bean="sessionFactory"/>

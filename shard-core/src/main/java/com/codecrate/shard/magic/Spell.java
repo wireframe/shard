@@ -1,18 +1,42 @@
 package com.codecrate.shard.magic;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 import com.codecrate.shard.source.Source;
 
+/**
+ * magic spell information
+ */
+@Entity
+@Indexed
 public class Spell implements Comparable {
-    private String id;
+    @Id
+    @DocumentId
+    @GeneratedValue 
+    private int sequenceId;
+   
+    @Field(index=Index.TOKENIZED, store=Store.NO)    
     private String name;
-    private String school;
+    @Field(index=Index.TOKENIZED, store=Store.NO)    
     private String summary;
+    private String school;
+
+    @ManyToOne
     private Source source;
-    private boolean divine;
-    private boolean arcane;
+
+    private boolean divine = false;
+    private boolean arcane = true;
 
     /**
      * hibernate constructor.
@@ -20,13 +44,11 @@ public class Spell implements Comparable {
     private Spell() {
     }
 
-    public Spell(String name, String summary, String school, boolean arcane, boolean divine, Source source) {
+    public Spell(String name, String summary, String school, Source source) {
         this.name = name;
         this.summary = summary;
         this.school = school;
         this.source = source;
-        this.arcane = arcane;
-        this.divine = divine;
     }
 
     public String toString() {
@@ -70,10 +92,6 @@ public class Spell implements Comparable {
 
     public void setSummary(String summary) {
         this.summary = summary;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public Source getSource() {

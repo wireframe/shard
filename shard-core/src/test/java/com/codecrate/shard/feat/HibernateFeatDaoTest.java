@@ -17,26 +17,13 @@ package com.codecrate.shard.feat;
 
 import java.util.Collection;
 
-import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+import com.codecrate.shard.hibernate.ShardHibernateTestSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateFeatDaoTest extends AbstractTransactionalDataSourceSpringContextTests {
+public class HibernateFeatDaoTest extends ShardHibernateTestSupport {
 	private FeatDao featDao;
-
-	public HibernateFeatDaoTest() {
-		
-		super();
-		setDefaultRollback(true);
-	}
-	
-	protected final String[] getConfigLocations() {
-		return new String[] {
-				"/shard-hibernate-context.xml"
-				, "/test-datasource.xml"
-		}; 
-	}
 
 	public void setFeatDao(FeatDao dao) {
 		this.featDao = dao;

@@ -17,47 +17,28 @@ package com.codecrate.shard.magic;
 
 import java.util.Collection;
 
-import com.codecrate.shard.ShardHibernateTestCaseSupport;
+import com.codecrate.shard.hibernate.ShardHibernateTestSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateSpellDaoTest extends ShardHibernateTestCaseSupport {
+public class HibernateSpellDaoTest extends ShardHibernateTestSupport {
 	private SpellDao spellDao;
-	private SpellFactory spellFactory;
 
 	public void setSpellDao(SpellDao dao) {
 		this.spellDao = dao;
 	}
 
-    public void setSpellFactory(SpellFactory factory) {
-        this.spellFactory = factory;
-    }
-
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
 
-        Spell fireball = spellFactory.createSpell("fireball", "burn baby burn!", "Conjuration", true, false, null);
+        Spell fireball = new Spell("fireball", "burn baby burn!", "Conjuration", null);
 		spellDao.saveSpell(fireball);
 	}
 
 	public void testLoadsSpells() throws Exception {
         Collection spells = spellDao.getSpells();
         assertFalse(spells.isEmpty());
-    }
-
-    public void testGetSpellName() throws Exception {
-        Spell spell = (Spell) spellDao.getSpells().iterator().next();
-        Spell spell2 = spellDao.getSpell(spell.getName());
-        assertNotNull(spell2);
-    }
-
-    public void testGetSpellByUnknownNameThrowsException() throws Exception {
-
-        try {
-            spellDao.getSpell("invalid spell");
-            fail("Exception should be thrown.");
-        } catch (IllegalArgumentException expected) { }
     }
 
     public void testSearchForSpells() throws Exception {

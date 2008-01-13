@@ -17,25 +17,13 @@ package com.codecrate.shard.skill;
 
 import java.util.Collection;
 
-import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+import com.codecrate.shard.hibernate.ShardHibernateTestSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateSkillDaoTest extends AbstractTransactionalDataSourceSpringContextTests {
+public class HibernateSkillDaoTest extends ShardHibernateTestSupport {
 	private SkillDao skillDao;
-
-	public HibernateSkillDaoTest() {
-		super();
-		setDefaultRollback(true);
-	}
-	
-	protected final String[] getConfigLocations() {
-		return new String[] {
-				"/shard-hibernate-context.xml"
-				, "/test-datasource.xml"
-		}; 
-	}
 
 	public void setSkillDao(SkillDao dao) {
 		this.skillDao = dao;
