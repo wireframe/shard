@@ -5,7 +5,7 @@ import org.springframework.rules.constraint.LessThanEqualTo;
 import org.springframework.rules.support.DefaultRulesSource;
 
 import com.codecrate.shard.character.DefaultCharacterLevel;
-import com.codecrate.shard.character.DefaultPlayerCharacter;
+import com.codecrate.shard.character.PlayerCharacter;
 
 public class ShardRulesSource extends DefaultRulesSource {
 	public ShardRulesSource() {
@@ -16,7 +16,7 @@ public class ShardRulesSource extends DefaultRulesSource {
 	}
 
 	private Rules createCharacterRules() {
-		return new Rules(DefaultPlayerCharacter.class) {
+		return new Rules(PlayerCharacter.class) {
 			protected void initRules() {
 				addRequired("bio.name");
 				addRequired("race");

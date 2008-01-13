@@ -22,6 +22,6 @@ public class CurrencyDaoTest extends TestCase {
     public void testGetCheapestCurrency() {
     	Currency currency = new CurrencyDao().getLowestValueCurrency();
         
-        assertEquals(DefaultCurrency.COPPER, currency);
+        assertEquals(Currency.COPPER, currency);
     }
 }

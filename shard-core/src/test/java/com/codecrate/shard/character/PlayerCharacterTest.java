@@ -23,7 +23,7 @@ import org.easymock.MockControl;
 
 import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
-import com.codecrate.shard.character.DefaultPlayerCharacter.DefaultCharacterBio;
+import com.codecrate.shard.character.PlayerCharacter.DefaultCharacterBio;
 import com.codecrate.shard.kit.ClassLevel;
 import com.codecrate.shard.kit.DefaultCharacterClass;
 import com.codecrate.shard.movement.DefaultEncumberance;
@@ -31,7 +31,7 @@ import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
 import com.codecrate.shard.race.RacialSize;
 
-public class DefaultPlayerCharacterTest extends TestCase {
+public class PlayerCharacterTest extends TestCase {
 
 	public void testEffectiveCharacterLevelCalculation() {
 		MockControl mockRace = MockControl.createControl(Race.class);
@@ -46,7 +46,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
         DefaultCharacterClass kit = new DefaultCharacterClass("test kit", "", null, 0, null, null);
         kit.getClassProgression().addLevel(1, 2, 3, 4);
 
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter("big bill", abilities, race, null, encumberance, null, null);
+		PlayerCharacter character = new PlayerCharacter("big bill", abilities, race, encumberance, null, null);
         character.getCharacterProgression().addLevel(new DefaultCharacterLevel(character, kit, 1));
 
 		assertEquals(2, character.getEffectiveCharacterLevel());
@@ -78,7 +78,7 @@ public class DefaultPlayerCharacterTest extends TestCase {
 
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(null);
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter("uncle sam", abilities, race, null, encumberance, null, null);
+		PlayerCharacter character = new PlayerCharacter("uncle sam", abilities, race, encumberance, null, null);
         character.getCharacterProgression().addLevel(new DefaultCharacterLevel(character, kit, 1));
 
 		assertEquals(3, character.getBaseAttackBonus());
@@ -88,8 +88,8 @@ public class DefaultPlayerCharacterTest extends TestCase {
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(null);
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
 
-		DefaultPlayerCharacter character = new DefaultPlayerCharacter("big bill", abilities, null, null, encumberance, null, null);
-		DefaultPlayerCharacter.DefaultCharacterBio bio = (DefaultCharacterBio) character.getBio();
+		PlayerCharacter character = new PlayerCharacter("big bill", abilities, null, encumberance, null, null);
+		PlayerCharacter.DefaultCharacterBio bio = (DefaultCharacterBio) character.getBio();
 		bio.setPortraitFile(new File("blah"));
 		assertNull(bio.getPortraitImage());
 	}

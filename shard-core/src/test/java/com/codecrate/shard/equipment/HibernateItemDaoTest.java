@@ -18,18 +18,13 @@ package com.codecrate.shard.equipment;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-import com.codecrate.shard.ShardHibernateTestCaseSupport;
+import com.codecrate.shard.hibernate.ShardHibernateTestSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateItemDaoTest extends ShardHibernateTestCaseSupport {
+public class HibernateItemDaoTest extends ShardHibernateTestSupport {
 	private ItemDao itemDao;
-	private ItemFactory itemFactory;
-
-	public void setItemFactory(ItemFactory itemFactory) {
-		this.itemFactory = itemFactory;
-	}
 
 	public void setItemDao(ItemDao dao) {
 		this.itemDao = dao;
@@ -38,7 +33,7 @@ public class HibernateItemDaoTest extends ShardHibernateTestCaseSupport {
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
 
-		Item basicItem = new DefaultItem("test item", new BigDecimal(10), new Money(10, DefaultCurrency.GOLD), null);
+		Item basicItem = new Item("test item", new BigDecimal(10), new Money(10, Currency.GOLD), null);
 		itemDao.saveItem(basicItem);
 	}
 
@@ -48,7 +43,7 @@ public class HibernateItemDaoTest extends ShardHibernateTestCaseSupport {
     }
 
 	public void testSaveNewItem() {
-		Item item = itemFactory.createItem("New Item", new BigDecimal(0), Coin.COPPER_PIECE.getCost(), null);
+		Item item = new Item("New Item", new BigDecimal(0), Coin.COPPER_PIECE.getCost(), null);
 		Item item2 = itemDao.saveItem(item);
 		assertSame(item, item2);
 	}

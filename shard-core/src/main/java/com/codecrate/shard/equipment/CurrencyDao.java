@@ -15,14 +15,18 @@
  */
 package com.codecrate.shard.equipment;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 
 public class CurrencyDao {
-    public Currency getCurrency(String currencyCode) {
-    	for (Iterator currencies = getCurrencies().iterator(); currencies.hasNext();) {
-			Currency currency = (Currency) currencies.next();
+	private static final Collection<Currency> CURRENCIES = Arrays.asList(new Currency[] {
+			Currency.COPPER
+			, Currency.SILVER
+			, Currency.GOLD
+	});
+
+	public Currency getCurrency(String currencyCode) {
+		for (Currency currency : getCurrencies()) {
 			if (currency.getCurrencyCode().equals(currencyCode)) {
 				return currency;
 			}
@@ -32,8 +36,7 @@ public class CurrencyDao {
 
     public Currency getLowestValueCurrency() {
     	Currency cheapestCurrency = null;
-    	for (Iterator it = getCurrencies().iterator(); it.hasNext();) {
-			Currency currency = (Currency) it.next();
+		for (Currency currency : getCurrencies()) {
 			if (cheapestCurrency == null) {
 				cheapestCurrency = currency;
 			} else if (cheapestCurrency.getValueInLowestCurrency() > currency.getValueInLowestCurrency()) {
@@ -42,12 +45,8 @@ public class CurrencyDao {
 		}
     	return cheapestCurrency;
     }
-    public Collection getCurrencies() {
-    	Collection results = new ArrayList();
-    	results.add(DefaultCurrency.COPPER);
-    	results.add(DefaultCurrency.SILVER);
-    	results.add(DefaultCurrency.GOLD);
-    	
-    	return results;
+
+    public Collection<Currency> getCurrencies() {
+    	return CURRENCIES;
     }
 }

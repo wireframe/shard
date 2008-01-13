@@ -24,12 +24,45 @@ package com.codecrate.shard.equipment;
  * 
  * @see java.util.Currency
  */
-public interface Currency {
-    String getCurrencyCode();
-    
-    int getDefaultFractionDigits();
-    
-    int getValueInLowestCurrency();
+public class Currency implements Comparable<Object> {
 
-    String getSymbol();
+    public static final Currency COPPER = new Currency("CP", "c", 0, 1);
+    public static final Currency SILVER = new Currency("SP", "s", 0, 10);
+    public static final Currency GOLD = new Currency("GP", "g", 0, 100);
+    
+    
+    private final String currencyCode;
+    private final String symbol;
+    private final int fractionalDigits;
+    private final int value;
+
+    public Currency(String currencyCode, String symbol, int fractionalDigits, int value) {
+        this.currencyCode = currencyCode;
+        this.symbol = symbol;
+        this.fractionalDigits = fractionalDigits;
+        this.value = value;
+    }
+    
+    public String toString() {
+        return currencyCode;
+    }
+    
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+    public int getDefaultFractionDigits() {
+        return fractionalDigits;
+    }
+    public String getSymbol() {
+        return symbol;
+    }
+
+	public int getValueInLowestCurrency() {
+		return value;
+	}
+
+	@Override
+	public int compareTo(Object target) {
+		return new Integer(value).compareTo(((Currency)target).getValueInLowestCurrency());
+	}
 }

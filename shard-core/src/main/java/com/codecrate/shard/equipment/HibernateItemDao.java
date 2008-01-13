@@ -15,43 +15,65 @@
  */
 package com.codecrate.shard.equipment;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 
-import com.codecrate.shard.BasicHibernateDao;
-import com.codecrate.shard.search.HibernateObjectSearcher;
-import com.codecrate.shard.source.Source;
+import org.apache.lucene.analysis.Analyzer;
+
+import com.codecrate.shard.hibernate.BasicHibernateObjectDaoSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateItemDao extends BasicHibernateDao implements ItemDao, ItemFactory {
+public class HibernateItemDao extends BasicHibernateObjectDaoSupport implements ItemDao {
 
-	public HibernateItemDao(HibernateObjectSearcher searcher) {
-		super(searcher, DefaultItem.class, "name");
+	private final Analyzer analyzer;
+
+	public HibernateItemDao(Analyzer analyzer) {
+		this.analyzer = analyzer;
 	}
 
+	@Override
 	public Collection getItems() {
 		return getAllObjects();
     }
 
-    public Item createItem(String name, BigDecimal weight, Money cost, Source source) {
-    	return new DefaultItem(name, weight, cost, source);
-    }
-
+	@Override
     public Item saveItem(Item item) {
     	return (Item) saveObject(item);
     }
 
+	@Override
     public void updateItem(Item item) {
     	updateItem(item);
     }
 
+	@Override
     public void deleteItem(Item item) {
     	deleteObject(item);
     }
 
+	@Override
     public Collection searchItems(String query) {
     	return searchObjects(query);
     }
+
+	@Override
+	protected Analyzer getAnalyzer() {
+		return analyzer;
+	}
+
+	@Override
+	protected String getKeyField() {
+		return "name";
+	}
+
+	@Override
+	protected Class getManagedClass() {
+		return Item.class;
+	}
+
+	@Override
+	protected String[] getSearchableFieldNames() {
+		return new String[] {"name"};
+	}
 }

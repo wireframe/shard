@@ -20,13 +20,13 @@ import junit.framework.TestCase;
 public class MoneyTest extends TestCase {
 
     public void testCurrencyCodeUsedForToString() {
-        Money money = new Money(1, DefaultCurrency.COPPER);
+        Money money = new Money(1, Currency.COPPER);
         assertEquals("1 CP", money.toString());
     }
     
     public void testCanNotAddDifferentCurrencies() {
-        Money copper = new Money(1, DefaultCurrency.COPPER);
-        Money gold = new Money(1, DefaultCurrency.GOLD);
+        Money copper = new Money(1, Currency.COPPER);
+        Money gold = new Money(1, Currency.GOLD);
         
         try {
             copper.add(gold);
@@ -37,12 +37,12 @@ public class MoneyTest extends TestCase {
     public void testValueOf() throws Exception {
     	Money money = Money.valueOf("1 CP");
     	assertEquals("1", money.getAmount().toString());
-    	assertEquals(DefaultCurrency.COPPER, money.getCurrency());
+    	assertEquals(Currency.COPPER, money.getCurrency());
     }
     
     public void testSameCurrencyComparasion() {
-        Money oneGP = new Money(1, DefaultCurrency.GOLD);
-        Money tenGP = new Money(10, DefaultCurrency.GOLD);
+        Money oneGP = new Money(1, Currency.GOLD);
+        Money tenGP = new Money(10, Currency.GOLD);
         assertTrue(tenGP.isGreaterThan(oneGP));
         assertFalse(oneGP.isGreaterThan(tenGP));
         
@@ -51,8 +51,8 @@ public class MoneyTest extends TestCase {
     }
     
     public void testCanCompareMoneyWhenDifferentCurrency() {
-        Money oneGP = new Money(1, DefaultCurrency.GOLD);
-        Money tenCP = new Money(10, DefaultCurrency.COPPER);
+        Money oneGP = new Money(1, Currency.GOLD);
+        Money tenCP = new Money(10, Currency.GOLD);
 
         assertFalse(tenCP.isGreaterThan(oneGP));
         assertTrue(oneGP.isGreaterThan(tenCP));

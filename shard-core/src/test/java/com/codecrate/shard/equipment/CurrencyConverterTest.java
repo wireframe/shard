@@ -20,32 +20,32 @@ import junit.framework.TestCase;
 public class CurrencyConverterTest extends TestCase {
 
     public void testConversionFromCopperToGold() {
-        Money money = new Money(100, DefaultCurrency.COPPER);
+        Money money = new Money(100, Currency.COPPER);
         CurrencyConverter converter = new CurrencyConverter();
-        Money value = converter.convert(money, DefaultCurrency.GOLD);
+        Money value = converter.convert(money, Currency.GOLD);
         
         assertEquals(1, value.getAmount().intValue());
     }
     
     public void testConversionFromGoldToCopper() {
-        Money money = new Money(1, DefaultCurrency.GOLD);
+        Money money = new Money(1, Currency.GOLD);
         CurrencyConverter converter = new CurrencyConverter();
-        Money value = converter.convert(money, DefaultCurrency.COPPER);
+        Money value = converter.convert(money, Currency.COPPER);
         
         assertEquals(100, value.getAmount().intValue());
     }
     
     public void testConvertionToSameCurrencyStaysSame() {
-        Money money = new Money(1, DefaultCurrency.SILVER);
+        Money money = new Money(1, Currency.GOLD);
         CurrencyConverter converter = new CurrencyConverter();
-        Money value = converter.convert(money, DefaultCurrency.SILVER);
+        Money value = converter.convert(money, Currency.GOLD);
         
         assertEquals(1, value.getAmount().intValue());
     }
     
     public void testConvertionRoundsDown() {
-        Money money = new Money(99, DefaultCurrency.COPPER);
-        Money value = new CurrencyConverter().convert(money, DefaultCurrency.GOLD);
+        Money money = new Money(99, Currency.COPPER);
+        Money value = new CurrencyConverter().convert(money, Currency.GOLD);
         
         assertEquals(0, value.getAmount().intValue());
     }

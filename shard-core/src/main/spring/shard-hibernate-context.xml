@@ -17,6 +17,7 @@
 	   <property name="annotatedClasses">
 	     <list>
 	       <value>com.codecrate.shard.feat.Feat</value>
+	       <value>com.codecrate.shard.equipment.Item</value>
 	       <value>com.codecrate.shard.skill.Skill</value>
 	       <value>com.codecrate.shard.source.Source</value>
 	       <value>com.codecrate.shard.magic.Spell</value>
@@ -46,6 +47,13 @@
 	</bean>
 	
 	<bean id="spellDao" class="com.codecrate.shard.magic.HibernateSpellDao">
+	  <constructor-arg><ref bean="analyzer" /></constructor-arg>
+  	  <property name="sessionFactory">
+	    <ref bean="sessionFactory"/>
+	  </property>
+	</bean>
+
+	<bean id="itemDao" class="com.codecrate.shard.equipment.HibernateItemDao">
 	  <constructor-arg><ref bean="analyzer" /></constructor-arg>
   	  <property name="sessionFactory">
 	    <ref bean="sessionFactory"/>
