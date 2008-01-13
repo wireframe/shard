@@ -4,7 +4,6 @@
 <beans>
     <bean id="sourceLineHandler" class="com.codecrate.shard.transfer.pcgen.PcgenSourceLineHandler">
 	  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
-	  <constructor-arg><ref bean="sourceDao" /></constructor-arg>
     </bean>
 
 	<bean id="skillImporter" class="com.codecrate.shard.transfer.pcgen.PcgenObjectImporter">

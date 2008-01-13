@@ -9,12 +9,11 @@ public class PcgenSourceLineHandler implements PcgenObjectImporter.PcgenLineHand
     private static final String SOURCE_NAME_TAG_NAME = "SOURCELONG";
     private static final String SOURCE_ABBREVIATION_TAG_NAME = "SOURCESHORT";
     private static final String SOURCE_URL_TAG_NAME = "SOURCEWEB";
-	private final SourceFactory sourceFactory;
-	private final SourceDao sourceDao;
 
-	public PcgenSourceLineHandler(SourceDao sourceDao, SourceFactory sourceFactory) {
+    private final SourceDao sourceDao;
+
+	public PcgenSourceLineHandler(SourceDao sourceDao) {
 		this.sourceDao = sourceDao;
-		this.sourceFactory = sourceFactory;
 	}
 
 	public boolean isSourceLine(String line) {
@@ -29,7 +28,7 @@ public class PcgenSourceLineHandler implements PcgenObjectImporter.PcgenLineHand
         if (null == source) {
             String abbreviation = tags.getStringTagValue(SOURCE_ABBREVIATION_TAG_NAME);
             String url = tags.getStringTagValue(SOURCE_URL_TAG_NAME);
-            source = sourceFactory.createSource(name, abbreviation, url);
+            source = new Source(name, abbreviation, url);
             source = sourceDao.saveSource(source);
         }
         return source;
