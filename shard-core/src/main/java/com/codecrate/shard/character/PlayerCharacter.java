@@ -38,7 +38,7 @@ import com.codecrate.shard.armorclass.ArmorClass;
 import com.codecrate.shard.armorclass.DexterityArmorClass;
 import com.codecrate.shard.character.bio.Age;
 import com.codecrate.shard.character.bio.CharacterBio;
-import com.codecrate.shard.character.bio.DefaultGender;
+import com.codecrate.shard.character.bio.Gender;
 import com.codecrate.shard.character.bio.Gender;
 import com.codecrate.shard.divine.Deity;
 import com.codecrate.shard.feat.FeatContainer;
@@ -112,7 +112,7 @@ public class PlayerCharacter implements Comparable {
         this.abilities = abilities;
         this.deity = deity;
         this.alignment = alignment;
-        this.bio = new DefaultCharacterBio(name, DefaultGender.MALE);
+        this.bio = new DefaultCharacterBio(name, Gender.MALE);
         this.progression = new DefaultCharacterProgression();
         this.encumberance = encumberance;
 

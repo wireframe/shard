@@ -19,12 +19,21 @@ package com.codecrate.shard.character.bio;
  * 
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public interface Gender {
+public enum Gender {
+	MALE("Male")
+	, FEMALE("Female");
 	
-	/**
-	 * gets the name of the gender.
-	 * ex: Male or Female
-	 * @return
-	 */
-	String getName();
+	private final String name;
+	
+	Gender(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String toString() {
+		return name;
+	}
 }
