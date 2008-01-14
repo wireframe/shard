@@ -28,7 +28,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author rsonnek
  */
 @Entity
-public class Source implements Comparable {
+public class Source implements Comparable<Source> {
     public static final Source CUSTOM = new Source("Custom", "custom", "http://shard.codecrate.com");
 
     @Id
@@ -73,8 +73,7 @@ public class Source implements Comparable {
             .isEquals();
     }
 
-    public int compareTo(Object object) {
-        Source target = (Source) object;
+    public int compareTo(Source target) {
         return abbreviation.compareTo(target.abbreviation);
     }
 

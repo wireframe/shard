@@ -48,7 +48,7 @@ import com.codecrate.shard.source.Source;
  */
 @Entity
 @Indexed
-public class Skill implements Comparable {
+public class Skill implements Comparable<Skill> {
     @Id
     @DocumentId
     @GeneratedValue 
@@ -102,8 +102,7 @@ public class Skill implements Comparable {
 	    	.isEquals();
     }
 
-    public int compareTo(Object object) {
-        Skill skill = (Skill) object;
+    public int compareTo(Skill skill) {
         return name.compareTo(skill.name);
     }
 

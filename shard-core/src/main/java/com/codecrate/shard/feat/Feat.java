@@ -38,7 +38,7 @@ import com.codecrate.shard.source.Source;
  */
 @Entity
 @Indexed
-public class Feat implements Comparable {
+public class Feat implements Comparable<Feat> {
     public static final Feat ARMOR_PROFICIENCY_LIGHT= new Feat("Armor Proficiency (Light)",
             "General", "",
             new NullPrerequisite(), null);
@@ -110,8 +110,7 @@ public class Feat implements Comparable {
 	    	.isEquals();
     }
 
-    public int compareTo(Object object) {
-        Feat feat = (Feat) object;
+    public int compareTo(Feat feat) {
         return name.compareTo(feat.name);
     }
 

@@ -44,7 +44,7 @@ public class DefaultSkillEntry extends ModifiableObject implements Modifiable, S
 	}
 	
 	public int getRank() {
-		return DefaultModifierType.RANK.calculateModifier(getModifierContainer(DefaultModifierType.RANK));
+		return DefaultModifierType.RANK.calculateModifier(getModifierContainer(DefaultModifierType.RANK).getModifiers());
 	}
 	
 	public String toString() {

@@ -20,7 +20,7 @@ import com.codecrate.shard.source.Source;
  */
 @Entity
 @Indexed
-public class Spell implements Comparable {
+public class Spell implements Comparable<Spell> {
     @Id
     @DocumentId
     @GeneratedValue 
@@ -73,8 +73,7 @@ public class Spell implements Comparable {
             .isEquals();
     }
 
-    public int compareTo(Object object) {
-        Spell target = (Spell) object;
+    public int compareTo(Spell target) {
         return name.compareTo(target.name);
     }
 
