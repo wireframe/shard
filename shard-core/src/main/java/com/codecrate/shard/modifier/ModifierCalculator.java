@@ -4,5 +4,8 @@ import java.util.Collection;
 
 public interface ModifierCalculator {
 
-	int calculateModifier(Collection modifiers);
+	/**
+	 * calculate the modifier that should be applied.
+	 */
+	int calculateModifier(Collection<Modifier> modifiers);
 }

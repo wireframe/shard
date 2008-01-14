@@ -21,18 +21,9 @@ import java.util.Collection;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public interface ModifierListenerContainer {
-    /**
-     * @param listener
-     */
     void addListener(ModifierListener listener);
 
-    /**
-     * @param listener
-     */
     void removeListener(ModifierListener listener);
 
-    /**
-     * @return
-     */
-    Collection getListeners();
+    Collection<ModifierListener> getListeners();
 }

@@ -17,38 +17,25 @@ package com.codecrate.shard.modifier;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 public class CompositeModifierListener implements ModifierListener, ModifierListenerContainer {
-
-	private Collection listeners = new ArrayList();
+	private Collection<ModifierListener> listeners = new ArrayList<ModifierListener>();
 	
 	public void onModify() {
-		Iterator it = listeners.iterator();
-		while (it.hasNext()) {
-			ModifierListener listener = (ModifierListener) it.next();
+		for (ModifierListener listener : listeners) {
 			listener.onModify();
 		}
 	}
 
-	/**
-	 * @param listener
-	 */
 	public void addListener(ModifierListener listener) {
 		listeners.add(listener);
 	}
 
-	/**
-	 * @param listener
-	 */
 	public void removeListener(ModifierListener listener) {
 		listeners.remove(listener);
 	}
 
-    /**
-     * @return
-     */
-    public Collection getListeners() {
+    public Collection<ModifierListener> getListeners() {
         return listeners;
     }
 }

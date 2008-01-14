@@ -2,6 +2,9 @@ package com.codecrate.shard.modifier;
 
 import java.util.Collection;
 
+/**
+ * restrict the maximum modifier allowed.
+ */
 public class CappedStackableModifierCalculator implements ModifierCalculator {
 
 	private final int maxValue;
@@ -12,7 +15,7 @@ public class CappedStackableModifierCalculator implements ModifierCalculator {
 		this.calculator = new StackableModifierCalculator();
 	}
 	
-	public int calculateModifier(Collection modifiers) {
+	public int calculateModifier(Collection<Modifier> modifiers) {
 		int value = calculator.calculateModifier(modifiers);
 		if (value > maxValue) {
 			return maxValue;

@@ -16,9 +16,12 @@
 package com.codecrate.shard.modifier;
 
 /**
- * listener for when ability scores change.
+ * listener for when modifier changes.
  */
 public interface ModifierListener {
 
+	/**
+	 * fired when a modifier is changed.
+	 */
 	void onModify();
 }

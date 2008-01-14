@@ -1,19 +1,19 @@
 package com.codecrate.shard.modifier;
 
 import java.util.Collection;
-import java.util.Iterator;
 
+/**
+ * return the highest value of any of the modifiers.
+ */
 public class HighestModifierCalculator implements ModifierCalculator {
 
-	public int calculateModifier(Collection modifiers) {
+	public int calculateModifier(Collection<Modifier> modifiers) {
         if (0 == modifiers.size()) {
             return 0;
         }
         
 		int value = Integer.MIN_VALUE;
-		Iterator mods = modifiers.iterator();
-		while (mods.hasNext()) {
-			Modifier modifier = (Modifier) mods.next();
+		for (Modifier modifier : modifiers) {
 			int modifierValue = modifier.getModifier();
 			if (value < modifierValue) {
 				value = modifierValue;

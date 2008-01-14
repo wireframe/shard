@@ -28,5 +28,5 @@ public interface ModifierContainer {
 
     void removeModifier(Modifier modifier);
     
-    Collection getModifiers();
+    Collection<Modifier> getModifiers();
 }

@@ -53,7 +53,7 @@ public class DefaultModifierType implements ModifierType {
         return name;
     }
     
-    public int calculateModifier(Collection modifiers) {
+    public int calculateModifier(Collection<Modifier> modifiers) {
     	return calculator.calculateModifier(modifiers);
     }
 }
