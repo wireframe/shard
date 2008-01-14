@@ -40,7 +40,7 @@ import com.codecrate.shard.source.Source;
  */
 @Entity
 @Indexed
-public class Item implements Comparable {
+public class Item implements Comparable<Item> {
 
     @Id
     @DocumentId
@@ -101,8 +101,7 @@ public class Item implements Comparable {
 	    	.isEquals();
     }
 
-    public int compareTo(Object object) {
-        Item item = (Item) object;
+    public int compareTo(Item item) {
         return name.compareTo(item.name);
     }
 

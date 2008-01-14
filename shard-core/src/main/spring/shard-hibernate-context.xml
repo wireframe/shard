@@ -3,6 +3,8 @@
 
 <beans>
 
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/>
+
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 	  <property name="dataSource">
 	    <ref bean="dataSource"/>
@@ -12,6 +14,8 @@
 	      <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
 	      <prop key="hibernate.show_sql">false</prop>
 	      <prop key="hibernate.hbm2ddl.auto">update</prop>
+	      <prop key="hibernate.search.default.directory_provider">org.hibernate.search.store.FSDirectoryProvider</prop>
+	      <prop key="hibernate.search.default.indexBase">${user.home}/.shard/index</prop>
 	    </props>
 	  </property>
 	   <property name="annotatedClasses">
