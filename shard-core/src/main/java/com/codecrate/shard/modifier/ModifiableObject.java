@@ -18,7 +18,6 @@ package com.codecrate.shard.modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -32,7 +31,7 @@ public class ModifiableObject implements Modifiable, ModifierListenerContainer {
 	private static final Log LOG = LogFactory.getLog(ModifiableObject.class);
 	
 	private int baseValue;
-	private Map modifiers = new HashMap();
+	private Map<ModifierType, ModifierContainer> modifiers = new HashMap<ModifierType, ModifierContainer>();
 	private CompositeModifierListener listeners = new CompositeModifierListener();
 	
 	public ModifiableObject() {
@@ -49,47 +48,50 @@ public class ModifiableObject implements Modifiable, ModifierListenerContainer {
 	
 	public int getModifiedValue() {
 		int value = baseValue;
-		
-		Iterator it = modifiers.keySet().iterator();
-		while (it.hasNext()) {
-			ModifierType type = (ModifierType) it.next();
-			Collection typeModifiers = (Collection) modifiers.get(type);
-			value += type.calculateModifier(typeModifiers);
+
+		for (ModifierType type : modifiers.keySet()) {
+			ModifierContainer container = modifiers.get(type);
+			value += type.calculateModifier(container.getModifiers());
 		}
 		return value;
 	}
 	
 	public void addModifier(Modifier modifier) {
 		ModifierType type = modifier.getModifierType();
-		Collection typeModifiers = getModifiers(type);
-		typeModifiers.add(modifier);
-		updateModifier(type, typeModifiers);
+		ModifierContainer container = getModifierContainer(type);
+		container.addModifier(modifier);
+		updateModifier(type, container);
 	}
 	
 	public void removeModifier(Modifier modifier) {
 		ModifierType type = modifier.getModifierType();
-		Collection typeModifiers = getModifiers(type);
-		typeModifiers.remove(modifier);
-		updateModifier(type, typeModifiers);
+		ModifierContainer container = getModifierContainer(type);
+		container.removeModifier(modifier);
+		updateModifier(type, container);
 	}
 	
-	protected Collection getModifiers(ModifierType type) {
-		Collection typeModifiers = (Collection) modifiers.get(type);
-		if (null == typeModifiers) {
+	protected ModifierContainer getModifierContainer(ModifierType type) {
+		ModifierContainer container = modifiers.get(type);
+		if (null == container) {
 			LOG.debug("No modifiers found for type: " + type);
-			typeModifiers = new ArrayList();
+			container = new DefaultModifierContainer();
 		}
-		return typeModifiers;
+		return container;
 	}
 	
-	private void updateModifier(ModifierType type, Collection typeModifiers) {
-		modifiers.put(type, typeModifiers);
+	private void updateModifier(ModifierType type, ModifierContainer container) {
+		modifiers.put(type, container);
 		listeners.onModify();
 	}
 
-	public Collection getModifiers() {
-		return modifiers.values();
+	public Collection<Modifier> getModifiers() {
+		Collection<Modifier> results = new ArrayList<Modifier>();
+		for (ModifierContainer container : modifiers.values()) {
+			results.addAll(container.getModifiers());
+		}
+		return results;
 	}
+
     /**
      * @param listener
      */
@@ -99,7 +101,7 @@ public class ModifiableObject implements Modifiable, ModifierListenerContainer {
     /**
      * @return
      */
-    public Collection getListeners() {
+    public Collection<ModifierListener> getListeners() {
         return listeners.getListeners();
     }
     /**
