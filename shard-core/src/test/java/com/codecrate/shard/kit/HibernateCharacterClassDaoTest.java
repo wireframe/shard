@@ -17,27 +17,22 @@ package com.codecrate.shard.kit;
 
 import java.util.Collection;
 
-import com.codecrate.shard.ShardHibernateTestCaseSupport;
 import com.codecrate.shard.dice.RandomDice;
+import com.codecrate.shard.hibernate.ShardHibernateTestSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateCharacterClassDaoTest extends ShardHibernateTestCaseSupport {
+public class HibernateCharacterClassDaoTest extends ShardHibernateTestSupport {
 	private CharacterClassDao characterClassDao;
-	private CharacterClassFactory characterClassFactory;
 
 	public void setCharacterClassDao(CharacterClassDao dao) {
 		this.characterClassDao = dao;
 	}
 
-	public void setCharacterClassFactory(CharacterClassFactory characterClassFactory) {
-		this.characterClassFactory = characterClassFactory;
-	}
-
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
-		CharacterClass kit = characterClassFactory.createClass("Dragonslayer", "Dgs", new RandomDice(8), null);
+		CharacterClass kit = new CharacterClass("Dragonslayer", "Dgs", new RandomDice(8), null);
         kit.getClassProgression().addLevel(1, 2, 3, 4);
 		characterClassDao.saveClass(kit);
 	}

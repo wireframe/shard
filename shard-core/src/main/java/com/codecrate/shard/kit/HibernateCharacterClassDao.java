@@ -17,22 +17,21 @@ package com.codecrate.shard.kit;
 
 import java.util.Collection;
 
-import com.codecrate.shard.BasicHibernateDao;
-import com.codecrate.shard.character.prereq.NullPrerequisite;
-import com.codecrate.shard.dice.Dice;
-import com.codecrate.shard.search.HibernateObjectSearcher;
-import com.codecrate.shard.source.Source;
+import org.apache.lucene.analysis.Analyzer;
+
+import com.codecrate.shard.hibernate.BasicHibernateObjectDaoSupport;
 
 /**
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
-public class HibernateCharacterClassDao extends BasicHibernateDao implements CharacterClassDao, CharacterClassFactory {
+public class HibernateCharacterClassDao extends BasicHibernateObjectDaoSupport implements CharacterClassDao {
 
-	public HibernateCharacterClassDao(HibernateObjectSearcher searcher) {
-		super(searcher, DefaultCharacterClass.class, "name");
+	private final Analyzer analyzer;
+
+	public HibernateCharacterClassDao(Analyzer analyzer) {
+		this.analyzer = analyzer;
 	}
-
-    public Collection getClasses() {
+    public Collection<CharacterClass> getClasses() {
     	return getAllObjects();
     }
 
@@ -52,11 +51,27 @@ public class HibernateCharacterClassDao extends BasicHibernateDao implements Cha
     	deleteObject(kit);
     }
 
-    public Collection searchClasses(String query) {
+    public Collection<CharacterClass> searchClasses(String query) {
     	return searchObjects(query);
     }
 
-	public CharacterClass createClass(String name, String abbreviation, Dice hitDice, Source source) {
-		return new DefaultCharacterClass(name, abbreviation, hitDice, 0, new NullPrerequisite(), source);
+	@Override
+	protected Analyzer getAnalyzer() {
+		return analyzer;
+	}
+
+	@Override
+	protected String getKeyField() {
+		return "name";
+	}
+
+	@Override
+	protected Class getManagedClass() {
+		return CharacterClass.class;
+	}
+
+	@Override
+	protected String[] getSearchableFieldNames() {
+		return new String[] {"name"};
 	}
 }

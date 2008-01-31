@@ -22,7 +22,7 @@ import java.util.Collection;
  */
 public interface CharacterClassDao {
 
-    Collection getClasses();
+    Collection<CharacterClass> getClasses();
 
     /**
      * Save a new class.
@@ -31,7 +31,7 @@ public interface CharacterClassDao {
      */
 	CharacterClass saveClass(CharacterClass kit);
 
-	Collection searchClasses(String query);
+	Collection<CharacterClass> searchClasses(String query);
 
 	void deleteClass(CharacterClass kit);
 

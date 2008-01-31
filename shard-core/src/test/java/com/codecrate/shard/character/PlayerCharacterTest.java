@@ -25,7 +25,7 @@ import com.codecrate.shard.ability.AbilityScoreContainer;
 import com.codecrate.shard.ability.DefaultAbilityScoreContainer;
 import com.codecrate.shard.character.PlayerCharacter.DefaultCharacterBio;
 import com.codecrate.shard.kit.ClassLevel;
-import com.codecrate.shard.kit.DefaultCharacterClass;
+import com.codecrate.shard.kit.CharacterClass;
 import com.codecrate.shard.movement.DefaultEncumberance;
 import com.codecrate.shard.movement.Encumberance;
 import com.codecrate.shard.race.Race;
@@ -43,7 +43,7 @@ public class PlayerCharacterTest extends TestCase {
 		AbilityScoreContainer abilities = DefaultAbilityScoreContainer.averageScores(null);
 		Encumberance encumberance = DefaultEncumberance.LIGHT;
 
-        DefaultCharacterClass kit = new DefaultCharacterClass("test kit", "", null, 0, null, null);
+        CharacterClass kit = new CharacterClass("test kit", "", null, null);
         kit.getClassProgression().addLevel(1, 2, 3, 4);
 
 		PlayerCharacter character = new PlayerCharacter("big bill", abilities, race, encumberance, null, null);
@@ -61,7 +61,7 @@ public class PlayerCharacterTest extends TestCase {
 		mockClassLevel.setReturnValue(1);
 		mockClassLevel.replay();
 
-        DefaultCharacterClass kit = new DefaultCharacterClass("test kit", "", null, 0, null, null);
+        CharacterClass kit = new CharacterClass("test kit", "", null, null);
         kit.getClassProgression().addLevel(2, 2, 3, 4);
 
         MockControl mockSize = MockControl.createControl(RacialSize.class);
