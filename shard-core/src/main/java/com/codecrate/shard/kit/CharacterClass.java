@@ -136,7 +136,6 @@ public class CharacterClass implements Comparable<CharacterClass> {
 	/**
 	 * gets the dice used for each level to generate hit points (before constitution modifier)
 	 * ex: d8
-	 * @return
 	 */
     public Dice getHitDicePerLevel() {
         return hitDicePerLevel;
@@ -149,7 +148,6 @@ public class CharacterClass implements Comparable<CharacterClass> {
 	/**
 	 * gets the skills that are considered class skills.
 	 * all other skills are considered cross class.
-	 * @return
 	 */
     public Collection<Skill> getClassSkills() {
         return classSkills;
@@ -167,7 +165,6 @@ public class CharacterClass implements Comparable<CharacterClass> {
     /**
      * gets the name of the class.
      * ex: Ranger
-     * @return
      */
     public String getName() {
         return name;
@@ -179,7 +176,6 @@ public class CharacterClass implements Comparable<CharacterClass> {
 
     /**
      * get the abbreviation for this class.
-     * @return
      */
 	public String getAbbreviation() {
 		return abbreviation;
@@ -191,7 +187,6 @@ public class CharacterClass implements Comparable<CharacterClass> {
 
     /**
      * gets the progression of levels for this class.
-     * @return
      */
 	public ClassProgression getClassProgression() {
 		return progression;
@@ -201,7 +196,6 @@ public class CharacterClass implements Comparable<CharacterClass> {
      * gets the prereqs for this class.
      * this is used mainly for presige classes, but some core classes need 
      * this as well (ex: Barbarian cannot be lawful)
-     * @return
      */
 	public CharacterPrerequisite getPrerequisite() {
 	    return prereq;
@@ -209,7 +203,6 @@ public class CharacterClass implements Comparable<CharacterClass> {
 
 	/**
 	 * certain classes have additional languages available to them.
-	 * @return
 	 */
 	public Collection<Language> getBonusLanguages() {
 	    return bonusLanguages;
@@ -217,7 +210,6 @@ public class CharacterClass implements Comparable<CharacterClass> {
 
 	/**
 	 * gets the feats automatically granted for this class.
-	 * @return
 	 */
 	public Collection<Feat> getFeats() {
 	    return feats;
@@ -225,7 +217,6 @@ public class CharacterClass implements Comparable<CharacterClass> {
 
 	/**
 	 * gets the skill bonuses automatically granted to this class.
-	 * @return
 	 */
 	public Collection<Modifier> getSkills() {
 	    return skillModifiers;
@@ -234,7 +225,6 @@ public class CharacterClass implements Comparable<CharacterClass> {
 
     /**
      * @deprecated remove when spring-rcp binder created
-     * @param cost
      */
     public void setHitDicePerLevelString(String hitDice) {
         setHitDicePerLevel(new DiceExpression(hitDice));
@@ -242,7 +232,6 @@ public class CharacterClass implements Comparable<CharacterClass> {
 
     /**
      * @deprecated remove when spring-rcp binder created.
-     * @return
      */
     public String getHitDicePerLevelString() {
         return getHitDicePerLevel().toString();
