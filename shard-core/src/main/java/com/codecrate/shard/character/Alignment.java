@@ -24,13 +24,9 @@ import java.util.StringTokenizer;
  */
 public enum Alignment {
 	LAWFUL_GOOD (AlignmentComponent.POSITIVE, AlignmentComponent.POSITIVE, "Lawful Good"),
-	LAWFUL_NEUTRAL (AlignmentComponent.POSITIVE, AlignmentComponent.NEUTRAL, "Lawful Neutral"),
-	LAWFUL_EVIL (AlignmentComponent.POSITIVE, AlignmentComponent.NEGATIVE, "Lawful Evil"),
-	NEUTRAL_GOOD (AlignmentComponent.NEUTRAL, AlignmentComponent.POSITIVE, "Neutral Good"),
-	NEUTRAL_NEUTRAL (AlignmentComponent.NEUTRAL, AlignmentComponent.NEUTRAL, "Neutral"),
-	NEUTRAL_EVIL (AlignmentComponent.NEUTRAL, AlignmentComponent.NEGATIVE, "Neutral Evil"),
-	CHAOTIC_GOOD (AlignmentComponent.NEGATIVE, AlignmentComponent.POSITIVE, "Chaotic Good"),
-	CHAOTIC_NEUTRAL (AlignmentComponent.NEGATIVE, AlignmentComponent.NEUTRAL, "Chaotic Neutral"),
+	GOOD (AlignmentComponent.NEUTRAL, AlignmentComponent.POSITIVE, "Good"),
+	UNALIGNED (AlignmentComponent.NEUTRAL, AlignmentComponent.NEUTRAL, "Unaligned"),
+	EVIL (AlignmentComponent.NEUTRAL, AlignmentComponent.NEGATIVE, "Evil"),
 	CHAOTIC_EVIL (AlignmentComponent.NEGATIVE, AlignmentComponent.NEGATIVE, "Chaotic Evil");
 
 	private String name;
