@@ -31,7 +31,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public class HibernateSourceDao extends HibernateDaoSupport implements SourceDao, InitializingBean {
 
-	@Override
+	
     public Source getSource(final String name) {
         return (Source) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session) throws HibernateException {
@@ -42,7 +42,7 @@ public class HibernateSourceDao extends HibernateDaoSupport implements SourceDao
         });
     }
 
-	@Override
+	
     public Source getCustomSource() {
 		Source customSource = getSource(Source.CUSTOM.getName());
 		if (customSource == null) {
@@ -51,12 +51,12 @@ public class HibernateSourceDao extends HibernateDaoSupport implements SourceDao
 		return customSource;
     }
 
-	@Override
+	
     public Collection<Source> getSources() {
 		return getHibernateTemplate().loadAll(Source.class);
     }
 
-	@Override
+	
     public Source saveSource(Source source) {
 		Serializable id = (Serializable) getHibernateTemplate().save(source);
         return (Source) getHibernateTemplate().load(Source.class, id);

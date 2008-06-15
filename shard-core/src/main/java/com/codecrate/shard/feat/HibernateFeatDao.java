@@ -32,47 +32,47 @@ public class HibernateFeatDao extends BasicHibernateObjectDaoSupport implements 
 		this.analyzer = analyzer;
 	}
 	
-	@Override
+	
     public Collection<Feat> getFeats() {
     	return getHibernateTemplate().loadAll(Feat.class);
     }
 
-	@Override
+	
     public void updateFeat(Feat feat) {
 		updateObject(feat);
     }
 
-	@Override
+	
     public Feat saveFeat(Feat feat) {
 		return (Feat) saveObject(feat);
     }
 
-	@Override
+	
     public void deleteFeat(Feat feat) {
     	getHibernateTemplate().delete(feat);
     }
 
-	@Override
+	
     public Collection<Feat> searchFeats(String query) {
 		return searchObjects(query);
     }
 
-	@Override
+	
 	protected Analyzer getAnalyzer() {
 		return analyzer;
 	}
 
-	@Override
+	
 	protected String getKeyField() {
 		return "name";
 	}
 
-	@Override
+	
 	protected Class getManagedClass() {
 		return Feat.class;
 	}
 
-	@Override
+	
 	protected String[] getSearchableFieldNames() {
 		return new String[] {"name", "summary"};
 	}

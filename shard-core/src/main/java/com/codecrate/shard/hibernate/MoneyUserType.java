@@ -36,17 +36,17 @@ import com.codecrate.shard.equipment.Money;
 public class MoneyUserType implements UserType {
     private static final int[] TYPES = { Types.VARCHAR };
 
-	@Override
+	
 	public int[] sqlTypes() {
 		return TYPES;
 	}
 	
-	@Override
+	
     public Class returnedClass() {
         return Money.class;
     }
     
-	@Override
+	
 	public boolean equals(Object x, Object y) {
 		if (x == y) {
 		    return true;
@@ -59,7 +59,7 @@ public class MoneyUserType implements UserType {
 		return ((Money)x).equals(y);
 	}
 
-	@Override
+	
 	public Object deepCopy(Object x) {
 		if (x == null) {
 		    return null;
@@ -71,12 +71,12 @@ public class MoneyUserType implements UserType {
 		}
 	}
 
-	@Override
+	
 	public boolean isMutable() { 
 	    return true; 
 	}
 
-	@Override
+	
     public Object nullSafeGet(ResultSet rs, String[] names, Object arg2) throws HibernateException, SQLException {
 		String expression = (String) Hibernate.STRING.nullSafeGet(rs, names[0]);
 		if (null == expression) {
@@ -89,29 +89,29 @@ public class MoneyUserType implements UserType {
 		}
     }
     
-	@Override
+	
     public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
         String expression = value.toString();
 
 		Hibernate.STRING.nullSafeSet(st, expression, index);
     }
 
-	@Override
+	
 	public Object assemble(Serializable state, Object owner) throws HibernateException {
 		return state;
 	}
 
-	@Override
+	
 	public Serializable disassemble(Object value) throws HibernateException {
 		return (Serializable) value;
 	}
 
-	@Override
+	
 	public int hashCode(Object value) throws HibernateException {
 		return value.hashCode();
 	}
 
-	@Override
+	
 	public Object replace(Object original, Object target, Object owner) throws HibernateException {
 		return original;
 	}

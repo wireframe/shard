@@ -19,22 +19,18 @@ public class HibernateSkillDao extends BasicHibernateObjectDaoSupport implements
 		this.analyzer = analyzer;
 	}
 	
-	@Override
 	public void deleteSkill(Skill skill) {
         getHibernateTemplate().delete(skill);
 	}
 
-	@Override
 	public Skill getSkill(final String name) {
 		return (Skill) getObjectByKey(name);
 	}
 
-	@Override
 	public Collection<Skill> getSkills() {
     	return getHibernateTemplate().loadAll(Skill.class);
 	}
 
-	@Override
 	public Collection<Skill> getUntrainedSkills() {
         return (Collection<Skill>) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
@@ -46,37 +42,30 @@ public class HibernateSkillDao extends BasicHibernateObjectDaoSupport implements
         });
 	}
 
-	@Override
 	public Skill saveSkill(Skill skill) {
 		return (Skill) saveObject(skill);
 	}
 
-	@Override
 	public Collection<Skill> searchSkills(final String query) {
 		return searchObjects(query);
 	}
 	
-	@Override
 	public void updateSkill(Skill skill) {
 		updateObject(skill);
 	}
 
-	@Override
 	protected Analyzer getAnalyzer() {
 		return analyzer;
 	}
 
-	@Override
 	protected String getKeyField() {
 		return "name";
 	}
 
-	@Override
 	protected Class getManagedClass() {
 		return Skill.class;
 	}
 
-	@Override
 	protected String[] getSearchableFieldNames() {
 		return new String[] {"name"};
 	}

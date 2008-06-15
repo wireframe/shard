@@ -32,47 +32,47 @@ public class HibernateItemDao extends BasicHibernateObjectDaoSupport implements 
 		this.analyzer = analyzer;
 	}
 
-	@Override
+	
 	public Collection getItems() {
 		return getAllObjects();
     }
 
-	@Override
+	
     public Item saveItem(Item item) {
     	return (Item) saveObject(item);
     }
 
-	@Override
+	
     public void updateItem(Item item) {
     	updateItem(item);
     }
 
-	@Override
+	
     public void deleteItem(Item item) {
     	deleteObject(item);
     }
 
-	@Override
+	
     public Collection searchItems(String query) {
     	return searchObjects(query);
     }
 
-	@Override
+	
 	protected Analyzer getAnalyzer() {
 		return analyzer;
 	}
 
-	@Override
+	
 	protected String getKeyField() {
 		return "name";
 	}
 
-	@Override
+	
 	protected Class getManagedClass() {
 		return Item.class;
 	}
 
-	@Override
+	
 	protected String[] getSearchableFieldNames() {
 		return new String[] {"name"};
 	}

@@ -11,7 +11,6 @@ public class MazePathFinder implements PathFinder {
 	private static final int BLOCKED = -2;
 	private static final int OPEN = -1;
 
-	@Override
 	public Path findPathBetween(Grid grid, GridSquare start, GridSquare end) {
 		int[] queue = initializeGridArray(grid);
 		int[] origin = initializeGridArray(grid);

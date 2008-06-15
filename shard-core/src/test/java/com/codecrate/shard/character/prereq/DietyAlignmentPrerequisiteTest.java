@@ -45,45 +45,6 @@ public class DietyAlignmentPrerequisiteTest extends TestCase {
 		assertTrue(prereq.hasMetPrerequisite(character));
 	}
 	
-
-	public void testPrereqMetWhenMoralAlignmentWithinOne() {
-		MockControl mockDeity = MockControl.createControl(Deity.class);
-		Deity deity = (Deity) mockDeity.getMock();
-		deity.getAlignment();
-		mockDeity.setReturnValue(Alignment.LAWFUL_GOOD);
-		mockDeity.replay();
-		
-		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
-		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
-		character.getDeity();
-		mockCharacter.setReturnValue(deity);
-		character.getAlignment();
-		mockCharacter.setReturnValue(Alignment.NEUTRAL_GOOD);
-		mockCharacter.replay();
-		
-		DeityAlignmentPrerequisite prereq = new DeityAlignmentPrerequisite();
-		assertTrue(prereq.hasMetPrerequisite(character));
-	}
-	
-	public void testPrereqMetWhenEthicalAlignmentComponentWithinOne() {
-		MockControl mockDeity = MockControl.createControl(Deity.class);
-		Deity deity = (Deity) mockDeity.getMock();
-		deity.getAlignment();
-		mockDeity.setReturnValue(Alignment.LAWFUL_GOOD);
-		mockDeity.replay();
-		
-		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
-		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
-		character.getDeity();
-		mockCharacter.setReturnValue(deity);
-		character.getAlignment();
-		mockCharacter.setReturnValue(Alignment.LAWFUL_NEUTRAL);
-		mockCharacter.replay();
-		
-		DeityAlignmentPrerequisite prereq = new DeityAlignmentPrerequisite();
-		assertTrue(prereq.hasMetPrerequisite(character));
-	}
-	
 	public void testPrereqNotMetWhenCharacterDoesNotHaveDeity() {
 		MockControl mockCharacter = MockControl.createControl(PlayerCharacter.class);
 		PlayerCharacter character = (PlayerCharacter) mockCharacter.getMock();
@@ -107,7 +68,7 @@ public class DietyAlignmentPrerequisiteTest extends TestCase {
 		character.getDeity();
 		mockCharacter.setReturnValue(deity);
 		character.getAlignment();
-		mockCharacter.setReturnValue(Alignment.NEUTRAL_EVIL);
+		mockCharacter.setReturnValue(Alignment.CHAOTIC_EVIL);
 		mockCharacter.replay();
 		
 		DeityAlignmentPrerequisite prereq = new DeityAlignmentPrerequisite();

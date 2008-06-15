@@ -61,7 +61,6 @@ public class Currency implements Comparable<Object> {
 		return value;
 	}
 
-	@Override
 	public int compareTo(Object target) {
 		return new Integer(value).compareTo(((Currency)target).getValueInLowestCurrency());
 	}

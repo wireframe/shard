@@ -9,6 +9,6 @@ public class AlignmentTest extends TestCase {
 	}
 	
 	public void testTrueNeutralReturnsNForAbbreviation() {
-		assertEquals("N", Alignment.NEUTRAL_NEUTRAL.getAbbreviation());
+		assertEquals("N", Alignment.UNALIGNED.getAbbreviation());
 	}
 }
