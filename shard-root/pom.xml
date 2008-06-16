@@ -9,6 +9,7 @@
   <modules>
     <module>../shard-dice</module>
     <module>../shard-core</module>
+    <module>../shard-grid</module>
     <module>../shard-hibernate</module>
     <module>../shard-sheets</module>
     <module>../shard-transfer</module>
