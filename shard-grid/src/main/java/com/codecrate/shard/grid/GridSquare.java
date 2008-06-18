@@ -90,12 +90,8 @@ public class GridSquare {
 	 * restrict the range of the value between -1 and 1.
 	 */
 	private int restrictRange(int value) {
-		if (value < 0) {
-			value = Math.max(-1, value);
-		}
-		if (value > 0) {
-			value = Math.min(1, value);
-		}
+		value = Math.max(-1, value);
+		value = Math.min(1, value);
 		return value;
 	}
 }
