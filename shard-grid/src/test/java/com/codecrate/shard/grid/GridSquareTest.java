@@ -2,6 +2,8 @@ package com.codecrate.shard.grid;
 
 import junit.framework.TestCase;
 
+import java.util.Collection;
+
 public class GridSquareTest extends TestCase {
 
 	public void testSequentialIdStartsWithZero() {
@@ -46,5 +48,16 @@ public class GridSquareTest extends TestCase {
 		assertEquals(Direction.DOWN_RIGHT, start.towards(grid.getSquare(new Location(2, 1))));
 		assertEquals(Direction.DOWN_RIGHT, start.towards(grid.getSquare(new Location(2, 2))));
 		assertEquals(Direction.DOWN_RIGHT, start.towards(grid.getSquare(new Location(1, 2))));
+	}
+	
+	public void testBlastSquaresReturnsAllAffectedAdjacentSquares() {
+		Grid grid = new Grid(5, 5);
+		GridSquare origin = grid.getSquare(new Location(2, 2));
+		
+		Collection squares = origin.blast(2);
+		assertTrue(squares.contains(grid.getSquare(new Location(0, 0))));
+		System.out.println(squares);
+		System.out.println(squares.size());
+		assertEquals(24, squares.size());
 	}
 }

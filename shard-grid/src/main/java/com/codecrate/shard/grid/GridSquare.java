@@ -2,6 +2,7 @@ package com.codecrate.shard.grid;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * A GridSquare is a composition of a {@link Location location} along with metadata about the location.
@@ -83,6 +84,24 @@ public class GridSquare {
 				results.add(grid.getSquare(newLocation));
 			}
 		}
+		return results;
+	}
+	
+ /** 
+  * get all gridsquares that are affected by a blast centered on the current square as the 'origin'
+  */	
+	public Collection<GridSquare> blast(int radius) {
+		Collection<GridSquare> results = new HashSet<GridSquare>();
+		
+		for (int x = location.getX() - radius; x <= location.getX() + radius; x++) {
+			for (int y = location.getY() - radius; y <= location.getY() + radius; y++) {
+        Location newLocation = new Location(x, y);
+				if (grid.isWithinBounds(newLocation)) {
+					results.add(grid.getSquare(newLocation));
+				}
+			}
+		}
+		results.remove(this);
 		return results;
 	}
 
