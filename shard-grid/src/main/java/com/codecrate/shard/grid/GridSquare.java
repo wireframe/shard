@@ -88,9 +88,9 @@ public class GridSquare {
 	}
 	
  /** 
-  * get all gridsquares that are affected by a blast centered on the current square as the 'origin'
+  * get all gridsquares that are affected by a burst centered on the current square as the 'origin'
   */	
-	public Collection<GridSquare> blast(int radius) {
+	public Collection<GridSquare> burst(int radius) {
 		Collection<GridSquare> results = new HashSet<GridSquare>();
 		
 		for (int x = location.getX() - radius; x <= location.getX() + radius; x++) {
