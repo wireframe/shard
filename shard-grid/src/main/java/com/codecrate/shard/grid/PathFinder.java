@@ -11,5 +11,5 @@ public interface PathFinder {
 	/**
 	 * find a <code>Path</code> of <code>GridSquare</code>s from start to end.
 	 */
-	public Path findPathBetween(Grid grid, GridSquare start, GridSquare end);
+	public Path findPathBetween(GridSquare start, GridSquare end);
 }

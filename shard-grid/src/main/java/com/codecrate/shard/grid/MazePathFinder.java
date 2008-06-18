@@ -11,10 +11,17 @@ public class MazePathFinder implements PathFinder {
 	private static final int BLOCKED = -2;
 	private static final int OPEN = -1;
 
-	public Path findPathBetween(Grid grid, GridSquare start, GridSquare end) {
-		int[] queue = initializeGridArray(grid);
-		int[] origin = initializeGridArray(grid);
+  private final Grid grid;
+  private final int[] origin;
+  private final int[] queue;
+  
+  public MazePathFinder(Grid grid) {
+	  this.grid = grid;
+	  this.queue = initializeGridArray(grid);
+	  this.origin = initializeGridArray(grid);
+  }
 
+	public Path findPathBetween(GridSquare start, GridSquare end) {
 		GridSquare current = end;
 		GridSquare previous = end;
 

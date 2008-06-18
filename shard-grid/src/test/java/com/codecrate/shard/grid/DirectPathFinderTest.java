@@ -10,7 +10,7 @@ public class DirectPathFinderTest extends TestCase {
 		GridSquare end = grid.getSquare(new Location(1, 1));
 		
 		DirectPathFinder finder = new DirectPathFinder();
-		Path path = finder.findPathBetween(grid, start, end);
+		Path path = finder.findPathBetween(start, end);
 		assertTrue(path.getGridSquares().contains(grid.getSquare(new Location(1, 1))));
 	}
 	
@@ -20,7 +20,7 @@ public class DirectPathFinderTest extends TestCase {
 		GridSquare end = grid.getSquare(new Location(2, 1));
 		
 		DirectPathFinder finder = new DirectPathFinder();
-		Path path = finder.findPathBetween(grid, start, end);
+		Path path = finder.findPathBetween(start, end);
 		assertTrue(path.getGridSquares().contains(grid.getSquare(new Location(1, 1))));
 		assertTrue(path.getGridSquares().contains(grid.getSquare(new Location(2, 1))));
 	}

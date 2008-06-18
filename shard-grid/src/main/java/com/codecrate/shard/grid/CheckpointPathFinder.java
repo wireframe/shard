@@ -12,7 +12,7 @@ public class CheckpointPathFinder implements PathFinder {
 	  this.checkpoints = checkpoints;
   }
 
-	public Path findPathBetween(Grid grid, GridSquare start, GridSquare end) {
+	public Path findPathBetween(GridSquare start, GridSquare end) {
 		Path path = new Path(start);
 		GridSquare current = start;
 		for (GridSquare next : checkpoints) {

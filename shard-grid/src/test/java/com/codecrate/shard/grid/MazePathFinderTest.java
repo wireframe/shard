@@ -10,8 +10,8 @@ public class MazePathFinderTest extends TestCase {
 		GridSquare start = grid.getSquare(new Location(0, 0));
 		GridSquare end = grid.getSquare(new Location(1, 0));
 		
-		MazePathFinder finder = new MazePathFinder();
-		Path path = finder.findPathBetween(grid, start, end);
+		MazePathFinder finder = new MazePathFinder(grid);
+		Path path = finder.findPathBetween(start, end);
 		assertEquals(end, path.getGridSquares().get(0));
 	}
 	
@@ -24,8 +24,8 @@ public class MazePathFinderTest extends TestCase {
 		grid.getSquare(new Location(1, 0)).toggle();
 		grid.getSquare(new Location(1, 1)).toggle();
 		
-		MazePathFinder finder = new MazePathFinder();
-		Path path = finder.findPathBetween(grid, start, end);
+		MazePathFinder finder = new MazePathFinder(grid);
+		Path path = finder.findPathBetween(start, end);
 		assertEquals(grid.getSquare(new Location(0, 1)), path.getGridSquares().get(0));
 		assertEquals(grid.getSquare(new Location(0, 2)), path.getGridSquares().get(1));
 		assertEquals(grid.getSquare(new Location(1, 2)), path.getGridSquares().get(2));

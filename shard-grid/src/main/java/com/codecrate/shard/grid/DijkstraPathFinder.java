@@ -8,7 +8,7 @@ package com.codecrate.shard.grid;
  */
 public class DijkstraPathFinder implements PathFinder {
 
-	public Path findPathBetween(Grid grid, GridSquare start, GridSquare end) {
+	public Path findPathBetween(GridSquare start, GridSquare end) {
 		return null;
 	}
 }

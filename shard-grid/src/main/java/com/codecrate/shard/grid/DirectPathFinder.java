@@ -6,7 +6,7 @@ package com.codecrate.shard.grid;
  */
 public class DirectPathFinder implements PathFinder {
 
-	public Path findPathBetween(Grid grid, GridSquare start, GridSquare end) {
+	public Path findPathBetween(GridSquare start, GridSquare end) {
 		Path path = new Path(start);
 
 		GridSquare current = start;

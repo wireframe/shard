@@ -13,7 +13,7 @@ public class CheckpointPathFinderTest extends TestCase {
 		GridSquare end = grid.getSquare(new Location(2, 2));
 		
 		CheckpointPathFinder finder = new CheckpointPathFinder(Arrays.asList(new GridSquare[] {grid.getSquare(new Location(0, 2))}));
-		Path path = finder.findPathBetween(grid, start, end);
+		Path path = finder.findPathBetween(start, end);
 		assertEquals(grid.getSquare(new Location(0, 1)), path.getGridSquares().get(0));
 		assertEquals(grid.getSquare(new Location(0, 2)), path.getGridSquares().get(1));
 		assertEquals(grid.getSquare(new Location(1, 2)), path.getGridSquares().get(2));
