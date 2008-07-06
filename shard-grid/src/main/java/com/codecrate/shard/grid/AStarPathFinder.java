@@ -12,9 +12,9 @@ import java.util.TreeSet;
  */
 public class AStarPathFinder implements PathFinder {
 	/** The set of nodes that have been searched through */
-	private Collection closed = new ArrayList();
+	private Collection<Node> closed = new ArrayList<Node>();
 	/** The set of nodes that we do not yet consider fully searched */
-	private TreeSet open = new TreeSet();
+	private TreeSet<Node> open = new TreeSet<Node>();
 	
 	private final Grid grid;
 	/** The maximum depth of search we're willing to accept before giving up */
@@ -54,7 +54,6 @@ public class AStarPathFinder implements PathFinder {
 		closed.clear();
 		open.clear();
 		open.add(nodes[start.getX()][start.getY()]);
-		
 		nodes[end.getX()][end.getY()].parent = null;
 		
 		// while we haven'n't exceeded our max search depth
@@ -62,13 +61,13 @@ public class AStarPathFinder implements PathFinder {
 		while (maxDepth < maxSearchDistance && !open.isEmpty()) {
 			// pull out the first node in our open list, this is determined to 
 			// be the most likely to be the next step based on our heuristic
-			Node current = getFirstInOpen();
+			Node current = open.first();
 			if (current == nodes[end.getX()][end.getY()]) {
 				break;
 			} 
 			
-			removeFromOpen(current);
-			addToClosed(current);
+			open.remove(current);
+			closed.add(current);
 			
 			// search through all the neighbours of the current node evaluating
 			// them as next steps
@@ -95,22 +94,22 @@ public class AStarPathFinder implements PathFinder {
 						// determined that there might have been a better path to get to
 						// this node so it needs to be re-evaluated
 						if (nextStepCost < neighbour.cost) {
-							if (inOpenList(neighbour)) {
-								removeFromOpen(neighbour);
+							if (open.contains(neighbour)) {
+								open.remove(neighbour);
 							}
-							if (inClosedList(neighbour)) {
-								removeFromClosed(neighbour);
+							if (closed.contains(neighbour)) {
+								closed.remove(neighbour);
 							}
 						}
 						
 						// if the node hasn't already been processed and discarded then
 						// reset it's cost to our current cost and add it as a next possible
 						// step (i.e. to the open list)
-						if (!inOpenList(neighbour) && !(inClosedList(neighbour))) {
+						if (!open.contains(neighbour) && !(closed.contains(neighbour))) {
 							neighbour.cost = nextStepCost;
 							neighbour.heuristic = heuristic.getCost(xp, yp, end.getX(), end.getY());
 							maxDepth = Math.max(maxDepth, neighbour.setParent(current));
-							addToOpen(neighbour);
+							open.add(neighbour);
 						}
 					}
 				}
@@ -139,72 +138,6 @@ public class AStarPathFinder implements PathFinder {
 
 		// thats it, we have our path 
 		return path.reverse();
-	}
-
-	/**
-	 * Get the first element from the open list. This is the next
-	 * one to be searched.
-	 * 
-	 * @return The first element in the open list
-	 */
-	protected Node getFirstInOpen() {
-		return (Node) open.first();
-	}
-	
-	/**
-	 * Add a node to the open list
-	 * 
-	 * @param node The node to be added to the open list
-	 */
-	protected void addToOpen(Node node) {
-		open.add(node);
-	}
-	
-	/**
-	 * Check if a node is in the open list
-	 * 
-	 * @param node The node to check for
-	 * @return True if the node given is in the open list
-	 */
-	protected boolean inOpenList(Node node) {
-		return open.contains(node);
-	}
-	
-	/**
-	 * Remove a node from the open list
-	 * 
-	 * @param node The node to remove from the open list
-	 */
-	protected void removeFromOpen(Node node) {
-		open.remove(node);
-	}
-	
-	/**
-	 * Add a node to the closed list
-	 * 
-	 * @param node The node to add to the closed list
-	 */
-	protected void addToClosed(Node node) {
-		closed.add(node);
-	}
-	
-	/**
-	 * Check if the node supplied is in the closed list
-	 * 
-	 * @param node The node to search for
-	 * @return True if the node specified is in the closed list
-	 */
-	protected boolean inClosedList(Node node) {
-		return closed.contains(node);
-	}
-	
-	/**
-	 * Remove a node from the closed list
-	 * 
-	 * @param node The node to remove from the closed list
-	 */
-	protected void removeFromClosed(Node node) {
-		closed.remove(node);
 	}
 	
 	/**
