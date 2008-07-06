@@ -106,15 +106,10 @@ public class AStarPathFinder implements PathFinder {
 			}
 		}
 
-		// since we'e've run out of search 
-		// there was no path. Just return null
 		if (nodes[end.getX()][end.getY()].parent == null) {
-			return null;
+			throw new IllegalArgumentException("Unable to find path between: " + start + " and " + end);
 		}
 		
-		// At this point we've definitely found a path so we can uses the parent
-		// references of the nodes to find out way from the target location back
-		// to the start recording the nodes on the way.
 		Node target = nodes[end.getX()][end.getY()];
 		Node previous = target;
 		Path path = new Path(endSquare);
