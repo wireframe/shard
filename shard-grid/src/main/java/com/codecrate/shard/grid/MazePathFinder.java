@@ -54,8 +54,7 @@ public class MazePathFinder implements PathFinder {
 	 * the value of each array location tells if the square is available for path movement.
 	 */
 	private int[] initializeGridArray(Grid grid) {
-		int maxSize = grid.getWidth() * grid.getHeight();
-		int[] array = new int[maxSize];
+		int[] array = new int[grid.getTotalSquares()];
 		
 		for (int x = 0; x < grid.getHeight(); x++) {
 			for (GridSquare square : grid.row(x)) {

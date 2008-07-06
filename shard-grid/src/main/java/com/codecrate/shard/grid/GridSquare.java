@@ -22,6 +22,10 @@ public class GridSquare {
 		return location.toString();
 	}
 
+  public Location getLocation() {
+    return location;
+  }
+  
 	/**
 	 * return a unique id for each square on the grid.
 	 * values range from: 0 to total_number_of_squares_in_grid - 1

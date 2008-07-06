@@ -8,7 +8,7 @@ import java.util.List;
  * Represents a <b>continuous</b> path from a start {@link GridSquare square} to an end position.
  */
 public class Path {
-	private Collection<Direction> steps = new ArrayList<Direction>();
+	private List<Direction> steps = new ArrayList<Direction>();
 	private GridSquare start;
 
 	public Path(GridSquare start) {
@@ -53,7 +53,7 @@ public class Path {
 		return true;
 	}
 
-	public Collection<Direction> getDirections() {
+	public List<Direction> getDirections() {
 		return steps;
 	}
 
@@ -67,11 +67,29 @@ public class Path {
 		return results;
 	}
 
+  public GridSquare getStart() {
+    return start;
+  }
+
 	public GridSquare getDestination() {
 		List<GridSquare> squares = getGridSquares();
 		if (squares.isEmpty()) {
 			return start;
 		}
 		return squares.get(squares.size() - 1);
+	}
+	
+	/** 
+	 * create a new path going from the destination to the start.
+	 */
+	public Path reverse() {
+	 Path reverse = new Path(getDestination());
+	 
+	 for (int x = steps.size() - 1; x >= 0; x--) {
+	   Direction step = steps.get(x);
+	   reverse.addStep(step.opposite());
+	 }
+	 
+	 return reverse;
 	}
 }

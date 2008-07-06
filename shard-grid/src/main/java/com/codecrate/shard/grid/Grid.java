@@ -52,6 +52,10 @@ public class Grid {
 	public int getHeight() {
 		return height;
 	}
+	
+	public int getTotalSquares() {
+	  return width * height;
+	}
 
 	public GridSquare getSquare(Location location) {
 		if (!isWithinBounds(location)) {
