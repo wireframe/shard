@@ -69,43 +69,39 @@ public class AStarPathFinder implements PathFinder {
 			open.remove(current);
 			closed.add(current);
 
-
 			// search through all the neighbours of the current node evaluating
 			// them as next steps
-      for (Direction direction : Direction.values()) {
-				// determine the location of the neighbour and evaluate it
-				int xp = direction.getXModifier() + current.square.getLocation().getX();
-				int yp = direction.getYModifier() + current.square.getLocation().getY();
+			for (GridSquare square : current.square.neighbors()) {
+			  if (square.isBlocked()) {
+			    continue;
+			  }
+				// the cost to get to this node is cost the current plus the movement
+				// cost to reach this node. Note that the heursitic value is only used
+				// in the sorted open list
+				float nextStepCost = current.cost + getMovementCost();
+				Node neighbour = nodes[square.getLocation().getX()][square.getLocation().getY()];
 				
-				if (isValidLocation(xp, yp)) {
-					// the cost to get to this node is cost the current plus the movement
-					// cost to reach this node. Note that the heursitic value is only used
-					// in the sorted open list
-					float nextStepCost = current.cost + getMovementCost();
-					Node neighbour = nodes[xp][yp];
-					
-					// if the new cost we've determined for this node is lower than 
-					// it has been previously makes sure the node hasn'e've
-					// determined that there might have been a better path to get to
-					// this node so it needs to be re-evaluated
-					if (nextStepCost < neighbour.cost) {
-						if (open.contains(neighbour)) {
-							open.remove(neighbour);
-						}
-						if (closed.contains(neighbour)) {
-							closed.remove(neighbour);
-						}
+				// if the new cost we've determined for this node is lower than 
+				// it has been previously makes sure the node hasn'e've
+				// determined that there might have been a better path to get to
+				// this node so it needs to be re-evaluated
+				if (nextStepCost < neighbour.cost) {
+					if (open.contains(neighbour)) {
+						open.remove(neighbour);
 					}
-					
-					// if the node hasn't already been processed and discarded then
-					// reset it's cost to our current cost and add it as a next possible
-					// step (i.e. to the open list)
-					if (!open.contains(neighbour) && !(closed.contains(neighbour))) {
-						neighbour.cost = nextStepCost;
-						neighbour.heuristic = heuristic.getCost(xp, yp, end.getX(), end.getY());
-						maxDepth = Math.max(maxDepth, neighbour.setParent(current));
-						open.add(neighbour);
+					if (closed.contains(neighbour)) {
+						closed.remove(neighbour);
 					}
+				}
+				
+				// if the node hasn't already been processed and discarded then
+				// reset it's cost to our current cost and add it as a next possible
+				// step (i.e. to the open list)
+				if (!open.contains(neighbour) && !(closed.contains(neighbour))) {
+					neighbour.cost = nextStepCost;
+					neighbour.heuristic = heuristic.getCost(square.getLocation().getX(), square.getLocation().getY(), end.getX(), end.getY());
+					maxDepth = Math.max(maxDepth, neighbour.setParent(current));
+					open.add(neighbour);
 				}
 			}
 		}
@@ -129,22 +125,6 @@ public class AStarPathFinder implements PathFinder {
 		} while (target != nodes[start.getX()][start.getY()]); 
 
 		return path.reverse();
-	}
-	
-	/**
-	 * Check if a given location is valid for the supplied mover
-	 * @param x The x coordinate of the location to check
-	 * @param y The y coordinate of the location to check
-	 * @return True if the location is valid for the given mover
-	 */
-	protected boolean isValidLocation(int x, int y) {
-	  boolean invalid = !grid.isWithinBounds(new Location(x, y));
-		
-		if (!invalid) {
-		  invalid = grid.getSquare(new Location(x, y)).isBlocked();
-		}
-		
-		return !invalid;
 	}
 	
 	/**
