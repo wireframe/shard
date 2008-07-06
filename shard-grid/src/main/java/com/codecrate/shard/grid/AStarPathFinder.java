@@ -68,19 +68,14 @@ public class AStarPathFinder implements PathFinder {
 			
 			open.remove(current);
 			closed.add(current);
-			
+
+
 			// search through all the neighbours of the current node evaluating
 			// them as next steps
-			for (int x = -1; x < 2; x++) {
-				for (int y = -1;y<2; y++) {
-					// not a neighbour, its the current tile
-					if ((x == 0) && (y == 0)) {
-						continue;
-					}
-					
+      for (Direction direction : Direction.values()) {
 					// determine the location of the neighbour and evaluate it
-					int xp = x + current.x;
-					int yp = y + current.y;
+					int xp = direction.getXModifier() + current.x;
+					int yp = direction.getYModifier() + current.y;
 					
 					if (isValidLocation(xp,yp)) {
 						// the cost to get to this node is cost the current plus the movement
