@@ -107,7 +107,7 @@ public class AStarPathFinder implements PathFinder {
 		}
 
 		if (nodes[end.getX()][end.getY()].parent == null) {
-			throw new IllegalArgumentException("Unable to find path between: " + start + " and " + end);
+			throw new PathNotFoundException(startSquare, endSquare);
 		}
 		
 		Node target = nodes[end.getX()][end.getY()];

@@ -17,4 +17,22 @@ public class AStarPathFinderTest extends TestCase {
 		assertEquals(grid.getSquare(new Location(1, 0)), path.getGridSquares().get(0));
 		assertEquals(grid.getSquare(new Location(2, 1)), path.getGridSquares().get(1));
 	}
+	
+	public void testThrowsExceptionIfUnableToFindPath() {
+		Grid grid = new Grid(3, 3);
+
+		GridSquare start = grid.getSquare(new Location(0, 0));
+		GridSquare end = grid.getSquare(new Location(2, 1));
+
+    grid.getSquare(new Location(1, 0)).toggle();
+		grid.getSquare(new Location(1, 1)).toggle();
+    grid.getSquare(new Location(1, 2)).toggle();
+		
+		
+		AStarPathFinder finder = new AStarPathFinder(grid, 5);
+		try {
+  		Path path = finder.findPathBetween(start, end);
+  		fail();
+		} catch (PathNotFoundException expected) {}
+	}
 }
