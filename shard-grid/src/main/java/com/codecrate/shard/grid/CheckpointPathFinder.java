@@ -7,9 +7,14 @@ import java.util.Collection;
  */
 public class CheckpointPathFinder implements PathFinder {
 	private final Collection<GridSquare> checkpoints;
-
-  public CheckpointPathFinder(Collection<GridSquare> checkpoints) {
+  private final PathFinder finder;
+  
+  /**
+   * @param finder implementation used to find path between checkpoints
+   */
+  public CheckpointPathFinder(Collection<GridSquare> checkpoints, PathFinder finder) {
 	  this.checkpoints = checkpoints;
+	  this.finder = finder;
   }
 
 	public Path findPathBetween(GridSquare start, GridSquare end) {
@@ -25,17 +30,13 @@ public class CheckpointPathFinder implements PathFinder {
 	}
 
   /**
-   * find a direct path from start to end.
-   * @see DirectPathFinder
+   * find a subpath from start to end and add to the aggregate path.
    */	
 	private void findSubpath(Path path, GridSquare start, GridSquare end) {
-		GridSquare current = start;
-		while (!current.equals(end)) {
-			Direction step = current.towards(end);
-			path.addStep(step);
-			
-			current = current.nextSquare(step);
-		}
+	  Path subpath = finder.findPathBetween(start, end);
+	  for (Direction direction : subpath.getDirections()) {
+	    path.addStep(direction);
+	  }
 	}
 	
 }
