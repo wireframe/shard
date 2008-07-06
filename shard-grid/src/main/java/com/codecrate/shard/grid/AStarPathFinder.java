@@ -38,7 +38,7 @@ public class AStarPathFinder implements PathFinder {
 		nodes = new Node[grid.getWidth()][grid.getHeight()];
 		for (int x = 0; x < grid.getWidth(); x++) {
 			for (int y = 0; y < grid.getHeight(); y++) {
-				nodes[x][y] = new Node(x, y);
+				nodes[x][y] = new Node(grid.getSquare(new Location(x, y)));
 			}
 		}
 	}
@@ -74,8 +74,8 @@ public class AStarPathFinder implements PathFinder {
 			// them as next steps
       for (Direction direction : Direction.values()) {
 				// determine the location of the neighbour and evaluate it
-				int xp = direction.getXModifier() + current.x;
-				int yp = direction.getYModifier() + current.y;
+				int xp = direction.getXModifier() + current.square.getLocation().getX();
+				int yp = direction.getYModifier() + current.square.getLocation().getY();
 				
 				if (isValidLocation(xp, yp)) {
 					// the cost to get to this node is cost the current plus the movement
@@ -120,17 +120,14 @@ public class AStarPathFinder implements PathFinder {
 		// references of the nodes to find out way from the target location back
 		// to the start recording the nodes on the way.
 		Node target = nodes[end.getX()][end.getY()];
+		Node previous = target;
 		Path path = new Path(endSquare);
-		GridSquare current = endSquare;
-		GridSquare previous = endSquare;
 		do {
 		  target = target.parent;
-		  current = grid.getSquare(new Location(target.x, target.y));
-		  path.addStep(previous.towards(current));
-		  previous = current;
+		  path.addStep(previous.square.towards(target.square));
+		  previous = target;
 		} while (target != nodes[start.getX()][start.getY()]); 
 
-		// thats it, we have our path 
 		return path.reverse();
 	}
 	
@@ -163,10 +160,8 @@ public class AStarPathFinder implements PathFinder {
 	 * A single node in the search graph
 	 */
 	private class Node implements Comparable {
-		/** The x coordinate of the node */
-		private int x;
-		/** The y coordinate of the node */
-		private int y;
+	  private final GridSquare square;
+	  
 		/** The path cost for this node */
 		private float cost;
 		/** The parent of this node, how we reached it in the search */
@@ -178,13 +173,9 @@ public class AStarPathFinder implements PathFinder {
 		
 		/**
 		 * Create a new node
-		 * 
-		 * @param x The x coordinate of the node
-		 * @param y The y coordinate of the node
 		 */
-		public Node(int x, int y) {
-			this.x = x;
-			this.y = y;
+		public Node(GridSquare square) {
+		  this.square = square;
 		}
 		
 		/**
