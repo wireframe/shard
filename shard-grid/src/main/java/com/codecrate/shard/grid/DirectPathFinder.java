@@ -15,6 +15,9 @@ public class DirectPathFinder implements PathFinder {
 			path.addStep(step);
 			
 			current = current.nextSquare(step);
+      if (current.isBlocked()) {
+        throw new PathNotFoundException(start, end);
+      }
 		}
 		return path;
 	}
