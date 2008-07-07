@@ -28,15 +28,10 @@ public class Path {
 
 	/** 
 	 * get the length of the path.
+	 * uses 4e algorithm for calculating length of path.
 	 */
 	public int getLength() {
-		int diagonals = 0;
-		for (Direction step : steps) {
-			if (step.isDiagonal()) {
-				diagonals++;
-			}
-		}
-		return 5 * steps.size() + 5 * (diagonals / 2);
+	  return steps.size();
 	}
 	
 	/**
