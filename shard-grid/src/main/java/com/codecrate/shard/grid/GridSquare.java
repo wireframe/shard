@@ -118,7 +118,6 @@ public class GridSquare {
 				}
 			}
 		}
-		results.remove(this);
 		return results;
 	}
 
