@@ -12,6 +12,7 @@ public class GridSquare {
 	private final Grid grid;
 	private final Location location;
 	private boolean blocked = false;
+	private boolean difficultTerrain = false;
 
 	public GridSquare(Grid grid, Location location) {
 		this.grid = grid;
@@ -54,6 +55,18 @@ public class GridSquare {
 
 	public  boolean isBlocked() {
 		return blocked ;
+	}
+	
+	public void setDifficultTerrain(boolean value) {
+	  this.difficultTerrain = value;
+	}
+	
+	public boolean isDifficultTerrain() {
+	  return difficultTerrain;
+	}
+	
+	public int getMovementCost() {
+	  return (difficultTerrain ? 2 : 1);
 	}
 
     public boolean doesSquareExist(Direction direction) {

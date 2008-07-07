@@ -31,7 +31,11 @@ public class Path {
 	 * uses 4e algorithm for calculating length of path.
 	 */
 	public int getLength() {
-	  return steps.size();
+	  int length = 0;
+	  for (GridSquare square : getGridSquares()) {
+	    length += square.getMovementCost();
+	  }
+	  return length;
 	}
 	
 	/**

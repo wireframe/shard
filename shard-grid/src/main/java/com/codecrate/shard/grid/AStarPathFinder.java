@@ -78,7 +78,7 @@ public class AStarPathFinder implements PathFinder {
 				// the cost to get to this node is cost the current plus the movement
 				// cost to reach this node. Note that the heursitic value is only used
 				// in the sorted open list
-				float nextStepCost = current.cost + getMovementCost();
+				float nextStepCost = current.cost + square.getMovementCost();
 				Node neighbour = nodes[square.getLocation().getX()][square.getLocation().getY()];
 				
 				// if the new cost we've determined for this node is lower than 
@@ -120,15 +120,6 @@ public class AStarPathFinder implements PathFinder {
 		} while (target != nodes[start.getX()][start.getY()]); 
 
 		return path.reverse();
-	}
-	
-	/**
-	 * Get the cost to move through a given location
-	 * @return The cost of movement through the given tile
-	 */
-	public float getMovementCost() {
-	  //TODO: make this dynamic
-	  return 1;
 	}
 	
 	/**

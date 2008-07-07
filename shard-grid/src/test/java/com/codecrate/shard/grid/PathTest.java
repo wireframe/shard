@@ -22,6 +22,19 @@ public class PathTest extends TestCase {
 		assertEquals(2, path.getLength());
 	}
 
+	public void testLengthOfPathIncreasesWithDifficultTerrain() {
+		Grid grid = new Grid(3, 3);
+		GridSquare start = grid.getSquare(new Location(0, 0));
+		grid.getSquare(new Location(1, 0)).setDifficultTerrain(true);
+		grid.getSquare(new Location(2, 0)).setDifficultTerrain(true);
+
+		Path path = new Path(start);
+		path.addStep(Direction.RIGHT);
+		path.addStep(Direction.RIGHT);
+		
+		assertEquals(4, path.getLength());
+	}
+
 	public void testPathIsStraightWhenDoesNotChangeDirections() {
 		Grid grid = new Grid(3, 3);
 		GridSquare start = grid.getSquare(new Location(0, 0));
