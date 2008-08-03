@@ -107,6 +107,14 @@ public class DiceExpressionTest extends TestCase {
       assertEquals(2, dice.getMinValue());
       assertEquals(5, dice.getMaxValue());
     }
+    
+    public void testExceptionWhenUndeclaredVariablesAreUsed() {
+      try {
+        new DiceExpression("1d4 + STR");
+        fail();
+      } catch (IllegalArgumentException expected) {}
+    }
+    
     public void testAllValuesAreRolled() {
     	DiceExpression dice = new DiceExpression("2d4");
     	Set rolls = new HashSet();
