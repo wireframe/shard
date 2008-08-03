@@ -15,6 +15,9 @@
  */
 package com.codecrate.shard.dice;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,10 +40,16 @@ public class DiceExpression extends DiceSupport implements Dice {
 
     private final String expression;
     private final String functionExpression;
+    private final Map<String, Double> variables;
 
     public DiceExpression(String diceExpression) {
+      this(diceExpression, new HashMap<String, Double>());
+    }
+
+    public DiceExpression(String diceExpression, Map<String, Double> variables) {
         this.expression = stripSpaces(diceExpression);
         this.functionExpression = convertToFunctionExpression(expression);
+        this.variables = variables;
 
         roll(MODE_RANDOM);
     }
@@ -52,11 +61,14 @@ public class DiceExpression extends DiceSupport implements Dice {
         parser.addFunction("d", new DiceFunction());
         parser.addVariable("m", mode);
         parser.setImplicitMul(true);
-
+        
+        for (String variable : variables.keySet()) {
+          parser.addVariable(variable, variables.get(variable));
+        }
         parser.parseExpression(functionExpression);
 
         if (parser.hasError()) {
-            throw new IllegalArgumentException("Error parsing dice expression [" + expression + "] into [" + functionExpression + "]" + parser.getErrorInfo());
+            throw new IllegalArgumentException("Error parsing dice expression [" + expression + "] into [" + functionExpression + "] " + parser.getErrorInfo());
         }
         return (int) parser.getValue();
 	}

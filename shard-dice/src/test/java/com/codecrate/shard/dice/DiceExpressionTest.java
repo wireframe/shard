@@ -15,7 +15,9 @@
  */
 package com.codecrate.shard.dice;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import junit.framework.TestCase;
@@ -98,6 +100,13 @@ public class DiceExpressionTest extends TestCase {
         } catch (IllegalArgumentException expected) { }
     }
 
+    public void testExpressionsWithVariablesAreAllowed() {
+      Map<String, Double> variables = new HashMap<String, Double>();
+      variables.put("STR", 1d);
+      Dice dice = new DiceExpression("1d4 + STR", variables);
+      assertEquals(2, dice.getMinValue());
+      assertEquals(5, dice.getMaxValue());
+    }
     public void testAllValuesAreRolled() {
     	DiceExpression dice = new DiceExpression("2d4");
     	Set rolls = new HashSet();
