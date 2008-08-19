@@ -118,7 +118,9 @@ public class DiceExpressionTest extends TestCase {
     
     public void testCanParseWeaponExpression() {
       Dice weapon = new RandomDice(4);
-      new DiceExpression("1[W]", Collections.<String, Double>emptyMap(), weapon);
+      Dice expression = new DiceExpression("1[W]", Collections.<String, Double>emptyMap(), weapon);
+      assertEquals(1, expression.getMinValue());
+      assertEquals(4, expression.getMaxValue());
     }
     
     public void testAllValuesAreRolled() {
