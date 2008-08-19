@@ -75,13 +75,16 @@ public class DiceExpression extends DiceSupport implements Dice {
     }
     
     /**
-     * 
+     * convert the input expression into a JEP expression
      */
     private String parseExpression(String expression, Dice weapon) {
       expression = replaceWeaponExpression(expression, weapon);
       return convertToFunctionExpression(expression);
     }
     
+    /**
+     * replace the [W] placeholder with the dice expression used for the current weapon. 
+     */
     private String replaceWeaponExpression(String expression, Dice weapon) {
       if (weapon == null) {
         return expression;
