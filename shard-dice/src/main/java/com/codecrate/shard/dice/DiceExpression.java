@@ -34,6 +34,7 @@ import org.nfunk.jep.function.PostfixMathCommand;
  * @author <a href="mailto:wireframe@dev.java.net">Ryan Sonnek</a>
  */
 public class DiceExpression extends DiceSupport implements Dice {
+  private static final String WEAPON_TOKEN = "\\[W\\]";
 	private static final int MODE_MINIMUM = -1;
 	private static final int MODE_RANDOM = 0;
 	private static final int MODE_MAXIMUM = 1;
@@ -42,13 +43,9 @@ public class DiceExpression extends DiceSupport implements Dice {
     private final String functionExpression;
     private final Map<String, Double> variables;
 
-    public DiceExpression(String diceExpression) {
-      this(diceExpression, new HashMap<String, Double>());
-    }
-
-    public DiceExpression(String diceExpression, Map<String, Double> variables) {
+    public DiceExpression(String diceExpression, Map<String, Double> variables, Dice weapon) {
         this.expression = stripSpaces(diceExpression);
-        this.functionExpression = convertToFunctionExpression(expression);
+        this.functionExpression = parseExpression(expression, weapon);
         this.variables = variables;
 
         roll(MODE_RANDOM);
@@ -75,6 +72,21 @@ public class DiceExpression extends DiceSupport implements Dice {
 
     private String stripSpaces(String diceExpression) {
         return diceExpression.replaceAll(" ", "");
+    }
+    
+    /**
+     * 
+     */
+    private String parseExpression(String expression, Dice weapon) {
+      expression = replaceWeaponExpression(expression, weapon);
+      return convertToFunctionExpression(expression);
+    }
+    
+    private String replaceWeaponExpression(String expression, Dice weapon) {
+      if (weapon == null) {
+        return expression;
+      }
+      return expression.replaceAll(WEAPON_TOKEN, weapon.toString());
     }
 
     /**
