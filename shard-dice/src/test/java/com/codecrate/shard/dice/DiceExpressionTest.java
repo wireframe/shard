@@ -121,6 +121,10 @@ public class DiceExpressionTest extends TestCase {
       Dice expression = new DiceExpression("1[W]", Collections.<String, Double>emptyMap(), weapon);
       assertEquals(1, expression.getMinValue());
       assertEquals(4, expression.getMaxValue());
+      
+      expression = new DiceExpression("2[W]", Collections.<String, Double>emptyMap(), weapon);
+      assertEquals(2, expression.getMinValue());
+      assertEquals(8, expression.getMaxValue());
     }
     
     public void testAllValuesAreRolled() {
